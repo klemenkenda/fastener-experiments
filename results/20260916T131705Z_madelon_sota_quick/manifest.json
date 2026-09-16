@@ -1,0 +1,346 @@
+{
+  "run_id": "20260916T131705Z_madelon_sota_quick",
+  "name": "madelon_sota_quick",
+  "started_utc": "2026-09-16T13:17:05.987806+00:00",
+  "command": "run_sota.py --quick --methods mrmr,nsga2 --seeds 2",
+  "params": {
+    "dataset": "madelon",
+    "methods": [
+      "mrmr",
+      "nsga2"
+    ],
+    "with_fastener": true,
+    "fastener_rounds": 40,
+    "seeds": [
+      2020,
+      2021
+    ],
+    "evaluation_budget_per_seed": 300,
+    "boruta_max_iter": 10,
+    "k_grid": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      10,
+      12,
+      15,
+      20,
+      25,
+      30
+    ],
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": true
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "002f1a8dd19d457c1c3af35000c3e88a0b8a8c02",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "M experiments/analysis.py",
+        " M experiments/nsgaii_miip.py",
+        " M experiments/provenance.py",
+        " M experiments/sota_baselines.py",
+        "?? experiments/monitor.py",
+        "?? experiments/progress.py",
+        "?? experiments/run_sota.py",
+        "?? experiments/run_sota_experiment.py",
+        "?? results/20260916T130739Z_madelon_sota_quick/"
+      ]
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "ff313d1273948421994a59814c893eb4b7cdf85f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": []
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "madelon",
+    "n_features": 500,
+    "n_train": 1560,
+    "n_val": 520,
+    "n_test": 520,
+    "class_balance_train": {
+      "-1": 780,
+      "1": 780
+    },
+    "class_balance_val": {
+      "-1": 260,
+      "1": 260
+    },
+    "class_balance_test": {
+      "-1": 260,
+      "1": 260
+    },
+    "split_seed": 20200
+  },
+  "inputs": {
+    "madelon_train.data": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_train.data",
+      "sha256": "0b6e37711efdc7ab74250c51e7d6966bffd9f8f2b0e9971e882c3a7a380c2314",
+      "bytes": 4001995
+    },
+    "madelon_train.labels": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_train.labels",
+      "sha256": "10bffcc3b017467cb810d326b931951adcbde2b4870faf981da2991993b48689",
+      "bytes": 5000
+    },
+    "madelon_valid.data": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_valid.data",
+      "sha256": "cb9a46475147de1a58d9f15ef4c318e5b85de344e0f9ab92626fa446aa815dc9",
+      "bytes": 1200599
+    },
+    "madelon_valid.labels": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_valid.labels",
+      "sha256": "fbac32fa87fac41ab731994a1c824e7b25396069bff6df242c01fe240fcb34dc",
+      "bytes": 1500
+    },
+    "SHA256SUMS": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\SHA256SUMS",
+      "sha256": "26c963d0b14b09bf3afec33fde9c544a3043a009fe9a8b7cf5a6e94298786839",
+      "bytes": 348
+    }
+  },
+  "seed_significance": {
+    "fastener": [
+      {
+        "budget_k": 1,
+        "n_seeds": 2,
+        "mean_test_f1": 0.5117,
+        "sd_test_f1": 0.0331,
+        "min_test_f1": 0.4883,
+        "max_test_f1": 0.5351,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5595,
+        "delta_vs_baseline": -0.0478,
+        "seeds_beating_baseline": 0,
+        "t_statistic": -2.043,
+        "p_value": 0.2898,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 2,
+        "n_seeds": 2,
+        "mean_test_f1": 0.5117,
+        "sd_test_f1": 0.0331,
+        "min_test_f1": 0.4883,
+        "max_test_f1": 0.5351,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5595,
+        "delta_vs_baseline": -0.0478,
+        "seeds_beating_baseline": 0,
+        "t_statistic": -2.043,
+        "p_value": 0.2898,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 3,
+        "n_seeds": 2,
+        "mean_test_f1": 0.5787,
+        "sd_test_f1": 0.1031,
+        "min_test_f1": 0.5058,
+        "max_test_f1": 0.6516,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5595,
+        "delta_vs_baseline": 0.0192,
+        "seeds_beating_baseline": 1,
+        "t_statistic": 0.263,
+        "p_value": 0.8361,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 5,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6114,
+        "sd_test_f1": 0.158,
+        "min_test_f1": 0.4997,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5595,
+        "delta_vs_baseline": 0.0519,
+        "seeds_beating_baseline": 1,
+        "t_statistic": 0.465,
+        "p_value": 0.7231,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 8,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6075,
+        "sd_test_f1": 0.1636,
+        "min_test_f1": 0.4918,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5595,
+        "delta_vs_baseline": 0.048,
+        "seeds_beating_baseline": 1,
+        "t_statistic": 0.415,
+        "p_value": 0.7498,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 10,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6494,
+        "sd_test_f1": 0.1042,
+        "min_test_f1": 0.5757,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5211,
+        "delta_vs_baseline": 0.1283,
+        "seeds_beating_baseline": 2,
+        "t_statistic": 1.741,
+        "p_value": 0.3319,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 12,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6355,
+        "sd_test_f1": 0.1239,
+        "min_test_f1": 0.5479,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5211,
+        "delta_vs_baseline": 0.1144,
+        "seeds_beating_baseline": 2,
+        "t_statistic": 1.306,
+        "p_value": 0.416,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 15,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6355,
+        "sd_test_f1": 0.1239,
+        "min_test_f1": 0.5479,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5211,
+        "delta_vs_baseline": 0.1144,
+        "seeds_beating_baseline": 2,
+        "t_statistic": 1.306,
+        "p_value": 0.416,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 20,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6355,
+        "sd_test_f1": 0.1239,
+        "min_test_f1": 0.5479,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5211,
+        "delta_vs_baseline": 0.1144,
+        "seeds_beating_baseline": 2,
+        "t_statistic": 1.306,
+        "p_value": 0.416,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 25,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6355,
+        "sd_test_f1": 0.1239,
+        "min_test_f1": 0.5479,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5331,
+        "delta_vs_baseline": 0.1024,
+        "seeds_beating_baseline": 2,
+        "t_statistic": 1.169,
+        "p_value": 0.4505,
+        "significant_at_0.05": false
+      },
+      {
+        "budget_k": 30,
+        "n_seeds": 2,
+        "mean_test_f1": 0.6355,
+        "sd_test_f1": 0.1239,
+        "min_test_f1": 0.5479,
+        "max_test_f1": 0.7231,
+        "best_baseline": "mrmr",
+        "best_baseline_test_f1": 0.5331,
+        "delta_vs_baseline": 0.1024,
+        "seeds_beating_baseline": 2,
+        "t_statistic": 1.169,
+        "p_value": 0.4505,
+        "significant_at_0.05": false
+      }
+    ]
+  },
+  "cost": {
+    "filter_model_fits": 11,
+    "search_fits_per_seed": {
+      "fastener": [
+        294,
+        330
+      ]
+    },
+    "elapsed_by_method": {
+      "mrmr": 6.76,
+      "nsga2": 100.27,
+      "fastener": 13.57
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-09-16T13:20:59.212353+00:00",
+  "elapsed_seconds": 233.225,
+  "outputs": {
+    "comparison.csv": {
+      "sha256": "5986a23d00514d18a87f9e32bf9c4b2f8aba3a379e7353164b55baba32797609",
+      "bytes": 1569
+    },
+    "comparison.png": {
+      "sha256": "bb6e0d52cf438c178b50d0161fb8258a2f03f90807f2965a0a5ade340c968a7c",
+      "bytes": 70704
+    },
+    "comparison_rows.json": {
+      "sha256": "6aae885341775481cfb3f81342bf4be72341db046baa6ae7b18fda16f1f84eb3",
+      "bytes": 10599
+    },
+    "progress.json": {
+      "sha256": "b74d91a07d6c5bfc708973575cd11d1f901272f5322a0f47b06d5ccc68a8e4ce",
+      "bytes": 1833
+    },
+    "raw_results.json": {
+      "sha256": "37c45333811f19f56c97ccdfe87762b870ee4daed77eae0996afda270f0472f2",
+      "bytes": 66563
+    },
+    "seed_significance.json": {
+      "sha256": "e280fa61f7ba584047095abdc538fe740fb76a83d679e3e09b41c4ee52404b30",
+      "bytes": 4573
+    }
+  },
+  "bulk_outputs": {
+    "prefix": "log/",
+    "n_files": 82,
+    "total_bytes": 21471906,
+    "rollup_sha256": "530c43ee538e7e800e21fe4b4eb9acaae1e35a40eca654a39a4a38e652af9415",
+    "note": "FASTENER per-generation pickles. Digest of the sorted (path, sha256) pairs; recompute to verify."
+  }
+}

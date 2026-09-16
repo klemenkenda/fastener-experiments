@@ -137,6 +137,13 @@ def render_plot(rows: List[Dict], out_path: Path, title: str) -> Path:
         "rfe_tree": dict(color="#D98F00", lw=1.8, marker="D"),
         "random": dict(color="#999999", lw=1.4, marker="x", ls="--"),
         "all_features": dict(color="#444444", lw=1.2, ls=":"),
+        "mrmr": dict(color="#00897B", lw=1.6, marker="P"),
+        "relieff": dict(color="#B5651D", lw=1.6, marker="*"),
+        "boruta": dict(color="#6D4C41", lw=1.6, marker="h"),
+        "hsic_lasso": dict(color="#AD1457", lw=1.6, marker="8"),
+        "nsga2": dict(color="#546E7A", lw=2.0, marker="<", ls="-."),
+        "nsgaii_miip": dict(color="#283593", lw=2.4, marker=">", zorder=4),
+        "nsgaii_miip_sparse": dict(color="#5C6BC0", lw=1.8, marker=">", ls="--"),
     }
 
     fig, ax = plt.subplots(figsize=(9, 5.5))
@@ -205,6 +212,49 @@ def seed_significance(rows: List[Dict], ks: List[int],
             "best_baseline_test_f1": round(value, 4),
             "delta_vs_baseline": round(float(np.mean(seed_scores)) - value, 4),
             "seeds_beating_baseline": int(sum(1 for v in seed_scores if v > value)),
+            "t_statistic": round(float(t), 3),
+            "p_value": round(float(p), 4),
+            "significant_at_0.05": bool(p < 0.05),
+        })
+    return out
+
+
+def head_to_head(rows: List[Dict], method_a: str, method_b: str,
+                 ks: List[int]) -> List[Dict]:
+    """Paired comparison of two seeded methods at each feature budget.
+
+    Both methods are run on the SAME seeds, so this is a paired t-test, which
+    has more power than comparing each against a fixed value. Pairing is by
+    seed: seed 2020 of A against seed 2020 of B, and so on.
+    """
+    from scipy import stats
+
+    out = []
+    for k in ks:
+        a = {r["seed"]: r["test_f1"] for r in rows
+             if r["method"] == method_a and r["budget_k"] == k}
+        b = {r["seed"]: r["test_f1"] for r in rows
+             if r["method"] == method_b and r["budget_k"] == k}
+        shared = sorted(set(a) & set(b))
+        if len(shared) < 2:
+            continue
+        va = np.array([a[s] for s in shared])
+        vb = np.array([b[s] for s in shared])
+        diff = va - vb
+        if np.allclose(diff, 0):
+            t, p = 0.0, 1.0
+        else:
+            t, p = stats.ttest_rel(va, vb)
+        out.append({
+            "budget_k": k,
+            "method_a": method_a,
+            "method_b": method_b,
+            "n_pairs": len(shared),
+            "mean_a": round(float(va.mean()), 4),
+            "mean_b": round(float(vb.mean()), 4),
+            "delta": round(float(diff.mean()), 4),
+            "sd_delta": round(float(diff.std(ddof=1)), 4) if len(shared) > 1 else 0.0,
+            "a_wins": int((diff > 0).sum()),
             "t_statistic": round(float(t), 3),
             "p_value": round(float(p), 4),
             "significant_at_0.05": bool(p < 0.05),
