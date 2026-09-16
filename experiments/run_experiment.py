@@ -184,8 +184,7 @@ def summarise(rows, ks) -> None:
 def summarise_significance(sig) -> None:
     if not sig:
         return
-    print("
-fastener vs best deterministic baseline (test F1, across seeds):")
+    print("\nfastener vs best deterministic baseline (test F1, across seeds):")
     print(f"  {'k':>4} {'mean':>7} {'sd':>7} {'baseline':>9} {'delta':>8} {'wins':>6} {'p':>7}")
     print("  " + "-" * 52)
     for r in sig:
