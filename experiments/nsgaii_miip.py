@@ -22,9 +22,10 @@ rather than to improve the method:
    validation split -- so that differences reflect the SEARCH, not the metric.
    The second objective (minimise subset size) is unchanged.
 
-2. BUDGET. stop_evaluations is set to match FASTENER's measured model-fit count
-   rather than the paper's default of 10000, so the two searches get the same
-   compute.
+2. BUDGET. stop_evaluations is set by the caller. The experiment gives it the
+   paper's default of 10000 model fits, which is MORE than FASTENER's measured
+   ~6000 -- deliberately generous, because when the porter is also the one
+   reporting the comparison, the port should not lose on budget.
 
 Faithful to the source: opposition-based initialisation, binary tournament on
 (front, crowding), single-point crossover at a differing locus, balanced
@@ -309,10 +310,33 @@ def crowding_distance(objs: np.ndarray) -> np.ndarray:
 
 
 def obl_initialization(pop_size: int, n_features: int, rng) -> np.ndarray:
-    """oblInitialization.m: complementary (opposition) pairs."""
+    """oblInitialization.m: complementary (opposition) pairs.
+
+    Note this starts every individual at ~50% density. On the authors'
+    manufacturing data (tens of features) that lands near the useful region; at
+    500-1000 features it starts at 250-500 selected features and the size
+    objective must then walk all the way down. See sparse_initialization.
+    """
     half = max(1, pop_size // 2)
     r = rng.rand(half, n_features)
     return np.vstack([r > 0.5, r <= 0.5]).astype(bool)
+
+
+def sparse_initialization(pop_size: int, n_features: int, rng,
+                          max_size: int = 30) -> np.ndarray:
+    """A DEPARTURE from the source, used only as a controlled variant.
+
+    Seeds the population with small random subsets (1..max_size features)
+    instead of ~50% density. This exists to answer one question: when a
+    population-based method trails FASTENER at small feature counts, is that the
+    search itself or merely where it was told to start? Runs using this are
+    labelled separately and are NOT the ported algorithm.
+    """
+    pop = np.zeros((pop_size, n_features), dtype=bool)
+    for i in range(pop_size):
+        k = rng.randint(1, max_size + 1)
+        pop[i, rng.choice(n_features, size=k, replace=False)] = True
+    return pop
 
 
 def binary_tournament_crossover(pop, rank, crowd, c_rate, rng) -> np.ndarray:
@@ -371,6 +395,8 @@ def run_nsgaii_miip(n_features: int,
                     pop_size: int = 100,
                     c_rate: float = 0.9,
                     m_rate: Optional[float] = None,
+                    init: str = "obl",
+                    progress_cb: Optional[Callable[[int], None]] = None,
                     verbose: bool = False) -> Dict:
     """NSGAIIMIIP.m main loop.
 
@@ -400,12 +426,19 @@ def run_nsgaii_miip(n_features: int,
             objs[i] = (-cache[key], size)
         return objs
 
-    pop = obl_initialization(pop_size, n_features, rng)
+    if init == "obl":
+        pop = obl_initialization(pop_size, n_features, rng)
+    elif init == "sparse":
+        pop = sparse_initialization(pop_size, n_features, rng)
+    else:
+        raise ValueError(f"unknown init {init!r}")
     objs = evaluate(pop)
 
     iteration = 0
     while evaluations < stop_evaluations:
         iteration += 1
+        if progress_cb is not None:
+            progress_cb(evaluations)
         fronts = fast_nondominated_sort(objs)
         rank = np.empty(pop.shape[0], dtype=int)
         crowd = np.zeros(pop.shape[0])

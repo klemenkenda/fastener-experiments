@@ -36,3 +36,7 @@ env/
 Thumbs.db
 .idea/
 .vscode/
+
+# Live progress heartbeats and background run logs: per-run scratch, not results.
+results/**/progress.json
+results/*.log

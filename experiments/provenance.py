@@ -121,6 +121,10 @@ class Run:
             "environment": environment(),
         }
 
+    def elapsed(self) -> float:
+        """Seconds since the run started, readable while it is still going."""
+        return time.time() - self._t0
+
     def record(self, key: str, value: Any) -> None:
         self.manifest[key] = value
 

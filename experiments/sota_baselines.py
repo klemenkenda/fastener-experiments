@@ -192,7 +192,8 @@ def run_hsic_lasso(ds, ks: List[int], counter: FitCounter) -> Dict:
 
 
 # ------------------------------------------------------------------- NSGA-II
-def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100) -> Dict:
+def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
+              init: str = "obl", progress_cb=None) -> Dict:
     """Plain NSGA-II wrapper search: same operators as the MIIP port, minus the
     mutual-information improvement phase.
 
@@ -201,7 +202,7 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100) -> Dict
     """
     from nsgaii_miip import (balanced_mutation, binary_tournament_crossover,
                              crowding_distance, fast_nondominated_sort,
-                             obl_initialization)
+                             obl_initialization, sparse_initialization)
 
     rng = np.random.RandomState(seed)
     n_features = ds.n_features
@@ -231,12 +232,15 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100) -> Dict
             objs[i] = (-cache[key], size)
         return objs
 
-    pop = obl_initialization(pop_size, n_features, rng)
+    pop = (obl_initialization(pop_size, n_features, rng) if init == "obl"
+           else sparse_initialization(pop_size, n_features, rng))
     objs = evaluate(pop)
     iteration = 0
 
     while evaluations < stop_evaluations:
         iteration += 1
+        if progress_cb is not None:
+            progress_cb(evaluations)
         fronts = fast_nondominated_sort(objs)
         rank = np.empty(pop.shape[0], dtype=int)
         crowd = np.zeros(pop.shape[0])
@@ -273,7 +277,10 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100) -> Dict
         rec["seed"] = seed
         records.append(rec)
 
-    return {"method": "nsga2", "family": "genetic", "seed": seed,
+    name = "nsga2" if init == "obl" else "nsga2_sparse"
+    for r in records:
+        r["method"] = name
+    return {"method": name, "family": "genetic", "seed": seed, "init": init,
             "elapsed_seconds": round(time.time() - t0, 2),
             "model_fits": evaluations, "iterations": iteration,
             "records": records}
@@ -281,7 +288,8 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100) -> Dict
 
 def run_nsgaii_miip_method(ds, seed: int, stop_evaluations: int,
                            cluster_cache: Dict = None,
-                           pop_size: int = 100, n_jobs: int = 1) -> Dict:
+                           pop_size: int = 100, n_jobs: int = 1,
+                           init: str = "obl", progress_cb=None) -> Dict:
     """Wrapper putting the NSGAII-MIIP port behind the shared protocol.
 
     The MI matrix and clustering depend only on the training data, not the seed,
@@ -310,19 +318,21 @@ def run_nsgaii_miip_method(ds, seed: int, stop_evaluations: int,
 
     out = run_nsgaii_miip(ds.n_features, objective, clusters, mi, ent,
                           seed=seed, stop_evaluations=stop_evaluations,
-                          pop_size=pop_size)
+                          pop_size=pop_size, init=init,
+                          progress_cb=progress_cb)
 
+    name = "nsgaii_miip" if init == "obl" else "nsgaii_miip_sparse"
     records = []
     for genes in out["pareto_genes"]:
         feats = np.where(genes)[0]
         if feats.size == 0:
             continue
         rec = evaluate_subset(ds, feats, counter=None)
-        rec["method"] = "nsgaii_miip"
+        rec["method"] = name
         rec["seed"] = seed
         records.append(rec)
 
-    return {"method": "nsgaii_miip", "family": "genetic (ported)", "seed": seed,
+    return {"method": name, "family": "genetic (ported)", "seed": seed, "init": init,
             "elapsed_seconds": round(time.time() - t0, 2),
             "mi_prep_seconds": round(prep_seconds, 2),
             "model_fits": out["evaluations"], "iterations": out["iterations"],
