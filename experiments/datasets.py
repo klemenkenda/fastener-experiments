@@ -128,6 +128,53 @@ def load_madelon() -> Dataset:
     )
 
 
+
+
+def load_gina() -> Dataset:
+    """GINA (agnostic track), OpenML id 1038.
+
+    Handwritten-digit pixels, binary target (even vs odd two-digit number),
+    3468 rows x 970 features. Included as a REAL-WORLD counterpart to MADELON's
+    synthetic structure: conclusions drawn from one dataset are weak, and these
+    two differ in origin, feature semantics and noise structure.
+
+    Kept under ~1000 features deliberately: NSGAII-MIIP builds a full pairwise
+    mutual-information matrix, which is O(F^2), so a 5000-feature set like
+    GISETTE would need ~12.5M MI computations before the search even starts.
+    """
+    from sklearn.datasets import fetch_openml
+
+    cache = DATA_DIR / "gina"
+    cache.mkdir(parents=True, exist_ok=True)
+    npz = cache / "gina_agnostic.npz"
+
+    if npz.exists():
+        with np.load(npz) as d:
+            X, y = d["X"], d["y"]
+    else:
+        raw = fetch_openml(data_id=1038, as_frame=False, parser="liac-arff")
+        X = np.asarray(raw.data, dtype=float)
+        y = np.unique(np.asarray(raw.target), return_inverse=True)[1].astype(int)
+        # Cache locally so a run does not depend on OpenML being reachable, and
+        # so the bytes can be checksummed like any other input.
+        np.savez_compressed(npz, X=X, y=y)
+
+    tr, va, te = _stratified_three_way(y, VAL_FRACTION, TEST_FRACTION, SPLIT_SEED)
+    return Dataset(
+        "gina", X[tr], y[tr], X[va], y[va], X[te], y[te],
+        feature_names=np.array([f"P{i}" for i in range(X.shape[1])]),
+    )
+
+
+LOADERS = {"madelon": load_madelon, "gina": load_gina}
+
+
+def load(name: str) -> Dataset:
+    if name not in LOADERS:
+        raise KeyError(f"unknown dataset {name!r}; have {sorted(LOADERS)}")
+    return LOADERS[name]()
+
+
 if __name__ == "__main__":
     ds = load_madelon()
     print(ds)
