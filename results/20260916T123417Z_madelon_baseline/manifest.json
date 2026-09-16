@@ -1,0 +1,432 @@
+{
+  "run_id": "20260916T123417Z_madelon_baseline",
+  "name": "madelon_baseline",
+  "started_utc": "2026-09-16T12:34:17.130755+00:00",
+  "command": "run_experiment.py --rounds 600 --seeds 5 --name madelon_baseline",
+  "params": {
+    "dataset": "madelon",
+    "fastener_rounds": 600,
+    "fastener_seeds": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "k_grid": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      10,
+      12,
+      15,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "240ef03ecfbfc16f24fa055265fdd6b8d8531e35",
+      "branch": "master",
+      "remote": null,
+      "dirty": false,
+      "dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "3ddf7075cf0bed16c7fa02ba34e94511ebcc296a",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": []
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "madelon",
+    "n_features": 500,
+    "n_train": 1560,
+    "n_val": 520,
+    "n_test": 520,
+    "class_balance_train": {
+      "-1": 780,
+      "1": 780
+    },
+    "class_balance_val": {
+      "-1": 260,
+      "1": 260
+    },
+    "class_balance_test": {
+      "-1": 260,
+      "1": 260
+    },
+    "split_seed": 20200
+  },
+  "inputs": {
+    "madelon_train.data": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_train.data",
+      "sha256": "0b6e37711efdc7ab74250c51e7d6966bffd9f8f2b0e9971e882c3a7a380c2314",
+      "bytes": 4001995
+    },
+    "madelon_train.labels": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_train.labels",
+      "sha256": "10bffcc3b017467cb810d326b931951adcbde2b4870faf981da2991993b48689",
+      "bytes": 5000
+    },
+    "madelon_valid.data": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_valid.data",
+      "sha256": "cb9a46475147de1a58d9f15ef4c318e5b85de344e0f9ab92626fa446aa815dc9",
+      "bytes": 1200599
+    },
+    "madelon_valid.labels": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\madelon\\madelon_valid.labels",
+      "sha256": "fbac32fa87fac41ab731994a1c824e7b25396069bff6df242c01fe240fcb34dc",
+      "bytes": 1500
+    }
+  },
+  "relevant_feature_probe": {
+    "method": "permutation_importance_on_all_features",
+    "base_val_accuracy": 0.7442307692307693,
+    "top20_by_importance": [
+      475,
+      153,
+      48,
+      338,
+      442,
+      378,
+      451,
+      105,
+      318,
+      433,
+      472,
+      64,
+      453,
+      128,
+      241,
+      346,
+      6,
+      403,
+      174,
+      242
+    ],
+    "importance_of_top20": [
+      0.11038,
+      0.08731,
+      0.07038,
+      0.055,
+      0.04423,
+      0.03808,
+      0.03346,
+      0.03269,
+      0.03115,
+      0.01308,
+      0.01308,
+      0.01269,
+      0.01192,
+      0.00923,
+      0.00808,
+      0.00615,
+      0.00385,
+      0.00385,
+      0.00346,
+      0.00308
+    ],
+    "n_features_with_positive_importance": 49,
+    "note": "Estimated, not official ground truth. MADELON is documented to have 20 relevant features (5 informative + 15 redundant); the official indices were never released."
+  },
+  "seed_significance": [
+    {
+      "budget_k": 1,
+      "n_seeds": 5,
+      "mean_test_f1": 0.5418,
+      "sd_test_f1": 0.0115,
+      "min_test_f1": 0.532,
+      "max_test_f1": 0.5595,
+      "best_baseline": "kbest_anova_f",
+      "best_baseline_test_f1": 0.5472,
+      "delta_vs_baseline": -0.0054,
+      "seeds_beating_baseline": 1,
+      "t_statistic": -1.055,
+      "p_value": 0.3511,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 2,
+      "n_seeds": 5,
+      "mean_test_f1": 0.5812,
+      "sd_test_f1": 0.0065,
+      "min_test_f1": 0.5766,
+      "max_test_f1": 0.59,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.5498,
+      "delta_vs_baseline": 0.0314,
+      "seeds_beating_baseline": 5,
+      "t_statistic": 10.876,
+      "p_value": 0.0004,
+      "significant_at_0.05": true
+    },
+    {
+      "budget_k": 3,
+      "n_seeds": 5,
+      "mean_test_f1": 0.6687,
+      "sd_test_f1": 0.0273,
+      "min_test_f1": 0.6288,
+      "max_test_f1": 0.6904,
+      "best_baseline": "rfe_tree",
+      "best_baseline_test_f1": 0.6481,
+      "delta_vs_baseline": 0.0206,
+      "seeds_beating_baseline": 4,
+      "t_statistic": 1.687,
+      "p_value": 0.1668,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 5,
+      "n_seeds": 5,
+      "mean_test_f1": 0.798,
+      "sd_test_f1": 0.0503,
+      "min_test_f1": 0.74,
+      "max_test_f1": 0.8576,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.7981,
+      "delta_vs_baseline": -0.0001,
+      "seeds_beating_baseline": 2,
+      "t_statistic": -0.006,
+      "p_value": 0.9953,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 8,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8092,
+      "sd_test_f1": 0.026,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8462,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8057,
+      "delta_vs_baseline": 0.0035,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.301,
+      "p_value": 0.7781,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 10,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 12,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 15,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 20,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 25,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 30,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 50,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 100,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 200,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    },
+    {
+      "budget_k": 500,
+      "n_seeds": 5,
+      "mean_test_f1": 0.8165,
+      "sd_test_f1": 0.0314,
+      "min_test_f1": 0.7826,
+      "max_test_f1": 0.8481,
+      "best_baseline": "tree_importance",
+      "best_baseline_test_f1": 0.8058,
+      "delta_vs_baseline": 0.0107,
+      "seeds_beating_baseline": 3,
+      "t_statistic": 0.764,
+      "p_value": 0.4874,
+      "significant_at_0.05": false
+    }
+  ],
+  "cost": {
+    "baseline_model_fits": 209,
+    "fastener_model_fits_per_seed": [
+      5615,
+      5693,
+      6468,
+      6235,
+      5845
+    ],
+    "fastener_mean_search_seconds": 118.81
+  },
+  "status": "ok",
+  "ended_utc": "2026-09-16T12:45:06.449761+00:00",
+  "elapsed_seconds": 649.319,
+  "outputs": {
+    "comparison.csv": {
+      "sha256": "f20f7693b9cbcea1bcbb14bb5b7163a49b01ebbb81d04912f036b37cdd86640d",
+      "bytes": 7685
+    },
+    "comparison.png": {
+      "sha256": "0f38bf2619ad7ebdae33f84929e070dc420958dc386829789ecedc02d8fe6e15",
+      "bytes": 140559
+    },
+    "comparison_rows.json": {
+      "sha256": "1af86de584399684c92948e3ea4bd94508c73c66d196d53903f5bd8e7f59af70",
+      "bytes": 76226
+    },
+    "raw_results.json": {
+      "sha256": "1bf87744cdbefb2fece096db4a2b619e2f50014bbf258934ddae990ad8f53b02",
+      "bytes": 166047
+    },
+    "seed_significance.json": {
+      "sha256": "8c6eba10da4270602d40cce66b6e3d8a8e379333552d1f283865044ba028fd0f",
+      "bytes": 5914
+    }
+  },
+  "bulk_outputs": {
+    "prefix": "log/",
+    "n_files": 3005,
+    "total_bytes": 1458634101,
+    "rollup_sha256": "b398d2b66e7610dcc65939223060b9f9781eddc64871b2cbc6372e09a2d24089",
+    "note": "FASTENER per-generation pickles. Digest of the sorted (path, sha256) pairs; recompute to verify."
+  }
+}
