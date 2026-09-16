@@ -116,3 +116,40 @@ estimator (`20200`), random baseline (`20200`) and each FASTENER seed
 | `analysis.py` | comparison table, plot, signal probe |
 | `run_experiment.py` | the driver |
 | `_bootstrap.py` | puts `../fastener` on `sys.path` |
+
+## First result (run `20260916T123417Z_madelon_baseline`)
+
+600 generations × 5 seeds, against the untouched test split.
+
+| feature budget | FASTENER (mean ± sd) | best baseline | seeds beating it | p |
+|---|---|---|---|---|
+| k=2  | **0.581 ± 0.006** | 0.550 (`tree_importance`) | 5/5 | <0.001 |
+| k=3  | **0.669 ± 0.027** | 0.648 (`rfe_tree`) | 4/5 | 0.167 |
+| k=5  | 0.798 ± 0.050 | 0.798 (`tree_importance`) | 2/5 | 0.995 |
+| k=10 | 0.817 ± 0.031 | 0.806 (`tree_importance`) | 3/5 | 0.487 |
+
+Reference points: all 500 features = 0.731; best random subset = 0.731 (at k=500).
+
+**Reading it honestly.** At the top of the curve FASTENER is at *parity*, not ahead:
++0.011 over a single tree's impurity importance is well inside its own seed
+spread (sd 0.031, 3 of 5 seeds ahead, p=0.49), and it costs ~30× the model fits
+(≈6,000 vs 209). Quoting "0.817 vs 0.806" as a win would not survive scrutiny.
+
+**Where it does separate.** In the small-*k* region: at k=2 every seed beats every
+baseline. That is the result consistent with the method's premise — MADELON is
+XOR-like, so features matter jointly, and mutual-information ranking (which scores
+features one at a time) never gets past 0.665 no matter how many it is given.
+A subset search can see interactions a univariate filter cannot.
+
+**A caveat worth following up.** Validation score keeps improving from round 300
+to 1000 (0.856 → 0.862) while test score stays flat (~0.78). The search is
+overfitting the split that guides it, which is expected when one split drives
+thousands of subset evaluations. Cross-validated or resampled fitness inside the
+search would be the obvious next thing to test.
+
+**Cost.** FASTENER's per-generation pickles are ~1.5 GB per 5-seed run. They are
+gitignored, but `results/` will grow quickly; delete old `log/` directories
+freely, since the manifest records the seeds needed to regenerate them.
+
+Determinism was verified by running the whole experiment twice: identical
+per-seed test scores both times.
