@@ -116,6 +116,15 @@ def main() -> int:
         failures = {}
         counter = FitCounter()
 
+        def checkpoint() -> None:
+            """Persist what is finished after every unit.
+
+            A multi-hour run that only writes at the end has nothing to show for
+            itself if it is interrupted, and nothing a partial analysis can read
+            while it is still going.
+            """
+            run.write_json("raw_results_partial.json", all_results)
+
         # Declare the whole plan before starting, so the ETA covers the run
         # rather than only the step in flight.
         prog = Progress(run.dir / "progress.json", run.run_id,
@@ -167,6 +176,7 @@ def main() -> int:
             print(f"  {m:14s} best test_f1={best['test_score']:.4f} "
                   f"@k={best['n_features']} ({res['elapsed_seconds']}s){extra}")
             all_results.append(res)
+            checkpoint()
 
         # ---- population searches ----------------------------------------
         # The MI matrix and clustering depend only on the training data, so they
@@ -200,6 +210,7 @@ def main() -> int:
                       f"@k={best['n_features']} fits={res['model_fits']} "
                       f"({res['elapsed_seconds']}s)")
                 all_results.append(res)
+                checkpoint()
 
         # ---- FASTENER reference -----------------------------------------
         if not args.no_fastener:
@@ -216,6 +227,7 @@ def main() -> int:
                       f"@k={best['n_features']} fits={res['model_fits']} "
                       f"({res['search_seconds']}s)")
                 all_results.append(res)
+                checkpoint()
 
         prog.done("failed" if not all_results else "done")
 
