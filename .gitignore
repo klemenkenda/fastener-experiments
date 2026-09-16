@@ -1,0 +1,33 @@
+# The upstream FASTENER clone lives here as an independent git repo.
+# It is deliberately NOT tracked by this experiments repo.
+fastener/
+
+# Experiment outputs and inputs
+results/*
+!results/.gitkeep
+data/*
+!data/.gitkeep
+
+# Pickled FASTENER states
+*.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

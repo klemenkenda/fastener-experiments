@@ -1,0 +1,7 @@
+# Experiment harness requirements.
+# FASTENER's own pinned dependencies live in fastener/requirements.txt.
+-r fastener/requirements.txt
+
+# Added for experiments (analysis + plotting)
+pandas
+matplotlib
