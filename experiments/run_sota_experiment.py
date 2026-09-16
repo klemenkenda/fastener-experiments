@@ -221,6 +221,8 @@ def main() -> int:
             },
         })
 
+        reach = summarise_reach(all_results)
+        run.record("subset_size_reach", reach)
         summarise(rows, ks)
         summarise_h2h(h2h)
 
@@ -241,6 +243,33 @@ def summarise(rows, ks) -> None:
             vals = [r["test_f1"] for r in rows if r["method"] == m and r["budget_k"] == k]
             cells.append(f"{np.mean(vals):8.3f}" if vals else " " * 8)
         print("  " + m.ljust(22) + "".join(cells))
+
+
+def summarise_reach(all_results) -> List[Dict]:
+    """Smallest and largest subset each method actually produced.
+
+    A search that never produces a small subset shows up as a BLANK row in the
+    score table at small k, which looks like missing data but is really the
+    result: the method did not get there within its budget. This makes that
+    explicit.
+    """
+    by_method: Dict[str, List[int]] = {}
+    for res in all_results:
+        for r in res["records"]:
+            by_method.setdefault(r["method"], []).append(r["n_features"])
+
+    reach = []
+    for m, sizes in sorted(by_method.items()):
+        reach.append({"method": m, "min_subset_size": int(min(sizes)),
+                      "max_subset_size": int(max(sizes)),
+                      "n_subsets_reported": len(sizes)})
+
+    print("\nsmallest subset each method actually produced:")
+    print(f"  {'method':22s} {'min k':>7} {'max k':>7}")
+    print("  " + "-" * 38)
+    for r in reach:
+        print(f"  {r['method']:22s} {r['min_subset_size']:>7} {r['max_subset_size']:>7}")
+    return reach
 
 
 def summarise_h2h(h2h) -> None:

@@ -41,3 +41,9 @@ pyHSICLasso     # from pyHSICLasso import HSICLasso -- run_hsic_lasso
 
 # mRMR, plain NSGA-II and the NSGAII-MIIP port need no extra packages: they are
 # implemented in-repo on top of numpy and scikit-learn.
+
+# SOTA comparison baselines
+pymoo          # NSGA-II reference implementation
+skrebate       # ReliefF (the FASTENER paper's own comparator)
+Boruta         # all-relevant selection
+pyHSICLasso    # kernel-based non-linear filter
