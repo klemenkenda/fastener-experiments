@@ -1,7 +1,43 @@
 # Experiment harness requirements.
-# FASTENER's own pinned dependencies live in fastener/requirements.txt.
--r fastener/requirements.txt
+#
+# NOTE: this deliberately does NOT `-r fastener/requirements.txt`. Upstream pins
+# a 2020 stack (numpy==1.18.1, scikit-learn==0.22.2.post1, scipy==1.4.1) that
+# (a) cannot be installed on the Python 3.11 used here, (b) predates
+# `fetch_openml(parser=...)`, which datasets.py needs, and (c) contradicts the
+# environment that actually produced everything in results/. That include also
+# could not resolve from a fresh clone, since fastener/ is gitignored and is not
+# present until you clone it yourself.
+#
+# Floors below are the versions recorded in
+# results/20260916T123417Z_madelon_baseline/manifest.json -- the environment the
+# committed baseline was run under. Lower bounds, not pins: nothing here is
+# known to need an exact version, and pinning would make the file a fiction the
+# moment anyone upgrades.
 
-# Added for experiments (analysis + plotting)
-pandas
-matplotlib
+# --- core: required by every script ---
+numpy>=2.0            # manifest: 2.4.6
+scipy>=1.11           # manifest: 1.17.1
+scikit-learn>=1.4     # manifest: 1.9.0; >=1.2 needed for fetch_openml(parser=)
+joblib>=1.3           # imported directly by run_experiment.py
+matplotlib>=3.8       # manifest: 3.11.1; comparison plots
+
+# Not imported by experiment code, but provenance.environment() records its
+# version into every manifest. Without it, manifests log "pandas": null.
+pandas>=2.0           # manifest: 3.0.5
+
+# --- optional: additional baselines in experiments/sota_baselines.py ---
+# Each is imported lazily inside its own run_* function, so the module and every
+# other selector still work when these are absent -- only that one baseline
+# fails. Install them only if you intend to run those arms.
+#
+# UNVERIFIED against the core versions above: there is no interpreter in this
+# checkout to resolve them with, and all three are lightly maintained packages
+# whose numpy-2.x compatibility this project has not yet exercised. Expect to
+# have to check them before the ReliefF / Boruta / HSIC-Lasso arms are trusted.
+#
+# Boruta        # from boruta import BorutaPy   -- run_boruta
+# skrebate      # from skrebate import ReliefF  -- run_relieff
+# pyHSICLasso   # from pyHSICLasso import HSICLasso -- run_hsic_lasso
+#
+# mRMR, plain NSGA-II and the NSGAII-MIIP port need no extra packages: they are
+# implemented in-repo on top of numpy and scikit-learn.

@@ -37,6 +37,17 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+`requirements.txt` covers everything except three optional baselines. The
+ReliefF, Boruta and HSIC-Lasso arms in `experiments/sota_baselines.py` import
+their libraries lazily, so the rest of the suite runs without them:
+
+```bash
+pip install Boruta skrebate pyHSICLasso   # only for those three arms
+```
+
+These are not yet verified against the numpy 2.x / scikit-learn 1.9 stack the
+committed results were produced under — see the note in `requirements.txt`.
+
 ## Importing FASTENER
 
 FASTENER uses flat top-level imports, so its directory must be on `sys.path`.
