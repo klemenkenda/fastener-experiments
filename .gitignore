@@ -2,9 +2,14 @@
 # It is deliberately NOT tracked by this experiments repo.
 fastener/
 
-# Experiment outputs and inputs
-results/*
-!results/.gitkeep
+# Experiment outputs. The small, human-meaningful summaries of each run ARE
+# tracked -- they are the record of what was run and what came out. FASTENER's
+# per-generation pickles are not: thousands of files per run, reproducible from
+# the manifest's seeds and commit.
+results/**/log/
+results/**/*.pickle
+
+# Inputs are fetched and checksum-verified by download_data.py, not stored here.
 data/*
 !data/.gitkeep
 
