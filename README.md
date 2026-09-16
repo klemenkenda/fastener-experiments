@@ -37,16 +37,13 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-`requirements.txt` covers everything except three optional baselines. The
-ReliefF, Boruta and HSIC-Lasso arms in `experiments/sota_baselines.py` import
-their libraries lazily, so the rest of the suite runs without them:
+That covers every baseline, including the ReliefF, Boruta and HSIC-Lasso arms in
+`experiments/sota_baselines.py`. Those three import their libraries lazily, so
+you can comment them out of `requirements.txt` for a leaner install — only those
+arms stop working.
 
-```bash
-pip install Boruta skrebate pyHSICLasso   # only for those three arms
-```
-
-These are not yet verified against the numpy 2.x / scikit-learn 1.9 stack the
-committed results were produced under — see the note in `requirements.txt`.
+Verified on Python 3.11.16 with numpy 2.4.6, scipy 1.17.1, scikit-learn 1.9.0,
+which is the environment recorded in the committed run's manifest.
 
 ## Importing FASTENER
 
