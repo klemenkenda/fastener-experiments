@@ -24,7 +24,7 @@ import baselines  # noqa: E402
 from datasets import MADELON_DIR, load_madelon  # noqa: E402
 from protocol import FitCounter, MODEL_SEED  # noqa: E402
 from provenance import Run  # noqa: E402
-from run_fastener import run_fastener  # noqa: E402
+from run_fastener import SWAP_ARMS, run_fastener  # noqa: E402
 
 # Feature budgets at which every method is compared. MADELON has 20 relevant
 # features, so the grid is dense in that region.
@@ -39,6 +39,12 @@ def parse_args():
                     help="number of FASTENER seeds (variability across restarts)")
     ap.add_argument("--quick", action="store_true",
                     help="tiny budget for a smoke check")
+    ap.add_argument("--swap", action="append", choices=sorted(SWAP_ARMS),
+                    help="FASTENER pruning arm; repeat to run several "
+                         "(default: none, i.e. the published algorithm)")
+    ap.add_argument("--number-of-swaps", type=int, default=1,
+                    help="swap candidates proposed per pruned subset "
+                         "(ignored by --swap none)")
     ap.add_argument("--name", default="madelon_baseline")
     return ap.parse_args()
 
@@ -49,6 +55,8 @@ def main() -> int:
     n_seeds = 2 if args.quick else args.seeds
     ks = [k for k in K_GRID if k <= 30] if args.quick else K_GRID
     seeds = [2020 + i for i in range(n_seeds)]
+    # No --swap means the published algorithm, exactly as before.
+    arms = args.swap or ["none"]
 
     ds = load_madelon()
     print(ds)
@@ -57,6 +65,8 @@ def main() -> int:
         "dataset": "madelon",
         "fastener_rounds": rounds,
         "fastener_seeds": seeds,
+        "fastener_swap_arms": arms,
+        "fastener_number_of_swaps": args.number_of_swaps,
         "k_grid": ks,
         "model": "DecisionTreeClassifier",
         "model_seed": MODEL_SEED,
@@ -102,16 +112,19 @@ def main() -> int:
         baseline_fits = counter.fits
 
         # ---- FASTENER --------------------------------------------------
-        print(f"\nfastener ({rounds} rounds x {len(seeds)} seeds):")
         fastener_results = []
-        for seed in seeds:
-            res = run_fastener(ds, run.dir, seed=seed, rounds=rounds)
-            best = max(res["records"], key=lambda r: r["val_score"])
-            print(f"  seed {seed}: front={len(res['records']):2d} "
-                  f"best test_f1={best['test_score']:.4f} @k={best['n_features']} "
-                  f"fits={res['model_fits']} ({res['search_seconds']}s)")
-            fastener_results.append(res)
-            all_results.append(res)
+        for arm in arms:
+            print(f"\nfastener [swap={arm}] ({rounds} rounds x {len(seeds)} seeds):")
+            for seed in seeds:
+                res = run_fastener(ds, run.dir, seed=seed, rounds=rounds,
+                                   swap=arm,
+                                   number_of_swaps=args.number_of_swaps)
+                best = max(res["records"], key=lambda r: r["val_score"])
+                print(f"  seed {seed}: front={len(res['records']):2d} "
+                      f"best test_f1={best['test_score']:.4f} @k={best['n_features']} "
+                      f"fits={res['model_fits']} ({res['search_seconds']}s)")
+                fastener_results.append(res)
+                all_results.append(res)
 
         # ---- sanity check on which features carry signal ----------------
         print("\nprobing which features actually carry signal ...")
@@ -136,7 +149,12 @@ def main() -> int:
             w.writeheader()
             w.writerows(rows)
 
-        sig = analysis.seed_significance(rows, ks)
+        # One significance table per genetic arm that ran, tagged with its
+        # method so several arms stay distinguishable in the output.
+        sig = []
+        for method in sorted({r["method"] for r in fastener_results}):
+            for entry in analysis.seed_significance(rows, ks, stochastic=method):
+                sig.append({"method": method, **entry})
         run.record("seed_significance", sig)
         run.write_json("seed_significance.json", sig)
 
@@ -151,9 +169,17 @@ def main() -> int:
 
         run.record("cost", {
             "baseline_model_fits": baseline_fits,
-            "fastener_model_fits_per_seed": [r["model_fits"] for r in fastener_results],
-            "fastener_mean_search_seconds": round(
-                float(np.mean([r["search_seconds"] for r in fastener_results])), 2),
+            "fastener_model_fits_per_seed": {
+                method: [r["model_fits"] for r in fastener_results
+                         if r["method"] == method]
+                for method in sorted({r["method"] for r in fastener_results})
+            },
+            "fastener_mean_search_seconds": {
+                method: round(float(np.mean(
+                    [r["search_seconds"] for r in fastener_results
+                     if r["method"] == method])), 2)
+                for method in sorted({r["method"] for r in fastener_results})
+            },
         })
 
         # ---- headline ----------------------------------------------------
@@ -185,12 +211,13 @@ def summarise_significance(sig) -> None:
     if not sig:
         return
     print("\nfastener vs best deterministic baseline (test F1, across seeds):")
-    print(f"  {'k':>4} {'mean':>7} {'sd':>7} {'baseline':>9} {'delta':>8} {'wins':>6} {'p':>7}")
-    print("  " + "-" * 52)
+    print(f"  {'method':22s}{'k':>4} {'mean':>7} {'sd':>7} {'baseline':>9} {'delta':>8} {'wins':>6} {'p':>7}")
+    print("  " + "-" * 74)
     for r in sig:
         if r["budget_k"] > 50:
             continue
-        print(f"  {r['budget_k']:>4} {r['mean_test_f1']:>7.3f} {r['sd_test_f1']:>7.3f} "
+        print(f"  {r.get('method', 'fastener'):22s}"
+              f"{r['budget_k']:>4} {r['mean_test_f1']:>7.3f} {r['sd_test_f1']:>7.3f} "
               f"{r['best_baseline_test_f1']:>9.3f} {r['delta_vs_baseline']:>+8.3f} "
               f"{r['seeds_beating_baseline']:>4}/{r['n_seeds']} {r['p_value']:>7.3f}")
 

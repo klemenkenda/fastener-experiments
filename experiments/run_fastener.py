@@ -28,9 +28,11 @@ import _bootstrap  # noqa: F401,E402  puts ../fastener on sys.path
 
 from fastener import Config, EntropyOptimizer  # noqa: E402
 from item import (  # noqa: E402
+    InformationGainSwapStrategy,
     IntersectionMatingWithWeightedRandomInformationGain,
     RandomEveryoneWithEveryone,
     RandomFlipMutationStrategy,
+    RandomSwapStrategy,
     Result,
 )
 
@@ -83,12 +85,46 @@ class CountingModelFactory:
         return make_model()
 
 
+# The three arms of the swap experiment. "none" is the published algorithm and
+# the default everywhere, so an existing call site keeps running exactly what it
+# ran before.
+SWAP_ARMS = {
+    "none": None,
+    "random": RandomSwapStrategy,
+    "guided": InformationGainSwapStrategy,
+}
+
+
+def make_swap_strategy(swap: Optional[str], number_of_swaps: int = 1):
+    """Build the pruning-swap operator for an arm name, or None for the original."""
+    if swap is None or swap == "none":
+        return None
+    if swap not in SWAP_ARMS:
+        raise ValueError(f"unknown swap arm {swap!r}; expected one of {sorted(SWAP_ARMS)}")
+    return SWAP_ARMS[swap](number_of_swaps=number_of_swaps)
+
+
 def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  pool_size: int = 3, max_bucket_size: int = 3,
                  reset_to_pareto_rounds: int = 5,
                  initial_genes: Optional[List[List[int]]] = None,
-                 quiet: bool = True) -> Dict:
-    """One FASTENER search. Returns the Pareto front re-scored under the protocol."""
+                 quiet: bool = True,
+                 swap: Optional[str] = None,
+                 number_of_swaps: int = 1,
+                 method_name: Optional[str] = None) -> Dict:
+    """One FASTENER search. Returns the Pareto front re-scored under the protocol.
+
+    `swap` selects the pruning operator and defaults to the original algorithm:
+
+    * ``None`` / ``"none"`` -- pruning only tests deleting the weakest feature.
+    * ``"random"``          -- also tests replacing a random selected feature
+                               with a uniformly random unselected one.
+    * ``"guided"``          -- also tests replacing the permutation-weakest
+                               feature with one sampled by mutual information.
+
+    Each swap candidate costs one extra model fit per pruned subset, which
+    `model_fits` in the returned dict accounts for.
+    """
     factory = CountingModelFactory()
 
     mating = RandomEveryoneWithEveryone(
@@ -96,6 +132,9 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         mating_strategy=IntersectionMatingWithWeightedRandomInformationGain(),
     )
     mutation = RandomFlipMutationStrategy(1.0 / ds.n_features)
+    swap_strategy = make_swap_strategy(swap, number_of_swaps)
+    method = method_name or ("fastener" if swap_strategy is None
+                             else f"fastener_swap_{swap}")
 
     if initial_genes is None:
         # Start from single features rather than the reference's fixed [[0]], so
@@ -107,7 +146,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
     with working_dir(run_dir):
         # Config.__post_init__ seeds random_utils and prefixes "log/".
         config = Config(
-            output_folder=f"fastener_seed{seed}",
+            output_folder=f"{method}_seed{seed}",
             random_seed=seed,
             number_of_rounds=rounds,
             max_bucket_size=max_bucket_size,
@@ -119,6 +158,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             ds.n_features, mating, mutation,
             initial_genes=initial_genes,
             config=config,
+            swap_strategy=swap_strategy,
         )
         if quiet:
             with open(os.devnull, "w") as devnull, contextlib.redirect_stdout(devnull):
@@ -137,14 +177,14 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         if feats.size == 0:
             continue
         rec = evaluate_subset(ds, feats, counter=None)
-        rec["method"] = "fastener"
+        rec["method"] = method
         rec["seed"] = seed
         rec["fastener_internal_val_score"] = float(item.result.score)
         rec["generation_found"] = int(item.generation)
         records.append(rec)
 
     return {
-        "method": "fastener",
+        "method": method,
         "family": "genetic",
         "seed": seed,
         "params": {
@@ -155,10 +195,12 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             "mutation_prob": 1.0 / ds.n_features,
             "initial_genes": initial_genes,
             "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+            "swap": swap or "none",
+            "number_of_swaps": number_of_swaps if swap_strategy is not None else 0,
         },
         "search_seconds": round(search_seconds, 2),
         "model_fits": search_fits,
         "unique_subsets_cached": len(optimizer.cache_data),
-        "log_dir": str((run_dir / "log" / f"fastener_seed{seed}").resolve()),
+        "log_dir": str((run_dir / "log" / f"{method}_seed{seed}").resolve()),
         "records": records,
     }

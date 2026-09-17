@@ -56,6 +56,13 @@ def parse_args():
     ap.add_argument("--evaluations", type=int, default=DEFAULT_EVALUATIONS,
                     help="model-fit budget per seed for the evolutionary arms")
     ap.add_argument("--boruta-max-iter", type=int, default=100)
+    ap.add_argument("--init", default="obl", choices=("obl", "sparse"),
+                    help="initialisation for the evolutionary arms. 'obl' is "
+                         "the ported algorithm (~50%% density, i.e. ~250 "
+                         "features on MADELON). 'sparse' seeds 1-30 features "
+                         "and is a DEPARTURE from the source, used to separate "
+                         "the search from where it was told to start; such "
+                         "runs are labelled *_sparse.")
     ap.add_argument("--no-fastener", action="store_true",
                     help="skip the FASTENER arm (it is included by default so "
                          "the plot has its reference curve)")
@@ -97,6 +104,7 @@ def main() -> int:
         "seeds": seeds,
         "evaluation_budget_per_seed": evaluations,
         "boruta_max_iter": boruta_max_iter,
+        "init": args.init,
         "k_grid": ks,
         "model": "DecisionTreeClassifier",
         "model_seed": MODEL_SEED,
@@ -184,10 +192,11 @@ def main() -> int:
         cluster_cache = {}
         search_fns = {
             "nsga2": lambda s, cb: sota.run_nsga2(ds, s, evaluations,
+                                                  init=args.init,
                                                   progress_cb=cb),
             "nsgaii_miip": lambda s, cb: sota.run_nsgaii_miip_method(
                 ds, s, evaluations, cluster_cache=cluster_cache,
-                n_jobs=args.n_jobs, progress_cb=cb),
+                n_jobs=args.n_jobs, init=args.init, progress_cb=cb),
         }
         for m in [m for m in methods if m in SEARCHES]:
             print(f"\n{m} ({evaluations} fits x {len(seeds)} seeds):")

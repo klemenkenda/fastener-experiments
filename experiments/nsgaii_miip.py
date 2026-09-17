@@ -22,10 +22,10 @@ rather than to improve the method:
    validation split -- so that differences reflect the SEARCH, not the metric.
    The second objective (minimise subset size) is unchanged.
 
-2. BUDGET. stop_evaluations is set by the caller. The experiment gives it the
-   paper's default of 10000 model fits, which is MORE than FASTENER's measured
-   ~6000 -- deliberately generous, because when the porter is also the one
-   reporting the comparison, the port should not lose on budget.
+2. BUDGET. stop_evaluations is set by the caller. The experiment matches it to
+   FASTENER's measured model-fit count (~6000), so both searches get equal
+   compute. The paper's default is 10000; the reported runs use the matched
+   figure and say so, rather than quietly giving either side more.
 
 Faithful to the source: opposition-based initialisation, binary tournament on
 (front, crowding), single-point crossover at a differing locus, balanced

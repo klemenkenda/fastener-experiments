@@ -131,6 +131,12 @@ def render_plot(rows: List[Dict], out_path: Path, title: str) -> Path:
 
     style = {
         "fastener": dict(color="#C1440E", lw=2.4, marker="o", zorder=5),
+        # The pruning-swap arms: same family, same hue family, dashed so the
+        # published algorithm stays the solid reference line.
+        "fastener_swap_random": dict(color="#E8833A", lw=2.0, marker="o",
+                                     ls="--", zorder=5),
+        "fastener_swap_guided": dict(color="#8C1D04", lw=2.4, marker="o",
+                                     ls="-.", zorder=6),
         "kbest_mutual_info": dict(color="#1F6FB2", lw=1.8, marker="s"),
         "kbest_anova_f": dict(color="#4C9F70", lw=1.8, marker="^"),
         "tree_importance": dict(color="#8A6BBE", lw=1.8, marker="v"),

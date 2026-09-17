@@ -117,6 +117,85 @@ estimator (`20200`), random baseline (`20200`) and each FASTENER seed
 | `run_experiment.py` | the driver |
 | `_bootstrap.py` | puts `../fastener` on `sys.path` |
 
+## SOTA comparison
+
+`run_sota_experiment.py` extends the baseline experiment with stronger and more
+recent competitors, across two datasets.
+
+### Methods added
+
+| method | family | provenance |
+|---|---|---|
+| `mrmr` | information filter | Peng et al. 2005, implemented directly (MID criterion) |
+| `relieff` | filter | `skrebate` -- the FASTENER paper's own comparator |
+| `boruta` | all-relevant | `BorutaPy`, RF shadow features |
+| `hsic_lasso` | kernel filter | `pyHSICLasso`, detects non-linear dependence |
+| `nsga2` | multi-objective EA | implemented here; the baseline both recent papers benchmark against |
+| `nsgaii_miip` | multi-objective EA | **ported** from the authors' MATLAB (2025) |
+| `nsgaii_miip_sparse` | multi-objective EA | the port with a **non-faithful** sparse init, as a control |
+
+### About the NSGAII-MIIP port
+
+[`nsgaii_miip.py`](nsgaii_miip.py) is a Python port of
+[andali89/NSGAII-MIIP](https://github.com/andali89/NSGAII-MIIP) (MIT), whose
+original needs MATLAB and Weka. **It is a reimplementation, not the authors'
+results.** A gap between it and FASTENER may be a property of the method or an
+artefact of the port, and should not be cited as evidence about the published
+algorithm.
+
+Ported faithfully: opposition-based initialisation, binary tournament on
+(front, crowding), single-point crossover at a differing locus, balanced
+mutation, the MI/entropy-weighted forward/backward/interchange improvement phase
+over feature clusters, and NSGA-II survival. Two documented departures: the
+objective is this experiment's shared metric rather than the paper's g-mean
+(so differences reflect the *search*, not the metric), and the budget is the
+paper's 10000 fits, which is *more* than FASTENER's ~6000 -- when the porter is
+also the reporter, the port should not lose on compute.
+
+### The initialisation problem, and why there is a `_sparse` variant
+
+The source initialises every individual at ~50% density. On the authors' own
+manufacturing data (tens of features) that starts near the useful region. At
+500-970 features it starts at 250-485 selected features, and the size objective
+has to walk all the way down.
+
+In practice the faithful port never produces a subset below ~200 features within
+budget, so it is simply **absent** from the small-*k* comparison -- which in a
+score table looks like missing data rather than a result. Two things address
+that: `subset_size_reach` in the manifest records the smallest subset each
+method actually produced, and `nsgaii_miip_sparse` re-runs the identical search
+from small random subsets. The pair separates "this search is worse at small
+*k*" from "this search started somewhere else".
+
+### Not included
+
+**BGR-FS** (2026) is paywalled with no public code. Implementing it from its
+abstract would produce a strawman, so it is omitted rather than guessed at.
+
+### Datasets
+
+| dataset | rows | features | source | why |
+|---|---|---|---|---|
+| MADELON | 2600 | 500 | UCI | synthetic, XOR-like, 20 relevant / 480 noise, known structure |
+| GINA | 3468 | 970 | OpenML 1038 | real-world digit pixels, binary; different origin and noise structure |
+
+GINA is capped near 1000 features on purpose: NSGAII-MIIP builds a full pairwise
+mutual-information matrix, which is O(F^2). A 5000-feature set like GISETTE
+would need ~12.5M MI computations before the search starts.
+
+### Parallelism
+
+Population searches are independent, so `(method, seed)` tasks are distributed
+with joblib (`--jobs`). The MI matrix and feature clustering depend only on the
+training data, so they are computed once and shared across all seeds.
+
+```bash
+python experiments/run_sota_experiment.py --dataset madelon --jobs 7
+python experiments/run_sota_experiment.py --dataset gina --jobs 7
+```
+
+Both datasets can run concurrently; at `--jobs 7` each they use 14 cores.
+
 ## First result (run `20260916T123417Z_madelon_baseline`)
 
 600 generations × 5 seeds, against the untouched test split.
@@ -153,3 +232,58 @@ freely, since the manifest records the seeds needed to regenerate them.
 
 Determinism was verified by running the whole experiment twice: identical
 per-seed test scores both times.
+
+## Pruning-swap arms (TODO.md proposal)
+
+FASTENER's pruning step tests deleting its weakest feature but never replacing
+it. The swap operator adds that test; see the "Optional: swap operator" section
+of `fastener/README.md` for the algorithm. Three arms are available:
+
+| `--swap` | removal of feature *i* | insertion of feature *j* |
+|---|---|---|
+| `none` (default) | — deletion only, the published algorithm | — |
+| `random` | uniformly random selected feature | uniformly random unselected feature |
+| `guided` | permutation-weakest, from scores pruning already computed | sampled with probability weighted by mutual information |
+
+`random` is the ablation: it isolates how much of any effect comes from the
+guidance rather than from swapping as such.
+
+```bash
+# unchanged default -- the published algorithm
+python experiments/run_experiment.py
+
+# all three arms, same rounds and seeds
+python experiments/run_experiment.py --swap none --swap random --swap guided
+```
+
+The arms appear as separate methods (`fastener`, `fastener_swap_random`,
+`fastener_swap_guided`) in `comparison.csv`, in the plot and in the significance
+table, each with its own `log/` directory and its own fit count.
+
+### What this is not, yet
+
+The measurement side of the TODO's experiment plan is **not** implemented:
+
+- **Budget.** `--rounds` is still equal *rounds*, not equal *fits*. The swap arms
+  buy extra fits per generation (one per pruned subset), so an arm comparison at
+  fixed rounds gives the swap arms more compute. `model_fits` is recorded per
+  arm in the manifest, but nothing stops a run at a fit cap yet.
+- **Scalar comparison.** No hypervolume/attainment-surface summary over the
+  front and no paired test across seeds; `seed_significance` still compares each
+  arm against the deterministic baselines, not the arms against each other.
+
+Until both are in place, a difference between arms here is an observation, not
+a result.
+
+## Tests
+
+```bash
+python -m pytest tests -q
+```
+
+`tests/test_swap_strategies.py` covers the swap operators and, just as
+importantly, that the default path is untouched: the original positional
+constructor call, the legacy `purge_item_with_information_gain` contract, and
+runs that must not consult the swap machinery at all. The pre/post equivalence
+was additionally checked out-of-band against the committed FASTENER clone --
+same Pareto front, same model-fit count, same cache-hit pattern.

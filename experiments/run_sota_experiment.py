@@ -33,9 +33,12 @@ from run_fastener import run_fastener  # noqa: E402
 
 K_GRID = [1, 2, 3, 5, 8, 10, 12, 15, 20, 25, 30, 50, 100, 200, 500]
 
-# The paper's own default for NSGAII-MIIP. Deliberately larger than FASTENER's
-# measured ~6000 fits so the ported method is not handicapped on budget.
-GA_EVALUATIONS = 10000
+# Matched to FASTENER's measured model-fit count (~6000 on MADELON at 600
+# rounds), so the two searches get equal compute. The paper's own default is
+# 10000; that was tried first and is ~40% more expensive for a conclusion the
+# 400- and 2000-fit probes already showed to be flat, so equal-compute is the
+# reported setting and the difference is stated rather than hidden.
+GA_EVALUATIONS = 6000
 
 
 def parse_args():
@@ -142,26 +145,56 @@ def main() -> int:
         print(f"\npopulation searches: {len(tasks)} tasks on {args.jobs} workers")
         print(f"  fastener={rounds} rounds; GA methods={ga_evals} model fits")
 
+        # Each task writes its own result file the moment it finishes, so a
+        # crash or a kill loses only the tasks still in flight. An earlier run
+        # of this script died with everything still in memory and produced
+        # nothing despite hours of completed work.
+        partial_dir = run.dir / "partial"
+        partial_dir.mkdir(exist_ok=True)
+
         def run_task(method: str, seed: int) -> Dict:
-            if method == "fastener":
-                return run_fastener(ds, run.dir, seed=seed, rounds=rounds)
-            if method == "nsga2":
-                return sota.run_nsga2(ds, seed=seed, stop_evaluations=ga_evals)
-            if method == "nsgaii_miip":
-                return sota.run_nsgaii_miip_method(
-                    ds, seed=seed, stop_evaluations=ga_evals,
-                    cluster_cache=cluster_cache)
-            if method == "nsgaii_miip_sparse":
-                return sota.run_nsgaii_miip_method(
-                    ds, seed=seed, stop_evaluations=ga_evals,
-                    cluster_cache=cluster_cache, init="sparse")
-            raise ValueError(method)
+            import json as _json
+            out_path = partial_dir / f"{method}_seed{seed}.json"
+            if out_path.exists():
+                # Resume: a completed task is not redone.
+                with open(out_path, encoding="utf-8") as fh:
+                    return _json.load(fh)
+            try:
+                if method == "fastener":
+                    res = run_fastener(ds, run.dir, seed=seed, rounds=rounds)
+                elif method == "nsga2":
+                    res = sota.run_nsga2(ds, seed=seed, stop_evaluations=ga_evals)
+                elif method == "nsgaii_miip":
+                    res = sota.run_nsgaii_miip_method(
+                        ds, seed=seed, stop_evaluations=ga_evals,
+                        cluster_cache=cluster_cache)
+                elif method == "nsgaii_miip_sparse":
+                    res = sota.run_nsgaii_miip_method(
+                        ds, seed=seed, stop_evaluations=ga_evals,
+                        cluster_cache=cluster_cache, init="sparse")
+                else:
+                    raise ValueError(method)
+            except Exception as exc:
+                # One failed search must not destroy the whole run.
+                return {"method": method, "seed": seed, "records": [],
+                        "failed": f"{type(exc).__name__}: {exc}"}
+
+            with open(out_path, "w", encoding="utf-8") as fh:
+                _json.dump(res, fh, default=str)
+            return res
 
         t0 = time.time()
         from joblib import Parallel, delayed
-        ga_results = Parallel(n_jobs=args.jobs, prefer="processes", verbose=5)(
+        ga_results = Parallel(n_jobs=args.jobs, prefer="processes", verbose=10)(
             delayed(run_task)(m, s) for m, s in tasks)
         parallel_seconds = time.time() - t0
+
+        for res in ga_results:
+            if res.get("failed"):
+                print(f"  {res['method']} seed {res['seed']} FAILED: {res['failed']}")
+                run.manifest.setdefault("failed_methods", {})[
+                    f"{res['method']}_seed{res['seed']}"] = res["failed"]
+        ga_results = [r for r in ga_results if r.get("records")]
 
         for res in ga_results:
             if res["records"]:
