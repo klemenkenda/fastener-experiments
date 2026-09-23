@@ -166,7 +166,109 @@ def load_gina() -> Dataset:
     )
 
 
-LOADERS = {"madelon": load_madelon, "gina": load_gina}
+def load_eodata(max_rows: int = None, subsample_seed: int = SPLIT_SEED) -> Dataset:
+    """EOData -- the FASTENER paper's own headline dataset.
+
+    Sentinel-2 land patch samples over Slovenia, 2017: 480,000 rows (20,000 per
+    class x 24 classes) x 182 features -- 4 raw bands (RGB + NIR), 6 vegetation
+    indices, 18 derived indices, plus height and land inclination.
+
+    Sircelj, Kenda & Koprivec, "Land Patch Samples", PANGAEA 2020,
+    https://doi.org/10.1594/PANGAEA.914271 (CC-BY-4.0). Fetch with
+    download_eodata.py; the source is a 1.4 GB ARFF, so the first load converts
+    it once to a compressed .npz and every later load reads that.
+
+    This is the opposite shape to the other benchmarks: very many instances,
+    relatively few features. A full 480,000-row fit is far slower than MADELON's
+    1,560, and an evolutionary search does thousands of fits -- so `max_rows`
+    takes a stratified subsample for runs where the full set is impractical.
+    Subsampled runs must be labelled as such; they are not the paper's setting.
+    """
+    cache = DATA_DIR / "eodata"
+    npz = cache / "eodata.npz"
+    arff = cache / "FASTENER_dataset.arff"
+
+    if npz.exists():
+        with np.load(npz) as d:
+            X, y, names = d["X"], d["y"], d["feature_names"]
+    else:
+        if not arff.is_file():
+            raise FileNotFoundError(
+                f"{arff} not found -- run experiments/download_eodata.py first")
+        X, y, names = _read_eodata_arff(arff)
+        cache.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(npz, X=X, y=y, feature_names=names)
+
+    if max_rows is not None and max_rows < X.shape[0]:
+        rng = np.random.RandomState(subsample_seed)
+        keep = []
+        # Stratified: the source is exactly balanced across 24 classes and a
+        # plain random cut would not stay that way.
+        per_class = max(1, max_rows // len(np.unique(y)))
+        for c in np.unique(y):
+            idx = np.where(y == c)[0]
+            keep.append(rng.choice(idx, min(per_class, idx.size), replace=False))
+        sel = np.sort(np.concatenate(keep))
+        X, y = X[sel], y[sel]
+
+    tr, va, te = _stratified_three_way(y, VAL_FRACTION, TEST_FRACTION, SPLIT_SEED)
+    return Dataset(
+        "eodata", X[tr], y[tr], X[va], y[va], X[te], y[te],
+        feature_names=names,
+    )
+
+
+def _read_eodata_arff(path: Path):
+    """Parse the PANGAEA EOData ARFF.
+
+    Two things about this file that a generic ARFF reader gets wrong:
+
+    1. The CLASS COLUMN IS FIRST, not last. `@ATTRIBUTE class_name` is nominal
+       with the 24 land-cover labels; the 182 numeric features follow it.
+    2. THE HEADER IS MALFORMED. The closing brace of the class_name value list
+       is immediately followed by `@ATTRIBUTE INCLINATION NUMERIC` on the same
+       physical line, with no newline between them. Counting `@ATTRIBUTE` lines
+       therefore yields 182 where the data has 183 columns, and
+       scipy.io.arff.loadarff rejects the file outright. Attributes are pulled
+       out by regex over the header text so the run-together pair is seen as
+       two.
+
+    pandas does the bulk read: 480,000 rows of Python-level splitting is minutes,
+    read_csv is seconds.
+    """
+    import re
+    import pandas as pd
+
+    header_lines, n_header = [], 0
+    with open(path, "r", encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            n_header += 1
+            header_lines.append(line)
+            if line.strip().lower().startswith("@data"):
+                break
+
+    header = "".join(header_lines)
+    # Match each @ATTRIBUTE wherever it starts, not only at line beginnings.
+    attrs = re.findall(r"@ATTRIBUTE\s+(\S+)", header, flags=re.IGNORECASE)
+    if not attrs:
+        raise ValueError(f"no @ATTRIBUTE declarations found in {path}")
+
+    df = pd.read_csv(path, skiprows=n_header, header=None,
+                     na_values=["?"], low_memory=False)
+    if df.shape[1] != len(attrs):
+        raise ValueError(
+            f"{path}: header declares {len(attrs)} attributes but data has "
+            f"{df.shape[1]} columns")
+
+    labels = df.iloc[:, 0].astype(str).to_numpy()
+    X = df.iloc[:, 1:].to_numpy(dtype=np.float32)
+    classes = np.unique(labels)
+    y = classes.searchsorted(labels).astype(int)
+    names = np.array(attrs[1:])
+    return X, y, names
+
+
+LOADERS = {"madelon": load_madelon, "gina": load_gina, "eodata": load_eodata}
 
 
 def load(name: str) -> Dataset:
