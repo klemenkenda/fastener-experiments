@@ -22,7 +22,13 @@ lettered, so they hold no slot in the run order.
 
 ## Why this order
 
-1. **H1 first because it is cheap and diagnostic.** Sparse initialisation keeps
+0. **H0 first because every later FASTENER result stands on it.** H2-H6 all run
+   FASTENER with three bug fixes the published results did not have (see H0).
+   H0 measures what the fixes change before any comparison is built on the
+   fixed code. It runs only FASTENER, on the development sets, so it is also the
+   first end-to-end check of progress tracking, which its metric depends on
+   entirely.
+1. **H1 next because it is cheap and diagnostic.** Sparse initialisation keeps
    NSGA-II in small subsets, where fits are cheapest, and the sparse arm has a
    known, undiagnosed failure from the previous round (see H1). H1 also
    exercises the whole protocol end to end. Finding a harness bug here costs
@@ -34,7 +40,7 @@ lettered, so they hold no slot in the run order.
    invocation; the ordering is about the order they are *read*.
 3. **H4 after the swap hypotheses because it is the largest targeted run** --
    25 datasets x 2 arms x 5 seeds -- so it should run on a harness that has
-   already produced correct output three times.
+   already produced correct output four times.
 4. **H5 and H6 last because they are the full grid** -- every algorithm on every
    dataset. The runs behind H1-H4 are part of that grid and are reused, not
    repeated; H5 and H6 add the remaining algorithm-dataset cells. H5 is read
@@ -44,6 +50,13 @@ lettered, so they hold no slot in the run order.
 are three arms over the same seeds and the same budget, run together in one
 invocation. Running them separately would waste the shared stock arm and, worse,
 would let the arms differ by run conditions rather than by operator.
+
+**H0's stock arm is H2's and H3's stock arm.** The `fastener` runs H0 produces
+are reused by H2 and H3, not repeated, the way H5 and H6 reuse the runs behind
+H1-H4. Reuse is allowed only when the algorithm ID matches, which pins both
+repositories' commits and the arm's configuration. Under a fit budget and a fixed
+seed a run is then the same run. If the ID differs, the stock arm is run again
+inside the H2/H3 invocation.
 
 ## Protocol, fixed for every hypothesis below
 
@@ -67,13 +80,18 @@ F1 scores one subset. Every hypothesis compares *fronts*, so each needs an
 aggregate built on F1, fixed now:
 
 * **AUF** = (1/K) * sum over k = 1..K of opt(k), where opt(k) is the best test
-  F1 among subsets of size <= k (subsets chosen on validation). The paper's own
-  measure.
+  F1 among subsets of size <= k (subsets chosen on validation), and **0 where a
+  run has no subset of size <= k** -- at that budget it offers nothing. The
+  paper's own measure. This is what makes AUF penalise a search that never
+  reaches small subsets (H1).
   * **K = 10 -- the primary metric for H1, H2, H3, H5 and H6.** All of them are
     claims about low k, and every falsification criterion below is stated at
     k <= 10, so the metric is read over exactly that range.
   * **K = 20 -- the primary metric for H4**, the aggregate the paper's Table 3
     uses.
+  * **H0 reads AUF (K = 10) on validation, at every progress snapshot**, to
+    get a curve of the score against fits. See H0 for how the curve becomes a
+    convergence measure. Test AUF is still read once, at the end.
 * **Hypervolume** = the area dominated by the front in (few features, high F1)
   against a fixed reference point of all-features-at-F1-zero
   (`analysis.hypervolume`). **Secondary** for every hypothesis: it summarises
@@ -114,7 +132,7 @@ those ranges. A paired test at n=5 will not separate them, and a null result at
 this seed count means "not detected at n=5", never "no effect".
 
 Therefore: **no hypothesis is declared confirmed or refuted on a mean difference
-alone.** H1-H3 use a per-seed sign test that 5 seeds can carry. H4-H6 take
+alone.** H0-H3 use a per-seed sign test that 5 seeds can carry. H4-H6 take
 datasets as the unit instead of seeds, which gives them 25 or 36 observations.
 If a result lands in the ambiguous middle, the honest output is "needs more
 seeds", and the seed count becomes the finding.
@@ -130,9 +148,112 @@ hypotheses already look unpromising.
 
 ---
 
+## H0 -- The bug-fixed FASTENER converges faster than the 2020 code
+
+*(first: H2-H6 run the fixed code, and this measures what the fixes change)*
+
+**Claim.** The fixed FASTENER reaches a given low-k score in fewer fits than the
+2020 code that produced the published results.
+
+**The three fixes.** All are in the fastener clone's mating step, described in
+its README under *Changes to the original mating behaviour*:
+
+1. **Weighted information-gain mating no longer always adds the top genes.**
+   `IntersectionMatingWithWeightedRandomInformationGain` started from its parent
+   class's child, the intersection plus the top-k genes by mutual information,
+   and then sampled k more. The top-k were therefore in every child, a child got
+   up to 2k genes back (1.3k on average), and the weighted sample rarely added
+   anything new. It now starts from the plain intersection.
+2. **An item is no longer mated with itself.** `RandomEveryoneWithEveryone` drew
+   its mating pool with replacement. About 13% of pairs at `pool_size=3` were an
+   item and itself, and their child was a copy of the parent. The pool is now
+   drawn without replacement.
+3. **`pool_size=None` no longer crashes.** It is meant to use the whole
+   population as the pool.
+
+The harness runs `pool_size=3`, so fix 3 never fires in this round. **H0 tests
+fixes 1 and 2**, and any write-up says so. Fix 3 is covered by the clone's unit
+tests, not by an experiment.
+
+**Why it might hold.** Under the old fix 1, every mating of the same two parents
+returned the same top-k genes, so repeated matings explored little beyond one
+greedy child. Children were also larger than the rule intends, which pulls the
+search away from low k. Under the old fix 2, a self-mated child is a copy of an
+item already scored: it costs no fit, since the cache absorbs it, but it takes a
+crossover slot that would otherwise have produced a new subset. Both effects
+spend the search's effort on less new ground per fit.
+
+**Why it might not.** Always adding the top genes by mutual information is a
+greedy bias toward informative features. That bias can speed the early part of a
+search, which is exactly where convergence speed is measured. Removing it could
+slow the start and help only later, or not at all. Fix 2 frees generations, not
+fits, so under a fit budget its effect may be small.
+
+**Pilot evidence.** None usable. Every pilot FASTENER run used the 2020 mating,
+but none was paired with a run of the fixed code, so the pilot holds no
+comparison.
+
+**Arms.**
+
+* `fastener` -- the fixed code, with the clone's defaults. This is **stock
+  FASTENER in H2-H6**.
+* `fastener_2020` -- the same code with `include_top_genes=True` and
+  `allow_self_mating=True`. The clone's README states that with both flags set a
+  run is identical to the original: the same fits and the same Pareto front for
+  the same seed. This arm is the published algorithm, not a variant of it.
+
+Both arms start from the same initial population for a given seed. Their random
+streams part at the first mating step.
+
+**Datasets.** The four development sets.
+
+**Primary metric: fits to a common target.** A fixed-target measure, read on
+fits as *Progress tracking* requires, and on validation only:
+
+1. From every progress snapshot, compute AUF (K = 10) on validation F1 from the
+   front the snapshot stores. Over a run this gives a step curve of score
+   against cumulative unique fits.
+2. Per dataset and seed, the **target** is the lower of the two arms' final
+   values at the 6,000-fit budget. Both arms reach it by construction.
+3. Each arm's result is the cumulative unique fits at the first snapshot whose
+   value is at or above the target. Fewer fits is faster.
+
+A common target keeps the comparison about speed. An arm's own final value
+would not work: a search that stalls early would look like it converged fast.
+
+**Falsification criterion.** H0 is supported if `fastener` reaches the target in
+**fewer fits** than `fastener_2020` in **at least 4 of 5 seeds**, on **EOData
+and on at least one other development set**. An equal fit count is a tie and
+does not count toward the 4. Otherwise H0 is not supported. If `fastener_2020`
+meets the same criterion instead, the fixes slowed convergence, and that is
+recorded as the finding.
+
+**Reported beside it, as secondary:**
+
+* the area under the validation curve over the whole budget, which combines
+  speed and level in one number;
+* final test AUF (K = 10), AUF (K = 20) and hypervolume, to show whether faster
+  convergence cost the end result;
+* generations reached and wall clock, because fix 2 changes how many new
+  subsets a generation produces.
+
+A faster arm that ends lower on test AUF (K = 10) is reported as a trade-off,
+not as a better algorithm.
+
+**What H0 does not decide.** H2-H6 use the fixed code whatever H0 finds. That
+choice is fixed here, before any result, so the baseline cannot follow the
+outcome. The fixes correct behaviour the code did not intend. H0 measures what
+that correction costs or gains, and does not decide whether to make it.
+
+**Consequence for H4.** The paper's Table 3 was produced by the 2020 code. H4's
+FASTENER arm therefore differs from the published one in these fixes as well as
+in the protocol. H0 measures the fixes on the development sets only, not on the
+25 benchmarks. If H0 finds a large effect, the H4 write-up states it next to the
+ordering result.
+
 ## H1 -- NSGA-II's weakness at small k is an initialisation artifact
 
-*(first: cheapest, and it shakes out the harness)*
+*(second: cheap, and it shakes out the rest of the harness)*
 
 **Claim.** NSGA-II trails at small feature counts because of where it starts,
 not because the search is worse.
@@ -172,7 +293,7 @@ main reason H1 runs first.
 
 ## H2 -- A size-preserving move changes the front at all, guided or not
 
-*(second: the control for H3; shares a run with it)*
+*(third: the control for H3; shares a run with it, and its stock arm with H0)*
 
 **Claim.** Adding *any* size-preserving swap to FASTENER's pruning step improves
 its front at low k, relative to stock FASTENER.
@@ -199,7 +320,7 @@ likely one given the pilot.
 
 ## H3 -- The guided swap improves FASTENER at small k
 
-*(third: read after its control, though it runs in the same invocation)*
+*(fourth: read after its control, though it runs in the same invocation)*
 
 **Claim.** Replacing a subset's weakest feature (by the permutation scores
 FASTENER already computes) with a feature sampled by mutual information (the
@@ -238,7 +359,7 @@ Any write-up states this.
 
 ## H4 -- The published FASTENER > FS-SDS ordering does not survive a clean protocol
 
-*(fourth: the largest targeted run, on a harness already proven three times)*
+*(fifth: the largest targeted run, on a harness already proven four times)*
 
 **Claim.** Run FASTENER and FS-SDS with the same classifier driving both
 searches and the same total fit budget, and the paper's headline ordering --
@@ -279,7 +400,7 @@ framed as such: a confound identified and measured, not a defect claimed.
 
 ## H5 -- Stock FASTENER is the best selector at low k, across all datasets
 
-*(fifth: the full grid)*
+*(sixth: the full grid)*
 
 **Claim.** With every algorithm run on every dataset under the one protocol,
 stock FASTENER achieves a better low-k score than each of the other algorithms.
@@ -320,7 +441,7 @@ then show where FASTENER stands relative to each method on its own.
 
 ## H6 -- The guided-swap FASTENER is the best selector at low k, across all datasets
 
-*(sixth: read after H5, on the same grid)*
+*(seventh: read after H5, on the same grid)*
 
 **Claim.** Under the same grid and protocol as H5, the guided-swap variant of
 FASTENER achieves a better low-k score than each of the other algorithms --
@@ -367,7 +488,7 @@ below are measured from the files, not transcribed, and are the full datasets
 before the row cap. "Smallest class" is counted after cleaning (see *Dropped
 rows*).
 
-### Development sets -- used by H1, H2, H3, H5 and H6
+### Development sets -- used by H0, H1, H2, H3, H5 and H6
 
 | dataset | rows | features | classes | smallest / largest class | domain | source |
 |---|---:|---:|---:|---|---|---|
@@ -541,25 +662,32 @@ it stands. Items marked **to build** block the hypothesis named.
 |---|---|---|
 | Every dataset loads through `datasets.load(name)` | done -- all 36 | -- |
 | `load_eodata` and `load_tall` take `max_rows` | done | -- |
-| The runner passes the 50,000-row cap to the loader | **to build** -- `run_sota.py` calls `load(name)` with no cap | H1 |
-| One classifier: every method uses `protocol.make_model()` | done except Boruta | -- |
-| Boruta runs on the decision tree | **to build** -- currently a 100-tree random forest | H5 |
-| 6,000-fit cap on FASTENER, NSGA-II, NSGAII-MIIP and POSS | done -- `Config.max_model_fits`, `stop_evaluations` | -- |
-| FS-SDS gets 6,000 in total, 300 per k over k = 1..20 | **to build** -- the budget is currently applied *per k* | H4 |
-| k grid includes every k from 1 to 20 | **to build** -- the current `K_GRID` skips 4, 6, 7, 9, 11, 13, 14 and 16-19 | H1 |
-| AUF computed from the front at every k <= K | **to build** -- `paper_protocol.auf` exists for the replication protocol, not for this one | H1 |
-| Best score per iteration recorded for every algorithm | **to build** -- runs record only a fit-count heartbeat; FASTENER's per-generation pickles hold enough to derive it | H1 |
-| `nsga2_sparse` produces output | **to diagnose** -- it produced zero-byte logs in the previous round | H1 |
+| The runner passes the 50,000-row cap to the loader | done -- `run_sota.py --max-rows`, default `protocol.ROW_CAP` | -- |
+| One classifier: every method uses `protocol.make_model()` | done | -- |
+| Boruta runs on the decision tree | done -- `sota_baselines.TreeForBoruta` | -- |
+| 6,000-fit cap on every search, **exact** | done -- NSGA-II and NSGAII-MIIP used to overshoot by up to a generation (386 fits against a cap of 300 in a smoke run); they now drop offspring past the cap unevaluated | -- |
+| FS-SDS gets 6,000 in total, 300 per k over k = 1..20 | done -- the runner divides the budget over `protocol.FS_SDS_K_RANGE` | -- |
+| k grid includes every k from 1 to 20 | done -- `protocol.K_GRID`, used by every runner | -- |
+| AUF computed from the front at every k <= K | done -- `analysis.auf`, written per method and seed to `auf.csv` under every metric; a test keeps it identical to `make_report.auf` | -- |
+| Best score per iteration recorded for every algorithm | done -- `trajectory.py`, one `trajectories/<method>_seed<seed>.jsonl` per run, each snapshot storing its front | -- |
+| `nsga2_sparse` produces output | done -- the algorithm was never broken; the empty logs came from how it was launched. It is now its own method, so H1 runs both arms in one invocation. Its initialisation also crashed on datasets under 30 features (higgs has 28); fixed | -- |
 | Seeds 2020-2024 | done -- `run_sota.py` uses `2020 + i` | -- |
+| One runner covers every algorithm H5 and H6 compare | done -- `run_sota.py` now also runs the three rankers, RFE, random subsets and all features | -- |
+| Binary and macro F1 stored beside weighted | done -- `protocol.all_scores` | -- |
+| The mating fixes committed in the fastener clone | done -- clone commit `564eb8a`, working tree clean | -- |
+| A `fastener_2020` arm: `include_top_genes=True`, `allow_self_mating=True`, with its own algorithm ID | **to build** -- `run_fastener.py` builds the mating step with defaults only | H0 |
+| Validation AUF (K = 10) per snapshot, and fits to the common target | **to build** -- trajectories store the fronts; nothing computes this yet | H0 |
 
-The first run of H1 is the acceptance test for everything marked blocking H1.
+The first run of H0 is the acceptance test for everything marked blocking H0,
+and for the progress tracking it reads. The first run of H1 is the acceptance
+test for everything else marked blocking H1.
 
 ## Analysis plan
 
 Decided now, so that no metric is chosen after seeing the data:
 
 1. Per hypothesis, the falsification criterion above, evaluated first.
-2. For H1-H3, a per-seed paired comparison against the relevant baseline arm,
+2. For H0-H3, a per-seed paired comparison against the relevant baseline arm,
    reported as the per-seed table, not only as a mean.
 3. Seed spread shown on every figure -- min-max band or per-seed points. A mean
    is never plotted alone.
@@ -620,5 +748,6 @@ or a k.
 
 **What it answers.** Whether an arm's final advantage was there from the start
 or appeared late; whether an arm was still improving when the budget ran out, in
-which case the budget, not the method, set the result; and, for H1, how fast
-each initialisation moves the smallest subset size down.
+which case the budget, not the method, set the result; for H0, how many fits
+each version of FASTENER needs to reach the same low-k score; and, for H1, how
+fast each initialisation moves the smallest subset size down.

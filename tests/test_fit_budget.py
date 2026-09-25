@@ -20,6 +20,17 @@ from item import (
 from test_swap_strategies import CountingModelFactory, make_optimizer
 
 
+class CountingSwapStrategy(InformationGainSwapStrategy):
+    def __init__(self):
+        super().__init__()
+        self.proposed = 0
+
+    def propose(self, item, changes):
+        candidates = super().propose(item, changes)
+        self.proposed += len(candidates)
+        return candidates
+
+
 def run_capped(tiny_data, run_dir, cap, name, swap_strategy=None, rounds=200):
     optimizer = make_optimizer(tiny_data, run_dir, swap_strategy, name,
                                rounds=rounds)
@@ -87,13 +98,15 @@ def test_every_arm_stops_at_the_same_budget(strategy, tiny_data, run_dir):
 def test_swap_evaluations_are_charged_to_the_budget(tiny_data, run_dir):
     """A swap candidate is a fit, so it must consume budget like any other."""
     plain = run_capped(tiny_data, run_dir, cap=60, name="charge_plain")
+    strategy = CountingSwapStrategy()
     swapping = run_capped(tiny_data, run_dir, cap=60, name="charge_swap",
-                          swap_strategy=InformationGainSwapStrategy())
+                          swap_strategy=strategy)
 
+    # Same spend, and the swap arm really did spend part of it on swaps. (Not
+    # "fewer generations": after the first swap the two runs follow different
+    # random paths, so their fits per generation are not comparable.)
     assert plain.model_fits == swapping.model_fits == 60
-    # Same spend, but the swap arm spent part of it on replacement candidates,
-    # so it cannot have completed as many generations.
-    assert swapping.rounds_completed <= plain.rounds_completed
+    assert strategy.proposed > 0
 
 
 def test_the_counter_agrees_with_the_model_factory(tiny_data, run_dir):
