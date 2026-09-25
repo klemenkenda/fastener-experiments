@@ -36,6 +36,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import analysis  # noqa: E402
 import experiment_ids  # noqa: E402
 import h0_convergence  # noqa: E402
+import run_h0  # noqa: E402
 import trajectory as trajectory_io  # noqa: E402
 from provenance import REPO_ROOT, RESULTS_DIR  # noqa: E402
 
@@ -353,6 +354,57 @@ def evaluate_h0(runs: Sequence[Dict]) -> Dict[str, Any]:
 
 
 # --------------------------------------------------------- figures
+# HYPOTHESES.md, "H0 on every other dataset": its own subsection and rule.
+H0_EXT_TITLE = "H0 on every other dataset"
+
+
+def subsection(text: str, title: str) -> Optional[str]:
+    m = re.search(rf"^### {re.escape(title)}.*?(?=^## |^### |^---\s*$|\Z)",
+                  text, flags=re.M | re.S)
+    return m.group(0).strip() if m else None
+
+
+def is_h0_extension(runs: Sequence[Dict]) -> bool:
+    """True when every run is on a dataset of H0's second experiment."""
+    ext = {p["dataset"] for p in run_h0.H0_EXTENSION_PLAN}
+    ds = {(r["manifest"] or {}).get("params", {}).get("dataset")
+          for r in runs if r["manifest"]}
+    return bool(ds) and ds <= ext
+
+
+def evaluate_h0_extension(runs: Sequence[Dict]) -> Dict[str, Any]:
+    """The rule of "H0 on every other dataset", applied by h0_convergence.
+
+    H0-E01's finished runs feed only the secondary test over all datasets.
+    """
+    dirs = [r["dir"] for r in runs
+            if r["manifest"] and (r["dir"] / "trajectories").is_dir()]
+    plan = run_h0.H0_EXTENSION_PLAN
+    row = experiment_ids.find(experiment_ids.load_ledger(), "H0-E01")
+    earlier = []
+    for rid in (row or {}).get("runs", []):
+        d = RESULTS_DIR / rid
+        m = d / "manifest.json"
+        if m.is_file() and json.loads(m.read_text(encoding="utf-8")).get(
+                "status") == "ok":
+            earlier.append(d)
+    s = h0_convergence.extension_summary(
+        dirs, expected=[p["dataset"] for p in plan],
+        groups={p["dataset"]: p["group"] for p in plan},
+        earlier_run_dirs=earlier)
+    budgets = {r["manifest"]["params"]["dataset"]:
+               int(r["manifest"]["params"]["evaluation_budget_per_seed"])
+               for r in runs if r["manifest"]}
+    order = sorted(s["per_dataset"],
+                   key=lambda d: -s["per_dataset"][d]["effect_log2"])
+    return {"kind": "h0_ext", "K": h0_convergence.K, "rows": s["per_seed"],
+            "per_dataset": s["per_dataset"], "datasets": order,
+            "primary": s["primary"], "secondary": s["secondary"],
+            "missing": s["missing"], "budgets": budgets,
+            "earlier_runs": [d.name for d in earlier],
+            "reading": s["verdict"]}
+
+
 def _style(plt) -> None:
     plt.rcParams.update({
         "figure.facecolor": "#fcfcfb", "axes.facecolor": "#fcfcfb",
@@ -472,6 +524,39 @@ def fig_h0_criterion(ev, run_ids, path: Path) -> None:
                  fontsize=10)
     _footer(fig, run_ids, "validation")
     fig.tight_layout(rect=(0, 0.03, 1, 0.97))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_h0_ext_criterion(ev, run_ids, path: Path) -> None:
+    """Per dataset: log2(fits 2020 / fits fixed) per seed, bar = the mean."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    dss = ev["datasets"]
+    fig, ax = plt.subplots(figsize=(7.5, 0.28 * max(8, len(dss)) + 1.6))
+    for i, ds in enumerate(dss):
+        e = [r["effect_log2"] for r in ev["rows"] if r["dataset"] == ds]
+        ax.scatter(e, [i] * len(e), s=18, color=SERIES[0], alpha=0.75,
+                   edgecolor="#fcfcfb", linewidth=0.8, zorder=3)
+        ax.plot([ev["per_dataset"][ds]["effect_log2"]] * 2, [i - 0.35, i + 0.35],
+                color=INK, lw=2, zorder=4)
+    ax.axvline(0, color=INK_2, lw=1)
+    ax.set_yticks(range(len(dss)),
+                  [f"{d} ({ev['per_dataset'][d].get('group') or ''})"
+                   for d in dss], fontsize=7)
+    ax.invert_yaxis()
+    p = ev["primary"]
+    pv = "--" if p["p_value"] is None else f"{p['p_value']:.3g}"
+    ax.set_xlabel("log2(fits to target, 2020 / fixed)  "
+                  "(> 0: the fixed code was faster)")
+    ax.set_title(f"Per dataset: one point per seed, bar = mean\n"
+                 f"{p['positive']} datasets > 0, {p['negative']} < 0, "
+                 f"Wilcoxon p = {pv}")
+    _footer(fig, run_ids, "validation")
+    # The footer lists every run; leave it room below the axis label.
+    lines = 1 + len(", ".join(run_ids)) // int(fig.get_figwidth() * 17)
+    fig.tight_layout(rect=(0, min(0.35, 0.02 + lines * 0.13
+                                  / fig.get_figheight()), 1, 1))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -719,7 +804,13 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
         sec = section(htext, hid)
         K = primary_k(sec or "")
         cells = by_cell(units, K)
-        if hid == "H0":
+        sec_ext = None
+        if hid == "H0" and is_h0_extension(runs):
+            ev = evaluate_h0_extension(runs)
+            sec_ext = subsection(htext, H0_EXT_TITLE)
+            K = ev["K"]
+            arms = list(H0_ARMS)
+        elif hid == "H0":
             ev = evaluate_h0(runs)
             K = ev["K"]
             arms = list(H0_ARMS)
@@ -735,7 +826,17 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
             ev, arms = None, sorted({u["method"] for u in units})
         fig_no += 1
         crit_fig = fig_dir / f"F{fig_no}_{hid}_criterion_auf{K}.png"
-        if ev and ev["kind"] == "h0":
+        if ev and ev["kind"] == "h0_ext":
+            crit_fig = fig_dir / f"F{fig_no}_{hid}_effect_per_dataset.png"
+            fig_h0_ext_criterion(ev, run_ids, crit_fig)
+            write_csv(tab_dir / f"{hid}_per_seed.csv", ev["rows"])
+            write_csv(tab_dir / f"{hid}_per_dataset.csv",
+                      [{"dataset": d, **ev["per_dataset"][d]}
+                       for d in ev["datasets"]])
+            write_csv(tab_dir / f"{hid}_by_group.csv",
+                      [{"group": g, **v} for g, v in
+                       ev["secondary"].get("by_group", {}).items()])
+        elif ev and ev["kind"] == "h0":
             crit_fig = fig_dir / f"F{fig_no}_{hid}_fits_to_target.png"
             fig_h0_criterion(ev, run_ids, crit_fig)
             write_csv(tab_dir / f"{hid}_per_seed.csv", ev["rows"])
@@ -755,7 +856,8 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                        for p in ev["pairs"]])
         figures.append((fig_no, crit_fig, hid, "criterion"))
         per_h.append({"hid": hid, "sec": sec, "K": K, "ev": ev, "arms": arms,
-                      "crit_fig": crit_fig, "fig_no": fig_no})
+                      "crit_fig": crit_fig, "fig_no": fig_no,
+                      "sec_ext": sec_ext})
 
     arms_all = list(dict.fromkeys(a for h in per_h for a in h["arms"]))
     K0 = per_h[0]["K"]
@@ -847,6 +949,21 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
             continue
         lab = labelled(h["sec"])
         L += [f"### {h['hid']}", ""]
+        if h.get("sec_ext"):
+            # The second experiment: its own subsection, plus the arms and the
+            # measure it takes from H0 unchanged. The H0 section's first
+            # labels come from H0-E01's text, before the subsection.
+            base = labelled(h["sec"].split("### " + H0_EXT_TITLE)[0])
+            L += [f"This experiment is *{H0_EXT_TITLE}*; it takes H0's arms "
+                  f"and measure unchanged:", ""]
+            for key in ("Arms", "Primary metric: fits to a common target"):
+                if key in base:
+                    L += [quote(base[key]), ""]
+            L += [quote(h["sec_ext"].splitlines()[0]), ""]
+            for key, para in labelled(h["sec_ext"]).items():
+                if key not in ("Why", "Relation to H0-E01"):
+                    L += [quote(para), ""]
+            continue
         for key in crit_labels:
             if key in lab:
                 L += [quote(lab[key]), ""]
@@ -953,6 +1070,40 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                            [(r["dataset"], r["seed"], r[ev["baseline"]],
                              r[ev["challenger"]], r["delta"])
                             for r in ev["rows"]]), ""]
+        elif ev and ev["kind"] == "h0_ext":
+            p = ev["primary"]
+            L += [f"Primary: {p['positive']} datasets favour the fixed code, "
+                  f"{p['negative']} the 2020 code, {p['zero']} tie; median "
+                  f"effect {fmt(p['median_effect_log2'], 3)}; two-sided "
+                  f"Wilcoxon p = {fmt(p['p_value'])} over n = "
+                  f"{p['n_datasets']} datasets.", ""]
+            if ev["missing"]:
+                L += ["Left out: " + ", ".join(ev["missing"]) + ".", ""]
+            L += [md_table(("dataset", "group", "effect (mean log2)",
+                            "seeds", f"{H0_ARMS[1]} faster",
+                            f"{H0_ARMS[0]} faster", "ties",
+                            f"test AUF {H0_ARMS[1]}", f"test AUF {H0_ARMS[0]}"),
+                           [(d, v.get("group"), fmt(v["effect_log2"], 3),
+                             v["seeds"], v["faster_fixed"], v["faster_2020"],
+                             v["ties"], fmt(v["test_auf10_fixed"]),
+                             fmt(v["test_auf10_2020"]))
+                            for d in ev["datasets"]
+                            for v in (ev["per_dataset"][d],)]), ""]
+            groups = ev["secondary"].get("by_group", {})
+            if groups:
+                L += ["Secondary, by dataset group:", "",
+                      md_table(("group", "datasets", "mean effect",
+                                "> 0", "< 0"),
+                               [(g, v["n"], fmt(v["mean_effect_log2"], 3),
+                                 v["positive"], v["negative"])
+                                for g, v in groups.items()]), ""]
+            a36 = ev["secondary"].get("all_datasets_including_H0_E01")
+            if a36:
+                L += [f"Secondary, all datasets including H0-E01's five "
+                      f"(seen before this experiment was registered): "
+                      f"{a36['positive']} > 0, {a36['negative']} < 0, "
+                      f"Wilcoxon p = {fmt(a36['p_value'])} over n = "
+                      f"{a36['n_datasets']}.", ""]
         elif ev and ev["kind"] == "h0":
             L += [md_table(("dataset", "seeds", f"{H0_ARMS[1]} faster",
                             f"{H0_ARMS[0]} faster", "ties", "counts for"),
@@ -1013,6 +1164,9 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
           "header:", "", "```"]
     L += [f"python experiments/{r['manifest']['command']}"
           for r in runs if r["manifest"]]
+    if any(h["ev"] and h["ev"]["kind"] == "h0_ext" for h in per_h):
+        L += [f"# or all at once: python experiments/run_h0.py --experiment "
+              f"{experiment_id} --plan extension --jobs 14"]
     if h0:
         L += ["python experiments/h0_convergence.py " + " ".join(
             f"results/{r['run_id']}" for r in runs if r["manifest"])

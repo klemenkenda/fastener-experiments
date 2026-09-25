@@ -212,3 +212,28 @@ def test_pairwise_reading():
     ev = make_report.evaluate_pairwise("H4", cells, 20)
     assert ev["reading"] == "supported"
     assert ev["pairs"][0]["wins"] == 25
+
+
+def test_concurrent_add_run_loses_no_run(tmp_path):
+    """Runs started side by side all land in the ledger (H0-E02 lost one)."""
+    import multiprocessing as mp
+    led = tmp_path / "EXPERIMENTS.md"
+    xid = eid.issue("H9", led)
+    run_ids = [f"20260926T0000{i:02d}Z_r{i}" for i in range(12)]
+    with mp.Pool(6) as pool:
+        pool.starmap(eid.add_run, [(xid, r, led) for r in run_ids])
+    row = eid.find(eid.load_ledger(led), xid)
+    assert sorted(row["runs"]) == sorted(run_ids)
+    assert not (tmp_path / "EXPERIMENTS.md.lock").exists()
+
+
+def test_stale_ledger_lock_is_removed(tmp_path):
+    import os
+    import time
+    led = tmp_path / "EXPERIMENTS.md"
+    lock = tmp_path / "EXPERIMENTS.md.lock"
+    lock.write_text("12345")
+    old = time.time() - 600
+    os.utime(lock, (old, old))
+    assert eid.issue("H9", led) == "H9-E01"
+    assert not lock.exists()

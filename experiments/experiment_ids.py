@@ -14,10 +14,13 @@ Usage:
 Nothing here imports FASTENER, so it is safe to use from any script.
 """
 import argparse
+import contextlib
 import hashlib
 import json
+import os
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -123,6 +126,45 @@ def save_ledger(rows: List[Dict[str, Any]], path: Path = LEDGER_PATH) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+@contextlib.contextmanager
+def ledger_lock(path: Path = LEDGER_PATH, timeout: float = 60.0,
+                stale: float = 120.0):
+    """Hold the ledger for one read-modify-write.
+
+    Runs started side by side each add themselves to the ledger at the same
+    moment; without a lock, one read-modify-write can overwrite another's and a
+    run silently drops out of the ledger. A lock file created with O_EXCL is
+    the lock; one older than `stale` seconds is left over from a killed
+    process and is removed.
+    """
+    lock = Path(str(path) + ".lock")
+    deadline = time.time() + timeout
+    while True:
+        try:
+            fd = os.open(str(lock), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(fd, str(os.getpid()).encode())
+            os.close(fd)
+            break
+        except FileExistsError:
+            try:
+                if time.time() - lock.stat().st_mtime > stale:
+                    lock.unlink()
+                    continue
+            except FileNotFoundError:
+                continue
+            if time.time() > deadline:
+                raise TimeoutError(f"could not lock {path} within {timeout} s; "
+                                   f"remove {lock} if no run is starting")
+            time.sleep(0.05)
+    try:
+        yield
+    finally:
+        try:
+            lock.unlink()
+        except FileNotFoundError:
+            pass
+
+
 def find(rows: List[Dict[str, Any]], experiment_id: str) -> Optional[Dict]:
     return next((r for r in rows if r["experiment"] == experiment_id), None)
 
@@ -139,10 +181,11 @@ def next_experiment_id(hypothesis: str, path: Path = LEDGER_PATH) -> str:
 
 def issue(hypothesis: str, path: Path = LEDGER_PATH) -> str:
     """Issue and record the next experiment ID for `hypothesis`."""
-    eid = next_experiment_id(hypothesis, path)
-    rows = load_ledger(path)
-    rows.append(_new_row(eid))
-    save_ledger(rows, path)
+    with ledger_lock(path):
+        eid = next_experiment_id(hypothesis, path)
+        rows = load_ledger(path)
+        rows.append(_new_row(eid))
+        save_ledger(rows, path)
     return eid
 
 
@@ -178,29 +221,31 @@ def check_open(experiment_id: str, path: Path = LEDGER_PATH) -> None:
 
 def add_run(experiment_id: str, run_id: str, path: Path = LEDGER_PATH) -> None:
     """Record `run_id` under `experiment_id`, creating the row if needed."""
-    check_open(experiment_id, path)
-    rows = load_ledger(path)
-    row = find(rows, experiment_id)
-    if row is None:
-        row = _new_row(experiment_id)
-        rows.append(row)
-    if run_id not in row["runs"]:
-        row["runs"].append(run_id)
-    save_ledger(rows, path)
+    with ledger_lock(path):
+        check_open(experiment_id, path)
+        rows = load_ledger(path)
+        row = find(rows, experiment_id)
+        if row is None:
+            row = _new_row(experiment_id)
+            rows.append(row)
+        if run_id not in row["runs"]:
+            row["runs"].append(run_id)
+        save_ledger(rows, path)
 
 
 def set_status(experiment_id: str, status: str, report: Optional[str] = None,
                path: Path = LEDGER_PATH) -> None:
     if status not in STATUSES:
         raise ValueError(f"status must be one of {STATUSES}, not {status!r}")
-    rows = load_ledger(path)
-    row = find(rows, experiment_id)
-    if row is None:
-        raise ValueError(f"{experiment_id} is not in the ledger")
-    row["status"] = status
-    if report is not None:
-        row["report"] = report
-    save_ledger(rows, path)
+    with ledger_lock(path):
+        rows = load_ledger(path)
+        row = find(rows, experiment_id)
+        if row is None:
+            raise ValueError(f"{experiment_id} is not in the ledger")
+        row["status"] = status
+        if report is not None:
+            row["report"] = report
+        save_ledger(rows, path)
 
 
 def report_link(experiment_id: str) -> str:
