@@ -1,7 +1,8 @@
 """FASTENER vs. stronger and more recent feature-selection methods.
 
-Extends run_experiment.py with mRMR, ReliefF, Boruta, HSIC-Lasso, plain NSGA-II
-and a port of NSGAII-MIIP, over two datasets.
+Extends run_experiment.py with mRMR, ReliefF, Boruta, HSIC-Lasso, plain NSGA-II,
+POSS, FS-SDS and a port of NSGAII-MIIP, over two datasets. POSS and FS-SDS are
+the FASTENER paper's own wrapper comparators (its references [11] and [12]).
 
 Work is parallelised across (method, seed) tasks with joblib, since the
 population-based searches dominate the runtime and are independent of each other.
@@ -47,6 +48,9 @@ def parse_args():
     ap.add_argument("--rounds", type=int, default=600)
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--ga-evaluations", type=int, default=GA_EVALUATIONS)
+    ap.add_argument("--poss-k", type=int, default=None,
+                    help="POSS's constraint parameter (2k features and above "
+                         "are infeasible). Default min(50, n_features).")
     ap.add_argument("--jobs", type=int, default=6,
                     help="parallel workers for the (method, seed) tasks")
     ap.add_argument("--quick", action="store_true")
@@ -139,6 +143,10 @@ def main() -> int:
         for seed in seeds:
             tasks.append(("fastener", seed))
             tasks.append(("nsga2", seed))
+            tasks.append(("poss", seed))
+            # FS-SDS runs once per k, so its task is much longer than the
+            # others; it goes in early so it is not the straggler at the end.
+            tasks.append(("fs_sds", seed))
             tasks.append(("nsgaii_miip", seed))
             tasks.append(("nsgaii_miip_sparse", seed))
 
@@ -164,6 +172,14 @@ def main() -> int:
                     res = run_fastener(ds, run.dir, seed=seed, rounds=rounds)
                 elif method == "nsga2":
                     res = sota.run_nsga2(ds, seed=seed, stop_evaluations=ga_evals)
+                elif method == "poss":
+                    res = sota.run_poss_method(ds, seed=seed,
+                                               stop_evaluations=ga_evals,
+                                               k=args.poss_k)
+                elif method == "fs_sds":
+                    # ga_evals is PER K here -- see run_fs_sds_method.
+                    res = sota.run_fs_sds_method(ds, ks, seed=seed,
+                                                 stop_evaluations=ga_evals)
                 elif method == "nsgaii_miip":
                     res = sota.run_nsgaii_miip_method(
                         ds, seed=seed, stop_evaluations=ga_evals,
@@ -227,7 +243,7 @@ def main() -> int:
         run.write_json("raw_results.json", all_results)
         run.write_json("comparison_rows.json", rows)
 
-        for stochastic in ("fastener", "nsgaii_miip", "nsga2"):
+        for stochastic in ("fastener", "nsgaii_miip", "nsga2", "poss", "fs_sds"):
             sig = analysis.seed_significance(rows, ks, stochastic=stochastic)
             run.manifest.setdefault("seed_significance", {})[stochastic] = sig
         run.write_json("seed_significance.json", run.manifest["seed_significance"])

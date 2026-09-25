@@ -148,6 +148,8 @@ def render_plot(rows: List[Dict], out_path: Path, title: str) -> Path:
         "boruta": dict(color="#6D4C41", lw=1.6, marker="h"),
         "hsic_lasso": dict(color="#AD1457", lw=1.6, marker="8"),
         "nsga2": dict(color="#546E7A", lw=2.0, marker="<", ls="-."),
+        "poss": dict(color="#00695C", lw=2.0, marker="p", ls="-."),
+        "fs_sds": dict(color="#7B1FA2", lw=1.8, marker="d", ls=":"),
         "nsgaii_miip": dict(color="#283593", lw=2.4, marker=">", zorder=4),
         "nsgaii_miip_sparse": dict(color="#5C6BC0", lw=1.8, marker=">", ls="--"),
     }
@@ -266,3 +268,151 @@ def head_to_head(rows: List[Dict], method_a: str, method_b: str,
             "significant_at_0.05": bool(p < 0.05),
         })
     return out
+
+
+# ---------------------------------------------------------------------------
+# Hypervolume: one number per front, so two searches can be compared at all
+# ---------------------------------------------------------------------------
+
+def hypervolume(records: List[Dict], n_features: int,
+                score_key: str = "test_score",
+                min_score: float = 0.0,
+                max_features: int = None) -> float:
+    """Area of the (few features, high score) region dominated by a front.
+
+    Two objectives: MINIMISE the number of features, MAXIMISE the score. A point
+    (k, s) dominates the rectangle from k out to the reference feature count and
+    from the reference score up to s; the hypervolume is the area of the union.
+
+    Reference point: (`max_features`, `min_score`), defaulting to the full
+    feature set at score 0. Both ends are deliberate. Anchoring the feature axis
+    at the full set means the all-features solution -- "no selection at all" --
+    contributes exactly nothing, which is the right zero for a feature selector.
+
+    The ABSOLUTE value is not meaningful; only differences between methods
+    measured against the SAME reference point are. Pass the same `n_features`
+    and `min_score` everywhere, or the comparison is meaningless.
+
+    Selection and measurement are kept apart by the caller: pass the front that
+    `protocol.pareto_front` picked on validation, and `score_key="test_score"`
+    to measure it on the untouched test set.
+    """
+    ref_k = n_features if max_features is None else max_features
+
+    # Keep the staircase: sorted by size, each point strictly better than the
+    # last, so a dominated record cannot contribute area.
+    best_at_size: Dict[int, float] = {}
+    for r in records:
+        k = int(r["n_features"])
+        s = float(r[score_key])
+        if k not in best_at_size or s > best_at_size[k]:
+            best_at_size[k] = s
+
+    area = 0.0
+    previous_score = min_score
+    for k in sorted(best_at_size):
+        score = best_at_size[k]
+        if k >= ref_k or score <= previous_score:
+            continue
+        # Slab between the previous score and this one, spanning the feature
+        # axis from this point out to the reference.
+        area += (score - previous_score) * (ref_k - k)
+        previous_score = score
+    return float(area)
+
+
+def normalised_hypervolume(records: List[Dict], n_features: int,
+                           score_key: str = "test_score",
+                           min_score: float = 0.0,
+                           max_score: float = 1.0,
+                           max_features: int = None) -> float:
+    """`hypervolume` scaled to [0, 1] by the best front that could exist.
+
+    The ideal is a single point at one feature and a perfect score, so the
+    divisor is (ref_k - 1) * (max_score - min_score). Useful for reading a
+    number across datasets with different feature counts; within one dataset it
+    is just a rescaling of `hypervolume`.
+    """
+    ref_k = n_features if max_features is None else max_features
+    ideal = (ref_k - 1) * (max_score - min_score)
+    if ideal <= 0:
+        return 0.0
+    return hypervolume(records, n_features, score_key, min_score, max_features) / ideal
+
+
+def hypervolume_by_seed(all_results: List[Dict], n_features: int,
+                        score_key: str = "test_score",
+                        min_score: float = 0.0) -> List[Dict]:
+    """One hypervolume per (method, seed), from each run's val-selected front."""
+    from protocol import pareto_front
+
+    out = []
+    for res in all_results:
+        records = res.get("records") or []
+        if not records:
+            continue
+        front = pareto_front(records)
+        out.append({
+            "method": res["method"],
+            "seed": res.get("seed"),
+            "hypervolume": round(hypervolume(front, n_features, score_key,
+                                             min_score), 4),
+            "hypervolume_normalised": round(
+                normalised_hypervolume(front, n_features, score_key, min_score), 6),
+            "front_size": len(front),
+            "smallest_subset": min(r["n_features"] for r in front),
+            "best_test_f1": round(max(r["test_score"] for r in front), 4),
+            "model_fits": res.get("model_fits"),
+            "search_seconds": res.get("search_seconds"),
+        })
+    return out
+
+
+def paired_hypervolume(hv_rows: List[Dict], method_a: str,
+                       method_b: str) -> Dict:
+    """Paired test of two methods' hypervolumes, matched by seed.
+
+    Reports both a paired t-test and Wilcoxon signed-rank. With the handful of
+    seeds these runs use, neither has much power and the t-test's normality
+    assumption is not checkable -- the point of showing both is that a claim
+    resting on only one of them is not a claim worth making.
+    """
+    from scipy import stats
+
+    a = {r["seed"]: r["hypervolume"] for r in hv_rows if r["method"] == method_a}
+    b = {r["seed"]: r["hypervolume"] for r in hv_rows if r["method"] == method_b}
+    shared = sorted(set(a) & set(b))
+    if len(shared) < 2:
+        return {"method_a": method_a, "method_b": method_b,
+                "n_pairs": len(shared), "note": "too few shared seeds to test"}
+
+    va = np.array([a[s] for s in shared], dtype=float)
+    vb = np.array([b[s] for s in shared], dtype=float)
+    diff = va - vb
+
+    if np.allclose(diff, 0):
+        t_p = w_p = 1.0
+        t_stat = 0.0
+    else:
+        t_stat, t_p = stats.ttest_rel(va, vb)
+        try:
+            _, w_p = stats.wilcoxon(va, vb)
+        except ValueError:
+            # Wilcoxon needs at least one non-zero difference and enough pairs.
+            w_p = float("nan")
+
+    return {
+        "method_a": method_a,
+        "method_b": method_b,
+        "n_pairs": len(shared),
+        "seeds": shared,
+        "mean_a": round(float(va.mean()), 4),
+        "mean_b": round(float(vb.mean()), 4),
+        "delta": round(float(diff.mean()), 4),
+        "sd_delta": round(float(diff.std(ddof=1)), 4),
+        "a_wins": int((diff > 0).sum()),
+        "t_statistic": round(float(t_stat), 3),
+        "p_value_ttest": round(float(t_p), 4),
+        "p_value_wilcoxon": None if w_p != w_p else round(float(w_p), 4),
+        "significant_at_0.05": bool(t_p < 0.05),
+    }

@@ -45,6 +45,11 @@ def parse_args():
     ap.add_argument("--number-of-swaps", type=int, default=1,
                     help="swap candidates proposed per pruned subset "
                          "(ignored by --swap none)")
+    ap.add_argument("--max-fits", type=int, default=None,
+                    help="cap every FASTENER arm at this many unique model "
+                         "fits. REQUIRED for a fair multi-arm comparison: the "
+                         "swap arms buy extra fits per generation, so equal "
+                         "--rounds is not equal budget")
     ap.add_argument("--name", default="madelon_baseline")
     return ap.parse_args()
 
@@ -57,6 +62,10 @@ def main() -> int:
     seeds = [2020 + i for i in range(n_seeds)]
     # No --swap means the published algorithm, exactly as before.
     arms = args.swap or ["none"]
+    if len(arms) > 1 and args.max_fits is None:
+        print("WARNING: comparing several arms without --max-fits. The swap "
+              "arms spend extra fits per generation, so equal --rounds gives "
+              "them more compute and any difference is confounded.\n")
 
     ds = load_madelon()
     print(ds)
@@ -118,11 +127,13 @@ def main() -> int:
             for seed in seeds:
                 res = run_fastener(ds, run.dir, seed=seed, rounds=rounds,
                                    swap=arm,
-                                   number_of_swaps=args.number_of_swaps)
+                                   number_of_swaps=args.number_of_swaps,
+                                   max_fits=args.max_fits)
                 best = max(res["records"], key=lambda r: r["val_score"])
                 print(f"  seed {seed}: front={len(res['records']):2d} "
                       f"best test_f1={best['test_score']:.4f} @k={best['n_features']} "
-                      f"fits={res['model_fits']} ({res['search_seconds']}s)")
+                      f"fits={res['model_fits']} ({res['search_seconds']}s) "
+                      f"stopped_on={res['stopped_on']}")
                 fastener_results.append(res)
                 all_results.append(res)
 
@@ -158,6 +169,22 @@ def main() -> int:
         run.record("seed_significance", sig)
         run.write_json("seed_significance.json", sig)
 
+        # ---- one scalar per front, and the arm-vs-arm paired test ----------
+        hv_rows = analysis.hypervolume_by_seed(all_results, ds.n_features)
+        run.record("hypervolume_reference_point",
+                   {"max_features": ds.n_features, "min_score": 0.0,
+                    "score": "test_f1 of the val-selected front"})
+        run.write_json("hypervolume.json", hv_rows)
+
+        arm_methods = sorted({r["method"] for r in fastener_results})
+        pairs = []
+        for other in arm_methods:
+            if other != "fastener":
+                pairs.append(analysis.paired_hypervolume(hv_rows, other, "fastener"))
+        if pairs:
+            run.record("arm_comparison_hypervolume", pairs)
+            run.write_json("arm_comparison.json", pairs)
+
         run.write_json("raw_results.json", all_results)
         run.write_json("comparison_rows.json", rows)
 
@@ -185,6 +212,7 @@ def main() -> int:
         # ---- headline ----------------------------------------------------
         print(f"\nwrote {csv_path.name}, raw_results.json, {plot_path.name}")
         summarise(rows, ks)
+        summarise_hypervolume(hv_rows, pairs)
         summarise_significance(sig)
 
     print(f"\nmanifest: {run.dir / 'manifest.json'}")
@@ -205,6 +233,38 @@ def summarise(rows, ks) -> None:
             vals = [r["test_f1"] for r in rows if r["method"] == m and r["budget_k"] == k]
             cells.append(f"{np.mean(vals):8.3f}" if vals else " " * 8)
         print("  " + m.ljust(20) + "".join(cells))
+
+
+def summarise_hypervolume(hv_rows, pairs) -> None:
+    """One number per front, then the arms against the published algorithm."""
+    if not hv_rows:
+        return
+    methods = sorted({r["method"] for r in hv_rows})
+    print("\nhypervolume of the val-selected front, measured on test "
+          "(reference point: all features at score 0):")
+    print(f"  {'method':24s}{'mean':>9} {'sd':>8} {'seeds':>6} {'fits':>8} {'best k':>7}")
+    print("  " + "-" * 66)
+    for m in methods:
+        vals = [r["hypervolume"] for r in hv_rows if r["method"] == m]
+        fits = [r["model_fits"] for r in hv_rows
+                if r["method"] == m and r["model_fits"] is not None]
+        smallest = [r["smallest_subset"] for r in hv_rows if r["method"] == m]
+        sd = float(np.std(vals, ddof=1)) if len(vals) > 1 else 0.0
+        print(f"  {m:24s}{np.mean(vals):>9.2f} {sd:>8.2f} {len(vals):>6} "
+              f"{(int(np.mean(fits)) if fits else 0):>8} {min(smallest):>7}")
+
+    if not pairs:
+        return
+    print("\nswap arm vs published FASTENER (hypervolume, paired by seed):")
+    for p in pairs:
+        if p.get("n_pairs", 0) < 2:
+            print(f"  {p['method_a']:24s} {p.get('note', 'not enough pairs')}")
+            continue
+        print(f"  {p['method_a']:24s} delta={p['delta']:+8.2f} "
+              f"(sd {p['sd_delta']:.2f})  wins {p['a_wins']}/{p['n_pairs']}  "
+              f"p_t={p['p_value_ttest']:.3f}  p_w={p['p_value_wilcoxon']}")
+    print("  Note: a delta is not a result unless every arm stopped on "
+          "fit_budget -- check stopped_on above.")
 
 
 def summarise_significance(sig) -> None:

@@ -40,3 +40,7 @@ Thumbs.db
 # Live progress heartbeats and background run logs: per-run scratch, not results.
 results/**/progress.json
 results/*.log
+
+# Crash-recovery duplicate of raw_results.json, written during a run and
+# byte-identical to it when the run finishes.
+results/**/raw_results_partial.json

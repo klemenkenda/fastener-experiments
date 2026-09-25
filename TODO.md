@@ -41,15 +41,33 @@ Compare three versions:
 
 The middle arm is the ablation that isolates the guidance. It only earns its place because the third arm guides both ends -- with uniform \(j\) the two swap arms would differ solely in the choice of \(i\), which is too thin to be worth the compute.
 
-**Budget.** Equal rounds is not equal budget: the swap arms buy extra fits per generation. [`run_experiment.py`](experiments/run_experiment.py) currently fixes `--rounds` and counts fits after the fact via `CountingModelFactory`. Convert that into a fit-capped stopping condition so every arm halts at the same number of fits. `cached_fitness` makes repeated subsets free, so count *unique* fits, and count every added swap evaluation against the cap.
+**Budget.** *Done.* Equal rounds is not equal budget: the swap arms buy extra fits per generation. `Config.max_model_fits` now stops a run at a fixed number of unique model fits, checked inside `_fitness_function` so the cap is exact rather than per-generation; cache hits and permutation scoring are not charged, every swap candidate is. `run_experiment.py --max-fits` applies one budget to every arm, records `stopped_on` per run, and warns when several arms are run without it.
 
-**Measurement.** Report the accuracy-feature-count Pareto front, and add a scalar so the arms are actually comparable: hypervolume (or attainment surface) over the front, with a paired test across seeds. [`analysis.py`](experiments/analysis.py) currently averages over seeds and tabulates by \(k\), with no test -- that needs adding. Fix the seed count explicitly; the runner defaults to 5, which is thin for a paired test. Also report elapsed time including permutation scoring.
+**Measurement.** *Mostly done.* `analysis.hypervolume` scores a front by the area it dominates in (few features, high score), against a fixed reference point of all features at score 0, so the all-features non-solution contributes zero; `hypervolume_by_seed` gives one row per (arm, seed) and `paired_hypervolume` the seed-paired t-test and Wilcoxon against the published algorithm. Selection stays on validation, measurement on test. Elapsed time already includes permutation scoring, since `search_seconds` wraps the whole mainloop.
+
+*Still open:* fix the seed count explicitly. The runner defaults to 5, which is thin for a paired test -- at \(n=5\) an arm can be genuinely better and still not show it. Use `--seeds 10` or more for an arm comparison; the default is shared with the baseline experiment and was left alone.
 
 **Splits.** [`protocol.py`](experiments/protocol.py) already covers this: three-way stratified train/val/test, `pareto_front` selecting on `val_score`, test untouched during search. It matters more than it sounds -- the reference [`eval_fun`](fastener/fastener.py#L329) scores on `XX_test`, the same data that drives selection, so paper-style FASTENER numbers are optimistic and ours will come in lower. Say so explicitly when reporting, or the comparison will look like a regression.
 
-If an Earth-observation dataset is added, split by spatial blocks or regions. Right now only MADELON is in `data/`, so either name the EO dataset and fetch it or drop it from the plan.
+If an Earth-observation dataset is added, split by spatial blocks or regions.
 
-**Baselines.** Implemented so far: MI / ANOVA-F / tree-importance rankers, RFE, random subsets, all-features. For a current-SotA claim, add recent evolutionary baselines that already incorporate relevance/redundancy guidance. NSGAII-MIIP and BGR-FS were noted as candidates but are neither cited nor implemented -- track down the actual references and confirm they exist before they go into the plan.
+**The EO dataset is named and confirmed:** [Šircelj, Kenda & Koprivec (2020), "Land Patch Samples", PANGAEA](https://doi.org/10.1594/PANGAEA.914271) -- the dataset behind the FASTENER paper itself. Slovenia 2017, 480×10³ pixel samples, 182 features (4 raw Sentinel-2 bands + 6 vegetation indices over 10 time steps, 18 derived indices, plus DEM height and inclination), 24 classes (23 LPIS-derived agricultural classes grouped from 177 originals, plus non-agricultural). CC-BY-4.0, single 1.3 GB ARFF at `https://hs.pangaea.de/sat/LPIS/FASTENER_dataset.arff`.
+
+Two things to settle before it goes in `data/`: the download host throttles large files (503 "Please wait…" pages, so the fetcher needs retry-with-backoff, not a single `urlopen`), and the spatial split needs a parcel or coordinate column to block on -- whether the ARFF carries one has to be checked against the actual file, since the paper says edge pixels were dropped per land plot but does not say the plot id survives into the published table. Note that 480k rows × 182 features is ~100× MADELON, so a wrapper search over it is a different cost regime.
+
+**Baselines.** Implemented so far: MI / ANOVA-F / tree-importance rankers, RFE, random subsets, all-features, plus mRMR, ReliefF, Boruta, HSIC-Lasso, NSGA-II, POSS ([`poss.py`](experiments/poss.py) -- Qian, Yu & Zhou 2015, the Pareto-archive method closest in shape to FASTENER, so it is the control for what crossover, information guidance and pruning are worth on top of archiving alone) and FS-SDS ([`fs_sds.py`](experiments/fs_sds.py) -- Alhakbani & al-Rifaie 2017). **POSS and FS-SDS are the FASTENER paper's own wrapper comparators, its references [11] and [12]**, so the SotA run now covers the paper's own comparison under a protocol that scores every method identically. NSGAII-MIIP was confirmed to exist and is ported from the authors' MATLAB (see `experiments/README.md`). **BGR-FS is dropped from the plan**: it is paywalled with no public code, and implementing it from the abstract would produce a strawman that says more about the reimplementation than about the method.
+
+## Prior art for the swap: FS-SDS
+
+**Found while implementing the baseline, and it narrows the claim.** FS-SDS's diffusion move is exactly the proposed swap: copy a good agent's subset, drop one selected feature at random, add one unselected feature at random. Uniform at both ends, size-preserving by construction ([`swap_once`](experiments/fs_sds.py)). It was published in 2017 and is cited by the FASTENER paper itself as reference [12].
+
+Three consequences:
+
+- **The `fastener_swap_random` arm is not novel as an operator.** It is FS-SDS's diffusion move relocated into FASTENER's pruning step. That is still a worthwhile ablation -- the question of what the operator does *inside FASTENER* is open -- but it should be described as a known move, with a citation, not as a new one.
+- **The guided arm is where the claim now lives.** FS-SDS has no information-gain term anywhere; both ends of its swap are uniform. Choosing \(i\) by permutation importance and \(j\) by mutual information, reusing quantities FASTENER already computes, is the part with no published precedent found so far.
+- **The "no FASTENER operator preserves subset size" argument survives intact** -- it is an argument about FASTENER, not about novelty -- but it should now be phrased as "FASTENER lacks the size-preserving move that FS-SDS builds its whole search on", which is both more accurate and a stronger motivation.
+
+A literature check for the guided variant specifically (permutation-importance-weighted removal plus MI-weighted insertion) is still worth doing before any write-up claims novelty.
 
 ## Scope of the claim
 

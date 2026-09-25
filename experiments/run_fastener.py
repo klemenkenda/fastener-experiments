@@ -111,6 +111,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  quiet: bool = True,
                  swap: Optional[str] = None,
                  number_of_swaps: int = 1,
+                 max_fits: Optional[int] = None,
+                 dump_logs: bool = True,
                  method_name: Optional[str] = None) -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
@@ -124,6 +126,18 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
 
     Each swap candidate costs one extra model fit per pruned subset, which
     `model_fits` in the returned dict accounts for.
+
+    `dump_logs` controls FASTENER's own per-generation pickles. They hold the
+    whole population plus the fitness cache -- megabytes per generation on a
+    wide data set -- and nothing here reads them, so a batch of hundreds of runs
+    passes False. The default preserves the reference behaviour.
+
+    `max_fits` caps the number of unique subsets fitted and stops the search
+    there, whatever `rounds` says. Comparing arms is only meaningful under a
+    fit cap: the swap arms buy extra fits per generation, so at equal rounds
+    they would simply have been given more compute. With a cap, set `rounds`
+    high enough that the budget is what actually stops the run -- `stopped_on`
+    in the result says which of the two did.
     """
     factory = CountingModelFactory()
 
@@ -151,6 +165,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             number_of_rounds=rounds,
             max_bucket_size=max_bucket_size,
             reset_to_pareto_rounds=reset_to_pareto_rounds,
+            max_model_fits=max_fits,
+            dump_generation_logs=dump_logs,
         )
         optimizer = EntropyOptimizer(
             factory, ds.X_train, ds.y_train,
@@ -197,9 +213,14 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             "mating": "IntersectionMatingWithWeightedRandomInformationGain",
             "swap": swap or "none",
             "number_of_swaps": number_of_swaps if swap_strategy is not None else 0,
+            "max_fits": max_fits,
         },
         "search_seconds": round(search_seconds, 2),
         "model_fits": search_fits,
+        # Which limit ended the run: "fit_budget" or "rounds". An arm comparison
+        # where some arms stopped on "rounds" was not run at equal budget.
+        "stopped_on": optimizer.stop_reason,
+        "rounds_completed": optimizer.rounds_completed,
         "unique_subsets_cached": len(optimizer.cache_data),
         "log_dir": str((run_dir / "log" / f"{method}_seed{seed}").resolve()),
         "records": records,

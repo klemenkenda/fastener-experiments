@@ -131,8 +131,105 @@ recent competitors, across two datasets.
 | `boruta` | all-relevant | `BorutaPy`, RF shadow features |
 | `hsic_lasso` | kernel filter | `pyHSICLasso`, detects non-linear dependence |
 | `nsga2` | multi-objective EA | implemented here; the baseline both recent papers benchmark against |
+| `poss` | Pareto archive | Qian, Yu & Zhou 2015, implemented from the published Algorithm 1 |
+| `fs_sds` | swarm (SDS) | Alhakbani & al-Rifaie 2017, from the authors' reference implementation |
 | `nsgaii_miip` | multi-objective EA | **ported** from the authors' MATLAB (2025) |
 | `nsgaii_miip_sparse` | multi-objective EA | the port with a **non-faithful** sparse init, as a control |
+
+### FASTENER's own comparators
+
+Two of the methods here are the ones the FASTENER paper itself benchmarks
+against: **POSS** (its reference [11]) and **FS-SDS** (its reference [12]).
+Running them under this experiment's protocol is the closest thing available to
+a replication of the paper's own comparison -- with the difference that here
+every method is scored identically, whereas the paper let each method keep its
+own classifier (FS-SDS on an Extreme Learning Machine, FASTENER on a decision
+tree). That difference is the point: it separates the search from the learner.
+
+### About FS-SDS
+
+[`fs_sds.py`](fs_sds.py) implements **Feature Selection using Stochastic
+Diffusion Search** (Alhakbani & al-Rifaie, GECCO 2017). SDS is a swarm method:
+agents hold hypotheses, a TEST phase marks each agent active or inactive against
+a randomly drawn peer, and a DIFFUSION phase spreads good hypotheses by direct
+agent-to-agent contact, with random restarts for agents whose contact was
+inactive.
+
+The [authors' reference implementation](https://github.com/mohmaj/SDS-FS) is
+public but carries **no licence**, so the code here is written fresh from
+reading it; the mechanics are theirs, the code is not, and these are not their
+results.
+
+**It fixes k for a whole run.** Every agent holds exactly k features from start
+to finish -- there is no size objective, so one run produces one point rather
+than a front, and a curve costs one run per k. That is the structural difference
+from FASTENER, POSS and NSGA-II, and the FASTENER paper makes the same point
+(Section 5.4: "Both FS-SDS and DT-forward are rigid when selecting the feature
+subset size"). It is also why FS-SDS is planned and budgeted separately in the
+runner: `stop_evaluations` is PER K, so the total is (budget x |k-grid|).
+
+**On budget, two decisions worth knowing about:**
+
+- Each run gets the same fit budget a whole run of any other search gets, and
+  the much larger total is reported rather than charged against it. Splitting
+  one shared budget across the grid would leave a few hundred fits per k and
+  manufacture a weak result out of a cost structure the method cannot help.
+- The reference implementation stops after 50 sweeps, which on MADELON is
+  ~2600 fits per k -- *less* than the shared budget. Stopping there would hand
+  FS-SDS less compute than its competitors and then report it as weaker, so the
+  iteration cap is off by default and the budget is what stops a run.
+  `--sds-iterations 50` restores the reference behaviour.
+
+**It is competitive, and that is worth saying plainly.** On MADELON at 6000
+fits per k (seed 2020) it reaches test F1 0.819 at k=5, above FASTENER's ~0.81
+and POSS's ~0.80 on the same split. Where it loses is cost: three k values cost
+18,000 fits against 6,000 for one complete run of either. The FASTENER paper
+reports beating it on 24 of 25 benchmark data sets; MADELON is not among those
+25, and the protocol here differs, so the two statements do not conflict -- but
+nothing in this run reproduces a walkover, and the results should not be written
+up as if it did.
+
+**A note for the swap-operator work in `TODO.md`.** FS-SDS's diffusion move is a
+uniform-random, size-preserving swap: copy an active agent's subset, drop one
+selected feature, add one unselected. That is the same neighbourhood as the
+proposed `fastener_swap_random` arm, published in 2017 and cited by the FASTENER
+paper. It is prior art for the swap itself -- not for guiding it, since FS-SDS
+picks both ends uniformly and has no information-gain term. The novelty claim
+should be scoped to the guidance accordingly.
+
+### About POSS
+
+[`poss.py`](poss.py) implements **Pareto Optimization for Subset Selection**
+(Qian, Yu & Zhou, NIPS 2015) from the published Algorithm 1. Unlike the
+NSGAII-MIIP port there is no large external source being transliterated -- the
+pseudocode is a dozen lines and is reproduced in the module docstring next to
+the code -- so the room for a porting artefact is much smaller.
+
+It is in the comparison because it is the closest published relative of
+FASTENER: a Pareto **archive** over (quality, subset size), advanced by
+single-parent bit-flip mutation, with no crossover, no information guidance and
+no pruning. It is the control for how much of FASTENER's result comes from those
+operators rather than from Pareto archiving itself.
+
+Three documented departures: the objective is this experiment's shared metric
+(not the paper's R^2 / submodular f), the budget is the shared model-fit budget,
+and the whole archive is reported as a curve while the paper's own single answer
+(best subset with |s| <= k) is reported separately as `native_subset`.
+
+**The budget departure is the one that matters.** The paper's T is 2*e*k^2*n --
+6.8M evaluations at n=500, k=50, against the 6000 fits every arm here gets. Each
+run records `theoretical_evaluations` beside what it was granted. A weak showing
+by POSS in these results is evidence about its anytime behaviour at 6000 fits,
+**not** about the published algorithm, whose approximation guarantee needs the
+full T and a submodular objective that a wrapper score is not.
+
+Measured consequence on MADELON (6000 fits, seed 2020): the archive spans sizes
+1-7, reaching test F1 0.80 at 7 features, and not one draw is rejected as
+infeasible -- POSS grows from the empty set one accepted bit-flip at a time, so
+k never binds and the curve simply stops in single digits. This is the exact
+mirror of the NSGAII-MIIP initialisation problem below: that search never comes
+down below ~200 features, this one never gets up past ~8. `subset_size_reach`
+records both, so neither reads as missing data.
 
 ### About the NSGAII-MIIP port
 
@@ -260,20 +357,55 @@ The arms appear as separate methods (`fastener`, `fastener_swap_random`,
 `fastener_swap_guided`) in `comparison.csv`, in the plot and in the significance
 table, each with its own `log/` directory and its own fit count.
 
+### Equal budget: `--max-fits`
+
+Equal `--rounds` is **not** equal compute. The swap arms buy one extra model fit
+per pruned subset, so at fixed rounds they are simply given more search. Pass
+`--max-fits` and every arm stops at the same number of unique model fits:
+
+```bash
+python experiments/run_experiment.py     --swap none --swap random --swap guided     --max-fits 6000 --rounds 100000 --seeds 10
+```
+
+Set `--rounds` high enough that the budget, not the round count, is what stops
+the run; `stopped_on` is printed per seed and stored per run, and reads
+`fit_budget` when the cap bound and `rounds` when it did not. Running several
+arms without `--max-fits` prints a warning, because the comparison is confounded.
+
+The cap is exact, not per-generation: `Config.max_model_fits` is checked inside
+the one function that fits a model, so a generation cannot overshoot it by
+however many subsets it happened to contain. What counts as a fit:
+
+| costs budget | does not |
+|---|---|
+| a subset evaluated for the first time | a subset already in the cache |
+| the pruning step's deletion candidate | permutation scoring (it predicts, never fits) |
+| every swap candidate | |
+
+### The scalar: hypervolume
+
+A Pareto front is not one number, so arms are also compared by the hypervolume
+of the region they dominate — few features (minimised) against test score
+(maximised). The reference point is **all features at score 0**, which makes the
+all-features solution, i.e. no selection at all, contribute exactly zero.
+
+The absolute value means nothing; only differences against the same reference
+point do. `hypervolume.json` holds one row per (arm, seed), and
+`arm_comparison.json` the paired comparison of each swap arm against the
+published algorithm, matched by seed, reporting both a paired t-test and
+Wilcoxon signed-rank. Selection and measurement stay apart: the front is the one
+`protocol.pareto_front` picked on validation, scored on the untouched test set.
+
 ### What this is not, yet
 
-The measurement side of the TODO's experiment plan is **not** implemented:
+Fixing the seed count is still open. The runner defaults to 5 seeds, which is
+thin for a paired test — with `n=5` the t-test has little power, so an arm can
+be genuinely better and still not show it. `--seeds 10` or more is the honest
+setting for an arm comparison, and the default is left alone only because it is
+shared with the baseline experiment.
 
-- **Budget.** `--rounds` is still equal *rounds*, not equal *fits*. The swap arms
-  buy extra fits per generation (one per pruned subset), so an arm comparison at
-  fixed rounds gives the swap arms more compute. `model_fits` is recorded per
-  arm in the manifest, but nothing stops a run at a fit cap yet.
-- **Scalar comparison.** No hypervolume/attainment-surface summary over the
-  front and no paired test across seeds; `seed_significance` still compares each
-  arm against the deterministic baselines, not the arms against each other.
-
-Until both are in place, a difference between arms here is an observation, not
-a result.
+A difference between arms is not a result unless every arm stopped on
+`fit_budget` and the seed count is stated.
 
 ## Tests
 

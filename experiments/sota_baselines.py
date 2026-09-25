@@ -16,6 +16,19 @@ implemented directly -- none is a guess at an unpublished method.
   nsga2       Plain NSGA-II wrapper search -- the multi-objective evolutionary
               baseline that both NSGAII-MIIP and BGR-FS benchmark against. This
               is the direct architectural comparator for FASTENER.
+  poss        Pareto Optimization for Subset Selection (Qian et al. 2015): a
+              Pareto ARCHIVE advanced by single-parent bit-flip mutation. The
+              same shape as FASTENER, without crossover, information guidance
+              or pruning, so it isolates what those operators are worth.
+  fs_sds      Feature Selection using Stochastic Diffusion Search (Alhakbani &
+              al-Rifaie 2017): a swarm of agents holding fixed-size subsets,
+              spreading good ones by direct contact. Fixed k per run, so one
+              run per feature count.
+
+`poss` and `fs_sds` are the FASTENER paper's own wrapper comparators, its
+references [11] and [12]. Running them here is the closest this experiment gets
+to reproducing the paper's comparison under a protocol that scores every method
+identically.
 
 Every selector is fit on TRAIN ONLY and its subsets are scored through
 protocol.evaluate_subset, identically to every other method.
@@ -125,25 +138,39 @@ def run_relieff(ds, ks: List[int], counter: FitCounter,
 
 # --------------------------------------------------------------------- Boruta
 def run_boruta(ds, ks: List[int], counter: FitCounter,
-               max_iter: int = 100) -> Dict:
+               max_iter: int = 100, seed: int = SEED) -> Dict:
     """Boruta selects a SET, not a ranking, so it yields one subset.
 
     Its feature ranking is used to fill the k-grid, but the method's own answer
     is the confirmed set, reported separately as `native_subset`.
+
+    Boruta is stochastic: it permutes every column to build shadow features and
+    refits a random forest on each iteration. It therefore takes a seed and is
+    run once per seed like the population searches, not as a single fixed pass.
     """
     from boruta import BorutaPy
     from sklearn.ensemble import RandomForestClassifier
 
     t0 = time.time()
-    rf = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=SEED,
+    rf = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=seed,
                                 class_weight="balanced", max_depth=5)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        sel = BorutaPy(rf, n_estimators="auto", random_state=SEED,
+        sel = BorutaPy(rf, n_estimators="auto", random_state=seed,
                        max_iter=max_iter, verbose=0)
         sel.fit(ds.X_train, ds.y_train)
 
-    order = np.argsort(sel.ranking_)  # rank 1 = confirmed
+    # ranking_ is 1 for EVERY confirmed feature and 2 for every tentative one;
+    # only rejected features get a graded rank. Sorting on it alone leaves the
+    # confirmed block in whatever order the sort happens to produce, so every
+    # k < n_confirmed budget would be scored on an arbitrary subset of it.
+    # Break those ties on mean shadow-relative importance, Boruta's own measure
+    # of strength. Row 0 of the history is the zero-filled seed row.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        imp = np.nanmean(sel.importance_history_[1:], axis=0)
+    imp = np.nan_to_num(imp, nan=0.0)
+    order = np.lexsort((-imp, sel.ranking_))  # rank asc, then importance desc
     confirmed = np.where(sel.support_)[0]
 
     records = []
@@ -152,14 +179,16 @@ def run_boruta(ds, ks: List[int], counter: FitCounter,
             continue
         rec = evaluate_subset(ds, order[:k], counter)
         rec["method"] = "boruta"
+        rec["seed"] = seed
         records.append(rec)
 
     native = None
     if confirmed.size:
         native = evaluate_subset(ds, confirmed, counter)
         native["method"] = "boruta"
+        native["seed"] = seed
 
-    return {"method": "boruta", "family": "all-relevant",
+    return {"method": "boruta", "family": "all-relevant", "seed": seed,
             "elapsed_seconds": round(time.time() - t0, 2),
             "n_confirmed": int(confirmed.size),
             "native_subset": native,
@@ -283,6 +312,162 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     return {"method": name, "family": "genetic", "seed": seed, "init": init,
             "elapsed_seconds": round(time.time() - t0, 2),
             "model_fits": evaluations, "iterations": iteration,
+            "records": records}
+
+
+# ---------------------------------------------------------------------- POSS
+def run_poss_method(ds, seed: int, stop_evaluations: int, k: int = None,
+                    progress_cb=None) -> Dict:
+    """POSS behind the shared protocol.
+
+    `k` is POSS's own constraint parameter, not a grid budget: the algorithm
+    treats any subset of 2k or more features as infeasible, so k sets both the
+    size it optimises for and the widest subset the archive can hold. It is the
+    one parameter POSS has, and the paper requires it -- there is no
+    unconstrained variant to fall back on. The caller sets it to the region the
+    comparison cares about.
+
+    In practice k barely binds at this experiment's budget: on MADELON at 6000
+    fits the archive only reaches ~7 features, far short of 2k-1, and no draw is
+    ever rejected as infeasible. See the note in `poss.py`.
+    """
+    from poss import poss_best, run_poss
+    from protocol import primary_score
+
+    if k is None:
+        k = min(50, ds.n_features)
+    k = min(k, ds.n_features)
+
+    t0 = time.time()
+
+    def objective(genes) -> float:
+        feats = np.where(genes)[0]
+        model = make_model().fit(ds.X_train[:, feats], ds.y_train)
+        return primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+
+    out = run_poss(ds.n_features, objective, k=k, seed=seed,
+                   stop_evaluations=stop_evaluations, progress_cb=progress_cb)
+
+    records = []
+    for genes in out["archive_genes"]:
+        feats = np.where(genes)[0]
+        if feats.size == 0:
+            continue
+        rec = evaluate_subset(ds, feats, counter=None)
+        rec["method"] = "poss"
+        rec["seed"] = seed
+        records.append(rec)
+
+    # The paper returns ONE subset, the best with |s| <= k. The curve above is
+    # the whole archive, which is more than POSS claims to deliver, so its own
+    # answer is reported separately instead of being read off the curve.
+    best_genes = poss_best(out)
+    native = None
+    if best_genes is not None:
+        native = evaluate_subset(ds, np.where(best_genes)[0], counter=None)
+        native["method"] = "poss"
+        native["seed"] = seed
+
+    return {"method": "poss", "family": "pareto archive", "seed": seed,
+            "k": k,
+            "elapsed_seconds": round(time.time() - t0, 2),
+            "model_fits": out["evaluations"], "iterations": out["iterations"],
+            "infeasible_draws": out["infeasible_draws"],
+            "theoretical_evaluations": out["theoretical_evaluations"],
+            "budget_note": (
+                "Run at the shared fit budget. The paper's T = 2*e*k^2*n would "
+                f"be {out['theoretical_evaluations']} evaluations, so this is "
+                "POSS truncated far below the regime its approximation "
+                "guarantee describes."),
+            "native_subset": native,
+            "records": records}
+
+
+# -------------------------------------------------------------------- FS-SDS
+def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
+                      population_size: int = None, max_iterations: int = None,
+                      model_factory=None, label: str = "fs_sds",
+                      progress_cb=None) -> Dict:
+    """FS-SDS behind the shared protocol, one SDS run per feature count.
+
+    FS-SDS holds every agent at EXACTLY k features for a whole run, so unlike
+    FASTENER, POSS and NSGA-II it produces one point rather than a front. The
+    curve is assembled by running it once per k, which is what the FASTENER
+    paper did too (its Table 3 reports FS-SDS's budget "per each k").
+
+    `stop_evaluations` is therefore PER K, not for the method as a whole: each
+    run gets the same budget every other search gets, and the much larger total
+    is reported rather than charged against it. Handing FS-SDS one shared budget
+    split across the grid would build a strawman out of a cost structure the
+    method cannot help.
+
+    `model_factory` overrides the classifier that DRIVES the search. It defaults
+    to the shared decision tree; the FASTENER paper ran FS-SDS on an Extreme
+    Learning Machine instead, so a replication passes
+    `paper_protocol.ELMClassifier`. `label` names the arm in the records, so
+    both can sit in one comparison without colliding.
+    """
+    from fs_sds import (DEFAULT_POPULATION, PAPER_EVALUATIONS_PER_K,
+                        run_fs_sds)
+    from protocol import primary_score
+
+    population_size = population_size or DEFAULT_POPULATION
+    # max_iterations stays None unless the caller asks for the reference cap:
+    # the fit budget is what stops a run. See fs_sds.MAX_ITERATIONS_GUARD.
+    build_model = model_factory or make_model
+
+    t0 = time.time()
+
+    def objective(genes) -> float:
+        feats = np.where(genes)[0]
+        model = build_model().fit(ds.X_train[:, feats], ds.y_train)
+        return primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+
+    records = []
+    per_k = []
+    total_fits = 0
+    for k in ks:
+        if k > ds.n_features:
+            continue
+        # Progress is reported against the whole method, not the run in flight,
+        # so the fraction does not reset to zero at every k.
+        done_before = total_fits
+        cb = (None if progress_cb is None
+              else lambda done, base=done_before: progress_cb(base + done))
+        out = run_fs_sds(ds.n_features, k, objective, seed=seed,
+                         stop_evaluations=stop_evaluations,
+                         population_size=population_size,
+                         max_iterations=max_iterations,
+                         progress_cb=cb)
+        total_fits += out["evaluations"]
+        per_k.append({"k": k, "model_fits": out["evaluations"],
+                      "iterations": out["iterations"],
+                      "stopped_on": out["stopped_on"],
+                      "restarts": out["restarts"],
+                      "context_resets": out["context_resets"]})
+        if out["best_genes"] is None:
+            continue
+        rec = evaluate_subset(ds, np.where(out["best_genes"])[0], counter=None)
+        rec["method"] = label
+        rec["seed"] = seed
+        records.append(rec)
+
+    return {"method": label, "family": "swarm (SDS)", "seed": seed,
+            "search_model": "tree" if model_factory is None else "custom",
+            "elapsed_seconds": round(time.time() - t0, 2),
+            "model_fits": total_fits,
+            "evaluations_per_k": stop_evaluations,
+            "population_size": population_size,
+            "max_iterations": max_iterations,
+            "stopped_on": sorted({p["stopped_on"] for p in per_k}),
+            "k_grid": [p["k"] for p in per_k],
+            "per_k": per_k,
+            "budget_note": (
+                f"{stop_evaluations} fits per k over {len(per_k)} values of k "
+                f"= {total_fits} fits in total, against {stop_evaluations} for "
+                f"a single run of any other search. The FASTENER paper gave it "
+                f"{PAPER_EVALUATIONS_PER_K} per k. The cost asymmetry is the "
+                f"method's own structure, not a handicap imposed here."),
             "records": records}
 
 

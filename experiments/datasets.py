@@ -268,7 +268,93 @@ def _read_eodata_arff(path: Path):
     return X, y, names
 
 
+# ---------------------------------------------------------- paper benchmarks
+PAPER_BENCHMARK_DIR = DATA_DIR / "paper_benchmarks"
+
+# The 25 sets of the FASTENER paper's Table 1, taken from scikit-feature.
+# Downloaded by download_paper_datasets.py, which also checks each file's shape
+# against the paper and pins its checksum.
+PAPER_BENCHMARKS = (
+    "ALLAML", "arcene", "BASEHOCK", "CLL_SUB_111", "COIL20", "colon",
+    "gisette", "GLIOMA", "GLI_85", "Isolet", "leukemia", "lung",
+    "lung_discrete", "lymphoma", "nci9", "ORL", "orlraws10P", "PCMAC",
+    "Prostate_GE", "RELATHE", "TOX_171", "USPS", "warpAR10P", "warpPIE10P",
+    "Yale",
+)
+
+
+def load_paper_benchmark_raw(name: str):
+    """The unsplit (X, y) of a benchmark, plus any classes dropped as too small.
+
+    Split separately by `load_paper_benchmark` (this repo's three-way protocol)
+    and by `paper_protocol.paper_dataset` (the FASTENER paper's 80:20), so the
+    reading and cleaning happen in exactly one place for both.
+    """
+    from scipy.io import loadmat
+
+    if name not in PAPER_BENCHMARKS:
+        raise KeyError(f"unknown benchmark {name!r}; "
+                       f"have {sorted(PAPER_BENCHMARKS)}")
+    path = PAPER_BENCHMARK_DIR / f"{name}.mat"
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"{path} is missing; run "
+            f"`python experiments/download_paper_datasets.py --only {name}`")
+
+    mat = loadmat(path)
+    X = np.asarray(mat["X"], dtype=np.float64)
+    raw_y = np.asarray(mat["Y"]).ravel()
+    # Labels are 1-based MATLAB integers, and not always contiguous.
+    y = np.unique(raw_y, return_inverse=True)[1].astype(int)
+
+    counts = np.bincount(y)
+    too_small = np.where(counts < 5)[0]
+    dropped = {}
+    if too_small.size:
+        dropped = {int(c): int(counts[c]) for c in too_small}
+        keep_rows = ~np.isin(y, too_small)
+        X, y = X[keep_rows], y[keep_rows]
+        y = np.unique(y, return_inverse=True)[1].astype(int)
+    return X, y, dropped
+
+
+def load_paper_benchmark(name: str) -> Dataset:
+    """One of the 25 scikit-feature benchmarks used by the FASTENER paper.
+
+    These are nothing like MADELON or GINA in shape. Most are wide and very
+    short -- colon is 62 rows by 2000 features, ALLAML 72 by 7129, GLI_85 85 by
+    22283 -- so a 60/20/20 split leaves tens of rows per partition and a single
+    row moving between classes visibly changes a score. Three properties of the
+    protocol matter more here than they did on MADELON, and none of them is
+    changed for these sets:
+
+      * the split stays stratified and seeded, so every method sees identical
+        rows;
+      * the test split is still touched exactly once;
+      * the reported spread across seeds is the search's variance, NOT the
+        split's -- the split is fixed, so a narrow spread on 12 test rows is
+        not evidence of a stable result.
+
+    Classes too small to survive the split (fewer than 5 rows, which round to
+    zero val and zero test rows) are dropped, with the drop recorded on the
+    Dataset. Keeping them would put classes in train that can never be scored,
+    which silently distorts weighted F1.
+    """
+    X, y, dropped = load_paper_benchmark_raw(name)
+
+    tr, va, te = _stratified_three_way(y, VAL_FRACTION, TEST_FRACTION,
+                                       SPLIT_SEED)
+    ds = Dataset(name, X[tr], y[tr], X[va], y[va], X[te], y[te])
+    ds.source = "scikit-feature (FASTENER paper Table 1)"
+    ds.dropped_small_classes = dropped
+    return ds
+
+
 LOADERS = {"madelon": load_madelon, "gina": load_gina, "eodata": load_eodata}
+# Each benchmark is addressable by its own name, so every runner that takes
+# --dataset takes these too, with no special-casing anywhere downstream.
+for _name in PAPER_BENCHMARKS:
+    LOADERS[_name] = (lambda n: lambda: load_paper_benchmark(n))(_name)
 
 
 def load(name: str) -> Dataset:
