@@ -5,20 +5,8 @@ below may be revised after results exist; a revision gets a dated entry at the
 bottom saying what changed and why, so that the difference between "what we set
 out to test" and "what we found" stays legible.
 
-**Hypotheses are numbered in the order they are to be run.** Renumbered
-2026-09-25 from the first draft of this file; no content changed, only labels:
-
-| now | was | |
-|---|---|---|
-| H1 | H6 | NSGA-II's small-k weakness as an initialisation artifact |
-| H2 | H2 | a size-preserving move changes the front at all |
-| H3 | H1 | the guided swap specifically improves small-k |
-| H4 | H3 | the published FASTENER > FS-SDS ordering under a clean protocol |
-| D1 | H4 | *(deferred)* the replication gap is a grading artifact |
-| D2 | H5 | *(deferred)* conclusions are model-dependent |
-
-Deferred items are lettered, not numbered, so they never occupy a slot in the
-run order.
+Hypotheses are numbered in the order they are to be run. Deferred items are
+lettered, so they hold no slot in the run order.
 
 ## Why this order
 
@@ -37,9 +25,6 @@ run order.
 3. **H4 last because it is the round's largest run** -- 25 datasets x 2 arms x 5
    seeds -- and because it is the one whose result matters most, so it should
    run on a harness that has already produced correct output three times.
-
-Nothing blocks the order: the metric question that held H2 and H3 was settled
-before the first run (see "Metrics", below).
 
 **H2 and H3 are one experiment.** Stock FASTENER, random swap and guided swap
 are three arms over the same seeds and the same budget. They are run together in
@@ -250,60 +235,31 @@ majority of datasets **and** the per-dataset direction is consistent across
 seeds. A mixed result means the clean protocol makes the two methods comparable
 -- which is itself a finding, and is reported as such rather than as a flip.
 
-**Note on scope.** Confirmed in scope 2026-09-25 (see Decisions recorded). This
-is a correction to a paper the PI co-authored, and is framed as such: a confound
-identified and measured, not a defect claimed.
+**Note on scope.** This is a correction to a paper the PI co-authored, and is
+framed as such: a confound identified and measured, not a defect claimed.
 
 ---
 
 ## Deferred, deliberately
 
-Lettered rather than numbered: they hold no slot in the run order.
+**D1 -- the replication gap is a grading artifact.** `WHY_RESULTS_DIFFER.md`
+already reconciles FASTENER to +0.026 via `min_samples_leaf=2` plus binary F1,
+and leaves FS-SDS unexplained. Note the dependency: H4 compares against the
+published table, so an unexplained offset against that table weakens H4's
+interpretation. If H4's result is to be stated in absolute terms rather than as
+an ordering, D1 comes back.
 
-**D1 -- the replication gap is a grading artifact.** *(was H4)* Deferred by the
-PI. `WHY_RESULTS_DIFFER.md` already reconciles FASTENER to +0.026 via
-`min_samples_leaf=2` plus binary F1, and leaves FS-SDS unexplained. Note the
-dependency: H4 compares against the published table, so an unexplained offset
-against that table weakens H4's interpretation. If H4's result is to be stated
-in absolute terms rather than as an ordering, D1 comes back.
-
-**D2 -- conclusions are model-dependent.** *(was H5)* Declined by the PI.
-Recorded because the pilot measured the size of what is being set aside: on
-gina, HistGradientBoosting scored +0.06 at k=10 and +0.12 at k=400 over the
-decision tree, and at k=400 it beat the all-features decision-tree baseline by
-0.099. Every result in this round is therefore a statement about decision trees,
-and says so.
-
----
-
-## Decisions recorded
-
-Both questions that were open when this file was first written have been
-settled before any run. Nothing below is outstanding.
-
-**1. RESOLVED before the first run (2026-09-25).** The metric rule is: **F1 for
-classification, MAE for regression.** Every dataset in this round is
-classification, so F1 is primary throughout and the MAE branch is not exercised;
-it is recorded so a future regression task inherits a rule rather than a fresh
-decision. How F1 becomes a front metric is fixed under "Metrics" above: AUF
-where a published value is being matched (H4), hypervolume where arms are
-compared only against each other (H1, H2, H3). No hypothesis is blocked.
-
-**2. RESOLVED before the first run (2026-09-25).** H4 is **in scope**. Its
-status had been stated twice in one instruction -- declined, then reinstated
-("let's give H3 a try again", referring to its old number) -- and the later
-statement stands. The run order is H1, H2, H3, H4, with H4 last.
-
-Recorded because it matters for how H4 is reported: it is in scope by an
-explicit decision, not by drift. If it is dropped later, that is a change to a
-pre-registered plan and gets a dated entry at the bottom of this file, not a
-silent deletion.
+**D2 -- conclusions are model-dependent.** Out of scope. The pilot measured the
+size of what is being set aside: on gina, HistGradientBoosting scored +0.06 at
+k=10 and +0.12 at k=400 over the decision tree, and at k=400 it beat the
+all-features decision-tree baseline by 0.099. Every result in this round is
+therefore a statement about decision trees, and says so.
 
 ---
 
 ## Datasets
 
-Unchanged from the previous round and already downloaded: madelon (500
+Already downloaded: madelon (500
 features, synthetic), gina (970, real-world), and the 25 scikit-feature
 benchmarks for H4. EOData is available but out of scope for this round -- at
 480k rows x 182 features it is a different cost regime.
