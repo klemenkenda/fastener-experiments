@@ -392,3 +392,46 @@ Decided now, so that no metric is chosen after seeing the data:
    is never plotted alone.
 4. Wall clock reported next to fit counts for every arm.
 5. Any arm that stops on something other than the budget says so (`stopped_on`).
+6. **Progress is recorded at every iteration of every algorithm**, not only at
+   the end. See *Progress tracking* below.
+
+### Progress tracking
+
+Every search records a snapshot after each of its own iterations, written to
+disk as it goes so a killed run still leaves its trajectory behind.
+
+**What an iteration is, per algorithm.** The unit differs, so it is named
+rather than assumed:
+
+| algorithm | one iteration |
+|---|---|
+| FASTENER (stock, random swap, guided swap) | one generation |
+| NSGA-II, NSGAII-MIIP (OBL and sparse init) | one generation |
+| FS-SDS | one test-and-diffusion cycle |
+| POSS | one mutation-and-archive-update step |
+
+**What each snapshot holds:**
+
+* iteration number, cumulative unique model fits, wall-clock seconds since start;
+* the current Pareto front itself -- every (feature subset, validation F1) pair
+  on it -- so any front metric can be recomputed later without re-running;
+* the front read off as validation hypervolume and validation AUF;
+* best validation F1 at each k on the grid;
+* the smallest and largest subset size on the front (the quantity H1 is about).
+
+**Read on fits, not iterations.** Iterations are not comparable across
+algorithms -- a FASTENER generation and a POSS step cost very different numbers
+of fits -- so progress curves are plotted against cumulative fits, with wall
+clock as a second view. Iteration number is kept for diagnosing one algorithm
+on its own.
+
+**Validation only during the search.** Snapshots record validation scores. The
+test split is still touched once, at the end. Because the fronts are stored,
+test-set progress curves can be computed afterwards for interpretation; they
+are secondary, labelled as such, and never used to choose a stopping point, an
+arm, or a k.
+
+**What it answers.** Whether an arm's final advantage was there from the start
+or appeared late; whether an arm was still improving when the budget ran out,
+in which case the budget, not the method, set the result; and, for H1, how
+fast each initialisation moves the smallest subset size down.
