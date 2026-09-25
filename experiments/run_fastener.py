@@ -128,6 +128,32 @@ SWAP_ARMS = {
 }
 
 
+# The mating step's behaviour (HYPOTHESES.md, H0). "fixed" is the clone's
+# current default. "2020" sets the two flags the clone's README gives for
+# reproducing the original code exactly -- the same fits and the same Pareto
+# front for the same seed: the weighted information-gain mating always adds the
+# top genes, and the mating pool is drawn with replacement, so an item can be
+# mated with itself.
+MATING_VERSIONS = {
+    "fixed": {"include_top_genes": False, "allow_self_mating": False},
+    "2020": {"include_top_genes": True, "allow_self_mating": True},
+}
+
+
+def make_mating(version: str, pool_size: int) -> RandomEveryoneWithEveryone:
+    """The mating-selection strategy for a mating version."""
+    if version not in MATING_VERSIONS:
+        raise ValueError(f"unknown mating version {version!r}; expected one "
+                         f"of {sorted(MATING_VERSIONS)}")
+    flags = MATING_VERSIONS[version]
+    return RandomEveryoneWithEveryone(
+        pool_size=pool_size,
+        allow_self_mating=flags["allow_self_mating"],
+        mating_strategy=IntersectionMatingWithWeightedRandomInformationGain(
+            include_top_genes=flags["include_top_genes"]),
+    )
+
+
 def make_swap_strategy(swap: Optional[str], number_of_swaps: int = 1):
     """Build the pruning-swap operator for an arm name, or None for the original."""
     if swap is None or swap == "none":
@@ -147,7 +173,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  max_fits: Optional[int] = None,
                  dump_logs: bool = True,
                  method_name: Optional[str] = None,
-                 trajectory=None) -> Dict:
+                 trajectory=None,
+                 mating: str = "fixed") -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
     `swap` selects the pruning operator and defaults to the original algorithm:
@@ -175,17 +202,21 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
 
     `trajectory` (a `trajectory.Trajectory`) records the best score after every
     generation. It is created by the caller, who knows the run's k grid.
+
+    `mating` is ``"fixed"`` (the clone's default) or ``"2020"``, the original
+    mating behaviour the published results were produced with (H0). The 2020
+    version without a swap is labelled ``fastener_2020``.
     """
     factory = CountingModelFactory()
 
-    mating = RandomEveryoneWithEveryone(
-        pool_size=pool_size,
-        mating_strategy=IntersectionMatingWithWeightedRandomInformationGain(),
-    )
+    mating_version = mating
+    mating = make_mating(mating_version, pool_size)
     mutation = RandomFlipMutationStrategy(1.0 / ds.n_features)
     swap_strategy = make_swap_strategy(swap, number_of_swaps)
     method = method_name or ("fastener" if swap_strategy is None
                              else f"fastener_swap_{swap}")
+    if method_name is None and mating_version != "fixed":
+        method += f"_{mating_version}"
 
     if initial_genes is None:
         # Start from single features rather than the reference's fixed [[0]], so
@@ -249,6 +280,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             "mutation_prob": 1.0 / ds.n_features,
             "initial_genes": initial_genes,
             "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+            "mating_version": mating_version,
+            **MATING_VERSIONS[mating_version],
             "swap": swap or "none",
             "number_of_swaps": number_of_swaps if swap_strategy is not None else 0,
             "max_fits": max_fits,

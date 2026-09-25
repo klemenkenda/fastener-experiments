@@ -43,6 +43,16 @@ TEST_FRACTION = 0.20
 # Fixed forever: changing this changes which rows are "untouched test".
 SPLIT_SEED = 20200
 
+# H0's split for Earth-observation sets (HYPOTHESES.md, H0), in place of the
+# row cap and 60/20/20: a stratified subsample of EO_SPLIT_ROWS rows, half of it
+# test and the other half split 80/20 into training and validation. As
+# fractions of the subsample: 40% train, 10% validation, 50% test -- 40,000 /
+# 10,000 / 50,000 rows.
+EO_SPLIT_ROWS = 100_000
+EO_SPLIT_VAL_FRACTION = 0.10
+EO_SPLIT_TEST_FRACTION = 0.50
+SPLITS = ("protocol", "eo")
+
 
 class Dataset:
     def __init__(self, name, X_train, y_train, X_val, y_val, X_test, y_test,
@@ -73,6 +83,8 @@ class Dataset:
             "split_seed": SPLIT_SEED,
             # Set by load(); None when the dataset was used whole.
             "max_rows": getattr(self, "max_rows", None),
+            # "protocol" (60/20/20) or "eo" (H0's 40/10/50 of a subsample).
+            "split": getattr(self, "split", "protocol"),
             "dropped_missing": getattr(self, "dropped_missing", 0),
         }
 
@@ -169,7 +181,9 @@ def load_gina() -> Dataset:
     )
 
 
-def load_eodata(max_rows: int = None, subsample_seed: int = SPLIT_SEED) -> Dataset:
+def load_eodata(max_rows: int = None, subsample_seed: int = SPLIT_SEED,
+                val_frac: float = VAL_FRACTION,
+                test_frac: float = TEST_FRACTION) -> Dataset:
     """EOData -- the FASTENER paper's own headline dataset.
 
     Sentinel-2 land patch samples over Slovenia, 2017: 480,000 rows (20,000 per
@@ -214,7 +228,7 @@ def load_eodata(max_rows: int = None, subsample_seed: int = SPLIT_SEED) -> Datas
         sel = np.sort(np.concatenate(keep))
         X, y = X[sel], y[sel]
 
-    tr, va, te = _stratified_three_way(y, VAL_FRACTION, TEST_FRACTION, SPLIT_SEED)
+    tr, va, te = _stratified_three_way(y, val_frac, test_frac, SPLIT_SEED)
     return Dataset(
         "eodata", X[tr], y[tr], X[va], y[va], X[te], y[te],
         feature_names=names,
@@ -364,7 +378,9 @@ TALL_DATASETS = (
 
 
 def load_tall(name: str, max_rows: int = None,
-              subsample_seed: int = SPLIT_SEED) -> Dataset:
+              subsample_seed: int = SPLIT_SEED,
+              val_frac: float = VAL_FRACTION,
+              test_frac: float = TEST_FRACTION) -> Dataset:
     """One of the tall datasets, three-way split like every other set.
 
     `max_rows` takes a stratified subsample that keeps each class's share of
@@ -399,7 +415,7 @@ def load_tall(name: str, max_rows: int = None,
         sel = np.sort(np.concatenate(keep))
         X, y = X[sel], y[sel]
 
-    tr, va, te = _stratified_three_way(y, VAL_FRACTION, TEST_FRACTION, SPLIT_SEED)
+    tr, va, te = _stratified_three_way(y, val_frac, test_frac, SPLIT_SEED)
     ds = Dataset(name, X[tr], y[tr], X[va], y[va], X[te], y[te],
                  feature_names=names)
     ds.dropped_missing = dropped_missing
@@ -420,23 +436,39 @@ for _name in PAPER_BENCHMARKS:
 # (the largest, USPS, is 9,298 rows), so a cap passed for one of them is a no-op.
 CAPPABLE = {"eodata": load_eodata}
 for _name in TALL_DATASETS:
-    CAPPABLE[_name] = (lambda n: lambda max_rows: load_tall(n, max_rows=max_rows))(_name)
+    CAPPABLE[_name] = (lambda n: lambda **kw: load_tall(n, **kw))(_name)
 
 
-def load(name: str, max_rows: int = None) -> Dataset:
+def load(name: str, max_rows: int = None, split: str = "protocol") -> Dataset:
     """Load a dataset by name, optionally capped at `max_rows` rows.
 
     The cap takes a fixed stratified subsample, drawn with SPLIT_SEED, so it is
     identical for every arm and seed of a run -- part of the dataset, not a
     source of variance. The Dataset carries `max_rows` and `n_rows_used` so a
     run records exactly what it ran on.
+
+    `split="eo"` is H0's split for Earth-observation sets and replaces both the
+    cap and the 60/20/20 split: a stratified subsample of EO_SPLIT_ROWS rows,
+    split 40/10/50 into train, validation and test. `max_rows` is ignored with
+    it. Only the sets that take a row cap support it.
     """
     if name not in LOADERS:
         raise KeyError(f"unknown dataset {name!r}; have {sorted(LOADERS)}")
-    if max_rows and name in CAPPABLE:
-        ds = CAPPABLE[name](max_rows)
+    if split not in SPLITS:
+        raise ValueError(f"unknown split {split!r}; have {SPLITS}")
+    if split == "eo":
+        if name not in CAPPABLE:
+            raise ValueError(f"split='eo' needs a dataset that takes a row "
+                             f"cap; {name!r} does not")
+        max_rows = EO_SPLIT_ROWS
+        ds = CAPPABLE[name](max_rows=max_rows,
+                            val_frac=EO_SPLIT_VAL_FRACTION,
+                            test_frac=EO_SPLIT_TEST_FRACTION)
+    elif max_rows and name in CAPPABLE:
+        ds = CAPPABLE[name](max_rows=max_rows)
     else:
         ds = LOADERS[name]()
+    ds.split = split
     ds.max_rows = max_rows if name in CAPPABLE else None
     ds.n_rows_used = int(ds.X_train.shape[0] + ds.X_val.shape[0]
                          + ds.X_test.shape[0])

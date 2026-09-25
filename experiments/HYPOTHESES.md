@@ -25,8 +25,8 @@ lettered, so they hold no slot in the run order.
 0. **H0 first because every later FASTENER result stands on it.** H2-H6 all run
    FASTENER with three bug fixes the published results did not have (see H0).
    H0 measures what the fixes change before any comparison is built on the
-   fixed code. It runs only FASTENER, on the development sets, so it is also the
-   first end-to-end check of progress tracking, which its metric depends on
+   fixed code. It runs only FASTENER, on five datasets of its own, so it is also
+   the first end-to-end check of progress tracking, which its metric depends on
    entirely.
 1. **H1 next because it is cheap and diagnostic.** Sparse initialisation keeps
    NSGA-II in small subsets, where fits are cheapest, and the sparse arm has a
@@ -51,12 +51,10 @@ are three arms over the same seeds and the same budget, run together in one
 invocation. Running them separately would waste the shared stock arm and, worse,
 would let the arms differ by run conditions rather than by operator.
 
-**H0's stock arm is H2's and H3's stock arm.** The `fastener` runs H0 produces
-are reused by H2 and H3, not repeated, the way H5 and H6 reuse the runs behind
-H1-H4. Reuse is allowed only when the algorithm ID matches, which pins both
-repositories' commits and the arm's configuration. Under a fit budget and a fixed
-seed a run is then the same run. If the ID differs, the stock arm is run again
-inside the H2/H3 invocation.
+**H0 is an experiment of its own.** Its budgets, and on the Earth-observation
+sets its split, differ from the protocol table (see H0). Its `fastener` runs are
+therefore not the stock arm of H2 and H3, and are not reused by any later
+hypothesis.
 
 ## Protocol, fixed for every hypothesis below
 
@@ -205,7 +203,69 @@ comparison.
 Both arms start from the same initial population for a given seed. Their random
 streams part at the first mating step.
 
-**Datasets.** The four development sets.
+**Datasets, budgets and splits.** Five datasets, chosen to differ in domain and
+shape. Crop mapping is the one Earth-observation set. EOData, madelon and gina
+are left out. EOData is replaced by USPS, a much shorter set of handwritten
+digit images, which adds a third domain next to the sensor data of har and the
+text of BASEHOCK. TOX_171 adds gene expression, the very wide and very short
+shape of half the paper's benchmarks. It is the largest class-balanced gene set
+on disk; lung has more rows, but one of its classes gets a single validation
+row. Madelon and gina are both feature-selection challenge sets and add little
+variety next to these.
+
+| dataset | kind | rows | features | rows used: train / validation / test | budget per run |
+|---|---|---:|---:|---|---:|
+| **crop_mapping** | Earth observation, optical and radar | 325,834 | 174 | 40,000 / 10,000 / 50,000 (EO split, below) | **1,000 fits** |
+| **USPS** | handwritten digit images, 16x16 pixels; a paper benchmark | 9,298 | 256 | 5,578 / 1,860 / 1,860 (60/20/20) | **6,000 fits** |
+| **har** | smartphone sensor signals, several statistics each | 10,299 | 561 | 6,181 / 2,059 / 2,059 (60/20/20) | **6,000 fits** |
+| **BASEHOCK** | text, word features; a paper benchmark | 1,993 | 4,862 | 1,195 / 399 / 399 (60/20/20) | **6,000 fits** |
+| **TOX_171** | gene expression, toxicology microarray; a paper benchmark | 171 | 5,748 | 103 / 34 / 34 (60/20/20) | **6,000 fits** |
+
+*Budget.* Crop mapping gets 1,000 fits, the budget of the paper's own EO
+setting: Table 2 reports FASTENER at 1,000 model evaluations on EOData, and its
+AUF progress curve (Figure 9) has mostly levelled off within the first 800. Fits
+on crop mapping are also the most expensive in H0. The other three get the
+protocol's 6,000 fits. They are cheap to fit, and FASTENER on the
+paper's non-EO benchmarks ran for 11,000-17,000 evaluations, so they are not
+expected to settle as early. Each dataset is judged on its own, so budgets can
+differ between datasets. Within a dataset both arms always get the same budget.
+
+*EO split.* From crop mapping, a stratified subsample of 100,000
+rows is drawn once with `SPLIT_SEED`. It is halved, stratified, into 50,000
+**search** rows and 50,000 **test** rows. The search rows are split 80/20,
+stratified, into training and validation, the paper's 80:20 ratio. The search
+reads only training and validation. The 50,000 test rows are read once, at the
+end. The subsample keeps each class's share; the smallest class has about 175
+rows in each half.
+
+*Departures from the protocol table,* stated wherever H0 is reported: the
+1,000-fit budget on crop mapping, and the EO split in place of the 50,000-row
+cap and the 60/20/20 split. USPS, har, BASEHOCK and TOX_171 run under the protocol as
+written.
+
+*Cost.* One decision-tree fit, measured on this machine, and one run at the
+budget above. The range runs from all fits at 20 features to all at 100. Crop
+mapping's fit times are scaled up from the 30,000-row training split measured to
+the 40,000 rows of the EO split.
+
+| dataset | one fit, 20 / 100 features | one run | H0 on it: 10 runs in series |
+|---|---|---|---|
+| crop_mapping | 1.0 / 6.1 s | 17 min to 1.7 h | 3 to 17 h |
+| USPS | 0.14 / 0.67 s | 14 min to 1.1 h | 2.3 to 11 h |
+| har | 0.11 / 0.59 s | 11 min to 1 h | 2 to 10 h |
+| BASEHOCK | 0.002 / 0.016 s | about 3 min | about 30 min |
+| TOX_171 | 0.002 / 0.004 s | about 3 min | about 30 min |
+
+On the two very wide sets the fit is not the cost. A smoke run on TOX_171 spent
+17 s once, computing mutual information over all 5,748 features, then about
+0.02 s per fit of FASTENER's own work. The rows above for BASEHOCK and TOX_171
+use that measured rate.
+
+*TOX_171 is noisy by construction.* Its validation split has 34 rows, 8 or 9
+per class, so one row moves F1 by about 0.03 and many subsets tie. The curve
+moves in coarse steps, and both arms can reach the target at the same snapshot.
+Such a seed is a tie under the criterion below. See *What the small sets can
+support*.
 
 **Primary metric: fits to a common target.** A fixed-target measure, read on
 fits as *Progress tracking* requires, and on validation only:
@@ -214,7 +274,7 @@ fits as *Progress tracking* requires, and on validation only:
    front the snapshot stores. Over a run this gives a step curve of score
    against cumulative unique fits.
 2. Per dataset and seed, the **target** is the lower of the two arms' final
-   values at the 6,000-fit budget. Both arms reach it by construction.
+   values at that dataset's budget. Both arms reach it by construction.
 3. Each arm's result is the cumulative unique fits at the first snapshot whose
    value is at or above the target. Fewer fits is faster.
 
@@ -222,8 +282,9 @@ A common target keeps the comparison about speed. An arm's own final value
 would not work: a search that stalls early would look like it converged fast.
 
 **Falsification criterion.** H0 is supported if `fastener` reaches the target in
-**fewer fits** than `fastener_2020` in **at least 4 of 5 seeds**, on **EOData
-and on at least one other development set**. An equal fit count is a tie and
+**fewer fits** than `fastener_2020` in **at least 4 of 5 seeds**, on **crop
+mapping and on at least one of the other four datasets**. H0 does not run on
+EOData, so its result is not a statement about FASTENER's own dataset. An equal fit count is a tie and
 does not count toward the 4. Otherwise H0 is not supported. If `fastener_2020`
 meets the same criterion instead, the fixes slowed convergence, and that is
 recorded as the finding.
@@ -247,9 +308,9 @@ that correction costs or gains, and does not decide whether to make it.
 
 **Consequence for H4.** The paper's Table 3 was produced by the 2020 code. H4's
 FASTENER arm therefore differs from the published one in these fixes as well as
-in the protocol. H0 measures the fixes on the development sets only, not on the
-25 benchmarks. If H0 finds a large effect, the H4 write-up states it next to the
-ordering result.
+in the protocol. H0 measures the fixes on five datasets, three of which, USPS,
+BASEHOCK and TOX_171, are among the 25 benchmarks. If H0 finds a large effect, the H4
+write-up states it next to the ordering result.
 
 ## H1 -- NSGA-II's weakness at small k is an initialisation artifact
 
@@ -293,7 +354,7 @@ main reason H1 runs first.
 
 ## H2 -- A size-preserving move changes the front at all, guided or not
 
-*(third: the control for H3; shares a run with it, and its stock arm with H0)*
+*(third: the control for H3; shares a run with it)*
 
 **Claim.** Adding *any* size-preserving swap to FASTENER's pruning step improves
 its front at low k, relative to stock FASTENER.
@@ -488,7 +549,7 @@ below are measured from the files, not transcribed, and are the full datasets
 before the row cap. "Smallest class" is counted after cleaning (see *Dropped
 rows*).
 
-### Development sets -- used by H0, H1, H2, H3, H5 and H6
+### Development sets -- used by H1, H2, H3, H5 and H6
 
 | dataset | rows | features | classes | smallest / largest class | domain | source |
 |---|---:|---:|---:|---|---|---|
@@ -675,8 +736,10 @@ it stands. Items marked **to build** block the hypothesis named.
 | One runner covers every algorithm H5 and H6 compare | done -- `run_sota.py` now also runs the three rankers, RFE, random subsets and all features | -- |
 | Binary and macro F1 stored beside weighted | done -- `protocol.all_scores` | -- |
 | The mating fixes committed in the fastener clone | done -- clone commit `564eb8a`, working tree clean | -- |
-| A `fastener_2020` arm: `include_top_genes=True`, `allow_self_mating=True`, with its own algorithm ID | **to build** -- `run_fastener.py` builds the mating step with defaults only | H0 |
-| Validation AUF (K = 10) per snapshot, and fits to the common target | **to build** -- trajectories store the fronts; nothing computes this yet | H0 |
+| A `fastener_2020` arm: `include_top_genes=True`, `allow_self_mating=True`, with its own algorithm ID | done -- `run_sota.py --fastener-arm 2020`, built by `run_fastener.make_mating("2020")` | -- |
+| Validation AUF (K = 10) per snapshot, and fits to the common target | done -- `h0_convergence.py` reads the runs' trajectories and applies H0's criterion | -- |
+| H0's EO split for crop mapping: a 100,000-row stratified subsample, halved into 50,000 search and 50,000 test rows, the search half split 80/20 | done -- `datasets.load(name, split="eo")`, `run_sota.py --split eo` | -- |
+| A budget per dataset | done -- `run_sota.py` runs one dataset per invocation, with `--evaluations` | -- |
 
 The first run of H0 is the acceptance test for everything marked blocking H0,
 and for the progress tracking it reads. The first run of H1 is the acceptance

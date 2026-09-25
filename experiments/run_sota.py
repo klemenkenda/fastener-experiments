@@ -27,6 +27,9 @@ Usage:
     python experiments/run_sota.py --methods mrmr,boruta --no-fastener
     python experiments/run_sota.py --dataset eodata --experiment H1-E01 \\
         --methods nsga2,nsga2_sparse --no-fastener
+    python experiments/run_sota.py --dataset crop_mapping --split eo \\
+        --evaluations 1000 --methods "" --fastener-arm none \\
+        --fastener-arm 2020 --experiment H0-E01          # H0
 
 Runs that test a hypothesis pass --experiment (see METHODOLOGY.md): the run is
 then refused from uncommitted code, recorded in EXPERIMENTS.md, and every arm
@@ -45,22 +48,32 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import analysis  # noqa: E402
 import baselines  # noqa: E402
 import sota_baselines as sota  # noqa: E402
-from datasets import DATA_DIR, load  # noqa: E402
+from datasets import DATA_DIR, SPLITS, load  # noqa: E402
 from progress import Progress, format_duration  # noqa: E402
 from protocol import (FIT_BUDGET, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
                       ROW_CAP, FitCounter)
 from provenance import DirtyTreeError, Run  # noqa: E402
-from run_fastener import SWAP_ARMS, run_fastener  # noqa: E402
+from run_fastener import run_fastener  # noqa: E402
 from trajectory import Trajectory  # noqa: E402
 
-# The three FASTENER arms, keyed by swap-strategy name. The method labels match
-# what run_fastener stamps on its records, so the plot styles in analysis.py and
-# the significance tables pick them up without further mapping.
-FASTENER_ARM_NAMES = {
-    "none": "fastener",
-    "random": "fastener_swap_random",
-    "guided": "fastener_swap_guided",
+# The FASTENER arms. "none", "random" and "guided" are the three pruning arms
+# of H2/H3 on the fixed code; "2020" is the original mating behaviour, the arm
+# H0 compares the fixed code against. The method labels match what
+# run_fastener stamps on its records, so the plot styles in analysis.py and the
+# significance tables pick them up without further mapping.
+FASTENER_ARMS = {
+    "none": {"label": "fastener", "swap": "none", "mating": "fixed"},
+    "2020": {"label": "fastener_2020", "swap": "none", "mating": "2020"},
+    "random": {"label": "fastener_swap_random", "swap": "random",
+               "mating": "fixed"},
+    "guided": {"label": "fastener_swap_guided", "swap": "guided",
+               "mating": "fixed"},
 }
+FASTENER_ARM_NAMES = {k: v["label"] for k, v in FASTENER_ARMS.items()}
+# Report order: the fixed stock arm first, then the published code, then swaps.
+FASTENER_ARM_ORDER = ("none", "2020", "random", "guided")
+# What runs when no arm is named: H2/H3's three arms, as before.
+DEFAULT_FASTENER_ARMS = ("none", "random", "guided")
 
 # Deterministic selectors: one pass each, no seed. The three rankers, RFE and
 # the all-features reference come from baselines.py, so that one runner covers
@@ -119,6 +132,11 @@ def parse_args():
                          "DEPARTURE from the source, and labels the run "
                          "nsgaii_miip_sparse. Plain NSGA-II does not read this "
                          "flag: run nsga2 and nsga2_sparse as methods.")
+    ap.add_argument("--split", default="protocol", choices=SPLITS,
+                    help="'protocol' (default): the row cap, then 60/20/20. "
+                         "'eo': H0's split for Earth-observation sets -- a "
+                         "stratified 100,000-row subsample split 40/10/50 "
+                         "into train/validation/test; --max-rows is ignored.")
     ap.add_argument("--max-rows", type=int, default=ROW_CAP,
                     help=f"row cap: a dataset with more rows uses a fixed "
                          f"stratified subsample of this many, identical for "
@@ -130,10 +148,11 @@ def parse_args():
                     help="generation cap, set far above what the fit budget "
                          "allows so that the budget is what stops FASTENER, as "
                          "for every other search; `stopped_on` confirms it.")
-    ap.add_argument("--fastener-swap", action="append",
-                    choices=sorted(SWAP_ARMS),
-                    help="FASTENER pruning arm, repeatable; default runs all "
-                         "three (none = the published algorithm)")
+    ap.add_argument("--fastener-arm", "--fastener-swap", dest="fastener_arm",
+                    action="append", choices=sorted(FASTENER_ARMS),
+                    help="FASTENER arm, repeatable: none (stock, fixed code), "
+                         "2020 (the original mating, H0), random, guided. "
+                         "Default: none, random and guided.")
     ap.add_argument("--n-jobs", type=int, default=-1,
                     help="parallelism for NSGAII-MIIP's pairwise MI matrix")
     ap.add_argument("--quick", action="store_true",
@@ -163,10 +182,9 @@ def main() -> int:
     evaluations = 300 if quick else args.evaluations
     boruta_max_iter = 10 if quick else args.boruta_max_iter
     fastener_rounds = 40 if quick else args.fastener_rounds
-    # Ordered so the published algorithm is always the first arm reported.
-    fastener_arms = args.fastener_swap or ["none", "random", "guided"]
-    fastener_arms = [a for a in ("none", "random", "guided")
-                     if a in fastener_arms]
+    # Ordered so the stock arm is always the first arm reported.
+    fastener_arms = args.fastener_arm or list(DEFAULT_FASTENER_ARMS)
+    fastener_arms = [a for a in FASTENER_ARM_ORDER if a in fastener_arms]
     ks = [k for k in K_GRID if k <= 30] if quick else K_GRID
     # The k grid before the per-dataset cap: part of an arm's configuration,
     # while the cap is a property of the dataset.
@@ -178,7 +196,7 @@ def main() -> int:
     fs_per_k = max(1, evaluations // len(FS_SDS_K_RANGE))
     name = args.name or f"{args.dataset}_sota" + ("_quick" if quick else "")
 
-    ds = load(args.dataset, max_rows=args.max_rows or None)
+    ds = load(args.dataset, max_rows=args.max_rows or None, split=args.split)
     print(ds)
     if ds.max_rows and ds.n_rows_used <= ds.max_rows:
         print(f"  row cap {ds.max_rows}: using {ds.n_rows_used} rows")
@@ -205,6 +223,7 @@ def main() -> int:
                   else min(50, ds.n_features),
         "nsgaii_miip_init": args.init,
         "k_grid": ks,
+        "split": args.split,
         "max_rows": ds.max_rows,
         "n_rows_used": ds.n_rows_used,
         "model": "DecisionTreeClassifier",
@@ -241,7 +260,9 @@ def main() -> int:
         arm_configs[r] = {"k_grid": grid}
     for arm in fastener_arms:
         arm_configs[FASTENER_ARM_NAMES[arm]] = {
-            "max_fits": evaluations, "rounds": fastener_rounds, "swap": arm}
+            "max_fits": evaluations, "rounds": fastener_rounds,
+            "swap": FASTENER_ARMS[arm]["swap"],
+            "mating": FASTENER_ARMS[arm]["mating"]}
 
     try:
         run = Run(name, params, experiment_id=args.experiment,
@@ -481,7 +502,9 @@ def main() -> int:
                     try:
                         res = run_fastener(ds, run.dir, seed=seed,
                                            rounds=fastener_rounds,
-                                           swap=arm,
+                                           swap=FASTENER_ARMS[arm]["swap"],
+                                           mating=FASTENER_ARMS[arm]["mating"],
+                                           method_name=label,
                                            max_fits=evaluations,
                                            dump_logs=False,
                                            trajectory=trajectory(label, seed))
