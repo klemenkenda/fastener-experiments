@@ -35,6 +35,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import analysis  # noqa: E402
 import experiment_ids  # noqa: E402
+import h0_convergence  # noqa: E402
+import trajectory as trajectory_io  # noqa: E402
 from provenance import REPO_ROOT, RESULTS_DIR  # noqa: E402
 
 HYPOTHESES_PATH = "experiments/HYPOTHESES.md"
@@ -57,6 +59,17 @@ PAIRWISE = {
     "H6": {"focal": "fastener_swap_guided", "opponents": None, "n_datasets": 36},
 }
 ALPHA = 0.05
+# H0: fits to a common validation target, per seed (h0_convergence applies the
+# rule). Baseline first, as in PAIRED's figures.
+H0_ARMS = (h0_convergence.ORIGINAL, h0_convergence.FIXED)
+# Secondary measures, fixed minus 2020 per seed: (column, label, relative).
+# Relative where the scale differs between datasets.
+H0_SECONDARY = (("area", "area under val. curve", False),
+                ("test_auf10", "test AUF (K = 10)", False),
+                ("test_auf20", "test AUF (K = 20)", False),
+                ("hypervolume", "hypervolume, % change", True),
+                ("generations", "generations, % change", True),
+                ("seconds", "wall clock, % change", True))
 # No subset of size <= 10, so no AUF(K=10); a reference line only (H5).
 REFERENCE_ONLY = ("all_features",)
 
@@ -70,8 +83,10 @@ TODO = "<!-- TODO: {} -->"
 
 # ------------------------------------------------------------ inputs
 def git(*args: str) -> Optional[str]:
+    # UTF-8 explicitly: the Windows default code page mangles non-ASCII text
+    # from `git show`, which then never matches the working tree.
     out = subprocess.run(["git", *args], cwd=str(REPO_ROOT),
-                         capture_output=True, text=True)
+                         capture_output=True, encoding="utf-8")
     return out.stdout if out.returncode == 0 else None
 
 
@@ -304,6 +319,39 @@ def evaluate_pairwise(hid: str, cells, K: int) -> Dict[str, Any]:
             "means": means, "reading": reading}
 
 
+def evaluate_h0(runs: Sequence[Dict]) -> Dict[str, Any]:
+    """H0's rule, applied by h0_convergence to every run with trajectories.
+
+    Also returns each run key's validation curve and each dataset's budget, for
+    the progress figure. A run without a manifest (killed before it wrote one)
+    cannot be read and is left out; the header lists it.
+    """
+    dirs = [r["dir"] for r in runs
+            if r["manifest"] and (r["dir"] / "trajectories").is_dir()]
+    summary = h0_convergence.summarise(dirs)
+    curves: Dict[Tuple[str, str, int], list] = {}
+    budgets: Dict[str, int] = {}
+    for r in runs:
+        if r["dir"] not in dirs:
+            continue
+        params = r["manifest"]["params"]
+        ds = params["dataset"]
+        budgets[ds] = int(params["evaluation_budget_per_seed"])
+        for seed in params["seeds"]:
+            for arm in H0_ARMS:
+                p = r["dir"] / "trajectories" / f"{arm}_seed{seed}.jsonl"
+                if p.is_file():
+                    curves[(ds, arm, seed)] = h0_convergence.curve(
+                        trajectory_io.read(p), h0_convergence.K)
+    # The required dataset first: the criterion hinges on it.
+    order = sorted(summary["per_dataset"],
+                   key=lambda d: (d != h0_convergence.REQUIRED_DATASET, d))
+    return {"kind": "h0", "K": h0_convergence.K, "rows": summary["per_seed"],
+            "per_dataset": summary["per_dataset"], "datasets": order,
+            "curves": curves, "budgets": budgets,
+            "reading": summary["verdict"]}
+
+
 # --------------------------------------------------------- figures
 def _style(plt) -> None:
     plt.rcParams.update({
@@ -331,8 +379,11 @@ def _colors(arms: Sequence[str]) -> Dict[str, str]:
 
 
 def _footer(fig, run_ids: Sequence[str], split: str) -> None:
-    fig.text(0.01, 0.005, f"{split} split  |  runs: {', '.join(run_ids)}",
-             fontsize=7, color=INK_2, ha="left", va="bottom")
+    import textwrap
+    width = int(fig.get_figwidth() * 17)  # characters of 7 pt per inch
+    fig.text(0.01, 0.005, textwrap.fill(
+        f"{split} split  |  runs: {', '.join(run_ids)}", width),
+        fontsize=7, color=INK_2, ha="left", va="bottom")
 
 
 def fig_paired(ev, run_ids, path: Path) -> None:
@@ -387,6 +438,144 @@ def fig_pairwise(ev, run_ids, path: Path) -> None:
                  f"bar = mean; wins-ties-losses")
     _footer(fig, run_ids, "test")
     fig.tight_layout(rect=(0, 0.03, 0.8, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_h0_criterion(ev, run_ids, path: Path) -> None:
+    """Fits to the common target per seed, 2020 against fixed, per dataset."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    b, a = H0_ARMS
+    fig, axes = _grid(plt, max(1, len(ev["datasets"])))
+    col = _colors([b, a])
+    for ax, ds in zip(axes, ev["datasets"]):
+        rows = [r for r in ev["rows"] if r["dataset"] == ds]
+        yb = [r["fits_to_target_2020"] for r in rows]
+        ya = [r["fits_to_target_fixed"] for r in rows]
+        for u, v in zip(yb, ya):
+            ax.plot([0, 1], [u, v], color=INK_2, lw=1, alpha=0.5)
+        ax.scatter([0] * len(rows), yb, s=36, color=col[b],
+                   edgecolor="#fcfcfb", linewidth=1.5, zorder=3)
+        ax.scatter([1] * len(rows), ya, s=36, color=col[a],
+                   edgecolor="#fcfcfb", linewidth=1.5, zorder=3)
+        ax.axhline(ev["budgets"][ds], color=INK_2, lw=1, ls=":")
+        v = ev["per_dataset"][ds]
+        ax.set_title(f"{ds} (budget {ev['budgets'][ds]:,})\n{a} faster on "
+                     f"{v['faster_fixed']}/{v['seeds']} seeds")
+        ax.set_xticks([0, 1], [b, a])
+        ax.set_xlim(-0.3, 1.3)
+        ax.set_ylim(bottom=0)
+        ax.set_ylabel("fits to target (fewer is faster)")
+    fig.suptitle(f"Cumulative fits to reach the common target, validation AUF "
+                 f"(K = {ev['K']}); lines join the same seed, dotted = budget",
+                 fontsize=10)
+    _footer(fig, run_ids, "validation")
+    fig.tight_layout(rect=(0, 0.03, 1, 0.97))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_h0_progress(ev, run_ids, path: Path) -> None:
+    """Validation AUF (K) against cumulative fits: mean, band = min-max."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    fig, axes = _grid(plt, max(1, len(ev["datasets"])), w=3.6, h=2.8)
+    col = _colors(list(H0_ARMS))
+    for ax, ds in zip(axes, ev["datasets"]):
+        budget = ev["budgets"][ds]
+        grid = np.linspace(0, budget, 400)
+        lows = []
+        for arm in H0_ARMS:
+            cs = [c for (d, m, _), c in sorted(ev["curves"].items())
+                  if d == ds and m == arm]
+            if not cs:
+                continue
+            # A step curve read at each grid point; NaN before its first
+            # snapshot, which holds only the initial population.
+            vals = np.array([[next((v for f, v in reversed(c) if f <= x),
+                                   np.nan) for x in grid] for c in cs])
+            start = np.nanmax([c[0][0] for c in cs])
+            keep = grid >= start
+            x, v = grid[keep], vals[:, keep]
+            ax.fill_between(x, v.min(0), v.max(0), color=col[arm],
+                            alpha=0.15, lw=0, step="post")
+            ax.step(x, v.mean(0), where="post", color=col[arm], lw=2,
+                    label=arm)
+            lows.append(np.nanmin(vals[:, grid >= 0.05 * budget]))
+        if lows:
+            ax.set_ylim(bottom=min(lows) - 0.01)
+        ax.set_xlim(0, budget)
+        ax.set_title(ds)
+        ax.set_xlabel("cumulative unique fits")
+        ax.set_ylabel(f"AUF (K = {ev['K']}), validation F1")
+    axes[0].legend(fontsize=7, loc="lower right")
+    fig.suptitle(f"Validation AUF (K = {ev['K']}) against fits: mean over "
+                 f"seeds, band = min-max; y axis starts at 5% of the budget",
+                 fontsize=10)
+    _footer(fig, run_ids, "validation")
+    fig.tight_layout(rect=(0, 0.03, 1, 0.97))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def h0_deltas(ev) -> List[Dict]:
+    """Per seed, fixed minus 2020 on each secondary measure (H0_SECONDARY)."""
+    out = []
+    for r in ev["rows"]:
+        row = {"dataset": r["dataset"], "seed": r["seed"]}
+        for col, _, rel in H0_SECONDARY:
+            f, o = r.get(f"{col}_fixed"), r.get(f"{col}_2020")
+            if f is None or o is None:
+                row[col] = None
+            else:
+                row[col] = 100.0 * (f - o) / o if rel else f - o
+        out.append(row)
+    return out
+
+
+def h0_secondary_summary(ev) -> List[Dict]:
+    """Per dataset and secondary measure: seeds higher for fixed, mean, range."""
+    deltas = h0_deltas(ev)
+    out = []
+    for ds in ev["datasets"]:
+        for col, label, rel in H0_SECONDARY:
+            d = [r[col] for r in deltas if r["dataset"] == ds
+                 and r[col] is not None]
+            if not d:
+                continue
+            out.append({"dataset": ds, "measure": label,
+                        "unit": "%" if rel else "absolute",
+                        "seeds": len(d), "fixed_higher": sum(x > 0 for x in d),
+                        "mean_delta": float(np.mean(d)),
+                        "min_delta": float(min(d)),
+                        "max_delta": float(max(d))})
+    return out
+
+
+def fig_h0_secondary(ev, run_ids, path: Path) -> None:
+    import matplotlib.pyplot as plt
+    _style(plt)
+    deltas = h0_deltas(ev)
+    dss = ev["datasets"]
+    fig, axes = plt.subplots(2, 3, figsize=(11, 5.6))
+    for ax, (col, label, _) in zip(axes.flat, H0_SECONDARY):
+        for i, ds in enumerate(dss):
+            d = [r[col] for r in deltas if r["dataset"] == ds
+                 and r[col] is not None]
+            ax.scatter(d, [i] * len(d), s=24, color=SERIES[0], alpha=0.8,
+                       edgecolor="#fcfcfb", linewidth=1, zorder=3)
+            if d:
+                ax.plot([np.mean(d)] * 2, [i - 0.3, i + 0.3], color=INK, lw=2)
+        ax.axvline(0, color=INK_2, lw=1)
+        ax.set_yticks(range(len(dss)), dss)
+        ax.invert_yaxis()
+        ax.set_title(label)
+    fig.suptitle(f"Secondary measures, {H0_ARMS[1]} minus {H0_ARMS[0]}; one "
+                 f"point per seed, bar = mean; > 0 means higher for {H0_ARMS[1]}",
+                 fontsize=10)
+    _footer(fig, run_ids, "validation (area) and test (AUF, hypervolume)")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.95))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -530,7 +719,11 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
         sec = section(htext, hid)
         K = primary_k(sec or "")
         cells = by_cell(units, K)
-        if hid in PAIRED:
+        if hid == "H0":
+            ev = evaluate_h0(runs)
+            K = ev["K"]
+            arms = list(H0_ARMS)
+        elif hid in PAIRED:
             ev = evaluate_paired(hid, cells, K)
             arms = [ev["baseline"], ev["challenger"]]
         elif hid in PAIRWISE:
@@ -542,7 +735,17 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
             ev, arms = None, sorted({u["method"] for u in units})
         fig_no += 1
         crit_fig = fig_dir / f"F{fig_no}_{hid}_criterion_auf{K}.png"
-        if ev and ev["kind"] == "paired":
+        if ev and ev["kind"] == "h0":
+            crit_fig = fig_dir / f"F{fig_no}_{hid}_fits_to_target.png"
+            fig_h0_criterion(ev, run_ids, crit_fig)
+            write_csv(tab_dir / f"{hid}_per_seed.csv", ev["rows"])
+            write_csv(tab_dir / f"{hid}_per_dataset.csv",
+                      [{"dataset": d, **ev["per_dataset"][d]}
+                       for d in ev["datasets"]])
+            write_csv(tab_dir / f"{hid}_secondary_deltas.csv", h0_deltas(ev))
+            write_csv(tab_dir / f"{hid}_secondary_summary.csv",
+                      h0_secondary_summary(ev))
+        elif ev and ev["kind"] == "paired":
             fig_paired(ev, run_ids, crit_fig)
             write_csv(tab_dir / f"{hid}_auf{K}_per_seed.csv", ev["rows"])
         elif ev:
@@ -557,7 +760,11 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     arms_all = list(dict.fromkeys(a for h in per_h for a in h["arms"]))
     K0 = per_h[0]["K"]
     extra = []
-    for slug, fn, args in (
+    h0 = [h["ev"] for h in per_h if h["ev"] and h["ev"]["kind"] == "h0"]
+    h0_figs = ((("progress_val_auf10", fig_h0_progress, (h0[0],)),
+                ("secondary_deltas", fig_h0_secondary, (h0[0],)))
+               if h0 else ())
+    for slug, fn, args in h0_figs + (
             ("opt_curves", fig_opt_curves, (units, arms_all, K0)),
             ("min_subset_size", fig_min_size, (units, arms_all)),
             ("cost", fig_cost, (units, arms_all))):
@@ -631,6 +838,8 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
 
     L += ["## 3. Evaluation criteria", ""]
     crit_labels = ("Arms", "Algorithms", "Datasets", "Primary metric",
+                   "Datasets, budgets and splits",
+                   "Primary metric: fits to a common target",
                    "Algorithms, datasets, primary metric", "Analysis",
                    "Analysis: pairwise", "Falsification criterion")
     for h in per_h:
@@ -655,6 +864,10 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     L += ["## 5. Description of the experiment", "", "### Setup", ""]
     for r in runs:
         m = r["manifest"] or {}
+        if not m:
+            L += [f"**`{r['run_id']}`** -- no manifest: the run ended before "
+                  f"writing one, and contributes no data.", ""]
+            continue
         ds = m.get("dataset", {})
         L += [f"**`{r['run_id']}`** -- dataset `{ds.get('name', '?')}`: "
               f"{ds.get('n_features', '?')} features, "
@@ -706,9 +919,14 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                      f"empty front")
     if notes:
         L += ["Flagged by the generator:", ""] + [f"* {n}" for n in notes] + [""]
-    L += ["Progress curves (best score per iteration) are not in these runs: "
-          "progress tracking is still to build (HYPOTHESES.md, *Before the "
-          "first run*).", "",
+    if any((r["dir"] / "trajectories").is_dir() for r in runs):
+        L += ["Progress curves: every run key's trajectory is in its run's "
+              "`trajectories/` directory.", ""]
+    else:
+        L += ["Progress curves (best score per iteration) are not in these "
+              "runs: progress tracking is still to build (HYPOTHESES.md, "
+              "*Before the first run*).", ""]
+    L += [
           TODO.format("timeline, restarts, anomalies seen during the run, "
                       "and for a failed attempt what was changed and in which "
                       "commit"), ""]
@@ -735,6 +953,21 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                            [(r["dataset"], r["seed"], r[ev["baseline"]],
                              r[ev["challenger"]], r["delta"])
                             for r in ev["rows"]]), ""]
+        elif ev and ev["kind"] == "h0":
+            L += [md_table(("dataset", "seeds", f"{H0_ARMS[1]} faster",
+                            f"{H0_ARMS[0]} faster", "ties", "counts for"),
+                           [(d, v["seeds"], v["faster_fixed"],
+                             v["faster_2020"], v["ties"], v["counts_for"])
+                            for d in ev["datasets"]
+                            for v in (ev["per_dataset"][d],)]), "",
+                  md_table(("dataset", "seed", "target (val. AUF)",
+                            f"fits, {H0_ARMS[0]}", f"fits, {H0_ARMS[1]}",
+                            "faster"),
+                           [(r["dataset"], r["seed"], r["target"],
+                             r["fits_to_target_2020"],
+                             r["fits_to_target_fixed"], r["faster"])
+                            for d in ev["datasets"] for r in ev["rows"]
+                            if r["dataset"] == d]), ""]
         elif ev:
             L += [md_table(("opponent", "datasets", "W", "T", "L",
                             "mean delta", "p", "p (Holm)"),
@@ -755,8 +988,17 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
         L += [f"### Finding {n + 1} (exploratory) -- " + TODO.format(
                   f"claim, or delete (figure: {slug})"), "",
               "**Claim.** " + TODO.format("") + "", "",
-              "**Evidence.** " + TODO.format("") + "", "",
-              f"![{slug}]({p.relative_to(out_dir).as_posix()})", "",
+              "**Evidence.** " + TODO.format("") + "", ""]
+        if slug == "secondary_deltas" and h0:
+            L += [f"{H0_ARMS[1]} minus {H0_ARMS[0]} per seed, summarised per "
+                  f"dataset (percent for relative measures):", "",
+                  md_table(("dataset", "measure", "seeds",
+                            f"{H0_ARMS[1]} higher", "mean", "min", "max"),
+                           [(r["dataset"], r["measure"], r["seeds"],
+                             r["fixed_higher"], r["mean_delta"],
+                             r["min_delta"], r["max_delta"])
+                            for r in h0_secondary_summary(h0[0])]), ""]
+        L += [f"![{slug}]({p.relative_to(out_dir).as_posix()})", "",
               f"*Figure {no}.* " + TODO.format("caption") +
               f" Runs: {', '.join(f'`{r}`' for r in run_ids)}.", "",
               "**Bearing on the hypothesis.** " + TODO.format("") + "", ""]
@@ -769,8 +1011,12 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     L += ["## 8. Reproduction", "",
           "From a clean checkout of both repositories at the commits in the "
           "header:", "", "```"]
-    L += [f"python experiments/{(r['manifest'] or {}).get('command', '?')}"
-          for r in runs]
+    L += [f"python experiments/{r['manifest']['command']}"
+          for r in runs if r["manifest"]]
+    if h0:
+        L += ["python experiments/h0_convergence.py " + " ".join(
+            f"results/{r['run_id']}" for r in runs if r["manifest"])
+            + f" --out results/{experiment_id}"]
     L += [f"python experiments/make_report.py --experiment {experiment_id} "
           f"--runs {' '.join(run_ids)}", "```", ""]
 
