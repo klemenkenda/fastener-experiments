@@ -22,9 +22,13 @@ lettered, so they hold no slot in the run order.
    not "the guidance is clever" -- and that reading has to be available before
    the guided result is interpreted. The two share arms and execute as a single
    run (see below); the ordering is about the order they are *read*.
-3. **H4 last because it is the round's largest run** -- 25 datasets x 2 arms x 5
-   seeds -- and because it is the one whose result matters most, so it should
-   run on a harness that has already produced correct output three times.
+3. **H4 after the swap hypotheses because it is the largest targeted run** --
+   25 datasets x 2 arms x 5 seeds -- so it should run on a harness that has
+   already produced correct output three times.
+4. **H5 and H6 last because they are the full grid** -- every algorithm on every
+   dataset. The runs behind H1-H4 are subsets of that grid and are reused, not
+   repeated; H5 and H6 add the remaining algorithm-dataset cells. H5 is read
+   before H6, since H6's comparison includes stock FASTENER.
 
 **H2 and H3 are one experiment.** Stock FASTENER, random swap and guided swap
 are three arms over the same seeds and the same budget. They are run together in
@@ -51,14 +55,15 @@ F1 scores one subset. Every hypothesis here compares *fronts* -- sets of
 hypothesis below and fixed now:
 
 * **AUF** = (1/K) * sum over k=1..K of opt(k), where opt(k) is the best F1 among
-  subsets of size <= k, K = 20. The paper's own measure; used wherever a
-  published number is being compared against (H4).
+  subsets of size <= k. The paper's own measure. With K = 20 it is used where a
+  published number is being compared against (H4); with K = 10 it is the
+  low-k score of the all-algorithm comparison (H5, H6).
 * **Hypervolume** = the area dominated by the front in (few features, high F1)
   against a fixed reference point of all-features-at-F1-zero
   (`analysis.hypervolume`). Used where arms are compared against each other and
   no published value exists (H1, H2, H3).
 
-Both are functions of F1 alone. Neither is a new primary metric; they are how
+All are functions of F1 alone. Neither is a new primary metric; they are how
 the primary metric is read off a Pareto front.
 
 ### Why "one classifier" is not negotiable
@@ -239,6 +244,64 @@ seeds. A mixed result means the clean protocol makes the two methods comparable
 **Note on scope.** This is a correction to a paper the PI co-authored, and is
 framed as such: a confound identified and measured, not a defect claimed.
 
+## H5 -- Stock FASTENER is the best selector at low k, across all datasets
+
+**Claim.** With every algorithm run on every dataset and every algorithm using
+the same classifier for search and evaluation, stock FASTENER achieves a better
+low-k score than each of the other algorithms.
+
+**Why it is worth testing.** The paper compared FASTENER against a handful of
+methods, on some datasets each, under per-method classifiers. This is the
+general claim those comparisons point towards, tested once, on one protocol,
+against the full set of selectors in this repo.
+
+**Algorithms.** All of them: FASTENER (stock, random swap, guided swap),
+NSGA-II (OBL and sparse initialisation), NSGAII-MIIP, POSS, FS-SDS, mRMR,
+ReliefF, HSIC Lasso, Boruta, RFE, the mutual-information, ANOVA-F and
+tree-importance rankers, random subsets, and all features as the reference.
+
+**Datasets.** All 28: EOData, madelon, gina and the 25 paper benchmarks.
+
+**Primary metric.** F1 (weighted) at low k, read off the front as AUF with
+K = 10 -- the mean of the best test F1 over subset sizes k = 1..10. Per dataset,
+an algorithm's score is its mean over the 5 seeds.
+
+**Analysis: pairwise.** Stock FASTENER is compared against each other algorithm
+in turn, over the datasets on which both were run:
+
+* wins, ties and losses across those datasets;
+* a Wilcoxon signed-rank test on the per-dataset score differences, with Holm
+  correction across the pairs, at alpha = 0.05.
+
+Datasets, not seeds, are the unit of this test, so 28 datasets give it power
+that 5 seeds alone could not.
+
+**Falsification criterion.** H5 is supported if stock FASTENER has more wins
+than losses against **every** other algorithm, and the difference is significant
+after Holm correction against each. Losing any single pairwise comparison, or
+failing significance in any, refutes the claim as stated. The pairwise results
+then show where FASTENER stands relative to each method on its own.
+
+## H6 -- The guided-swap FASTENER is the best selector at low k, across all datasets
+
+**Claim.** Under the same full grid and protocol as H5, the guided-swap variant
+of FASTENER achieves a better low-k score than each of the other algorithms --
+including stock FASTENER.
+
+**Why it is separate from H5 and H3.** H3 asks whether the guided swap improves
+on stock FASTENER on the three development sets. H6 asks whether it is the best
+option available, against every method, on every dataset. H5 and H6 can split:
+stock FASTENER can lead the field while the guided variant does not, which is
+what the gina pilot suggested, or the reverse.
+
+**Algorithms, datasets, primary metric.** As H5.
+
+**Analysis.** As H5, with guided-swap FASTENER in place of stock FASTENER as the
+algorithm every other one is compared against.
+
+**Falsification criterion.** As H5: more wins than losses, significant after
+Holm correction, against **every** other algorithm including stock FASTENER.
+
 ---
 
 ## Deferred, deliberately
@@ -269,7 +332,7 @@ that seeds vary the search and never the rows.
 Shapes below are measured from the files, not transcribed. "Smallest class" is
 counted after cleaning (see *Dropped rows*).
 
-### Development sets -- used by H1, H2 and H3
+### Development sets -- used by H1, H2, H3, H5 and H6
 
 | dataset | rows | features | classes | smallest / largest class | domain | source |
 |---|---:|---:|---:|---|---|---|
@@ -304,7 +367,7 @@ Two properties of EOData shape how it is run:
   therefore optimistic in the same way the paper's are, and are reported with
   that caveat.
 
-### Paper benchmarks -- used by H4
+### Paper benchmarks -- used by H4, H5 and H6
 
 The 25 sets of the FASTENER paper's Table 1, from scikit-feature
 (`data/paper_benchmarks/*.mat`). Grouped by domain; within a group, by rows.
@@ -392,7 +455,11 @@ Decided now, so that no metric is chosen after seeing the data:
    is never plotted alone.
 4. Wall clock reported next to fit counts for every arm.
 5. Any arm that stops on something other than the budget says so (`stopped_on`).
-6. **Best score per iteration is recorded for every algorithm**, not only the
+6. **Pairwise comparison between algorithms across datasets** for H5 and H6:
+   wins, ties and losses per pair, Wilcoxon signed-rank on per-dataset score
+   differences, Holm-corrected, reported as a full algorithm-by-algorithm
+   matrix so every pair is visible, not only the ones involving FASTENER.
+7. **Best score per iteration is recorded for every algorithm**, not only the
    final result. See *Progress tracking* below.
 
 ### Progress tracking
