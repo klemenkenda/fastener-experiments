@@ -22,13 +22,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import analysis  # noqa: E402
 import baselines  # noqa: E402
 from datasets import MADELON_DIR, load_madelon  # noqa: E402
-from protocol import FitCounter, MODEL_SEED  # noqa: E402
+from protocol import FitCounter, K_GRID, MODEL_SEED  # noqa: E402,F401
 from provenance import Run  # noqa: E402
 from run_fastener import SWAP_ARMS, run_fastener  # noqa: E402
 
-# Feature budgets at which every method is compared. MADELON has 20 relevant
-# features, so the grid is dense in that region.
-K_GRID = [1, 2, 3, 5, 8, 10, 12, 15, 20, 25, 30, 50, 100, 200, 500]
+# K_GRID is defined once, in protocol.py, and re-exported here because
+# plot_combined and run_sota import it from this module.
 
 
 def parse_args():

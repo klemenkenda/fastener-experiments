@@ -71,6 +71,9 @@ class Dataset:
             "class_balance_val": dist(self.y_val),
             "class_balance_test": dist(self.y_test),
             "split_seed": SPLIT_SEED,
+            # Set by load(); None when the dataset was used whole.
+            "max_rows": getattr(self, "max_rows", None),
+            "dropped_missing": getattr(self, "dropped_missing", 0),
         }
 
     def __repr__(self) -> str:
@@ -413,10 +416,31 @@ for _name in PAPER_BENCHMARKS:
     LOADERS[_name] = (lambda n: lambda: load_paper_benchmark(n))(_name)
 
 
-def load(name: str) -> Dataset:
+# Loaders that take a row cap. Every other dataset is far below any cap in use
+# (the largest, USPS, is 9,298 rows), so a cap passed for one of them is a no-op.
+CAPPABLE = {"eodata": load_eodata}
+for _name in TALL_DATASETS:
+    CAPPABLE[_name] = (lambda n: lambda max_rows: load_tall(n, max_rows=max_rows))(_name)
+
+
+def load(name: str, max_rows: int = None) -> Dataset:
+    """Load a dataset by name, optionally capped at `max_rows` rows.
+
+    The cap takes a fixed stratified subsample, drawn with SPLIT_SEED, so it is
+    identical for every arm and seed of a run -- part of the dataset, not a
+    source of variance. The Dataset carries `max_rows` and `n_rows_used` so a
+    run records exactly what it ran on.
+    """
     if name not in LOADERS:
         raise KeyError(f"unknown dataset {name!r}; have {sorted(LOADERS)}")
-    return LOADERS[name]()
+    if max_rows and name in CAPPABLE:
+        ds = CAPPABLE[name](max_rows)
+    else:
+        ds = LOADERS[name]()
+    ds.max_rows = max_rows if name in CAPPABLE else None
+    ds.n_rows_used = int(ds.X_train.shape[0] + ds.X_val.shape[0]
+                         + ds.X_test.shape[0])
+    return ds
 
 
 if __name__ == "__main__":

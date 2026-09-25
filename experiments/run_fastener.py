@@ -85,6 +85,39 @@ class CountingModelFactory:
         return make_model()
 
 
+class TrackedOptimizer(EntropyOptimizer):
+    """EntropyOptimizer that records the best score after every generation.
+
+    Defined here, not in the upstream `fastener/` clone, so the published
+    algorithm's code is unchanged: this only reads the front after each round.
+    Iteration 0 is the front built from the initial genes, before round 1.
+
+    The snapshot is taken in a `finally`, so the round the fit budget cuts short
+    is recorded too. At that point the front may still hold entries the
+    interrupted round had not yet pruned; the trajectory keeps only the best
+    score per size and recomputes the Pareto front itself, so they do no harm.
+    """
+
+    trajectory = None
+
+    def _snapshot(self, iteration: int) -> None:
+        for item in self.pareto_front.values():
+            if getattr(item, "result", None) is not None:
+                self.trajectory.observe(np.where(item.genes)[0],
+                                        item.result.score)
+        self.trajectory.step(iteration, self.model_fits)
+
+    def run_round(self, round_n: int) -> None:
+        if self.trajectory is None:
+            return super().run_round(round_n)
+        if round_n == 1:
+            self._snapshot(0)
+        try:
+            super().run_round(round_n)
+        finally:
+            self._snapshot(round_n)
+
+
 # The three arms of the swap experiment. "none" is the published algorithm and
 # the default everywhere, so an existing call site keeps running exactly what it
 # ran before.
@@ -113,7 +146,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  number_of_swaps: int = 1,
                  max_fits: Optional[int] = None,
                  dump_logs: bool = True,
-                 method_name: Optional[str] = None) -> Dict:
+                 method_name: Optional[str] = None,
+                 trajectory=None) -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
     `swap` selects the pruning operator and defaults to the original algorithm:
@@ -138,6 +172,9 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
     they would simply have been given more compute. With a cap, set `rounds`
     high enough that the budget is what actually stops the run -- `stopped_on`
     in the result says which of the two did.
+
+    `trajectory` (a `trajectory.Trajectory`) records the best score after every
+    generation. It is created by the caller, who knows the run's k grid.
     """
     factory = CountingModelFactory()
 
@@ -168,7 +205,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             max_model_fits=max_fits,
             dump_generation_logs=dump_logs,
         )
-        optimizer = EntropyOptimizer(
+        optimizer = TrackedOptimizer(
             factory, ds.X_train, ds.y_train,
             ValidationEvaluator(ds.X_val, ds.y_val),
             ds.n_features, mating, mutation,
@@ -176,6 +213,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             config=config,
             swap_strategy=swap_strategy,
         )
+        optimizer.trajectory = trajectory
         if quiet:
             with open(os.devnull, "w") as devnull, contextlib.redirect_stdout(devnull):
                 optimizer.mainloop()

@@ -103,7 +103,8 @@ def run_poss(n_features: int,
              seed: int = 0,
              stop_evaluations: int = 6000,
              max_iterations: Optional[int] = None,
-             progress_cb: Optional[Callable[[int], None]] = None) -> Dict:
+             progress_cb: Optional[Callable[[int], None]] = None,
+             iteration_cb: Optional[Callable[[int, int], None]] = None) -> Dict:
     """Run POSS until `stop_evaluations` distinct subsets have been scored.
 
     `objective` takes a boolean gene vector and returns a score to MAXIMISE. It
@@ -115,6 +116,12 @@ def run_poss(n_features: int,
     needs no evaluation. They still consume an iteration, so `max_iterations`
     (default: 500x the fit budget) bounds a run whose archive has saturated and
     is only re-drawing subsets it has already scored.
+
+    `iteration_cb(iteration, evaluations)` is called after every iteration that
+    spent a model fit, once the archive has been updated. Iterations that spent
+    none -- a cached or infeasible draw -- cannot change the archive, so
+    skipping them loses nothing and keeps a saturated run from reporting the
+    same state thousands of times.
     """
     if k < 1:
         raise ValueError("k must be at least 1")
@@ -132,7 +139,13 @@ def run_poss(n_features: int,
     iterations = 0
     infeasible = 0
 
+    fitted = False  # did the previous iteration spend a fit?
     while evaluations < stop_evaluations and iterations < max_iterations:
+        # Report the previous iteration here, after its archive update, since
+        # its body has several exits.
+        if fitted and iteration_cb is not None:
+            iteration_cb(iterations, evaluations)
+        fitted = False
         iterations += 1
 
         parent = archive_genes[rng.randint(len(archive_genes))]
@@ -151,6 +164,7 @@ def run_poss(n_features: int,
             if key not in cache:
                 cache[key] = objective(child)
                 evaluations += 1
+                fitted = True
                 if progress_cb is not None and evaluations % 25 == 0:
                     progress_cb(evaluations)
             obj = (cache[key], size)
@@ -162,6 +176,9 @@ def run_poss(n_features: int,
                 if not _weakly_dominates(obj, z)]
         archive_genes = [archive_genes[i] for i in keep] + [child]
         archive_objs = [archive_objs[i] for i in keep] + [obj]
+
+    if fitted and iteration_cb is not None:
+        iteration_cb(iterations, evaluations)
 
     order = np.argsort([o[1] for o in archive_objs])
     return {

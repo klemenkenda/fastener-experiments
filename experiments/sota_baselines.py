@@ -137,6 +137,47 @@ def run_relieff(ds, ks: List[int], counter: FitCounter,
 
 
 # --------------------------------------------------------------------- Boruta
+class TreeForBoruta:
+    """The protocol's decision tree, shaped the way BorutaPy needs.
+
+    BorutaPy calls `set_params(n_estimators=...)` on its estimator every
+    iteration, sizing a forest. A single tree has no such parameter and rejects
+    the call. This accepts it and ignores it -- there is one tree -- and is
+    otherwise exactly `protocol.make_model()`, so Boruta ranks features by the
+    same model every other method is judged by (HYPOTHESES.md: one classifier).
+
+    Boruta also sets `random_state` each iteration; that is kept, since varying
+    the estimator between iterations is part of how Boruta works.
+    """
+
+    def __init__(self, n_estimators=1, random_state=None):
+        self.n_estimators = n_estimators
+        self.random_state = random_state
+
+    def get_params(self, deep=True):
+        return {"n_estimators": self.n_estimators,
+                "random_state": self.random_state}
+
+    def set_params(self, **params):
+        for key, value in params.items():
+            if key not in ("n_estimators", "random_state"):
+                raise ValueError(f"TreeForBoruta has no parameter {key!r}")
+            setattr(self, key, value)
+        return self
+
+    def fit(self, X, y):
+        tree = make_model()
+        if self.random_state is not None:
+            tree.set_params(random_state=self.random_state)
+        self.tree_ = tree.fit(X, y)
+        self.feature_importances_ = self.tree_.feature_importances_
+        self.classes_ = self.tree_.classes_
+        return self
+
+    def predict(self, X):
+        return self.tree_.predict(X)
+
+
 def run_boruta(ds, ks: List[int], counter: FitCounter,
                max_iter: int = 100, seed: int = SEED) -> Dict:
     """Boruta selects a SET, not a ranking, so it yields one subset.
@@ -145,18 +186,20 @@ def run_boruta(ds, ks: List[int], counter: FitCounter,
     is the confirmed set, reported separately as `native_subset`.
 
     Boruta is stochastic: it permutes every column to build shadow features and
-    refits a random forest on each iteration. It therefore takes a seed and is
+    refits its estimator on each iteration. It therefore takes a seed and is
     run once per seed like the population searches, not as a single fixed pass.
+
+    The estimator is the protocol's decision tree (`TreeForBoruta`), not the
+    random forest Boruta is usually paired with: HYPOTHESES.md requires every
+    method to use the one classifier it is judged by. This is a departure from
+    Boruta's usual configuration and is recorded on the result.
     """
     from boruta import BorutaPy
-    from sklearn.ensemble import RandomForestClassifier
 
     t0 = time.time()
-    rf = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=seed,
-                                class_weight="balanced", max_depth=5)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        sel = BorutaPy(rf, n_estimators="auto", random_state=seed,
+        sel = BorutaPy(TreeForBoruta(), n_estimators="auto", random_state=seed,
                        max_iter=max_iter, verbose=0)
         sel.fit(ds.X_train, ds.y_train)
 
@@ -189,6 +232,8 @@ def run_boruta(ds, ks: List[int], counter: FitCounter,
         native["seed"] = seed
 
     return {"method": "boruta", "family": "all-relevant", "seed": seed,
+            "estimator": "protocol decision tree (departure: Boruta is "
+                         "usually run on a random forest)",
             "elapsed_seconds": round(time.time() - t0, 2),
             "n_confirmed": int(confirmed.size),
             "native_subset": native,
@@ -222,12 +267,15 @@ def run_hsic_lasso(ds, ks: List[int], counter: FitCounter) -> Dict:
 
 # ------------------------------------------------------------------- NSGA-II
 def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
-              init: str = "obl", progress_cb=None) -> Dict:
+              init: str = "obl", progress_cb=None, trajectory=None) -> Dict:
     """Plain NSGA-II wrapper search: same operators as the MIIP port, minus the
     mutual-information improvement phase.
 
     Running both isolates what MIIP's improvement phase actually contributes,
     since everything else is held identical.
+
+    `trajectory` (a `trajectory.Trajectory`) records the best score after every
+    generation; generation 0 is the initial population.
     """
     from nsgaii_miip import (balanced_mutation, binary_tournament_crossover,
                              crowding_distance, fast_nondominated_sort,
@@ -247,8 +295,19 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
         return primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
 
     def evaluate(P):
+        """Score a population. Returns the objectives and a mask of the rows
+        that have one.
+
+        The fit budget is exact: once it is spent, a subset that would need a
+        NEW fit is left unscored and the caller drops it, rather than letting
+        the last generation overshoot the cap by up to a population's worth of
+        fits. Cached subsets still score, since they cost nothing. This is how
+        FASTENER, POSS and FS-SDS already stop (HYPOTHESES.md: 6,000 fits per
+        run, equal across arms).
+        """
         nonlocal evaluations
         objs = np.empty((P.shape[0], 2))
+        ok = np.ones(P.shape[0], dtype=bool)
         for i, genes in enumerate(P):
             size = int(genes.sum())
             if size == 0:
@@ -256,15 +315,23 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
                 continue
             key = np.packbits(genes).tobytes()
             if key not in cache:
+                if evaluations >= stop_evaluations:
+                    ok[i] = False
+                    continue
                 cache[key] = objective(genes)
                 evaluations += 1
+                if trajectory is not None:
+                    trajectory.observe(np.where(genes)[0], cache[key])
             objs[i] = (-cache[key], size)
-        return objs
+        return objs, ok
 
     pop = (obl_initialization(pop_size, n_features, rng) if init == "obl"
            else sparse_initialization(pop_size, n_features, rng))
-    objs = evaluate(pop)
+    objs, ok = evaluate(pop)
+    pop, objs = pop[ok], objs[ok]
     iteration = 0
+    if trajectory is not None:
+        trajectory.step(0, evaluations)
 
     while evaluations < stop_evaluations:
         iteration += 1
@@ -279,7 +346,8 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
 
         off = binary_tournament_crossover(pop, rank, crowd, 0.9, rng)
         off = balanced_mutation(off, m_rate, rng)
-        off_objs = evaluate(off)
+        off_objs, ok = evaluate(off)
+        off, off_objs = off[ok], off_objs[ok]
 
         merged = np.vstack([pop, off])
         merged_objs = np.vstack([objs, off_objs])
@@ -294,6 +362,8 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
                 break
         idx = np.array(keep, dtype=int)
         pop, objs = merged[idx], merged_objs[idx]
+        if trajectory is not None:
+            trajectory.step(iteration, evaluations)
 
     final = fast_nondominated_sort(objs)[0]
     records = []
@@ -317,7 +387,7 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
 
 # ---------------------------------------------------------------------- POSS
 def run_poss_method(ds, seed: int, stop_evaluations: int, k: int = None,
-                    progress_cb=None) -> Dict:
+                    progress_cb=None, trajectory=None) -> Dict:
     """POSS behind the shared protocol.
 
     `k` is POSS's own constraint parameter, not a grid budget: the algorithm
@@ -343,10 +413,15 @@ def run_poss_method(ds, seed: int, stop_evaluations: int, k: int = None,
     def objective(genes) -> float:
         feats = np.where(genes)[0]
         model = make_model().fit(ds.X_train[:, feats], ds.y_train)
-        return primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+        score = primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+        if trajectory is not None:
+            trajectory.observe(feats, score)
+        return score
 
     out = run_poss(ds.n_features, objective, k=k, seed=seed,
-                   stop_evaluations=stop_evaluations, progress_cb=progress_cb)
+                   stop_evaluations=stop_evaluations, progress_cb=progress_cb,
+                   iteration_cb=(None if trajectory is None
+                                 else lambda it, ev: trajectory.step(it, ev)))
 
     records = []
     for genes in out["archive_genes"]:
@@ -387,7 +462,7 @@ def run_poss_method(ds, seed: int, stop_evaluations: int, k: int = None,
 def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
                       population_size: int = None, max_iterations: int = None,
                       model_factory=None, label: str = "fs_sds",
-                      progress_cb=None) -> Dict:
+                      progress_cb=None, trajectory=None) -> Dict:
     """FS-SDS behind the shared protocol, one SDS run per feature count.
 
     FS-SDS holds every agent at EXACTLY k features for a whole run, so unlike
@@ -395,11 +470,15 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
     curve is assembled by running it once per k, which is what the FASTENER
     paper did too (its Table 3 reports FS-SDS's budget "per each k").
 
-    `stop_evaluations` is therefore PER K, not for the method as a whole: each
-    run gets the same budget every other search gets, and the much larger total
-    is reported rather than charged against it. Handing FS-SDS one shared budget
-    split across the grid would build a strawman out of a cost structure the
-    method cannot help.
+    `stop_evaluations` is PER K. What the whole method may spend is the
+    CALLER's decision: under HYPOTHESES.md the runner divides the run's total
+    budget evenly over k = 1..20 (6,000 in total, 300 per k), so FS-SDS spends
+    what every other arm spends. The paper-replication runner instead
+    passes a per-k budget, as the paper did.
+
+    `trajectory` records the best score after every sweep. Iterations are
+    numbered continuously across the per-k runs, and each snapshot carries the
+    k of the run it came from.
 
     `model_factory` overrides the classifier that DRIVES the search. It defaults
     to the shared decision tree; the FASTENER paper ran FS-SDS on an Extreme
@@ -421,11 +500,15 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
     def objective(genes) -> float:
         feats = np.where(genes)[0]
         model = build_model().fit(ds.X_train[:, feats], ds.y_train)
-        return primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+        score = primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+        if trajectory is not None:
+            trajectory.observe(feats, score)
+        return score
 
     records = []
     per_k = []
     total_fits = 0
+    iteration_offset = [0]  # iterations of the k-runs already finished
     for k in ks:
         if k > ds.n_features:
             continue
@@ -434,11 +517,18 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
         done_before = total_fits
         cb = (None if progress_cb is None
               else lambda done, base=done_before: progress_cb(base + done))
+        it_cb = None
+        if trajectory is not None:
+            def it_cb(it, ev, k=k, base_fits=done_before,
+                      base_it=iteration_offset[0]):
+                trajectory.step(base_it + it, base_fits + ev, k=k)
         out = run_fs_sds(ds.n_features, k, objective, seed=seed,
                          stop_evaluations=stop_evaluations,
                          population_size=population_size,
                          max_iterations=max_iterations,
-                         progress_cb=cb)
+                         progress_cb=cb, iteration_cb=it_cb)
+        # +1: each k-run starts with its own iteration 0 (initialisation).
+        iteration_offset[0] += out["iterations"] + 1
         total_fits += out["evaluations"]
         per_k.append({"k": k, "model_fits": out["evaluations"],
                       "iterations": out["iterations"],
@@ -464,17 +554,16 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
             "per_k": per_k,
             "budget_note": (
                 f"{stop_evaluations} fits per k over {len(per_k)} values of k "
-                f"= {total_fits} fits in total, against {stop_evaluations} for "
-                f"a single run of any other search. The FASTENER paper gave it "
-                f"{PAPER_EVALUATIONS_PER_K} per k. The cost asymmetry is the "
-                f"method's own structure, not a handicap imposed here."),
+                f"= {total_fits} fits in total. The FASTENER paper gave it "
+                f"{PAPER_EVALUATIONS_PER_K} per k."),
             "records": records}
 
 
 def run_nsgaii_miip_method(ds, seed: int, stop_evaluations: int,
                            cluster_cache: Dict = None,
                            pop_size: int = 100, n_jobs: int = 1,
-                           init: str = "obl", progress_cb=None) -> Dict:
+                           init: str = "obl", progress_cb=None,
+                           trajectory=None) -> Dict:
     """Wrapper putting the NSGAII-MIIP port behind the shared protocol.
 
     The MI matrix and clustering depend only on the training data, not the seed,
@@ -499,12 +588,17 @@ def run_nsgaii_miip_method(ds, seed: int, stop_evaluations: int,
     def objective(genes) -> float:
         feats = np.where(genes)[0]
         model = make_model().fit(ds.X_train[:, feats], ds.y_train)
-        return primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+        score = primary_score(ds.y_val, model.predict(ds.X_val[:, feats]))
+        if trajectory is not None:
+            trajectory.observe(feats, score)
+        return score
 
     out = run_nsgaii_miip(ds.n_features, objective, clusters, mi, ent,
                           seed=seed, stop_evaluations=stop_evaluations,
                           pop_size=pop_size, init=init,
-                          progress_cb=progress_cb)
+                          progress_cb=progress_cb,
+                          iteration_cb=(None if trajectory is None
+                                        else lambda it, ev: trajectory.step(it, ev)))
 
     name = "nsgaii_miip" if init == "obl" else "nsgaii_miip_sparse"
     records = []

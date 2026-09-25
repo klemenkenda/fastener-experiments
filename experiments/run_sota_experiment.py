@@ -28,11 +28,9 @@ import analysis  # noqa: E402
 import baselines  # noqa: E402
 import sota_baselines as sota  # noqa: E402
 from datasets import LOADERS, load  # noqa: E402
-from protocol import MODEL_SEED, FitCounter  # noqa: E402
+from protocol import K_GRID, MODEL_SEED, FitCounter  # noqa: E402
 from provenance import Run  # noqa: E402
 from run_fastener import run_fastener  # noqa: E402
-
-K_GRID = [1, 2, 3, 5, 8, 10, 12, 15, 20, 25, 30, 50, 100, 200, 500]
 
 # Matched to FASTENER's measured model-fit count (~6000 on MADELON at 600
 # rounds), so the two searches get equal compute. The paper's own default is

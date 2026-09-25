@@ -79,6 +79,72 @@ def monotone_best_upto_k(records: List[Dict]) -> Dict[int, Dict]:
     return out
 
 
+def auf(records: List[Dict], K: int, metric: str = "f1_weighted") -> Dict:
+    """AUF = (1/K) * sum over k = 1..K of opt(k)  (HYPOTHESES.md).
+
+    opt(k) is the TEST score of the subset chosen on VALIDATION among those of
+    size <= k -- the same monotone, val-selected reading `comparison_table`
+    uses, so selection never sees the test split.
+
+    Where a run has no subset of size <= k at all, opt(k) = 0: at that budget
+    the method offers nothing. This is what makes AUF penalise a search that
+    never reaches small subsets (NSGA-II from OBL initialisation, H1), and it is
+    why the all-features reference, which has no subset of size <= 10, is kept
+    out of the K = 10 comparisons rather than scored.
+
+    `metric` names a key of each record's `test` scores; the primary is
+    weighted F1. Returns the value and how many of the K budgets were covered.
+    """
+    curve = monotone_best_upto_k(records)
+    sizes = sorted(curve)
+    values, covered = [], 0
+    for k in range(1, K + 1):
+        usable = [s for s in sizes if s <= k]
+        if not usable:
+            values.append(0.0)
+            continue
+        score = curve[max(usable)]["test"].get(metric)
+        values.append(float(score) if score is not None else 0.0)
+        covered += 1
+    return {"auf": float(np.mean(values)), "k_covered": covered}
+
+
+def auf_by_seed(all_results: List[Dict], Ks=(10, 20),
+                metrics=("f1_weighted", "f1_macro", "f1_binary", "accuracy",
+                         "balanced_accuracy"),
+                n_features: int = None) -> List[Dict]:
+    """One row per (method, seed): AUF at each K under every metric.
+
+    The primary value for the hypotheses is `auf{K}_f1_weighted`; every other
+    column is secondary and is here so a question about a different metric can
+    be answered from a finished run rather than a new one. Hypervolume is added
+    when `n_features` is given.
+    """
+    rows = []
+    for res in all_results:
+        records = res.get("records") or []
+        if not records:
+            continue
+        row = {"method": res["method"], "seed": res.get("seed")}
+        for K in Ks:
+            for metric in metrics:
+                if metric == "f1_binary" and records[0]["test"].get(metric) is None:
+                    continue
+                a = auf(records, K, metric)
+                row[f"auf{K}_{metric}"] = round(a["auf"], 6)
+            row[f"k_covered_{K}"] = auf(records, K)["k_covered"]
+        if n_features is not None:
+            from protocol import pareto_front
+            row["hypervolume"] = round(
+                hypervolume(pareto_front(records), n_features), 6)
+        row["min_subset_size"] = min(int(r["n_features"]) for r in records)
+        row["model_fits"] = res.get("model_fits")
+        row["seconds"] = res.get("elapsed_seconds", res.get("search_seconds"))
+        row["stopped_on"] = res.get("stopped_on")
+        rows.append(row)
+    return rows
+
+
 def comparison_table(all_results: List[Dict], ks: List[int]) -> List[Dict]:
     """One row per (method, k) with the test score of the val-selected subset."""
     rows = []

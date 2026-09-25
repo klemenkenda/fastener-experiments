@@ -333,8 +333,12 @@ def sparse_initialization(pop_size: int, n_features: int, rng,
     labelled separately and are NOT the ported algorithm.
     """
     pop = np.zeros((pop_size, n_features), dtype=bool)
+    # Capped at the feature count: without it a dataset with fewer than
+    # max_size features (higgs has 28) crashes drawing more features than exist.
+    # For n_features >= max_size the draws are identical to the uncapped form.
+    top = min(max_size, n_features)
     for i in range(pop_size):
-        k = rng.randint(1, max_size + 1)
+        k = rng.randint(1, top + 1)
         pop[i, rng.choice(n_features, size=k, replace=False)] = True
     return pop
 
@@ -397,12 +401,16 @@ def run_nsgaii_miip(n_features: int,
                     m_rate: Optional[float] = None,
                     init: str = "obl",
                     progress_cb: Optional[Callable[[int], None]] = None,
-                    verbose: bool = False) -> Dict:
+                    verbose: bool = False,
+                    iteration_cb: Optional[Callable[[int, int], None]] = None) -> Dict:
     """NSGAIIMIIP.m main loop.
 
     objective returns the score to MAXIMISE for one boolean gene vector; it is
     negated internally, since NSGA-II minimises. The second objective is the
     number of selected features.
+
+    `iteration_cb(iteration, evaluations)` is called after the initial
+    population (iteration 0) and after every generation.
     """
     rng = np.random.RandomState(seed)
     m_rate = m_rate if m_rate is not None else 1.0 / n_features
@@ -410,9 +418,20 @@ def run_nsgaii_miip(n_features: int,
     evaluations = 0
     cache: Dict[bytes, float] = {}
 
-    def evaluate(P: np.ndarray) -> np.ndarray:
+    def evaluate(P: np.ndarray):
+        """Score a population. Returns the objectives and a mask of the rows
+        that have one.
+
+        The fit budget is exact: once it is spent, a subset that would need a
+        NEW fit is left unscored and the caller drops it, rather than letting
+        the last generation overshoot the cap by up to a population's worth of
+        fits. Cached subsets still score, since they cost nothing. This is how
+        FASTENER, POSS and FS-SDS already stop (HYPOTHESES.md: 6,000 fits per
+        run, equal across arms).
+        """
         nonlocal evaluations
         objs = np.empty((P.shape[0], 2))
+        ok = np.ones(P.shape[0], dtype=bool)
         for i, genes in enumerate(P):
             size = int(genes.sum())
             if size == 0:
@@ -421,10 +440,13 @@ def run_nsgaii_miip(n_features: int,
                 continue
             key = np.packbits(genes).tobytes()
             if key not in cache:
+                if evaluations >= stop_evaluations:
+                    ok[i] = False
+                    continue
                 cache[key] = objective(genes)
                 evaluations += 1
             objs[i] = (-cache[key], size)
-        return objs
+        return objs, ok
 
     if init == "obl":
         pop = obl_initialization(pop_size, n_features, rng)
@@ -432,9 +454,12 @@ def run_nsgaii_miip(n_features: int,
         pop = sparse_initialization(pop_size, n_features, rng)
     else:
         raise ValueError(f"unknown init {init!r}")
-    objs = evaluate(pop)
+    objs, ok = evaluate(pop)
+    pop, objs = pop[ok], objs[ok]
 
     iteration = 0
+    if iteration_cb is not None:
+        iteration_cb(0, evaluations)
     while evaluations < stop_evaluations:
         iteration += 1
         if progress_cb is not None:
@@ -448,7 +473,8 @@ def run_nsgaii_miip(n_features: int,
 
         off = binary_tournament_crossover(pop, rank, crowd, c_rate, rng)
         off = balanced_mutation(off, m_rate, rng)
-        off_objs = evaluate(off)
+        off_objs, ok = evaluate(off)
+        off, off_objs = off[ok], off_objs[ok]
 
         merged = np.vstack([pop, off])
         merged_objs = np.vstack([objs, off_objs])
@@ -456,7 +482,8 @@ def run_nsgaii_miip(n_features: int,
         # Improvement phase runs on the current non-dominated set.
         first = fast_nondominated_sort(merged_objs)[0]
         improved = improvement(merged[first], mi, ent, clusters, rng)
-        improved_objs = evaluate(improved)
+        improved_objs, ok = evaluate(improved)
+        improved, improved_objs = improved[ok], improved_objs[ok]
 
         merged = np.vstack([merged, improved])
         merged_objs = np.vstack([merged_objs, improved_objs])
@@ -473,6 +500,8 @@ def run_nsgaii_miip(n_features: int,
         idx = np.array(keep, dtype=int)
         pop, objs = merged[idx], merged_objs[idx]
 
+        if iteration_cb is not None:
+            iteration_cb(iteration, evaluations)
         if verbose:
             print(f"  iter {iteration}: evals={evaluations}")
 

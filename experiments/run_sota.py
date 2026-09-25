@@ -1,23 +1,32 @@
-"""SotA experiment: FASTENER vs. modern feature selectors.
+"""SotA experiment: FASTENER against every other feature selector in the repo.
 
-run_experiment.py compares FASTENER against the simple filters (mutual info,
-ANOVA-F, tree importance, RFE, random). This script runs the stronger set --
-mRMR, ReliefF, Boruta, HSIC Lasso, plain NSGA-II, POSS, FS-SDS and the
-NSGAII-MIIP port -- under the identical protocol, so the two runs stack into one
-picture. POSS and FS-SDS are the FASTENER paper's own wrapper comparators.
+One runner covers every algorithm HYPOTHESES.md compares: the simple rankers,
+RFE, random subsets and the all-features reference (from baselines.py); mRMR,
+ReliefF, Boruta and HSIC Lasso; plain NSGA-II from OBL and from sparse
+initialisation; POSS, FS-SDS and the NSGAII-MIIP port; and the three FASTENER
+arms. POSS and FS-SDS are the FASTENER paper's own wrapper comparators.
 
-The evolutionary arms are budgeted by MODEL FITS, not generations, because
-generations are not comparable across algorithms with different population
-sizes. The default matches what FASTENER measured on MADELON in the baseline
-run (~6000 fits/seed).
+The run follows HYPOTHESES.md:
+
+* one classifier, protocol.make_model(), drives every search and scores every
+  result -- Boruta included, on the protocol tree;
+* every search gets the same fit budget, protocol.FIT_BUDGET (6,000). FS-SDS
+  holds a run at one k, so it spreads that budget evenly over k = 1..20;
+* curves are read on protocol.K_GRID, every k up to 20 then a sparse tail;
+* datasets over protocol.ROW_CAP rows use a fixed stratified subsample;
+* every search records its best score after each of its own iterations, in
+  trajectories/<method>_seed<seed>.jsonl;
+* AUF at K = 10 and K = 20, under every metric, is written per method and seed
+  to auf.csv. The primary values are auf10_f1_weighted (H1-H3, H5, H6) and
+  auf20_f1_weighted (H4).
 
 Usage:
     python experiments/run_sota.py --quick              # smoke check
     python experiments/run_sota.py                      # full run, MADELON
     python experiments/run_sota.py --dataset gina
     python experiments/run_sota.py --methods mrmr,boruta --no-fastener
-    python experiments/run_sota.py --dataset eodata --experiment H1-E01 \
-        --methods nsga2 --init sparse --no-fastener
+    python experiments/run_sota.py --dataset eodata --experiment H1-E01 \\
+        --methods nsga2,nsga2_sparse --no-fastener
 
 Runs that test a hypothesis pass --experiment (see METHODOLOGY.md): the run is
 then refused from uncommitted code, recorded in EXPERIMENTS.md, and every arm
@@ -34,13 +43,15 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import analysis  # noqa: E402
+import baselines  # noqa: E402
 import sota_baselines as sota  # noqa: E402
 from datasets import DATA_DIR, load  # noqa: E402
 from progress import Progress, format_duration  # noqa: E402
-from protocol import FitCounter, MODEL_SEED  # noqa: E402
+from protocol import (FIT_BUDGET, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
+                      ROW_CAP, FitCounter)
 from provenance import DirtyTreeError, Run  # noqa: E402
-from run_experiment import K_GRID  # noqa: E402
 from run_fastener import SWAP_ARMS, run_fastener  # noqa: E402
+from trajectory import Trajectory  # noqa: E402
 
 # The three FASTENER arms, keyed by swap-strategy name. The method labels match
 # what run_fastener stamps on its records, so the plot styles in analysis.py and
@@ -51,26 +62,33 @@ FASTENER_ARM_NAMES = {
     "guided": "fastener_swap_guided",
 }
 
-# Deterministic selectors: one pass each, no seed.
-FILTERS = ("mrmr", "relieff", "hsic_lasso")
+# Deterministic selectors: one pass each, no seed. The three rankers, RFE and
+# the all-features reference come from baselines.py, so that one runner covers
+# every algorithm H5 and H6 compare.
+RANKERS = ("kbest_mutual_info", "kbest_anova_f", "tree_importance")
+FILTERS = ("mrmr", "relieff", "hsic_lasso") + RANKERS + ("rfe_tree",
+                                                          "all_features")
 # Boruta is a filter in spirit but randomised in fact -- it permutes every
-# column to build shadow features and refits a forest each iteration -- so it
-# gets the same seed treatment as the searches and reports a spread, not a
+# column to build shadow features and refits its estimator each iteration -- so
+# it gets the same seed treatment as the searches and reports a spread, not a
 # single point that the significance tests would read as a fixed baseline.
-SEEDED_FILTERS = ("boruta",)
-# Population searches: one run per seed.
-SEARCHES = ("nsga2", "poss", "nsgaii_miip")
-# FS-SDS fixes the subset size for a whole run, so it needs one run per k and
-# its total cost is (budget x len(k_grid)). It is budgeted per run like the
-# others -- see run_fs_sds_method -- but it cannot share their accounting, so
-# it is planned and reported separately.
+# Random subsets are seeded for the same reason.
+SEEDED_FILTERS = ("boruta", "random")
+# Population searches: one run per seed. nsga2 always starts from OBL, as
+# ported; nsga2_sparse always starts from 1-30 features. They are separate
+# methods rather than one method under a flag, so H1 runs both arms in one
+# invocation.
+SEARCHES = ("nsga2", "nsga2_sparse", "poss", "nsgaii_miip")
+# FS-SDS fixes the subset size for a whole run, so it runs once per k over
+# protocol.FS_SDS_K_RANGE, with the run's fit budget divided evenly across
+# them -- 300 per k at the default 6,000 -- so it spends what every other arm
+# spends (HYPOTHESES.md).
 PER_K_SEARCHES = ("fs_sds",)
 ALL_METHODS = FILTERS + SEEDED_FILTERS + SEARCHES + PER_K_SEARCHES
 
-# FASTENER's measured cost on MADELON (manifest of 20260916T123417Z: 5615-6468
-# fits per seed). The evolutionary arms get the same budget so the comparison is
-# of search quality, not of who was allowed more compute.
-DEFAULT_EVALUATIONS = 6000
+# Equal across arms, so the comparison is of search quality, not of who was
+# allowed more compute.
+DEFAULT_EVALUATIONS = FIT_BUDGET
 
 
 def parse_args():
@@ -80,17 +98,15 @@ def parse_args():
                     help=f"comma-separated subset of {','.join(ALL_METHODS)}")
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--evaluations", type=int, default=DEFAULT_EVALUATIONS,
-                    help="model-fit budget per seed for the evolutionary arms")
+                    help="model-fit budget per run, for every search. FS-SDS "
+                         "divides it evenly over k = 1..20.")
     ap.add_argument("--boruta-max-iter", type=int, default=100)
     ap.add_argument("--sds-population", type=int, default=None,
                     help="FS-SDS swarm size (default 100, the authors' "
                          "reference setting)")
     ap.add_argument("--sds-iterations", type=int, default=None,
                     help="cap on FS-SDS diffusion sweeps per k. Default: no "
-                         "cap, so the fit budget stops the run and FS-SDS gets "
-                         "the same per-run compute as every other search. Pass "
-                         "50 for the authors' reference setting, which on "
-                         "MADELON stops at ~2600 fits per k.")
+                         "cap, so the fit budget stops the run.")
     ap.add_argument("--poss-k", type=int, default=None,
                     help="POSS's constraint parameter: subsets of 2k or more "
                          "features are infeasible by definition, so this is "
@@ -98,16 +114,22 @@ def parse_args():
                          "its archive can hold. Default min(50, n_features), "
                          "which covers the region the comparison reports.")
     ap.add_argument("--init", default="obl", choices=("obl", "sparse"),
-                    help="initialisation for the evolutionary arms. 'obl' is "
-                         "the ported algorithm (~50%% density, i.e. ~250 "
-                         "features on MADELON). 'sparse' seeds 1-30 features "
-                         "and is a DEPARTURE from the source, used to separate "
-                         "the search from where it was told to start; such "
-                         "runs are labelled *_sparse.")
+                    help="initialisation for NSGAII-MIIP only. 'obl' is the "
+                         "ported algorithm; 'sparse' seeds 1-30 features, is a "
+                         "DEPARTURE from the source, and labels the run "
+                         "nsgaii_miip_sparse. Plain NSGA-II does not read this "
+                         "flag: run nsga2 and nsga2_sparse as methods.")
+    ap.add_argument("--max-rows", type=int, default=ROW_CAP,
+                    help=f"row cap: a dataset with more rows uses a fixed "
+                         f"stratified subsample of this many, identical for "
+                         f"every arm and seed. Default {ROW_CAP}, per "
+                         f"HYPOTHESES.md; 0 uses every row.")
     ap.add_argument("--no-fastener", action="store_true",
-                    help="skip the FASTENER arm (it is included by default so "
-                         "the plot has its reference curve)")
-    ap.add_argument("--fastener-rounds", type=int, default=600)
+                    help="skip the FASTENER arms")
+    ap.add_argument("--fastener-rounds", type=int, default=100_000,
+                    help="generation cap, set far above what the fit budget "
+                         "allows so that the budget is what stops FASTENER, as "
+                         "for every other search; `stopped_on` confirms it.")
     ap.add_argument("--fastener-swap", action="append",
                     choices=sorted(SWAP_ARMS),
                     help="FASTENER pruning arm, repeatable; default runs all "
@@ -149,11 +171,19 @@ def main() -> int:
     # The k grid before the per-dataset cap: part of an arm's configuration,
     # while the cap is a property of the dataset.
     grid = list(ks)
+    # FS-SDS's share of the run budget per k. Fixed by the full range, not by
+    # the dataset, so the arm's configuration -- and its algorithm ID -- is the
+    # same on every dataset. The remainder of an uneven division goes unspent
+    # rather than to some k and not others.
+    fs_per_k = max(1, evaluations // len(FS_SDS_K_RANGE))
     name = args.name or f"{args.dataset}_sota" + ("_quick" if quick else "")
 
-    ds = load(args.dataset)
+    ds = load(args.dataset, max_rows=args.max_rows or None)
     print(ds)
+    if ds.max_rows and ds.n_rows_used <= ds.max_rows:
+        print(f"  row cap {ds.max_rows}: using {ds.n_rows_used} rows")
     ks = [k for k in ks if k <= ds.n_features]
+    fs_ks = [k for k in FS_SDS_K_RANGE if k <= ds.n_features]
 
     params = {
         "dataset": args.dataset,
@@ -165,13 +195,18 @@ def main() -> int:
         "seeds": seeds,
         "evaluation_budget_per_seed": evaluations,
         "boruta_max_iter": boruta_max_iter,
-        "fs_sds_evaluations_per_k": evaluations,
+        "boruta_estimator": "protocol decision tree",
+        "fs_sds_k_range": fs_ks,
+        "fs_sds_evaluations_per_k": fs_per_k,
+        "fs_sds_evaluations_total": fs_per_k * len(fs_ks),
         "fs_sds_population": args.sds_population,
         "fs_sds_iterations": args.sds_iterations,
         "poss_k": args.poss_k if args.poss_k is not None
                   else min(50, ds.n_features),
-        "init": args.init,
+        "nsgaii_miip_init": args.init,
         "k_grid": ks,
+        "max_rows": ds.max_rows,
+        "n_rows_used": ds.n_rows_used,
         "model": "DecisionTreeClassifier",
         "model_seed": MODEL_SEED,
         "primary_metric": "f1_weighted",
@@ -187,15 +222,23 @@ def main() -> int:
         "mrmr": {"k_grid": grid},
         "relieff": {"k_grid": grid},
         "hsic_lasso": {"k_grid": grid},
-        "boruta": {"k_grid": grid, "max_iter": boruta_max_iter},
-        "nsga2": {"evaluations": evaluations, "init": args.init},
+        "rfe_tree": {"k_grid": grid},
+        "all_features": {},
+        "boruta": {"k_grid": grid, "max_iter": boruta_max_iter,
+                   "estimator": "protocol_tree"},
+        "random": {"k_grid": grid, "n_repeats": 10},
+        "nsga2": {"evaluations": evaluations, "init": "obl"},
+        "nsga2_sparse": {"evaluations": evaluations, "init": "sparse"},
         # None = the default rule, min(50, n_features).
         "poss": {"evaluations": evaluations, "poss_k": args.poss_k},
         "nsgaii_miip": {"evaluations": evaluations, "init": args.init},
-        "fs_sds": {"evaluations_per_k": evaluations, "k_grid": grid,
+        "fs_sds": {"evaluations_per_k": fs_per_k,
+                   "k_range": list(FS_SDS_K_RANGE),
                    "population": args.sds_population,
                    "iterations": args.sds_iterations},
     }
+    for r in RANKERS:
+        arm_configs[r] = {"k_grid": grid}
     for arm in fastener_arms:
         arm_configs[FASTENER_ARM_NAMES[arm]] = {
             "max_fits": evaluations, "rounds": fastener_rounds, "swap": arm}
@@ -230,6 +273,12 @@ def main() -> int:
             for rec in res["records"]:
                 rec["algorithm_id"] = aid
 
+        def trajectory(method: str, seed: int) -> Trajectory:
+            """Best score per iteration, one file per (method, seed)."""
+            return Trajectory(
+                run.dir / "trajectories" / f"{method}_seed{seed}.jsonl",
+                method, seed, ks)
+
         def checkpoint() -> None:
             """Persist what is finished after every unit.
 
@@ -259,7 +308,7 @@ def main() -> int:
         for m in methods:
             if m in PER_K_SEARCHES:
                 for s in seeds:
-                    prog.plan(m, seed=s, budget_fits=evaluations * len(ks))
+                    prog.plan(m, seed=s, budget_fits=fs_per_k * len(fs_ks))
         if not args.no_fastener:
             for arm in fastener_arms:
                 for s in seeds:
@@ -275,7 +324,12 @@ def main() -> int:
             "mrmr": lambda: sota.run_mrmr(ds, ks, counter),
             "relieff": lambda: sota.run_relieff(ds, ks, counter),
             "hsic_lasso": lambda: sota.run_hsic_lasso(ds, ks, counter),
+            "rfe_tree": lambda: baselines.run_rfe(ds, ks, counter),
+            "all_features": lambda: baselines.run_all_features(ds, counter),
         }
+        for r in RANKERS:
+            filter_fns[r] = (lambda name: lambda: baselines.run_ranker(
+                ds, name, ks, counter))(r)
         selected_filters = [m for m in methods if m in FILTERS]
         if selected_filters:
             print("\nfilters:")
@@ -287,13 +341,14 @@ def main() -> int:
                 # One unavailable library must not discard the rest of the run.
                 failures[m] = f"{type(exc).__name__}: {exc}"
                 prog.fail(m, failures[m])
-                print(f"  {m:14s} FAILED  {failures[m]}")
+                print(f"  {m:18s} FAILED  {failures[m]}")
                 traceback.print_exc()
                 continue
-            prog.finish(m, seconds=res["elapsed_seconds"])
+            res.setdefault("method", m)
+            prog.finish(m, seconds=res.get("elapsed_seconds"))
             best = max(res["records"], key=lambda r: r["val_score"])
-            print(f"  {m:14s} best test_f1={best['test_score']:.4f} "
-                  f"@k={best['n_features']} ({res['elapsed_seconds']}s)")
+            print(f"  {m:18s} best test_f1={best['test_score']:.4f} "
+                  f"@k={best['n_features']} ({res.get('elapsed_seconds')}s)")
             tag(res, m)
             all_results.append(res)
             checkpoint()
@@ -303,6 +358,7 @@ def main() -> int:
             "boruta": lambda s: sota.run_boruta(ds, ks, counter,
                                                 max_iter=boruta_max_iter,
                                                 seed=s),
+            "random": lambda s: baselines.run_random(ds, ks, counter, seed=s),
         }
         for m in [m for m in methods if m in SEEDED_FILTERS]:
             print(f"\n{m} (x{len(seeds)} seeds):")
@@ -317,12 +373,14 @@ def main() -> int:
                     print(f"  seed {seed}: FAILED {failures[unit]}")
                     traceback.print_exc()
                     continue
-                prog.finish(unit, seconds=res["elapsed_seconds"])
+                res.setdefault("seed", seed)
+                prog.finish(unit, seconds=res.get("elapsed_seconds"))
                 best = max(res["records"], key=lambda r: r["val_score"])
+                extra = (f"confirmed={res['n_confirmed']} "
+                         if "n_confirmed" in res else "")
                 print(f"  seed {seed}: best test_f1={best['test_score']:.4f} "
-                      f"@k={best['n_features']} "
-                      f"confirmed={res['n_confirmed']} "
-                      f"({res['elapsed_seconds']}s)")
+                      f"@k={best['n_features']} {extra}"
+                      f"({res.get('elapsed_seconds')}s)")
                 tag(res, m)
                 all_results.append(res)
                 checkpoint()
@@ -331,26 +389,32 @@ def main() -> int:
         # The MI matrix and clustering depend only on the training data, so they
         # are computed once and shared across seeds.
         cluster_cache = {}
+        miip_label = "nsgaii_miip" if args.init == "obl" else "nsgaii_miip_sparse"
         search_fns = {
-            "nsga2": lambda s, cb: sota.run_nsga2(ds, s, evaluations,
-                                                  init=args.init,
-                                                  progress_cb=cb),
+            "nsga2": lambda s, cb, t: sota.run_nsga2(
+                ds, s, evaluations, init="obl", progress_cb=cb, trajectory=t),
+            "nsga2_sparse": lambda s, cb, t: sota.run_nsga2(
+                ds, s, evaluations, init="sparse", progress_cb=cb,
+                trajectory=t),
             # POSS takes no init: the paper starts it at the empty set, which is
             # already the sparse end, so the obl/sparse question does not arise.
-            "poss": lambda s, cb: sota.run_poss_method(ds, s, evaluations,
-                                                       k=args.poss_k,
-                                                       progress_cb=cb),
-            "nsgaii_miip": lambda s, cb: sota.run_nsgaii_miip_method(
+            "poss": lambda s, cb, t: sota.run_poss_method(
+                ds, s, evaluations, k=args.poss_k, progress_cb=cb,
+                trajectory=t),
+            "nsgaii_miip": lambda s, cb, t: sota.run_nsgaii_miip_method(
                 ds, s, evaluations, cluster_cache=cluster_cache,
-                n_jobs=args.n_jobs, init=args.init, progress_cb=cb),
+                n_jobs=args.n_jobs, init=args.init, progress_cb=cb,
+                trajectory=t),
         }
         for m in [m for m in methods if m in SEARCHES]:
             print(f"\n{m} ({evaluations} fits x {len(seeds)} seeds):")
+            label = miip_label if m == "nsgaii_miip" else m
             for seed in seeds:
                 unit = f"{m}:{seed}"
                 prog.start(unit)
                 try:
-                    res = search_fns[m](seed, prog.tick)
+                    res = search_fns[m](seed, prog.tick,
+                                        trajectory(label, seed))
                 except Exception as exc:
                     failures[unit] = f"{type(exc).__name__}: {exc}"
                     prog.fail(unit, failures[unit])
@@ -369,21 +433,21 @@ def main() -> int:
                 checkpoint()
 
         # ---- per-k searches ----------------------------------------------
-        # One SDS run per feature count, each at the same budget a whole run of
-        # any other search gets. The total is therefore much larger, which is
-        # the method's structure and is reported as such.
+        # One SDS run per k over FS_SDS_K_RANGE, the run budget divided evenly
+        # across them, so FS-SDS spends what every other arm spends.
         for m in [m for m in methods if m in PER_K_SEARCHES]:
-            print(f"\n{m} ({evaluations} fits x {len(ks)} k-values "
-                  f"x {len(seeds)} seeds):")
+            print(f"\n{m} ({fs_per_k} fits x {len(fs_ks)} k-values "
+                  f"= {fs_per_k * len(fs_ks)} per seed x {len(seeds)} seeds):")
             for seed in seeds:
                 unit = f"{m}:{seed}"
                 prog.start(unit)
                 try:
                     res = sota.run_fs_sds_method(
-                        ds, ks, seed=seed, stop_evaluations=evaluations,
+                        ds, fs_ks, seed=seed, stop_evaluations=fs_per_k,
                         population_size=args.sds_population,
                         max_iterations=args.sds_iterations,
-                        progress_cb=prog.tick)
+                        progress_cb=prog.tick,
+                        trajectory=trajectory(m, seed))
                 except Exception as exc:
                     failures[unit] = f"{type(exc).__name__}: {exc}"
                     prog.fail(unit, failures[unit])
@@ -418,7 +482,9 @@ def main() -> int:
                         res = run_fastener(ds, run.dir, seed=seed,
                                            rounds=fastener_rounds,
                                            swap=arm,
-                                           max_fits=evaluations)
+                                           max_fits=evaluations,
+                                           dump_logs=False,
+                                           trajectory=trajectory(label, seed))
                     except Exception as exc:
                         failures[unit] = f"{type(exc).__name__}: {exc}"
                         prog.fail(unit, failures[unit])
@@ -457,10 +523,32 @@ def main() -> int:
             w.writeheader()
             w.writerows(rows)
 
+        # AUF per method and seed, under every metric (HYPOTHESES.md). The
+        # primary values are auf10_f1_weighted and auf20_f1_weighted; every
+        # other column is secondary.
+        auf_rows = analysis.auf_by_seed(all_results, Ks=(10, 20),
+                                        n_features=ds.n_features)
+        for r in auf_rows:
+            match = next((res for res in all_results
+                          if res["method"] == r["method"]
+                          and res.get("seed") == r["seed"]), {})
+            r["algorithm_id"] = match.get("algorithm_id")
+        if auf_rows:
+            cols = ["method", "algorithm_id", "seed"]
+            for r in auf_rows:
+                cols += [c for c in r if c not in cols]
+            with open(run.dir / "auf.csv", "w", newline="",
+                      encoding="utf-8") as fh:
+                w = csv.DictWriter(fh, fieldnames=cols)
+                w.writeheader()
+                w.writerows(auf_rows)
+        run.write_json("auf.json", auf_rows)
+
         # Each stochastic arm is tested against the best deterministic filter,
         # so seed variance is not read as an advantage.
         present = {r["method"] for r in rows}
-        deterministic = tuple(m for m in FILTERS if m in present)
+        deterministic = tuple(m for m in FILTERS
+                              if m in present and m != "all_features")
         sig = {}
         stochastic_arms = (tuple(FASTENER_ARM_NAMES[a] for a in fastener_arms)
                            + SEEDED_FILTERS + SEARCHES + PER_K_SEARCHES)
@@ -489,7 +577,7 @@ def main() -> int:
                 m: [r["model_fits"] for r in all_results if r["method"] == m]
                 for m in present
                 if m in SEARCHES or m in PER_K_SEARCHES
-                or m in FASTENER_ARM_NAMES.values()
+                or m == miip_label or m in FASTENER_ARM_NAMES.values()
             },
             "elapsed_by_method": {
                 r["method"]: r.get("elapsed_seconds", r.get("search_seconds"))
@@ -497,9 +585,11 @@ def main() -> int:
             },
         })
 
-        print(f"\nwrote {csv_path.name}, raw_results.json, {plot_path.name}")
+        print(f"\nwrote {csv_path.name}, auf.csv, raw_results.json, "
+              f"trajectories/, {plot_path.name}")
         print(f"total wall time: {format_duration(run.elapsed())}")
         summarise(rows, ks)
+        summarise_auf(auf_rows)
         summarise_significance(sig)
         if failures:
             print(f"\nFAILED: {failures}")
@@ -512,7 +602,7 @@ def summarise(rows, ks) -> None:
     methods = sorted({r["method"] for r in rows})
     shown = [k for k in ks if k <= 50]
     print("\ntest weighted-F1 by feature budget (mean over seeds):")
-    header = "  " + "method".ljust(16) + "".join(f"{k:>8}" for k in shown)
+    header = "  " + "method".ljust(22) + "".join(f"{k:>7}" for k in shown)
     print(header)
     print("  " + "-" * (len(header) - 2))
     for m in methods:
@@ -520,8 +610,22 @@ def summarise(rows, ks) -> None:
         for k in shown:
             vals = [r["test_f1"] for r in rows
                     if r["method"] == m and r["budget_k"] == k]
-            cells.append(f"{np.mean(vals):8.3f}" if vals else " " * 8)
-        print("  " + m.ljust(16) + "".join(cells))
+            cells.append(f"{np.mean(vals):7.3f}" if vals else " " * 7)
+        print("  " + m.ljust(22) + "".join(cells))
+
+
+def summarise_auf(auf_rows) -> None:
+    """Mean AUF (K = 10, weighted F1) per method, with its seed range."""
+    if not auf_rows:
+        return
+    print("\nAUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:")
+    print(f"  {'method':<22}{'mean':>8}{'min':>8}{'max':>8}{'seeds':>7}"
+          f"{'k covered':>11}")
+    for m in sorted({r["method"] for r in auf_rows}):
+        vals = [r["auf10_f1_weighted"] for r in auf_rows if r["method"] == m]
+        cov = [r["k_covered_10"] for r in auf_rows if r["method"] == m]
+        print(f"  {m:<22}{np.mean(vals):8.4f}{min(vals):8.4f}{max(vals):8.4f}"
+              f"{len(vals):7d}{min(cov):>8d}-{max(cov):<2d}")
 
 
 def summarise_significance(sig) -> None:

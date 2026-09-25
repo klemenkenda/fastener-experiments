@@ -24,6 +24,26 @@ def make_model():
     return DecisionTreeClassifier(random_state=MODEL_SEED)
 
 
+# Feature budgets at which every curve is read. Every integer up to 20, because
+# AUF (see analysis.auf) averages opt(k) over EACH k = 1..K, and K is 10 or 20 in
+# HYPOTHESES.md; then a sparse tail for the large-k region. Callers drop the
+# entries above a dataset's feature count.
+K_GRID = list(range(1, 21)) + [25, 30, 50, 100, 200, 500]
+
+# FS-SDS holds a whole run at one fixed k, so it is run once per k over this
+# range and its fit budget is split evenly across it (HYPOTHESES.md: 6,000 in
+# total, 300 per k). It covers exactly what AUF at K = 20 needs.
+FS_SDS_K_RANGE = list(range(1, 21))
+
+# Fit budget per run, equal across arms.
+FIT_BUDGET = 6000
+
+# Datasets with more rows than this are cut to a fixed stratified subsample of
+# this many rows, identical for every arm and seed (HYPOTHESES.md, "Cost, and
+# the row cap"). Measured: EOData drops from ~24 h to ~2 h per run.
+ROW_CAP = 50_000
+
+
 # The score that drives FASTENER's search and selects k for the baselines.
 # Weighted F1 matches the reference eval_fun in fastener.py.
 def primary_score(y_true, y_pred) -> float:
@@ -31,8 +51,24 @@ def primary_score(y_true, y_pred) -> float:
 
 
 def all_scores(y_true, y_pred) -> Dict[str, float]:
+    """Every metric, for later interpretation. `f1_weighted` is the primary.
+
+    Macro F1 is always computed. Binary F1 only exists for a two-class problem,
+    where it is taken on the higher-coded class; it is None otherwise. The
+    paper says only "F1 score", and on a two-class set the averages differ
+    substantially, so all three are kept.
+    """
+    labels = np.unique(np.concatenate([np.asarray(y_true), np.asarray(y_pred)]))
+    binary = None
+    if np.unique(y_true).size == 2:
+        binary = float(f1_score(y_true, y_pred, average="binary",
+                                pos_label=np.max(y_true), zero_division=0))
     return {
-        "f1_weighted": float(f1_score(y_true, y_pred, average="weighted")),
+        "f1_weighted": float(f1_score(y_true, y_pred, average="weighted",
+                                      zero_division=0)),
+        "f1_macro": float(f1_score(y_true, y_pred, average="macro",
+                                   labels=labels, zero_division=0)),
+        "f1_binary": binary,
         "accuracy": float(accuracy_score(y_true, y_pred)),
         "balanced_accuracy": float(balanced_accuracy_score(y_true, y_pred)),
     }

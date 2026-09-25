@@ -160,7 +160,8 @@ def run_fs_sds(n_features: int,
                max_iterations: Optional[int] = None,
                max_barren_sweeps: int = MAX_BARREN_SWEEPS,
                use_cache: bool = True,
-               progress_cb: Optional[Callable[[int], None]] = None) -> Dict:
+               progress_cb: Optional[Callable[[int], None]] = None,
+               iteration_cb: Optional[Callable[[int, int], None]] = None) -> Dict:
     """Run FS-SDS for a single subset size k.
 
     `objective` takes a boolean gene vector and returns a score to MAXIMISE. It
@@ -172,6 +173,9 @@ def run_fs_sds(n_features: int,
     no cap, so the budget is what stops it -- see MAX_ITERATIONS_GUARD above for
     why the reference implementation's 50 is not the default. Which rule
     stopped the run is reported in `stopped_on` rather than left to be inferred.
+
+    `iteration_cb(iteration, evaluations)` is called once after initialisation
+    (iteration 0) and after every test-and-diffusion sweep.
     """
     if not 1 <= k <= n_features:
         raise ValueError(f"k must be in 1..{n_features}, got {k}")
@@ -231,6 +235,8 @@ def run_fs_sds(n_features: int,
                                     for _ in range(population_size)]
     scores = [score_of(h) for h in hypotheses]
     active = [False] * population_size
+    if iteration_cb is not None:
+        iteration_cb(0, evaluations)
 
     def other_than(i: int) -> int:
         j = rng.randint(population_size)
@@ -275,6 +281,9 @@ def run_fs_sds(n_features: int,
                 scores[i] = score_of(hypotheses[i])
             if budget_reached:
                 break
+
+        if iteration_cb is not None:
+            iteration_cb(iterations, evaluations)
 
         # A sweep that added nothing new means the swarm has converged; see
         # MAX_BARREN_SWEEPS.
