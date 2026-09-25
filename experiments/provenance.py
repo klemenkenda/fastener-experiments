@@ -24,6 +24,13 @@ FASTENER_DIR = REPO_ROOT / "fastener"
 RESULTS_DIR = REPO_ROOT / "results"
 DATA_DIR = REPO_ROOT / "data"
 
+# Paths whose changes do not make the CODE dirty: run outputs, downloaded data,
+# and the record-keeping that runs themselves write (the experiment ledger and
+# the reports). Everything else -- scripts, HYPOTHESES.md, METHODOLOGY.md --
+# counts as code, because a report must be reproducible from a commit.
+NON_CODE_PATHS = ("results", "data", "experiments/reports",
+                  "experiments/EXPERIMENTS.md")
+
 
 def _git(repo: Path, *args: str) -> Optional[str]:
     """Run a git command in `repo`, returning stripped stdout or None."""
@@ -42,11 +49,18 @@ def _git(repo: Path, *args: str) -> Optional[str]:
     return out.stdout.strip()
 
 
-def git_state(repo: Path) -> Dict[str, Any]:
-    """Commit, branch, dirty flag and remote for one repository."""
+def git_state(repo: Path, non_code=()) -> Dict[str, Any]:
+    """Commit, branch, dirty flags and remote for one repository.
+
+    `dirty` counts every change; `code_dirty` ignores the `non_code` paths, and
+    is the flag that decides whether a run can be cited as evidence.
+    """
     if not (repo / ".git").exists():
         return {"path": str(repo), "available": False}
     status = _git(repo, "status", "--porcelain")
+    code_status = (_git(repo, "status", "--porcelain", "--", ".",
+                        *[f":(exclude){p}" for p in non_code])
+                   if non_code else status)
     return {
         "path": str(repo),
         "available": True,
@@ -56,6 +70,8 @@ def git_state(repo: Path) -> Dict[str, Any]:
         # A dirty tree means the recorded commit does NOT fully describe the code.
         "dirty": bool(status),
         "dirty_files": status.splitlines() if status else [],
+        "code_dirty": bool(code_status),
+        "code_dirty_files": code_status.splitlines() if code_status else [],
     }
 
 
@@ -97,33 +113,86 @@ def hash_tree(root: Path, patterns=("*",)) -> Dict[str, Dict[str, Any]]:
     return out
 
 
+class DirtyTreeError(RuntimeError):
+    """An experiment run was requested from uncommitted code."""
+
+
 class Run:
-    """A single traceable experiment run backed by its own directory."""
+    """A single traceable experiment run backed by its own directory.
+
+    With `experiment_id`, the run is evidence for a hypothesis (METHODOLOGY.md):
+    it refuses to start from uncommitted code unless `allow_dirty` -- in which
+    case every algorithm ID it issues carries `-dirty` -- and records itself in
+    the experiment ledger.
+    """
 
     def __init__(self, name: str, params: Optional[Dict[str, Any]] = None,
-                 root: Optional[Path] = None) -> None:
+                 root: Optional[Path] = None,
+                 experiment_id: Optional[str] = None,
+                 allow_dirty: bool = False,
+                 ledger: Optional[Path] = None) -> None:
+        git = {
+            "experiments": git_state(REPO_ROOT, NON_CODE_PATHS),
+            "fastener": git_state(FASTENER_DIR),
+        }
+        if experiment_id is not None:
+            # Imported here so provenance stays usable without the ledger.
+            import experiment_ids
+            ledger = ledger or experiment_ids.LEDGER_PATH
+            experiment_ids.check_open(experiment_id, ledger)
+            dirty = {repo: st["code_dirty_files"] for repo, st in git.items()
+                     if st.get("code_dirty")}
+            if dirty and not allow_dirty:
+                listing = "; ".join(f"{repo}: {', '.join(files)}"
+                                    for repo, files in dirty.items())
+                raise DirtyTreeError(
+                    f"refusing to run {experiment_id} from uncommitted code "
+                    f"({listing}). Commit first, or pass --allow-dirty for a "
+                    f"diagnostic run that cannot be cited as evidence.")
+
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         self.name = name
         self.run_id = f"{stamp}_{name}"
         self.dir = (root or RESULTS_DIR) / self.run_id
         self.dir.mkdir(parents=True, exist_ok=False)
         self._t0 = time.time()
+        self.experiment_id = experiment_id
         self.manifest: Dict[str, Any] = {
             "run_id": self.run_id,
+            "experiment_id": experiment_id,
             "name": name,
             "started_utc": datetime.now(timezone.utc).isoformat(),
             "command": " ".join([Path(sys.argv[0]).name, *sys.argv[1:]]),
             "params": params or {},
-            "git": {
-                "experiments": git_state(REPO_ROOT),
-                "fastener": git_state(FASTENER_DIR),
-            },
+            "git": git,
+            # Whether this run may be cited in a finding: it belongs to an
+            # experiment and ran from committed code in both repositories.
+            "evidence": experiment_id is not None and not any(
+                st.get("code_dirty") for st in git.values()),
+            "algorithms": {},
             "environment": environment(),
         }
+        if experiment_id is not None:
+            experiment_ids.add_run(experiment_id, self.run_id, ledger)
 
     def elapsed(self) -> float:
         """Seconds since the run started, readable while it is still going."""
         return time.time() - self._t0
+
+    def algorithm_id(self, arm: str, config: Dict[str, Any]) -> str:
+        """Issue (and record in the manifest) the algorithm ID of one arm.
+
+        The same arm must resolve to the same config for the whole run; a
+        second, different config under one name is a harness bug.
+        """
+        import experiment_ids
+        aid = experiment_ids.algorithm_id(arm, self.manifest["git"], config)
+        known = self.manifest["algorithms"].get(arm)
+        if known is not None and known["id"] != aid:
+            raise ValueError(f"arm {arm!r} resolved to two configs in one run: "
+                             f"{known['id']} and {aid}")
+        self.manifest["algorithms"][arm] = {"id": aid, "config": config}
+        return aid
 
     def record(self, key: str, value: Any) -> None:
         self.manifest[key] = value

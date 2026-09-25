@@ -16,6 +16,12 @@ Usage:
     python experiments/run_sota.py                      # full run, MADELON
     python experiments/run_sota.py --dataset gina
     python experiments/run_sota.py --methods mrmr,boruta --no-fastener
+    python experiments/run_sota.py --dataset eodata --experiment H1-E01 \
+        --methods nsga2 --init sparse --no-fastener
+
+Runs that test a hypothesis pass --experiment (see METHODOLOGY.md): the run is
+then refused from uncommitted code, recorded in EXPERIMENTS.md, and every arm
+gets an algorithm ID in the manifest and in every result row.
 """
 import argparse
 import csv
@@ -32,7 +38,7 @@ import sota_baselines as sota  # noqa: E402
 from datasets import DATA_DIR, load  # noqa: E402
 from progress import Progress, format_duration  # noqa: E402
 from protocol import FitCounter, MODEL_SEED  # noqa: E402
-from provenance import Run  # noqa: E402
+from provenance import DirtyTreeError, Run  # noqa: E402
 from run_experiment import K_GRID  # noqa: E402
 from run_fastener import SWAP_ARMS, run_fastener  # noqa: E402
 
@@ -111,6 +117,13 @@ def parse_args():
     ap.add_argument("--quick", action="store_true",
                     help="tiny budget for a smoke check")
     ap.add_argument("--name", default=None)
+    ap.add_argument("--experiment", default=None, metavar="ID",
+                    help="experiment ID this run is evidence for, e.g. "
+                         "H1-E01 (issue one with experiment_ids.py new H1)")
+    ap.add_argument("--allow-dirty", action="store_true",
+                    help="with --experiment: run from uncommitted code anyway. "
+                         "Algorithm IDs get -dirty and the run cannot be cited "
+                         "as evidence.")
     return ap.parse_args()
 
 
@@ -133,6 +146,9 @@ def main() -> int:
     fastener_arms = [a for a in ("none", "random", "guided")
                      if a in fastener_arms]
     ks = [k for k in K_GRID if k <= 30] if quick else K_GRID
+    # The k grid before the per-dataset cap: part of an arm's configuration,
+    # while the cap is a property of the dataset.
+    grid = list(ks)
     name = args.name or f"{args.dataset}_sota" + ("_quick" if quick else "")
 
     ds = load(args.dataset)
@@ -162,8 +178,40 @@ def main() -> int:
         "quick": quick,
     }
 
-    with Run(name, params) as run:
+    # Base method -> everything that changes what that arm does, other than the
+    # dataset and the seed. Hashed into the algorithm ID, so a flag that alters
+    # an arm without a commit still gives it a different ID.
+    common = {"model": "DecisionTreeClassifier", "model_seed": MODEL_SEED,
+              "primary_metric": "f1_weighted", "quick": quick}
+    arm_configs = {
+        "mrmr": {"k_grid": grid},
+        "relieff": {"k_grid": grid},
+        "hsic_lasso": {"k_grid": grid},
+        "boruta": {"k_grid": grid, "max_iter": boruta_max_iter},
+        "nsga2": {"evaluations": evaluations, "init": args.init},
+        # None = the default rule, min(50, n_features).
+        "poss": {"evaluations": evaluations, "poss_k": args.poss_k},
+        "nsgaii_miip": {"evaluations": evaluations, "init": args.init},
+        "fs_sds": {"evaluations_per_k": evaluations, "k_grid": grid,
+                   "population": args.sds_population,
+                   "iterations": args.sds_iterations},
+    }
+    for arm in fastener_arms:
+        arm_configs[FASTENER_ARM_NAMES[arm]] = {
+            "max_fits": evaluations, "rounds": fastener_rounds, "swap": arm}
+
+    try:
+        run = Run(name, params, experiment_id=args.experiment,
+                  allow_dirty=args.allow_dirty)
+    except (DirtyTreeError, ValueError) as exc:
+        raise SystemExit(str(exc))
+
+    with run:
         print(f"run dir: {run.dir}")
+        if args.experiment:
+            print(f"experiment: {args.experiment}"
+                  + ("" if run.manifest["evidence"]
+                     else "  (DIRTY TREE -- not citable as evidence)"))
         run.record("dataset", ds.summary())
         data_dir = DATA_DIR / args.dataset
         if data_dir.is_dir():
@@ -173,6 +221,14 @@ def main() -> int:
         all_results = []
         failures = {}
         counter = FitCounter()
+
+        def tag(res, base: str) -> None:
+            """Stamp the arm's algorithm ID on a result and its records."""
+            aid = run.algorithm_id(res["method"], {**common,
+                                                   **arm_configs[base]})
+            res["algorithm_id"] = aid
+            for rec in res["records"]:
+                rec["algorithm_id"] = aid
 
         def checkpoint() -> None:
             """Persist what is finished after every unit.
@@ -238,6 +294,7 @@ def main() -> int:
             best = max(res["records"], key=lambda r: r["val_score"])
             print(f"  {m:14s} best test_f1={best['test_score']:.4f} "
                   f"@k={best['n_features']} ({res['elapsed_seconds']}s)")
+            tag(res, m)
             all_results.append(res)
             checkpoint()
 
@@ -266,6 +323,7 @@ def main() -> int:
                       f"@k={best['n_features']} "
                       f"confirmed={res['n_confirmed']} "
                       f"({res['elapsed_seconds']}s)")
+                tag(res, m)
                 all_results.append(res)
                 checkpoint()
 
@@ -306,6 +364,7 @@ def main() -> int:
                       f"best test_f1={best['test_score']:.4f} "
                       f"@k={best['n_features']} fits={res['model_fits']} "
                       f"({res['elapsed_seconds']}s)")
+                tag(res, m)
                 all_results.append(res)
                 checkpoint()
 
@@ -339,6 +398,7 @@ def main() -> int:
                       f"@k={best['n_features']} "
                       f"total_fits={res['model_fits']} "
                       f"({res['elapsed_seconds']}s)")
+                tag(res, m)
                 all_results.append(res)
                 checkpoint()
 
@@ -373,6 +433,7 @@ def main() -> int:
                           f"@k={best['n_features']} fits={res['model_fits']} "
                           f"stopped_on={res.get('stopped_on')} "
                           f"({res['search_seconds']}s)")
+                    tag(res, label)
                     all_results.append(res)
                     checkpoint()
 
@@ -390,7 +451,7 @@ def main() -> int:
         csv_path = run.dir / "comparison.csv"
         with open(csv_path, "w", newline="", encoding="utf-8") as fh:
             w = csv.DictWriter(fh, fieldnames=[
-                "method", "seed", "budget_k", "n_features_used", "val_f1",
+                "method", "algorithm_id", "seed", "budget_k", "n_features_used", "val_f1",
                 "test_f1", "test_accuracy", "test_balanced_accuracy",
             ], extrasaction="ignore")
             w.writeheader()

@@ -96,6 +96,7 @@ def comparison_table(all_results: List[Dict], ks: List[int]) -> List[Dict]:
             rec = curve[max(usable)]
             rows.append({
                 "method": method,
+                "algorithm_id": res.get("algorithm_id"),
                 "seed": seed,
                 "budget_k": k,
                 "n_features_used": rec["n_features"],
