@@ -25,6 +25,7 @@ PRIOR_SECONDS_PER_FIT = {
     "nsga2": 0.24,
     "nsgaii_miip": 0.26,
     "fastener": 0.031,
+    "fastener_2020": 0.031,
 }
 DEFAULT_SECONDS_PER_FIT = 0.1
 

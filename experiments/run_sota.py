@@ -505,6 +505,8 @@ def main() -> int:
                                            swap=FASTENER_ARMS[arm]["swap"],
                                            mating=FASTENER_ARMS[arm]["mating"],
                                            method_name=label,
+                                           progress_cb=lambda f: prog.tick(
+                                               f, evaluations),
                                            max_fits=evaluations,
                                            dump_logs=False,
                                            trajectory=trajectory(label, seed))

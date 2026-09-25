@@ -99,6 +99,14 @@ class TrackedOptimizer(EntropyOptimizer):
     """
 
     trajectory = None
+    # Called with the cumulative fit count after every generation, so a live
+    # progress display can see how far a run is. Kept out of the pickled state.
+    progress_cb = None
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        state.pop("progress_cb", None)
+        return state
 
     def _snapshot(self, iteration: int) -> None:
         for item in self.pareto_front.values():
@@ -106,6 +114,8 @@ class TrackedOptimizer(EntropyOptimizer):
                 self.trajectory.observe(np.where(item.genes)[0],
                                         item.result.score)
         self.trajectory.step(iteration, self.model_fits)
+        if self.progress_cb is not None:
+            self.progress_cb(self.model_fits)
 
     def run_round(self, round_n: int) -> None:
         if self.trajectory is None:
@@ -174,7 +184,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  dump_logs: bool = True,
                  method_name: Optional[str] = None,
                  trajectory=None,
-                 mating: str = "fixed") -> Dict:
+                 mating: str = "fixed",
+                 progress_cb=None) -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
     `swap` selects the pruning operator and defaults to the original algorithm:
@@ -245,6 +256,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             swap_strategy=swap_strategy,
         )
         optimizer.trajectory = trajectory
+        optimizer.progress_cb = progress_cb
         if quiet:
             with open(os.devnull, "w") as devnull, contextlib.redirect_stdout(devnull):
                 optimizer.mainloop()

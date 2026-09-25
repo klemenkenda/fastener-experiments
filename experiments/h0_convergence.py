@@ -243,17 +243,21 @@ def main() -> int:
     print_summary(summary)
 
     if args.out:
-        args.out.mkdir(parents=True, exist_ok=True)
-        with open(args.out / "h0_seeds.csv", "w", newline="",
-                  encoding="utf-8") as fh:
-            w = csv.DictWriter(fh, fieldnames=list(summary["per_seed"][0]))
-            w.writeheader()
-            w.writerows(summary["per_seed"])
-        (args.out / "h0_summary.json").write_text(
-            json.dumps({**summary, "runs": [str(p) for p in args.runs]},
-                       indent=2), encoding="utf-8")
+        write_outputs(summary, args.out, args.runs)
         print(f"\nwrote {args.out / 'h0_seeds.csv'} and h0_summary.json")
     return 0
+
+
+def write_outputs(summary: Dict, out: Path, runs: Sequence[Path]) -> None:
+    """h0_seeds.csv (one row per dataset and seed) and h0_summary.json."""
+    out.mkdir(parents=True, exist_ok=True)
+    with open(out / "h0_seeds.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(summary["per_seed"][0]))
+        w.writeheader()
+        w.writerows(summary["per_seed"])
+    (out / "h0_summary.json").write_text(
+        json.dumps({**summary, "runs": [str(p) for p in runs]}, indent=2),
+        encoding="utf-8")
 
 
 if __name__ == "__main__":
