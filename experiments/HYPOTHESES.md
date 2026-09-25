@@ -250,8 +250,9 @@ majority of datasets **and** the per-dataset direction is consistent across
 seeds. A mixed result means the clean protocol makes the two methods comparable
 -- which is itself a finding, and is reported as such rather than as a flip.
 
-**Note on scope.** This is a correction to a paper the PI co-authored. It is
-framed as such: a confound identified and measured, not a defect claimed.
+**Note on scope.** Confirmed in scope 2026-09-25 (see Decisions recorded). This
+is a correction to a paper the PI co-authored, and is framed as such: a confound
+identified and measured, not a defect claimed.
 
 ---
 
@@ -275,7 +276,10 @@ and says so.
 
 ---
 
-## Open questions
+## Decisions recorded
+
+Both questions that were open when this file was first written have been
+settled before any run. Nothing below is outstanding.
 
 **1. RESOLVED before the first run (2026-09-25).** The metric rule is: **F1 for
 classification, MAE for regression.** Every dataset in this round is
@@ -285,10 +289,15 @@ decision. How F1 becomes a front metric is fixed under "Metrics" above: AUF
 where a published value is being matched (H4), hypervolume where arms are
 compared only against each other (H1, H2, H3). No hypothesis is blocked.
 
-**2. H4's status was stated twice, inconsistently.** In the same instruction it
-was declined and then reinstated ("let's give H3 a try again", referring to its
-old number). It is included here on the later statement. If that was not the
-intent, strike it and the run order becomes H1, H2, H3.
+**2. RESOLVED before the first run (2026-09-25).** H4 is **in scope**. Its
+status had been stated twice in one instruction -- declined, then reinstated
+("let's give H3 a try again", referring to its old number) -- and the later
+statement stands. The run order is H1, H2, H3, H4, with H4 last.
+
+Recorded because it matters for how H4 is reported: it is in scope by an
+explicit decision, not by drift. If it is dropped later, that is a change to a
+pre-registered plan and gets a dated entry at the bottom of this file, not a
+silent deletion.
 
 ---
 
