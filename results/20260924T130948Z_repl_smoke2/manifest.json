@@ -1,0 +1,554 @@
+{
+  "run_id": "20260924T130948Z_repl_smoke2",
+  "name": "repl_smoke2",
+  "started_utc": "2026-09-24T13:09:48.413332+00:00",
+  "command": "run_paper_replication.py --quick --jobs 4 --datasets colon,lung_discrete --name repl_smoke2",
+  "params": {
+    "target": "Koprivec, Kenda & Sircelj, Entropy 2020 -- Tables 3 and 4",
+    "protocol": "paper (80:20, search scored on the test split)",
+    "auf_K": 20,
+    "datasets": [
+      "colon",
+      "lung_discrete"
+    ],
+    "methods": [
+      "fastener",
+      "poss",
+      "fs_sds",
+      "fs_sds_elm"
+    ],
+    "fs_split_seeds": [
+      2020,
+      2021
+    ],
+    "eval_split_seeds": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ],
+    "fastener_rounds": 20,
+    "poss_evaluations": 300,
+    "fs_sds_evaluations_per_k": 150,
+    "fs_sds_paper_evaluations_per_k": 30000,
+    "elm_hidden": 160,
+    "eval_classifier": "DecisionTreeClassifier (all methods)",
+    "quick": true,
+    "caveats": [
+      "Paper protocol: the search is driven by the same test split the score is read from. These AUFs are optimistic by construction.",
+      "FS-SDS runs at 150 evaluations per k against the paper's 30000; its AUF is a lower bound.",
+      "POSS is not in the paper's benchmark tables -- it is compared there only on EOData. It is an extension here, not a replication."
+    ]
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "13e508efc9c772266163ebc84ae50077b9a08d72",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "M TODO.md",
+        " M experiments/README.md",
+        " M experiments/analysis.py",
+        " M experiments/datasets.py",
+        " M experiments/plot_combined.py",
+        " M experiments/run_experiment.py",
+        " M experiments/run_fastener.py",
+        " M experiments/run_sota.py",
+        " M experiments/run_sota_experiment.py",
+        " M experiments/sota_baselines.py",
+        "?? experiments/fs_sds.py",
+        "?? experiments/paper_protocol.py",
+        "?? experiments/poss.py",
+        "?? experiments/run_paper_replication.py",
+        "?? results/20260917T071958Z_madelon_sota/",
+        "?? results/20260917T100733Z_gina_sota/",
+        "?? results/20260923T120446Z_gina_sota/",
+        "?? results/20260923T120446Z_madelon_sota/",
+        "?? results/20260923T134753Z_poss_smoke/",
+        "?? results/20260923T143813Z_fssds_smoke/",
+        "?? results/20260923T144831Z_poss_fssds_smoke/",
+        "?? results/20260924T130824Z_paper_replication_quick/",
+        "?? tests/test_fit_budget.py",
+        "?? tests/test_fs_sds.py",
+        "?? tests/test_hypervolume.py",
+        "?? tests/test_poss.py"
+      ]
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "ff313d1273948421994a59814c893eb4b7cdf85f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": true,
+      "dirty_files": [
+        "M README.md",
+        " M fastener.py",
+        " M item.py"
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "cost": {
+    "wall_seconds": 38.9,
+    "jobs": 4,
+    "units": 16
+  },
+  "status": "ok",
+  "ended_utc": "2026-09-24T13:10:28.116469+00:00",
+  "elapsed_seconds": 39.703,
+  "outputs": {
+    "fastener_work/colon/log/fastener_seed2020/experiment.pickle": {
+      "sha256": "3287ec142065ef0826ae48e26857e0171c18278615a0e7e5f1beeeefd8c15a0d",
+      "bytes": 1066928
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_1.pickle": {
+      "sha256": "0e1bf552edb909b82abfcb1c4d98e3900e1a807bea73d30ef65ec0d576e3288f",
+      "bytes": 51915
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_10.pickle": {
+      "sha256": "54463f4e1b0858397d901b327d15b8f0dd1fbc78ae8ba382a2f8c1c9fac34252",
+      "bytes": 225882
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_11.pickle": {
+      "sha256": "f8eaac2364ca9b47ecac1cf0a62e4948e78f7a44468af6ccc9f4732969ad7670",
+      "bytes": 107466
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_12.pickle": {
+      "sha256": "20df06f5982e1f8b95f06b2cdf9f893fb9b6822d525711c612ac187ad7c81044",
+      "bytes": 153659
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_13.pickle": {
+      "sha256": "bf442eefdb08fe07c7e5a9650c7934f28b911831de115a580c4e0b776cdb746c",
+      "bytes": 191609
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_14.pickle": {
+      "sha256": "b84755980132cfdb84a65d5a1aa607e2628324d7df4c1edc7784ebb5ad7f0275",
+      "bytes": 231684
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_15.pickle": {
+      "sha256": "dbb90db4cd46533f633e7ec4579fb849d1994c3290a76206d0504d267f0f771d",
+      "bytes": 275458
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_16.pickle": {
+      "sha256": "8fdbfc4d73bfcf9c5417ec8a99ff4e4c01df5761f27f1bd6deb420a005feb09e",
+      "bytes": 125078
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_17.pickle": {
+      "sha256": "c465f6616e79771d25b535bad20353a5a42df148a92ece6ff5a38c0882a7ddb4",
+      "bytes": 171868
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_18.pickle": {
+      "sha256": "7980726600ee4025487147a84fc781ba4567e704ec38526384bd2c582ceb60d7",
+      "bytes": 183136
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_19.pickle": {
+      "sha256": "89eb93fe3d510534aafb6bafd9bacc30e50ca1c9a921d859db8b448e216c640d",
+      "bytes": 204171
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_2.pickle": {
+      "sha256": "9c5755dc4cc8717a30212fc08e18e3edf4833ede548d42071a7dace71e1c6823",
+      "bytes": 71124
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_20.pickle": {
+      "sha256": "0e21b558c06694d1d88c0e44f567d12cbebcdd5d41ebc8ec4a2d0d21b1a90554",
+      "bytes": 243729
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_3.pickle": {
+      "sha256": "18c0777340e4f46ed6d2da367300660adb82aff9e9be8c792f9873b2d3837bc7",
+      "bytes": 112870
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_4.pickle": {
+      "sha256": "0c33c4205f17c8913ed0038491ae4e661bc4823fe71c5d651b288eab8f73b303",
+      "bytes": 154337
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_5.pickle": {
+      "sha256": "75fc6beb1d6fb1611c693026bacce032ad27c2ce71b2369ad1f8f16a2132e515",
+      "bytes": 188494
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_6.pickle": {
+      "sha256": "e7d5a7abcdaa1b97548edaa4f64f9e191b329384ccc30fea9a9aaa4177252dc2",
+      "bytes": 88084
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_7.pickle": {
+      "sha256": "841d97e1581019198e53602c26f6818a1ae65df592e1583052508b83ffc87d79",
+      "bytes": 134672
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_8.pickle": {
+      "sha256": "8efd7b2a651992e2f41f64fb5795d22e06cc194485e24556c4c9fdac87f81b7b",
+      "bytes": 176841
+    },
+    "fastener_work/colon/log/fastener_seed2020/generation_9.pickle": {
+      "sha256": "5add48ea0b71885a795cf46e33f39c388a73b5e182d05703d7c23c733cf96e49",
+      "bytes": 211197
+    },
+    "fastener_work/colon/log/fastener_seed2021/experiment.pickle": {
+      "sha256": "23d214fc20ada22b4c60c23b99535dc7e6338e58f2a211b952ab396289f44ac1",
+      "bytes": 1065903
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_1.pickle": {
+      "sha256": "3c98119685bbf10e20cda119dcf53c718681fc5f80a01c9f5bfbb8fa7040d119",
+      "bytes": 50059
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_10.pickle": {
+      "sha256": "89fb2a60b225f3a44a8d3fe3dfb4b2fca8df5645d4155515a563df4b3e75ac3d",
+      "bytes": 188123
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_11.pickle": {
+      "sha256": "d39fcb564d59f5b7407e7636fac80d2568a5307d7b39ea9dbb5b421cd1da3aa2",
+      "bytes": 73438
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_12.pickle": {
+      "sha256": "8bcd5baafd9080c4c801fc9de8b8add7afa69511afc1372b466e306fb49bd84a",
+      "bytes": 110830
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_13.pickle": {
+      "sha256": "6ce8998049a12ba234330ec3ec51e441c3ad5210cea994613f1f12783672737d",
+      "bytes": 149412
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_14.pickle": {
+      "sha256": "48c320843758f1b0e30bc6790ca60bcf62c627e2c6b4fdabff67103b1d739992",
+      "bytes": 192534
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_15.pickle": {
+      "sha256": "b099fc11582a149dca1819839e23d9737c8b1158c0f69d34128aaa8d2543e813",
+      "bytes": 224898
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_16.pickle": {
+      "sha256": "2011c6c025e3a810a885a16e12d93413b912c4fccbfcf538492ed84a97912f56",
+      "bytes": 96564
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_17.pickle": {
+      "sha256": "a9094312cbd06df828ebee2b6ac9ff62c13835584f527f9bbd1a05bf4401862d",
+      "bytes": 133009
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_18.pickle": {
+      "sha256": "c0b0947848eacf2c28db253fd52134ab88e2c3a3468cbb153d4b60ff4eeae69d",
+      "bytes": 171138
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_19.pickle": {
+      "sha256": "881892985f7d574d382740e43e761def909ec00d42937e9644dcda6eeb6d0820",
+      "bytes": 209433
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_2.pickle": {
+      "sha256": "ca0a5509d1f62b4da6bc91e37b8d6619b4632ae8c34e0fda2e1d74201436dec4",
+      "bytes": 73408
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_20.pickle": {
+      "sha256": "82bee5d06ff434e8517995b0bdd4f859a1f58d5d564622bdcae30f2273164338",
+      "bytes": 245722
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_3.pickle": {
+      "sha256": "6499bf4327f36976886c5d952071f9480e71ea142bf89849ba5c3f39edaf14ec",
+      "bytes": 106228
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_4.pickle": {
+      "sha256": "1d77c1b1f2ef84abeda9b05b61ed3f978d6a979d583c37a9650909eeb70310f0",
+      "bytes": 149602
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_5.pickle": {
+      "sha256": "53b1e2cb6da83c98b1a07539d05bea4e296fab13099ab371bb04788cf9774fa4",
+      "bytes": 187984
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_6.pickle": {
+      "sha256": "24cdd13504760bdcf5159f5efa90cf5c97f904b49a5b5d7509f13ebe244cac4c",
+      "bytes": 58576
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_7.pickle": {
+      "sha256": "e9e40a577135e972d0a37265d8902802e69b36b7048b3722ff5c24b2389f241e",
+      "bytes": 85623
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_8.pickle": {
+      "sha256": "9e1277879099e7acf197b3772b8888fa3ce1a31f35ef9cbab4a7957df85fcb50",
+      "bytes": 122075
+    },
+    "fastener_work/colon/log/fastener_seed2021/generation_9.pickle": {
+      "sha256": "89107ebe117ee5a84603bef67c9cc5131e9b8284f9921d5d56c6d49befa22e37",
+      "bytes": 152567
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/experiment.pickle": {
+      "sha256": "1020a9ebcedd6609850040beb7432b1ada633a79528ee2db207323d59f8f8cb8",
+      "bytes": 209036
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_1.pickle": {
+      "sha256": "6ca8119b76e33adcaf4bf9de36855cdb820dc5e69ce54131f2edd4ef0ab4ecbc",
+      "bytes": 12931
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_10.pickle": {
+      "sha256": "ac87bdef80a52d2d7c406d0140abc6f18fbc401263a6f1ea9af93bd25425bc15",
+      "bytes": 47015
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_11.pickle": {
+      "sha256": "97085226031247ebe0ab45697e7edefa4295c1b3452d68e83ab54708e0175fe0",
+      "bytes": 23653
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_12.pickle": {
+      "sha256": "03db5a22459e31779fa0aa9a32225df3fb75dd3422ec776734de6d178f36ce48",
+      "bytes": 30447
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_13.pickle": {
+      "sha256": "683b671537f37b086e3687a037014bede94a2719ed198b134849e862ab8fa9e7",
+      "bytes": 38730
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_14.pickle": {
+      "sha256": "91a316310da6eef8b27ee02e5fcc3a26c8af823fe9aea6aa0132fbbd004e7587",
+      "bytes": 45014
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_15.pickle": {
+      "sha256": "0aadd81d8193bbe044f5417a9c155468b01a2a79aa36e85f91b881917645acf9",
+      "bytes": 44832
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_16.pickle": {
+      "sha256": "2dd92f7ad201b1a86431bccfae6080989ea1a50a30709ce1728f617a65adb1c1",
+      "bytes": 23549
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_17.pickle": {
+      "sha256": "369f1e7bb169500c3e42f55c127282f1d62788f7917e8fd089e057c89b0bd0bd",
+      "bytes": 30130
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_18.pickle": {
+      "sha256": "1d3dacce9fdad05fd2a19a662e1a59b0628adc96f559477d3c7efb05125fb130",
+      "bytes": 34901
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_19.pickle": {
+      "sha256": "893259d7154721eb8e9ab3f852221b16f9b24f40714a0ef6f87d46365fd0b2f9",
+      "bytes": 41825
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_2.pickle": {
+      "sha256": "179a297a6d874250ef542b774f0ae0f2d03aa5f8a56e68ac1a5cac4963184c33",
+      "bytes": 18821
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_20.pickle": {
+      "sha256": "63ca0dbf040c8f6364d35bb16d6f4eb896005e148e12f19671f01eab0fa6b610",
+      "bytes": 47193
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_3.pickle": {
+      "sha256": "0652fa405f23e9d86b675b410ced0b5f7be1ff7a9f3e0c0156be420d640cb2a1",
+      "bytes": 25562
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_4.pickle": {
+      "sha256": "da4406a46d05bed090461f608ebd2a699fa52164f8251d0a82827c7d1d6fe524",
+      "bytes": 33018
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_5.pickle": {
+      "sha256": "d0a55b64028fb1904a9000a0546d119647ce3f0778fe2869a295f4ba7ba5149a",
+      "bytes": 35956
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_6.pickle": {
+      "sha256": "4a657c27841e2587633e70c894e1535730fd411f01e51b82b5ab2b730849dced",
+      "bytes": 19923
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_7.pickle": {
+      "sha256": "c379766e0d9c70cd9789ef0928ccca3a4210a321d3003799239e8ae03128c4ad",
+      "bytes": 28024
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_8.pickle": {
+      "sha256": "7f9de2b75e5ff60d5bd2eb67edf11b43d5fc54f00076f5cdcbd1f6038f7bb0f8",
+      "bytes": 33692
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2020/generation_9.pickle": {
+      "sha256": "f5e817ab439f1c5c7c90b1ce19fc2ec80cef6ca0fda1ca9ac6cca023eb3782b9",
+      "bytes": 41350
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/experiment.pickle": {
+      "sha256": "4fc71b46f4662fa5c0f7de522be872448458426ef1b512a057fa1ee40e4da405",
+      "bytes": 208989
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_1.pickle": {
+      "sha256": "bedbc417636225bd4f67e56587015c20f9bb2cd0afb7d029fe7038a262088f79",
+      "bytes": 12830
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_10.pickle": {
+      "sha256": "7f4ed45caad39bdb42ebf8d5048175a19e0e1ed905bbfe3bd1f9fd2271f995a0",
+      "bytes": 38632
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_11.pickle": {
+      "sha256": "c1236425b6e6d20a8a17edf1ceab547db6130959cb82c43ac97dec02c1fcfe90",
+      "bytes": 21012
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_12.pickle": {
+      "sha256": "f24f4d705980d1a7a4d1950c37fcf6c6fd862803ea327575da58cbd24a3b13c2",
+      "bytes": 28547
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_13.pickle": {
+      "sha256": "0c8ee231d07f96cc845a868850ab74c1230d800af2bb13cd050324bf57386240",
+      "bytes": 34325
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_14.pickle": {
+      "sha256": "80dcd6130f269a596abfcdcf5d8a1268f4313503dfcd05960aa8a08254863e20",
+      "bytes": 36164
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_15.pickle": {
+      "sha256": "8f8d68194c9f2572603788a002bcae8ad0f02caf53b6aa3ec4a71a1af8cec5df",
+      "bytes": 37805
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_16.pickle": {
+      "sha256": "d3c202d6d7f9edb03d10444d54d5b6ce8f5555e63aa41a15a73e507a5f10f8bb",
+      "bytes": 29491
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_17.pickle": {
+      "sha256": "ce3b6860234e7bf41012021c94eef2ff385e68f9584a86c937f525ff01006610",
+      "bytes": 36936
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_18.pickle": {
+      "sha256": "209f49aaf5e7ee38fc6dfefc00beafd2d67efb345e35188c012218e3debc812e",
+      "bytes": 43221
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_19.pickle": {
+      "sha256": "6a1887588ec7b3bcadcbfd438833c01dd02e23d2ee3315805ba21cfd1c1f0d4b",
+      "bytes": 50657
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_2.pickle": {
+      "sha256": "0a80590df75d2eac64d34c80348dff433a98b622ce08e270a1e57a6774f07960",
+      "bytes": 18697
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_20.pickle": {
+      "sha256": "142cb8d12593e90860e196ebd60deb3c3587b848290fbcc51d09de5af5339674",
+      "bytes": 54569
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_3.pickle": {
+      "sha256": "9a65772d8027c44553fc9b216c822007a9ffea673654bef9520bb1c5bbe95b9d",
+      "bytes": 26112
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_4.pickle": {
+      "sha256": "83f0ffe7903d80cf816a0932c9f555d6b8ee61319fe3815c2c2b2bda499dac85",
+      "bytes": 30517
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_5.pickle": {
+      "sha256": "5f04c68ebe54b28f3a0492da51b4e890d41abd3490246b34b2ec0bdf32c02c00",
+      "bytes": 36226
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_6.pickle": {
+      "sha256": "0572a53c422b90be7d4e5bf71a31a911e5c38765c4c11d9689261d019971de87",
+      "bytes": 17792
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_7.pickle": {
+      "sha256": "1d6396b68589046a3fe61ac34f6df4190f39265aaf92890bfd4ab82bd83ca3c3",
+      "bytes": 24357
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_8.pickle": {
+      "sha256": "c0a60054aa1353074bee7368bc04627b2fbf692047ea7c2c6ef962ba21f90890",
+      "bytes": 30239
+    },
+    "fastener_work/lung_discrete/log/fastener_seed2021/generation_9.pickle": {
+      "sha256": "02c81f88f934bc70eeb0df9c2c238736e57adba06fe8140e93cdb77567b12867",
+      "bytes": 35449
+    },
+    "paper_tables.csv": {
+      "sha256": "9d3ef07d3967769fa799c01e9d8438da1bfd2afe609d92e9183830d0466494b8",
+      "bytes": 564
+    },
+    "partial/colon__fastener__2020.json": {
+      "sha256": "165ecda573c382b71246e94d97dcdb915dee9646e291fedcc0f18e9586ff556b",
+      "bytes": 647
+    },
+    "partial/colon__fastener__2021.json": {
+      "sha256": "8549968beb61043a02fd6444c742ab03f5240c2441581d52ac7375027280576b",
+      "bytes": 646
+    },
+    "partial/colon__fs_sds__2020.json": {
+      "sha256": "39b951dd902ef047ebcdeb78d7684a780de998a41edb06126ce6417a46ff6f53",
+      "bytes": 649
+    },
+    "partial/colon__fs_sds__2021.json": {
+      "sha256": "aa709defb9d24dd77188346b547899d38ba42eb63dc560e158ab02920958e589",
+      "bytes": 651
+    },
+    "partial/colon__fs_sds_elm__2020.json": {
+      "sha256": "4fbddf5edc937f246dd3ef89225263c4ed602fc8ef62faaabcbce345250e9ac1",
+      "bytes": 653
+    },
+    "partial/colon__fs_sds_elm__2021.json": {
+      "sha256": "acc2a8e607e26d831442da93e8e521f5fbebac4f0346184839cb22d5b618a4b4",
+      "bytes": 635
+    },
+    "partial/colon__poss__2020.json": {
+      "sha256": "5ca6231900619a33a027b5360f9a1d3817ce69ff59144e13b9c3e18870d681d0",
+      "bytes": 643
+    },
+    "partial/colon__poss__2021.json": {
+      "sha256": "01d4b6906c65b5206a6940daddf6e27bd5302a12f3ab90a6448b9632fa527f9e",
+      "bytes": 618
+    },
+    "partial/lung_discrete__fastener__2020.json": {
+      "sha256": "1ffaf0675a73e0d59ce7d72e45a8d29b1e835b379a23b01261383d5ee404dba6",
+      "bytes": 654
+    },
+    "partial/lung_discrete__fastener__2021.json": {
+      "sha256": "73772c5352555adf8623eb9b6056c203526697bc0de7cf5666631aeb8546fb41",
+      "bytes": 651
+    },
+    "partial/lung_discrete__fs_sds__2020.json": {
+      "sha256": "756ffc7095844eba71d6f3c31dbc70746b18a93963bdf98112e4f54ee4435df8",
+      "bytes": 658
+    },
+    "partial/lung_discrete__fs_sds__2021.json": {
+      "sha256": "a5950ec63d18939e923bfe9fa110882382de6bffd5e4191c050185a209bcc7eb",
+      "bytes": 660
+    },
+    "partial/lung_discrete__fs_sds_elm__2020.json": {
+      "sha256": "348db0a0300375b1a04f6366fe6d5ef9c2e9ac5fb2a53dc7f39655a5c573bfb0",
+      "bytes": 662
+    },
+    "partial/lung_discrete__fs_sds_elm__2021.json": {
+      "sha256": "7a273884ba6705d8c572d16727c2be7f44159f985e2e8fc9ac15c02ecf97fcd7",
+      "bytes": 662
+    },
+    "partial/lung_discrete__poss__2020.json": {
+      "sha256": "18762457fb08c207f66533be49e666123b4082945c84f528aeda99c235816200",
+      "bytes": 650
+    },
+    "partial/lung_discrete__poss__2021.json": {
+      "sha256": "b9ab1635c902d9f9f740c8c75faf03cb6c7799443a3d0c42cef30556a6305f25",
+      "bytes": 655
+    },
+    "table_rows.json": {
+      "sha256": "05bcee16525e91c793b2f8da0389145feaa22565f20ee28ed76963ffb609884d",
+      "bytes": 1978
+    },
+    "units.json": {
+      "sha256": "08501eb6ac4f582a4b2cc40629df91ff4116010fc1f23cff1b1c57362266b7c8",
+      "bytes": 15229
+    }
+  }
+}

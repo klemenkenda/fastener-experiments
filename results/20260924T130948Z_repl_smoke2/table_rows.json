@@ -1,0 +1,98 @@
+[
+  {
+    "dataset": "colon",
+    "method": "fastener",
+    "mean": 0.8409,
+    "max": 0.9923,
+    "median": 0.8345,
+    "sd": 0.0838,
+    "n_auf_values": 60,
+    "eval_n": 164,
+    "n_splits": 2,
+    "search_seconds_total": 9.9
+  },
+  {
+    "dataset": "colon",
+    "method": "poss",
+    "mean": 0.8561,
+    "max": 1.0,
+    "median": 0.8368,
+    "sd": 0.0745,
+    "n_auf_values": 60,
+    "eval_n": 300,
+    "n_splits": 2,
+    "search_seconds_total": 1.8
+  },
+  {
+    "dataset": "colon",
+    "method": "fs_sds",
+    "mean": 0.8546,
+    "max": 0.9846,
+    "median": 0.8465,
+    "sd": 0.0537,
+    "n_auf_values": 60,
+    "eval_n": 3000,
+    "n_splits": 2,
+    "search_seconds_total": 20.2
+  },
+  {
+    "dataset": "colon",
+    "method": "fs_sds_elm",
+    "mean": 0.8739,
+    "max": 1.0,
+    "median": 0.8772,
+    "sd": 0.0572,
+    "n_auf_values": 60,
+    "eval_n": 3000,
+    "n_splits": 2,
+    "search_seconds_total": 26.5
+  },
+  {
+    "dataset": "lung_discrete",
+    "method": "fastener",
+    "mean": 0.5793,
+    "max": 0.7972,
+    "median": 0.5865,
+    "sd": 0.099,
+    "n_auf_values": 60,
+    "eval_n": 160,
+    "n_splits": 2,
+    "search_seconds_total": 10.2
+  },
+  {
+    "dataset": "lung_discrete",
+    "method": "poss",
+    "mean": 0.6433,
+    "max": 0.8347,
+    "median": 0.6395,
+    "sd": 0.0713,
+    "n_auf_values": 60,
+    "eval_n": 300,
+    "n_splits": 2,
+    "search_seconds_total": 1.6
+  },
+  {
+    "dataset": "lung_discrete",
+    "method": "fs_sds",
+    "mean": 0.6948,
+    "max": 0.882,
+    "median": 0.7024,
+    "sd": 0.0661,
+    "n_auf_values": 60,
+    "eval_n": 3000,
+    "n_splits": 2,
+    "search_seconds_total": 22.6
+  },
+  {
+    "dataset": "lung_discrete",
+    "method": "fs_sds_elm",
+    "mean": 0.6458,
+    "max": 0.79,
+    "median": 0.6445,
+    "sd": 0.0599,
+    "n_auf_values": 60,
+    "eval_n": 3000,
+    "n_splits": 2,
+    "search_seconds_total": 24.8
+  }
+]
