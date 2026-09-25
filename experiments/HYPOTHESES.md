@@ -312,6 +312,70 @@ in the protocol. H0 measures the fixes on five datasets, three of which, USPS,
 BASEHOCK and TOX_171, are among the 25 benchmarks. If H0 finds a large effect, the H4
 write-up states it next to the ordering result.
 
+### H0 on every other dataset (second experiment, H0-E02)
+
+*Added 2026-09-25, after H0-E01 had finished and been reported. See*
+Revisions.
+
+**Why.** H0-E01 was not supported, and its five datasets split. The fixed code
+reached the common target sooner in at least 4 of 5 seeds on TOX_171 (5 of 5)
+and USPS (4 of 5); the 2020 code did on BASEHOCK (4 of 5); crop mapping and har
+went neither way (2 against 3 each). Five datasets cannot say which pattern is
+the general one. This experiment asks the same question on every other dataset
+on disk.
+
+**Which datasets: all 31 others.** Every dataset `datasets.load` knows except
+H0-E01's five. Taking all of them, rather than choosing, is what keeps a choice
+made after seeing results from steering the outcome.
+
+| group | datasets | budget per run | split |
+|---|---|---:|---|
+| Earth observation | eodata | 1,000 fits | EO split, as crop mapping in H0 |
+| Earth observation, small | satimage (6,430 rows) | 1,000 fits | protocol 60/20/20; too few rows for the EO split |
+| other tall sets | covertype, miniboone, higgs, volkert, gas_drift | 6,000 fits | 50,000-row cap, 60/20/20 |
+| challenge sets | madelon, gina | 6,000 fits | protocol 60/20/20 |
+| paper benchmarks | the other 22 of the 25 | 6,000 fits | protocol 60/20/20 |
+
+The budget rule is H0's: Earth-observation sets get the paper's EO budget of
+1,000 fits, every other set gets 6,000. Arms, seeds, the fixed-target measure
+and the target itself are exactly as in H0.
+
+**Primary analysis: datasets as the unit.** With 31 datasets the per-dataset
+4-of-5 rule is no longer the useful test; the question is whether the datasets
+lean one way. Per dataset and seed, the effect is log2 of the ratio of the fits
+each arm needed to reach the common target, 2020 over fixed. It is positive when
+the fixed code was faster, zero on a tie. Per dataset, the effect is the mean
+of its 5 seeds.
+
+**Falsification criterion.** Supported if the per-dataset effects are
+positive on more datasets than negative **and** a two-sided Wilcoxon
+signed-rank test over the per-dataset effects is significant at alpha = 0.05.
+Reversed -- the fixes slowed convergence -- if the same holds with the signs
+swapped. Otherwise not supported: no consistent difference is detected over
+these datasets. Datasets with a zero effect drop out of the test, as the
+Wilcoxon test requires, and their count is reported.
+
+**Incomplete datasets.** A dataset whose runs fail, or have fewer than 5 seeds
+for both arms when the experiment is stopped, is left out of the test and
+listed. If more than 6 of the 31 are left out, the result is reported as
+incomplete rather than as a verdict.
+
+**Reported beside it, as secondary:** H0's per-dataset 4-of-5 counts for every
+dataset; the effect per dataset group from the table above; the same test over
+all 36 datasets, H0-E01's five included, labelled as including datasets seen
+before this experiment was registered; and final test AUF (K = 10) per arm.
+
+**How it runs.** Several datasets at once, so the whole experiment fits in a
+weekend. Runs then compete for the CPU, so wall clock is not comparable
+between arms or datasets. Fits, which decide the result, are not affected.
+Every tiny paper benchmark carries the caveat of *What the small sets can
+support*: on the smallest, validation is 10-20 rows, and ties are common.
+
+**Relation to H0-E01.** H0-E01's verdict stands on its own criterion and is
+reported first. This experiment is separate evidence about the same claim.
+Neither result is read as overriding the other; if they disagree, both are
+reported with the disagreement stated.
+
 ## H1 -- NSGA-II's weakness at small k is an initialisation artifact
 
 *(second: cheap, and it shakes out the rest of the harness)*
@@ -814,3 +878,12 @@ or appeared late; whether an arm was still improving when the budget ran out, in
 which case the budget, not the method, set the result; for H0, how many fits
 each version of FASTENER needs to reach the same low-k score; and, for H1, how
 fast each initialisation moves the smallest subset size down.
+
+## Revisions
+
+**2026-09-25 -- H0 on every other dataset (H0-E02) added.** Added after
+H0-E01 had finished and been reported as not supported, with its datasets split
+(fixed code faster on TOX_171 and USPS, 2020 code on BASEHOCK, neither on crop
+mapping and har). H0's own criterion, datasets and verdict are unchanged. The
+new experiment takes every remaining dataset rather than a chosen subset, and
+its criterion is written here before any of its runs started.

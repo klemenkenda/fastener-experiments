@@ -70,3 +70,17 @@ def test_smoke_job_is_quick_and_has_no_experiment(tmp_path):
                      allow_dirty=False).cmd
     assert "--quick" in cmd
     assert "--experiment" not in cmd
+
+
+def test_extension_plan_is_every_other_dataset():
+    from datasets import LOADERS
+    ext = {p["dataset"] for p in run_h0.H0_EXTENSION_PLAN}
+    core = {p["dataset"] for p in run_h0.H0_PLAN}
+    assert not ext & core
+    assert ext | core == set(LOADERS)
+    budgets = {p["dataset"]: (p["evaluations"], p["split"])
+               for p in run_h0.H0_EXTENSION_PLAN}
+    assert budgets["eodata"] == (1000, "eo")
+    assert budgets["satimage"] == (1000, "protocol")
+    assert all(b == (6000, "protocol") for d, b in budgets.items()
+               if d not in ("eodata", "satimage"))

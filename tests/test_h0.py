@@ -175,3 +175,71 @@ def test_eo_split_parts_do_not_overlap_and_are_fixed():
 def test_eo_split_is_refused_for_a_set_without_a_row_cap():
     with pytest.raises(ValueError):
         load("USPS", split="eo")
+
+
+# ------------------------------------------------- H0-E02: every other dataset
+def test_seed_effect_is_positive_when_the_fixed_arm_is_faster():
+    assert h0.seed_effect({"fits_to_target_fixed": 100,
+                           "fits_to_target_2020": 400}) == pytest.approx(2.0)
+    assert h0.seed_effect({"fits_to_target_fixed": 400,
+                           "fits_to_target_2020": 100}) == pytest.approx(-2.0)
+    assert h0.seed_effect({"fits_to_target_fixed": 50,
+                           "fits_to_target_2020": 50}) == 0.0
+
+
+def fake_runs(monkeypatch, fits_by_dataset):
+    """Stand in for read_run: {dataset: [(fixed, 2020) per seed]}."""
+    def read_run(path, K=h0.K):
+        ds = str(path)
+        rows = []
+        for i, (f, o) in enumerate(fits_by_dataset[ds]):
+            rows.append({"dataset": ds, "seed": 2020 + i,
+                         "fits_to_target_fixed": f, "fits_to_target_2020": o,
+                         "faster": (h0.FIXED if f < o else
+                                    h0.ORIGINAL if o < f else "tie"),
+                         "test_auf10_fixed": 0.5, "test_auf10_2020": 0.5})
+        return ds, rows
+    monkeypatch.setattr(h0, "read_run", read_run)
+    return list(fits_by_dataset)
+
+
+def test_extension_is_supported_when_datasets_lean_to_the_fixed_code(monkeypatch):
+    data = {f"d{i}": [(100, 400)] * 5 for i in range(12)}
+    runs = fake_runs(monkeypatch, data)
+    s = h0.extension_summary(runs, expected=runs)
+    assert s["primary"]["positive"] == 12
+    assert s["primary"]["p_value"] < 0.05
+    assert s["verdict"] == "supported"
+
+
+def test_extension_is_reversed_when_datasets_lean_to_the_2020_code(monkeypatch):
+    data = {f"d{i}": [(400, 100)] * 5 for i in range(12)}
+    runs = fake_runs(monkeypatch, data)
+    assert h0.extension_summary(runs, expected=runs)["verdict"].startswith(
+        "reversed")
+
+
+def test_extension_split_is_not_supported(monkeypatch):
+    data = {f"d{i}": [(100, 400)] * 5 if i % 2 else [(400, 100)] * 5
+            for i in range(12)}
+    runs = fake_runs(monkeypatch, data)
+    assert h0.extension_summary(runs, expected=runs)["verdict"].startswith(
+        "not supported")
+
+
+def test_extension_with_too_many_missing_datasets_is_incomplete(monkeypatch):
+    data = {f"d{i}": [(100, 400)] * 5 for i in range(12)}
+    runs = fake_runs(monkeypatch, data)
+    expected = runs + [f"gone{i}" for i in range(h0.EXTENSION_MAX_MISSING + 1)]
+    s = h0.extension_summary(runs, expected=expected)
+    assert s["verdict"].startswith("incomplete")
+    assert len(s["missing"]) == h0.EXTENSION_MAX_MISSING + 1
+
+
+def test_extension_leaves_out_datasets_with_too_few_seeds(monkeypatch):
+    data = {f"d{i}": [(100, 400)] * 5 for i in range(12)}
+    data["short"] = [(400, 100)] * 3
+    runs = fake_runs(monkeypatch, data)
+    s = h0.extension_summary(runs, expected=runs)
+    assert "short" in s["missing"]
+    assert s["primary"]["n_datasets"] == 12

@@ -21,8 +21,13 @@ Restartable: a dataset that already has a finished run under the same
 experiment ID is skipped, so after an interruption the same command picks up
 where it stopped.
 
+`--plan extension` runs H0's second experiment instead: every other dataset
+on disk (HYPOTHESES.md, "H0 on every other dataset"), longest first so parallel
+slots finish together, analysed with datasets as the unit.
+
 Usage:
     python experiments/run_h0.py --new                 # issue the next H0 ID, run all
+    python experiments/run_h0.py --new --plan extension --jobs 12   # H0-E02
     python experiments/run_h0.py --experiment H0-E01   # run, or resume, H0-E01
     python experiments/run_h0.py --experiment H0-E01 --jobs 3
     python experiments/run_h0.py --smoke               # tiny budget, not evidence
@@ -57,6 +62,51 @@ H0_PLAN = [
     {"dataset": "har", "split": "protocol", "evaluations": 6000, "hours": 4.0},
     {"dataset": "USPS", "split": "protocol", "evaluations": 6000, "hours": 4.5},
 ]
+
+# HYPOTHESES.md, "H0 on every other dataset" (H0-E02): every dataset on disk
+# except H0-E01's five. Earth-observation sets get the paper's EO budget of
+# 1,000 fits; eodata also the EO split, satimage (6,430 rows) the protocol
+# split. `hours` is a rough whole-dataset estimate (10 runs, alone) from the
+# measured fit costs; ordered longest first so parallel slots finish together.
+def _ext(dataset, group, hours, split="protocol", evaluations=6000):
+    return {"dataset": dataset, "group": group, "hours": hours,
+            "split": split, "evaluations": evaluations}
+
+
+H0_EXTENSION_PLAN = sorted([
+    _ext("eodata", "Earth observation", 3.0, split="eo", evaluations=1000),
+    _ext("satimage", "Earth observation", 0.3, evaluations=1000),
+    _ext("miniboone", "tall", 12.0),
+    _ext("higgs", "tall", 10.0),
+    _ext("volkert", "tall", 8.0),
+    _ext("covertype", "tall", 3.5),
+    _ext("gas_drift", "tall", 1.8),
+    _ext("madelon", "challenge", 0.5),
+    _ext("gina", "challenge", 0.5),
+    _ext("gisette", "handwriting and speech", 1.0),
+    _ext("Isolet", "handwriting and speech", 0.5),
+    _ext("arcene", "mass spectrometry", 0.6),
+    _ext("RELATHE", "text", 0.5),
+    _ext("PCMAC", "text", 0.5),
+    _ext("orlraws10P", "face and object images", 0.6),
+    _ext("warpAR10P", "face and object images", 0.4),
+    _ext("Yale", "face and object images", 0.4),
+    _ext("warpPIE10P", "face and object images", 0.4),
+    _ext("ORL", "face and object images", 0.5),
+    _ext("COIL20", "face and object images", 0.5),
+    _ext("GLIOMA", "gene expression", 0.4),
+    _ext("nci9", "gene expression", 0.6),
+    _ext("colon", "gene expression", 0.4),
+    _ext("ALLAML", "gene expression", 0.5),
+    _ext("leukemia", "gene expression", 0.5),
+    _ext("lung_discrete", "gene expression", 0.3),
+    _ext("GLI_85", "gene expression", 0.8),
+    _ext("lymphoma", "gene expression", 0.4),
+    _ext("Prostate_GE", "gene expression", 0.5),
+    _ext("CLL_SUB_111", "gene expression", 0.6),
+    _ext("lung", "gene expression", 0.4),
+], key=lambda p: -p["hours"])
+PLANS = {"core": H0_PLAN, "extension": H0_EXTENSION_PLAN}
 ARMS = ("none", "2020")
 SMOKE_EVALUATIONS = 300  # run_sota.py --quick
 SMOKE_SEEDS = 2
@@ -72,9 +122,11 @@ def parse_args():
     who.add_argument("--smoke", action="store_true",
                      help=f"{SMOKE_EVALUATIONS} fits, {SMOKE_SEEDS} seeds, no "
                           f"experiment ID: checks the pipeline, is not evidence")
+    ap.add_argument("--plan", default="core", choices=sorted(PLANS),
+                    help="core: H0's five datasets (H0-E01). extension: every "
+                         "other dataset (H0-E02).")
     ap.add_argument("--datasets", default=None,
-                    help="comma-separated subset of "
-                         + ",".join(p["dataset"] for p in H0_PLAN))
+                    help="comma-separated subset of the plan's datasets")
     ap.add_argument("--jobs", type=int, default=1,
                     help="datasets run at the same time (default 1). More "
                          "finishes sooner, but the runs then compete for the "
@@ -166,7 +218,11 @@ class Job:
     def start(self) -> None:
         self.log.parent.mkdir(parents=True, exist_ok=True)
         self._fh = open(self.log, "w", encoding="utf-8")
-        env = {**os.environ, "PYTHONUNBUFFERED": "1", "PYTHONIOENCODING": "utf-8"}
+        # One thread per run: several runs share the machine, and a numerical
+        # library spreading one run over every core only makes them fight.
+        env = {**os.environ, "PYTHONUNBUFFERED": "1", "PYTHONIOENCODING": "utf-8",
+               "OMP_NUM_THREADS": "1", "MKL_NUM_THREADS": "1",
+               "OPENBLAS_NUM_THREADS": "1"}
         self.proc = subprocess.Popen(self.cmd, stdout=self._fh,
                                      stderr=subprocess.STDOUT, env=env,
                                      cwd=str(HERE.parent))
@@ -314,13 +370,14 @@ class Driver:
 def main() -> int:
     args = parse_args()
 
-    plan = H0_PLAN
+    full_plan = PLANS[args.plan]
+    plan = full_plan
     if args.datasets:
         wanted = [d.strip() for d in args.datasets.split(",") if d.strip()]
-        unknown = set(wanted) - {p["dataset"] for p in H0_PLAN}
+        unknown = set(wanted) - {p["dataset"] for p in full_plan}
         if unknown:
             raise SystemExit(f"not an H0 dataset: {sorted(unknown)}")
-        plan = [p for p in H0_PLAN if p["dataset"] in wanted]
+        plan = [p for p in full_plan if p["dataset"] in wanted]
 
     if args.smoke:
         experiment = None
@@ -358,7 +415,18 @@ def main() -> int:
     print(f"\nall datasets finished in {format_duration(time.time() - driver.t0)}"
           + (f"; FAILED: {', '.join(failed)}" if failed else ""))
 
-    if run_dirs:
+    if run_dirs and args.plan == "extension":
+        # H0-E01's runs feed only the secondary test over all datasets.
+        e01 = list(finished_runs("H0-E01").values())
+        summary = h0_convergence.extension_summary(
+            run_dirs, expected=[p["dataset"] for p in plan],
+            groups={p["dataset"]: p["group"] for p in plan},
+            earlier_run_dirs=e01)
+        print()
+        h0_convergence.print_extension(summary)
+        h0_convergence.write_extension_outputs(summary, out, run_dirs)
+        print(f"\nwrote {out / 'h0_seeds.csv'} and h0_extension_summary.json")
+    elif run_dirs:
         summary = h0_convergence.summarise(run_dirs)
         if summary["per_seed"]:
             print()

@@ -206,6 +206,155 @@ def summarise(run_dirs: Sequence[Path]) -> Dict:
             "verdict": h0_verdict(per_dataset)}
 
 
+# ------------------------------------------ H0-E02: every other dataset
+# HYPOTHESES.md, "H0 on every other dataset". Datasets are the unit: per
+# dataset, the mean over seeds of log2(fits_2020 / fits_fixed) -- positive when
+# the fixed code was faster -- tested with a two-sided Wilcoxon signed-rank test.
+EXTENSION_ALPHA = 0.05
+EXTENSION_MAX_MISSING = 6
+
+
+def seed_effect(row: Dict) -> float:
+    """log2(fits the 2020 arm needed / fits the fixed arm needed)."""
+    return float(np.log2(row["fits_to_target_2020"]
+                         / row["fits_to_target_fixed"]))
+
+
+def extension_summary(run_dirs: Sequence[Path],
+                      expected: Optional[Sequence[str]] = None,
+                      groups: Optional[Dict[str, str]] = None,
+                      earlier_run_dirs: Sequence[Path] = ()) -> Dict:
+    """The H0-E02 analysis over finished runs.
+
+    `expected` lists the datasets the experiment was registered with, so a
+    dataset with no finished run is reported as missing. `groups` maps dataset
+    to its group for the secondary breakdown. `earlier_run_dirs` are H0-E01's
+    runs, used only for the secondary test over all datasets.
+    """
+    from scipy.stats import wilcoxon
+
+    per_seed: List[Dict] = []
+    for d in run_dirs:
+        _, rows = read_run(Path(d))
+        per_seed.extend(rows)
+    for r in per_seed:
+        r["effect_log2"] = seed_effect(r)
+
+    def per_dataset_of(rows):
+        out = {}
+        for ds in sorted({r["dataset"] for r in rows}):
+            mine = [r for r in rows if r["dataset"] == ds]
+            v = dataset_verdict(mine)
+            v["effect_log2"] = float(np.mean([r["effect_log2"] for r in mine]))
+            v["test_auf10_fixed"] = _mean([r["test_auf10_fixed"] for r in mine])
+            v["test_auf10_2020"] = _mean([r["test_auf10_2020"] for r in mine])
+            if groups:
+                v["group"] = groups.get(ds)
+            out[ds] = v
+        return out
+
+    def test(per_dataset):
+        complete = {d: v for d, v in per_dataset.items()
+                    if v["counts_for"] != "incomplete"}
+        effects = np.array([v["effect_log2"] for v in complete.values()])
+        pos, neg = int((effects > 0).sum()), int((effects < 0).sum())
+        res = {"n_datasets": len(complete), "positive": pos, "negative": neg,
+               "zero": int((effects == 0).sum()),
+               "median_effect_log2": float(np.median(effects)) if effects.size else None,
+               "p_value": None}
+        nonzero = effects[effects != 0]
+        if nonzero.size >= 1:
+            res["p_value"] = float(wilcoxon(nonzero).pvalue)
+        return res
+
+    per_dataset = per_dataset_of(per_seed)
+    missing = sorted(set(expected or []) - set(per_dataset)) + sorted(
+        d for d, v in per_dataset.items() if v["counts_for"] == "incomplete")
+    primary = test(per_dataset)
+
+    if len(missing) > EXTENSION_MAX_MISSING:
+        verdict = f"incomplete: {len(missing)} datasets left out"
+    elif (primary["p_value"] is not None and primary["p_value"] < EXTENSION_ALPHA
+          and primary["positive"] > primary["negative"]):
+        verdict = "supported"
+    elif (primary["p_value"] is not None and primary["p_value"] < EXTENSION_ALPHA
+          and primary["negative"] > primary["positive"]):
+        verdict = "reversed: the fixes slowed convergence"
+    else:
+        verdict = "not supported: no consistent difference detected"
+
+    secondary = {}
+    if groups:
+        by_group = {}
+        for d, v in per_dataset.items():
+            by_group.setdefault(v.get("group") or "other", []).append(v["effect_log2"])
+        secondary["by_group"] = {
+            g: {"n": len(e), "mean_effect_log2": float(np.mean(e)),
+                "positive": int(sum(x > 0 for x in e)),
+                "negative": int(sum(x < 0 for x in e))}
+            for g, e in sorted(by_group.items())}
+    if earlier_run_dirs:
+        earlier = []
+        for d in earlier_run_dirs:
+            _, rows = read_run(Path(d))
+            earlier.extend(rows)
+        for r in earlier:
+            r["effect_log2"] = seed_effect(r)
+        secondary["all_datasets_including_H0_E01"] = test(
+            per_dataset_of(per_seed + earlier))
+
+    return {"per_seed": per_seed, "per_dataset": per_dataset,
+            "missing": missing, "primary": primary, "secondary": secondary,
+            "verdict": verdict}
+
+
+def _mean(xs):
+    xs = [x for x in xs if x is not None]
+    return float(np.mean(xs)) if xs else None
+
+
+def print_extension(summary: Dict) -> None:
+    print("per dataset (effect = mean log2(fits 2020 / fits fixed); "
+          "> 0 means the fixed code was faster):")
+    print(f"  {'dataset':<14}{'group':<22}{'effect':>8}  fixed/2020/ties"
+          f"{'test fixed':>12}{'test 2020':>10}")
+    for d, v in sorted(summary["per_dataset"].items(),
+                       key=lambda kv: -kv[1]["effect_log2"]):
+        print(f"  {d:<14}{str(v.get('group') or ''):<22}{v['effect_log2']:>8.2f}"
+              f"  {v['faster_fixed']}/{v['faster_2020']}/{v['ties']}"
+              f"{' ' * 9}{_fmt(v['test_auf10_fixed'], '8.4f')}"
+              f"  {_fmt(v['test_auf10_2020'], '8.4f')}")
+    p = summary["primary"]
+    print(f"\nprimary: {p['positive']} datasets favour the fixed code, "
+          f"{p['negative']} the 2020 code, {p['zero']} tie; median effect "
+          f"{_fmt(p['median_effect_log2'], '.3f')}; Wilcoxon p = "
+          f"{_fmt(p['p_value'], '.4f')} (n = {p['n_datasets']})")
+    if summary["missing"]:
+        print(f"left out: {', '.join(summary['missing'])}")
+    for g, v in summary["secondary"].get("by_group", {}).items():
+        print(f"  group {g:<22} n={v['n']:>2}  mean effect "
+              f"{v['mean_effect_log2']:+.2f}  +{v['positive']} / -{v['negative']}")
+    allv = summary["secondary"].get("all_datasets_including_H0_E01")
+    if allv:
+        print(f"secondary, all datasets incl. H0-E01's five: +{allv['positive']}"
+              f" / -{allv['negative']}, Wilcoxon p = "
+              f"{_fmt(allv['p_value'], '.4f')} (n = {allv['n_datasets']})")
+    print(f"\nH0-E02: {summary['verdict']}")
+
+
+def write_extension_outputs(summary: Dict, out: Path,
+                            runs: Sequence[Path]) -> None:
+    out.mkdir(parents=True, exist_ok=True)
+    if summary["per_seed"]:
+        with open(out / "h0_seeds.csv", "w", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(summary["per_seed"][0]))
+            w.writeheader()
+            w.writerows(summary["per_seed"])
+    (out / "h0_extension_summary.json").write_text(
+        json.dumps({**summary, "runs": [str(p) for p in runs]}, indent=2),
+        encoding="utf-8")
+
+
 def _fmt(x, spec):
     return "-" if x is None else format(x, spec)
 
