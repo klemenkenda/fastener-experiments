@@ -167,7 +167,7 @@ against stock's 0.7960 -- a difference of 0.0004, far inside seed spread.
 **Primary metric.** F1 (weighted), read off the front as hypervolume.
 
 **Falsification criterion.** Random swap must beat stock in **at least 4 of 5
-seeds** at k <= 10, on **EOData and on at least one of madelon and gina**. A
+seeds** at k <= 10, on **EOData and on at least one other development set**. A
 null here with a positive H3 would be the interesting outcome (guidance is
 doing the work); a null in both is the likely one given the pilot.
 
@@ -199,7 +199,7 @@ H2.
 same aggregate as H2, so the two arms are read on one scale.
 
 **Falsification criterion.** Guided must beat stock in **at least 4 of 5 seeds**
-at k <= 10, on **EOData and on at least one of madelon and gina**. Fewer than
+at k <= 10, on **EOData and on at least one other development set**. Fewer than
 that at the pilot's effect size is indistinguishable from noise, and H3 is
 recorded as not supported.
 
@@ -260,7 +260,8 @@ NSGA-II (OBL and sparse initialisation), NSGAII-MIIP, POSS, FS-SDS, mRMR,
 ReliefF, HSIC Lasso, Boruta, RFE, the mutual-information, ANOVA-F and
 tree-importance rankers, random subsets, and all features as the reference.
 
-**Datasets.** All 28: EOData, madelon, gina and the 25 paper benchmarks.
+**Datasets.** All 36: the four development sets, the seven other tall
+datasets and the 25 paper benchmarks.
 
 **Primary metric.** F1 (weighted) at low k, read off the front as AUF with
 K = 10 -- the mean of the best test F1 over subset sizes k = 1..10. Per dataset,
@@ -273,7 +274,7 @@ in turn, over the datasets on which both were run:
 * a Wilcoxon signed-rank test on the per-dataset score differences, with Holm
   correction across the pairs, at alpha = 0.05.
 
-Datasets, not seeds, are the unit of this test, so 28 datasets give it power
+Datasets, not seeds, are the unit of this test, so 36 datasets give it power
 that 5 seeds alone could not.
 
 **Falsification criterion.** H5 is supported if stock FASTENER has more wins
@@ -323,7 +324,7 @@ therefore a statement about decision trees, and says so.
 
 ## Datasets
 
-Twenty-eight datasets are on disk under `data/`, each checksum-pinned by its
+Thirty-six datasets are on disk under `data/`, each checksum-pinned by its
 download script, all classification, and all used in this round. Every one loads through
 `datasets.load(name)`, and every one is cut the same way: a stratified 60/20/20
 train/validation/test split with `SPLIT_SEED = 20200`, fixed across seeds, so
@@ -337,20 +338,26 @@ counted after cleaning (see *Dropped rows*).
 | dataset | rows | features | classes | smallest / largest class | domain | source |
 |---|---:|---:|---:|---|---|---|
 | **eodata** | 480,000 | 182 | 24 | 20,000 / 20,000 | Sentinel-2 land patches, Slovenia 2017: 10 spectral signals (raw bands and vegetation indices), each summarised by 18 temporal statistics over the season, plus DEM height and inclination | Šircelj, Kenda & Koprivec, PANGAEA 2020, [doi:10.1594/PANGAEA.914271](https://doi.org/10.1594/PANGAEA.914271) |
+| **crop_mapping** | 325,834 | 174 | 7 | 1,143 / 85,074 | Cropland, Manitoba 2012: RapidEye optical and UAVSAR polarimetric radar on two dates in July, with spectral, textural and polarimetric features | UCI 525, [doi:10.24432/C5G89D](https://doi.org/10.24432/C5G89D), CC BY 4.0 |
 | madelon | 2,600 | 500 | 2 | 1,300 / 1,300 | synthetic: 5 informative features, 15 linear combinations of them, 480 noise | NIPS 2003 feature selection challenge, UCI |
 | gina | 3,468 | 970 | 2 | 1,705 / 1,763 | handwritten digit pixels, even vs odd two-digit number | agnostic learning challenge, OpenML 1038 |
 
 **EOData is the primary dataset.** It is the benchmark FASTENER was designed
 for and evaluated on in the paper, so a result about FASTENER's operators that
-does not hold there is not a result about FASTENER in its own setting. Madelon
-and gina are the controls around it: madelon's structure is known, so a
-selector can be checked against the planted informative features, but it is
-synthetic; gina is real-world but its relevant features are unknown. A result
-that holds on some of the three and not the others is reported as such.
+does not hold there is not a result about FASTENER in its own setting.
+**Crop mapping is the second Earth-observation set**: same task family (crop
+and land-cover classes from satellite features), same tall shape, a different
+sensor pair, region and year, and no connection to the paper. A result that
+holds on EOData but not on crop mapping is a result about EOData, not about
+Earth observation. Madelon and gina are the controls around them: madelon's
+structure is known, so a selector can be checked against the planted
+informative features, but it is synthetic; gina is real-world but its relevant
+features are unknown. A result that holds on some of the four and not the
+others is reported as such.
 
 Two properties of EOData shape how it is run:
 
-* **It is the opposite shape to the other two** -- very many rows, few features.
+* **It is the opposite shape to madelon and gina** -- very many rows, few features.
   A single decision-tree fit on 20 features over the full training split
   (288,000 rows) measured 14.2 s on this machine, against milliseconds on
   madelon. At the round's 6,000-fit budget that is roughly 24 hours per seed per
@@ -366,6 +373,46 @@ Two properties of EOData shape how it is run:
   is the paper's own choice and the only one available; results on EOData are
   therefore optimistic in the same way the paper's are, and are reported with
   that caveat.
+
+### Other tall datasets -- used by H5 and H6
+
+The 25 paper benchmarks are almost all wide and short. On its own that would
+make H5 and H6 a comparison on the shape FASTENER was *not* built for. These
+seven fill the gap: many rows relative to features, like EOData, from a spread
+of domains. Downloaded and checked against each repository's stated shape by
+`download_tall_datasets.py`; loaded by `datasets.load_tall`.
+
+| dataset | rows | features | classes | smallest / largest class | domain | source |
+|---|---:|---:|---:|---|---|---|
+| covertype | 581,012 | 54 | 7 | 2,747 / 283,301 | Forest cover type, Roosevelt National Forest, Colorado: elevation, slope, distances to water and roads, wilderness area and soil type | OpenML 1596 |
+| miniboone | 130,064 | 50 | 2 | 36,499 / 93,565 | Particle identification, MiniBooNE neutrino experiment: electron vs muon neutrino events | OpenML 41150 |
+| higgs | 98,049 | 28 | 2 | 46,223 / 51,826 | Higgs boson signal vs background: 21 low-level kinematic and 7 derived high-level features | OpenML 23512 |
+| volkert | 58,310 | 180 | 10 | 1,361 / 12,806 | ChaLearn AutoML challenge set, anonymised features; the same feature count as EOData, as a domain-neutral control | OpenML 41166 |
+| gas_drift | 13,910 | 128 | 6 | 1,641 / 3,009 | Chemical gas identification: 16 metal-oxide sensors x 8 features each, over 36 months | OpenML 1476 |
+| har | 10,299 | 561 | 6 | 1,406 / 1,944 | Human activity recognition: time- and frequency-domain statistics of smartphone accelerometer and gyroscope signals | OpenML 1478 |
+| satimage | 6,430 | 36 | 6 | 625 / 1,531 | Landsat multispectral land cover: 4 bands over a 3x3 pixel neighbourhood | OpenML 182 |
+
+Two of these -- har and gas_drift -- are built the way EOData is: a set of
+signals, each summarised by several statistics. That is where FASTENER's
+redundancy-aware pruning should matter most, and where a result on EOData
+should carry over if it is about the method rather than the dataset.
+
+Satimage is a third Earth-observation set, but a small one; it is here for
+H5 and H6, not as a development set.
+
+**Cost.** One decision-tree fit on 20 features over the training split,
+measured on this machine, and what the 6,000-fit budget costs per seed per arm
+at that rate:
+
+| dataset | one fit | 6,000 fits |
+|---|---:|---:|
+| crop_mapping | 8.5 s | ~14 h |
+| covertype | 4.2 s | ~7 h |
+| miniboone | 2.8 s | ~4.6 h |
+| higgs | 1.5 s | ~2.5 h |
+| har, gas_drift, volkert, satimage | 0.06-0.17 s | under 20 min |
+
+The first four join EOData in the row-count question under *Open questions*.
 
 ### Paper benchmarks -- used by H4, H5 and H6
 
@@ -429,6 +476,10 @@ dropped at load time and the drop is recorded on the `Dataset`. Two sets are
 affected: **lymphoma** loses 8 rows (96 → 88) and **nci9** loses 2 (60 → 58).
 Their results are on the cleaned sets and are labelled as such.
 
+One further row is dropped outside the paper benchmarks: **higgs** loses 1 row
+(98,050 -> 98,049) that held all 9 of its missing values. Rows with a missing
+value are removed at download; no other dataset has any.
+
 **What the small sets can support.** Twelve of the 25 have fewer than 110 rows.
 At 60/20/20, GLIOMA's test split is 10 rows and colon's is 13; one row changing
 class moves the score by 0.08-0.10. The split is fixed, so the seed spread on
@@ -437,12 +488,15 @@ test rows is not evidence of a stable result, and is not reported as one.
 
 ## Open questions
 
-**EOData row count.** Full size costs ~24 h per seed per arm at the 6,000-fit
-budget; H1-H3 need 5 arms x 5 seeds on it. The options are the full 480,000
-rows, a fixed stratified subsample for every arm (the paper's setting is then
-not reproduced, and the run says so), or a smaller fit budget on EOData only
-(the budget stops being equal across datasets, which is allowed -- it is
-equal across *arms* that matters). To be fixed before H1 starts on EOData.
+**Row count on the large tall sets.** At the 6,000-fit budget, per seed per
+arm: EOData ~24 h, crop_mapping ~14 h, covertype ~7 h, miniboone ~4.6 h,
+higgs ~2.5 h. H1-H3 need 5 arms x 5 seeds on EOData and crop_mapping; H5 and
+H6 need every algorithm on all of them. The options, per dataset, are the full
+rows, a fixed stratified subsample used by every arm (`max_rows`; the run is
+labelled with its row count, and on EOData the paper's setting is then not
+reproduced), or a smaller fit budget on that dataset only (the budget stops
+being equal across datasets, which is allowed -- it is equal across *arms*
+that matters). To be fixed before H1 starts.
 
 ## Analysis plan
 

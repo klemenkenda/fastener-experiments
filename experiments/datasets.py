@@ -350,7 +350,63 @@ def load_paper_benchmark(name: str) -> Dataset:
     return ds
 
 
+# -------------------------------------------------------------- tall datasets
+# Many rows, relatively few features -- the shape FASTENER was built for, and
+# the opposite of most of the paper benchmarks. Downloaded, checked against the
+# repository's stated shape and pinned by download_tall_datasets.py.
+TALL_DATASETS = (
+    "crop_mapping", "covertype", "satimage", "har", "gas_drift", "volkert",
+    "miniboone", "higgs",
+)
+
+
+def load_tall(name: str, max_rows: int = None,
+              subsample_seed: int = SPLIT_SEED) -> Dataset:
+    """One of the tall datasets, three-way split like every other set.
+
+    `max_rows` takes a stratified subsample that keeps each class's share of
+    the rows, for sets where a full-size wrapper search is impractical
+    (covertype and crop_mapping are hundreds of thousands of rows). Unlike
+    EOData these are not class-balanced, so the subsample is proportional, not
+    equal per class. A subsampled run is labelled with its row count.
+
+    Rows with missing values were dropped at download (only higgs has any); the
+    count is carried on the Dataset as `dropped_missing`.
+    """
+    if name not in TALL_DATASETS:
+        raise KeyError(f"unknown tall dataset {name!r}; have {TALL_DATASETS}")
+    npz = DATA_DIR / name / f"{name}.npz"
+    if not npz.is_file():
+        raise FileNotFoundError(
+            f"{npz} missing; run "
+            f"`python experiments/download_tall_datasets.py --only {name}`")
+    with np.load(npz, allow_pickle=False) as d:
+        X, y = d["X"], d["y"]
+        names = d["feature_names"]
+        dropped_missing = int(d["dropped_missing"])
+
+    if max_rows is not None and max_rows < X.shape[0]:
+        rng = np.random.RandomState(subsample_seed)
+        classes, counts = np.unique(y, return_counts=True)
+        keep = []
+        for c, n in zip(classes, counts):
+            # At least 5, so every class survives the 60/20/20 split.
+            take = min(n, max(5, int(round(max_rows * n / y.size))))
+            keep.append(rng.choice(np.where(y == c)[0], take, replace=False))
+        sel = np.sort(np.concatenate(keep))
+        X, y = X[sel], y[sel]
+
+    tr, va, te = _stratified_three_way(y, VAL_FRACTION, TEST_FRACTION, SPLIT_SEED)
+    ds = Dataset(name, X[tr], y[tr], X[va], y[va], X[te], y[te],
+                 feature_names=names)
+    ds.dropped_missing = dropped_missing
+    ds.max_rows = max_rows
+    return ds
+
+
 LOADERS = {"madelon": load_madelon, "gina": load_gina, "eodata": load_eodata}
+for _name in TALL_DATASETS:
+    LOADERS[_name] = (lambda n: lambda: load_tall(n))(_name)
 # Each benchmark is addressable by its own name, so every runner that takes
 # --dataset takes these too, with no special-casing anywhere downstream.
 for _name in PAPER_BENCHMARKS:
