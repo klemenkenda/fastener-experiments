@@ -392,8 +392,8 @@ Decided now, so that no metric is chosen after seeing the data:
    is never plotted alone.
 4. Wall clock reported next to fit counts for every arm.
 5. Any arm that stops on something other than the budget says so (`stopped_on`).
-6. **Progress is recorded at every iteration of every algorithm**, not only at
-   the end. See *Progress tracking* below.
+6. **Best score per iteration is recorded for every algorithm**, not only the
+   final result. See *Progress tracking* below.
 
 ### Progress tracking
 
@@ -410,14 +410,23 @@ rather than assumed:
 | FS-SDS | one test-and-diffusion cycle |
 | POSS | one mutation-and-archive-update step |
 
-**What each snapshot holds:**
+**The tracked quantity is the best score per iteration:** the best validation
+F1 found so far, after each iteration. Recorded two ways, because a feature
+selector's best overall score usually sits on its largest subsets:
 
-* iteration number, cumulative unique model fits, wall-clock seconds since start;
-* the current Pareto front itself -- every (feature subset, validation F1) pair
-  on it -- so any front metric can be recomputed later without re-running;
-* the front read off as validation hypervolume and validation AUF;
-* best validation F1 at each k on the grid;
-* the smallest and largest subset size on the front (the quantity H1 is about).
+* **overall** -- the best validation F1 of any subset seen so far;
+* **per k** -- the best validation F1 among subsets of size <= k, at each k on
+  the grid, so the small-k trajectory that H2 and H3 are about is visible on
+  its own.
+
+Each snapshot also carries what is needed to read that curve correctly:
+
+* iteration number, cumulative unique model fits, and wall-clock seconds since
+  the start;
+* the smallest subset size on the front (the quantity H1 is about);
+* the current Pareto front itself -- every (feature subset, validation F1)
+  pair -- so hypervolume, AUF or any other front metric can be recomputed later
+  without re-running.
 
 **Read on fits, not iterations.** Iterations are not comparable across
 algorithms -- a FASTENER generation and a POSS step cost very different numbers
