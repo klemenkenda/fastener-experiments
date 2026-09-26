@@ -1,0 +1,13 @@
+# Experiment ledger
+
+Every experiment ID ever issued, one row each, appended when the experiment
+starts -- not when it succeeds. Rows are never deleted. See
+[`METHODOLOGY.md`](METHODOLOGY.md) for what the IDs and statuses mean.
+
+Managed by `experiments/experiment_ids.py`; edit the status with
+`python experiments/experiment_ids.py status <ID> <status>`.
+
+| experiment | hypothesis | started | run IDs | status | report |
+|---|---|---|---|---|---|
+| `H0-E01` | H0 | 2026-09-25 | `20260925T173306Z_h0_TOX_171`, `20260925T173442Z_h0_TOX_171`, `20260925T173442Z_h0_har`, `20260925T173442Z_h0_BASEHOCK`, `20260925T173442Z_h0_USPS`, `20260925T173443Z_h0_crop_mapping` | reported | [report](reports/H0-E01/REPORT.md) |
+| `H0-E02` | H0 | 2026-09-25 | `20260925T203019Z_h0_miniboone`, `20260925T203020Z_h0_higgs`, `20260925T203020Z_h0_volkert`, `20260925T203021Z_h0_covertype`, `20260925T203021Z_h0_gas_drift`, `20260925T203021Z_h0_arcene`, `20260925T203021Z_h0_orlraws10P`, `20260925T203021Z_h0_GLI_85`, `20260925T203021Z_h0_nci9`, `20260925T203021Z_h0_CLL_SUB_111`, `20260925T203021Z_h0_gina`, `20260925T203022Z_h0_gisette`, `20260925T203022Z_h0_eodata`, `20260925T205420Z_h0_Isolet`, `20260925T210101Z_h0_RELATHE`, `20260925T213746Z_h0_PCMAC`, `20260925T214349Z_h0_ORL`, `20260925T214424Z_h0_COIL20`, `20260925T214451Z_h0_ALLAML`, `20260925T215100Z_h0_leukemia`, `20260925T215315Z_h0_Prostate_GE`, `20260925T215738Z_h0_warpAR10P`, `20260925T220723Z_h0_Yale`, `20260925T221410Z_h0_warpPIE10P`, `20260925T221542Z_h0_GLIOMA`, `20260925T222250Z_h0_colon`, `20260925T222339Z_h0_lymphoma`, `20260925T223950Z_h0_lung`, `20260925T224012Z_h0_satimage`, `20260925T224015Z_h0_lung_discrete`, `20260925T203021Z_h0_madelon` | reported | [report](reports/H0-E02/REPORT.md) |

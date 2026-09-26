@@ -8,6 +8,10 @@ fastener/
 # the manifest's seeds and commit.
 results/**/log/
 results/**/*.pickle
+# Progress trajectories are too large for git (up to 2 GB per run on a wide
+# set) and, like the pickles, reproducible from the manifest's seeds and
+# commit. The report tables keep what the analysis read from them.
+results/**/trajectories/
 
 # Inputs are fetched and checksum-verified by download_data.py, not stored here.
 data/*

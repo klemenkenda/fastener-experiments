@@ -1,0 +1,35 @@
+Dataset(lymphoma: 4026 features, 54/17/17 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20260925T222339Z_h0_lymphoma
+experiment: H0-E02
+progress: E:\Users\Klemen\FASTENER\results\20260925T222339Z_h0_lymphoma\progress.json
+  monitor with: python experiments/monitor.py --run 20260925T222339Z_h0_lymphoma
+
+fastener (6000 fits x 5 seeds):
+  seed 2020: front= 4 best test_f1=0.5938 @k=4 fits=6000 stopped_on=fit_budget (205.59s)
+  seed 2021: front= 3 best test_f1=0.6941 @k=3 fits=6000 stopped_on=fit_budget (197.54s)
+  seed 2022: front= 3 best test_f1=0.7682 @k=3 fits=6000 stopped_on=fit_budget (197.83s)
+  seed 2023: front= 3 best test_f1=0.7213 @k=3 fits=6000 stopped_on=fit_budget (197.73s)
+  seed 2024: front= 3 best test_f1=0.4724 @k=3 fits=6000 stopped_on=fit_budget (200.04s)
+
+fastener_2020 (6000 fits x 5 seeds):
+  seed 2020: front= 4 best test_f1=0.6078 @k=4 fits=6000 stopped_on=fit_budget (219.92s)
+  seed 2021: front= 5 best test_f1=0.6789 @k=5 fits=6000 stopped_on=fit_budget (186.41s)
+  seed 2022: front= 6 best test_f1=0.7066 @k=8 fits=6000 stopped_on=fit_budget (171.95s)
+  seed 2023: front= 4 best test_f1=0.6176 @k=4 fits=6000 stopped_on=fit_budget (147.44s)
+  seed 2024: front= 3 best test_f1=0.7020 @k=3 fits=6000 stopped_on=fit_budget (142.33s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 31m09s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.511  0.641  0.672  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650  0.650
+  fastener_2020           0.497  0.633  0.691  0.689  0.710  0.710  0.710  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663  0.663
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.6373  0.4996  0.7412      5      10-10
+  fastener_2020           0.6625  0.5869  0.7820      5      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20260925T222339Z_h0_lymphoma\manifest.json

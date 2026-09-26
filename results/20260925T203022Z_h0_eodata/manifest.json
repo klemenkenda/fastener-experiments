@@ -1,0 +1,383 @@
+{
+  "run_id": "20260925T203022Z_h0_eodata",
+  "experiment_id": "H0-E02",
+  "name": "h0_eodata",
+  "started_utc": "2026-09-25T20:30:22.498570+00:00",
+  "command": "run_sota.py --dataset eodata --split eo --methods  --name h0_eodata --fastener-arm none --fastener-arm 2020 --evaluations 1000 --experiment H0-E02",
+  "params": {
+    "dataset": "eodata",
+    "methods": [],
+    "with_fastener": true,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "2020"
+    ],
+    "fastener_max_fits": 1000,
+    "seeds": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "evaluation_budget_per_seed": 1000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 50,
+    "fs_sds_evaluations_total": 1000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100
+    ],
+    "split": "eo",
+    "max_rows": 100000,
+    "n_rows_used": 99984,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "b1a51d38ad7a0427c03db6d74ae1dc6b340e7175",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "?? experiments/EXPERIMENTS.md",
+        "?? experiments/reports/",
+        "?? results/20260925T173306Z_h0_TOX_171/",
+        "?? results/20260925T173442Z_h0_BASEHOCK/",
+        "?? results/20260925T173442Z_h0_TOX_171/",
+        "?? results/20260925T173442Z_h0_USPS/",
+        "?? results/20260925T173442Z_h0_har/",
+        "?? results/20260925T173443Z_h0_crop_mapping/",
+        "?? results/H0-E01/",
+        "?? results/H0-E02/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "144621cba6cf46cd1b2e23dc485a198477c44d97",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": true,
+  "algorithms": {
+    "fastener": {
+      "id": "fastener@b1a51d3+144621c#4371",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "max_fits": 1000,
+        "rounds": 100000,
+        "swap": "none",
+        "mating": "fixed"
+      }
+    },
+    "fastener_2020": {
+      "id": "fastener_2020@b1a51d3+144621c#757f",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "max_fits": 1000,
+        "rounds": 100000,
+        "swap": "none",
+        "mating": "2020"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "eodata",
+    "n_features": 182,
+    "n_train": 39984,
+    "n_val": 10008,
+    "n_test": 49992,
+    "class_balance_train": {
+      "0": 1666,
+      "1": 1666,
+      "2": 1666,
+      "3": 1666,
+      "4": 1666,
+      "5": 1666,
+      "6": 1666,
+      "7": 1666,
+      "8": 1666,
+      "9": 1666,
+      "10": 1666,
+      "11": 1666,
+      "12": 1666,
+      "13": 1666,
+      "14": 1666,
+      "15": 1666,
+      "16": 1666,
+      "17": 1666,
+      "18": 1666,
+      "19": 1666,
+      "20": 1666,
+      "21": 1666,
+      "22": 1666,
+      "23": 1666
+    },
+    "class_balance_val": {
+      "0": 417,
+      "1": 417,
+      "2": 417,
+      "3": 417,
+      "4": 417,
+      "5": 417,
+      "6": 417,
+      "7": 417,
+      "8": 417,
+      "9": 417,
+      "10": 417,
+      "11": 417,
+      "12": 417,
+      "13": 417,
+      "14": 417,
+      "15": 417,
+      "16": 417,
+      "17": 417,
+      "18": 417,
+      "19": 417,
+      "20": 417,
+      "21": 417,
+      "22": 417,
+      "23": 417
+    },
+    "class_balance_test": {
+      "0": 2083,
+      "1": 2083,
+      "2": 2083,
+      "3": 2083,
+      "4": 2083,
+      "5": 2083,
+      "6": 2083,
+      "7": 2083,
+      "8": 2083,
+      "9": 2083,
+      "10": 2083,
+      "11": 2083,
+      "12": 2083,
+      "13": 2083,
+      "14": 2083,
+      "15": 2083,
+      "16": 2083,
+      "17": 2083,
+      "18": 2083,
+      "19": 2083,
+      "20": 2083,
+      "21": 2083,
+      "22": 2083,
+      "23": 2083
+    },
+    "split_seed": 20200,
+    "max_rows": 100000,
+    "split": "eo",
+    "dropped_missing": 0
+  },
+  "inputs": {
+    "eodata.npz": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\eodata\\eodata.npz",
+      "sha256": "c117a402af4715887a0a3e9b97ea3baf06471020a31f59e5c319fd8cea2fdf1b",
+      "bytes": 209654952
+    },
+    "FASTENER_dataset.arff": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\eodata\\FASTENER_dataset.arff",
+      "sha256": "89aa90fdcb3e358258c0c1a8c04a9048c6cbb57e75fef78e322f7145e6cf3e76",
+      "bytes": 1412784512
+    },
+    "SHA256SUMS": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\eodata\\SHA256SUMS",
+      "sha256": "0ff3974680faee97319afd379abbf212c852d04dcfe5701a239a5fb7e90133d9",
+      "bytes": 89
+    }
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "fastener_2020": [
+        1000,
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "fastener": [
+        1000,
+        1000,
+        1000,
+        1000,
+        1000
+      ]
+    },
+    "elapsed_by_method": {
+      "fastener": 780.68,
+      "fastener_2020": 649.33
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-09-25T23:07:04.634933+00:00",
+  "elapsed_seconds": 9402.136,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "b9946ea9e67ef440d9155c40c9153d017409ae2e75a302dd9a942bc1ed3e9c57",
+      "bytes": 1885
+    },
+    "auf.json": {
+      "sha256": "a9026da95b43446b22eb501b0214316a685f74b0dfc856843055a79f0cabda58",
+      "bytes": 5934
+    },
+    "comparison.csv": {
+      "sha256": "17d98d3b236ebbd6890aa3cc3171aa9669e184059e8b1dae18f69f1000879b36",
+      "bytes": 19935
+    },
+    "comparison.png": {
+      "sha256": "415329db00dd0be5701167d68e11cb81691da82b0ad84979468fa7926b01dd9f",
+      "bytes": 89433
+    },
+    "comparison_rows.json": {
+      "sha256": "d10c1cef45db912ccd2c9dce77edc30d811661fd0999fc936321a352f7a141f2",
+      "bytes": 98804
+    },
+    "progress.json": {
+      "sha256": "8db3d8844461e9e4236f9e5cdda2290b0c6b9d28d03250a558b374722e45cebc",
+      "bytes": 3228
+    },
+    "raw_results.json": {
+      "sha256": "0a37c1cf8b42b3cd9a83330d1b16cca867a1cadce27557bfa22cfbb8f2827187",
+      "bytes": 117640
+    },
+    "raw_results_partial.json": {
+      "sha256": "0a37c1cf8b42b3cd9a83330d1b16cca867a1cadce27557bfa22cfbb8f2827187",
+      "bytes": 117640
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/fastener_2020_seed2020.jsonl": {
+      "sha256": "3f0d9c17eda4f39521197570148c339ddb88f45ee1efe89ccc98997b689ff1ce",
+      "bytes": 75611
+    },
+    "trajectories/fastener_2020_seed2021.jsonl": {
+      "sha256": "33350b6ef0877b1fb8af4b5eff2f5a5548ea4ced406a829f1679d9cf2a6cbbdc",
+      "bytes": 83614
+    },
+    "trajectories/fastener_2020_seed2022.jsonl": {
+      "sha256": "f344bcaf00750ecf0da986ff0191176270edb5bdc5deee146083bc137b4495d9",
+      "bytes": 76781
+    },
+    "trajectories/fastener_2020_seed2023.jsonl": {
+      "sha256": "cbd2bfe324b760e2ce8fd0db6afef82af0b4fd941fc709252a75f460429cebca",
+      "bytes": 76116
+    },
+    "trajectories/fastener_2020_seed2024.jsonl": {
+      "sha256": "c2f145e3bc43356620a37e47aec3e59f866064c0cb66f7862249a3f155fb7cc3",
+      "bytes": 77925
+    },
+    "trajectories/fastener_seed2020.jsonl": {
+      "sha256": "d9e88dffccec872a5268af34d3e77f724b43045271a120a24d32c4b142540dd5",
+      "bytes": 77018
+    },
+    "trajectories/fastener_seed2021.jsonl": {
+      "sha256": "945b28ab3565bfadf7b5aa020e96cc691e528f9c160b40401cfd7bb0b9dae845",
+      "bytes": 75568
+    },
+    "trajectories/fastener_seed2022.jsonl": {
+      "sha256": "24d186abb1a4dd24bc03dfe3efbf071c039f248ea67e81623498522d49ef7ab0",
+      "bytes": 73451
+    },
+    "trajectories/fastener_seed2023.jsonl": {
+      "sha256": "4a25e00189c419505781a1b936febf9f62b4fe4ac1d02dd10a569684db58c435",
+      "bytes": 71076
+    },
+    "trajectories/fastener_seed2024.jsonl": {
+      "sha256": "97a24191de21e5ee46a0a1b01aa991241f3ffd695a712b4a2a86b5ff8027f512",
+      "bytes": 72020
+    }
+  },
+  "bulk_outputs": {
+    "prefix": "log/",
+    "n_files": 10,
+    "total_bytes": 909109290,
+    "rollup_sha256": "8a80481288f3caa9c30118cd1ae0af14284ce428acee49b5d2dae7b3148af515",
+    "note": "FASTENER per-generation pickles. Digest of the sorted (path, sha256) pairs; recompute to verify."
+  }
+}

@@ -1,0 +1,35 @@
+Dataset(GLIOMA: 4434 features, 30/10/10 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20260925T221542Z_h0_GLIOMA
+experiment: H0-E02
+progress: E:\Users\Klemen\FASTENER\results\20260925T221542Z_h0_GLIOMA\progress.json
+  monitor with: python experiments/monitor.py --run 20260925T221542Z_h0_GLIOMA
+
+fastener (6000 fits x 5 seeds):
+  seed 2020: front= 2 best test_f1=0.7114 @k=2 fits=6000 stopped_on=fit_budget (210.83s)
+  seed 2021: front= 4 best test_f1=0.3914 @k=4 fits=6000 stopped_on=fit_budget (210.72s)
+  seed 2022: front= 1 best test_f1=0.8038 @k=1 fits=6000 stopped_on=fit_budget (253.29s)
+  seed 2023: front= 3 best test_f1=0.6571 @k=4 fits=6000 stopped_on=fit_budget (213.14s)
+  seed 2024: front= 2 best test_f1=0.3914 @k=2 fits=6000 stopped_on=fit_budget (213.35s)
+
+fastener_2020 (6000 fits x 5 seeds):
+  seed 2020: front= 3 best test_f1=0.8067 @k=3 fits=6000 stopped_on=fit_budget (233.15s)
+  seed 2021: front= 3 best test_f1=0.6000 @k=3 fits=6000 stopped_on=fit_budget (235.11s)
+  seed 2022: front= 3 best test_f1=0.5114 @k=3 fits=6000 stopped_on=fit_budget (227.39s)
+  seed 2023: front= 3 best test_f1=0.3167 @k=3 fits=6000 stopped_on=fit_budget (189.05s)
+  seed 2024: front= 3 best test_f1=0.5450 @k=3 fits=6000 stopped_on=fit_budget (165.22s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 35m53s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.564  0.669  0.635  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591  0.591
+  fastener_2020           0.439  0.405  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556  0.556
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.6005  0.3913  0.8038      5      10-10
+  fastener_2020           0.5291  0.2783  0.7255      5      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20260925T221542Z_h0_GLIOMA\manifest.json
