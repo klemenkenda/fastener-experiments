@@ -19,7 +19,9 @@ as usual.
 
 Restartable: a dataset that already has a finished run under the same
 experiment ID is skipped, so after an interruption the same command picks up
-where it stopped.
+where it stopped. A dataset whose run is still going -- its process outlived a
+driver that stopped -- is adopted: watched to the end and counted, not started
+a second time.
 
 `--plan extension` runs H0's second experiment instead: every other dataset
 on disk (HYPOTHESES.md, "H0 on every other dataset"), longest first so parallel
@@ -52,6 +54,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import experiment_ids  # noqa: E402
 import h0_convergence  # noqa: E402
 from protocol import FIT_BUDGET, fit_budget  # noqa: E402
+from monitor import alive  # noqa: E402
 from progress import format_duration  # noqa: E402
 from provenance import RESULTS_DIR  # noqa: E402
 
@@ -231,6 +234,9 @@ class Job:
         self.run_dir: Optional[Path] = None
         self.state = "pending"  # pending, running, done, failed, skipped
         self.t0 = self.t1 = None
+        # Set for a run adopted from an earlier driver: watched by its pid,
+        # since this driver did not start it.
+        self.pid: Optional[int] = None
         cmd = [sys.executable, "-u", str(HERE / "run_sota.py"),
                "--dataset", self.name, "--split", plan["split"],
                "--methods", "", "--name", f"h0_{self.name}"]
@@ -258,9 +264,22 @@ class Job:
                                      cwd=str(HERE.parent))
         self.state, self.t0 = "running", time.time()
 
+    def adopt(self, run_dir: Path, pid: int, elapsed: float) -> None:
+        """Take over watching a run an earlier driver started."""
+        self.run_dir, self.pid = run_dir, pid
+        self.state, self.t0 = "running", time.time() - elapsed
+
     def poll(self) -> None:
         if self.run_dir is None:
             self.run_dir = run_dir_from_log(self.log)
+        if self.state == "running" and self.proc is None:
+            if not alive(self.pid):
+                # run_sota.py writes its manifest last, so "ok" there means
+                # the run finished rather than died.
+                m = read_json(self.run_dir / "manifest.json")
+                self.t1 = time.time()
+                self.state = "done" if m and m.get("status") == "ok" else "failed"
+            return
         if self.state == "running" and self.proc.poll() is not None:
             self._fh.close()
             self.t1 = time.time()
@@ -348,7 +367,15 @@ class Driver:
     def write_status(self, st: Dict) -> None:
         tmp = self.out / "driver.json.tmp"
         tmp.write_text(json.dumps(st, indent=2), encoding="utf-8")
-        os.replace(tmp, self.out / "driver.json")
+        # On Windows the replace is refused while a reader (monitor.py) has
+        # driver.json open. Retry briefly, then skip this update: the status
+        # file is for watching, and must never stop the experiment.
+        for _ in range(20):
+            try:
+                os.replace(tmp, self.out / "driver.json")
+                return
+            except PermissionError:
+                time.sleep(0.1)
 
     def run(self) -> None:
         last_print = 0.0
@@ -390,7 +417,8 @@ class Driver:
                 time.sleep(2.0)
         except KeyboardInterrupt:
             for j in self.jobs:
-                if j.state == "running" and j.proc.poll() is None:
+                if (j.state == "running" and j.proc is not None
+                        and j.proc.poll() is None):
                     j.proc.terminate()
             print("\ninterrupted: running datasets stopped. Run the same "
                   "command again to resume; finished datasets are skipped.")
@@ -431,9 +459,16 @@ def main() -> int:
         if j.name in previous:
             j.state, j.run_dir = "skipped", previous[j.name]
             print(f"{j.name}: already finished in {j.run_dir.name}, skipped")
+        elif experiment and j.log.is_file():
+            run_dir = run_dir_from_log(j.log)
+            p = read_json(run_dir / "progress.json") if run_dir else None
+            if p and p.get("status") == "running" and alive(p.get("pid")):
+                j.adopt(run_dir, int(p["pid"]), p.get("elapsed_seconds") or 0.0)
+                print(f"{j.name}: still running in {run_dir.name} "
+                      f"(pid {j.pid}), adopted")
 
     out.mkdir(parents=True, exist_ok=True)
-    todo = [j for j in jobs if j.state == "pending"]
+    todo = [j for j in jobs if j.state in ("pending", "running")]
     print(f"H0 {label}: {len(todo)} dataset(s) to run, {args.jobs} at a time; "
           f"status every {format_duration(args.interval)}; output in {out}")
     driver = Driver(jobs, out, args.jobs, args.interval, label, args.smoke)

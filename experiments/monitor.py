@@ -74,11 +74,16 @@ def alive(pid: Optional[int]) -> Optional[bool]:
     try:
         if os.name == "nt":
             import ctypes
-            h = ctypes.windll.kernel32.OpenProcess(0x1000, False, int(pid))
+            k32 = ctypes.windll.kernel32
+            h = k32.OpenProcess(0x1000, False, int(pid))
             if not h:
                 return False
-            ctypes.windll.kernel32.CloseHandle(h)
-            return True
+            # An exited process can still be opened while anyone holds a
+            # handle to it; only STILL_ACTIVE (259) means it is running.
+            code = ctypes.c_ulong()
+            ok = k32.GetExitCodeProcess(h, ctypes.byref(code))
+            k32.CloseHandle(h)
+            return bool(ok) and code.value == 259
         os.kill(int(pid), 0)
         return True
     except (OSError, ValueError, AttributeError):

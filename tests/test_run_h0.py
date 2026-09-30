@@ -103,3 +103,50 @@ def test_repeat_plan_is_all_36_with_the_protocol_budgets():
     assert plan["nci9"]["evaluations"] == 12_000
     assert plan["madelon"]["evaluations"] == 6000
     assert run_h0.PLANS["repeat"] is run_h0.H0_REPEAT_PLAN
+
+
+def test_status_write_survives_a_reader_holding_the_file(tmp_path, monkeypatch):
+    real = run_h0.os.replace
+    calls = {"n": 0}
+
+    def flaky(src, dst):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise PermissionError("in use")
+        real(src, dst)
+
+    monkeypatch.setattr(run_h0.os, "replace", flaky)
+    monkeypatch.setattr(run_h0.time, "sleep", lambda s: None)
+    d = run_h0.Driver([], tmp_path, 1, 60, "x")
+    d.write_status({"a": 1})
+    assert json.loads((tmp_path / "driver.json").read_text()) == {"a": 1}
+
+    monkeypatch.setattr(run_h0.os, "replace",
+                        lambda s, t: (_ for _ in ()).throw(PermissionError()))
+    d.write_status({"a": 2})  # gives up quietly, never raises
+
+
+def test_adopted_run_is_watched_to_its_end(tmp_path):
+    import subprocess
+    import sys
+    plan = {"dataset": "TOX_171", "split": "protocol", "evaluations": 6000,
+            "hours": 0.5}
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    proc = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"])
+    try:
+        j = run_h0.Job(plan, tmp_path, "H0-E99", False, False)
+        j.adopt(run_dir, proc.pid, elapsed=100.0)
+        j.poll()
+        assert j.state == "running" and j.elapsed() >= 100.0
+    finally:
+        proc.kill()
+        proc.wait()
+    (run_dir / "manifest.json").write_text(json.dumps({"status": "ok"}))
+    j.poll()
+    assert j.state == "done"
+
+    k = run_h0.Job(plan, tmp_path, "H0-E99", False, False)
+    k.adopt(tmp_path / "gone", proc.pid, elapsed=0.0)
+    k.poll()
+    assert k.state == "failed"  # died without a manifest
