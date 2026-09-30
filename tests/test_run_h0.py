@@ -84,3 +84,22 @@ def test_extension_plan_is_every_other_dataset():
     assert budgets["satimage"] == (1000, "protocol")
     assert all(b == (6000, "protocol") for d, b in budgets.items()
                if d not in ("eodata", "satimage"))
+
+
+def test_repeat_plan_is_all_36_with_the_protocol_budgets():
+    import protocol
+    plan = {p["dataset"]: p for p in run_h0.H0_REPEAT_PLAN}
+    earlier = run_h0.H0_PLAN + run_h0.H0_EXTENSION_PLAN
+    assert set(plan) == {p["dataset"] for p in earlier}
+    assert len(plan) == 36
+    for p in earlier:
+        r = plan[p["dataset"]]
+        assert r["split"] == p["split"]
+        assert r["group"]
+        if p["evaluations"] == 1000:
+            assert r["evaluations"] == 1000
+        else:
+            assert r["evaluations"] == protocol.fit_budget(p["dataset"])
+    assert plan["nci9"]["evaluations"] == 12_000
+    assert plan["madelon"]["evaluations"] == 6000
+    assert run_h0.PLANS["repeat"] is run_h0.H0_REPEAT_PLAN

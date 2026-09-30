@@ -223,13 +223,15 @@ def seed_effect(row: Dict) -> float:
 def extension_summary(run_dirs: Sequence[Path],
                       expected: Optional[Sequence[str]] = None,
                       groups: Optional[Dict[str, str]] = None,
-                      earlier_run_dirs: Sequence[Path] = ()) -> Dict:
+                      earlier_run_dirs: Sequence[Path] = (),
+                      max_missing: int = EXTENSION_MAX_MISSING) -> Dict:
     """The H0-E02 analysis over finished runs.
 
     `expected` lists the datasets the experiment was registered with, so a
     dataset with no finished run is reported as missing. `groups` maps dataset
     to its group for the secondary breakdown. `earlier_run_dirs` are H0-E01's
-    runs, used only for the secondary test over all datasets.
+    runs, used only for the secondary test over all datasets. More than
+    `max_missing` datasets without a complete result makes it incomplete.
     """
     from scipy.stats import wilcoxon
 
@@ -272,7 +274,7 @@ def extension_summary(run_dirs: Sequence[Path],
         d for d, v in per_dataset.items() if v["counts_for"] == "incomplete")
     primary = test(per_dataset)
 
-    if len(missing) > EXTENSION_MAX_MISSING:
+    if len(missing) > max_missing:
         verdict = f"incomplete: {len(missing)} datasets left out"
     elif (primary["p_value"] is not None and primary["p_value"] < EXTENSION_ALPHA
           and primary["positive"] > primary["negative"]):

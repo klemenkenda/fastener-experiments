@@ -134,7 +134,7 @@ def test_fixed_mating_is_the_clone_default():
     default = IntersectionMatingWithWeightedRandomInformationGain()
     assert m.allow_self_mating is RandomEveryoneWithEveryone().allow_self_mating
     assert m.mating_strategy.include_top_genes is default.include_top_genes
-    assert MATING_VERSIONS["fixed"] == {"include_top_genes": False,
+    assert MATING_VERSIONS["fixed"] == {"include_top_genes": True,
                                         "allow_self_mating": False}
 
 

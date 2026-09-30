@@ -62,8 +62,8 @@ hypothesis.
 |---|---|---|
 | Classifier | **`protocol.make_model()`: `DecisionTreeClassifier(random_state=20200)`, scikit-learn defaults** (Gini, `min_samples_split=2`) | The setting the paper states in Section 5.1. Drives every search **and** scores every result, for every method. |
 | Seeds | **5: 2020, 2021, 2022, 2023, 2024** | Set by the PI. See *What 5 seeds can and cannot answer*. |
-| Budget | **6,000 unique fits per run**, enforced by each method's fit cap | Equal across arms. Cached re-evaluations of a subset already fitted are not charged. Wall clock is recorded alongside and reported, never substituted: the two diverged 10x in the pilot. |
-| FS-SDS budget | **k = 1..20, 300 fits per k -- 6,000 in total** | FS-SDS searches one fixed k per run, so its 6,000 are split evenly across the k it runs at. Giving it 6,000 *per k* would hand it 20x the budget of every other arm -- the same kind of mismatch H4 is about. |
+| Budget | **6,000 unique fits per run; 12,000 on the 11 datasets in `protocol.LONG_BUDGET_DATASETS`**, enforced by each method's fit cap | Equal across arms: the budget follows the dataset, not the arm. The 11 had not converged at 6,000 in H0 (Revisions, 2026-09-30). Cached re-evaluations of a subset already fitted are not charged. Wall clock is recorded alongside and reported, never substituted: the two diverged 10x in the pilot. |
+| FS-SDS budget | **k = 1..20, 300 fits per k -- 6,000 in total** (600 per k, 12,000 in total, on the long-budget datasets) | FS-SDS searches one fixed k per run, so its 6,000 are split evenly across the k it runs at. Giving it 6,000 *per k* would hand it 20x the budget of every other arm -- the same kind of mismatch H4 is about. |
 | k grid | **1, 2, ..., 20, then 25, 30, 50, 100, 200, 500**, capped at the dataset's feature count | Every integer up to 20 because AUF needs opt(k) at each k. |
 | Splits | **stratified 60/20/20 train/validation/test, `SPLIT_SEED = 20200`** | Fixed across seeds. Search and selection use validation; test is read once, for the final score. |
 | Row cap | **datasets over 50,000 rows use a fixed stratified 50,000-row subsample** | Drawn once with `SPLIT_SEED`, identical for every arm and seed. Applies to eodata, crop_mapping, covertype, miniboone, higgs and volkert. See *Datasets: cost*. |
@@ -375,6 +375,53 @@ support*: on the smallest, validation is 10-20 rows, and ties are common.
 reported first. This experiment is separate evidence about the same claim.
 Neither result is read as overriding the other; if they disagree, both are
 reported with the disagreement stated.
+
+### H0 repeated with the top genes kept (third experiment, H0-E03)
+
+Registered 2026-09-30, after H0-E01 and H0-E02 were reported and before any of
+this experiment's runs started.
+
+**Why.** After H0-E02 the fixed code was changed to keep the top genes
+(`include_top_genes=True`, Revisions, 2026-09-30), and the protocol budget was
+doubled on the 11 datasets whose search had not converged. H0-E01 and H0-E02
+tested a fixed arm that no longer exists. This experiment asks H0's question of
+the current code.
+
+**Arms.** `fastener`, now `include_top_genes=True, allow_self_mating=False`:
+it differs from the 2020 code only in drawing the mating pool without
+replacement, so no item is mated with itself. `fastener_2020` is unchanged.
+The claim tested is therefore narrower than H0-E02's: that removing
+self-mating alone makes FASTENER converge faster.
+
+**Datasets: all 36 of H0-E01 and H0-E02**, with their splits. Budgets: the three
+Earth-observation sets that had 1,000 fits keep 1,000 (crop_mapping, eodata
+and satimage); every other dataset gets `protocol.fit_budget`, which is 12,000
+fits on the 11 in `protocol.LONG_BUDGET_DATASETS` and 6,000 on the rest.
+Seeds, the fixed-target measure and the target are exactly as in H0.
+
+**Primary analysis and falsification criterion.** As in H0-E02, over all 36
+datasets: the per-dataset effect is the mean over 5 seeds of log2(fits the
+2020 arm needed / fits the fixed arm needed). Supported if the effects are
+positive on more datasets than negative **and** a two-sided Wilcoxon
+signed-rank test over them is significant at alpha = 0.05; reversed if the same
+holds with the signs swapped; otherwise not supported. Zero effects drop out of
+the test and are counted.
+
+**Incomplete datasets.** As in H0-E02. If more than 7 of the 36 are left out
+(the same one in five), the result is reported as incomplete.
+
+**Reported beside it, as secondary:** H0's per-dataset 4-of-5 counts; the
+effect per dataset group; final test AUF (K = 10) per arm; and, labelled as
+comparisons across experiments and not as tests, each dataset's effect here
+beside its effect in H0-E01 or H0-E02. On the 11 long-budget datasets the
+budget differs from the earlier experiments, so their effects are not
+comparable one to one.
+
+**How it runs.** As H0-E02: several datasets at once, so wall clock is not
+comparable between arms; fits are unaffected.
+
+**Relation to H0-E01 and H0-E02.** Their verdicts stand, about the code they
+tested. This one is about the current code.
 
 ## H1 -- NSGA-II's weakness at small k is an initialisation artifact
 
@@ -887,3 +934,39 @@ H0-E01 had finished and been reported as not supported, with its datasets split
 mapping and har). H0's own criterion, datasets and verdict are unchanged. The
 new experiment takes every remaining dataset rather than a chosen subset, and
 its criterion is written here before any of its runs started.
+
+**2026-09-30 -- The fixed arm keeps the top genes.** After H0-E01 and H0-E02
+were reported, `include_top_genes` became `True` in the clone's defaults and in
+the `fastener` arm, so the fixed code now differs from the 2020 code only in
+`allow_self_mating`. H0-E01 and H0-E02 tested the fixed code with both flags
+off; their verdicts are about that code, not this one. Stock FASTENER in H2-H6
+is the new default. The arm's algorithm ID changes with its configuration, so
+runs of the two are never pooled.
+
+**2026-09-30 -- Twice the budget where the search had not converged.** Decided
+after H0-E01 and H0-E02 were reported, from their validation curves only (test
+scores played no part). A dataset counts as not converged when the mean
+validation AUF at K = 10 of at least one H0 arm rose by 0.005 or more over the
+last quarter of its budget (4,500 to 6,000 fits). Eleven datasets meet it:
+
+| dataset | rise over the last quarter, fixed / 2020 |
+|---|---|
+| BASEHOCK | 0.025 / 0.014 |
+| nci9 | 0.024 / 0.001 |
+| lung_discrete | 0.013 / 0.015 |
+| PCMAC | 0.006 / 0.013 |
+| warpAR10P | 0.013 / 0.001 |
+| TOX_171 | 0.009 / 0.005 |
+| arcene | 0.006 / 0.008 |
+| ORL | 0.004 / 0.007 |
+| RELATHE | 0.001 / 0.007 |
+| warpPIE10P | 0.003 / 0.005 |
+| CLL_SUB_111 | 0.003 / 0.005 |
+
+These get 12,000 fits per run in H1-H6, for every arm (`protocol.fit_budget`);
+every other dataset keeps 6,000, and the EO sets in H0 keep 1,000. On the
+smallest of the eleven (nci9, lung_discrete, TOX_171) the validation split has
+12-34 rows, so part of the late rise can be the search fitting validation noise
+rather than finding better subsets; the extra budget gives it room either way,
+and test scores will show which. H0's verdicts are unchanged: its budgets were
+fixed before its runs.

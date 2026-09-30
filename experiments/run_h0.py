@@ -25,9 +25,14 @@ where it stopped.
 on disk (HYPOTHESES.md, "H0 on every other dataset"), longest first so parallel
 slots finish together, analysed with datasets as the unit.
 
+`--plan repeat` runs H0-E03 (HYPOTHESES.md, "H0 repeated"): all 36 datasets
+of H0-E01 and H0-E02 again, with the fixed arm keeping the top genes and the
+protocol's per-dataset budgets, analysed like H0-E02.
+
 Usage:
     python experiments/run_h0.py --new                 # issue the next H0 ID, run all
     python experiments/run_h0.py --new --plan extension --jobs 12   # H0-E02
+    python experiments/run_h0.py --new --plan repeat --jobs 12      # H0-E03
     python experiments/run_h0.py --experiment H0-E01   # run, or resume, H0-E01
     python experiments/run_h0.py --experiment H0-E01 --jobs 3
     python experiments/run_h0.py --smoke               # tiny budget, not evidence
@@ -46,6 +51,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import experiment_ids  # noqa: E402
 import h0_convergence  # noqa: E402
+from protocol import FIT_BUDGET, fit_budget  # noqa: E402
 from progress import format_duration  # noqa: E402
 from provenance import RESULTS_DIR  # noqa: E402
 
@@ -106,7 +112,30 @@ H0_EXTENSION_PLAN = sorted([
     _ext("CLL_SUB_111", "gene expression", 0.6),
     _ext("lung", "gene expression", 0.4),
 ], key=lambda p: -p["hours"])
-PLANS = {"core": H0_PLAN, "extension": H0_EXTENSION_PLAN}
+
+# HYPOTHESES.md, "H0 repeated" (H0-E03): every dataset of H0-E01 and H0-E02.
+# The EO budgets stay at 1,000; every dataset that had 6,000 gets
+# protocol.fit_budget, which doubles it where the search had not converged.
+H0_CORE_GROUPS = {"TOX_171": "gene expression", "BASEHOCK": "text",
+                  "crop_mapping": "Earth observation", "har": "sensor signals",
+                  "USPS": "handwriting and speech"}
+
+
+def _repeat(p):
+    ev = p["evaluations"]
+    if ev == FIT_BUDGET:
+        ev = fit_budget(p["dataset"])
+    return {**p, "group": p.get("group", H0_CORE_GROUPS.get(p["dataset"])),
+            "evaluations": ev, "hours": p["hours"] * ev / p["evaluations"]}
+
+
+H0_REPEAT_PLAN = sorted([_repeat(p) for p in H0_PLAN + H0_EXTENSION_PLAN],
+                        key=lambda p: -p["hours"])
+# At most this many of the 36 may lack a complete result: the same one in five
+# that H0-E02 allowed (6 of 31).
+REPEAT_MAX_MISSING = 7
+PLANS = {"core": H0_PLAN, "extension": H0_EXTENSION_PLAN,
+         "repeat": H0_REPEAT_PLAN}
 ARMS = ("none", "2020")
 SMOKE_EVALUATIONS = 300  # run_sota.py --quick
 SMOKE_SEEDS = 2
@@ -124,7 +153,8 @@ def parse_args():
                           f"experiment ID: checks the pipeline, is not evidence")
     ap.add_argument("--plan", default="core", choices=sorted(PLANS),
                     help="core: H0's five datasets (H0-E01). extension: every "
-                         "other dataset (H0-E02).")
+                         "other dataset (H0-E02). repeat: all 36 again with "
+                         "the current fixed arm (H0-E03).")
     ap.add_argument("--datasets", default=None,
                     help="comma-separated subset of the plan's datasets")
     ap.add_argument("--jobs", type=int, default=1,
@@ -415,13 +445,17 @@ def main() -> int:
     print(f"\nall datasets finished in {format_duration(time.time() - driver.t0)}"
           + (f"; FAILED: {', '.join(failed)}" if failed else ""))
 
-    if run_dirs and args.plan == "extension":
-        # H0-E01's runs feed only the secondary test over all datasets.
-        e01 = list(finished_runs("H0-E01").values())
+    if run_dirs and args.plan in ("extension", "repeat"):
+        # H0-E01's runs feed only H0-E02's secondary test over all datasets;
+        # H0-E03 covers all of them itself.
+        extension = args.plan == "extension"
+        e01 = list(finished_runs("H0-E01").values()) if extension else []
         summary = h0_convergence.extension_summary(
             run_dirs, expected=[p["dataset"] for p in plan],
             groups={p["dataset"]: p["group"] for p in plan},
-            earlier_run_dirs=e01)
+            earlier_run_dirs=e01,
+            max_missing=(h0_convergence.EXTENSION_MAX_MISSING if extension
+                         else REPEAT_MAX_MISSING))
         print()
         h0_convergence.print_extension(summary)
         h0_convergence.write_extension_outputs(summary, out, run_dirs)

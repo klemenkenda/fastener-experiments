@@ -50,7 +50,7 @@ import baselines  # noqa: E402
 import sota_baselines as sota  # noqa: E402
 from datasets import DATA_DIR, SPLITS, load  # noqa: E402
 from progress import Progress, format_duration  # noqa: E402
-from protocol import (FIT_BUDGET, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
+from protocol import (FIT_BUDGET, fit_budget, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
                       ROW_CAP, FitCounter)
 from provenance import DirtyTreeError, Run  # noqa: E402
 from run_fastener import run_fastener  # noqa: E402
@@ -110,9 +110,11 @@ def parse_args():
     ap.add_argument("--methods", default=",".join(ALL_METHODS),
                     help=f"comma-separated subset of {','.join(ALL_METHODS)}")
     ap.add_argument("--seeds", type=int, default=5)
-    ap.add_argument("--evaluations", type=int, default=DEFAULT_EVALUATIONS,
+    ap.add_argument("--evaluations", type=int, default=None,
                     help="model-fit budget per run, for every search. FS-SDS "
-                         "divides it evenly over k = 1..20.")
+                         "divides it evenly over k = 1..20. Default: "
+                         "protocol.fit_budget(dataset), "
+                         f"{DEFAULT_EVALUATIONS} on most datasets.")
     ap.add_argument("--boruta-max-iter", type=int, default=100)
     ap.add_argument("--sds-population", type=int, default=None,
                     help="FS-SDS swarm size (default 100, the authors' "
@@ -179,7 +181,9 @@ def main() -> int:
 
     n_seeds = 2 if quick else args.seeds
     seeds = [2020 + i for i in range(n_seeds)]
-    evaluations = 300 if quick else args.evaluations
+    evaluations = 300 if quick else (
+        args.evaluations if args.evaluations is not None
+        else fit_budget(args.dataset))
     boruta_max_iter = 10 if quick else args.boruta_max_iter
     fastener_rounds = 40 if quick else args.fastener_rounds
     # Ordered so the stock arm is always the first arm reported.

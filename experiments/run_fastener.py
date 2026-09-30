@@ -145,7 +145,7 @@ SWAP_ARMS = {
 # top genes, and the mating pool is drawn with replacement, so an item can be
 # mated with itself.
 MATING_VERSIONS = {
-    "fixed": {"include_top_genes": False, "allow_self_mating": False},
+    "fixed": {"include_top_genes": True, "allow_self_mating": False},
     "2020": {"include_top_genes": True, "allow_self_mating": True},
 }
 

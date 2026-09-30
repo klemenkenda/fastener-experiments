@@ -38,6 +38,22 @@ FS_SDS_K_RANGE = list(range(1, 21))
 # Fit budget per run, equal across arms.
 FIT_BUDGET = 6000
 
+# Datasets whose search had not converged at FIT_BUDGET get twice as much. In
+# H0 (H0-E01, H0-E02) the mean validation AUF at K = 10 of at least one arm was
+# still rising by 0.005 or more over the last quarter of the 6,000 fits on
+# these; on every other dataset it rose by less (HYPOTHESES.md, Revisions,
+# 2026-09-30). Still equal across arms: the budget follows the dataset.
+LONG_FIT_BUDGET = 12_000
+LONG_BUDGET_DATASETS = frozenset({
+    "nci9", "BASEHOCK", "lung_discrete", "warpAR10P", "arcene", "PCMAC",
+    "TOX_171", "ORL", "RELATHE", "warpPIE10P", "CLL_SUB_111",
+})
+
+
+def fit_budget(dataset: str) -> int:
+    """The fit budget per run on a dataset, for every arm."""
+    return LONG_FIT_BUDGET if dataset in LONG_BUDGET_DATASETS else FIT_BUDGET
+
 # Datasets with more rows than this are cut to a fixed stratified subsample of
 # this many rows, identical for every arm and seed (HYPOTHESES.md, "Cost, and
 # the row cap"). Measured: EOData drops from ~24 h to ~2 h per run.

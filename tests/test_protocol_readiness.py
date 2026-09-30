@@ -45,6 +45,16 @@ def test_protocol_constants_match_hypotheses():
     assert protocol.ROW_CAP == 50_000
     # 6,000 split evenly over k = 1..20 is 300 per k, with nothing left over.
     assert protocol.FIT_BUDGET % len(protocol.FS_SDS_K_RANGE) == 0
+    assert protocol.LONG_FIT_BUDGET % len(protocol.FS_SDS_K_RANGE) == 0
+
+
+def test_fit_budget_doubles_only_on_the_unconverged_datasets():
+    assert protocol.fit_budget("nci9") == 12_000
+    assert protocol.fit_budget("TOX_171") == 12_000
+    assert protocol.fit_budget("madelon") == protocol.FIT_BUDGET
+    assert len(protocol.LONG_BUDGET_DATASETS) == 11
+    # A misspelt name would silently keep the short budget.
+    assert protocol.LONG_BUDGET_DATASETS <= set(datasets.LOADERS)
 
 
 def test_every_runner_uses_the_one_grid():
