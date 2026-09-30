@@ -7,6 +7,10 @@ file fixes *how each attempt is recorded*, so that any number quoted later can
 be traced back to the hypothesis it was meant to test, the code that produced
 it, and the report that interpreted it.
 
+Why each rule is what it is, and which experiments ran under it, is in
+[`DECISIONS.md`](DECISIONS.md): a numbered, dated log of every decision that
+shapes what an experiment tests or how it is read.
+
 ## Identifiers
 
 Three things get an ID: the experiment, the run, and each algorithm. They nest:
@@ -254,6 +258,9 @@ python experiments/make_report.py --experiment H1-E01
 
 # 4. Close the ID. It then accepts no further runs.
 python experiments/experiment_ids.py status H1-E01 reported   # or failed / invalid
+
+# 5. Log every decision the experiment ran under or led to in DECISIONS.md,
+#    and add the experiment to its "By experiment" table.
 ```
 
 The report generator reads the experiment's run IDs from the ledger, quotes the
