@@ -201,9 +201,11 @@ def seed_marks(p: Dict) -> str:
 
 
 def dataset_line(row: Dict, p: Optional[Dict]) -> str:
-    state = row.get("state", "?")
+    # "skipped" is the driver's word for a dataset that finished before it
+    # was (re)started: to the reader it is done.
+    state = "done" if row.get("state") == "skipped" else row.get("state", "?")
     name = row["dataset"]
-    mark = STATE_MARK.get(state, "=" if state == "skipped" else "?")
+    mark = STATE_MARK.get(state, "?")
     if state == "pending":
         return f"  {mark} {name:<14}waiting"
     if p is None:
@@ -233,7 +235,9 @@ def dataset_line(row: Dict, p: Optional[Dict]) -> str:
             line += "  no update for " + format_duration(
                 age_seconds(p.get("updated_utc")))
     else:
-        line += f"{'':<24}{format_duration(row.get('elapsed_seconds')):>8}"
+        # The run's own clock: a driver that did not start it cannot time it.
+        secs = p.get("elapsed_seconds") or row.get("elapsed_seconds")
+        line += f"{'':<24}{format_duration(secs):>8}"
     if state == "failed":
         line += f"  see {row.get('log')}"
     return line
@@ -243,10 +247,11 @@ def render_experiment(driver: Dict, experiment: str) -> List[str]:
     rows = driver.get("datasets", [])
     counts: Dict[str, int] = {}
     for r in rows:
-        counts[r["state"]] = counts.get(r["state"], 0) + 1
+        s = "done" if r["state"] == "skipped" else r["state"]
+        counts[s] = counts.get(s, 0) + 1
     out = ["", f"  {experiment}   {len(rows)} datasets   " + "   ".join(
-        f"{s} {counts[s]}" for s in ("running", "done", "failed", "skipped",
-                                     "pending") if counts.get(s))]
+        f"{s} {counts[s]}" for s in ("running", "done", "failed", "pending")
+        if counts.get(s))]
     active = bool(counts.get("running") or counts.get("pending"))
     # Between driver updates, count the clock on while anything is left.
     since = (age_seconds(driver.get("updated_utc")) or 0.0) if active else 0.0
