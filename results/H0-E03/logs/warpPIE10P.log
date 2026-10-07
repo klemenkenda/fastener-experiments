@@ -1,0 +1,35 @@
+Dataset(warpPIE10P: 2420 features, 130/40/40 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20260930T114641Z_h0_warpPIE10P
+experiment: H0-E03
+progress: E:\Users\Klemen\FASTENER\results\20260930T114641Z_h0_warpPIE10P\progress.json
+  monitor with: python experiments/monitor.py --run 20260930T114641Z_h0_warpPIE10P
+
+fastener (12000 fits x 5 seeds):
+  seed 2020: front= 6 best test_f1=0.7537 @k=6 fits=12000 stopped_on=fit_budget (276.76s)
+  seed 2021: front= 6 best test_f1=0.8475 @k=9 fits=12000 stopped_on=fit_budget (274.37s)
+  seed 2022: front= 8 best test_f1=0.7917 @k=9 fits=12000 stopped_on=fit_budget (282.34s)
+  seed 2023: front= 6 best test_f1=0.7543 @k=6 fits=12000 stopped_on=fit_budget (268.86s)
+  seed 2024: front= 6 best test_f1=0.7956 @k=8 fits=12000 stopped_on=fit_budget (271.64s)
+
+fastener_2020 (12000 fits x 5 seeds):
+  seed 2020: front= 7 best test_f1=0.8705 @k=9 fits=12000 stopped_on=fit_budget (285.03s)
+  seed 2021: front= 5 best test_f1=0.7989 @k=5 fits=12000 stopped_on=fit_budget (274.63s)
+  seed 2022: front= 6 best test_f1=0.8155 @k=7 fits=12000 stopped_on=fit_budget (286.68s)
+  seed 2023: front= 6 best test_f1=0.7657 @k=7 fits=12000 stopped_on=fit_budget (272.69s)
+  seed 2024: front= 7 best test_f1=0.7699 @k=7 fits=12000 stopped_on=fit_budget (280.78s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 46m17s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.252  0.556  0.694  0.724  0.761  0.784  0.785  0.780  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789  0.789
+  fastener_2020           0.261  0.532  0.619  0.710  0.765  0.778  0.771  0.771  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804  0.804
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.6914  0.6376  0.7463      5      10-10
+  fastener_2020           0.6816  0.6137  0.7205      5      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20260930T114641Z_h0_warpPIE10P\manifest.json

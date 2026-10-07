@@ -53,7 +53,7 @@ from progress import Progress, format_duration  # noqa: E402
 from protocol import (FIT_BUDGET, fit_budget, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
                       ROW_CAP, FitCounter)
 from provenance import DirtyTreeError, Run  # noqa: E402
-from run_fastener import run_fastener  # noqa: E402
+from run_fastener import MATING_VERSIONS, run_fastener  # noqa: E402
 from trajectory import Trajectory  # noqa: E402
 
 # The FASTENER arms. "none", "random" and "guided" are the three pruning arms
@@ -263,10 +263,13 @@ def main() -> int:
     for r in RANKERS:
         arm_configs[r] = {"k_grid": grid}
     for arm in fastener_arms:
+        # The mating flags themselves, not only the version's name, so a
+        # change to what "fixed" means changes the algorithm ID's config hash.
         arm_configs[FASTENER_ARM_NAMES[arm]] = {
             "max_fits": evaluations, "rounds": fastener_rounds,
             "swap": FASTENER_ARMS[arm]["swap"],
-            "mating": FASTENER_ARMS[arm]["mating"]}
+            "mating": FASTENER_ARMS[arm]["mating"],
+            **MATING_VERSIONS[FASTENER_ARMS[arm]["mating"]]}
 
     try:
         run = Run(name, params, experiment_id=args.experiment,

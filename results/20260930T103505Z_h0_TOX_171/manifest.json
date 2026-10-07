@@ -1,0 +1,301 @@
+{
+  "run_id": "20260930T103505Z_h0_TOX_171",
+  "experiment_id": "H0-E03",
+  "name": "h0_TOX_171",
+  "started_utc": "2026-09-30T10:35:05.938240+00:00",
+  "command": "run_sota.py --dataset TOX_171 --split protocol --methods  --name h0_TOX_171 --fastener-arm none --fastener-arm 2020 --evaluations 12000 --experiment H0-E03",
+  "params": {
+    "dataset": "TOX_171",
+    "methods": [],
+    "with_fastener": true,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "2020"
+    ],
+    "fastener_max_fits": 12000,
+    "seeds": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "evaluation_budget_per_seed": 12000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 600,
+    "fs_sds_evaluations_total": 12000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 171,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "6ef80c0f8aeb7bf3e933df68a63970ca7140839b",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "M experiments/EXPERIMENTS.md",
+        "?? results/20260930T083615Z_h0_har/",
+        "?? results/H0-E03/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "08e6acd94093f81c071230333158b433d43c450a",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": true,
+  "algorithms": {
+    "fastener": {
+      "id": "fastener@6ef80c0+08e6acd#ee8f",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "max_fits": 12000,
+        "rounds": 100000,
+        "swap": "none",
+        "mating": "fixed"
+      }
+    },
+    "fastener_2020": {
+      "id": "fastener_2020@6ef80c0+08e6acd#372e",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "max_fits": 12000,
+        "rounds": 100000,
+        "swap": "none",
+        "mating": "2020"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "TOX_171",
+    "n_features": 5748,
+    "n_train": 103,
+    "n_val": 34,
+    "n_test": 34,
+    "class_balance_train": {
+      "0": 27,
+      "1": 27,
+      "2": 23,
+      "3": 26
+    },
+    "class_balance_val": {
+      "0": 9,
+      "1": 9,
+      "2": 8,
+      "3": 8
+    },
+    "class_balance_test": {
+      "0": 9,
+      "1": 9,
+      "2": 8,
+      "3": 8
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "fastener_2020": [
+        12000,
+        12000,
+        12000,
+        12000,
+        12000
+      ],
+      "fastener": [
+        12000,
+        12000,
+        12000,
+        12000,
+        12000
+      ]
+    },
+    "elapsed_by_method": {
+      "fastener": 524.32,
+      "fastener_2020": 502.03
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-09-30T12:01:27.386157+00:00",
+  "elapsed_seconds": 5181.448,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "37c2ab54f909d6613e99581f1d4c7262788465a245b718b1495519e18ec13444",
+      "bytes": 1908
+    },
+    "auf.json": {
+      "sha256": "200082e096c64d0cf06560091e45accd915f39b3c7a74bb859860caef2f2362f",
+      "bytes": 5957
+    },
+    "comparison.csv": {
+      "sha256": "ad3a61876643f17c305a4a4a618f1960395f3eaf4331489913943018cebde066",
+      "bytes": 21545
+    },
+    "comparison.png": {
+      "sha256": "8da8c2d25d5910ad28351d82a9a37d236e1e3f04404e47e9af65438366fad98e",
+      "bytes": 88600
+    },
+    "comparison_rows.json": {
+      "sha256": "60839c601cdac2f28437959e1131214054d63572a3c63138a8e9f76542d5b15f",
+      "bytes": 106123
+    },
+    "progress.json": {
+      "sha256": "51c57b2d9be5f274aaf3668934740be7a95e7b2184448a098c3b9d6f9714a3ea",
+      "bytes": 3248
+    },
+    "raw_results.json": {
+      "sha256": "7a9dbb7897dad50b7249300eba07008c64b0ded63b2a2561339a038dbb736c10",
+      "bytes": 87660
+    },
+    "raw_results_partial.json": {
+      "sha256": "7a9dbb7897dad50b7249300eba07008c64b0ded63b2a2561339a038dbb736c10",
+      "bytes": 87660
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/fastener_2020_seed2020.jsonl": {
+      "sha256": "5e49d45cc671dfd7218f5dd8c7cbbda644a848b48ee9ed14957a48917c72615a",
+      "bytes": 687083
+    },
+    "trajectories/fastener_2020_seed2021.jsonl": {
+      "sha256": "d2c20592197173b8c2dbe66425ac1456438174631ae9cd2c600fe3e9770fcb8c",
+      "bytes": 676358
+    },
+    "trajectories/fastener_2020_seed2022.jsonl": {
+      "sha256": "21fad80391f92b4da46c299eb3e2a23d45c1be99cc993afef19cc795f5e23454",
+      "bytes": 714947
+    },
+    "trajectories/fastener_2020_seed2023.jsonl": {
+      "sha256": "7f965aa5ff70d67617c39b95b00f6ee5c9cc2ee25079c4432e2b039a17dac194",
+      "bytes": 748022
+    },
+    "trajectories/fastener_2020_seed2024.jsonl": {
+      "sha256": "d3da5b508a96fe175458937505db574606ae5280084cdae6154546de56967a10",
+      "bytes": 727560
+    },
+    "trajectories/fastener_seed2020.jsonl": {
+      "sha256": "e14a981c1a6501cc1d16ae62f45a53570745dc02506cdb01a776a506d512126e",
+      "bytes": 784256
+    },
+    "trajectories/fastener_seed2021.jsonl": {
+      "sha256": "70dd22cbeb8465c03d64b1b78e109bef2e21133fb07dc3eac6af22c77eeec6ae",
+      "bytes": 713341
+    },
+    "trajectories/fastener_seed2022.jsonl": {
+      "sha256": "e41dc13caebba4f4a6a07029c570505c33133ee07f0fbd39e7f63f7dbaaffe8e",
+      "bytes": 764340
+    },
+    "trajectories/fastener_seed2023.jsonl": {
+      "sha256": "1ff0cb5af6abeae566eb59c81f2b5f9da89fb65253db6ebe9fccdaa9d61e8979",
+      "bytes": 740233
+    },
+    "trajectories/fastener_seed2024.jsonl": {
+      "sha256": "5786b4ded66ae25daf2e82033464329594308e3cbd04e8fc81a2f933813d6342",
+      "bytes": 720045
+    }
+  },
+  "bulk_outputs": {
+    "prefix": "log/",
+    "n_files": 10,
+    "total_bytes": 65738978,
+    "rollup_sha256": "588f640d8ace8e313c29f78352007bc8c240439f6a72cc58b2839559d25f585f",
+    "note": "FASTENER per-generation pickles. Digest of the sorted (path, sha256) pairs; recompute to verify."
+  }
+}

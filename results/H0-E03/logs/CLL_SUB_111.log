@@ -1,0 +1,35 @@
+Dataset(CLL_SUB_111: 11340 features, 67/22/22 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_CLL_SUB_111
+experiment: H0-E03
+progress: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_CLL_SUB_111\progress.json
+  monitor with: python experiments/monitor.py --run 20260930T083615Z_h0_CLL_SUB_111
+
+fastener (12000 fits x 5 seeds):
+  seed 2020: front= 6 best test_f1=0.4914 @k=8 fits=12000 stopped_on=fit_budget (873.96s)
+  seed 2021: front= 6 best test_f1=0.5360 @k=7 fits=12000 stopped_on=fit_budget (872.89s)
+  seed 2022: front= 4 best test_f1=0.4318 @k=4 fits=12000 stopped_on=fit_budget (860.86s)
+  seed 2023: front= 3 best test_f1=0.4076 @k=3 fits=12000 stopped_on=fit_budget (870.39s)
+  seed 2024: front= 4 best test_f1=0.6294 @k=8 fits=12000 stopped_on=fit_budget (892.24s)
+
+fastener_2020 (12000 fits x 5 seeds):
+  seed 2020: front= 5 best test_f1=0.7655 @k=10 fits=12000 stopped_on=fit_budget (868.52s)
+  seed 2021: front= 5 best test_f1=0.4912 @k=6 fits=12000 stopped_on=fit_budget (870.88s)
+  seed 2022: front= 5 best test_f1=0.5444 @k=5 fits=12000 stopped_on=fit_budget (853.54s)
+  seed 2023: front= 4 best test_f1=0.2727 @k=4 fits=12000 stopped_on=fit_budget (932.08s)
+  seed 2024: front= 5 best test_f1=0.4586 @k=5 fits=12000 stopped_on=fit_budget (926.29s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 2h27m
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.445  0.473  0.466  0.432  0.461  0.470  0.489  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499  0.499
+  fastener_2020           0.387  0.341  0.386  0.431  0.389  0.431  0.431  0.431  0.431  0.506  0.506  0.506  0.506  0.506  0.506  0.506  0.506  0.506  0.506  0.506  0.506  0.506  0.506
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.4734  0.4067  0.5323      5      10-10
+  fastener_2020           0.4165  0.3122  0.4864      5      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_CLL_SUB_111\manifest.json

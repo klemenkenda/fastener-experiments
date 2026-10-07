@@ -54,6 +54,7 @@ say so, and name the result.
 | [DEC-24](#dec-24) | 2026-09-30 | Double the fit budget on 11 datasets whose search had not converged | H0-E03; H1-H6 |
 | [DEC-25](#dec-25) | 2026-09-30 | Repeat H0 on all 36 datasets as H0-E03 | H0-E03 |
 | [DEC-26](#dec-26) | 2026-09-30 | After the H0-E03 driver crashed, adopt its running runs instead of restarting them | H0-E03 |
+| [DEC-27](#dec-27) | 2026-10-07 | Record the mating flags in FASTENER arms' algorithm-ID config | H1-H6, later H0 experiments |
 
 ## Decisions
 
@@ -383,8 +384,12 @@ datasets as the unit.**
     it differs from `fastener_2020` in `allow_self_mating` alone.
 - **Consequence:** H0-E01 and H0-E02 tested the old fixed code, with both flags
   off. Their verdicts are about that code. Stock FASTENER in H1-H6 is the new
-  default. The arm's algorithm ID changes with its configuration, so runs of
-  the two are never pooled.
+  default. Runs of the old and new fixed arms carry different algorithm IDs
+  through both repositories' commits (FASTENER `144621c` before, `08e6acd`
+  after), so they are never pooled. Up to H0-E03 the ID's config hash recorded
+  only the mating version's name, so the two share a config hash (`#2ef0` at
+  6,000 fits). From 2026-10-07 the config records both flags
+  ([DEC-27](#dec-27)).
 - **By:** PI.
 - **Source:** `fastener` `08e6acd`; `f381469`; `HYPOTHESES.md`, *Revisions*,
   2026-09-30.
@@ -453,6 +458,23 @@ of restarting them.**
 - **Source:** `6ef80c0`, `827702d`.
 - **Applies to:** H0-E03.
 
+### DEC-27
+
+**2026-10-07 -- Record the mating flags in FASTENER arms' algorithm-ID config.**
+
+- **What happened:** writing the H0-E03 report showed that the fixed arm's
+  config hash was `#2ef0` in both H0-E02 and H0-E03, although
+  `include_top_genes` had changed between them ([DEC-23](#dec-23)). The config
+  recorded only the mating version's name, "fixed".
+- **Why:** an algorithm ID must change whenever what the arm does changes. The
+  commit hashes already told the two arms apart, but a change made only in the
+  experiments' own definition of "fixed" would not have.
+- **Detail:** `run_sota.py` adds `include_top_genes` and `allow_self_mating` to
+  each FASTENER arm's config. Config hashes of FASTENER arms change from this
+  commit on; runs before it keep theirs.
+- **Source:** the commit that adds this entry.
+- **Applies to:** H1-H6, and any later H0 experiment.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -463,5 +485,5 @@ are not repeated.
 |---|---|---|---|---|
 | `H0-E01` | reported: not supported | [DEC-16](#dec-16), [DEC-17](#dec-17), [DEC-18](#dec-18), [DEC-19](#dec-19), [DEC-20](#dec-20) | [DEC-21](#dec-21) | [H0-E01](reports/H0-E01/REPORT.md) |
 | `H0-E02` | reported: supported, narrowly | [DEC-16](#dec-16), [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-21](#dec-21), [DEC-22](#dec-22) | [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25) | [H0-E02](reports/H0-E02/REPORT.md) |
-| `H0-E03` | running | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | -- | -- |
-| H1-H6 | not started | [DEC-07](#dec-07) (H1, H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24) | -- | -- |
+| `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27) | [H0-E03](reports/H0-E03/REPORT.md) |
+| H1-H6 | not started | [DEC-07](#dec-07) (H1, H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27) | -- | -- |

@@ -1,0 +1,36 @@
+Dataset(gas_drift: 128 features, 8346/2782/2782 train/val/test)
+  row cap 50000: using 13910 rows
+run dir: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_gas_drift
+experiment: H0-E03
+progress: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_gas_drift\progress.json
+  monitor with: python experiments/monitor.py --run 20260930T083615Z_h0_gas_drift
+
+fastener (6000 fits x 5 seeds):
+  seed 2020: front= 9 best test_f1=0.9781 @k=11 fits=6000 stopped_on=fit_budget (633.84s)
+  seed 2021: front= 7 best test_f1=0.9734 @k=7 fits=6000 stopped_on=fit_budget (639.29s)
+  seed 2022: front= 6 best test_f1=0.9763 @k=6 fits=6000 stopped_on=fit_budget (619.88s)
+  seed 2023: front= 9 best test_f1=0.9810 @k=12 fits=6000 stopped_on=fit_budget (798.86s)
+  seed 2024: front= 9 best test_f1=0.9752 @k=9 fits=6000 stopped_on=fit_budget (710.1s)
+
+fastener_2020 (6000 fits x 5 seeds):
+  seed 2020: front= 9 best test_f1=0.9759 @k=13 fits=6000 stopped_on=fit_budget (914.0s)
+  seed 2021: front= 9 best test_f1=0.9708 @k=12 fits=6000 stopped_on=fit_budget (733.84s)
+  seed 2022: front= 7 best test_f1=0.9749 @k=7 fits=6000 stopped_on=fit_budget (743.99s)
+  seed 2023: front= 7 best test_f1=0.9759 @k=8 fits=6000 stopped_on=fit_budget (686.63s)
+  seed 2024: front=10 best test_f1=0.9698 @k=14 fits=6000 stopped_on=fit_budget (880.93s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 2h03m
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.441  0.802  0.933  0.963  0.969  0.971  0.974  0.975  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977  0.977
+  fastener_2020           0.440  0.799  0.929  0.964  0.972  0.976  0.976  0.976  0.976  0.976  0.976  0.975  0.973  0.973  0.973  0.973  0.973  0.973  0.973  0.973  0.973  0.973  0.973
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.8981  0.8938  0.9001      5      10-10
+  fastener_2020           0.8984  0.8961  0.9013      5      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_gas_drift\manifest.json

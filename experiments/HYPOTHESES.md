@@ -940,8 +940,11 @@ were reported, `include_top_genes` became `True` in the clone's defaults and in
 the `fastener` arm, so the fixed code now differs from the 2020 code only in
 `allow_self_mating`. H0-E01 and H0-E02 tested the fixed code with both flags
 off; their verdicts are about that code, not this one. Stock FASTENER in H2-H6
-is the new default. The arm's algorithm ID changes with its configuration, so
-runs of the two are never pooled.
+is the new default. Runs of the two arms carry different algorithm IDs through
+both repositories' commits (FASTENER `144621c` before, `08e6acd` after), so
+they are never pooled. Up to H0-E03 the config part of the ID recorded only the
+mating version's name, so the old and new fixed arms share a config hash; from
+2026-10-07 the config also records both flags.
 
 **2026-09-30 -- Twice the budget where the search had not converged.** Decided
 after H0-E01 and H0-E02 were reported, from their validation curves only (test

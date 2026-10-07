@@ -354,8 +354,11 @@ def evaluate_h0(runs: Sequence[Dict]) -> Dict[str, Any]:
 
 
 # --------------------------------------------------------- figures
-# HYPOTHESES.md, "H0 on every other dataset": its own subsection and rule.
+# HYPOTHESES.md, "H0 on every other dataset" (H0-E02) and "H0 repeated with
+# the top genes kept" (H0-E03): each has its own subsection and rule, both
+# with datasets as the unit.
 H0_EXT_TITLE = "H0 on every other dataset"
+H0_REPEAT_TITLE = "H0 repeated with the top genes kept"
 
 
 def subsection(text: str, title: str) -> Optional[str]:
@@ -372,32 +375,84 @@ def is_h0_extension(runs: Sequence[Dict]) -> bool:
     return bool(ds) and ds <= ext
 
 
-def evaluate_h0_extension(runs: Sequence[Dict]) -> Dict[str, Any]:
-    """The rule of "H0 on every other dataset", applied by h0_convergence.
+def is_h0_repeat(runs: Sequence[Dict]) -> bool:
+    """True when the runs span H0-E01's and H0-E02's datasets: H0-E03."""
+    core = {p["dataset"] for p in run_h0.H0_PLAN}
+    ext = {p["dataset"] for p in run_h0.H0_EXTENSION_PLAN}
+    ds = {(r["manifest"] or {}).get("params", {}).get("dataset")
+          for r in runs if r["manifest"]}
+    return bool(ds & core) and bool(ds & ext)
 
-    H0-E01's finished runs feed only the secondary test over all datasets.
-    """
-    dirs = [r["dir"] for r in runs
-            if r["manifest"] and (r["dir"] / "trajectories").is_dir()]
-    plan = run_h0.H0_EXTENSION_PLAN
-    row = experiment_ids.find(experiment_ids.load_ledger(), "H0-E01")
-    earlier = []
+
+def finished_dirs(experiment_id: str) -> List[Path]:
+    """Run directories of an experiment, from the ledger, that finished."""
+    row = experiment_ids.find(experiment_ids.load_ledger(), experiment_id)
+    out = []
     for rid in (row or {}).get("runs", []):
         d = RESULTS_DIR / rid
         m = d / "manifest.json"
         if m.is_file() and json.loads(m.read_text(encoding="utf-8")).get(
                 "status") == "ok":
-            earlier.append(d)
+            out.append(d)
+    return out
+
+
+def best_final_f1(run_dir: Path) -> Dict[str, float]:
+    """Per arm, the mean over seeds of the test weighted F1 of the subset with
+    the best validation score on the final front (the smaller on a tie)."""
+    path = run_dir / "raw_results.json"
+    if not path.is_file():
+        return {}
+    out: Dict[str, List[float]] = defaultdict(list)
+    for res in json.loads(path.read_text(encoding="utf-8")):
+        recs = res.get("records") or []
+        if res.get("method") in H0_ARMS and recs:
+            r = max(recs, key=lambda r: (r["val_score"], -r["n_features"]))
+            out[res["method"]].append(r["test"]["f1_weighted"])
+    return {m: float(np.mean(v)) for m, v in out.items()}
+
+
+def evaluate_h0_extension(runs: Sequence[Dict],
+                          repeat: bool = False) -> Dict[str, Any]:
+    """The rule of H0-E02, or with `repeat` of H0-E03, by h0_convergence.
+
+    H0-E02: H0-E01's finished runs feed only the secondary test over all
+    datasets. H0-E03: every dataset's effect in H0-E01 or H0-E02 is set beside
+    its effect here, as a comparison across experiments, not a test.
+    """
+    dirs = [r["dir"] for r in runs
+            if r["manifest"] and (r["dir"] / "trajectories").is_dir()]
+    if repeat:
+        plan, earlier = run_h0.H0_REPEAT_PLAN, []
+        max_missing = run_h0.REPEAT_MAX_MISSING
+    else:
+        plan, earlier = run_h0.H0_EXTENSION_PLAN, finished_dirs("H0-E01")
+        max_missing = h0_convergence.EXTENSION_MAX_MISSING
     s = h0_convergence.extension_summary(
         dirs, expected=[p["dataset"] for p in plan],
         groups={p["dataset"]: p["group"] for p in plan},
-        earlier_run_dirs=earlier)
+        earlier_run_dirs=earlier, max_missing=max_missing)
+    for d in dirs:
+        ds = json.loads((d / "manifest.json").read_text(
+            encoding="utf-8"))["params"]["dataset"]
+        f1 = best_final_f1(d)
+        if ds in s["per_dataset"]:
+            s["per_dataset"][ds]["best_f1_fixed"] = f1.get(h0_convergence.FIXED)
+            s["per_dataset"][ds]["best_f1_2020"] = f1.get(
+                h0_convergence.ORIGINAL)
+    if repeat:
+        prior = h0_convergence.extension_summary(
+            finished_dirs("H0-E01") + finished_dirs("H0-E02"))["per_dataset"]
+        for ds, v in s["per_dataset"].items():
+            v["earlier_effect_log2"] = (prior[ds]["effect_log2"]
+                                        if ds in prior else None)
     budgets = {r["manifest"]["params"]["dataset"]:
                int(r["manifest"]["params"]["evaluation_budget_per_seed"])
                for r in runs if r["manifest"]}
     order = sorted(s["per_dataset"],
                    key=lambda d: -s["per_dataset"][d]["effect_log2"])
-    return {"kind": "h0_ext", "K": h0_convergence.K, "rows": s["per_seed"],
+    return {"kind": "h0_ext", "repeat": repeat,
+            "K": h0_convergence.K, "rows": s["per_seed"],
             "per_dataset": s["per_dataset"], "datasets": order,
             "primary": s["primary"], "secondary": s["secondary"],
             "missing": s["missing"], "budgets": budgets,
@@ -805,9 +860,11 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
         K = primary_k(sec or "")
         cells = by_cell(units, K)
         sec_ext = None
-        if hid == "H0" and is_h0_extension(runs):
-            ev = evaluate_h0_extension(runs)
-            sec_ext = subsection(htext, H0_EXT_TITLE)
+        if hid == "H0" and (is_h0_extension(runs) or is_h0_repeat(runs)):
+            repeat = is_h0_repeat(runs)
+            ev = evaluate_h0_extension(runs, repeat=repeat)
+            sec_ext = subsection(htext, H0_REPEAT_TITLE if repeat
+                                 else H0_EXT_TITLE)
             K = ev["K"]
             arms = list(H0_ARMS)
         elif hid == "H0":
@@ -954,14 +1011,21 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
             # measure it takes from H0 unchanged. The H0 section's first
             # labels come from H0-E01's text, before the subsection.
             base = labelled(h["sec"].split("### " + H0_EXT_TITLE)[0])
-            L += [f"This experiment is *{H0_EXT_TITLE}*; it takes H0's arms "
-                  f"and measure unchanged:", ""]
-            for key in ("Arms", "Primary metric: fits to a common target"):
+            repeat = h["ev"].get("repeat")
+            title = H0_REPEAT_TITLE if repeat else H0_EXT_TITLE
+            # H0-E03 defines its own arms; it takes only the measure from H0.
+            keys = (("Primary metric: fits to a common target",) if repeat
+                    else ("Arms", "Primary metric: fits to a common target"))
+            L += [f"This experiment is *{title}*; it takes H0's "
+                  + ("measure" if repeat else "arms and measure")
+                  + " unchanged:", ""]
+            for key in keys:
                 if key in base:
                     L += [quote(base[key]), ""]
             L += [quote(h["sec_ext"].splitlines()[0]), ""]
             for key, para in labelled(h["sec_ext"]).items():
-                if key not in ("Why", "Relation to H0-E01"):
+                if key not in ("Why", "Relation to H0-E01",
+                               "Relation to H0-E01 and H0-E02"):
                     L += [quote(para), ""]
             continue
         for key in crit_labels:
@@ -1079,16 +1143,27 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                   f"{p['n_datasets']} datasets.", ""]
             if ev["missing"]:
                 L += ["Left out: " + ", ".join(ev["missing"]) + ".", ""]
-            L += [md_table(("dataset", "group", "effect (mean log2)",
-                            "seeds", f"{H0_ARMS[1]} faster",
-                            f"{H0_ARMS[0]} faster", "ties",
-                            f"test AUF {H0_ARMS[1]}", f"test AUF {H0_ARMS[0]}"),
-                           [(d, v.get("group"), fmt(v["effect_log2"], 3),
-                             v["seeds"], v["faster_fixed"], v["faster_2020"],
-                             v["ties"], fmt(v["test_auf10_fixed"]),
-                             fmt(v["test_auf10_2020"]))
+            rep = ev.get("repeat")
+            L += [md_table(("dataset", "group", "budget", "effect (mean log2)")
+                           + (("effect in H0-E01/E02",) if rep else ())
+                           + ("seeds", f"{H0_ARMS[1]} faster",
+                              f"{H0_ARMS[0]} faster", "ties",
+                              f"test AUF {H0_ARMS[1]}", f"test AUF {H0_ARMS[0]}",
+                              f"best F1 {H0_ARMS[1]}", f"best F1 {H0_ARMS[0]}"),
+                           [(d, v.get("group"), ev["budgets"].get(d),
+                             fmt(v["effect_log2"], 3))
+                            + ((fmt(v.get("earlier_effect_log2"), 3),)
+                               if rep else ())
+                            + (v["seeds"], v["faster_fixed"], v["faster_2020"],
+                               v["ties"], fmt(v["test_auf10_fixed"]),
+                               fmt(v["test_auf10_2020"]),
+                               fmt(v.get("best_f1_fixed")),
+                               fmt(v.get("best_f1_2020")))
                             for d in ev["datasets"]
-                            for v in (ev["per_dataset"][d],)]), ""]
+                            for v in (ev["per_dataset"][d],)]), "",
+                  "Best F1: test weighted F1 of the subset with the best "
+                  "validation score on the final front, mean over seeds. "
+                  "Shown for interpretation, not part of the criterion.", ""]
             groups = ev["secondary"].get("by_group", {})
             if groups:
                 L += ["Secondary, by dataset group:", "",
@@ -1165,8 +1240,10 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     L += [f"python experiments/{r['manifest']['command']}"
           for r in runs if r["manifest"]]
     if any(h["ev"] and h["ev"]["kind"] == "h0_ext" for h in per_h):
+        plan = ("repeat" if any(h["ev"].get("repeat") for h in per_h
+                                if h["ev"]) else "extension")
         L += [f"# or all at once: python experiments/run_h0.py --experiment "
-              f"{experiment_id} --plan extension --jobs 14"]
+              f"{experiment_id} --plan {plan} --jobs 12"]
     if h0:
         L += ["python experiments/h0_convergence.py " + " ".join(
             f"results/{r['run_id']}" for r in runs if r["manifest"])

@@ -1,0 +1,36 @@
+Dataset(higgs: 28 features, 30000/10000/10000 train/val/test)
+  row cap 50000: using 50000 rows
+run dir: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_higgs
+experiment: H0-E03
+progress: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_higgs\progress.json
+  monitor with: python experiments/monitor.py --run 20260930T083615Z_h0_higgs
+
+fastener (6000 fits x 5 seeds):
+  seed 2020: front=10 best test_f1=0.6210 @k=12 fits=6000 stopped_on=fit_budget (2766.68s)
+  seed 2021: front= 9 best test_f1=0.6242 @k=9 fits=6000 stopped_on=fit_budget (2598.79s)
+  seed 2022: front=13 best test_f1=0.6119 @k=14 fits=6000 stopped_on=fit_budget (2730.68s)
+  seed 2023: front=11 best test_f1=0.6202 @k=15 fits=6000 stopped_on=fit_budget (2778.81s)
+  seed 2024: front=12 best test_f1=0.6283 @k=13 fits=6000 stopped_on=fit_budget (2838.35s)
+
+fastener_2020 (6000 fits x 5 seeds):
+  seed 2020: front=12 best test_f1=0.6201 @k=12 fits=6000 stopped_on=fit_budget (2923.16s)
+  seed 2021: front=13 best test_f1=0.6235 @k=13 fits=6000 stopped_on=fit_budget (1951.87s)
+  seed 2022: front=12 best test_f1=0.6203 @k=12 fits=6000 stopped_on=fit_budget (1953.51s)
+  seed 2023: front=11 best test_f1=0.6217 @k=12 fits=6000 stopped_on=fit_budget (1877.4s)
+  seed 2024: front=11 best test_f1=0.6217 @k=12 fits=6000 stopped_on=fit_budget (1851.3s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 6h45m
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.546  0.566  0.593  0.603  0.617  0.615  0.615  0.613  0.628  0.625  0.623  0.621  0.622  0.621  0.621  0.621  0.621  0.621  0.621  0.621  0.621
+  fastener_2020           0.546  0.566  0.593  0.603  0.617  0.615  0.615  0.615  0.624  0.626  0.618  0.621  0.621  0.621  0.621  0.621  0.621  0.621  0.621  0.621  0.621
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.6021  0.6017  0.6028      5      10-10
+  fastener_2020           0.6020  0.6013  0.6038      5      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20260930T083615Z_h0_higgs\manifest.json

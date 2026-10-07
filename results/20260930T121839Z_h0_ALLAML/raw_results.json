@@ -1,0 +1,1092 @@
+[
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2020,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          4209
+        ],
+        [
+          6404
+        ],
+        [
+          4835
+        ],
+        [
+          2401
+        ],
+        [
+          7128
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 303.89,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1013,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_seed2020",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          3251
+        ],
+        "val": {
+          "f1_weighted": 0.8601190476190477,
+          "f1_macro": 0.8541666666666667,
+          "f1_binary": 0.8333333333333334,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8888888888888888
+        },
+        "test": {
+          "f1_weighted": 0.9297173414820473,
+          "f1_macro": 0.9251336898395721,
+          "f1_binary": 0.9090909090909091,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9444444444444444
+        },
+        "val_score": 0.8601190476190477,
+        "test_score": 0.9297173414820473,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.8601190476190477,
+        "generation_found": 11,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          3251,
+          3705
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.9297173414820473,
+          "f1_macro": 0.9251336898395721,
+          "f1_binary": 0.9090909090909091,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9444444444444444
+        },
+        "val_score": 1.0,
+        "test_score": 0.9297173414820473,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 100,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2021,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          6350
+        ],
+        [
+          3185
+        ],
+        [
+          6751
+        ],
+        [
+          192
+        ],
+        [
+          1944
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 289.8,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 777,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_seed2021",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          4372
+        ],
+        "val": {
+          "f1_weighted": 0.8464285714285714,
+          "f1_macro": 0.825,
+          "f1_binary": 0.75,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.9264828738512948,
+          "f1_macro": 0.9181286549707601,
+          "f1_binary": 0.8888888888888888,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9
+        },
+        "val_score": 0.8464285714285714,
+        "test_score": 0.9264828738512948,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.8464285714285714,
+        "generation_found": 296,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2936,
+          4372
+        ],
+        "val": {
+          "f1_weighted": 0.9264828738512948,
+          "f1_macro": 0.9181286549707601,
+          "f1_binary": 0.8888888888888888,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9
+        },
+        "test": {
+          "f1_weighted": 0.8571428571428571,
+          "f1_macro": 0.8444444444444444,
+          "f1_binary": 0.8,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8444444444444444
+        },
+        "val_score": 0.9264828738512948,
+        "test_score": 0.8571428571428571,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.9264828738512948,
+        "generation_found": 296,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          4094,
+          4372,
+          6966
+        ],
+        "val": {
+          "f1_weighted": 0.9297173414820473,
+          "f1_macro": 0.9251336898395721,
+          "f1_binary": 0.9090909090909091,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9444444444444444
+        },
+        "test": {
+          "f1_weighted": 0.8571428571428571,
+          "f1_macro": 0.8444444444444444,
+          "f1_binary": 0.8,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8444444444444444
+        },
+        "val_score": 0.9297173414820473,
+        "test_score": 0.8571428571428571,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.9297173414820473,
+        "generation_found": 640,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          3198,
+          4084,
+          4333,
+          6011
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7551020408163264,
+          "f1_macro": 0.7142857142857142,
+          "f1_binary": 0.5714285714285714,
+          "accuracy": 0.7857142857142857,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 1.0,
+        "test_score": 0.7551020408163264,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 69,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2022,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          4016
+        ],
+        [
+          3235
+        ],
+        [
+          5962
+        ],
+        [
+          5197
+        ],
+        [
+          2797
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 298.52,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 912,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_seed2022",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          4591
+        ],
+        "val": {
+          "f1_weighted": 0.789010989010989,
+          "f1_macro": 0.7846153846153847,
+          "f1_binary": 0.7692307692307693,
+          "accuracy": 0.7857142857142857,
+          "balanced_accuracy": 0.8333333333333333
+        },
+        "test": {
+          "f1_weighted": 0.6483516483516484,
+          "f1_macro": 0.641025641025641,
+          "f1_binary": 0.6153846153846154,
+          "accuracy": 0.6428571428571429,
+          "balanced_accuracy": 0.6777777777777778
+        },
+        "val_score": 0.789010989010989,
+        "test_score": 0.6483516483516484,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.789010989010989,
+        "generation_found": 6,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          1392,
+          4591
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.8601190476190477,
+          "f1_macro": 0.8541666666666667,
+          "f1_binary": 0.8333333333333334,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8888888888888888
+        },
+        "val_score": 1.0,
+        "test_score": 0.8601190476190477,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 501,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2023,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          4740
+        ],
+        [
+          4108
+        ],
+        [
+          1981
+        ],
+        [
+          1153
+        ],
+        [
+          4459
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 312.03,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 921,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_seed2023",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          4082
+        ],
+        "val": {
+          "f1_weighted": 0.7202380952380951,
+          "f1_macro": 0.7083333333333333,
+          "f1_binary": 0.6666666666666666,
+          "accuracy": 0.7142857142857143,
+          "balanced_accuracy": 0.7333333333333334
+        },
+        "test": {
+          "f1_weighted": 0.42857142857142855,
+          "f1_macro": 0.37777777777777777,
+          "f1_binary": 0.2,
+          "accuracy": 0.42857142857142855,
+          "balanced_accuracy": 0.37777777777777777
+        },
+        "val_score": 0.7202380952380951,
+        "test_score": 0.42857142857142855,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.7202380952380951,
+        "generation_found": 324,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          4082,
+          4964
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.789152024446142,
+          "f1_macro": 0.7754010695187166,
+          "f1_binary": 0.7272727272727273,
+          "accuracy": 0.7857142857142857,
+          "balanced_accuracy": 0.788888888888889
+        },
+        "val_score": 1.0,
+        "test_score": 0.789152024446142,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 323,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2024,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          2407
+        ],
+        [
+          1431
+        ],
+        [
+          6141
+        ],
+        [
+          1176
+        ],
+        [
+          7092
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 311.32,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1024,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_seed2024",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          2407
+        ],
+        "val": {
+          "f1_weighted": 0.8464285714285714,
+          "f1_macro": 0.825,
+          "f1_binary": 0.75,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.4853801169590643,
+          "f1_macro": 0.4269005847953216,
+          "f1_binary": 0.2222222222222222,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.43333333333333335
+        },
+        "val_score": 0.8464285714285714,
+        "test_score": 0.4853801169590643,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8464285714285714,
+        "generation_found": 0,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2407,
+          4713
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.3857142857142857,
+          "f1_macro": 0.3,
+          "f1_binary": 0.0,
+          "accuracy": 0.42857142857142855,
+          "balanced_accuracy": 0.3333333333333333
+        },
+        "val_score": 1.0,
+        "test_score": 0.3857142857142857,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 0,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#2ef0"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2020,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          4209
+        ],
+        [
+          6404
+        ],
+        [
+          4835
+        ],
+        [
+          2401
+        ],
+        [
+          7128
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 306.05,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1006,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_2020_seed2020",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          2353
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.645021645021645,
+          "f1_macro": 0.5757575757575758,
+          "f1_binary": 0.3333333333333333,
+          "accuracy": 0.7142857142857143,
+          "balanced_accuracy": 0.6
+        },
+        "val_score": 1.0,
+        "test_score": 0.645021645021645,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 85,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2021,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          6350
+        ],
+        [
+          3185
+        ],
+        [
+          6751
+        ],
+        [
+          192
+        ],
+        [
+          1944
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 299.47,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 899,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_2020_seed2021",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          1908
+        ],
+        "val": {
+          "f1_weighted": 0.8464285714285714,
+          "f1_macro": 0.825,
+          "f1_binary": 0.75,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6928571428571428,
+          "f1_macro": 0.65,
+          "f1_binary": 0.5,
+          "accuracy": 0.7142857142857143,
+          "balanced_accuracy": 0.6444444444444444
+        },
+        "val_score": 0.8464285714285714,
+        "test_score": 0.6928571428571428,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.8464285714285714,
+        "generation_found": 28,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          1908,
+          3149
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.645021645021645,
+          "f1_macro": 0.5757575757575758,
+          "f1_binary": 0.3333333333333333,
+          "accuracy": 0.7142857142857143,
+          "balanced_accuracy": 0.6
+        },
+        "val_score": 1.0,
+        "test_score": 0.645021645021645,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 44,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2022,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          4016
+        ],
+        [
+          3235
+        ],
+        [
+          5962
+        ],
+        [
+          5197
+        ],
+        [
+          2797
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 302.55,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 817,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_2020_seed2022",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          3480
+        ],
+        "val": {
+          "f1_weighted": 0.8464285714285714,
+          "f1_macro": 0.825,
+          "f1_binary": 0.75,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.4853801169590643,
+          "f1_macro": 0.4269005847953216,
+          "f1_binary": 0.2222222222222222,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.43333333333333335
+        },
+        "val_score": 0.8464285714285714,
+        "test_score": 0.4853801169590643,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.8464285714285714,
+        "generation_found": 12,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          3480,
+          5843
+        ],
+        "val": {
+          "f1_weighted": 0.9297173414820473,
+          "f1_macro": 0.9251336898395721,
+          "f1_binary": 0.9090909090909091,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9444444444444444
+        },
+        "test": {
+          "f1_weighted": 0.6483516483516484,
+          "f1_macro": 0.641025641025641,
+          "f1_binary": 0.6153846153846154,
+          "accuracy": 0.6428571428571429,
+          "balanced_accuracy": 0.6777777777777778
+        },
+        "val_score": 0.9297173414820473,
+        "test_score": 0.6483516483516484,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.9297173414820473,
+        "generation_found": 12,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          145,
+          1290,
+          3480,
+          7015
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7142857142857143,
+          "f1_macro": 0.6888888888888889,
+          "f1_binary": 0.6,
+          "accuracy": 0.7142857142857143,
+          "balanced_accuracy": 0.6888888888888889
+        },
+        "val_score": 1.0,
+        "test_score": 0.7142857142857143,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 207,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2023,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          4740
+        ],
+        [
+          4108
+        ],
+        [
+          1981
+        ],
+        [
+          1153
+        ],
+        [
+          4459
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 299.48,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 854,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_2020_seed2023",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          6077
+        ],
+        "val": {
+          "f1_weighted": 0.789152024446142,
+          "f1_macro": 0.7754010695187166,
+          "f1_binary": 0.7272727272727273,
+          "accuracy": 0.7857142857142857,
+          "balanced_accuracy": 0.788888888888889
+        },
+        "test": {
+          "f1_weighted": 0.5714285714285714,
+          "f1_macro": 0.5714285714285714,
+          "f1_binary": 0.5714285714285714,
+          "accuracy": 0.5714285714285714,
+          "balanced_accuracy": 0.6222222222222222
+        },
+        "val_score": 0.789152024446142,
+        "test_score": 0.5714285714285714,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.789152024446142,
+        "generation_found": 4,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          3419,
+          6077
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.42857142857142855,
+          "f1_macro": 0.42857142857142855,
+          "f1_binary": 0.42857142857142855,
+          "accuracy": 0.42857142857142855,
+          "balanced_accuracy": 0.4666666666666667
+        },
+        "val_score": 1.0,
+        "test_score": 0.42857142857142855,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 594,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2024,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00014027212792818068,
+      "initial_genes": [
+        [
+          2407
+        ],
+        [
+          1431
+        ],
+        [
+          6141
+        ],
+        [
+          1176
+        ],
+        [
+          7092
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 6000
+    },
+    "search_seconds": 303.34,
+    "model_fits": 6000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 829,
+    "unique_subsets_cached": 6000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T121839Z_h0_ALLAML\\log\\fastener_2020_seed2024",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          2407
+        ],
+        "val": {
+          "f1_weighted": 0.8464285714285714,
+          "f1_macro": 0.825,
+          "f1_binary": 0.75,
+          "accuracy": 0.8571428571428571,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.4853801169590643,
+          "f1_macro": 0.4269005847953216,
+          "f1_binary": 0.2222222222222222,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.43333333333333335
+        },
+        "val_score": 0.8464285714285714,
+        "test_score": 0.4853801169590643,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8464285714285714,
+        "generation_found": 0,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2315,
+          2407
+        ],
+        "val": {
+          "f1_weighted": 0.9297173414820473,
+          "f1_macro": 0.9251336898395721,
+          "f1_binary": 0.9090909090909091,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9444444444444444
+        },
+        "test": {
+          "f1_weighted": 0.4853801169590643,
+          "f1_macro": 0.4269005847953216,
+          "f1_binary": 0.2222222222222222,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.43333333333333335
+        },
+        "val_score": 0.9297173414820473,
+        "test_score": 0.4853801169590643,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.9297173414820473,
+        "generation_found": 261,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          2407,
+          3465,
+          6283
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7142857142857143,
+          "f1_macro": 0.6888888888888889,
+          "f1_binary": 0.6,
+          "accuracy": 0.7142857142857143,
+          "balanced_accuracy": 0.6888888888888889
+        },
+        "val_score": 1.0,
+        "test_score": 0.7142857142857143,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 1.0,
+        "generation_found": 122,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#4bec"
+  }
+]

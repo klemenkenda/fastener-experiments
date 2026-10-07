@@ -1,0 +1,35 @@
+Dataset(Yale: 1024 features, 105/30/30 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20260930T123307Z_h0_Yale
+experiment: H0-E03
+progress: E:\Users\Klemen\FASTENER\results\20260930T123307Z_h0_Yale\progress.json
+  monitor with: python experiments/monitor.py --run 20260930T123307Z_h0_Yale
+
+fastener (6000 fits x 5 seeds):
+  seed 2020: front= 8 best test_f1=0.3311 @k=8 fits=6000 stopped_on=fit_budget (98.0s)
+  seed 2021: front=10 best test_f1=0.4435 @k=12 fits=6000 stopped_on=fit_budget (98.68s)
+  seed 2022: front=10 best test_f1=0.4311 @k=10 fits=6000 stopped_on=fit_budget (91.42s)
+  seed 2023: front= 8 best test_f1=0.3956 @k=8 fits=6000 stopped_on=fit_budget (93.33s)
+  seed 2024: front= 8 best test_f1=0.2733 @k=8 fits=6000 stopped_on=fit_budget (93.02s)
+
+fastener_2020 (6000 fits x 5 seeds):
+  seed 2020: front=10 best test_f1=0.3737 @k=12 fits=6000 stopped_on=fit_budget (92.76s)
+  seed 2021: front=13 best test_f1=0.5156 @k=15 fits=6000 stopped_on=fit_budget (93.23s)
+  seed 2022: front= 7 best test_f1=0.2978 @k=7 fits=6000 stopped_on=fit_budget (86.21s)
+  seed 2023: front= 7 best test_f1=0.3711 @k=8 fits=6000 stopped_on=fit_budget (89.23s)
+  seed 2024: front= 9 best test_f1=0.3559 @k=11 fits=6000 stopped_on=fit_budget (88.37s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 15m28s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.202  0.240  0.373  0.344  0.381  0.322  0.369  0.352  0.359  0.370  0.370  0.375  0.375  0.375  0.375  0.375  0.375  0.375  0.375  0.375  0.375  0.375  0.375
+  fastener_2020           0.148  0.256  0.325  0.327  0.371  0.374  0.369  0.345  0.335  0.353  0.367  0.362  0.378  0.378  0.383  0.383  0.383  0.383  0.383  0.383  0.383  0.383  0.383
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.3312  0.2888  0.3765      5      10-10
+  fastener_2020           0.3202  0.2716  0.3746      5      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20260930T123307Z_h0_Yale\manifest.json

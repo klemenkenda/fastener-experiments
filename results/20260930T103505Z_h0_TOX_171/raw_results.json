@@ -1,0 +1,2988 @@
+[
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2020,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          3430
+        ],
+        [
+          5524
+        ],
+        [
+          4856
+        ],
+        [
+          4434
+        ],
+        [
+          2827
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 507.23,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1273,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_seed2020",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          2395
+        ],
+        "val": {
+          "f1_weighted": 0.38550520686743595,
+          "f1_macro": 0.38668261562998407,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4131944444444444
+        },
+        "test": {
+          "f1_weighted": 0.3979500891265597,
+          "f1_macro": 0.40025252525252525,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.41666666666666663
+        },
+        "val_score": 0.38550520686743595,
+        "test_score": 0.3979500891265597,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.38550520686743595,
+        "generation_found": 12,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          1353,
+          2395
+        ],
+        "val": {
+          "f1_weighted": 0.5586390910879402,
+          "f1_macro": 0.5655309364548495,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5625
+        },
+        "test": {
+          "f1_weighted": 0.31930221481305077,
+          "f1_macro": 0.31705465587044535,
+          "f1_binary": null,
+          "accuracy": 0.3235294117647059,
+          "balanced_accuracy": 0.3194444444444444
+        },
+        "val_score": 0.5586390910879402,
+        "test_score": 0.31930221481305077,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.5586390910879402,
+        "generation_found": 11,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          1353,
+          2238,
+          5684
+        ],
+        "val": {
+          "f1_weighted": 0.6666545255873247,
+          "f1_macro": 0.6752321981424149,
+          "f1_binary": null,
+          "accuracy": 0.6764705882352942,
+          "balanced_accuracy": 0.6875
+        },
+        "test": {
+          "f1_weighted": 0.5518377391442407,
+          "f1_macro": 0.552519118308592,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5590277777777778
+        },
+        "val_score": 0.6666545255873247,
+        "test_score": 0.5518377391442407,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.6666545255873247,
+        "generation_found": 488,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          1198,
+          1353,
+          2238,
+          5684
+        ],
+        "val": {
+          "f1_weighted": 0.7692041522491351,
+          "f1_macro": 0.7764705882352941,
+          "f1_binary": null,
+          "accuracy": 0.7647058823529411,
+          "balanced_accuracy": 0.7708333333333333
+        },
+        "test": {
+          "f1_weighted": 0.6073932946997962,
+          "f1_macro": 0.6080746738641475,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6180555555555556
+        },
+        "val_score": 0.7692041522491351,
+        "test_score": 0.6073932946997962,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.7692041522491351,
+        "generation_found": 487,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          358,
+          1353,
+          1365,
+          2238,
+          5176
+        ],
+        "val": {
+          "f1_weighted": 0.8836945304437563,
+          "f1_macro": 0.8883040935672515,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8854166666666666
+        },
+        "test": {
+          "f1_weighted": 0.57571697409614,
+          "f1_macro": 0.581859059413239,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5972222222222222
+        },
+        "val_score": 0.8836945304437563,
+        "test_score": 0.57571697409614,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.8836945304437563,
+        "generation_found": 843,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          358,
+          1353,
+          1365,
+          2238,
+          3145,
+          5176
+        ],
+        "val": {
+          "f1_weighted": 0.9131062951496387,
+          "f1_macro": 0.9160818713450292,
+          "f1_binary": null,
+          "accuracy": 0.9117647058823529,
+          "balanced_accuracy": 0.9131944444444444
+        },
+        "test": {
+          "f1_weighted": 0.5517930856553148,
+          "f1_macro": 0.5572002923976608,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5659722222222222
+        },
+        "val_score": 0.9131062951496387,
+        "test_score": 0.5517930856553148,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.9131062951496387,
+        "generation_found": 843,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 7,
+        "features": [
+          358,
+          1353,
+          1365,
+          1783,
+          2238,
+          4657,
+          5492
+        ],
+        "val": {
+          "f1_weighted": 0.9411764705882353,
+          "f1_macro": 0.9411764705882353,
+          "f1_binary": null,
+          "accuracy": 0.9411764705882353,
+          "balanced_accuracy": 0.9444444444444444
+        },
+        "test": {
+          "f1_weighted": 0.682467414210266,
+          "f1_macro": 0.6859059413238979,
+          "f1_binary": null,
+          "accuracy": 0.6764705882352942,
+          "balanced_accuracy": 0.6805555555555556
+        },
+        "val_score": 0.9411764705882353,
+        "test_score": 0.682467414210266,
+        "method": "fastener",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.9411764705882353,
+        "generation_found": 639,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2021,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          4834
+        ],
+        [
+          2507
+        ],
+        [
+          3347
+        ],
+        [
+          1453
+        ],
+        [
+          980
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 547.73,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1137,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_seed2021",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          3608
+        ],
+        "val": {
+          "f1_weighted": 0.43430099312452247,
+          "f1_macro": 0.4310064935064935,
+          "f1_binary": null,
+          "accuracy": 0.4411764705882353,
+          "balanced_accuracy": 0.4375
+        },
+        "test": {
+          "f1_weighted": 0.41057169474124494,
+          "f1_macro": 0.41218218056453354,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4097222222222222
+        },
+        "val_score": 0.43430099312452247,
+        "test_score": 0.41057169474124494,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.43430099312452247,
+        "generation_found": 5,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          1991,
+          3608
+        ],
+        "val": {
+          "f1_weighted": 0.588482451804251,
+          "f1_macro": 0.5890231092436975,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5868055555555556
+        },
+        "test": {
+          "f1_weighted": 0.4931415333892113,
+          "f1_macro": 0.49047005625952994,
+          "f1_binary": null,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.4930555555555556
+        },
+        "val_score": 0.588482451804251,
+        "test_score": 0.4931415333892113,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.588482451804251,
+        "generation_found": 14,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          925,
+          3608,
+          4429
+        ],
+        "val": {
+          "f1_weighted": 0.670242214532872,
+          "f1_macro": 0.6767156862745098,
+          "f1_binary": null,
+          "accuracy": 0.6764705882352942,
+          "balanced_accuracy": 0.6840277777777778
+        },
+        "test": {
+          "f1_weighted": 0.46539792387543255,
+          "f1_macro": 0.4730392156862745,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.47916666666666663
+        },
+        "val_score": 0.670242214532872,
+        "test_score": 0.46539792387543255,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.670242214532872,
+        "generation_found": 348,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          925,
+          3608,
+          4429,
+          4763
+        ],
+        "val": {
+          "f1_weighted": 0.7377450980392156,
+          "f1_macro": 0.736111111111111,
+          "f1_binary": null,
+          "accuracy": 0.7352941176470589,
+          "balanced_accuracy": 0.7361111111111112
+        },
+        "test": {
+          "f1_weighted": 0.5178200692041522,
+          "f1_macro": 0.5262254901960784,
+          "f1_binary": null,
+          "accuracy": 0.5294117647058824,
+          "balanced_accuracy": 0.5381944444444444
+        },
+        "val_score": 0.7377450980392156,
+        "test_score": 0.5178200692041522,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.7377450980392156,
+        "generation_found": 348,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          925,
+          2809,
+          3608,
+          4429,
+          4763
+        ],
+        "val": {
+          "f1_weighted": 0.7941176470588235,
+          "f1_macro": 0.7916666666666666,
+          "f1_binary": null,
+          "accuracy": 0.7941176470588235,
+          "balanced_accuracy": 0.7916666666666666
+        },
+        "test": {
+          "f1_weighted": 0.5859429065743944,
+          "f1_macro": 0.5952205882352941,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5972222222222222
+        },
+        "val_score": 0.7941176470588235,
+        "test_score": 0.5859429065743944,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.7941176470588235,
+        "generation_found": 348,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          615,
+          693,
+          925,
+          1427,
+          1991,
+          3608
+        ],
+        "val": {
+          "f1_weighted": 0.8231833910034602,
+          "f1_macro": 0.8246323529411765,
+          "f1_binary": null,
+          "accuracy": 0.8235294117647058,
+          "balanced_accuracy": 0.8263888888888888
+        },
+        "test": {
+          "f1_weighted": 0.37663398692810457,
+          "f1_macro": 0.3819444444444444,
+          "f1_binary": null,
+          "accuracy": 0.38235294117647056,
+          "balanced_accuracy": 0.3888888888888889
+        },
+        "val_score": 0.8231833910034602,
+        "test_score": 0.37663398692810457,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.8231833910034602,
+        "generation_found": 998,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 7,
+        "features": [
+          287,
+          925,
+          1011,
+          1418,
+          1427,
+          1991,
+          3608
+        ],
+        "val": {
+          "f1_weighted": 0.8253892733564013,
+          "f1_macro": 0.8246323529411765,
+          "f1_binary": null,
+          "accuracy": 0.8235294117647058,
+          "balanced_accuracy": 0.8229166666666666
+        },
+        "test": {
+          "f1_weighted": 0.40830449826989623,
+          "f1_macro": 0.4117647058823529,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.41666666666666663
+        },
+        "val_score": 0.8253892733564013,
+        "test_score": 0.40830449826989623,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.8253892733564013,
+        "generation_found": 632,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 8,
+        "features": [
+          1010,
+          1427,
+          3216,
+          3322,
+          3608,
+          3668,
+          4109,
+          5109
+        ],
+        "val": {
+          "f1_weighted": 0.8543509509066785,
+          "f1_macro": 0.8540883458646616,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8541666666666666
+        },
+        "test": {
+          "f1_weighted": 0.6097480220158239,
+          "f1_macro": 0.6085891812865497,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6180555555555556
+        },
+        "val_score": 0.8543509509066785,
+        "test_score": 0.6097480220158239,
+        "method": "fastener",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.8543509509066785,
+        "generation_found": 157,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2022,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          2653
+        ],
+        [
+          823
+        ],
+        [
+          4882
+        ],
+        [
+          752
+        ],
+        [
+          2153
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 517.64,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1241,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_seed2022",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          678
+        ],
+        "val": {
+          "f1_weighted": 0.348843562192679,
+          "f1_macro": 0.33988003095975233,
+          "f1_binary": null,
+          "accuracy": 0.35294117647058826,
+          "balanced_accuracy": 0.34375
+        },
+        "test": {
+          "f1_weighted": 0.1941431117901706,
+          "f1_macro": 0.19556277056277055,
+          "f1_binary": null,
+          "accuracy": 0.20588235294117646,
+          "balanced_accuracy": 0.20833333333333331
+        },
+        "val_score": 0.348843562192679,
+        "test_score": 0.1941431117901706,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.348843562192679,
+        "generation_found": 486,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          678,
+          1727
+        ],
+        "val": {
+          "f1_weighted": 0.5903361344537814,
+          "f1_macro": 0.5942460317460317,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5902777777777778
+        },
+        "test": {
+          "f1_weighted": 0.40993184439551233,
+          "f1_macro": 0.4070231729055259,
+          "f1_binary": null,
+          "accuracy": 0.4411764705882353,
+          "balanced_accuracy": 0.4340277777777778
+        },
+        "val_score": 0.5903361344537814,
+        "test_score": 0.40993184439551233,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.5903361344537814,
+        "generation_found": 485,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          105,
+          1667,
+          1727
+        ],
+        "val": {
+          "f1_weighted": 0.7292741658066736,
+          "f1_macro": 0.7342836257309941,
+          "f1_binary": null,
+          "accuracy": 0.7352941176470589,
+          "balanced_accuracy": 0.7430555555555556
+        },
+        "test": {
+          "f1_weighted": 0.5774364044260238,
+          "f1_macro": 0.5782697694462401,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5868055555555556
+        },
+        "val_score": 0.7292741658066736,
+        "test_score": 0.5774364044260238,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.7292741658066736,
+        "generation_found": 38,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          105,
+          1667,
+          1727,
+          2176
+        ],
+        "val": {
+          "f1_weighted": 0.7972932981242034,
+          "f1_macro": 0.796342879256966,
+          "f1_binary": null,
+          "accuracy": 0.7941176470588235,
+          "balanced_accuracy": 0.7986111111111112
+        },
+        "test": {
+          "f1_weighted": 0.5773809523809523,
+          "f1_macro": 0.5744047619047619,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5590277777777778
+        },
+        "val_score": 0.7972932981242034,
+        "test_score": 0.5773809523809523,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.7972932981242034,
+        "generation_found": 660,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          105,
+          1667,
+          1727,
+          5572,
+          5596
+        ],
+        "val": {
+          "f1_weighted": 0.8820456201056274,
+          "f1_macro": 0.8802244582043344,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8819444444444444
+        },
+        "test": {
+          "f1_weighted": 0.6195636149196521,
+          "f1_macro": 0.6197994987468671,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6145833333333333
+        },
+        "val_score": 0.8820456201056274,
+        "test_score": 0.6195636149196521,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.8820456201056274,
+        "generation_found": 53,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          105,
+          129,
+          1667,
+          1727,
+          3993,
+          5596
+        ],
+        "val": {
+          "f1_weighted": 0.9140737874097008,
+          "f1_macro": 0.9126096491228071,
+          "f1_binary": null,
+          "accuracy": 0.9117647058823529,
+          "balanced_accuracy": 0.9131944444444444
+        },
+        "test": {
+          "f1_weighted": 0.6509803921568628,
+          "f1_macro": 0.6555555555555554,
+          "f1_binary": null,
+          "accuracy": 0.6470588235294118,
+          "balanced_accuracy": 0.6493055555555556
+        },
+        "val_score": 0.9140737874097008,
+        "test_score": 0.6509803921568628,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.9140737874097008,
+        "generation_found": 138,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 7,
+        "features": [
+          105,
+          129,
+          933,
+          1667,
+          1727,
+          3993,
+          5596
+        ],
+        "val": {
+          "f1_weighted": 0.9425990003844674,
+          "f1_macro": 0.9408496732026144,
+          "f1_binary": null,
+          "accuracy": 0.9411764705882353,
+          "balanced_accuracy": 0.9409722222222222
+        },
+        "test": {
+          "f1_weighted": 0.6475748194014448,
+          "f1_macro": 0.6509502923976608,
+          "f1_binary": null,
+          "accuracy": 0.6470588235294118,
+          "balanced_accuracy": 0.6493055555555556
+        },
+        "val_score": 0.9425990003844674,
+        "test_score": 0.6475748194014448,
+        "method": "fastener",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.9425990003844674,
+        "generation_found": 387,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2023,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          2351
+        ],
+        [
+          1273
+        ],
+        [
+          5665
+        ],
+        [
+          2430
+        ],
+        [
+          1008
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 513.42,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1204,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_seed2023",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          3783
+        ],
+        "val": {
+          "f1_weighted": 0.6171917683482061,
+          "f1_macro": 0.6106811145510835,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6111111111111112
+        },
+        "test": {
+          "f1_weighted": 0.3707002801120448,
+          "f1_macro": 0.3804761904761905,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4270833333333333
+        },
+        "val_score": 0.6171917683482061,
+        "test_score": 0.3707002801120448,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.6171917683482061,
+        "generation_found": 30,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          3783,
+          4578
+        ],
+        "val": {
+          "f1_weighted": 0.6980037263774288,
+          "f1_macro": 0.684439416792358,
+          "f1_binary": null,
+          "accuracy": 0.7058823529411765,
+          "balanced_accuracy": 0.6944444444444444
+        },
+        "test": {
+          "f1_weighted": 0.47975244569671815,
+          "f1_macro": 0.4810715600189285,
+          "f1_binary": null,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.5034722222222222
+        },
+        "val_score": 0.6980037263774288,
+        "test_score": 0.47975244569671815,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.6980037263774288,
+        "generation_found": 30,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          2824,
+          3783,
+          4434
+        ],
+        "val": {
+          "f1_weighted": 0.7362229102167184,
+          "f1_macro": 0.7371517027863778,
+          "f1_binary": null,
+          "accuracy": 0.7352941176470589,
+          "balanced_accuracy": 0.7361111111111112
+        },
+        "test": {
+          "f1_weighted": 0.43163307280954344,
+          "f1_macro": 0.4364413364413364,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4791666666666667
+        },
+        "val_score": 0.7362229102167184,
+        "test_score": 0.43163307280954344,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.7362229102167184,
+        "generation_found": 628,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          2095,
+          2494,
+          2824,
+          3783
+        ],
+        "val": {
+          "f1_weighted": 0.7662895927601809,
+          "f1_macro": 0.7673076923076922,
+          "f1_binary": null,
+          "accuracy": 0.7647058823529411,
+          "balanced_accuracy": 0.7604166666666666
+        },
+        "test": {
+          "f1_weighted": 0.5496539792387543,
+          "f1_macro": 0.5558823529411765,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5659722222222222
+        },
+        "val_score": 0.7662895927601809,
+        "test_score": 0.5496539792387543,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.7662895927601809,
+        "generation_found": 383,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          2095,
+          2494,
+          2824,
+          3491,
+          3783
+        ],
+        "val": {
+          "f1_weighted": 0.9131062951496387,
+          "f1_macro": 0.9160818713450292,
+          "f1_binary": null,
+          "accuracy": 0.9117647058823529,
+          "balanced_accuracy": 0.9131944444444444
+        },
+        "test": {
+          "f1_weighted": 0.49377162629757787,
+          "f1_macro": 0.49963235294117647,
+          "f1_binary": null,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.5069444444444444
+        },
+        "val_score": 0.9131062951496387,
+        "test_score": 0.49377162629757787,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.9131062951496387,
+        "generation_found": 383,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          815,
+          2095,
+          2494,
+          2824,
+          3491,
+          3783
+        ],
+        "val": {
+          "f1_weighted": 0.9411764705882353,
+          "f1_macro": 0.9444444444444444,
+          "f1_binary": null,
+          "accuracy": 0.9411764705882353,
+          "balanced_accuracy": 0.9444444444444444
+        },
+        "test": {
+          "f1_weighted": 0.5525951557093426,
+          "f1_macro": 0.5558823529411765,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5625
+        },
+        "val_score": 0.9411764705882353,
+        "test_score": 0.5525951557093426,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.9411764705882353,
+        "generation_found": 383,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 8,
+        "features": [
+          1934,
+          2095,
+          2477,
+          2824,
+          3783,
+          4691,
+          5249,
+          5741
+        ],
+        "val": {
+          "f1_weighted": 0.9704971771990529,
+          "f1_macro": 0.9721362229102167,
+          "f1_binary": null,
+          "accuracy": 0.9705882352941176,
+          "balanced_accuracy": 0.9722222222222222
+        },
+        "test": {
+          "f1_weighted": 0.5874240492707076,
+          "f1_macro": 0.591941082653157,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.625
+        },
+        "val_score": 0.9704971771990529,
+        "test_score": 0.5874240492707076,
+        "method": "fastener",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.9704971771990529,
+        "generation_found": 300,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+  },
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 2024,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          4859
+        ],
+        [
+          3809
+        ],
+        [
+          3015
+        ],
+        [
+          1740
+        ],
+        [
+          4518
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 524.32,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1134,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_seed2024",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          1477
+        ],
+        "val": {
+          "f1_weighted": 0.4714285714285714,
+          "f1_macro": 0.4745039682539683,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4722222222222222
+        },
+        "test": {
+          "f1_weighted": 0.347256549678695,
+          "f1_macro": 0.3393732492997199,
+          "f1_binary": null,
+          "accuracy": 0.35294117647058826,
+          "balanced_accuracy": 0.34375
+        },
+        "val_score": 0.4714285714285714,
+        "test_score": 0.347256549678695,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.4714285714285714,
+        "generation_found": 3,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          629,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.6276260504201681,
+          "f1_macro": 0.6242951127819549,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6145833333333334
+        },
+        "test": {
+          "f1_weighted": 0.40616246498599434,
+          "f1_macro": 0.40119047619047615,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.40625
+        },
+        "val_score": 0.6276260504201681,
+        "test_score": 0.40616246498599434,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.6276260504201681,
+        "generation_found": 863,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          629,
+          2192,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.7656346749226007,
+          "f1_macro": 0.766154970760234,
+          "f1_binary": null,
+          "accuracy": 0.7647058823529411,
+          "balanced_accuracy": 0.7638888888888888
+        },
+        "test": {
+          "f1_weighted": 0.43775745592354587,
+          "f1_macro": 0.44502801120448177,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4791666666666667
+        },
+        "val_score": 0.7656346749226007,
+        "test_score": 0.43775745592354587,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.7656346749226007,
+        "generation_found": 862,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          629,
+          2192,
+          2896,
+          4073
+        ],
+        "val": {
+          "f1_weighted": 0.8194444444444443,
+          "f1_macro": 0.8214869281045751,
+          "f1_binary": null,
+          "accuracy": 0.8235294117647058,
+          "balanced_accuracy": 0.8298611111111112
+        },
+        "test": {
+          "f1_weighted": 0.5859284890426759,
+          "f1_macro": 0.5947712418300654,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5972222222222222
+        },
+        "val_score": 0.8194444444444443,
+        "test_score": 0.5859284890426759,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8194444444444443,
+        "generation_found": 995,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          629,
+          2192,
+          2896,
+          4073,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.8525326797385621,
+          "f1_macro": 0.8541666666666666,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8576388888888888
+        },
+        "test": {
+          "f1_weighted": 0.6437716262975779,
+          "f1_macro": 0.6517156862745097,
+          "f1_binary": null,
+          "accuracy": 0.6470588235294118,
+          "balanced_accuracy": 0.65625
+        },
+        "val_score": 0.8525326797385621,
+        "test_score": 0.6437716262975779,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8525326797385621,
+        "generation_found": 994,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 7,
+        "features": [
+          629,
+          2192,
+          2649,
+          2896,
+          4073,
+          4876,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.8541006495477449,
+          "f1_macro": 0.858720330237358,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8576388888888888
+        },
+        "test": {
+          "f1_weighted": 0.4936562860438292,
+          "f1_macro": 0.5032679738562091,
+          "f1_binary": null,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.5104166666666666
+        },
+        "val_score": 0.8541006495477449,
+        "test_score": 0.4936562860438292,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8541006495477449,
+        "generation_found": 1088,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 8,
+        "features": [
+          629,
+          764,
+          2192,
+          2649,
+          2896,
+          4073,
+          4876,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.8806228373702422,
+          "f1_macro": 0.8856209150326797,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8888888888888888
+        },
+        "test": {
+          "f1_weighted": 0.5366357069143447,
+          "f1_macro": 0.5438596491228069,
+          "f1_binary": null,
+          "accuracy": 0.5294117647058824,
+          "balanced_accuracy": 0.5347222222222222
+        },
+        "val_score": 0.8806228373702422,
+        "test_score": 0.5366357069143447,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8806228373702422,
+        "generation_found": 1134,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 10,
+        "features": [
+          629,
+          914,
+          2192,
+          2504,
+          2649,
+          2677,
+          2896,
+          4070,
+          4073,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.881863503915498,
+          "f1_macro": 0.8833204334365325,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8854166666666666
+        },
+        "test": {
+          "f1_weighted": 0.5575096911829747,
+          "f1_macro": 0.5620177895719691,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5625
+        },
+        "val_score": 0.881863503915498,
+        "test_score": 0.5575096911829747,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.881863503915498,
+        "generation_found": 1113,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 11,
+        "features": [
+          285,
+          629,
+          2192,
+          2504,
+          2649,
+          2677,
+          2896,
+          3017,
+          3096,
+          4073,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.8819444444444444,
+          "f1_macro": 0.8819444444444444,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8854166666666666
+        },
+        "test": {
+          "f1_weighted": 0.5553633217993079,
+          "f1_macro": 0.5651552287581699,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5694444444444444
+        },
+        "val_score": 0.8819444444444444,
+        "test_score": 0.5553633217993079,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8819444444444444,
+        "generation_found": 1092,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      },
+      {
+        "n_features": 12,
+        "features": [
+          285,
+          629,
+          2192,
+          2504,
+          2649,
+          2677,
+          2896,
+          3017,
+          3096,
+          4073,
+          5077,
+          5119
+        ],
+        "val": {
+          "f1_weighted": 0.8823529411764706,
+          "f1_macro": 0.8823529411764706,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8854166666666666
+        },
+        "test": {
+          "f1_weighted": 0.6197110423116614,
+          "f1_macro": 0.6281067251461988,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.625
+        },
+        "val_score": 0.8823529411764706,
+        "test_score": 0.6197110423116614,
+        "method": "fastener",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8823529411764706,
+        "generation_found": 1092,
+        "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+      }
+    ],
+    "algorithm_id": "fastener@6ef80c0+08e6acd#ee8f"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2020,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          3430
+        ],
+        [
+          5524
+        ],
+        [
+          4856
+        ],
+        [
+          4434
+        ],
+        [
+          2827
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 530.5,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1093,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_2020_seed2020",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          3473
+        ],
+        "val": {
+          "f1_weighted": 0.4789915966386554,
+          "f1_macro": 0.4732142857142857,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4652777777777778
+        },
+        "test": {
+          "f1_weighted": 0.13850267379679143,
+          "f1_macro": 0.14090909090909093,
+          "f1_binary": null,
+          "accuracy": 0.11764705882352941,
+          "balanced_accuracy": 0.11805555555555555
+        },
+        "val_score": 0.4789915966386554,
+        "test_score": 0.13850267379679143,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.4789915966386554,
+        "generation_found": 2,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2614,
+          3709
+        ],
+        "val": {
+          "f1_weighted": 0.6496995082862866,
+          "f1_macro": 0.6517995356037152,
+          "f1_binary": null,
+          "accuracy": 0.6470588235294118,
+          "balanced_accuracy": 0.6493055555555556
+        },
+        "test": {
+          "f1_weighted": 0.5247401592215835,
+          "f1_macro": 0.5260808270676691,
+          "f1_binary": null,
+          "accuracy": 0.5294117647058824,
+          "balanced_accuracy": 0.53125
+        },
+        "val_score": 0.6496995082862866,
+        "test_score": 0.5247401592215835,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.6496995082862866,
+        "generation_found": 4,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          2291,
+          2614,
+          3709
+        ],
+        "val": {
+          "f1_weighted": 0.7133126934984522,
+          "f1_macro": 0.7108359133126936,
+          "f1_binary": null,
+          "accuracy": 0.7058823529411765,
+          "balanced_accuracy": 0.7083333333333333
+        },
+        "test": {
+          "f1_weighted": 0.4441176470588235,
+          "f1_macro": 0.44285714285714284,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4722222222222222
+        },
+        "val_score": 0.7133126934984522,
+        "test_score": 0.4441176470588235,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.7133126934984522,
+        "generation_found": 4,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          1405,
+          2614,
+          3709,
+          4061
+        ],
+        "val": {
+          "f1_weighted": 0.7164157641666292,
+          "f1_macro": 0.7141329258976318,
+          "f1_binary": null,
+          "accuracy": 0.7058823529411765,
+          "balanced_accuracy": 0.7083333333333333
+        },
+        "test": {
+          "f1_weighted": 0.581305072636342,
+          "f1_macro": 0.5844635627530365,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.59375
+        },
+        "val_score": 0.7164157641666292,
+        "test_score": 0.581305072636342,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.7164157641666292,
+        "generation_found": 837,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          1065,
+          3637,
+          3709,
+          3884,
+          5107
+        ],
+        "val": {
+          "f1_weighted": 0.738485198000769,
+          "f1_macro": 0.7375816993464052,
+          "f1_binary": null,
+          "accuracy": 0.7352941176470589,
+          "balanced_accuracy": 0.7395833333333333
+        },
+        "test": {
+          "f1_weighted": 0.4464052287581699,
+          "f1_macro": 0.44166666666666665,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4652777777777778
+        },
+        "val_score": 0.738485198000769,
+        "test_score": 0.4464052287581699,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.738485198000769,
+        "generation_found": 985,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          1889,
+          2291,
+          2526,
+          2614,
+          3709,
+          5162
+        ],
+        "val": {
+          "f1_weighted": 0.7937331795463284,
+          "f1_macro": 0.795547385620915,
+          "f1_binary": null,
+          "accuracy": 0.7941176470588235,
+          "balanced_accuracy": 0.7986111111111112
+        },
+        "test": {
+          "f1_weighted": 0.5015935166636314,
+          "f1_macro": 0.5041602167182663,
+          "f1_binary": null,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.5034722222222222
+        },
+        "val_score": 0.7937331795463284,
+        "test_score": 0.5015935166636314,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.7937331795463284,
+        "generation_found": 6,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 12,
+        "features": [
+          698,
+          1616,
+          1829,
+          1904,
+          2700,
+          2985,
+          3336,
+          3338,
+          3637,
+          3798,
+          4996,
+          5270
+        ],
+        "val": {
+          "f1_weighted": 0.8252100840336134,
+          "f1_macro": 0.8279761904761904,
+          "f1_binary": null,
+          "accuracy": 0.8235294117647058,
+          "balanced_accuracy": 0.8263888888888888
+        },
+        "test": {
+          "f1_weighted": 0.6080323357413141,
+          "f1_macro": 0.610672514619883,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6215277777777778
+        },
+        "val_score": 0.8252100840336134,
+        "test_score": 0.6080323357413141,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.8252100840336134,
+        "generation_found": 58,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 13,
+        "features": [
+          698,
+          796,
+          1616,
+          1829,
+          1904,
+          2700,
+          2985,
+          3336,
+          3338,
+          3637,
+          3798,
+          4996,
+          5270
+        ],
+        "val": {
+          "f1_weighted": 0.8509378983791659,
+          "f1_macro": 0.8557469040247678,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8576388888888888
+        },
+        "test": {
+          "f1_weighted": 0.6047948591201187,
+          "f1_macro": 0.6083683473389355,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6215277777777778
+        },
+        "val_score": 0.8509378983791659,
+        "test_score": 0.6047948591201187,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.8509378983791659,
+        "generation_found": 58,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 15,
+        "features": [
+          388,
+          751,
+          1956,
+          2018,
+          2254,
+          2291,
+          2344,
+          2529,
+          2614,
+          3709,
+          4573,
+          4639,
+          5426,
+          5565,
+          5617
+        ],
+        "val": {
+          "f1_weighted": 0.8512555899552803,
+          "f1_macro": 0.8564327485380117,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8611111111111112
+        },
+        "test": {
+          "f1_weighted": 0.394781070322866,
+          "f1_macro": 0.3946741854636592,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4131944444444444
+        },
+        "val_score": 0.8512555899552803,
+        "test_score": 0.394781070322866,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.8512555899552803,
+        "generation_found": 4,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 17,
+        "features": [
+          260,
+          388,
+          751,
+          1808,
+          1956,
+          2018,
+          2254,
+          2291,
+          2344,
+          2529,
+          2614,
+          3709,
+          4573,
+          4639,
+          5426,
+          5565,
+          5617
+        ],
+        "val": {
+          "f1_weighted": 0.8546218487394958,
+          "f1_macro": 0.8592261904761904,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8576388888888888
+        },
+        "test": {
+          "f1_weighted": 0.3995872033023736,
+          "f1_macro": 0.3964912280701754,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4097222222222222
+        },
+        "val_score": 0.8546218487394958,
+        "test_score": 0.3995872033023736,
+        "method": "fastener_2020",
+        "seed": 2020,
+        "fastener_internal_val_score": 0.8546218487394958,
+        "generation_found": 4,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2021,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          4834
+        ],
+        [
+          2507
+        ],
+        [
+          3347
+        ],
+        [
+          1453
+        ],
+        [
+          980
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 522.56,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1053,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_2020_seed2021",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          2103
+        ],
+        "val": {
+          "f1_weighted": 0.3792092688468576,
+          "f1_macro": 0.37136960047176765,
+          "f1_binary": null,
+          "accuracy": 0.38235294117647056,
+          "balanced_accuracy": 0.375
+        },
+        "test": {
+          "f1_weighted": 0.3708382311551133,
+          "f1_macro": 0.3628623698283141,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.40625
+        },
+        "val_score": 0.3792092688468576,
+        "test_score": 0.3708382311551133,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.3792092688468576,
+        "generation_found": 1,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2103,
+          3347
+        ],
+        "val": {
+          "f1_weighted": 0.5739461776613479,
+          "f1_macro": 0.5681511470985156,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5833333333333334
+        },
+        "test": {
+          "f1_weighted": 0.3914882695159511,
+          "f1_macro": 0.38194893341952163,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.3993055555555556
+        },
+        "val_score": 0.5739461776613479,
+        "test_score": 0.3914882695159511,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.5739461776613479,
+        "generation_found": 0,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          2103,
+          3089,
+          5389
+        ],
+        "val": {
+          "f1_weighted": 0.6448529411764706,
+          "f1_macro": 0.64375,
+          "f1_binary": null,
+          "accuracy": 0.6470588235294118,
+          "balanced_accuracy": 0.6458333333333334
+        },
+        "test": {
+          "f1_weighted": 0.325735294117647,
+          "f1_macro": 0.325,
+          "f1_binary": null,
+          "accuracy": 0.3235294117647059,
+          "balanced_accuracy": 0.32291666666666663
+        },
+        "val_score": 0.6448529411764706,
+        "test_score": 0.325735294117647,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.6448529411764706,
+        "generation_found": 1,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          345,
+          629,
+          2018,
+          3347
+        ],
+        "val": {
+          "f1_weighted": 0.7117935409457901,
+          "f1_macro": 0.7071078431372548,
+          "f1_binary": null,
+          "accuracy": 0.7058823529411765,
+          "balanced_accuracy": 0.7048611111111112
+        },
+        "test": {
+          "f1_weighted": 0.3819327731092437,
+          "f1_macro": 0.37976190476190474,
+          "f1_binary": null,
+          "accuracy": 0.38235294117647056,
+          "balanced_accuracy": 0.3819444444444444
+        },
+        "val_score": 0.7117935409457901,
+        "test_score": 0.3819327731092437,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.7117935409457901,
+        "generation_found": 988,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          345,
+          629,
+          2045,
+          3347,
+          4163
+        ],
+        "val": {
+          "f1_weighted": 0.7611408199643492,
+          "f1_macro": 0.7602495543672014,
+          "f1_binary": null,
+          "accuracy": 0.7647058823529411,
+          "balanced_accuracy": 0.7604166666666666
+        },
+        "test": {
+          "f1_weighted": 0.46751918158567773,
+          "f1_macro": 0.46376811594202894,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4652777777777778
+        },
+        "val_score": 0.7611408199643492,
+        "test_score": 0.46751918158567773,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.7611408199643492,
+        "generation_found": 872,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          629,
+          2225,
+          2688,
+          3347,
+          5119,
+          5731
+        ],
+        "val": {
+          "f1_weighted": 0.7682237600922721,
+          "f1_macro": 0.7723039215686274,
+          "f1_binary": null,
+          "accuracy": 0.7647058823529411,
+          "balanced_accuracy": 0.7673611111111112
+        },
+        "test": {
+          "f1_weighted": 0.3700293514535001,
+          "f1_macro": 0.3653451811346548,
+          "f1_binary": null,
+          "accuracy": 0.38235294117647056,
+          "balanced_accuracy": 0.375
+        },
+        "val_score": 0.7682237600922721,
+        "test_score": 0.3700293514535001,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.7682237600922721,
+        "generation_found": 597,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 8,
+        "features": [
+          629,
+          2225,
+          2688,
+          3347,
+          4435,
+          5119,
+          5425,
+          5731
+        ],
+        "val": {
+          "f1_weighted": 0.7943971448228413,
+          "f1_macro": 0.7903874269005847,
+          "f1_binary": null,
+          "accuracy": 0.7941176470588235,
+          "balanced_accuracy": 0.7916666666666666
+        },
+        "test": {
+          "f1_weighted": 0.47247010259212047,
+          "f1_macro": 0.47781217750258,
+          "f1_binary": null,
+          "accuracy": 0.47058823529411764,
+          "balanced_accuracy": 0.4756944444444444
+        },
+        "val_score": 0.7943971448228413,
+        "test_score": 0.47247010259212047,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.7943971448228413,
+        "generation_found": 597,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 9,
+        "features": [
+          59,
+          629,
+          872,
+          2103,
+          2335,
+          3247,
+          3347,
+          5063,
+          5483
+        ],
+        "val": {
+          "f1_weighted": 0.8546218487394958,
+          "f1_macro": 0.8552579365079365,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8506944444444444
+        },
+        "test": {
+          "f1_weighted": 0.404455017301038,
+          "f1_macro": 0.40698529411764706,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.41666666666666663
+        },
+        "val_score": 0.8546218487394958,
+        "test_score": 0.404455017301038,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.8546218487394958,
+        "generation_found": 303,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 19,
+        "features": [
+          59,
+          549,
+          616,
+          629,
+          1034,
+          1500,
+          1583,
+          1619,
+          1854,
+          1997,
+          2274,
+          2369,
+          3347,
+          3380,
+          3461,
+          3571,
+          3674,
+          4178,
+          5483
+        ],
+        "val": {
+          "f1_weighted": 0.8755886255430966,
+          "f1_macro": 0.8729298737038675,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8784722222222222
+        },
+        "test": {
+          "f1_weighted": 0.41947700132684645,
+          "f1_macro": 0.42081766917293234,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4131944444444444
+        },
+        "val_score": 0.8755886255430966,
+        "test_score": 0.41947700132684645,
+        "method": "fastener_2020",
+        "seed": 2021,
+        "fastener_internal_val_score": 0.8755886255430966,
+        "generation_found": 233,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2022,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          2653
+        ],
+        [
+          823
+        ],
+        [
+          4882
+        ],
+        [
+          752
+        ],
+        [
+          2153
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 508.25,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1122,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_2020_seed2022",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          1168
+        ],
+        "val": {
+          "f1_weighted": 0.40604575163398693,
+          "f1_macro": 0.41666666666666663,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4236111111111111
+        },
+        "test": {
+          "f1_weighted": 0.39961895689449867,
+          "f1_macro": 0.41070625281151596,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4236111111111111
+        },
+        "val_score": 0.40604575163398693,
+        "test_score": 0.39961895689449867,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.40604575163398693,
+        "generation_found": 7,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          1168,
+          1686
+        ],
+        "val": {
+          "f1_weighted": 0.5762513701132628,
+          "f1_macro": 0.5849120082815735,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.59375
+        },
+        "test": {
+          "f1_weighted": 0.4051599587203302,
+          "f1_macro": 0.4206140350877193,
+          "f1_binary": null,
+          "accuracy": 0.4411764705882353,
+          "balanced_accuracy": 0.4583333333333333
+        },
+        "val_score": 0.5762513701132628,
+        "test_score": 0.4051599587203302,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.5762513701132628,
+        "generation_found": 7,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          977,
+          1168,
+          2609
+        ],
+        "val": {
+          "f1_weighted": 0.7048503611971104,
+          "f1_macro": 0.708516081871345,
+          "f1_binary": null,
+          "accuracy": 0.7058823529411765,
+          "balanced_accuracy": 0.7083333333333334
+        },
+        "test": {
+          "f1_weighted": 0.4766984864121087,
+          "f1_macro": 0.4864400584795321,
+          "f1_binary": null,
+          "accuracy": 0.5,
+          "balanced_accuracy": 0.5138888888888888
+        },
+        "val_score": 0.7048503611971104,
+        "test_score": 0.4766984864121087,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.7048503611971104,
+        "generation_found": 344,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          977,
+          1168,
+          2609,
+          3709
+        ],
+        "val": {
+          "f1_weighted": 0.8559015763168011,
+          "f1_macro": 0.8558823529411765,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8541666666666666
+        },
+        "test": {
+          "f1_weighted": 0.5315664727429433,
+          "f1_macro": 0.5402930402930403,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5694444444444444
+        },
+        "val_score": 0.8559015763168011,
+        "test_score": 0.5315664727429433,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.8559015763168011,
+        "generation_found": 344,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          59,
+          977,
+          1006,
+          1168,
+          2609,
+          3709
+        ],
+        "val": {
+          "f1_weighted": 0.8787581699346406,
+          "f1_macro": 0.8805555555555555,
+          "f1_binary": null,
+          "accuracy": 0.8823529411764706,
+          "balanced_accuracy": 0.8854166666666666
+        },
+        "test": {
+          "f1_weighted": 0.575879538418238,
+          "f1_macro": 0.5753189792663477,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5868055555555556
+        },
+        "val_score": 0.8787581699346406,
+        "test_score": 0.575879538418238,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.8787581699346406,
+        "generation_found": 972,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 8,
+        "features": [
+          59,
+          545,
+          1006,
+          1168,
+          2609,
+          3341,
+          3548,
+          5107
+        ],
+        "val": {
+          "f1_weighted": 0.9109140715109573,
+          "f1_macro": 0.9123774509803921,
+          "f1_binary": null,
+          "accuracy": 0.9117647058823529,
+          "balanced_accuracy": 0.9131944444444444
+        },
+        "test": {
+          "f1_weighted": 0.5867905056759546,
+          "f1_macro": 0.5894736842105263,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.59375
+        },
+        "val_score": 0.9109140715109573,
+        "test_score": 0.5867905056759546,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.9109140715109573,
+        "generation_found": 248,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 9,
+        "features": [
+          59,
+          545,
+          1006,
+          1168,
+          2609,
+          3341,
+          3548,
+          4156,
+          5107
+        ],
+        "val": {
+          "f1_weighted": 0.9409700722394222,
+          "f1_macro": 0.9407636738906089,
+          "f1_binary": null,
+          "accuracy": 0.9411764705882353,
+          "balanced_accuracy": 0.9409722222222222
+        },
+        "test": {
+          "f1_weighted": 0.5907268170426064,
+          "f1_macro": 0.5921679197994987,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.59375
+        },
+        "val_score": 0.9409700722394222,
+        "test_score": 0.5907268170426064,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.9409700722394222,
+        "generation_found": 248,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 12,
+        "features": [
+          59,
+          111,
+          545,
+          1006,
+          1168,
+          1627,
+          2609,
+          3341,
+          3420,
+          3548,
+          3860,
+          5107
+        ],
+        "val": {
+          "f1_weighted": 0.9411764705882353,
+          "f1_macro": 0.9375,
+          "f1_binary": null,
+          "accuracy": 0.9411764705882353,
+          "balanced_accuracy": 0.9375
+        },
+        "test": {
+          "f1_weighted": 0.5031194295900178,
+          "f1_macro": 0.5075757575757576,
+          "f1_binary": null,
+          "accuracy": 0.5294117647058824,
+          "balanced_accuracy": 0.5381944444444444
+        },
+        "val_score": 0.9411764705882353,
+        "test_score": 0.5031194295900178,
+        "method": "fastener_2020",
+        "seed": 2022,
+        "fastener_internal_val_score": 0.9411764705882353,
+        "generation_found": 248,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2023,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          2351
+        ],
+        [
+          1273
+        ],
+        [
+          5665
+        ],
+        [
+          2430
+        ],
+        [
+          1008
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 503.47,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1187,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_2020_seed2023",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          2430
+        ],
+        "val": {
+          "f1_weighted": 0.41098901098901097,
+          "f1_macro": 0.41227106227106225,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4097222222222222
+        },
+        "test": {
+          "f1_weighted": 0.2531194295900178,
+          "f1_macro": 0.25063131313131315,
+          "f1_binary": null,
+          "accuracy": 0.2647058823529412,
+          "balanced_accuracy": 0.26041666666666663
+        },
+        "val_score": 0.41098901098901097,
+        "test_score": 0.2531194295900178,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.41098901098901097,
+        "generation_found": 0,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          202,
+          2430
+        ],
+        "val": {
+          "f1_weighted": 0.5811274509803921,
+          "f1_macro": 0.5770833333333333,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5833333333333334
+        },
+        "test": {
+          "f1_weighted": 0.5392156862745098,
+          "f1_macro": 0.5416666666666666,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5625
+        },
+        "val_score": 0.5811274509803921,
+        "test_score": 0.5392156862745098,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.5811274509803921,
+        "generation_found": 608,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          337,
+          2430,
+          4102
+        ],
+        "val": {
+          "f1_weighted": 0.6356154226396441,
+          "f1_macro": 0.6350840336134453,
+          "f1_binary": null,
+          "accuracy": 0.6470588235294118,
+          "balanced_accuracy": 0.6458333333333334
+        },
+        "test": {
+          "f1_weighted": 0.32019440903296303,
+          "f1_macro": 0.32159442724458204,
+          "f1_binary": null,
+          "accuracy": 0.3235294117647059,
+          "balanced_accuracy": 0.3263888888888889
+        },
+        "val_score": 0.6356154226396441,
+        "test_score": 0.32019440903296303,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.6356154226396441,
+        "generation_found": 0,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          337,
+          2430,
+          3153,
+          4102
+        ],
+        "val": {
+          "f1_weighted": 0.7653258362168397,
+          "f1_macro": 0.7748774509803922,
+          "f1_binary": null,
+          "accuracy": 0.7647058823529411,
+          "balanced_accuracy": 0.7743055555555556
+        },
+        "test": {
+          "f1_weighted": 0.29210949085516563,
+          "f1_macro": 0.29175420168067223,
+          "f1_binary": null,
+          "accuracy": 0.29411764705882354,
+          "balanced_accuracy": 0.2951388888888889
+        },
+        "val_score": 0.7653258362168397,
+        "test_score": 0.29210949085516563,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.7653258362168397,
+        "generation_found": 989,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          337,
+          490,
+          2430,
+          2768,
+          4102
+        ],
+        "val": {
+          "f1_weighted": 0.8254901960784314,
+          "f1_macro": 0.827777777777778,
+          "f1_binary": null,
+          "accuracy": 0.8235294117647058,
+          "balanced_accuracy": 0.8229166666666666
+        },
+        "test": {
+          "f1_weighted": 0.34411764705882353,
+          "f1_macro": 0.3416666666666666,
+          "f1_binary": null,
+          "accuracy": 0.35294117647058826,
+          "balanced_accuracy": 0.3506944444444444
+        },
+        "val_score": 0.8254901960784314,
+        "test_score": 0.34411764705882353,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.8254901960784314,
+        "generation_found": 2,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          337,
+          490,
+          1081,
+          2430,
+          2768,
+          4102
+        ],
+        "val": {
+          "f1_weighted": 0.8546218487394958,
+          "f1_macro": 0.8587301587301588,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8541666666666666
+        },
+        "test": {
+          "f1_weighted": 0.37099669589197903,
+          "f1_macro": 0.3729421593198683,
+          "f1_binary": null,
+          "accuracy": 0.38235294117647056,
+          "balanced_accuracy": 0.38541666666666663
+        },
+        "val_score": 0.8546218487394958,
+        "test_score": 0.37099669589197903,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.8546218487394958,
+        "generation_found": 1,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 8,
+        "features": [
+          356,
+          1232,
+          1295,
+          2150,
+          2430,
+          3540,
+          4351,
+          5089
+        ],
+        "val": {
+          "f1_weighted": 0.9131062951496387,
+          "f1_macro": 0.9160818713450292,
+          "f1_binary": null,
+          "accuracy": 0.9117647058823529,
+          "balanced_accuracy": 0.9131944444444444
+        },
+        "test": {
+          "f1_weighted": 0.41195324283559576,
+          "f1_macro": 0.4246794871794872,
+          "f1_binary": null,
+          "accuracy": 0.4411764705882353,
+          "balanced_accuracy": 0.4513888888888889
+        },
+        "val_score": 0.9131062951496387,
+        "test_score": 0.41195324283559576,
+        "method": "fastener_2020",
+        "seed": 2023,
+        "fastener_internal_val_score": 0.9131062951496387,
+        "generation_found": 472,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+  },
+  {
+    "method": "fastener_2020",
+    "family": "genetic",
+    "seed": 2024,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00017397355601948505,
+      "initial_genes": [
+        [
+          4859
+        ],
+        [
+          3809
+        ],
+        [
+          3015
+        ],
+        [
+          1740
+        ],
+        [
+          4518
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "2020",
+      "include_top_genes": true,
+      "allow_self_mating": true,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 502.03,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1172,
+    "unique_subsets_cached": 12000,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20260930T103505Z_h0_TOX_171\\log\\fastener_2020_seed2024",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          5165
+        ],
+        "val": {
+          "f1_weighted": 0.38697478991596634,
+          "f1_macro": 0.3892857142857143,
+          "f1_binary": null,
+          "accuracy": 0.38235294117647056,
+          "balanced_accuracy": 0.3819444444444444
+        },
+        "test": {
+          "f1_weighted": 0.38993033110680164,
+          "f1_macro": 0.3975885225885226,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4201388888888889
+        },
+        "val_score": 0.38697478991596634,
+        "test_score": 0.38993033110680164,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.38697478991596634,
+        "generation_found": 18,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          645,
+          693
+        ],
+        "val": {
+          "f1_weighted": 0.5544502436032449,
+          "f1_macro": 0.5544166830611843,
+          "f1_binary": null,
+          "accuracy": 0.5588235294117647,
+          "balanced_accuracy": 0.5555555555555556
+        },
+        "test": {
+          "f1_weighted": 0.43309631544925664,
+          "f1_macro": 0.43040293040293043,
+          "f1_binary": null,
+          "accuracy": 0.4411764705882353,
+          "balanced_accuracy": 0.4340277777777778
+        },
+        "val_score": 0.5544502436032449,
+        "test_score": 0.43309631544925664,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.5544502436032449,
+        "generation_found": 6,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          645,
+          693,
+          718
+        ],
+        "val": {
+          "f1_weighted": 0.6553571428571429,
+          "f1_macro": 0.6594246031746032,
+          "f1_binary": null,
+          "accuracy": 0.6470588235294118,
+          "balanced_accuracy": 0.6527777777777778
+        },
+        "test": {
+          "f1_weighted": 0.4027667984189723,
+          "f1_macro": 0.4066534914361001,
+          "f1_binary": null,
+          "accuracy": 0.38235294117647056,
+          "balanced_accuracy": 0.3784722222222222
+        },
+        "val_score": 0.6553571428571429,
+        "test_score": 0.4027667984189723,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.6553571428571429,
+        "generation_found": 6,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          645,
+          693,
+          718,
+          1646
+        ],
+        "val": {
+          "f1_weighted": 0.7047782735385176,
+          "f1_macro": 0.7062693498452013,
+          "f1_binary": null,
+          "accuracy": 0.7058823529411765,
+          "balanced_accuracy": 0.7083333333333334
+        },
+        "test": {
+          "f1_weighted": 0.36675716440422323,
+          "f1_macro": 0.3727350427350427,
+          "f1_binary": null,
+          "accuracy": 0.35294117647058826,
+          "balanced_accuracy": 0.35416666666666663
+        },
+        "val_score": 0.7047782735385176,
+        "test_score": 0.36675716440422323,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.7047782735385176,
+        "generation_found": 6,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          645,
+          1045,
+          1519,
+          3537,
+          5165
+        ],
+        "val": {
+          "f1_weighted": 0.7402252028098274,
+          "f1_macro": 0.7426913240212474,
+          "f1_binary": null,
+          "accuracy": 0.7352941176470589,
+          "balanced_accuracy": 0.7326388888888888
+        },
+        "test": {
+          "f1_weighted": 0.4517912428129146,
+          "f1_macro": 0.45794172932330823,
+          "f1_binary": null,
+          "accuracy": 0.4411764705882353,
+          "balanced_accuracy": 0.4444444444444444
+        },
+        "val_score": 0.7402252028098274,
+        "test_score": 0.4517912428129146,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.7402252028098274,
+        "generation_found": 844,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 6,
+        "features": [
+          645,
+          1045,
+          1519,
+          3537,
+          4926,
+          5165
+        ],
+        "val": {
+          "f1_weighted": 0.7459979466899882,
+          "f1_macro": 0.7497306614953674,
+          "f1_binary": null,
+          "accuracy": 0.7352941176470589,
+          "balanced_accuracy": 0.7326388888888888
+        },
+        "test": {
+          "f1_weighted": 0.4101169879716592,
+          "f1_macro": 0.4129318394024276,
+          "f1_binary": null,
+          "accuracy": 0.4117647058823529,
+          "balanced_accuracy": 0.4131944444444444
+        },
+        "val_score": 0.7459979466899882,
+        "test_score": 0.4101169879716592,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.7459979466899882,
+        "generation_found": 1093,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 7,
+        "features": [
+          645,
+          693,
+          1045,
+          1281,
+          1519,
+          3151,
+          3537
+        ],
+        "val": {
+          "f1_weighted": 0.8266051518646674,
+          "f1_macro": 0.8231209150326797,
+          "f1_binary": null,
+          "accuracy": 0.8235294117647058,
+          "balanced_accuracy": 0.8229166666666666
+        },
+        "test": {
+          "f1_weighted": 0.6209573708025721,
+          "f1_macro": 0.6257759784075574,
+          "f1_binary": null,
+          "accuracy": 0.6176470588235294,
+          "balanced_accuracy": 0.6180555555555556
+        },
+        "val_score": 0.8266051518646674,
+        "test_score": 0.6209573708025721,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8266051518646674,
+        "generation_found": 407,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      },
+      {
+        "n_features": 9,
+        "features": [
+          405,
+          645,
+          693,
+          1045,
+          1281,
+          1519,
+          1934,
+          3151,
+          3537
+        ],
+        "val": {
+          "f1_weighted": 0.8546712802768165,
+          "f1_macro": 0.8508986928104574,
+          "f1_binary": null,
+          "accuracy": 0.8529411764705882,
+          "balanced_accuracy": 0.8506944444444444
+        },
+        "test": {
+          "f1_weighted": 0.5749827594550778,
+          "f1_macro": 0.5764731591937474,
+          "f1_binary": null,
+          "accuracy": 0.5882352941176471,
+          "balanced_accuracy": 0.5868055555555556
+        },
+        "val_score": 0.8546712802768165,
+        "test_score": 0.5749827594550778,
+        "method": "fastener_2020",
+        "seed": 2024,
+        "fastener_internal_val_score": 0.8546712802768165,
+        "generation_found": 542,
+        "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+      }
+    ],
+    "algorithm_id": "fastener_2020@6ef80c0+08e6acd#372e"
+  }
+]
