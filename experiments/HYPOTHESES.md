@@ -61,6 +61,7 @@ hypothesis.
 | decision | value | note |
 |---|---|---|
 | Classifier | **`protocol.make_model()`: `DecisionTreeClassifier(random_state=20200)`, scikit-learn defaults** (Gini, `min_samples_split=2`) | The setting the paper states in Section 5.1. Drives every search **and** scores every result, for every method. |
+| FASTENER version | **the current code: FASTENER clone `08e6acd`, mating `include_top_genes=True, allow_self_mating=False`** (`run_fastener.MATING_VERSIONS["fixed"]`) | Decided by the PI after H0-E03 (Revisions, 2026-10-07). Every FASTENER arm in H1-H6 -- stock, random swap, guided swap -- runs it. The 2020 mating is run only where an experiment's design names the `fastener_2020` arm. |
 | Seeds | **5: 2020, 2021, 2022, 2023, 2024** | Set by the PI. See *What 5 seeds can and cannot answer*. |
 | Budget | **6,000 unique fits per run; 12,000 on the 11 datasets in `protocol.LONG_BUDGET_DATASETS`**, enforced by each method's fit cap | Equal across arms: the budget follows the dataset, not the arm. The 11 had not converged at 6,000 in H0 (Revisions, 2026-09-30). Cached re-evaluations of a subset already fitted are not charged. Wall clock is recorded alongside and reported, never substituted: the two diverged 10x in the pilot. |
 | FS-SDS budget | **k = 1..20, 300 fits per k -- 6,000 in total** (600 per k, 12,000 in total, on the long-budget datasets) | FS-SDS searches one fixed k per run, so its 6,000 are split evenly across the k it runs at. Giving it 6,000 *per k* would hand it 20x the budget of every other arm -- the same kind of mismatch H4 is about. |
@@ -878,3 +879,10 @@ designs* in [`EXPERIMENTS.md`](EXPERIMENTS.md). H0 now lists its experiments as
 bullets. This file keeps the hypotheses, the protocol and what experiments of
 one hypothesis share; designs of later experiments go to `EXPERIMENTS.md`. No
 claim, criterion or verdict changed.
+
+**2026-10-07 -- The new FASTENER for every later experiment.** Decided by the
+PI after H0-E03 was reported (not supported: without self-mating, the current
+code converges neither faster nor slower than the 2020 code, and ends level).
+Every FASTENER arm in H1-H6 runs the current code, as the *FASTENER version*
+row of the protocol states. This confirms what the 2026-09-30 revision already
+set for stock FASTENER; no criterion changes.

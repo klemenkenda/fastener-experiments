@@ -55,6 +55,7 @@ say so, and name the result.
 | [DEC-25](#dec-25) | 2026-09-30 | Repeat H0 on all 36 datasets as H0-E03 | H0-E03 |
 | [DEC-26](#dec-26) | 2026-09-30 | After the H0-E03 driver crashed, adopt its running runs instead of restarting them | H0-E03 |
 | [DEC-27](#dec-27) | 2026-10-07 | Record the mating flags in FASTENER arms' algorithm-ID config | H1-H6, later H0 experiments |
+| [DEC-28](#dec-28) | 2026-10-07 | Use the new FASTENER for every later experiment | H1-H6 |
 
 ## Decisions
 
@@ -477,6 +478,31 @@ of restarting them.**
 - **Source:** the commit that adds this entry.
 - **Applies to:** H1-H6, and any later H0 experiment.
 
+### DEC-28
+
+**2026-10-07 -- Use the new FASTENER for every later experiment.**
+
+- **Taken after a result:** H0-E03 was reported as not supported. Without
+  self-mating, the current code converged neither faster nor slower than the
+  2020 code (14 datasets to 22, Wilcoxon p = 0.519), and its best final F1 was
+  level (18 to 18).
+- **Why:** set by the PI. The new code is the fixed one, and H0-E03 found it no
+  worse than the 2020 code in speed or in end result.
+- **Detail:**
+  - The new FASTENER is the clone at `08e6acd` with
+    `include_top_genes=True, allow_self_mating=False`, the "fixed" mating in
+    `run_fastener.MATING_VERSIONS` and the clone's defaults.
+  - Every FASTENER arm in H1-H6 runs it: stock FASTENER and both swap arms.
+    The `fastener_2020` arm runs only where an experiment's design names it.
+  - No code change was needed: every FASTENER run is built by
+    `run_fastener.make_mating`, whose stock and swap arms already use "fixed".
+- **By:** PI.
+- **Source:** `HYPOTHESES.md`, *Protocol* (row *FASTENER version*) and
+  *Revisions*, 2026-10-07.
+- **Applies to:** H1-H6.
+- **Confirms:** [DEC-23](#dec-23), which set this for stock FASTENER before
+  H0-E03 ran.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -487,5 +513,5 @@ are not repeated.
 |---|---|---|---|---|
 | `H0-E01` | reported: not supported | [DEC-16](#dec-16), [DEC-17](#dec-17), [DEC-18](#dec-18), [DEC-19](#dec-19), [DEC-20](#dec-20) | [DEC-21](#dec-21) | [H0-E01](reports/H0-E01/REPORT.md) |
 | `H0-E02` | reported: supported, narrowly | [DEC-16](#dec-16), [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-21](#dec-21), [DEC-22](#dec-22) | [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25) | [H0-E02](reports/H0-E02/REPORT.md) |
-| `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27) | [H0-E03](reports/H0-E03/REPORT.md) |
-| H1-H6 | not started | [DEC-07](#dec-07) (H1, H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27) | -- | -- |
+| `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27), [DEC-28](#dec-28) | [H0-E03](reports/H0-E03/REPORT.md) |
+| H1-H6 | not started | [DEC-07](#dec-07) (H1, H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28) | -- | -- |
