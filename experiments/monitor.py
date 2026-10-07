@@ -11,11 +11,18 @@ Usage:
     python experiments/monitor.py --interval 5
     python experiments/monitor.py --experiment H0-E03   # every dataset of a
                                                         # run_h0.py experiment
+    python experiments/monitor.py --experiment H1-E01   # every job of a
+                                                        # run_queue.py experiment
 
 `--experiment` shows one line per dataset of a run_h0.py experiment: its
 state, progress across both arms, each seed of each arm, the unit in flight,
 and its ETA; above them, the whole experiment's ETA. It reads the driver's
 results/<ID>/driver.json and each dataset's own progress.json.
+
+For an experiment started by run_queue.py it reads results/<ID>/queue.json
+instead, and shows one line per dataset and arm: progress over its seeds, each
+seed's state, the fits of the seeds in flight, and their time left. The
+experiment's ETA plays the remaining jobs over the queue's free processes.
 """
 import argparse
 import json
@@ -24,7 +31,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -277,16 +284,171 @@ def render_experiment(driver: Dict, experiment: str) -> List[str]:
     return out
 
 
+# ------------------------------------------- one line per dataset and arm
+def job_remaining(j: Dict, p: Optional[Dict]) -> Optional[float]:
+    """Seconds a running job still needs, from its own heartbeat."""
+    if p is None:
+        return None
+    if p.get("units_done", 0) > 0 and p.get("eta_seconds") is not None:
+        return float(p["eta_seconds"])
+    frac = run_fraction(p)
+    elapsed = age_seconds(j.get("started_utc"))
+    # Below 2% the extrapolation is mostly start-up cost.
+    if frac < 0.02 or not elapsed:
+        return None
+    return elapsed * (1 - frac) / frac
+
+
+def queue_eta(jobs: List[Dict], snaps: Dict[str, Optional[Dict]],
+              slots: int) -> Tuple[Optional[float], bool]:
+    """Seconds until the queue is empty, and whether that is only a floor.
+
+    The running jobs hold their slots for their own remaining time; each
+    pending job, in queue order, takes the first slot to free up, for as long
+    as the finished or running jobs of its dataset and arm took or will take.
+    A pending job with nothing to go on yet counts as zero, so the result is
+    then a lower bound.
+    """
+    durations: Dict[Tuple[str, str], List[float]] = {}
+    for j in jobs:
+        key = (j["dataset"], j["arm"])
+        if j["state"] == "done":
+            start, end = j.get("started_utc"), j.get("ended_utc")
+            try:
+                d = (datetime.fromisoformat(end)
+                     - datetime.fromisoformat(start)).total_seconds()
+                durations.setdefault(key, []).append(d)
+            except (TypeError, ValueError):
+                pass
+        elif j["state"] == "running":
+            rem = job_remaining(j, snaps.get(j["name"]))
+            elapsed = age_seconds(j.get("started_utc"))
+            if rem is not None and elapsed is not None:
+                durations.setdefault(key, []).append(elapsed + rem)
+
+    free, floor = [], False
+    for j in jobs:
+        if j["state"] == "running":
+            rem = job_remaining(j, snaps.get(j["name"]))
+            if rem is None:
+                floor = True
+            free.append(rem or 0.0)
+    free += [0.0] * max(0, slots - len(free))
+    free.sort()
+    for j in jobs:
+        if j["state"] != "pending":
+            continue
+        known = durations.get((j["dataset"], j["arm"]))
+        if not known:
+            floor = True
+        t = free.pop(0) + (sum(known) / len(known) if known else 0.0)
+        free.append(t)
+        free.sort()
+    return (max(free) if free else 0.0), floor
+
+
+def group_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]]) -> str:
+    states = [j["state"] for j in jobs]
+    if "running" in states:
+        state = "running"
+    elif "failed" in states:
+        state = "failed"
+    elif all(s == "done" for s in states):
+        state = "done"
+    else:
+        state = "pending"
+    fracs = []
+    for j in jobs:
+        if j["state"] == "done":
+            fracs.append(1.0)
+        elif j["state"] == "running" and snaps.get(j["name"]):
+            fracs.append(run_fraction(snaps[j["name"]]))
+        else:
+            fracs.append(0.0)
+    frac = sum(fracs) / len(fracs)
+    filled = int(round(frac * EXPERIMENT_BAR))
+    seeds = "".join(SEED_MARK.get(s, "?") for s in states)
+    line = (f"  {STATE_MARK.get(state, '?')} {jobs[0]['dataset']:<13}"
+            f"{jobs[0]['arm']:<14}[{'#' * filled}{'-' * (EXPERIMENT_BAR - filled)}]"
+            f"{frac * 100:4.0f}%  {seeds:<7}")
+    running = [j for j in jobs if j["state"] == "running"]
+    if running:
+        fits = [(snaps.get(j["name"]) or {}).get("current") or {}
+                for j in running]
+        done = [c.get("fits_done", 0) for c in fits]
+        budget = next((c.get("budget_fits") for c in fits
+                       if c.get("budget_fits")), None)
+        span = f"{min(done)}" if min(done) == max(done) \
+            else f"{min(done)}-{max(done)}"
+        line += f"{span:>11}/{budget or '?':<6}"
+        rems = [job_remaining(j, snaps.get(j["name"])) for j in running]
+        rems = [r for r in rems if r is not None]
+        if rems:
+            line += f"  ~{format_duration(max(rems))} left"
+        gone = [j for j in running if snaps.get(j["name"])
+                and alive(snaps[j["name"]].get("pid")) is False]
+        if gone:
+            line += f"  PROCESS GONE: s{', s'.join(str(j['seed']) for j in gone)}"
+    failed = [j for j in jobs if j["state"] == "failed"]
+    if failed:
+        line += "  failed: " + ", ".join(
+            f"s{j['seed']} ({Path(j['log']).name})" for j in failed)
+    return line
+
+
+def render_queue(queue: Dict, experiment: str) -> List[str]:
+    jobs = queue.get("jobs", [])
+    snaps = {j["name"]: read(Path(j["run_dir"]) / "progress.json")
+             if j.get("run_dir") else None for j in jobs}
+    counts: Dict[str, int] = {}
+    for j in jobs:
+        counts[j["state"]] = counts.get(j["state"], 0) + 1
+    slots = queue.get("max_procs") or 1
+    out = ["", f"  {experiment}   {len(jobs)} jobs on {slots} processes   "
+           + "   ".join(f"{s} {counts[s]}"
+                        for s in ("running", "done", "failed", "pending")
+                        if counts.get(s))]
+    active = bool(counts.get("running") or counts.get("pending"))
+    line = f"  elapsed {format_duration(age_seconds(queue.get('started_utc')))}"
+    if active:
+        eta, floor = queue_eta(jobs, snaps, slots)
+        finish = time.localtime(time.time() + eta)
+        line += (f"   {'at least ' if floor else '~'}{format_duration(eta)}"
+                 f" left, done around {time.strftime('%a %H:%M', finish)}")
+    out.append(line)
+    if active and alive(queue.get("pid")) is False:
+        out.append("  run_queue.py is no longer running -- pending jobs will"
+                   " not start")
+    out.append("")
+    out.append(f"    {'dataset':<13}{'arm':<14}{'progress':<25}{'seeds':<7}"
+               f"{'fits in flight':>18}")
+    groups: Dict[Tuple[str, str], List[Dict]] = {}
+    for j in jobs:
+        groups.setdefault((j["dataset"], j["arm"]), []).append(j)
+    for g in groups.values():
+        out.append(group_line(g, snaps))
+    out.append("")
+    out.append("  seeds: + done  > running  . pending  x failed")
+    out.append("")
+    return out
+
+
 def watch_experiment(experiment: str, interval: float, once: bool) -> int:
+    # run_queue.py writes queue.json, run_h0.py driver.json.
+    queue_path = RESULTS_DIR / experiment / "queue.json"
     path = RESULTS_DIR / experiment / "driver.json"
     last = ""
     while True:
-        driver = read(path)
-        if driver is None:
+        queue = read(queue_path)
+        driver = None if queue is not None else read(path)
+        if queue is not None:
+            text = "\n".join(render_queue(queue, experiment))
+        elif driver is None:
             if once:
-                print(f"{path} not found: has run_h0.py started {experiment}?")
+                print(f"neither {queue_path.name} nor {path.name} found in "
+                      f"{path.parent}: has {experiment} started?")
                 return 1
-            text = f"waiting for {path} ..."
+            text = f"waiting for {queue_path} ..."
         else:
             text = "\n".join(render_experiment(driver, experiment))
         if once:
@@ -296,6 +458,10 @@ def watch_experiment(experiment: str, interval: float, once: bool) -> int:
             os.system("cls" if os.name == "nt" else "clear")
             print(text)
             last = text
+        if queue is not None and all(
+                j["state"] in ("done", "failed")
+                for j in queue.get("jobs", [])):
+            return 0
         if driver is not None and all(
                 r["state"] in ("done", "failed", "skipped")
                 for r in driver.get("datasets", [])):
@@ -313,8 +479,9 @@ def main() -> int:
     ap.add_argument("--interval", type=float, default=3.0)
     ap.add_argument("--once", action="store_true")
     ap.add_argument("--experiment", default=None, metavar="ID",
-                    help="show every dataset of a run_h0.py experiment, "
-                         "e.g. H0-E03")
+                    help="show every dataset of a run_h0.py experiment "
+                         "(e.g. H0-E03) or every job of a run_queue.py one "
+                         "(e.g. H1-E01)")
     args = ap.parse_args()
     if args.experiment:
         return watch_experiment(args.experiment, max(args.interval, 5.0),

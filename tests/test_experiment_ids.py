@@ -79,6 +79,21 @@ def test_ledger_keeps_designs_below_the_table(tmp_path):
     assert led.read_text(encoding="utf-8").endswith(designs + "\n")
 
 
+def test_ledger_keeps_notes_above_the_table(tmp_path):
+    led = tmp_path / "EXPERIMENTS.md"
+    eid.issue("H1", led)
+    note = "A note added by hand, with a [link](DATASETS_USED.md)."
+    text = led.read_text(encoding="utf-8")
+    table = text.index("| experiment |")
+    led.write_text(text[:table] + note + "\n\n" + text[table:],
+                   encoding="utf-8")
+    eid.add_run("H1-E01", "r1", led)
+    eid.set_status("H1-E01", "failed", path=led)
+    text = led.read_text(encoding="utf-8")
+    assert note in text and text.index(note) < text.index("| experiment |")
+    assert eid.find(eid.load_ledger(led), "H1-E01")["status"] == "failed"
+
+
 def test_ledger_refuses_unissued_skip(tmp_path):
     led = tmp_path / "EXPERIMENTS.md"
     with pytest.raises(ValueError, match="never issued"):
@@ -186,11 +201,11 @@ def _fake_run(root, run_id, dataset, arms_scores, seeds=range(2020, 2025)):
 def test_report_end_to_end_h1(tmp_path, monkeypatch):
     monkeypatch.setattr(make_report, "RESULTS_DIR", tmp_path / "results")
     # Sparse ahead everywhere, so the paired rule reads "supported".
-    for ds in ("eodata", "gina"):
+    for ds in ("eodata", "satimage"):
         _fake_run(tmp_path / "results", f"R_{ds}", ds,
                   {"nsga2": 0.5, "nsga2_sparse": 0.6})
     out = tmp_path / "report"
-    path = make_report.build("H1-E01", ["R_eodata", "R_gina"], out)
+    path = make_report.build("H1-E01", ["R_eodata", "R_satimage"], out)
     text = path.read_text(encoding="utf-8")
     for heading in ("## 1. Header", "## 2. Hypothesis",
                     "## 3. Evaluation criteria", "## 4. Summary",

@@ -255,8 +255,12 @@ python experiments/experiment_ids.py new H1            # -> H1-E01
 
 # 2. Run, once per dataset, all under the same ID.
 python experiments/run_sota.py --dataset eodata --experiment H1-E01 \
-    --methods nsga2 --init sparse --no-fastener
+    --methods nsga2,nsga2_sparse --no-fastener
 python experiments/run_sota.py --dataset gina   --experiment H1-E01 ...
+#    Or as one job per dataset, arm and seed, N at a time, and watch them all:
+python experiments/run_queue.py --experiment H1-E01 \
+    --datasets eodata,gina --methods nsga2,nsga2_sparse --max-procs 10
+python experiments/monitor.py --experiment H1-E01
 
 # 3. Generate the skeleton, then write the prose into REPORT.md.
 python experiments/make_report.py --experiment H1-E01

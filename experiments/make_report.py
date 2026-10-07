@@ -43,14 +43,19 @@ from provenance import REPO_ROOT, RESULTS_DIR  # noqa: E402
 HYPOTHESES_PATH = "experiments/HYPOTHESES.md"
 DEV_SETS = ("eodata", "crop_mapping", "madelon", "gina")
 PRIMARY_DEV_SET = "eodata"
+# H1's own datasets, by feature count (HYPOTHESES.md, Revisions, 2026-10-07).
+H1_SETS = ("satimage", "eodata", "USPS", "har", "COIL20", "gisette",
+           "Prostate_GE", "arcene")
 
 # H1-H3: the pre-registered paired rule -- the challenger beats the baseline on
-# AUF in at least 4 of 5 seeds, on EOData and on at least one other dev set.
+# AUF in at least 4 of 5 seeds, on EOData and on at least one other of the
+# hypothesis's datasets.
 PAIRED = {
     "H1": ("nsga2_sparse", "nsga2"),
     "H2": ("fastener_swap_random", "fastener"),
     "H3": ("fastener_swap_guided", "fastener"),
 }
+PAIRED_SETS = {"H1": H1_SETS, "H2": DEV_SETS, "H3": DEV_SETS}
 PAIRED_MIN_WINS = 4
 PAIRED_SEEDS = 5
 # H4-H6: per-dataset mean AUF, focal arm against each opponent across datasets.
@@ -244,8 +249,9 @@ def by_cell(units: Sequence[Dict], K: int) -> Dict[str, Dict[str, Dict]]:
 
 def evaluate_paired(hid: str, cells, K: int) -> Dict[str, Any]:
     a, b = PAIRED[hid]
+    sets = PAIRED_SETS[hid]
     rows, passed, complete = [], {}, {}
-    for ds in DEV_SETS:
+    for ds in sets:
         sa, sb = cells.get(ds, {}).get(a, {}), cells.get(ds, {}).get(b, {})
         seeds = sorted(set(sa) & set(sb))
         wins = sum(sa[s] > sb[s] for s in seeds)
@@ -254,9 +260,9 @@ def evaluate_paired(hid: str, cells, K: int) -> Dict[str, Any]:
         for s in seeds:
             rows.append({"dataset": ds, "seed": s, a: sa[s], b: sb[s],
                          "delta": sa[s] - sb[s], "win": sa[s] > sb[s]})
-    others = [d for d in DEV_SETS if d != PRIMARY_DEV_SET]
+    others = [d for d in sets if d != PRIMARY_DEV_SET]
     # A dataset with missing seeds could still pass once they are in.
-    could = {d: passed[d] or not complete[d] for d in DEV_SETS}
+    could = {d: passed[d] or not complete[d] for d in sets}
     if passed[PRIMARY_DEV_SET] and any(passed[d] for d in others):
         reading = "supported"
     elif could[PRIMARY_DEV_SET] and any(could[d] for d in others):
@@ -266,8 +272,9 @@ def evaluate_paired(hid: str, cells, K: int) -> Dict[str, Any]:
     per_ds = [{"dataset": ds,
                "seeds": len([r for r in rows if r["dataset"] == ds]),
                "wins": sum(r["win"] for r in rows if r["dataset"] == ds),
-               "passes": passed[ds]} for ds in DEV_SETS]
+               "passes": passed[ds]} for ds in sets]
     return {"kind": "paired", "challenger": a, "baseline": b, "K": K,
+            "datasets": list(sets),
             "rows": rows, "per_dataset": per_ds, "reading": reading}
 
 
@@ -498,7 +505,8 @@ def fig_paired(ev, run_ids, path: Path) -> None:
     import matplotlib.pyplot as plt
     _style(plt)
     a, b, K = ev["challenger"], ev["baseline"], ev["K"]
-    dss = [d for d in DEV_SETS if any(r["dataset"] == d for r in ev["rows"])]
+    dss = [d for d in ev["datasets"]
+           if any(r["dataset"] == d for r in ev["rows"])]
     fig, axes = _grid(plt, max(1, len(dss)))
     col = _colors([b, a])
     for ax, ds in zip(axes, dss):

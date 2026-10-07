@@ -90,20 +90,21 @@ def _cell(text: str) -> str:
     return text.strip().strip("`").strip()
 
 
-def _ledger_table(text: str) -> Tuple[List[str], str]:
-    """The ledger table's lines, and everything after the table.
+def _ledger_table(text: str) -> Tuple[List[str], str, str]:
+    """The ledger table's lines, everything after it, and everything before.
 
-    Each experiment's design sits below the table; `save_ledger` rewrites the
-    table and keeps that text as it is.
+    Each experiment's design sits below the table, and notes added by hand sit
+    above it; `save_ledger` rewrites the table and keeps both as they are.
     """
     lines = text.splitlines()
     head = "| " + " | ".join(LEDGER_COLUMNS) + " |"
     if head not in lines:
-        return [], ""
+        return [], "", ""
     start = end = lines.index(head)
     while end < len(lines) and lines[end].startswith("|"):
         end += 1
-    return lines[start:end], "\n".join(lines[end:]).strip("\n")
+    return (lines[start:end], "\n".join(lines[end:]).strip("\n"),
+            "\n".join(lines[:start]).strip("\n"))
 
 
 def load_ledger(path: Path = LEDGER_PATH) -> List[Dict[str, Any]]:
@@ -131,9 +132,11 @@ def load_ledger(path: Path = LEDGER_PATH) -> List[Dict[str, Any]]:
 
 
 def save_ledger(rows: List[Dict[str, Any]], path: Path = LEDGER_PATH) -> None:
-    tail = (_ledger_table(path.read_text(encoding="utf-8"))[1]
-            if path.is_file() else "")
-    lines = [LEDGER_HEADER.rstrip("\n"), "",
+    _, tail, head = (_ledger_table(path.read_text(encoding="utf-8"))
+                     if path.is_file() else ([], "", ""))
+    # The header is written once, with the file; after that, whatever stands
+    # above the table is kept, so a note added there by hand survives.
+    lines = [head or LEDGER_HEADER.rstrip("\n"), "",
              "| " + " | ".join(LEDGER_COLUMNS) + " |",
              "|" + "---|" * len(LEDGER_COLUMNS)]
     for r in rows:

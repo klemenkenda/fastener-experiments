@@ -346,21 +346,47 @@ subsets of 1-30 features at initialisation). The sparse arm is a **departure
 from the source** and is labelled as one everywhere; it is a controlled variant,
 not the published algorithm.
 
-**Datasets.** The four development sets.
+**Datasets.** Eight, chosen to spread the feature count p over three orders
+of magnitude, because the claim turns on it: OBL starts at about p/2 features,
+so the handicap it predicts grows with p.
+
+| dataset | features | rows | domain | role |
+|---|---:|---:|---|---|
+| satimage | 36 | 6,430 | Landsat land cover | both arms start at about 15-18 features, so the claim predicts no difference |
+| eodata | 182 | 50,000 of 480,000 | Sentinel-2 land cover | the primary dataset |
+| USPS | 256 | 9,298 | handwritten digits | |
+| har | 561 | 10,299 | smartphone sensor statistics | built like EOData: signals x statistics |
+| COIL20 | 1,024 | 1,440 | object images | |
+| gisette | 5,000 | 7,000 | handwritten digits | large p with many rows |
+| Prostate_GE | 5,966 | 102 | gene expression | wide and short |
+| arcene | 10,000 | 200 | mass spectrometry | 12,000 fits (`protocol.LONG_BUDGET_DATASETS`) |
+
+Crop mapping, madelon and gina, the other development sets, are not used:
+their feature counts (174-970) fall inside the range EOData, har and COIL20
+already cover.
 
 **Primary metric.** AUF, K = 10. Reported beside it, as the diagnostic quantity
 this hypothesis is about: the smallest subset size on the front, per seed.
 
 **Falsification criterion.** H1 is supported if `nsga2_sparse` has a higher
 AUF (K = 10) than `nsga2` in **at least 4 of 5 seeds**, on **EOData and on at
-least one other development set**. Otherwise it is not supported. If the sparse
-arm reaches small subsets and still fails that test, the weakness is the search
-after all -- the more interesting outcome for H5 and H6.
+least one other of the eight datasets**. Otherwise it is not supported. If the
+sparse arm reaches small subsets and still fails that test, the weakness is the
+search after all -- the more interesting outcome for H5 and H6. The result on
+each dataset is reported against its feature count; satimage, where the claim
+predicts no difference, is reported as such and is not excluded from the count.
 
 **Blocker to clear first.** The sparse arm was launched once in the previous
 round and produced nothing; both of its log files were zero bytes. Whatever
 failed there must be diagnosed before the arm counts for anything. This is the
 main reason H1 runs first.
+
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+* `H1-E01` -- the eight datasets and the criterion above. Stopped after 13
+  minutes, on EOData only, so the experiment could be restarted with
+  per-job monitoring; no result was read. Failed.
+* `H1-E02` -- the same design, restarted.
 
 ## H2 -- A size-preserving move changes the front at all, guided or not
 
@@ -559,7 +585,9 @@ below are measured from the files, not transcribed, and are the full datasets
 before the row cap. "Smallest class" is counted after cleaning (see *Dropped
 rows*).
 
-### Development sets -- used by H1, H2, H3, H5 and H6
+### Development sets -- used by H2, H3, H5 and H6
+
+H1 uses EOData and seven other datasets, chosen by feature count (see H1).
 
 | dataset | rows | features | classes | smallest / largest class | domain | source |
 |---|---:|---:|---:|---|---|---|
@@ -750,6 +778,7 @@ it stands. Items marked **to build** block the hypothesis named.
 | Validation AUF (K = 10) per snapshot, and fits to the common target | done -- `h0_convergence.py` reads the runs' trajectories and applies H0's criterion | -- |
 | H0's EO split for crop mapping: a 100,000-row stratified subsample, halved into 50,000 search and 50,000 test rows, the search half split 80/20 | done -- `datasets.load(name, split="eo")`, `run_sota.py --split eo` | -- |
 | A budget per dataset | done -- `run_sota.py` runs one dataset per invocation, with `--evaluations` | -- |
+| One process per dataset, arm and seed, at most N at a time, watched as one experiment | done -- `run_sota.py --seed`, `run_queue.py`, `monitor.py --experiment`; a seed run alone reproduces the same seed inside a five-seed run | -- |
 
 The first run of H0 is the acceptance test for everything marked blocking H0,
 and for the progress tracking it reads. The first run of H1 is the acceptance
@@ -886,3 +915,20 @@ code converges neither faster nor slower than the 2020 code, and ends level).
 Every FASTENER arm in H1-H6 runs the current code, as the *FASTENER version*
 row of the protocol states. This confirms what the 2026-09-30 revision already
 set for stock FASTENER; no criterion changes.
+
+**2026-10-07 -- H1's datasets: eight, spread by feature count.** Decided by
+the PI before any H1 result was read. H1 had been registered on the four
+development sets, whose feature counts span only 174-970. The claim is about
+OBL starting at half the features, so it predicts an effect that grows with p
+and vanishes at small p; the four could not show either end. H1 now runs on
+satimage, EOData, USPS, har, COIL20, gisette, Prostate_GE and arcene (36 to
+10,000 features), and the criterion's "at least one other development set"
+reads "at least one other of the eight datasets". The 4-of-5-seeds rule, the
+arms, the metric and EOData's place in the criterion are unchanged.
+`make_report.py` reads H1 on these eight (`H1_SETS`).
+
+The change was committed (`3e1ce0c`) without this entry, and `H1-E01` was
+started from that commit. It was stopped after 13 minutes, with only EOData's
+ten runs started and none finished, and is recorded as failed; no score was
+looked at. `H1-E02` restarts it from the commit that adds this entry, one
+process per dataset, arm and seed (`run_queue.py`).

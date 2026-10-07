@@ -56,6 +56,9 @@ say so, and name the result.
 | [DEC-26](#dec-26) | 2026-09-30 | After the H0-E03 driver crashed, adopt its running runs instead of restarting them | H0-E03 |
 | [DEC-27](#dec-27) | 2026-10-07 | Record the mating flags in FASTENER arms' algorithm-ID config | H1-H6, later H0 experiments |
 | [DEC-28](#dec-28) | 2026-10-07 | Use the new FASTENER for every later experiment | H1-H6 |
+| [DEC-29](#dec-29) | 2026-10-07 | H1 on eight datasets spread by feature count, not the four development sets | H1-E01, H1-E02 |
+| [DEC-30](#dec-30) | 2026-10-07 | Run one process per dataset, arm and seed, at most ten at a time | H1-E01, H1-E02 |
+| [DEC-31](#dec-31) | 2026-10-07 | Stop H1-E01 and restart H1 as H1-E02 | H1-E01, H1-E02 |
 
 ## Decisions
 
@@ -503,6 +506,69 @@ of restarting them.**
 - **Confirms:** [DEC-23](#dec-23), which set this for stock FASTENER before
   H0-E03 ran.
 
+### DEC-29
+
+**2026-10-07 -- H1 on eight datasets spread by feature count, not the four
+development sets.**
+
+- **Why:** H1's mechanism is that OBL starts every individual at about half the
+  features, so the handicap it predicts grows with the feature count p and
+  vanishes at small p. The four development sets span only 174-970 features
+  and could show neither end.
+- **Detail:**
+  - The eight: satimage (36 features), eodata (182), USPS (256), har (561),
+    COIL20 (1,024), gisette (5,000), Prostate_GE (5,966), arcene (10,000).
+    satimage is where the claim predicts no difference.
+  - Crop mapping, madelon and gina leave H1; they remain development sets for
+    H2, H3, H5 and H6.
+  - The criterion keeps its form: 4 of 5 seeds on EOData and on at least one
+    other of the eight. `make_report.py` reads H1 on the eight (`H1_SETS`).
+- **By:** PI, choosing from candidates Claude proposed by feature count.
+- **Taken before any H1 result.** It was committed in `3e1ce0c` without the
+  matching text in `HYPOTHESES.md`; H1-E01 started from that commit
+  ([DEC-31](#dec-31)).
+- **Source:** `3e1ce0c`; `HYPOTHESES.md`, H1 and *Revisions*, 2026-10-07.
+- **Applies to:** H1-E01, H1-E02.
+
+### DEC-30
+
+**2026-10-07 -- Run one process per dataset, arm and seed, at most ten at a
+time.**
+
+- **Why:** `run_sota.py` runs a dataset's arms and seeds one after another on
+  one core, so the slowest dataset (EOData, about 47 hours for both arms) would
+  have set the wall clock alone. Split into 80 jobs on ten processes, H1 takes
+  about half a day.
+- **Detail:**
+  - `run_sota.py --seed` runs a single seed. Every search seeds its own random
+    stream, so a seed run alone gives the same front as the same seed inside a
+    five-seed run; checked on madelon for both arms before H1-E01.
+  - `run_queue.py` starts the jobs in the order given, slowest first, and keeps
+    up to `--max-procs` running. It writes `results/<ID>/queue.json`, which
+    `monitor.py --experiment <ID>` reads.
+  - Each job is its own run ID; `make_report.py` merges an experiment's runs
+    by dataset, arm and seed.
+  - As under [DEC-20](#dec-20), the jobs compete for the CPU, so wall clock is
+    not comparable between arms. Fits are not affected.
+- **By:** PI.
+- **Source:** `3e1ce0c` (`--seed`, `run_queue.py`); the commit that adds this
+  entry (`queue.json`, `monitor.py --experiment`).
+- **Applies to:** H1-E01, H1-E02.
+
+### DEC-31
+
+**2026-10-07 -- Stop H1-E01 and restart H1 as H1-E02.**
+
+- **Why:** the PI stopped H1-E01 after 13 minutes to restart it with a monitor
+  that shows every job at once. Its registration also did not yet describe its
+  datasets ([DEC-29](#dec-29)), and `make_report.py` would have read only one
+  of its eight. No run had finished and no score was read.
+- **Detail:** H1-E01 keeps its ID and is recorded as failed, with a short
+  report. H1-E02 runs the same design from the commit that registers it.
+- **By:** PI.
+- **Source:** `EXPERIMENTS.md`, H1-E01 and H1-E02; `reports/H1-E01/REPORT.md`.
+- **Applies to:** H1-E01, H1-E02.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -514,4 +580,6 @@ are not repeated.
 | `H0-E01` | reported: not supported | [DEC-16](#dec-16), [DEC-17](#dec-17), [DEC-18](#dec-18), [DEC-19](#dec-19), [DEC-20](#dec-20) | [DEC-21](#dec-21) | [H0-E01](reports/H0-E01/REPORT.md) |
 | `H0-E02` | reported: supported, narrowly | [DEC-16](#dec-16), [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-21](#dec-21), [DEC-22](#dec-22) | [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25) | [H0-E02](reports/H0-E02/REPORT.md) |
 | `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27), [DEC-28](#dec-28) | [H0-E03](reports/H0-E03/REPORT.md) |
-| H1-H6 | not started | [DEC-07](#dec-07) (H1, H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28) | -- | -- |
+| `H1-E01` | failed: stopped before any run finished | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30) | [DEC-31](#dec-31) | [H1-E01](reports/H1-E01/REPORT.md) |
+| `H1-E02` | registered | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | -- | -- |
+| H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28) | -- | -- |
