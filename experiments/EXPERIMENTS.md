@@ -7,6 +7,9 @@ starts -- not when it succeeds. Rows are never deleted. See
 Managed by `experiments/experiment_ids.py`; edit the status with
 `python experiments/experiment_ids.py status <ID> <status>`.
 
+Candidate time series classification datasets for later experiments, grouped
+by examples × features, are in [`DATASETS_USED.md`](DATASETS_USED.md).
+
 | experiment | hypothesis | started | run IDs | status | report |
 |---|---|---|---|---|---|
 | `H0-E01` | H0 | 2026-09-25 | `20260925T173306Z_h0_TOX_171`, `20260925T173442Z_h0_TOX_171`, `20260925T173442Z_h0_har`, `20260925T173442Z_h0_BASEHOCK`, `20260925T173442Z_h0_USPS`, `20260925T173443Z_h0_crop_mapping` | reported | [report](reports/H0-E01/REPORT.md) |
