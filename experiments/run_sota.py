@@ -109,7 +109,14 @@ def parse_args():
     ap.add_argument("--dataset", default="madelon")
     ap.add_argument("--methods", default=",".join(ALL_METHODS),
                     help=f"comma-separated subset of {','.join(ALL_METHODS)}")
-    ap.add_argument("--seeds", type=int, default=5)
+    ap.add_argument("--seeds", type=int, default=5,
+                    help="run seeds 2020 .. 2020 + n - 1")
+    ap.add_argument("--seed", type=int, action="append", default=None,
+                    help="run only this seed, repeatable; overrides --seeds. "
+                         "Each search seeds its own RNG, so a seed run alone "
+                         "gives the same result as inside a five-seed run, and "
+                         "per-seed runs of one experiment can go in parallel "
+                         "(run_queue.py); make_report merges them.")
     ap.add_argument("--evaluations", type=int, default=None,
                     help="model-fit budget per run, for every search. FS-SDS "
                          "divides it evenly over k = 1..20. Default: "
@@ -179,8 +186,11 @@ def main() -> int:
     if unknown:
         raise SystemExit(f"unknown method(s): {unknown}; have {list(ALL_METHODS)}")
 
-    n_seeds = 2 if quick else args.seeds
-    seeds = [2020 + i for i in range(n_seeds)]
+    if args.seed:
+        seeds = sorted(set(args.seed))
+    else:
+        n_seeds = 2 if quick else args.seeds
+        seeds = [2020 + i for i in range(n_seeds)]
     evaluations = 300 if quick else (
         args.evaluations if args.evaluations is not None
         else fit_budget(args.dataset))
@@ -198,7 +208,9 @@ def main() -> int:
     # same on every dataset. The remainder of an uneven division goes unspent
     # rather than to some k and not others.
     fs_per_k = max(1, evaluations // len(FS_SDS_K_RANGE))
-    name = args.name or f"{args.dataset}_sota" + ("_quick" if quick else "")
+    name = args.name or (f"{args.dataset}_sota" + ("_quick" if quick else "")
+                         + ("".join(f"_s{s}" for s in seeds) if args.seed
+                            else ""))
 
     ds = load(args.dataset, max_rows=args.max_rows or None, split=args.split)
     print(ds)
