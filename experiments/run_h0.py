@@ -24,10 +24,10 @@ driver that stopped -- is adopted: watched to the end and counted, not started
 a second time.
 
 `--plan extension` runs H0's second experiment instead: every other dataset
-on disk (HYPOTHESES.md, "H0 on every other dataset"), longest first so parallel
+on disk (EXPERIMENTS.md, design of H0-E02), longest first so parallel
 slots finish together, analysed with datasets as the unit.
 
-`--plan repeat` runs H0-E03 (HYPOTHESES.md, "H0 repeated"): all 36 datasets
+`--plan repeat` runs H0-E03 (EXPERIMENTS.md, design of H0-E03): all 36 datasets
 of H0-E01 and H0-E02 again, with the fixed arm keeping the top genes and the
 protocol's per-dataset budgets, analysed like H0-E02.
 
@@ -72,7 +72,7 @@ H0_PLAN = [
     {"dataset": "USPS", "split": "protocol", "evaluations": 6000, "hours": 4.5},
 ]
 
-# HYPOTHESES.md, "H0 on every other dataset" (H0-E02): every dataset on disk
+# EXPERIMENTS.md, design of H0-E02: every dataset on disk
 # except H0-E01's five. Earth-observation sets get the paper's EO budget of
 # 1,000 fits; eodata also the EO split, satimage (6,430 rows) the protocol
 # split. `hours` is a rough whole-dataset estimate (10 runs, alone) from the
@@ -116,7 +116,7 @@ H0_EXTENSION_PLAN = sorted([
     _ext("lung", "gene expression", 0.4),
 ], key=lambda p: -p["hours"])
 
-# HYPOTHESES.md, "H0 repeated" (H0-E03): every dataset of H0-E01 and H0-E02.
+# EXPERIMENTS.md, design of H0-E03: every dataset of H0-E01 and H0-E02.
 # The EO budgets stay at 1,000; every dataset that had 6,000 gets
 # protocol.fit_budget, which doubles it where the search had not converged.
 H0_CORE_GROUPS = {"TOX_171": "gene expression", "BASEHOCK": "text",

@@ -312,116 +312,14 @@ in the protocol. H0 measures the fixes on five datasets, three of which, USPS,
 BASEHOCK and TOX_171, are among the 25 benchmarks. If H0 finds a large effect, the H4
 write-up states it next to the ordering result.
 
-### H0 on every other dataset (second experiment, H0-E02)
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 
-*Added 2026-09-25, after H0-E01 had finished and been reported. See*
-Revisions.
-
-**Why.** H0-E01 was not supported, and its five datasets split. The fixed code
-reached the common target sooner in at least 4 of 5 seeds on TOX_171 (5 of 5)
-and USPS (4 of 5); the 2020 code did on BASEHOCK (4 of 5); crop mapping and har
-went neither way (2 against 3 each). Five datasets cannot say which pattern is
-the general one. This experiment asks the same question on every other dataset
-on disk.
-
-**Which datasets: all 31 others.** Every dataset `datasets.load` knows except
-H0-E01's five. Taking all of them, rather than choosing, is what keeps a choice
-made after seeing results from steering the outcome.
-
-| group | datasets | budget per run | split |
-|---|---|---:|---|
-| Earth observation | eodata | 1,000 fits | EO split, as crop mapping in H0 |
-| Earth observation, small | satimage (6,430 rows) | 1,000 fits | protocol 60/20/20; too few rows for the EO split |
-| other tall sets | covertype, miniboone, higgs, volkert, gas_drift | 6,000 fits | 50,000-row cap, 60/20/20 |
-| challenge sets | madelon, gina | 6,000 fits | protocol 60/20/20 |
-| paper benchmarks | the other 22 of the 25 | 6,000 fits | protocol 60/20/20 |
-
-The budget rule is H0's: Earth-observation sets get the paper's EO budget of
-1,000 fits, every other set gets 6,000. Arms, seeds, the fixed-target measure
-and the target itself are exactly as in H0.
-
-**Primary analysis: datasets as the unit.** With 31 datasets the per-dataset
-4-of-5 rule is no longer the useful test; the question is whether the datasets
-lean one way. Per dataset and seed, the effect is log2 of the ratio of the fits
-each arm needed to reach the common target, 2020 over fixed. It is positive when
-the fixed code was faster, zero on a tie. Per dataset, the effect is the mean
-of its 5 seeds.
-
-**Falsification criterion.** Supported if the per-dataset effects are
-positive on more datasets than negative **and** a two-sided Wilcoxon
-signed-rank test over the per-dataset effects is significant at alpha = 0.05.
-Reversed -- the fixes slowed convergence -- if the same holds with the signs
-swapped. Otherwise not supported: no consistent difference is detected over
-these datasets. Datasets with a zero effect drop out of the test, as the
-Wilcoxon test requires, and their count is reported.
-
-**Incomplete datasets.** A dataset whose runs fail, or have fewer than 5 seeds
-for both arms when the experiment is stopped, is left out of the test and
-listed. If more than 6 of the 31 are left out, the result is reported as
-incomplete rather than as a verdict.
-
-**Reported beside it, as secondary:** H0's per-dataset 4-of-5 counts for every
-dataset; the effect per dataset group from the table above; the same test over
-all 36 datasets, H0-E01's five included, labelled as including datasets seen
-before this experiment was registered; and final test AUF (K = 10) per arm.
-
-**How it runs.** Several datasets at once, so the whole experiment fits in a
-weekend. Runs then compete for the CPU, so wall clock is not comparable
-between arms or datasets. Fits, which decide the result, are not affected.
-Every tiny paper benchmark carries the caveat of *What the small sets can
-support*: on the smallest, validation is 10-20 rows, and ties are common.
-
-**Relation to H0-E01.** H0-E01's verdict stands on its own criterion and is
-reported first. This experiment is separate evidence about the same claim.
-Neither result is read as overriding the other; if they disagree, both are
-reported with the disagreement stated.
-
-### H0 repeated with the top genes kept (third experiment, H0-E03)
-
-Registered 2026-09-30, after H0-E01 and H0-E02 were reported and before any of
-this experiment's runs started.
-
-**Why.** After H0-E02 the fixed code was changed to keep the top genes
-(`include_top_genes=True`, Revisions, 2026-09-30), and the protocol budget was
-doubled on the 11 datasets whose search had not converged. H0-E01 and H0-E02
-tested a fixed arm that no longer exists. This experiment asks H0's question of
-the current code.
-
-**Arms.** `fastener`, now `include_top_genes=True, allow_self_mating=False`:
-it differs from the 2020 code only in drawing the mating pool without
-replacement, so no item is mated with itself. `fastener_2020` is unchanged.
-The claim tested is therefore narrower than H0-E02's: that removing
-self-mating alone makes FASTENER converge faster.
-
-**Datasets: all 36 of H0-E01 and H0-E02**, with their splits. Budgets: the three
-Earth-observation sets that had 1,000 fits keep 1,000 (crop_mapping, eodata
-and satimage); every other dataset gets `protocol.fit_budget`, which is 12,000
-fits on the 11 in `protocol.LONG_BUDGET_DATASETS` and 6,000 on the rest.
-Seeds, the fixed-target measure and the target are exactly as in H0.
-
-**Primary analysis and falsification criterion.** As in H0-E02, over all 36
-datasets: the per-dataset effect is the mean over 5 seeds of log2(fits the
-2020 arm needed / fits the fixed arm needed). Supported if the effects are
-positive on more datasets than negative **and** a two-sided Wilcoxon
-signed-rank test over them is significant at alpha = 0.05; reversed if the same
-holds with the signs swapped; otherwise not supported. Zero effects drop out of
-the test and are counted.
-
-**Incomplete datasets.** As in H0-E02. If more than 7 of the 36 are left out
-(the same one in five), the result is reported as incomplete.
-
-**Reported beside it, as secondary:** H0's per-dataset 4-of-5 counts; the
-effect per dataset group; final test AUF (K = 10) per arm; and, labelled as
-comparisons across experiments and not as tests, each dataset's effect here
-beside its effect in H0-E01 or H0-E02. On the 11 long-budget datasets the
-budget differs from the earlier experiments, so their effects are not
-comparable one to one.
-
-**How it runs.** As H0-E02: several datasets at once, so wall clock is not
-comparable between arms; fits are unaffected.
-
-**Relation to H0-E01 and H0-E02.** Their verdicts stand, about the code they
-tested. This one is about the current code.
+* `H0-E01` -- the five datasets and the criterion above. Not supported.
+* `H0-E02` -- the 31 other datasets, datasets as the unit (Wilcoxon over
+  per-dataset effects). Supported, narrowly.
+* `H0-E03` -- all 36 datasets, with the fixed arm keeping the top genes, so it
+  differs from the 2020 code only in no self-mating; 12,000 fits on the 11
+  long-budget datasets. Not supported.
 
 ## H1 -- NSGA-II's weakness at small k is an initialisation artifact
 
@@ -973,3 +871,10 @@ smallest of the eleven (nci9, lung_discrete, TOX_171) the validation split has
 rather than finding better subsets; the extra budget gives it room either way,
 and test scores will show which. H0's verdicts are unchanged: its budgets were
 fixed before its runs.
+
+**2026-10-07 -- Experiment designs moved to `EXPERIMENTS.md`.** The H0-E02 and
+H0-E03 subsections of H0 moved, with their text unchanged, to *Experiment
+designs* in [`EXPERIMENTS.md`](EXPERIMENTS.md). H0 now lists its experiments as
+bullets. This file keeps the hypotheses, the protocol and what experiments of
+one hypothesis share; designs of later experiments go to `EXPERIMENTS.md`. No
+claim, criterion or verdict changed.

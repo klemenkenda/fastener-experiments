@@ -207,7 +207,7 @@ def summarise(run_dirs: Sequence[Path]) -> Dict:
 
 
 # ------------------------------------------ H0-E02: every other dataset
-# HYPOTHESES.md, "H0 on every other dataset". Datasets are the unit: per
+# EXPERIMENTS.md, design of H0-E02 (and of H0-E03). Datasets are the unit: per
 # dataset, the mean over seeds of log2(fits_2020 / fits_fixed) -- positive when
 # the fixed code was faster -- tested with a two-sided Wilcoxon signed-rank test.
 EXTENSION_ALPHA = 0.05

@@ -356,7 +356,8 @@ datasets as the unit.**
   - The result is incomplete if more than 6 datasets are missing.
 - **By:** PI (to run further datasets). The criterion was registered before
   any H0-E02 run.
-- **Source:** `b1a51d3`; `HYPOTHESES.md`, *H0 on every other dataset* and
+- **Source:** `b1a51d3`; `EXPERIMENTS.md`, *Experiment designs*, `H0-E02`
+  (in `HYPOTHESES.md` until 2026-10-07); `HYPOTHESES.md`,
   *Revisions*, 2026-09-25.
 - **Applies to:** H0-E02.
 
@@ -435,7 +436,8 @@ converged.**
   - The result is incomplete if more than 7 datasets are missing.
   - The criterion was registered before any H0-E03 run.
 - **By:** PI.
-- **Source:** `f381469`; `HYPOTHESES.md`, *H0 repeated with the top genes kept*.
+- **Source:** `f381469`; `EXPERIMENTS.md`, *Experiment designs*, `H0-E03`
+  (in `HYPOTHESES.md` until 2026-10-07).
 - **Applies to:** H0-E03.
 
 ### DEC-26

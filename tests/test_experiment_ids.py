@@ -67,6 +67,18 @@ def test_ledger_issue_add_close(tmp_path):
     assert eid.next_experiment_id("H1", led) == "H1-E02"
 
 
+def test_ledger_keeps_designs_below_the_table(tmp_path):
+    led = tmp_path / "EXPERIMENTS.md"
+    eid.issue("H1", led)
+    designs = ("## Experiment designs\n\n### `H1-E01`\n\n"
+               "| `not a ledger row` | a | b | c | d | e |\n|---|---|---|---|---|---|")
+    led.write_text(led.read_text(encoding="utf-8") + "\n" + designs + "\n",
+                   encoding="utf-8")
+    eid.add_run("H1-E01", "r1", led)
+    assert [r["experiment"] for r in eid.load_ledger(led)] == ["H1-E01"]
+    assert led.read_text(encoding="utf-8").endswith(designs + "\n")
+
+
 def test_ledger_refuses_unissued_skip(tmp_path):
     led = tmp_path / "EXPERIMENTS.md"
     with pytest.raises(ValueError, match="never issued"):

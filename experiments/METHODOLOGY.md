@@ -98,6 +98,11 @@ Status is one of `running`, `failed` (did not finish), `invalid` (finished, but
 a defect makes the result unusable -- the report says which), and `reported`.
 A row is never deleted.
 
+Below the table, *Experiment designs* holds what each experiment adds to its
+hypothesis -- datasets, budgets, criterion -- written before its first run.
+`HYPOTHESES.md` keeps only the hypothesis and a bullet per experiment.
+`experiment_ids.py` rewrites the table and leaves that section as it is.
+
 ## The report
 
 **Every experiment gets a report, including one that failed.** A failed

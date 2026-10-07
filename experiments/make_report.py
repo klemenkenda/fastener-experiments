@@ -354,9 +354,10 @@ def evaluate_h0(runs: Sequence[Dict]) -> Dict[str, Any]:
 
 
 # --------------------------------------------------------- figures
-# HYPOTHESES.md, "H0 on every other dataset" (H0-E02) and "H0 repeated with
-# the top genes kept" (H0-E03): each has its own subsection and rule, both
-# with datasets as the unit.
+# The designs of H0-E02 and H0-E03, each with its own rule, both with datasets
+# as the unit. They are quoted from HYPOTHESES.md at the experiment's
+# pre-registration commit, where they were subsections with these titles; from
+# 2026-10-07 they live in EXPERIMENTS.md, *Experiment designs*.
 H0_EXT_TITLE = "H0 on every other dataset"
 H0_REPEAT_TITLE = "H0 repeated with the top genes kept"
 

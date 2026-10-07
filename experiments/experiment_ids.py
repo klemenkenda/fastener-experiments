@@ -23,7 +23,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 LEDGER_PATH = REPO_ROOT / "experiments" / "EXPERIMENTS.md"
@@ -90,12 +90,28 @@ def _cell(text: str) -> str:
     return text.strip().strip("`").strip()
 
 
+def _ledger_table(text: str) -> Tuple[List[str], str]:
+    """The ledger table's lines, and everything after the table.
+
+    Each experiment's design sits below the table; `save_ledger` rewrites the
+    table and keeps that text as it is.
+    """
+    lines = text.splitlines()
+    head = "| " + " | ".join(LEDGER_COLUMNS) + " |"
+    if head not in lines:
+        return [], ""
+    start = end = lines.index(head)
+    while end < len(lines) and lines[end].startswith("|"):
+        end += 1
+    return lines[start:end], "\n".join(lines[end:]).strip("\n")
+
+
 def load_ledger(path: Path = LEDGER_PATH) -> List[Dict[str, Any]]:
     """Rows of the ledger table, oldest first."""
     if not path.is_file():
         return []
     rows = []
-    for line in path.read_text(encoding="utf-8").splitlines():
+    for line in _ledger_table(path.read_text(encoding="utf-8"))[0]:
         if not line.startswith("| `"):
             continue
         cells = [c for c in line.strip().strip("|").split("|")]
@@ -115,6 +131,8 @@ def load_ledger(path: Path = LEDGER_PATH) -> List[Dict[str, Any]]:
 
 
 def save_ledger(rows: List[Dict[str, Any]], path: Path = LEDGER_PATH) -> None:
+    tail = (_ledger_table(path.read_text(encoding="utf-8"))[1]
+            if path.is_file() else "")
     lines = [LEDGER_HEADER.rstrip("\n"), "",
              "| " + " | ".join(LEDGER_COLUMNS) + " |",
              "|" + "---|" * len(LEDGER_COLUMNS)]
@@ -123,6 +141,8 @@ def save_ledger(rows: List[Dict[str, Any]], path: Path = LEDGER_PATH) -> None:
         lines.append(f"| `{r['experiment']}` | {r['hypothesis']} | "
                      f"{r['started']} | {runs} | {r['status']} | "
                      f"{r['report'] or '--'} |")
+    if tail:
+        lines += ["", tail]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
