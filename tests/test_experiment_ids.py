@@ -252,12 +252,13 @@ def _swap_cells(effects, seeds=range(2020, 2025), arm="fastener_swap_random"):
 
 def test_dataset_unit_reading_supported_reversed_and_not():
     sets = make_report.SWAP_SETS
-    assert len(sets) == 40 and sets[0] == "eodata"
-    # Ahead on 30, behind on 10, by unequal amounts: supported.
+    assert len(sets) == 39 and sets[0] == "eodata"
+    assert "DuckDuckGeese" not in sets
+    # Ahead on 30, behind on 9, by unequal amounts: supported.
     eff = {d: (0.01 + 0.001 * i if i < 30 else -0.005 - 0.0001 * i)
            for i, d in enumerate(sets)}
     ev = make_report.evaluate_dataset_unit("H2", _swap_cells(eff), 10)
-    assert ev["primary"]["positive"] == 30 and ev["primary"]["negative"] == 10
+    assert ev["primary"]["positive"] == 30 and ev["primary"]["negative"] == 9
     assert ev["reading"] == "supported"
     assert ev["per_dataset"]["eodata"]["passes_4_of_5"]
     # The same with signs swapped: reversed.
@@ -295,7 +296,7 @@ def test_h3_is_also_read_against_the_random_swap():
     ev = make_report.evaluate_dataset_unit("H3", cells, 10)
     assert ev["challenger"] == "fastener_swap_guided"
     gv = ev["secondary"]["guided_vs_random"]
-    assert gv["n_datasets"] == 40 and gv["zero"] == 40
+    assert gv["n_datasets"] == 39 and gv["zero"] == 39
     assert gv["reading"] == "not supported"
 
 
@@ -308,7 +309,7 @@ def test_report_end_to_end_h2h3(tmp_path, monkeypatch):
     out = tmp_path / "report"
     make_report.build("H2H3-E01", ["R_eodata", "R_Coffee", "R_Wafer"], out)
     support = (out / "SUPPORT.md").read_text(encoding="utf-8")
-    # 37 of 40 datasets missing: incomplete, for both hypotheses (each reading
+    # 36 of 39 datasets missing: incomplete, for both hypotheses (each reading
     # appears under the criteria and again under the evidence).
     assert support.count("mechanical reading: incomplete") == 4
     assert "mechanical reading: supported" not in support

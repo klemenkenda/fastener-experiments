@@ -21,6 +21,10 @@ files it serves disagree on two of the original picks:
   which has the shape the pick was made for. C5 keeps LSST as its multivariate
   set.
 
+**DuckDuckGeese is not used by H2 and H3** (2026-10-09, DEC-34): at 363,150
+features a FASTENER run on it takes hours longer than on any other set. It
+stays downloaded and loadable.
+
 ## How the archive was grouped
 
 The archive lists 190 datasets: 150 univariate and 40 multivariate.

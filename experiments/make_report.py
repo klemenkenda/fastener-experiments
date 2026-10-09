@@ -71,8 +71,11 @@ DATASET_UNIT = {
     "H2": ("fastener_swap_random", "fastener"),
     "H3": ("fastener_swap_guided", "fastener"),
 }
-# The 39 UCR/UEA sets by cluster, and EOData.
-SWAP_CLUSTERS = {"eodata": "EO", **datasets.TSC_DATASETS}
+# EOData and the UCR/UEA sets by cluster, less DuckDuckGeese (DEC-34).
+SWAP_EXCLUDED = ("DuckDuckGeese",)
+SWAP_CLUSTERS = {"eodata": "EO",
+                 **{d: c for d, c in datasets.TSC_DATASETS.items()
+                    if d not in SWAP_EXCLUDED}}
 SWAP_SETS = tuple(SWAP_CLUSTERS)
 SWAP_SEEDS = (2020, 2021, 2022, 2023, 2024)
 SWAP_MAX_MISSING = 6

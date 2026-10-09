@@ -61,6 +61,7 @@ say so, and name the result.
 | [DEC-31](#dec-31) | 2026-10-07 | Stop H1-E01 and restart H1 as H1-E02 | H1-E01, H1-E02 |
 | [DEC-32](#dec-32) | 2026-10-09 | Split each report into a short reading (REPORT.md) and its record (SUPPORT.md) | H1-E02 and later |
 | [DEC-33](#dec-33) | 2026-10-09 | H2 and H3 on 39 UCR/UEA sets and EOData, datasets as the unit, budget calibrated per dataset | H2, H3 |
+| [DEC-34](#dec-34) | 2026-10-09 | DuckDuckGeese leaves H2 and H3 | H2H3-E01 |
 
 ## Decisions
 
@@ -633,6 +634,27 @@ datasets as the unit, at a budget calibrated per dataset.**
   H3 and *Revisions*, 2026-10-09.
 - **Applies to:** H2, H3.
 
+### DEC-34
+
+**2026-10-09 -- DuckDuckGeese leaves H2 and H3.**
+
+- **Why:** at 363,150 features its FASTENER calibration run reached 1,480 of
+  12,000 fits in an hour, about nine hours in all, against two to three hours
+  for the next slowest dataset; its 15 experiment runs would cost as much each.
+  The cost is FASTENER's per-subset bookkeeping over every feature, not
+  anything the swap hypotheses are about.
+- **Detail:** H2 and H3 run on 39 datasets, EOData and 38 UCR/UEA sets; C2
+  keeps MotorImagery, PEMS-SF, Heartbeat and EigenWorms. The criterion and
+  the limit of 6 datasets left out are unchanged. DuckDuckGeese's calibration
+  run was stopped; its Boruta run had finished and is kept, unread.
+  `make_report.SWAP_EXCLUDED` leaves it out of the reading.
+- **By:** PI.
+- **Taken during the budget calibration, before any H2 or H3 run.** No
+  calibration result of DuckDuckGeese was read.
+- **Source:** the commit that adds this entry; `HYPOTHESES.md`, H2 and
+  *Revisions*, 2026-10-09; `EXPERIMENTS.md`, H2H3-E01.
+- **Applies to:** H2H3-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -646,4 +668,4 @@ are not repeated.
 | `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27), [DEC-28](#dec-28) | [H0-E03](reports/H0-E03/REPORT.md) |
 | `H1-E01` | failed: stopped before any run finished | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30) | [DEC-31](#dec-31) | [H1-E01](reports/H1-E01/REPORT.md) |
 | `H1-E02` | reported: supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | [DEC-32](#dec-32) | [H1-E02](reports/H1-E02/REPORT.md) |
-| H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33) (H2, H3) | -- | -- |
+| H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-34](#dec-34) (H2, H3) | -- | -- |

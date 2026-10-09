@@ -19,7 +19,7 @@ read.
 Run the calibration with run_queue.py, one job per dataset and method:
 
     python experiments/run_queue.py --name h2h3-calibration \\
-        --datasets <40 datasets> --methods fastener:none,boruta \\
+        --datasets <the H2/H3 datasets> --methods fastener:none,boruta \\
         --seeds 1999 --max-procs 10 -- --evaluations 12000
 
 then read it:

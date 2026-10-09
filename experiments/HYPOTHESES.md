@@ -132,7 +132,7 @@ this seed count means "not detected at n=5", never "no effect".
 
 Therefore: **no hypothesis is declared confirmed or refuted on a mean difference
 alone.** H0 and H1 use a per-seed sign test that 5 seeds can carry. H2-H6
-take datasets as the unit instead of seeds, which gives them 40, 25 or 36
+take datasets as the unit instead of seeds, which gives them 39, 25 or 36
 observations.
 If a result lands in the ambiguous middle, the honest output is "needs more
 seeds", and the seed count becomes the finding.
@@ -409,14 +409,16 @@ against stock's 0.7960 -- a difference of 0.0004, far inside seed spread.
 
 **Arms.** `fastener` (stock) and `fastener_swap_random`.
 
-**Datasets: 40 -- the 39 UCR/UEA sets of
-[`DATASETS_USED.md`](DATASETS_USED.md) and EOData.** *(Revised 2026-10-09,
-before any H2 or H3 run; see Revisions.)* A claim that FASTENER lacks an
+**Datasets: 39 -- 38 of the 39 UCR/UEA sets of
+[`DATASETS_USED.md`](DATASETS_USED.md), and EOData.** *(Revised twice on
+2026-10-09, both times before any H2 or H3 run; see Revisions.)* A claim that FASTENER lacks an
 operator is a claim about FASTENER on any data, so it is tested over as wide a
 range of dataset shapes as is to hand. The 39 were chosen by clustering the
 whole UCR/UEA archive on examples x features and taking datasets from each of
-the seven clusters: n from 40 to 24,000, p from 16 to 363,150. EOData is
-added because it is the setting FASTENER was built for. See *Datasets: time
+the seven clusters: n from 40 to 24,000, p from 16 to 192,000. EOData is
+added because it is the setting FASTENER was built for. DuckDuckGeese, the
+39th, is left out: at 363,150 features a FASTENER run costs hours more than
+any other set, for reasons that have nothing to do with the swap. See *Datasets: time
 series classification*.
 
 **Fit budget: per dataset, from a calibration step.** *(Revised 2026-10-09.)*
@@ -461,7 +463,7 @@ is doing the work); a null in both is the likely one given the pilot.
 
 **Incomplete datasets.** A dataset whose runs fail, or that has fewer than 5
 seeds for either arm when the experiment is stopped, is left out of the test
-and listed. If more than 6 of the 40 are left out, the result is reported as
+and listed. If more than 6 of the 39 are left out, the result is reported as
 incomplete rather than as a verdict.
 
 **Reported beside it, as secondary:**
@@ -505,7 +507,7 @@ arms. This hypothesis enters the round with evidence against it.
 with H2.
 
 **Datasets, budget, metric, incomplete datasets and secondary reporting.**
-H2's, unchanged: the same 40 datasets, the same calibrated budgets, AUF
+H2's, unchanged: the same 39 datasets, the same calibrated budgets, AUF
 (K = 10) on test. *(Revised 2026-10-09, with H2.)*
 
 **Falsification criterion.** H2's, with `fastener_swap_guided` in place of
@@ -654,8 +656,8 @@ therefore a statement about decision trees, and says so.
 
 Seventy-five datasets are on disk under `data/`, each checksum-pinned by its
 download script, all classification, and all used in this round: the 36 below,
-and the 39 UCR/UEA time series sets H2 and H3 run on (see *Time series
-classification*). Every one loads
+and the 39 UCR/UEA time series sets, 38 of which H2 and H3 run on (see *Time
+series classification*). Every one loads
 through `datasets.load(name)` and is split as the protocol table states. Shapes
 below are measured from the files, not transcribed, and are the full datasets
 before the row cap. "Smallest class" is counted after cleaning (see *Dropped
@@ -664,7 +666,7 @@ rows*).
 ### Development sets -- used by H5 and H6
 
 H1 uses EOData and seven other datasets, chosen by feature count (see H1). H2
-and H3 use EOData and the 39 time series sets (Revisions, 2026-10-09).
+and H3 use EOData and 38 of the 39 time series sets (Revisions, 2026-10-09).
 
 | dataset | rows | features | classes | smallest / largest class | domain | source |
 |---|---:|---:|---:|---|---|---|
@@ -814,6 +816,9 @@ the archive's table by `download_tsc_datasets.py`, loaded by
   table states; UWaveGestureLibrary is served with 440 rows, not 4,479, and
   was replaced by UWaveGestureLibraryAll (4,478 x 945), which has the C5
   shape the pick was made for. See `DATASETS_USED.md`.
+* **DuckDuckGeese is not used by H2 and H3** (2026-10-09, see Revisions). It
+  stays downloaded and loadable; C2 is represented in H2 and H3 by its other
+  four, 24,705 to 192,000 features.
 
 ### Dropped rows
 
@@ -1078,3 +1083,16 @@ does -- swaps proposed, fitted and kept -- for H2 and H3's secondary
 reporting. The counters read what pruning did and draw no random numbers, so
 the search is the one at `08e6acd`.
 Recorded as [DEC-33](DECISIONS.md#dec-33).
+
+**2026-10-09 -- DuckDuckGeese leaves H2 and H3.** Decided by the PI during
+the budget calibration, before any H2 or H3 run. At 363,150 features
+FASTENER's own bookkeeping, which handles every subset as a vector over all
+features, made its calibration run the slowest by far: 1,480 of 12,000 fits
+after an hour, about nine hours in all, against two to three for the next
+slowest. At a 12,000-fit budget its 15 experiment runs would each take as
+long. The cost comes from the feature count, not from anything H2 or H3 is
+about. Its calibration run was stopped; no calibration result of it was read,
+and no H2 or H3 result of any dataset exists. H2 and H3 now run on 39
+datasets: EOData and 38 of the UCR/UEA sets. The rule is unchanged, including
+the limit of 6 datasets left out. Recorded as
+[DEC-34](DECISIONS.md#dec-34).

@@ -173,7 +173,7 @@ same front as the same seed inside a five-seed run (checked on madelon before
 the run), so the split changes no result. Watched with
 `monitor.py --experiment H1-E02`.
 
-### `H2H3-E01` -- H2 and H3 on 40 datasets
+### `H2H3-E01` -- H2 and H3 on 39 datasets
 
 Registered 2026-10-09, after DEC-33 and before any of this experiment's runs
 started. No result of a swap arm from this round exists. The budget table
@@ -188,13 +188,13 @@ two hypotheses share their stock arm:
 | | |
 |---|---|
 | arms | `fastener` (stock), `fastener_swap_random`, `fastener_swap_guided`, all on FASTENER clone `b7e724d` with the fixed mating |
-| datasets | 40: EOData at the 50,000-row cap, and the 39 UCR/UEA sets of [`DATASETS_USED.md`](DATASETS_USED.md) |
+| datasets | 39: EOData at the 50,000-row cap, and the UCR/UEA sets of [`DATASETS_USED.md`](DATASETS_USED.md) except DuckDuckGeese ([DEC-34](DECISIONS.md#dec-34)) |
 | seeds | 2020, 2021, 2022, 2023, 2024 |
 | budget | per dataset, the same for all three arms; see *Budgets* |
 | primary metric | test AUF, K = 10 |
 | H2 | per dataset, mean over seeds of AUF(`fastener_swap_random`) minus AUF(`fastener`); supported if positive on more datasets than negative and a two-sided Wilcoxon signed-rank test over them gives p < 0.05; reversed if the same with signs swapped |
 | H3 | the same with `fastener_swap_guided`; the guidance is credited only if the guided arm also beats the random-swap arm by the same test (secondary) |
-| incomplete | a dataset with fewer than 5 seeds for any arm it is read on is left out; more than 6 of 40 left out makes the reading incomplete |
+| incomplete | a dataset with fewer than 5 seeds for any arm it is read on is left out; more than 6 of 39 left out makes the reading incomplete |
 | read by | `make_report.py` (`DATASET_UNIT`), H2 first, then H3 |
 
 **Budgets.** Set by the rule in H2, *Fit budget*, from the calibration queue
@@ -209,7 +209,7 @@ validation AUF at 1k-12k fits, settled at, budget, flag), copied from
 `budgets.csv` when the calibration has finished.*
 
 **How it runs.** `run_queue.py --experiment H2H3-E01`, one `run_sota.py --seed`
-process per dataset, arm and seed -- 600 jobs -- at most ten at a time,
+process per dataset, arm and seed -- 585 jobs -- at most ten at a time,
 slowest datasets first, each job given its own dataset's budget. The jobs
 compete for the CPU, so wall clock is not comparable between arms; fits, which
 the budget and the criterion are stated in, are not affected. Watched with
