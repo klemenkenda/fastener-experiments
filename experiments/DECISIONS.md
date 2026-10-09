@@ -650,7 +650,11 @@ datasets as the unit, at a budget calibrated per dataset.**
   `make_report.SWAP_EXCLUDED` leaves it out of the reading.
 - **By:** PI.
 - **Taken during the budget calibration, before any H2 or H3 run.** No
-  calibration result of DuckDuckGeese was read.
+  calibration result of DuckDuckGeese was read when it was taken. Afterwards,
+  the same day, its stopped run's validation curve was read at the PI's
+  request, with every other dataset's: 0.612 validation AUF (K = 10) from 419
+  fits to where it stopped at 1,577, against Boruta's 0.290. The decision
+  stands on its cost and was not revisited.
 - **Source:** the commit that adds this entry; `HYPOTHESES.md`, H2 and
   *Revisions*, 2026-10-09; `EXPERIMENTS.md`, H2H3-E01.
 - **Applies to:** H2H3-E01.
