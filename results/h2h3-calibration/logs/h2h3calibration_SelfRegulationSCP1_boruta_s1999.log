@@ -1,0 +1,21 @@
+Dataset(SelfRegulationSCP1: 5376 features, 337/112/112 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261009T132739Z_h2h3calibration_SelfRegulationSCP1_boruta_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T132739Z_h2h3calibration_SelfRegulationSCP1_boruta_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T132739Z_h2h3calibration_SelfRegulationSCP1_boruta_s1999
+
+boruta (x1 seeds):
+  seed 1999: best test_f1=0.8303 @k=11 confirmed=3 (15.64s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 17s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  boruta                  0.604  0.749  0.821  0.821  0.821  0.821  0.821  0.812  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830  0.830
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  boruta                  0.7933  0.7933  0.7933      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T132739Z_h2h3calibration_SelfRegulationSCP1_boruta_s1999\manifest.json

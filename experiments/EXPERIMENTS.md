@@ -200,13 +200,66 @@ two hypotheses share their stock arm:
 **Budgets.** Set by the rule in H2, *Fit budget*, from the calibration queue
 `h2h3-calibration`: one Boruta run and one 12,000-fit stock FASTENER run per
 dataset, seed 1999, validation scores only, started 2026-10-09 at `9fa04b7`
-and read by `calibrate_budget.py`. Its run IDs are in
+(jobs started after DEC-34 record `f7f475c` or `c562490`, whose search code is
+the same) and read by `calibrate_budget.py`. Its run IDs are in
 `results/h2h3-calibration/budgets.json`. Calibration runs are not runs of this
 experiment and are not listed in its ledger row.
 
-*Pending: the per-dataset table (dataset, Boruta validation AUF, FASTENER
-validation AUF at 1k-12k fits, settled at, budget, flag), copied from
-`budgets.csv` when the calibration has finished.*
+The calibration was ended early by the PI ([DEC-35](DECISIONS.md#dec-35)):
+35 FASTENER runs had reached 12,000 fits; eodata, EigenWorms, MotorImagery and
+PEMS-SF were stopped at 9,009, 8,439, 5,770 and 6,325 and are read to where
+they stopped. Validation AUF (K = 10) at each grid value, Boruta's, and the
+budget the rule gives; "settled at" is the first grid value meeting both
+conditions. Seconds per fit are wall clock in the calibration, ten jobs
+sharing the CPU, and include FASTENER's own bookkeeping.
+
+| dataset | cluster | Boruta | 1k | 2k | 4k | 6k | 12k | settled at | **budget** | s per fit | h per run | note |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| eodata | EO | 0.465 | 0.503 | 0.505 | 0.506 | 0.506 | -- | 1000 | **2,000** | 0.645 | 0.36 | read to 9009 fits, not 12,000 (DEC-35) |
+| BasicMotions | C1 | 0.703 | 0.969 | 0.969 | 0.969 | 0.969 | 0.969 | 1000 | **2,000** | 0.007 | 0.00 |  |
+| BeetleFly | C1 | 0.859 | 0.987 | 0.987 | 0.987 | 0.987 | 1.000 | -- | **12,000** | 0.013 | 0.04 | still rising after 6k |
+| Coffee | C1 | 0.868 | 0.982 | 0.982 | 0.982 | 1.000 | 1.000 | 6000 | **12,000** | 0.013 | 0.04 |  |
+| Earthquakes | C1 | 0.717 | 0.815 | 0.829 | 0.829 | 0.844 | 0.847 | 6000 | **12,000** | 0.009 | 0.03 |  |
+| Epilepsy | C1 | 0.492 | 0.687 | 0.691 | 0.703 | 0.725 | 0.756 | -- | **12,000** | 0.008 | 0.03 | still rising after 6k |
+| Ham | C1 | 0.704 | 0.874 | 0.874 | 0.893 | 0.895 | 0.902 | -- | **12,000** | 0.009 | 0.03 | still rising after 6k |
+| OliveOil | C1 | 0.799 | 0.966 | 0.966 | 0.966 | 0.966 | 0.966 | 1000 | **2,000** | 0.011 | 0.01 |  |
+| EigenWorms | C2 | 0.474 | 0.644 | 0.644 | 0.644 | 0.644 | -- | -- | **12,000** | 0.550 | 1.83 | still rising after 6k; read to 8439 fits, not 12,000 (DEC-35) |
+| Heartbeat | C2 | 0.679 | 0.804 | 0.812 | 0.817 | 0.820 | 0.829 | -- | **12,000** | 0.124 | 0.41 | still rising after 6k |
+| MotorImagery | C2 | 0.569 | 0.673 | 0.673 | 0.695 | -- | -- | 4000 | **6,000** | 0.979 | 1.63 | read to 5770 fits, not 12,000 (DEC-35) |
+| PEMS-SF | C2 | 0.875 | 0.985 | 0.985 | 0.985 | 0.985 | -- | 1000 | **2,000** | 0.758 | 0.42 | read to 6325 fits, not 12,000 (DEC-35) |
+| CinCECGTorso | C3 | 0.786 | 0.886 | 0.890 | 0.901 | 0.901 | 0.902 | 4000 | **6,000** | 0.022 | 0.04 |  |
+| Computers | C3 | 0.610 | 0.739 | 0.748 | 0.761 | 0.761 | 0.771 | -- | **12,000** | 0.011 | 0.04 | still rising after 6k |
+| EthanolConcentration | C3 | 0.431 | 0.543 | 0.546 | 0.546 | 0.563 | 0.563 | 6000 | **12,000** | 0.034 | 0.11 |  |
+| FingerMovements | C3 | 0.544 | 0.704 | 0.704 | 0.718 | 0.718 | 0.718 | 4000 | **6,000** | 0.014 | 0.02 |  |
+| HandOutlines | C3 | 0.837 | 0.870 | 0.876 | 0.876 | 0.879 | 0.883 | 6000 | **12,000** | 0.026 | 0.09 |  |
+| NATOPS | C3 | 0.561 | 0.744 | 0.755 | 0.780 | 0.783 | 0.790 | -- | **12,000** | 0.014 | 0.05 | still rising after 6k |
+| SelfRegulationSCP1 | C3 | 0.781 | 0.859 | 0.866 | 0.871 | 0.871 | 0.878 | -- | **12,000** | 0.034 | 0.11 | still rising after 6k |
+| Adiac | C4 | 0.397 | 0.493 | 0.515 | 0.525 | 0.530 | 0.535 | -- | **12,000** | 0.017 | 0.06 | still rising after 6k |
+| ItalyPowerDemand | C4 | 0.963 | 0.973 | 0.974 | 0.974 | 0.974 | 0.976 | 1000 | **2,000** | 0.008 | 0.00 |  |
+| Libras | C4 | 0.509 | 0.617 | 0.634 | 0.683 | 0.683 | 0.690 | -- | **12,000** | 0.009 | 0.03 | still rising after 6k |
+| MedicalImages | C4 | 0.605 | 0.662 | 0.669 | 0.701 | 0.706 | 0.706 | 6000 | **12,000** | 0.014 | 0.05 |  |
+| ProximalPhalanxOutlineCorrect | C4 | 0.732 | 0.807 | 0.815 | 0.826 | 0.834 | 0.841 | -- | **12,000** | 0.009 | 0.03 | still rising after 6k |
+| Strawberry | C4 | 0.905 | 0.944 | 0.948 | 0.953 | 0.955 | 0.956 | 4000 | **6,000** | 0.009 | 0.01 |  |
+| TwoLeadECG | C4 | 0.881 | 0.926 | 0.928 | 0.928 | 0.928 | 0.928 | 1000 | **2,000** | 0.009 | 0.01 |  |
+| ChlorineConcentration | C5 | 0.806 | 0.828 | 0.829 | 0.832 | 0.833 | 0.833 | 2000 | **4,000** | 0.050 | 0.06 |  |
+| ECG5000 | C5 | 0.895 | 0.910 | 0.911 | 0.914 | 0.918 | 0.918 | 4000 | **6,000** | 0.039 | 0.06 |  |
+| FordA | C5 | 0.534 | 0.569 | 0.573 | 0.584 | 0.584 | 0.584 | 4000 | **6,000** | 0.043 | 0.07 |  |
+| LSST | C5 | 0.290 | 0.323 | 0.328 | 0.331 | 0.335 | 0.336 | 4000 | **6,000** | 0.076 | 0.13 |  |
+| StarLightCurves | C5 | 0.862 | 0.896 | 0.897 | 0.898 | 0.899 | 0.900 | 1000 | **2,000** | 0.089 | 0.05 |  |
+| UWaveGestureLibraryAll | C5 | 0.653 | 0.681 | 0.693 | 0.695 | 0.697 | 0.700 | 4000 | **6,000** | 0.046 | 0.08 |  |
+| Wafer | C5 | 0.980 | 0.991 | 0.991 | 0.992 | 0.992 | 0.992 | 1000 | **2,000** | 0.024 | 0.01 |  |
+| FaceDetection | C6 | 0.530 | 0.533 | 0.534 | 0.541 | 0.542 | 0.550 | -- | **12,000** | 0.153 | 0.51 | still rising after 6k |
+| FaultDetectionA | C6 | 0.487 | 0.504 | 0.508 | 0.513 | 0.517 | 0.517 | 4000 | **6,000** | 0.212 | 0.35 |  |
+| PhonemeSpectra | C6 | 0.050 | 0.060 | 0.060 | 0.061 | 0.061 | 0.062 | 1000 | **2,000** | 0.137 | 0.08 |  |
+| Crop | C7 | 0.563 | 0.580 | 0.585 | 0.588 | 0.589 | 0.590 | 2000 | **4,000** | 0.231 | 0.26 |  |
+| ElectricDevices | C7 | 0.510 | 0.543 | 0.544 | 0.553 | 0.554 | 0.557 | 4000 | **6,000** | 0.267 | 0.44 |  |
+| PenDigits | C7 | 0.774 | 0.813 | 0.815 | 0.816 | 0.816 | 0.816 | 1000 | **2,000** | 0.050 | 0.03 |  |
+
+**10 datasets at 2,000 fits, 2 at 4,000, 10 at 6,000, 17 at 12,000** (12 of
+these because the curve was still rising after 6,000). FASTENER's validation
+AUF was above Boruta's on every dataset by 1,000 fits, so condition (ii)
+decided no budget. Read by `calibrate_budget.py` at the commit that adds this
+table; the full table is `results/h2h3-calibration/budgets.csv`.
 
 **How it runs.** `run_queue.py --experiment H2H3-E01`, one `run_sota.py --seed`
 process per dataset, arm and seed -- 585 jobs -- at most ten at a time,
@@ -215,5 +268,9 @@ compete for the CPU, so wall clock is not comparable between arms; fits, which
 the budget and the criterion are stated in, are not affected. Watched with
 `monitor.py --experiment H2H3-E01`.
 
-**Expected cost.** Estimated from the calibration's times per fit once it has
-finished, and added here with the budgets.
+**Expected cost.** Budget x seconds per fit x 15 runs per dataset, summed:
+about 114 CPU-hours over 585 runs, so at least 11 hours of wall
+clock at ten jobs at a time, more as the last long jobs run alone. EigenWorms
+(about 1.8 h per run) and MotorImagery (1.6 h) are half of it. The swap arms
+spend the same budget in fits; the time per fit is taken from stock FASTENER
+and is assumed for them.

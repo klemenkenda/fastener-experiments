@@ -1,0 +1,218 @@
+[
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 1999,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.002,
+      "initial_genes": [
+        [
+          35
+        ],
+        [
+          30
+        ],
+        [
+          80
+        ],
+        [
+          304
+        ],
+        [
+          52
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 515.46,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1348,
+    "unique_subsets_cached": 12000,
+    "prune_stats": {
+      "pruned_items": 1131,
+      "deletion_fits": 45,
+      "deletion_kept": 4,
+      "swap_proposed": 0,
+      "swap_fits": 0,
+      "swap_kept": 0
+    },
+    "front_from_swap": 0,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20261009T130201Z_h2h3calibration_FordA_fastener_none_s1999\\log\\fastener_seed1999",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          373
+        ],
+        "val": {
+          "f1_weighted": 0.528478674667699,
+          "f1_macro": 0.5281746031746032,
+          "f1_binary": 0.5166666666666667,
+          "accuracy": 0.5284552845528455,
+          "balanced_accuracy": 0.528179582050063
+        },
+        "test": {
+          "f1_weighted": 0.4685689697830137,
+          "f1_macro": 0.4682976975808326,
+          "f1_binary": 0.45803108808290155,
+          "accuracy": 0.4684959349593496,
+          "balanced_accuracy": 0.46831269765807476
+        },
+        "val_score": 0.528478674667699,
+        "test_score": 0.4685689697830137,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.528478674667699,
+        "generation_found": 335,
+        "from_swap": false,
+        "algorithm_id": "fastener@5270cdb+b7e724d#e357"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          122,
+          493
+        ],
+        "val": {
+          "f1_weighted": 0.583384974489269,
+          "f1_macro": 0.5833178409865527,
+          "f1_binary": 0.5807770961145194,
+          "accuracy": 0.5833333333333334,
+          "balanced_accuracy": 0.5835796523284896
+        },
+        "test": {
+          "f1_weighted": 0.4937602579935768,
+          "f1_macro": 0.4938689846641988,
+          "f1_binary": 0.49798387096774194,
+          "accuracy": 0.49390243902439024,
+          "balanced_accuracy": 0.49446247338721344
+        },
+        "val_score": 0.583384974489269,
+        "test_score": 0.4937602579935768,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.583384974489269,
+        "generation_found": 212,
+        "from_swap": false,
+        "algorithm_id": "fastener@5270cdb+b7e724d#e357"
+      },
+      {
+        "n_features": 7,
+        "features": [
+          40,
+          122,
+          232,
+          318,
+          341,
+          457,
+          493
+        ],
+        "val": {
+          "f1_weighted": 0.5884711725246621,
+          "f1_macro": 0.5883938042174865,
+          "f1_binary": 0.5854657113613101,
+          "accuracy": 0.5884146341463414,
+          "balanced_accuracy": 0.5886376320304264
+        },
+        "test": {
+          "f1_weighted": 0.516284157633243,
+          "f1_macro": 0.5159722222222223,
+          "f1_binary": 0.5041666666666667,
+          "accuracy": 0.516260162601626,
+          "balanced_accuracy": 0.5159759399739556
+        },
+        "val_score": 0.5884711725246621,
+        "test_score": 0.516284157633243,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.5884711725246621,
+        "generation_found": 20,
+        "from_swap": false,
+        "algorithm_id": "fastener@5270cdb+b7e724d#e357"
+      },
+      {
+        "n_features": 8,
+        "features": [
+          40,
+          122,
+          232,
+          318,
+          341,
+          447,
+          457,
+          493
+        ],
+        "val": {
+          "f1_weighted": 0.5955953100853322,
+          "f1_macro": 0.5954214876033057,
+          "f1_binary": 0.5888429752066116,
+          "accuracy": 0.5955284552845529,
+          "balanced_accuracy": 0.5955145827735174
+        },
+        "test": {
+          "f1_weighted": 0.5569654850666372,
+          "f1_macro": 0.5568940943174072,
+          "f1_binary": 0.5541922290388548,
+          "accuracy": 0.556910569105691,
+          "balanced_accuracy": 0.5571384278302569
+        },
+        "val_score": 0.5955953100853322,
+        "test_score": 0.5569654850666372,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.5955953100853322,
+        "generation_found": 20,
+        "from_swap": false,
+        "algorithm_id": "fastener@5270cdb+b7e724d#e357"
+      },
+      {
+        "n_features": 9,
+        "features": [
+          40,
+          122,
+          232,
+          303,
+          318,
+          342,
+          377,
+          457,
+          493
+        ],
+        "val": {
+          "f1_weighted": 0.6074966545277295,
+          "f1_macro": 0.6076441542879574,
+          "f1_binary": 0.6132264529058116,
+          "accuracy": 0.6077235772357723,
+          "balanced_accuracy": 0.6085243597428636
+        },
+        "test": {
+          "f1_weighted": 0.523218727915441,
+          "f1_macro": 0.5227702110894067,
+          "f1_binary": 0.505795574288725,
+          "accuracy": 0.5233739837398373,
+          "balanced_accuracy": 0.5227991483908307
+        },
+        "val_score": 0.6074966545277295,
+        "test_score": 0.523218727915441,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.6074966545277295,
+        "generation_found": 21,
+        "from_swap": false,
+        "algorithm_id": "fastener@5270cdb+b7e724d#e357"
+      }
+    ],
+    "algorithm_id": "fastener@5270cdb+b7e724d#e357"
+  }
+]

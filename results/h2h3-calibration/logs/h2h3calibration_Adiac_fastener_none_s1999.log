@@ -1,0 +1,21 @@
+Dataset(Adiac: 176 features, 469/156/156 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261009T133229Z_h2h3calibration_Adiac_fastener_none_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T133229Z_h2h3calibration_Adiac_fastener_none_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T133229Z_h2h3calibration_Adiac_fastener_none_s1999
+
+fastener (12000 fits x 1 seeds):
+  seed 1999: front= 8 best test_f1=0.4193 @k=9 fits=12000 stopped_on=fit_budget (205.98s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 3m28s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.121  0.306  0.393  0.418  0.510  0.510  0.449  0.486  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419  0.419
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.4031  0.4031  0.4031      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T133229Z_h2h3calibration_Adiac_fastener_none_s1999\manifest.json

@@ -1,0 +1,21 @@
+Dataset(BasicMotions: 600 features, 48/16/16 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261009T133924Z_h2h3calibration_BasicMotions_boruta_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T133924Z_h2h3calibration_BasicMotions_boruta_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T133924Z_h2h3calibration_BasicMotions_boruta_s1999
+
+boruta (x1 seeds):
+  seed 1999: best test_f1=0.7431 @k=50 confirmed=1 (0.79s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 2s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  boruta                  0.613  0.613  0.613  0.576  0.625  0.625  0.625  0.625  0.625  0.625  0.625  0.625  0.625  0.625  0.819  0.819  0.819  0.819  0.819  0.819  0.819  0.819  0.743
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  boruta                  0.6166  0.6166  0.6166      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T133924Z_h2h3calibration_BasicMotions_boruta_s1999\manifest.json

@@ -62,6 +62,7 @@ say so, and name the result.
 | [DEC-32](#dec-32) | 2026-10-09 | Split each report into a short reading (REPORT.md) and its record (SUPPORT.md) | H1-E02 and later |
 | [DEC-33](#dec-33) | 2026-10-09 | H2 and H3 on 39 UCR/UEA sets and EOData, datasets as the unit, budget calibrated per dataset | H2, H3 |
 | [DEC-34](#dec-34) | 2026-10-09 | DuckDuckGeese leaves H2 and H3 | H2H3-E01 |
+| [DEC-35](#dec-35) | 2026-10-09 | End the budget calibration early; read the four unfinished runs to where they stopped | H2H3-E01 |
 
 ## Decisions
 
@@ -659,6 +660,32 @@ datasets as the unit, at a budget calibrated per dataset.**
   *Revisions*, 2026-10-09; `EXPERIMENTS.md`, H2H3-E01.
 - **Applies to:** H2H3-E01.
 
+### DEC-35
+
+**2026-10-09 -- End the budget calibration early; read the four unfinished
+runs to where they stopped.**
+
+- **Why:** 35 of the 39 FASTENER calibration runs had reached 12,000 fits.
+  The other four had been read (validation curves only) and looked settled or
+  clearly unsettled; finishing them would have cost one to two hours for no
+  likely change in their budgets.
+- **Detail:**
+  - Stopped: eodata at 9,009 fits, EigenWorms at 8,439, MotorImagery at
+    5,770, PEMS-SF at 6,325. Every Boruta run had finished.
+  - For these four, the rule's "its value at 12,000" reads "its value where
+    it stopped", and only grid values the run reached can count as settled.
+    The rule is otherwise unchanged.
+  - Resulting budgets: eodata 2,000, PEMS-SF 2,000, MotorImagery 6,000,
+    EigenWorms 12,000 (still rising after 6,000).
+  - `calibrate_budget.py` reads stopped runs from the queue's job list, since
+    a stopped run has no manifest.
+- **By:** PI.
+- **Taken after the calibration curves of every dataset were read** --
+  validation only, as the calibration is. No H2 or H3 run exists.
+- **Source:** the commit that adds this entry; `HYPOTHESES.md`, *Revisions*,
+  2026-10-09; `EXPERIMENTS.md`, H2H3-E01, *Budgets*.
+- **Applies to:** H2H3-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -672,4 +699,4 @@ are not repeated.
 | `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27), [DEC-28](#dec-28) | [H0-E03](reports/H0-E03/REPORT.md) |
 | `H1-E01` | failed: stopped before any run finished | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30) | [DEC-31](#dec-31) | [H1-E01](reports/H1-E01/REPORT.md) |
 | `H1-E02` | reported: supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | [DEC-32](#dec-32) | [H1-E02](reports/H1-E02/REPORT.md) |
-| H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-34](#dec-34) (H2, H3) | -- | -- |
+| H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-34](#dec-34), [DEC-35](#dec-35) (H2, H3) | -- | -- |

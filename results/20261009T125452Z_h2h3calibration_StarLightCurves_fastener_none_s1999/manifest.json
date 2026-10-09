@@ -1,0 +1,247 @@
+{
+  "run_id": "20261009T125452Z_h2h3calibration_StarLightCurves_fastener_none_s1999",
+  "experiment_id": null,
+  "name": "h2h3calibration_StarLightCurves_fastener_none_s1999",
+  "started_utc": "2026-10-09T12:54:52.773930+00:00",
+  "command": "run_sota.py --dataset StarLightCurves --methods  --fastener-arm none --seed 1999 --name h2h3calibration_StarLightCurves_fastener_none_s1999 --evaluations 12000",
+  "params": {
+    "dataset": "StarLightCurves",
+    "methods": [],
+    "with_fastener": true,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none"
+    ],
+    "fastener_max_fits": 12000,
+    "seeds": [
+      1999
+    ],
+    "evaluation_budget_per_seed": 12000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 600,
+    "fs_sds_evaluations_total": 12000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 9236,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "5270cdb73eaaac758f0d08176cdb435cdd746fcd",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "?? results/20261009T121200Z_h2h3calibration_eodata_boruta_s1999/",
+        "?? results/20261009T121201Z_h2h3calibration_FaultDetectionA_fastener_none_s1999/",
+        "?? results/20261009T121203Z_h2h3calibration_FaultDetectionA_boruta_s1999/",
+        "?? results/20261009T121205Z_h2h3calibration_FaceDetection_fastener_none_s1999/",
+        "?? results/20261009T121207Z_h2h3calibration_FaceDetection_boruta_s1999/",
+        "?? results/20261009T121208Z_h2h3calibration_PhonemeSpectra_fastener_none_s1999/",
+        "?? results/20261009T121209Z_h2h3calibration_PhonemeSpectra_boruta_s1999/",
+        "?? results/20261009T121213Z_h2h3calibration_DuckDuckGeese_boruta_s1999/",
+        "?? results/20261009T122641Z_h2h3calibration_MotorImagery_boruta_s1999/",
+        "?? results/20261009T123105Z_h2h3calibration_PEMS-SF_boruta_s1999/",
+        "?? results/20261009T123528Z_h2h3calibration_EigenWorms_boruta_s1999/",
+        "?? results/20261009T123951Z_h2h3calibration_Heartbeat_boruta_s1999/",
+        "?? results/20261009T124248Z_h2h3calibration_Crop_boruta_s1999/",
+        "?? results/20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999/",
+        "?? results/20261009T125441Z_h2h3calibration_PenDigits_boruta_s1999/",
+        "?? results/h2h3-calibration/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "b7e724d3af8dbd893d78a1de564691ca439a9f5f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": false,
+  "algorithms": {
+    "fastener": {
+      "id": "fastener@5270cdb+b7e724d#e357",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "max_fits": 12000,
+        "rounds": 100000,
+        "swap": "none",
+        "mating": "fixed",
+        "include_top_genes": true,
+        "allow_self_mating": false
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "StarLightCurves",
+    "n_features": 1024,
+    "n_train": 5542,
+    "n_val": 1847,
+    "n_test": 1847,
+    "class_balance_train": {
+      "0": 797,
+      "1": 1548,
+      "2": 3197
+    },
+    "class_balance_val": {
+      "0": 266,
+      "1": 516,
+      "2": 1065
+    },
+    "class_balance_test": {
+      "0": 266,
+      "1": 516,
+      "2": 1065
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "fastener": [
+        12000
+      ]
+    },
+    "elapsed_by_method": {
+      "fastener": 1068.92
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-09T13:12:44.541763+00:00",
+  "elapsed_seconds": 1071.768,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "05d1e3f2d7f10a369e85e079c1fee4227bc6f2f9bb8997cd28167d58bfe35e0a",
+      "bytes": 415
+    },
+    "auf.json": {
+      "sha256": "ba6ed4e264eb085ad8ec59c7fbac1100e9c1d94a8007705a4c6f0e77df2ef848",
+      "bytes": 594
+    },
+    "comparison.csv": {
+      "sha256": "2440eda6c8d98e4f766c8a4d2da80375c16656a40c503aabdfe66ae0b7d9a3fb",
+      "bytes": 2132
+    },
+    "comparison.png": {
+      "sha256": "0164a13b9c808fe5126a05725d1dbbd94fbf4c99dff440d0b82a346a0daa8421",
+      "bytes": 70683
+    },
+    "comparison_rows.json": {
+      "sha256": "78115b48b661023a418f4ac1912b792dd452cec986e394265f0e9ba965efc50b",
+      "bytes": 11777
+    },
+    "progress.json": {
+      "sha256": "7d5ae8910f3d23ee7fc0018e7c364515c95ee91b7f9d5d8d3f5ab65e78a87fd9",
+      "bytes": 843
+    },
+    "raw_results.json": {
+      "sha256": "02277493d6310973604091dc79446c7634891f7e0c78a0f5202989e7b8548d4b",
+      "bytes": 18162
+    },
+    "raw_results_partial.json": {
+      "sha256": "02277493d6310973604091dc79446c7634891f7e0c78a0f5202989e7b8548d4b",
+      "bytes": 18162
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/fastener_seed1999.jsonl": {
+      "sha256": "c0ff4e94a8b06df83ea039b50789e1235758d0a7e89f2cd27f177af3ae911cfc",
+      "bytes": 697530
+    }
+  },
+  "bulk_outputs": {
+    "prefix": "log/",
+    "n_files": 1,
+    "total_bytes": 32126556,
+    "rollup_sha256": "48c682d74a59984ac53e89cebb8742d91c66ed4544d45c1f2ddd979e25f10903",
+    "note": "FASTENER per-generation pickles. Digest of the sorted (path, sha256) pairs; recompute to verify."
+  }
+}

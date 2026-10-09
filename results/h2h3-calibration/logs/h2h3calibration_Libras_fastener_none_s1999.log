@@ -1,0 +1,21 @@
+Dataset(Libras: 90 features, 210/75/75 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261009T133618Z_h2h3calibration_Libras_fastener_none_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T133618Z_h2h3calibration_Libras_fastener_none_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T133618Z_h2h3calibration_Libras_fastener_none_s1999
+
+fastener (12000 fits x 1 seeds):
+  seed 1999: front= 7 best test_f1=0.5734 @k=8 fits=12000 stopped_on=fit_budget (104.03s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 1m45s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.242  0.541  0.635  0.627  0.605  0.605  0.605  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573  0.573
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.5580  0.5580  0.5580      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T133618Z_h2h3calibration_Libras_fastener_none_s1999\manifest.json

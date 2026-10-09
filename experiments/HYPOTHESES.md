@@ -1096,3 +1096,13 @@ and no H2 or H3 result of any dataset exists. H2 and H3 now run on 39
 datasets: EOData and 38 of the UCR/UEA sets. The rule is unchanged, including
 the limit of 6 datasets left out. Recorded as
 [DEC-34](DECISIONS.md#dec-34).
+
+**2026-10-09 -- The budget calibration ended early.** Decided by the PI after
+reading the calibration's validation curves, before any H2 or H3 run. 35 of
+the 39 stock FASTENER runs had reached 12,000 fits; eodata, EigenWorms,
+MotorImagery and PEMS-SF were stopped at 5,770-9,009. For those four the
+budget rule's "its value at 12,000" reads "its value where it stopped", and
+only grid values the run reached can count as settled; nothing else in the
+rule changes. The budgets: 10 datasets at 2,000 fits, 2 at 4,000, 10 at
+6,000, 17 at 12,000 (table in `EXPERIMENTS.md`, H2H3-E01). Recorded as
+[DEC-35](DECISIONS.md#dec-35).

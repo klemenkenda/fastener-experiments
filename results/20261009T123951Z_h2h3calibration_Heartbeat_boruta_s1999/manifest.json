@@ -1,0 +1,250 @@
+{
+  "run_id": "20261009T123951Z_h2h3calibration_Heartbeat_boruta_s1999",
+  "experiment_id": null,
+  "name": "h2h3calibration_Heartbeat_boruta_s1999",
+  "started_utc": "2026-10-09T12:39:51.066203+00:00",
+  "command": "run_sota.py --dataset Heartbeat --methods boruta --no-fastener --seed 1999 --name h2h3calibration_Heartbeat_boruta_s1999 --evaluations 12000",
+  "params": {
+    "dataset": "Heartbeat",
+    "methods": [
+      "boruta"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 12000,
+    "seeds": [
+      1999
+    ],
+    "evaluation_budget_per_seed": 12000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 600,
+    "fs_sds_evaluations_total": 12000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 409,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "5270cdb73eaaac758f0d08176cdb435cdd746fcd",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "?? results/20261009T121203Z_h2h3calibration_FaultDetectionA_boruta_s1999/",
+        "?? results/20261009T121207Z_h2h3calibration_FaceDetection_boruta_s1999/",
+        "?? results/20261009T121208Z_h2h3calibration_PhonemeSpectra_fastener_none_s1999/",
+        "?? results/20261009T121209Z_h2h3calibration_PhonemeSpectra_boruta_s1999/",
+        "?? results/20261009T121213Z_h2h3calibration_DuckDuckGeese_boruta_s1999/",
+        "?? results/20261009T122641Z_h2h3calibration_MotorImagery_boruta_s1999/",
+        "?? results/20261009T123105Z_h2h3calibration_PEMS-SF_boruta_s1999/",
+        "?? results/20261009T123528Z_h2h3calibration_EigenWorms_boruta_s1999/",
+        "?? results/h2h3-calibration/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "b7e724d3af8dbd893d78a1de564691ca439a9f5f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": false,
+  "algorithms": {
+    "boruta": {
+      "id": "boruta@5270cdb+b7e724d#0003",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "k_grid": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          25,
+          30,
+          50,
+          100,
+          200,
+          500
+        ],
+        "max_iter": 100,
+        "estimator": "protocol_tree"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "Heartbeat",
+    "n_features": 24705,
+    "n_train": 245,
+    "n_val": 82,
+    "n_test": 82,
+    "class_balance_train": {
+      "0": 177,
+      "1": 68
+    },
+    "class_balance_val": {
+      "0": 59,
+      "1": 23
+    },
+    "class_balance_test": {
+      "0": 59,
+      "1": 23
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 27,
+    "search_fits_per_seed": {},
+    "elapsed_by_method": {
+      "boruta": 43.11
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-09T12:40:36.062369+00:00",
+  "elapsed_seconds": 44.996,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "6b1f1604a97377ee581ceb9d2c0d769a3f27bbd3cbf7530e382f73d5158ef82b",
+      "bytes": 445
+    },
+    "auf.json": {
+      "sha256": "a2ca0ddaeecb55739daec8a267deb119add7c27e11565e3820f42fe657e9ef0c",
+      "bytes": 648
+    },
+    "comparison.csv": {
+      "sha256": "60e41ec8e923e1cff48735a15d9a5f8f96891e32572de742bcc42da2dafe8081",
+      "bytes": 2018
+    },
+    "comparison.png": {
+      "sha256": "d2830f5152b4380eabf2e95370227eb0e8fc32ab0eb9501ae59662e9b4fd069d",
+      "bytes": 59417
+    },
+    "comparison_rows.json": {
+      "sha256": "90827bf18d4177dd504c8810d4b9fe5ae128f4d2b768bb2dc81a9d10eb72aedd",
+      "bytes": 8690
+    },
+    "progress.json": {
+      "sha256": "ab3ad7f732c6b78e3983b1e10462ef9e73300f0dec1d41d75b5f449bd6226952",
+      "bytes": 786
+    },
+    "raw_results.json": {
+      "sha256": "71978506c42f605247c6618b85ccf631e475cb8ac14bd480522c2246e346e263",
+      "bytes": 374398
+    },
+    "raw_results_partial.json": {
+      "sha256": "71978506c42f605247c6618b85ccf631e475cb8ac14bd480522c2246e346e263",
+      "bytes": 374398
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    }
+  }
+}

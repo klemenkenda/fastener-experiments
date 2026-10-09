@@ -1,0 +1,21 @@
+Dataset(HandOutlines: 2709 features, 822/274/274 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261009T132438Z_h2h3calibration_HandOutlines_boruta_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T132438Z_h2h3calibration_HandOutlines_boruta_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T132438Z_h2h3calibration_HandOutlines_boruta_s1999
+
+boruta (x1 seeds):
+  seed 1999: best test_f1=0.8265 @k=15 confirmed=4 (49.15s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 51s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  boruta                  0.767  0.844  0.844  0.805  0.805  0.805  0.805  0.805  0.805  0.805  0.805  0.805  0.805  0.805  0.827  0.827  0.827  0.827  0.827  0.827  0.827  0.827  0.827
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  boruta                  0.8093  0.8093  0.8093      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T132438Z_h2h3calibration_HandOutlines_boruta_s1999\manifest.json

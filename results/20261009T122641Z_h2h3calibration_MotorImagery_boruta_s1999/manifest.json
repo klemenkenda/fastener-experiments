@@ -1,0 +1,244 @@
+{
+  "run_id": "20261009T122641Z_h2h3calibration_MotorImagery_boruta_s1999",
+  "experiment_id": null,
+  "name": "h2h3calibration_MotorImagery_boruta_s1999",
+  "started_utc": "2026-10-09T12:26:41.156528+00:00",
+  "command": "run_sota.py --dataset MotorImagery --methods boruta --no-fastener --seed 1999 --name h2h3calibration_MotorImagery_boruta_s1999 --evaluations 12000",
+  "params": {
+    "dataset": "MotorImagery",
+    "methods": [
+      "boruta"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 12000,
+    "seeds": [
+      1999
+    ],
+    "evaluation_budget_per_seed": 12000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 600,
+    "fs_sds_evaluations_total": 12000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 378,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "5270cdb73eaaac758f0d08176cdb435cdd746fcd",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "?? results/20261009T121209Z_h2h3calibration_PhonemeSpectra_boruta_s1999/",
+        "?? results/20261009T121213Z_h2h3calibration_DuckDuckGeese_boruta_s1999/",
+        "?? results/h2h3-calibration/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "b7e724d3af8dbd893d78a1de564691ca439a9f5f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": false,
+  "algorithms": {
+    "boruta": {
+      "id": "boruta@5270cdb+b7e724d#0003",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "k_grid": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          25,
+          30,
+          50,
+          100,
+          200,
+          500
+        ],
+        "max_iter": 100,
+        "estimator": "protocol_tree"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "MotorImagery",
+    "n_features": 192000,
+    "n_train": 226,
+    "n_val": 76,
+    "n_test": 76,
+    "class_balance_train": {
+      "0": 113,
+      "1": 113
+    },
+    "class_balance_val": {
+      "0": 38,
+      "1": 38
+    },
+    "class_balance_test": {
+      "0": 38,
+      "1": 38
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 26,
+    "search_fits_per_seed": {},
+    "elapsed_by_method": {
+      "boruta": 274.33
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-09T12:31:17.794046+00:00",
+  "elapsed_seconds": 276.638,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "f4bd8df4f77b94b42b9c5dee34ac23ab7a4ba28f8801e3b116c25f650cbf54e6",
+      "bytes": 448
+    },
+    "auf.json": {
+      "sha256": "a6fd5e5662dddfb06bc9a46204d7f8fc15bf83c0eb4ac164e9009d01ec273f62",
+      "bytes": 651
+    },
+    "comparison.csv": {
+      "sha256": "a538ae5dd472ea9e25503e57090c290f18fede7dccb48def73f153c40c562393",
+      "bytes": 2037
+    },
+    "comparison.png": {
+      "sha256": "bc8be5098258c2aa5395614ef988def81a5275b4385acff72a1836ce54a0ef67",
+      "bytes": 64871
+    },
+    "comparison_rows.json": {
+      "sha256": "03e5c61a7a517e708a87a6a9e5f4e8df48e7efabf64b4ae82ba4cb80ef4428a3",
+      "bytes": 10803
+    },
+    "progress.json": {
+      "sha256": "548df05539d532950224b9a5dbd62683de785b2439ecce38c901a24ee5a53529",
+      "bytes": 793
+    },
+    "raw_results.json": {
+      "sha256": "67318efdbacbc11557b3d501497d18b083ba8009f71d970123da93c730b58c65",
+      "bytes": 2807319
+    },
+    "raw_results_partial.json": {
+      "sha256": "67318efdbacbc11557b3d501497d18b083ba8009f71d970123da93c730b58c65",
+      "bytes": 2807319
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    }
+  }
+}

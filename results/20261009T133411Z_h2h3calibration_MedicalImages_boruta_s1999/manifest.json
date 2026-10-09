@@ -1,0 +1,310 @@
+{
+  "run_id": "20261009T133411Z_h2h3calibration_MedicalImages_boruta_s1999",
+  "experiment_id": null,
+  "name": "h2h3calibration_MedicalImages_boruta_s1999",
+  "started_utc": "2026-10-09T13:34:11.910174+00:00",
+  "command": "run_sota.py --dataset MedicalImages --methods boruta --no-fastener --seed 1999 --name h2h3calibration_MedicalImages_boruta_s1999 --evaluations 12000",
+  "params": {
+    "dataset": "MedicalImages",
+    "methods": [
+      "boruta"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 12000,
+    "seeds": [
+      1999
+    ],
+    "evaluation_budget_per_seed": 12000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 600,
+    "fs_sds_evaluations_total": 12000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 1141,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "f7f475c397dad4c6bca55afd158037fb097c53da",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "?? results/20261009T121200Z_h2h3calibration_eodata_boruta_s1999/",
+        "?? results/20261009T121201Z_h2h3calibration_FaultDetectionA_fastener_none_s1999/",
+        "?? results/20261009T121203Z_h2h3calibration_FaultDetectionA_boruta_s1999/",
+        "?? results/20261009T121205Z_h2h3calibration_FaceDetection_fastener_none_s1999/",
+        "?? results/20261009T121207Z_h2h3calibration_FaceDetection_boruta_s1999/",
+        "?? results/20261009T121208Z_h2h3calibration_PhonemeSpectra_fastener_none_s1999/",
+        "?? results/20261009T121209Z_h2h3calibration_PhonemeSpectra_boruta_s1999/",
+        "?? results/20261009T121213Z_h2h3calibration_DuckDuckGeese_boruta_s1999/",
+        "?? results/20261009T122641Z_h2h3calibration_MotorImagery_boruta_s1999/",
+        "?? results/20261009T123105Z_h2h3calibration_PEMS-SF_boruta_s1999/",
+        "?? results/20261009T123528Z_h2h3calibration_EigenWorms_boruta_s1999/",
+        "?? results/20261009T123754Z_h2h3calibration_Heartbeat_fastener_none_s1999/",
+        "?? results/20261009T123951Z_h2h3calibration_Heartbeat_boruta_s1999/",
+        "?? results/20261009T124042Z_h2h3calibration_Crop_fastener_none_s1999/",
+        "?? results/20261009T124248Z_h2h3calibration_Crop_boruta_s1999/",
+        "?? results/20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999/",
+        "?? results/20261009T124859Z_h2h3calibration_PenDigits_fastener_none_s1999/",
+        "?? results/20261009T125441Z_h2h3calibration_PenDigits_boruta_s1999/",
+        "?? results/20261009T125452Z_h2h3calibration_StarLightCurves_fastener_none_s1999/",
+        "?? results/20261009T125909Z_h2h3calibration_StarLightCurves_boruta_s1999/",
+        "?? results/20261009T130201Z_h2h3calibration_FordA_fastener_none_s1999/",
+        "?? results/20261009T130253Z_h2h3calibration_FordA_boruta_s1999/",
+        "?? results/20261009T130344Z_h2h3calibration_Wafer_fastener_none_s1999/",
+        "?? results/20261009T130847Z_h2h3calibration_Wafer_boruta_s1999/",
+        "?? results/20261009T131023Z_h2h3calibration_UWaveGestureLibraryAll_fastener_none_s1999/",
+        "?? results/20261009T131049Z_h2h3calibration_UWaveGestureLibraryAll_boruta_s1999/",
+        "?? results/20261009T131246Z_h2h3calibration_ECG5000_fastener_none_s1999/",
+        "?? results/20261009T131252Z_h2h3calibration_ECG5000_boruta_s1999/",
+        "?? results/20261009T131329Z_h2h3calibration_LSST_fastener_none_s1999/",
+        "?? results/20261009T131951Z_h2h3calibration_LSST_boruta_s1999/",
+        "?? results/20261009T132042Z_h2h3calibration_ChlorineConcentration_fastener_none_s1999/",
+        "?? results/20261009T132054Z_h2h3calibration_ChlorineConcentration_boruta_s1999/",
+        "?? results/20261009T132156Z_h2h3calibration_HandOutlines_fastener_none_s1999/",
+        "?? results/20261009T132438Z_h2h3calibration_HandOutlines_boruta_s1999/",
+        "?? results/20261009T132539Z_h2h3calibration_CinCECGTorso_fastener_none_s1999/",
+        "?? results/20261009T132706Z_h2h3calibration_CinCECGTorso_boruta_s1999/",
+        "?? results/20261009T132718Z_h2h3calibration_SelfRegulationSCP1_fastener_none_s1999/",
+        "?? results/20261009T132739Z_h2h3calibration_SelfRegulationSCP1_boruta_s1999/",
+        "?? results/20261009T132852Z_h2h3calibration_EthanolConcentration_boruta_s1999/",
+        "?? results/20261009T132919Z_h2h3calibration_FingerMovements_fastener_none_s1999/",
+        "?? results/20261009T133016Z_h2h3calibration_FingerMovements_boruta_s1999/",
+        "?? results/20261009T133032Z_h2h3calibration_NATOPS_fastener_none_s1999/",
+        "?? results/20261009T133054Z_h2h3calibration_NATOPS_boruta_s1999/",
+        "?? results/20261009T133105Z_h2h3calibration_Computers_fastener_none_s1999/",
+        "?? results/20261009T133217Z_h2h3calibration_Computers_boruta_s1999/",
+        "?? results/20261009T133325Z_h2h3calibration_Adiac_boruta_s1999/",
+        "?? results/20261009T133343Z_h2h3calibration_Strawberry_boruta_s1999/",
+        "?? results/h2h3-calibration/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "b7e724d3af8dbd893d78a1de564691ca439a9f5f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": false,
+  "algorithms": {
+    "boruta": {
+      "id": "boruta@f7f475c+b7e724d#0003",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "k_grid": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          25,
+          30,
+          50,
+          100,
+          200,
+          500
+        ],
+        "max_iter": 100,
+        "estimator": "protocol_tree"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "MedicalImages",
+    "n_features": 99,
+    "n_train": 683,
+    "n_val": 229,
+    "n_test": 229,
+    "class_balance_train": {
+      "0": 68,
+      "1": 356,
+      "2": 39,
+      "3": 45,
+      "4": 28,
+      "5": 27,
+      "6": 13,
+      "7": 29,
+      "8": 14,
+      "9": 64
+    },
+    "class_balance_val": {
+      "0": 22,
+      "1": 119,
+      "2": 13,
+      "3": 15,
+      "4": 10,
+      "5": 9,
+      "6": 5,
+      "7": 10,
+      "8": 5,
+      "9": 21
+    },
+    "class_balance_test": {
+      "0": 22,
+      "1": 119,
+      "2": 13,
+      "3": 15,
+      "4": 10,
+      "5": 9,
+      "6": 5,
+      "7": 10,
+      "8": 5,
+      "9": 21
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 24,
+    "search_fits_per_seed": {},
+    "elapsed_by_method": {
+      "boruta": 3.95
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-09T13:34:17.376043+00:00",
+  "elapsed_seconds": 5.466,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "7794d3766371764e52be3b7d9a07281f7227712ea8ec80345fcd0191adda6bbb",
+      "bytes": 392
+    },
+    "auf.json": {
+      "sha256": "a7876c1f53dc5b9c71ee607e29dd33384f12959e694b808ebcd02bba50c695ce",
+      "bytes": 577
+    },
+    "comparison.csv": {
+      "sha256": "4e1c621764286957545a58d74680875b0f37649b7f5d499cbc5a1afc7ebc9981",
+      "bytes": 1775
+    },
+    "comparison.png": {
+      "sha256": "7182eb5e74cca8709d6be06f7d4c11964d946d89a73fee8fba885665ad5c1f6a",
+      "bytes": 58562
+    },
+    "comparison_rows.json": {
+      "sha256": "943bd8bd387f1f8aa879e1caaa1b0487292dadeba8c3e017219d18878e9eb680",
+      "bytes": 8912
+    },
+    "progress.json": {
+      "sha256": "cc4532d650838f223b5977742175a6933033f090c67b28c842c6a800d68c8534",
+      "bytes": 792
+    },
+    "raw_results.json": {
+      "sha256": "bcc91de21581597572c1f26fb6799cad9f9d6185170fbb68d0b622dca07a5fba",
+      "bytes": 24314
+    },
+    "raw_results_partial.json": {
+      "sha256": "bcc91de21581597572c1f26fb6799cad9f9d6185170fbb68d0b622dca07a5fba",
+      "bytes": 24314
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    }
+  }
+}

@@ -1,0 +1,240 @@
+[
+  {
+    "method": "fastener",
+    "family": "genetic",
+    "seed": 1999,
+    "params": {
+      "rounds": 100000,
+      "pool_size": 3,
+      "max_bucket_size": 3,
+      "reset_to_pareto_rounds": 5,
+      "mutation_prob": 0.00425531914893617,
+      "initial_genes": [
+        [
+          90
+        ],
+        [
+          166
+        ],
+        [
+          121
+        ],
+        [
+          81
+        ],
+        [
+          148
+        ]
+      ],
+      "mating": "IntersectionMatingWithWeightedRandomInformationGain",
+      "mating_version": "fixed",
+      "include_top_genes": true,
+      "allow_self_mating": false,
+      "swap": "none",
+      "number_of_swaps": 0,
+      "max_fits": 12000
+    },
+    "search_seconds": 107.95,
+    "model_fits": 12000,
+    "stopped_on": "fit_budget",
+    "rounds_completed": 1317,
+    "unique_subsets_cached": 12000,
+    "prune_stats": {
+      "pruned_items": 1355,
+      "deletion_fits": 57,
+      "deletion_kept": 15,
+      "swap_proposed": 0,
+      "swap_fits": 0,
+      "swap_kept": 0
+    },
+    "front_from_swap": 0,
+    "log_dir": "E:\\Users\\Klemen\\FASTENER\\results\\20261009T133332Z_h2h3calibration_Strawberry_fastener_none_s1999\\log\\fastener_seed1999",
+    "records": [
+      {
+        "n_features": 1,
+        "features": [
+          178
+        ],
+        "val": {
+          "f1_weighted": 0.8032301032301031,
+          "f1_macro": 0.7829836829836829,
+          "f1_binary": 0.8538461538461538,
+          "accuracy": 0.8061224489795918,
+          "balanced_accuracy": 0.7761904761904761
+        },
+        "test": {
+          "f1_weighted": 0.7315171217167588,
+          "f1_macro": 0.7099539299176323,
+          "f1_binary": 0.7854251012145749,
+          "accuracy": 0.7295918367346939,
+          "balanced_accuracy": 0.7134920634920635
+        },
+        "val_score": 0.8032301032301031,
+        "test_score": 0.7315171217167588,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.8032301032301031,
+        "generation_found": 1,
+        "from_swap": false,
+        "algorithm_id": "fastener@f7f475c+b7e724d#e357"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          59,
+          178
+        ],
+        "val": {
+          "f1_weighted": 0.9134000976842377,
+          "f1_macro": 0.9058517702240683,
+          "f1_binary": 0.9322709163346613,
+          "accuracy": 0.9132653061224489,
+          "balanced_accuracy": 0.9071428571428571
+        },
+        "test": {
+          "f1_weighted": 0.8469387755102041,
+          "f1_macro": 0.8333333333333333,
+          "f1_binary": 0.8809523809523809,
+          "accuracy": 0.8469387755102041,
+          "balanced_accuracy": 0.8333333333333333
+        },
+        "val_score": 0.9134000976842377,
+        "test_score": 0.8469387755102041,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.9134000976842377,
+        "generation_found": 650,
+        "from_swap": false,
+        "algorithm_id": "fastener@f7f475c+b7e724d#e357"
+      },
+      {
+        "n_features": 3,
+        "features": [
+          57,
+          65,
+          178
+        ],
+        "val": {
+          "f1_weighted": 0.9538489848494143,
+          "f1_macro": 0.9495062258480034,
+          "f1_binary": 0.9647058823529412,
+          "accuracy": 0.9540816326530612,
+          "balanced_accuracy": 0.9452380952380952
+        },
+        "test": {
+          "f1_weighted": 0.8972557773109243,
+          "f1_macro": 0.8874080882352942,
+          "f1_binary": 0.921875,
+          "accuracy": 0.8979591836734694,
+          "balanced_accuracy": 0.8825396825396825
+        },
+        "val_score": 0.9538489848494143,
+        "test_score": 0.8972557773109243,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.9538489848494143,
+        "generation_found": 1,
+        "from_swap": false,
+        "algorithm_id": "fastener@f7f475c+b7e724d#e357"
+      },
+      {
+        "n_features": 4,
+        "features": [
+          55,
+          58,
+          64,
+          178
+        ],
+        "val": {
+          "f1_weighted": 0.9744484480174189,
+          "f1_macro": 0.9721329655643074,
+          "f1_binary": 0.9802371541501976,
+          "accuracy": 0.9744897959183674,
+          "balanced_accuracy": 0.9706349206349206
+        },
+        "test": {
+          "f1_weighted": 0.9227966154036192,
+          "f1_macro": 0.9152615650670125,
+          "f1_binary": 0.9416342412451362,
+          "accuracy": 0.923469387755102,
+          "balanced_accuracy": 0.9087301587301587
+        },
+        "val_score": 0.9744484480174189,
+        "test_score": 0.9227966154036192,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.9744484480174189,
+        "generation_found": 285,
+        "from_swap": false,
+        "algorithm_id": "fastener@f7f475c+b7e724d#e357"
+      },
+      {
+        "n_features": 5,
+        "features": [
+          55,
+          58,
+          64,
+          178,
+          218
+        ],
+        "val": {
+          "f1_weighted": 0.9795918367346939,
+          "f1_macro": 0.9777777777777777,
+          "f1_binary": 0.9841269841269841,
+          "accuracy": 0.9795918367346939,
+          "balanced_accuracy": 0.9777777777777777
+        },
+        "test": {
+          "f1_weighted": 0.9227966154036192,
+          "f1_macro": 0.9152615650670125,
+          "f1_binary": 0.9416342412451362,
+          "accuracy": 0.923469387755102,
+          "balanced_accuracy": 0.9087301587301587
+        },
+        "val_score": 0.9795918367346939,
+        "test_score": 0.9227966154036192,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.9795918367346939,
+        "generation_found": 285,
+        "from_swap": false,
+        "algorithm_id": "fastener@f7f475c+b7e724d#e357"
+      },
+      {
+        "n_features": 7,
+        "features": [
+          11,
+          55,
+          58,
+          64,
+          139,
+          179,
+          210
+        ],
+        "val": {
+          "f1_weighted": 0.9897959183673469,
+          "f1_macro": 0.9888888888888889,
+          "f1_binary": 0.9920634920634921,
+          "accuracy": 0.9897959183673469,
+          "balanced_accuracy": 0.9888888888888889
+        },
+        "test": {
+          "f1_weighted": 0.9285714285714286,
+          "f1_macro": 0.9222222222222223,
+          "f1_binary": 0.9444444444444444,
+          "accuracy": 0.9285714285714286,
+          "balanced_accuracy": 0.9222222222222223
+        },
+        "val_score": 0.9897959183673469,
+        "test_score": 0.9285714285714286,
+        "method": "fastener",
+        "seed": 1999,
+        "fastener_internal_val_score": 0.9897959183673469,
+        "generation_found": 384,
+        "from_swap": false,
+        "algorithm_id": "fastener@f7f475c+b7e724d#e357"
+      }
+    ],
+    "algorithm_id": "fastener@f7f475c+b7e724d#e357"
+  }
+]

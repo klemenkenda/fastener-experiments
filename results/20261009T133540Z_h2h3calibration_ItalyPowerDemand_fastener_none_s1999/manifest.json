@@ -1,0 +1,275 @@
+{
+  "run_id": "20261009T133540Z_h2h3calibration_ItalyPowerDemand_fastener_none_s1999",
+  "experiment_id": null,
+  "name": "h2h3calibration_ItalyPowerDemand_fastener_none_s1999",
+  "started_utc": "2026-10-09T13:35:40.000201+00:00",
+  "command": "run_sota.py --dataset ItalyPowerDemand --methods  --fastener-arm none --seed 1999 --name h2h3calibration_ItalyPowerDemand_fastener_none_s1999 --evaluations 12000",
+  "params": {
+    "dataset": "ItalyPowerDemand",
+    "methods": [],
+    "with_fastener": true,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none"
+    ],
+    "fastener_max_fits": 12000,
+    "seeds": [
+      1999
+    ],
+    "evaluation_budget_per_seed": 12000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 600,
+    "fs_sds_evaluations_total": 12000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 24,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 1096,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "f7f475c397dad4c6bca55afd158037fb097c53da",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "?? results/20261009T121200Z_h2h3calibration_eodata_boruta_s1999/",
+        "?? results/20261009T121201Z_h2h3calibration_FaultDetectionA_fastener_none_s1999/",
+        "?? results/20261009T121203Z_h2h3calibration_FaultDetectionA_boruta_s1999/",
+        "?? results/20261009T121205Z_h2h3calibration_FaceDetection_fastener_none_s1999/",
+        "?? results/20261009T121207Z_h2h3calibration_FaceDetection_boruta_s1999/",
+        "?? results/20261009T121208Z_h2h3calibration_PhonemeSpectra_fastener_none_s1999/",
+        "?? results/20261009T121209Z_h2h3calibration_PhonemeSpectra_boruta_s1999/",
+        "?? results/20261009T121213Z_h2h3calibration_DuckDuckGeese_boruta_s1999/",
+        "?? results/20261009T122641Z_h2h3calibration_MotorImagery_boruta_s1999/",
+        "?? results/20261009T123105Z_h2h3calibration_PEMS-SF_boruta_s1999/",
+        "?? results/20261009T123528Z_h2h3calibration_EigenWorms_boruta_s1999/",
+        "?? results/20261009T123754Z_h2h3calibration_Heartbeat_fastener_none_s1999/",
+        "?? results/20261009T123951Z_h2h3calibration_Heartbeat_boruta_s1999/",
+        "?? results/20261009T124042Z_h2h3calibration_Crop_fastener_none_s1999/",
+        "?? results/20261009T124248Z_h2h3calibration_Crop_boruta_s1999/",
+        "?? results/20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999/",
+        "?? results/20261009T124859Z_h2h3calibration_PenDigits_fastener_none_s1999/",
+        "?? results/20261009T125441Z_h2h3calibration_PenDigits_boruta_s1999/",
+        "?? results/20261009T125452Z_h2h3calibration_StarLightCurves_fastener_none_s1999/",
+        "?? results/20261009T125909Z_h2h3calibration_StarLightCurves_boruta_s1999/",
+        "?? results/20261009T130201Z_h2h3calibration_FordA_fastener_none_s1999/",
+        "?? results/20261009T130253Z_h2h3calibration_FordA_boruta_s1999/",
+        "?? results/20261009T130344Z_h2h3calibration_Wafer_fastener_none_s1999/",
+        "?? results/20261009T130847Z_h2h3calibration_Wafer_boruta_s1999/",
+        "?? results/20261009T131023Z_h2h3calibration_UWaveGestureLibraryAll_fastener_none_s1999/",
+        "?? results/20261009T131049Z_h2h3calibration_UWaveGestureLibraryAll_boruta_s1999/",
+        "?? results/20261009T131246Z_h2h3calibration_ECG5000_fastener_none_s1999/",
+        "?? results/20261009T131252Z_h2h3calibration_ECG5000_boruta_s1999/",
+        "?? results/20261009T131329Z_h2h3calibration_LSST_fastener_none_s1999/",
+        "?? results/20261009T131951Z_h2h3calibration_LSST_boruta_s1999/",
+        "?? results/20261009T132042Z_h2h3calibration_ChlorineConcentration_fastener_none_s1999/",
+        "?? results/20261009T132054Z_h2h3calibration_ChlorineConcentration_boruta_s1999/",
+        "?? results/20261009T132156Z_h2h3calibration_HandOutlines_fastener_none_s1999/",
+        "?? results/20261009T132438Z_h2h3calibration_HandOutlines_boruta_s1999/",
+        "?? results/20261009T132539Z_h2h3calibration_CinCECGTorso_fastener_none_s1999/",
+        "?? results/20261009T132706Z_h2h3calibration_CinCECGTorso_boruta_s1999/",
+        "?? results/20261009T132718Z_h2h3calibration_SelfRegulationSCP1_fastener_none_s1999/",
+        "?? results/20261009T132739Z_h2h3calibration_SelfRegulationSCP1_boruta_s1999/",
+        "?? results/20261009T132806Z_h2h3calibration_EthanolConcentration_fastener_none_s1999/",
+        "?? results/20261009T132852Z_h2h3calibration_EthanolConcentration_boruta_s1999/",
+        "?? results/20261009T132919Z_h2h3calibration_FingerMovements_fastener_none_s1999/",
+        "?? results/20261009T133016Z_h2h3calibration_FingerMovements_boruta_s1999/",
+        "?? results/20261009T133032Z_h2h3calibration_NATOPS_fastener_none_s1999/",
+        "?? results/20261009T133054Z_h2h3calibration_NATOPS_boruta_s1999/",
+        "?? results/20261009T133105Z_h2h3calibration_Computers_fastener_none_s1999/",
+        "?? results/20261009T133217Z_h2h3calibration_Computers_boruta_s1999/",
+        "?? results/20261009T133325Z_h2h3calibration_Adiac_boruta_s1999/",
+        "?? results/20261009T133332Z_h2h3calibration_Strawberry_fastener_none_s1999/",
+        "?? results/20261009T133343Z_h2h3calibration_Strawberry_boruta_s1999/",
+        "?? results/20261009T133411Z_h2h3calibration_MedicalImages_boruta_s1999/",
+        "?? results/20261009T133505Z_h2h3calibration_ProximalPhalanxOutlineCorrect_boruta_s1999/",
+        "?? results/20261009T133528Z_h2h3calibration_TwoLeadECG_boruta_s1999/",
+        "?? results/h2h3-calibration/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "b7e724d3af8dbd893d78a1de564691ca439a9f5f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": false,
+  "algorithms": {
+    "fastener": {
+      "id": "fastener@f7f475c+b7e724d#e357",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "max_fits": 12000,
+        "rounds": 100000,
+        "swap": "none",
+        "mating": "fixed",
+        "include_top_genes": true,
+        "allow_self_mating": false
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "ItalyPowerDemand",
+    "n_features": 24,
+    "n_train": 658,
+    "n_val": 219,
+    "n_test": 219,
+    "class_balance_train": {
+      "0": 329,
+      "1": 329
+    },
+    "class_balance_val": {
+      "0": 109,
+      "1": 110
+    },
+    "class_balance_test": {
+      "0": 109,
+      "1": 110
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "fastener": [
+        12000
+      ]
+    },
+    "elapsed_by_method": {
+      "fastener": 97.5
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-09T13:37:19.731441+00:00",
+  "elapsed_seconds": 99.731,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "bfc19741e3e77f395466f730005699767b80fdf4279353b58baf50d7db503415",
+      "bytes": 460
+    },
+    "auf.json": {
+      "sha256": "d3f81e9028e547e13960b69eaf8b76c5bac77c350ff29bac154d132f3d99600c",
+      "bytes": 657
+    },
+    "comparison.csv": {
+      "sha256": "96c728d79dbdf3527484d774e64bd4ee6394f352d5c583b8fc69bc1e9b11fb7a",
+      "bytes": 1653
+    },
+    "comparison.png": {
+      "sha256": "7bd2cbc21c07de2ec7025eb77250f17a343635fd427823156576bb40e09fce15",
+      "bytes": 72548
+    },
+    "comparison_rows.json": {
+      "sha256": "b141e9ae758992bdb25951fc36d2e9ef8825192140d64be78d987b567691b0fc",
+      "bytes": 7066
+    },
+    "progress.json": {
+      "sha256": "0d91a54841abb46e0abc465c42b8d5300494d0cd8a6439a29a184ffe7b6f09d4",
+      "bytes": 840
+    },
+    "raw_results.json": {
+      "sha256": "9e7ece3a72b4c0702050a909fb3ecc0f4d6d8f422ec005643034ca231c8dd078",
+      "bytes": 5154
+    },
+    "raw_results_partial.json": {
+      "sha256": "9e7ece3a72b4c0702050a909fb3ecc0f4d6d8f422ec005643034ca231c8dd078",
+      "bytes": 5154
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/fastener_seed1999.jsonl": {
+      "sha256": "bf6e4a6fe7cf1d23f2d2336cf0e7f1c7662bc58b90662055d39eef1500cfb144",
+      "bytes": 1526884
+    }
+  },
+  "bulk_outputs": {
+    "prefix": "log/",
+    "n_files": 1,
+    "total_bytes": 288732,
+    "rollup_sha256": "35c0ca46a76ba69ad3d640180dc6ff0be1c68904e338f58f9db92d05c58700b3",
+    "note": "FASTENER per-generation pickles. Digest of the sorted (path, sha256) pairs; recompute to verify."
+  }
+}

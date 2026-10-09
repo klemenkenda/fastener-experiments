@@ -1,0 +1,21 @@
+Dataset(ElectricDevices: 96 features, 9983/3327/3327 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261009T124520Z_h2h3calibration_ElectricDevices_fastener_none_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T124520Z_h2h3calibration_ElectricDevices_fastener_none_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T124520Z_h2h3calibration_ElectricDevices_fastener_none_s1999
+
+fastener (12000 fits x 1 seeds):
+  seed 1999: front=22 best test_f1=0.6577 @k=25 fits=12000 stopped_on=fit_budget (3203.94s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 53m31s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  fastener                0.395  0.462  0.512  0.545  0.562  0.554  0.590  0.591  0.594  0.626  0.624  0.622  0.629  0.629  0.625  0.623  0.626  0.653  0.653  0.653  0.658  0.658  0.658
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  fastener                0.5430  0.5430  0.5430      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T124520Z_h2h3calibration_ElectricDevices_fastener_none_s1999\manifest.json

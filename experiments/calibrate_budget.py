@@ -44,6 +44,8 @@ import trajectory as trajectory_io  # noqa: E402
 from provenance import RESULTS_DIR  # noqa: E402
 
 BUDGET_GRID = (1_000, 2_000, 4_000, 6_000, 12_000)
+# Not in H2 or H3 (DEC-34): no budget is set for it.
+EXCLUDED = ("DuckDuckGeese",)
 TOLERANCE = 0.005
 K = 10
 CALIBRATION_SEED = 1999
@@ -77,12 +79,19 @@ def choose_budget(curve: Curve, reference: float,
 
     `reference` is Boruta's validation AUF. Returns the budget, the first grid
     value that met both conditions (None if none below the top did), and the
-    curve read at every grid value.
+    curve read at every grid value the run reached.
+
+    A run stopped before 12,000 fits (DEC-35) is read against its value where
+    it stopped, and only at grid values it reached: a value past the end of
+    the curve would read the last point and pass condition (i) trivially.
     """
     final = curve[-1][1] if curve else 0.0
-    at = {b: value_at(curve, b) for b in grid}
+    reached = curve[-1][0] if curve else 0
+    at = {b: value_at(curve, b) for b in grid if b <= reached}
     settled = None
     for b in grid[:-1]:
+        if b not in at:
+            break
         if final - at[b] <= tolerance and at[b] >= reference - tolerance:
             settled = b
             break
@@ -95,13 +104,19 @@ def choose_budget(curve: Curve, reference: float,
             "final": final, "at": at}
 
 
-def read_run(run_dir: Path) -> Tuple[Optional[str], Dict]:
-    """(dataset, what this run contributes): a FASTENER curve, Boruta's AUF."""
+def read_run(run_dir: Path,
+             dataset: Optional[str] = None) -> Tuple[Optional[str], Dict]:
+    """(dataset, what this run contributes): a FASTENER curve, Boruta's AUF.
+
+    A run stopped before it finished has no manifest (it is written at the
+    end); its dataset is then the one the queue started it on.
+    """
     mpath = run_dir / "manifest.json"
-    if not mpath.is_file():
+    if mpath.is_file():
+        dataset = json.loads(mpath.read_text(
+            encoding="utf-8"))["params"]["dataset"]
+    if dataset is None:
         return None, {}
-    manifest = json.loads(mpath.read_text(encoding="utf-8"))
-    dataset = manifest["params"]["dataset"]
     out: Dict = {}
     traj = run_dir / "trajectories" / f"{FASTENER}_seed{CALIBRATION_SEED}.jsonl"
     if traj.is_file():
@@ -109,6 +124,11 @@ def read_run(run_dir: Path) -> Tuple[Optional[str], Dict]:
         if snaps:
             out["curve"] = h0_convergence.curve(snaps, K)
             out["fits_used"] = int(snaps[-1]["fits"])
+            # Wall clock per fit, with the queue's other jobs sharing the CPU:
+            # the basis of H2H3-E01's cost estimate, not a benchmark.
+            if "seconds" in snaps[-1]:
+                out["seconds_per_fit"] = float(snaps[-1]["seconds"]) / max(
+                    1, int(snaps[-1]["fits"]))
     raw = run_dir / "raw_results.json"
     if raw.is_file():
         for res in json.loads(raw.read_text(encoding="utf-8")):
@@ -121,25 +141,32 @@ def read_run(run_dir: Path) -> Tuple[Optional[str], Dict]:
     return dataset, out
 
 
-def queue_run_dirs(queue_dir: Path) -> List[Path]:
-    """The run folders of a run_queue.py queue, finished jobs only."""
+def queue_run_dirs(queue_dir: Path) -> List[Tuple[str, Path]]:
+    """The run folders of a run_queue.py queue.
+
+    Stopped runs are included: the calibration was ended early (DEC-35), and a
+    stopped FASTENER run's trajectory is read up to where it stopped.
+    """
     q = json.loads((queue_dir / "queue.json").read_text(encoding="utf-8"))
-    return [Path(j["run_dir"]) for j in q["jobs"]
-            if j.get("run_dir") and j.get("exit_code") == 0]
+    return [(j["dataset"], Path(j["run_dir"])) for j in q["jobs"]
+            if j.get("run_dir")]
 
 
-def calibrate(run_dirs: Sequence[Path]) -> List[Dict]:
+def calibrate(run_dirs: Sequence) -> List[Dict]:
+    """Budgets from run folders, each a path or a (dataset, path) pair."""
     found: Dict[str, Dict] = {}
-    for d in run_dirs:
-        ds, part = read_run(d)
-        if ds is not None:
+    for item in run_dirs:
+        hint, d = item if isinstance(item, tuple) else (None, item)
+        ds, part = read_run(Path(d), hint)
+        if ds is not None and ds not in EXCLUDED:
             found.setdefault(ds, {}).update(part)
     rows = []
     for ds in sorted(found, key=str.lower):
         got = found[ds]
         row = {"dataset": ds, "boruta_val_auf": got.get("boruta"),
                "fits_used": got.get("fits_used"),
-               "stopped_on": got.get("stopped_on")}
+               "stopped_on": got.get("stopped_on") or "stopped (DEC-35)",
+               "seconds_per_fit": got.get("seconds_per_fit")}
         missing = [w for w, k in (("FASTENER run", "curve"),
                                   ("Boruta run", "boruta")) if k not in got]
         if missing:
@@ -152,8 +179,7 @@ def calibrate(run_dirs: Sequence[Path]) -> List[Dict]:
                         **{f"val_auf_at_{b}": v for b, v in c["at"].items()}})
             if got.get("fits_used", 0) < BUDGET_GRID[-1]:
                 row["flag"] = (row["flag"] + "; " if row["flag"] else "") + \
-                    f"run ended at {got.get('fits_used')} fits " \
-                    f"({got.get('stopped_on')})"
+                    f"read to {got.get('fits_used')} fits, not 12,000 (DEC-35)"
         rows.append(row)
     return rows
 
@@ -210,7 +236,8 @@ def main() -> int:
         {"rule": "HYPOTHESES.md, H2, Fit budget (DEC-33)",
          "grid": list(BUDGET_GRID), "tolerance": TOLERANCE, "K": K,
          "seed": CALIBRATION_SEED,
-         "runs": [Path(d).name for d in run_dirs],
+         "runs": [Path(d[1] if isinstance(d, tuple) else d).name
+                  for d in run_dirs],
          "budgets": {r["dataset"]: r["budget"] for r in rows}},
         indent=2), encoding="utf-8")
     print(f"\nwrote {out / 'budgets.csv'} and budgets.json")

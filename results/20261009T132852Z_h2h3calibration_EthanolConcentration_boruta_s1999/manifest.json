@@ -1,0 +1,283 @@
+{
+  "run_id": "20261009T132852Z_h2h3calibration_EthanolConcentration_boruta_s1999",
+  "experiment_id": null,
+  "name": "h2h3calibration_EthanolConcentration_boruta_s1999",
+  "started_utc": "2026-10-09T13:28:52.721645+00:00",
+  "command": "run_sota.py --dataset EthanolConcentration --methods boruta --no-fastener --seed 1999 --name h2h3calibration_EthanolConcentration_boruta_s1999 --evaluations 12000",
+  "params": {
+    "dataset": "EthanolConcentration",
+    "methods": [
+      "boruta"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 12000,
+    "seeds": [
+      1999
+    ],
+    "evaluation_budget_per_seed": 12000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 600,
+    "fs_sds_evaluations_total": 12000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 524,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "f7f475c397dad4c6bca55afd158037fb097c53da",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "?? results/20261009T121200Z_h2h3calibration_eodata_boruta_s1999/",
+        "?? results/20261009T121201Z_h2h3calibration_FaultDetectionA_fastener_none_s1999/",
+        "?? results/20261009T121203Z_h2h3calibration_FaultDetectionA_boruta_s1999/",
+        "?? results/20261009T121205Z_h2h3calibration_FaceDetection_fastener_none_s1999/",
+        "?? results/20261009T121207Z_h2h3calibration_FaceDetection_boruta_s1999/",
+        "?? results/20261009T121208Z_h2h3calibration_PhonemeSpectra_fastener_none_s1999/",
+        "?? results/20261009T121209Z_h2h3calibration_PhonemeSpectra_boruta_s1999/",
+        "?? results/20261009T121213Z_h2h3calibration_DuckDuckGeese_boruta_s1999/",
+        "?? results/20261009T122641Z_h2h3calibration_MotorImagery_boruta_s1999/",
+        "?? results/20261009T123105Z_h2h3calibration_PEMS-SF_boruta_s1999/",
+        "?? results/20261009T123528Z_h2h3calibration_EigenWorms_boruta_s1999/",
+        "?? results/20261009T123754Z_h2h3calibration_Heartbeat_fastener_none_s1999/",
+        "?? results/20261009T123951Z_h2h3calibration_Heartbeat_boruta_s1999/",
+        "?? results/20261009T124042Z_h2h3calibration_Crop_fastener_none_s1999/",
+        "?? results/20261009T124248Z_h2h3calibration_Crop_boruta_s1999/",
+        "?? results/20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999/",
+        "?? results/20261009T124859Z_h2h3calibration_PenDigits_fastener_none_s1999/",
+        "?? results/20261009T125441Z_h2h3calibration_PenDigits_boruta_s1999/",
+        "?? results/20261009T125452Z_h2h3calibration_StarLightCurves_fastener_none_s1999/",
+        "?? results/20261009T125909Z_h2h3calibration_StarLightCurves_boruta_s1999/",
+        "?? results/20261009T130201Z_h2h3calibration_FordA_fastener_none_s1999/",
+        "?? results/20261009T130253Z_h2h3calibration_FordA_boruta_s1999/",
+        "?? results/20261009T130344Z_h2h3calibration_Wafer_fastener_none_s1999/",
+        "?? results/20261009T130847Z_h2h3calibration_Wafer_boruta_s1999/",
+        "?? results/20261009T131023Z_h2h3calibration_UWaveGestureLibraryAll_fastener_none_s1999/",
+        "?? results/20261009T131049Z_h2h3calibration_UWaveGestureLibraryAll_boruta_s1999/",
+        "?? results/20261009T131246Z_h2h3calibration_ECG5000_fastener_none_s1999/",
+        "?? results/20261009T131252Z_h2h3calibration_ECG5000_boruta_s1999/",
+        "?? results/20261009T131329Z_h2h3calibration_LSST_fastener_none_s1999/",
+        "?? results/20261009T131951Z_h2h3calibration_LSST_boruta_s1999/",
+        "?? results/20261009T132054Z_h2h3calibration_ChlorineConcentration_boruta_s1999/",
+        "?? results/20261009T132156Z_h2h3calibration_HandOutlines_fastener_none_s1999/",
+        "?? results/20261009T132438Z_h2h3calibration_HandOutlines_boruta_s1999/",
+        "?? results/20261009T132706Z_h2h3calibration_CinCECGTorso_boruta_s1999/",
+        "?? results/20261009T132739Z_h2h3calibration_SelfRegulationSCP1_boruta_s1999/",
+        "?? results/h2h3-calibration/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "b7e724d3af8dbd893d78a1de564691ca439a9f5f",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": false,
+  "algorithms": {
+    "boruta": {
+      "id": "boruta@f7f475c+b7e724d#0003",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "k_grid": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          25,
+          30,
+          50,
+          100,
+          200,
+          500
+        ],
+        "max_iter": 100,
+        "estimator": "protocol_tree"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "EthanolConcentration",
+    "n_features": 5253,
+    "n_train": 316,
+    "n_val": 104,
+    "n_test": 104,
+    "class_balance_train": {
+      "0": 79,
+      "1": 79,
+      "2": 80,
+      "3": 78
+    },
+    "class_balance_val": {
+      "0": 26,
+      "1": 26,
+      "2": 26,
+      "3": 26
+    },
+    "class_balance_test": {
+      "0": 26,
+      "1": 26,
+      "2": 26,
+      "3": 26
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 27,
+    "search_fits_per_seed": {},
+    "elapsed_by_method": {
+      "boruta": 18.74
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-09T13:29:13.546954+00:00",
+  "elapsed_seconds": 20.825,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "b5ad0ba7bbe351c86d8ac1245cbdb073413aca99fc1eb0369c8641af8f6a7ebd",
+      "bytes": 385
+    },
+    "auf.json": {
+      "sha256": "64f44b3379984dff3f28fd0b80937b9a5d3b5f13918f660acb98c50f2549e4bf",
+      "bytes": 570
+    },
+    "comparison.csv": {
+      "sha256": "3bc099a536f88423c500422df1e13584d5543f53f3dbee92e99b4bc2facf0663",
+      "bytes": 2021
+    },
+    "comparison.png": {
+      "sha256": "43daad5eb185f17cda59c4bddd88a7311ca0d986b681b79b2f68f03c741cc9ee",
+      "bytes": 67299
+    },
+    "comparison_rows.json": {
+      "sha256": "875389a896d1f428441e7f5967d7269438ee2246811c8eb8bb375c9086e18cae",
+      "bytes": 10241
+    },
+    "progress.json": {
+      "sha256": "c8c7393cba240dd766e1d0c0363b125c36f2b87c5da743db6fcb9a0e024caa4e",
+      "bytes": 808
+    },
+    "raw_results.json": {
+      "sha256": "9b367b7b5f8c0bb64a8c3c2fe0c5a22bd059c1be7f7e7e6b6b99a7bd4dd2111e",
+      "bytes": 106091
+    },
+    "raw_results_partial.json": {
+      "sha256": "9b367b7b5f8c0bb64a8c3c2fe0c5a22bd059c1be7f7e7e6b6b99a7bd4dd2111e",
+      "bytes": 106091
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    }
+  }
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "method": "boruta",
+    "seed": 1999,
+    "auf10_f1_weighted": 0.93695,
+    "auf10_f1_macro": 0.936955,
+    "auf10_f1_binary": 0.935716,
+    "auf10_accuracy": 0.936986,
+    "auf10_balanced_accuracy": 0.937093,
+    "k_covered_10": 10,
+    "auf20_f1_weighted": 0.936491,
+    "auf20_f1_macro": 0.936497,
+    "auf20_f1_binary": 0.935148,
+    "auf20_accuracy": 0.93653,
+    "auf20_balanced_accuracy": 0.936645,
+    "k_covered_20": 20,
+    "hypervolume": 21.739568,
+    "min_subset_size": 1,
+    "model_fits": null,
+    "seconds": 1.13,
+    "stopped_on": null,
+    "algorithm_id": "boruta@f7f475c+b7e724d#0003"
+  }
+]

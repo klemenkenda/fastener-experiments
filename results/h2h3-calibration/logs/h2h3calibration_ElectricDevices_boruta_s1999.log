@@ -1,0 +1,21 @@
+Dataset(ElectricDevices: 96 features, 9983/3327/3327 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999
+
+boruta (x1 seeds):
+  seed 1999: best test_f1=0.6721 @k=50 confirmed=37 (187.51s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 3m09s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  boruta                  0.397  0.453  0.491  0.518  0.539  0.552  0.567  0.567  0.580  0.572  0.590  0.597  0.594  0.594  0.609  0.606  0.606  0.606  0.606  0.606  0.630  0.653  0.672
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  boruta                  0.5234  0.5234  0.5234      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T124542Z_h2h3calibration_ElectricDevices_boruta_s1999\manifest.json

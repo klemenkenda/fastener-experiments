@@ -1,0 +1,22 @@
+Dataset(eodata: 182 features, 29976/10008/10008 train/val/test)
+  row cap 50000: using 49992 rows
+run dir: E:\Users\Klemen\FASTENER\results\20261009T121200Z_h2h3calibration_eodata_boruta_s1999
+progress: E:\Users\Klemen\FASTENER\results\20261009T121200Z_h2h3calibration_eodata_boruta_s1999\progress.json
+  monitor with: python experiments/monitor.py --run 20261009T121200Z_h2h3calibration_eodata_boruta_s1999
+
+boruta (x1 seeds):
+  seed 1999: best test_f1=0.5661 @k=25 confirmed=95 (2009.11s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 33m35s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  boruta                  0.226  0.327  0.394  0.486  0.501  0.521  0.540  0.543  0.543  0.542  0.542  0.558  0.558  0.558  0.563  0.563  0.563  0.563  0.568  0.566  0.566  0.566  0.566
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  boruta                  0.4623  0.4623  0.4623      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261009T121200Z_h2h3calibration_eodata_boruta_s1999\manifest.json

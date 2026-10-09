@@ -44,6 +44,18 @@ def test_within_tolerance_of_boruta_counts():
     assert cb.choose_budget(curve, reference=0.70)["budget"] == 2000
 
 
+def test_a_stopped_run_is_read_only_where_it_reached():
+    # Stopped at 3,000 fits, still rising past 2,000: grid value 4,000 was
+    # never reached, so it must not count as settled.
+    curve = [(1000, 0.60), (2000, 0.65), (3000, 0.70)]
+    c = cb.choose_budget(curve, reference=0.5)
+    assert 4000 not in c["at"]
+    assert c["settled_at"] is None and c["budget"] == 12000
+    # Flat from 1,000 to where it stopped: settled, as for a full run.
+    c = cb.choose_budget([(1000, 0.70), (3000, 0.702)], reference=0.5)
+    assert c["settled_at"] == 1000 and c["budget"] == 2000
+
+
 def test_records_val_auf_uses_validation_and_zero_below_the_smallest():
     recs = [{"n_features": 3, "val_score": 0.6, "test_score": 0.0},
             {"n_features": 8, "val_score": 0.8, "test_score": 0.0}]
