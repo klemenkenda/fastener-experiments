@@ -17,6 +17,7 @@ by examples × features, are in [`DATASETS_USED.md`](DATASETS_USED.md).
 | `H0-E03` | H0 | 2026-09-30 | `20260930T083615Z_h0_miniboone`, `20260930T083615Z_h0_covertype`, `20260930T083615Z_h0_gas_drift`, `20260930T083615Z_h0_har`, `20260930T083615Z_h0_CLL_SUB_111`, `20260930T083615Z_h0_arcene`, `20260930T083616Z_h0_nci9`, `20260930T083616Z_h0_USPS`, `20260930T083616Z_h0_volkert`, `20260930T083615Z_h0_higgs`, `20260930T083616Z_h0_crop_mapping`, `20260930T083617Z_h0_eodata`, `20260930T103505Z_h0_TOX_171`, `20260930T103930Z_h0_BASEHOCK`, `20260930T104434Z_h0_gisette`, `20260930T104517Z_h0_RELATHE`, `20260930T110026Z_h0_PCMAC`, `20260930T110329Z_h0_ORL`, `20260930T110848Z_h0_GLI_85`, `20260930T111735Z_h0_warpAR10P`, `20260930T114641Z_h0_warpPIE10P`, `20260930T120136Z_h0_orlraws10P`, `20260930T120227Z_h0_lung_discrete`, `20260930T120345Z_h0_madelon`, `20260930T120355Z_h0_gina`, `20260930T120710Z_h0_Isolet`, `20260930T121011Z_h0_COIL20`, `20260930T121839Z_h0_ALLAML`, `20260930T122502Z_h0_leukemia`, `20260930T123152Z_h0_Prostate_GE`, `20260930T123307Z_h0_Yale`, `20260930T123946Z_h0_GLIOMA`, `20260930T124816Z_h0_colon`, `20260930T124845Z_h0_lymphoma`, `20260930T125343Z_h0_lung`, `20260930T130619Z_h0_satimage` | reported | [report](reports/H0-E03/REPORT.md) |
 | `H1-E01` | H1 | 2026-10-07 | `20261007T115349Z_h1e01_eodata_nsga2_s2020`, `20261007T115350Z_h1e01_eodata_nsga2_s2021`, `20261007T115352Z_h1e01_eodata_nsga2_s2022`, `20261007T115354Z_h1e01_eodata_nsga2_s2023`, `20261007T115356Z_h1e01_eodata_nsga2_s2024`, `20261007T115358Z_h1e01_eodata_nsga2_sparse_s2020`, `20261007T115359Z_h1e01_eodata_nsga2_sparse_s2021`, `20261007T115401Z_h1e01_eodata_nsga2_sparse_s2022`, `20261007T115403Z_h1e01_eodata_nsga2_sparse_s2023`, `20261007T115404Z_h1e01_eodata_nsga2_sparse_s2024` | failed | [report](reports/H1-E01/REPORT.md) |
 | `H1-E02` | H1 | 2026-10-07 | `20261007T121628Z_h1e02_eodata_nsga2_s2020`, `20261007T121630Z_h1e02_eodata_nsga2_s2021`, `20261007T121632Z_h1e02_eodata_nsga2_s2022`, `20261007T121634Z_h1e02_eodata_nsga2_s2023`, `20261007T121636Z_h1e02_eodata_nsga2_s2024`, `20261007T121638Z_h1e02_eodata_nsga2_sparse_s2020`, `20261007T121640Z_h1e02_eodata_nsga2_sparse_s2021`, `20261007T121641Z_h1e02_eodata_nsga2_sparse_s2022`, `20261007T121643Z_h1e02_eodata_nsga2_sparse_s2023`, `20261007T121644Z_h1e02_eodata_nsga2_sparse_s2024`, `20261007T130505Z_h1e02_gisette_nsga2_s2020`, `20261007T130600Z_h1e02_gisette_nsga2_s2021`, `20261007T130907Z_h1e02_gisette_nsga2_s2022`, `20261007T130948Z_h1e02_gisette_nsga2_s2023`, `20261007T131250Z_h1e02_gisette_nsga2_s2024`, `20261007T172834Z_h1e02_gisette_nsga2_sparse_s2020`, `20261007T173030Z_h1e02_gisette_nsga2_sparse_s2021`, `20261007T174511Z_h1e02_gisette_nsga2_sparse_s2022`, `20261007T180002Z_h1e02_gisette_nsga2_sparse_s2023`, `20261007T180138Z_h1e02_gisette_nsga2_sparse_s2024`, `20261007T180650Z_h1e02_har_nsga2_s2020`, `20261007T180828Z_h1e02_har_nsga2_s2021`, `20261007T181210Z_h1e02_har_nsga2_s2022`, `20261007T181642Z_h1e02_har_nsga2_s2023`, `20261007T182315Z_h1e02_har_nsga2_s2024`, `20261007T182452Z_h1e02_har_nsga2_sparse_s2020`, `20261007T183149Z_h1e02_har_nsga2_sparse_s2021`, `20261007T183331Z_h1e02_har_nsga2_sparse_s2022`, `20261007T183607Z_h1e02_har_nsga2_sparse_s2023`, `20261007T183924Z_h1e02_har_nsga2_sparse_s2024`, `20261007T183931Z_h1e02_USPS_nsga2_s2020`, `20261007T184248Z_h1e02_USPS_nsga2_s2021`, `20261007T184319Z_h1e02_USPS_nsga2_s2022`, `20261007T184506Z_h1e02_USPS_nsga2_s2023`, `20261007T184733Z_h1e02_USPS_nsga2_s2024`, `20261007T193819Z_h1e02_USPS_nsga2_sparse_s2020`, `20261007T194241Z_h1e02_USPS_nsga2_sparse_s2021`, `20261007T194327Z_h1e02_USPS_nsga2_sparse_s2022`, `20261007T194729Z_h1e02_USPS_nsga2_sparse_s2023`, `20261007T194945Z_h1e02_USPS_nsga2_sparse_s2024`, `20261007T195127Z_h1e02_COIL20_nsga2_s2020`, `20261007T195219Z_h1e02_COIL20_nsga2_s2021`, `20261007T195225Z_h1e02_COIL20_nsga2_s2022`, `20261007T195507Z_h1e02_COIL20_nsga2_s2023`, `20261007T195959Z_h1e02_COIL20_nsga2_s2024`, `20261007T202212Z_h1e02_COIL20_nsga2_sparse_s2020`, `20261007T202219Z_h1e02_COIL20_nsga2_sparse_s2021`, `20261007T202245Z_h1e02_COIL20_nsga2_sparse_s2022`, `20261007T202302Z_h1e02_COIL20_nsga2_sparse_s2023`, `20261007T202454Z_h1e02_COIL20_nsga2_sparse_s2024`, `20261007T202510Z_h1e02_arcene_nsga2_s2020`, `20261007T202812Z_h1e02_arcene_nsga2_s2021`, `20261007T202834Z_h1e02_arcene_nsga2_s2022`, `20261007T202855Z_h1e02_arcene_nsga2_s2023`, `20261007T203142Z_h1e02_arcene_nsga2_s2024`, `20261007T204159Z_h1e02_arcene_nsga2_sparse_s2020`, `20261007T204236Z_h1e02_arcene_nsga2_sparse_s2021`, `20261007T204946Z_h1e02_arcene_nsga2_sparse_s2022`, `20261007T205236Z_h1e02_arcene_nsga2_sparse_s2023`, `20261007T205257Z_h1e02_arcene_nsga2_sparse_s2024`, `20261007T205259Z_h1e02_satimage_nsga2_s2020`, `20261007T205516Z_h1e02_satimage_nsga2_s2021`, `20261007T205633Z_h1e02_satimage_nsga2_s2022`, `20261007T205700Z_h1e02_satimage_nsga2_s2023`, `20261007T205737Z_h1e02_satimage_nsga2_s2024`, `20261007T205854Z_h1e02_satimage_nsga2_sparse_s2020`, `20261007T205925Z_h1e02_satimage_nsga2_sparse_s2021`, `20261007T210005Z_h1e02_satimage_nsga2_sparse_s2022`, `20261007T210114Z_h1e02_satimage_nsga2_sparse_s2023`, `20261007T210135Z_h1e02_satimage_nsga2_sparse_s2024`, `20261007T210228Z_h1e02_Prostate_GE_nsga2_s2020`, `20261007T210330Z_h1e02_Prostate_GE_nsga2_s2021`, `20261007T210346Z_h1e02_Prostate_GE_nsga2_s2022`, `20261007T210508Z_h1e02_Prostate_GE_nsga2_s2023`, `20261007T210610Z_h1e02_Prostate_GE_nsga2_s2024`, `20261007T210627Z_h1e02_Prostate_GE_nsga2_sparse_s2020`, `20261007T210749Z_h1e02_Prostate_GE_nsga2_sparse_s2021`, `20261007T210830Z_h1e02_Prostate_GE_nsga2_sparse_s2022`, `20261007T210853Z_h1e02_Prostate_GE_nsga2_sparse_s2023`, `20261007T210946Z_h1e02_Prostate_GE_nsga2_sparse_s2024` | reported | [report](reports/H1-E02/REPORT.md) |
+| `H2H3-E01` | H2, H3 | 2026-10-09 | -- | running | -- |
 
 ## Experiment designs
 
@@ -171,3 +172,48 @@ which the criterion is stated in, are not affected. A seed run alone gives the
 same front as the same seed inside a five-seed run (checked on madelon before
 the run), so the split changes no result. Watched with
 `monitor.py --experiment H1-E02`.
+
+### `H2H3-E01` -- H2 and H3 on 40 datasets
+
+Registered 2026-10-09, after DEC-33 and before any of this experiment's runs
+started. No result of a swap arm from this round exists. The budget table
+below is filled in from the calibration, and committed, before the first run;
+nothing else in this design changes after it.
+
+**Design.** [H2](HYPOTHESES.md#h2----a-size-preserving-move-changes-the-front-at-all-guided-or-not)
+and [H3](HYPOTHESES.md#h3----the-guided-swap-improves-fastener-at-small-k) as
+revised on 2026-10-09 ([DEC-33](DECISIONS.md#dec-33)), run together, as the
+two hypotheses share their stock arm:
+
+| | |
+|---|---|
+| arms | `fastener` (stock), `fastener_swap_random`, `fastener_swap_guided`, all on FASTENER clone `b7e724d` with the fixed mating |
+| datasets | 40: EOData at the 50,000-row cap, and the 39 UCR/UEA sets of [`DATASETS_USED.md`](DATASETS_USED.md) |
+| seeds | 2020, 2021, 2022, 2023, 2024 |
+| budget | per dataset, the same for all three arms; see *Budgets* |
+| primary metric | test AUF, K = 10 |
+| H2 | per dataset, mean over seeds of AUF(`fastener_swap_random`) minus AUF(`fastener`); supported if positive on more datasets than negative and a two-sided Wilcoxon signed-rank test over them gives p < 0.05; reversed if the same with signs swapped |
+| H3 | the same with `fastener_swap_guided`; the guidance is credited only if the guided arm also beats the random-swap arm by the same test (secondary) |
+| incomplete | a dataset with fewer than 5 seeds for any arm it is read on is left out; more than 6 of 40 left out makes the reading incomplete |
+| read by | `make_report.py` (`DATASET_UNIT`), H2 first, then H3 |
+
+**Budgets.** Set by the rule in H2, *Fit budget*, from the calibration queue
+`h2h3-calibration`: one Boruta run and one 12,000-fit stock FASTENER run per
+dataset, seed 1999, validation scores only, started 2026-10-09 at `9fa04b7`
+and read by `calibrate_budget.py`. Its run IDs are in
+`results/h2h3-calibration/budgets.json`. Calibration runs are not runs of this
+experiment and are not listed in its ledger row.
+
+*Pending: the per-dataset table (dataset, Boruta validation AUF, FASTENER
+validation AUF at 1k-12k fits, settled at, budget, flag), copied from
+`budgets.csv` when the calibration has finished.*
+
+**How it runs.** `run_queue.py --experiment H2H3-E01`, one `run_sota.py --seed`
+process per dataset, arm and seed -- 600 jobs -- at most ten at a time,
+slowest datasets first, each job given its own dataset's budget. The jobs
+compete for the CPU, so wall clock is not comparable between arms; fits, which
+the budget and the criterion are stated in, are not affected. Watched with
+`monitor.py --experiment H2H3-E01`.
+
+**Expected cost.** Estimated from the calibration's times per fit once it has
+finished, and added here with the budgets.
