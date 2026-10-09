@@ -1,6 +1,6 @@
 ---
 name: experiment-report
-description: Write the report for a finished FASTENER experiment (H<n>-E<nn>) -- verify its runs, generate REPORT.md and SUPPORT.md with make_report.py, write REPORT.md in three sections (in brief, findings F1..FN, assessment) and SUPPORT.md's record, then close the experiment in the ledger and decision log. Use when the user says an experiment has finished, asks to generate, write or redo a report, or asks what an experiment found.
+description: Write the report for a finished FASTENER experiment (H<n>-E<nn>) -- verify its runs, generate REPORT.md and SUPPORT.md with make_report.py, write REPORT.md in three sections (in brief, findings F1..FN, assessment) and SUPPORT.md's record, then close the experiment in the ledger, the decision log and reports/LIST.md (one experiment to consider per hypothesis, the rest as superseded or failed). Use when the user says an experiment has finished or failed, asks to generate, write or redo a report, asks to update the list of experiments, or asks what an experiment found.
 ---
 
 # Experiment report
