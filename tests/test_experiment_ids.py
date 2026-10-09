@@ -243,6 +243,83 @@ def test_paired_reading_incomplete_and_negative():
         "not supported"
 
 
+def _swap_cells(effects, seeds=range(2020, 2025), arm="fastener_swap_random"):
+    """dataset -> {fastener, arm} -> seed -> AUF, with the given mean effects."""
+    return {ds: {"fastener": {s: 0.5 for s in seeds},
+                 arm: {s: 0.5 + e for s in seeds}}
+            for ds, e in effects.items()}
+
+
+def test_dataset_unit_reading_supported_reversed_and_not():
+    sets = make_report.SWAP_SETS
+    assert len(sets) == 40 and sets[0] == "eodata"
+    # Ahead on 30, behind on 10, by unequal amounts: supported.
+    eff = {d: (0.01 + 0.001 * i if i < 30 else -0.005 - 0.0001 * i)
+           for i, d in enumerate(sets)}
+    ev = make_report.evaluate_dataset_unit("H2", _swap_cells(eff), 10)
+    assert ev["primary"]["positive"] == 30 and ev["primary"]["negative"] == 10
+    assert ev["reading"] == "supported"
+    assert ev["per_dataset"]["eodata"]["passes_4_of_5"]
+    # The same with signs swapped: reversed.
+    ev = make_report.evaluate_dataset_unit(
+        "H2", _swap_cells({d: -e for d, e in eff.items()}), 10)
+    assert ev["reading"] == "reversed"
+    # Evenly split, equal sizes: not supported.
+    eff = {d: (0.01 if i % 2 else -0.01) for i, d in enumerate(sets)}
+    ev = make_report.evaluate_dataset_unit("H2", _swap_cells(eff), 10)
+    assert ev["reading"] == "not supported"
+
+
+def test_dataset_unit_incomplete_and_ignores_other_seeds():
+    sets = make_report.SWAP_SETS
+    eff = {d: 0.01 + 0.001 * i for i, d in enumerate(sets)}
+    cells = _swap_cells(eff)
+    # A calibration run at seed 1999 is not one of the experiment's seeds.
+    cells["eodata"]["fastener"][1999] = 0.0
+    ev = make_report.evaluate_dataset_unit("H2", cells, 10)
+    assert ev["per_dataset"]["eodata"]["seeds"] == 5
+    assert ev["reading"] == "supported"
+    # Seven datasets short of a seed: more than 6 missing, so incomplete.
+    for d in sets[:7]:
+        del cells[d]["fastener_swap_random"][2024]
+    ev = make_report.evaluate_dataset_unit("H2", cells, 10)
+    assert ev["reading"].startswith("incomplete")
+    assert len(ev["primary"]["missing"]) == 7
+
+
+def test_h3_is_also_read_against_the_random_swap():
+    sets = make_report.SWAP_SETS
+    cells = _swap_cells({d: 0.02 for d in sets}, arm="fastener_swap_guided")
+    for d in sets:
+        cells[d]["fastener_swap_random"] = {s: 0.52 for s in range(2020, 2025)}
+    ev = make_report.evaluate_dataset_unit("H3", cells, 10)
+    assert ev["challenger"] == "fastener_swap_guided"
+    gv = ev["secondary"]["guided_vs_random"]
+    assert gv["n_datasets"] == 40 and gv["zero"] == 40
+    assert gv["reading"] == "not supported"
+
+
+def test_report_end_to_end_h2h3(tmp_path, monkeypatch):
+    monkeypatch.setattr(make_report, "RESULTS_DIR", tmp_path / "results")
+    for ds in ("eodata", "Coffee", "Wafer"):
+        _fake_run(tmp_path / "results", f"R_{ds}", ds,
+                  {"fastener": 0.5, "fastener_swap_random": 0.55,
+                   "fastener_swap_guided": 0.6})
+    out = tmp_path / "report"
+    make_report.build("H2H3-E01", ["R_eodata", "R_Coffee", "R_Wafer"], out)
+    support = (out / "SUPPORT.md").read_text(encoding="utf-8")
+    # 37 of 40 datasets missing: incomplete, for both hypotheses (each reading
+    # appears under the criteria and again under the evidence).
+    assert support.count("mechanical reading: incomplete") == 4
+    assert "mechanical reading: supported" not in support
+    assert "Secondary, EOData on its own" in support
+    assert "fastener_swap_guided minus fastener_swap_random" in support
+    figs = sorted(p.name for p in (out / "figures").iterdir())
+    assert figs[0] == "F1_H2_effect_per_dataset.png"
+    assert "F2_H3_effect_per_dataset.png" in figs
+    assert (out / "tables" / "H2_by_cluster.csv").is_file()
+
+
 def test_pairwise_reading():
     rng = np.random.default_rng(0)
     cells = {f"d{i}": {"fs_sds": {0: 0.6 + rng.uniform(0, .05)},

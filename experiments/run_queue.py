@@ -57,6 +57,11 @@ def parse_args(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--experiment", default=None, metavar="ID",
                     help="experiment ID every job is evidence for")
+    ap.add_argument("--name", default=None,
+                    help="queue name, for a queue that is not an experiment "
+                         "(a calibration, say): its folder under results/ "
+                         "and the prefix of its run names. Default: the "
+                         "experiment ID, else queue_<UTC time>")
     ap.add_argument("--datasets", required=True, help="comma-separated")
     ap.add_argument("--methods", required=True,
                     help="comma-separated run_sota methods or fastener:<arm>")
@@ -84,7 +89,7 @@ def stamp() -> str:
 
 def build_jobs(args):
     jobs = []
-    prefix = (args.experiment or "queue").lower().replace("-", "")
+    prefix = (args.name or args.experiment or "queue").lower().replace("-", "")
     for ds in split(args.datasets):
         for m in split(args.methods):
             for seed in (int(s) for s in split(args.seeds)):
@@ -112,7 +117,7 @@ def build_jobs(args):
 class Queue:
     def __init__(self, args, jobs):
         self.args, self.jobs = args, jobs
-        name = args.experiment or datetime.now(timezone.utc).strftime(
+        name = args.name or args.experiment or datetime.now(timezone.utc).strftime(
             "queue_%Y%m%dT%H%M%SZ")
         self.out = RESULTS_DIR / name
         (self.out / "logs").mkdir(parents=True, exist_ok=True)

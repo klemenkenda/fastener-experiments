@@ -40,6 +40,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import analysis  # noqa: E402
+import datasets  # noqa: E402
 import experiment_ids  # noqa: E402
 import h0_convergence  # noqa: E402
 import run_h0  # noqa: E402
@@ -53,17 +54,32 @@ PRIMARY_DEV_SET = "eodata"
 H1_SETS = ("satimage", "eodata", "USPS", "har", "COIL20", "gisette",
            "Prostate_GE", "arcene")
 
-# H1-H3: the pre-registered paired rule -- the challenger beats the baseline on
+# H1: the pre-registered paired rule -- the challenger beats the baseline on
 # AUF in at least 4 of 5 seeds, on EOData and on at least one other of the
 # hypothesis's datasets.
 PAIRED = {
     "H1": ("nsga2_sparse", "nsga2"),
+}
+PAIRED_SETS = {"H1": H1_SETS}
+PAIRED_MIN_WINS = 4
+PAIRED_SEEDS = 5
+# H2, H3: datasets as the unit (HYPOTHESES.md, Revisions, 2026-10-09; DEC-33).
+# Per dataset, the mean over the 5 seeds of challenger minus baseline AUF;
+# supported if positive on more datasets than negative and a two-sided
+# Wilcoxon over them is significant.
+DATASET_UNIT = {
     "H2": ("fastener_swap_random", "fastener"),
     "H3": ("fastener_swap_guided", "fastener"),
 }
-PAIRED_SETS = {"H1": H1_SETS, "H2": DEV_SETS, "H3": DEV_SETS}
-PAIRED_MIN_WINS = 4
-PAIRED_SEEDS = 5
+# The 39 UCR/UEA sets by cluster, and EOData.
+SWAP_CLUSTERS = {"eodata": "EO", **datasets.TSC_DATASETS}
+SWAP_SETS = tuple(SWAP_CLUSTERS)
+SWAP_SEEDS = (2020, 2021, 2022, 2023, 2024)
+SWAP_MAX_MISSING = 6
+# H3 is read against the random swap too: the guidance is credited only where
+# the guided arm also beats it.
+GUIDANCE = ("fastener_swap_guided", "fastener_swap_random")
+SWAP_STATS = ("swap_proposed", "swap_fits", "swap_kept")
 # H4-H6: per-dataset mean AUF, focal arm against each opponent across datasets.
 PAIRWISE = {
     "H4": {"focal": "fs_sds", "opponents": ("fastener",), "n_datasets": 25},
@@ -135,6 +151,11 @@ def units_of(runs: Sequence[Dict]) -> Tuple[List[Dict], List[str]]:
                 "iterations": res.get("iterations",
                                       res.get("rounds_completed")),
                 "records": res.get("records", []),
+                # FASTENER only: what the pruning step did (H2, H3).
+                "prune_stats": res.get("prune_stats"),
+                "front_from_swap": res.get("front_from_swap"),
+                "n_rows": sum((m.get("dataset") or {}).get(k) or 0
+                              for k in ("n_train", "n_val", "n_test")) or None,
             }
             key = (ds, u["method"], u["seed"])
             if key in seen:
@@ -282,6 +303,112 @@ def evaluate_paired(hid: str, cells, K: int) -> Dict[str, Any]:
     return {"kind": "paired", "challenger": a, "baseline": b, "K": K,
             "datasets": list(sets),
             "rows": rows, "per_dataset": per_ds, "reading": reading}
+
+
+def dataset_effects(cells, a: str, b: str, sets: Sequence[str],
+                    seeds: Sequence[int] = SWAP_SEEDS) -> Dict[str, Dict]:
+    """Per dataset: mean over common seeds of AUF(a) - AUF(b), and counts.
+
+    Only the experiment's seeds count, so a calibration run at another seed
+    can never enter. A dataset is complete with every seed for both arms.
+    """
+    out = {}
+    for ds in sets:
+        sa, sb = cells.get(ds, {}).get(a, {}), cells.get(ds, {}).get(b, {})
+        common = [s for s in seeds if s in sa and s in sb]
+        deltas = [sa[s] - sb[s] for s in common]
+        out[ds] = {"seeds": len(common), "complete": len(common) == len(seeds),
+                   "effect": float(np.mean(deltas)) if deltas else None,
+                   "wins": sum(d > 0 for d in deltas),
+                   f"auf_{a}": float(np.mean([sa[s] for s in common]))
+                   if common else None,
+                   f"auf_{b}": float(np.mean([sb[s] for s in common]))
+                   if common else None,
+                   "deltas": dict(zip(common, deltas))}
+    return out
+
+
+def unit_test(per_ds: Dict[str, Dict], max_missing: int) -> Dict[str, Any]:
+    """The datasets-as-unit rule over complete datasets."""
+    used = {d: v["effect"] for d, v in per_ds.items() if v["complete"]}
+    missing = sorted(d for d, v in per_ds.items() if not v["complete"])
+    effects = list(used.values())
+    pos = sum(e > 0 for e in effects)
+    neg = sum(e < 0 for e in effects)
+    p = wilcoxon_p(effects) if effects else None
+    if len(missing) > max_missing:
+        reading = (f"incomplete ({len(missing)} of {len(per_ds)} datasets "
+                   f"missing; at most {max_missing} allowed)")
+    elif p is not None and p < ALPHA and pos > neg:
+        reading = "supported"
+    elif p is not None and p < ALPHA and neg > pos:
+        reading = "reversed"
+    else:
+        reading = "not supported"
+    return {"n_datasets": len(effects), "positive": pos, "negative": neg,
+            "zero": len(effects) - pos - neg, "p_value": p,
+            "median_effect": float(np.median(effects)) if effects else None,
+            "mean_effect": float(np.mean(effects)) if effects else None,
+            "missing": missing, "reading": reading}
+
+
+def swap_activity(units: Sequence[Dict], methods: Sequence[str],
+                  seeds: Sequence[int] = SWAP_SEEDS) -> List[Dict]:
+    """Per dataset and arm, the pruning counters averaged over seeds."""
+    acc: Dict[Tuple[str, str], List[Dict]] = defaultdict(list)
+    for u in units:
+        if u["method"] in methods and u["seed"] in seeds and u["prune_stats"]:
+            acc[(u["dataset"], u["method"])].append(u)
+    rows = []
+    for (ds, m), us in sorted(acc.items()):
+        row = {"dataset": ds, "method": m, "seeds": len(us)}
+        for k in SWAP_STATS + ("pruned_items",):
+            row[k] = float(np.mean([u["prune_stats"].get(k, 0) for u in us]))
+        row["front_from_swap"] = float(np.mean(
+            [u["front_from_swap"] or 0 for u in us]))
+        row["share_of_fits_on_swaps"] = float(np.mean(
+            [u["prune_stats"].get("swap_fits", 0) / u["model_fits"]
+             for u in us if u["model_fits"]])) if us else None
+        rows.append(row)
+    return rows
+
+
+def evaluate_dataset_unit(hid: str, cells, K: int,
+                          units: Sequence[Dict] = ()) -> Dict[str, Any]:
+    a, b = DATASET_UNIT[hid]
+    per_ds = dataset_effects(cells, a, b, SWAP_SETS)
+    primary = unit_test(per_ds, SWAP_MAX_MISSING)
+    shape = {}
+    for u in units:
+        shape.setdefault(u["dataset"], {"p": u["n_features"], "n": u["n_rows"]})
+    for ds, v in per_ds.items():
+        v["cluster"] = SWAP_CLUSTERS[ds]
+        v["p"] = shape.get(ds, {}).get("p")
+        v["n"] = shape.get(ds, {}).get("n")
+        v["passes_4_of_5"] = v["wins"] >= PAIRED_MIN_WINS
+    by_cluster = {}
+    for c in dict.fromkeys(SWAP_CLUSTERS.values()):
+        es = [v["effect"] for v in per_ds.values()
+              if v["cluster"] == c and v["complete"]]
+        by_cluster[c] = {"n": len(es),
+                         "mean_effect": float(np.mean(es)) if es else None,
+                         "positive": sum(e > 0 for e in es),
+                         "negative": sum(e < 0 for e in es)}
+    secondary = {"eodata": per_ds["eodata"], "by_cluster": by_cluster,
+                 "swap_activity": swap_activity(units, (a, b))}
+    if hid == "H3":
+        g = dataset_effects(cells, *GUIDANCE, SWAP_SETS)
+        secondary["guided_vs_random"] = {
+            **unit_test(g, SWAP_MAX_MISSING),
+            "per_dataset": {d: v["effect"] for d, v in g.items()}}
+    rows = [{"dataset": ds, "cluster": v["cluster"], "seed": s, "delta": dlt}
+            for ds, v in per_ds.items() for s, dlt in v["deltas"].items()]
+    order = sorted((d for d in per_ds if per_ds[d]["effect"] is not None),
+                   key=lambda d: (SWAP_CLUSTERS[d], -per_ds[d]["effect"]))
+    return {"kind": "dataset_unit", "challenger": a, "baseline": b, "K": K,
+            "datasets": order, "per_dataset": per_ds, "rows": rows,
+            "primary": primary, "secondary": secondary,
+            "reading": primary["reading"]}
 
 
 def evaluate_pairwise(hid: str, cells, K: int) -> Dict[str, Any]:
@@ -637,6 +764,43 @@ def fig_h0_ext_criterion(ev, run_ids, path: Path) -> None:
     plt.close(fig)
 
 
+def fig_dataset_unit(ev, run_ids, path: Path) -> None:
+    """Per dataset, by cluster: AUF delta per seed, bar = the mean (H2, H3)."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    a, b, K = ev["challenger"], ev["baseline"], ev["K"]
+    dss = ev["datasets"]
+    fig, ax = plt.subplots(figsize=(7.5, 0.26 * max(8, len(dss)) + 1.8))
+    prev = None
+    for i, ds in enumerate(dss):
+        v = ev["per_dataset"][ds]
+        if prev is not None and v["cluster"] != prev:
+            ax.axhline(i - 0.5, color=GRID, lw=1)
+        prev = v["cluster"]
+        d = list(v["deltas"].values())
+        ax.scatter(d, [i] * len(d), s=16, color=SERIES[0], alpha=0.75,
+                   edgecolor="#fcfcfb", linewidth=0.8, zorder=3)
+        ax.plot([v["effect"]] * 2, [i - 0.35, i + 0.35],
+                color=INK if v["complete"] else INK_2, lw=2, zorder=4)
+    ax.axvline(0, color=INK_2, lw=1)
+    ax.set_yticks(range(len(dss)),
+                  [f"{d} ({ev['per_dataset'][d]['cluster']})" for d in dss],
+                  fontsize=7)
+    ax.invert_yaxis()
+    p = ev["primary"]
+    pv = "--" if p["p_value"] is None else f"{p['p_value']:.3g}"
+    ax.set_xlabel(f"AUF (K = {K}), test: {a} minus {b}  (> 0: {a} ahead)")
+    ax.set_title(f"Per dataset: one point per seed, bar = mean\n"
+                 f"{p['positive']} datasets > 0, {p['negative']} < 0, "
+                 f"Wilcoxon p = {pv}")
+    _footer(fig, run_ids, "test")
+    lines = 1 + len(", ".join(run_ids)) // int(fig.get_figwidth() * 17)
+    fig.tight_layout(rect=(0, min(0.35, 0.02 + lines * 0.13
+                                  / fig.get_figheight()), 1, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def fig_h0_progress(ev, run_ids, path: Path) -> None:
     """Validation AUF (K) against cumulative fits: mean, band = min-max."""
     import matplotlib.pyplot as plt
@@ -915,6 +1079,9 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
         elif hid in PAIRED:
             ev = evaluate_paired(hid, cells, K)
             arms = [ev["baseline"], ev["challenger"]]
+        elif hid in DATASET_UNIT:
+            ev = evaluate_dataset_unit(hid, cells, K, units)
+            arms = [ev["baseline"], ev["challenger"]]
         elif hid in PAIRWISE:
             ev = evaluate_pairwise(hid, cells, K)
             top = sorted((p for p in ev["pairs"] if p["n_datasets"]),
@@ -947,6 +1114,19 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
         elif ev and ev["kind"] == "paired":
             fig_paired(ev, run_ids, crit_fig)
             write_csv(tab_dir / f"{hid}_auf{K}_per_seed.csv", ev["rows"])
+        elif ev and ev["kind"] == "dataset_unit":
+            crit_fig = fig_dir / f"F{fig_no}_{hid}_effect_per_dataset.png"
+            fig_dataset_unit(ev, run_ids, crit_fig)
+            write_csv(tab_dir / f"{hid}_auf{K}_per_seed.csv", ev["rows"])
+            write_csv(tab_dir / f"{hid}_per_dataset.csv",
+                      [{"dataset": d, **{k: x for k, x in v.items()
+                                         if k != "deltas"}}
+                       for d, v in ev["per_dataset"].items()])
+            write_csv(tab_dir / f"{hid}_by_cluster.csv",
+                      [{"cluster": c, **v} for c, v in
+                       ev["secondary"]["by_cluster"].items()])
+            write_csv(tab_dir / f"{hid}_swap_activity.csv",
+                      ev["secondary"]["swap_activity"])
         elif ev:
             fig_pairwise(ev, run_ids, crit_fig)
             write_csv(tab_dir / f"{hid}_pairwise.csv",
@@ -1173,6 +1353,55 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                            [(r["dataset"], r["seed"], r[ev["baseline"]],
                              r[ev["challenger"]], r["delta"])
                             for r in ev["rows"]]), ""]
+        elif ev and ev["kind"] == "dataset_unit":
+            a, b, p = ev["challenger"], ev["baseline"], ev["primary"]
+            L += [f"Primary: the effect (mean over seeds of {a} minus {b}, "
+                  f"test AUF, K = {ev['K']}) is positive on {p['positive']} "
+                  f"datasets, negative on {p['negative']}, zero on "
+                  f"{p['zero']}; median {fmt(p['median_effect'])}; two-sided "
+                  f"Wilcoxon p = {fmt(p['p_value'])} over n = "
+                  f"{p['n_datasets']} complete datasets.", ""]
+            if p["missing"]:
+                L += ["Left out, not complete: " + ", ".join(p["missing"])
+                      + ".", ""]
+            L += [md_table(("dataset", "cluster", "p", "n", "seeds",
+                            f"AUF {b}", f"AUF {a}", "effect",
+                            f"{a} ahead", "4 of 5"),
+                           [(d, v["cluster"], v["p"], v["n"], v["seeds"],
+                             fmt(v[f"auf_{b}"]), fmt(v[f"auf_{a}"]),
+                             fmt(v["effect"]), v["wins"],
+                             "yes" if v["passes_4_of_5"] else "no")
+                            for d in ev["datasets"]
+                            for v in (ev["per_dataset"][d],)]), ""]
+            eo = ev["secondary"]["eodata"]
+            L += [f"Secondary, EOData on its own: {a} ahead on {eo['wins']} "
+                  f"of {eo['seeds']} seeds (4 of 5 needed to hold there).", "",
+                  "Secondary, by cluster (descriptive; too few datasets per "
+                  "cluster for a test):", "",
+                  md_table(("cluster", "datasets", "mean effect", "> 0", "< 0"),
+                           [(c, v["n"], fmt(v["mean_effect"]), v["positive"],
+                             v["negative"]) for c, v in
+                            ev["secondary"]["by_cluster"].items()]), ""]
+            gv = ev["secondary"].get("guided_vs_random")
+            if gv:
+                L += [f"Secondary, {GUIDANCE[0]} minus {GUIDANCE[1]}, the same "
+                      f"test: {gv['positive']} > 0, {gv['negative']} < 0, "
+                      f"Wilcoxon p = {fmt(gv['p_value'])} over n = "
+                      f"{gv['n_datasets']} -- {gv['reading']}.", ""]
+            act = ev["secondary"]["swap_activity"]
+            if act:
+                L += ["Secondary, what the pruning step did, mean per run:", "",
+                      md_table(("dataset", "arm", "pruned", "swaps proposed",
+                                "swap fits", "share of fits", "swaps kept",
+                                "final front from a swap"),
+                               [(r["dataset"], r["method"],
+                                 fmt(r["pruned_items"], 1),
+                                 fmt(r["swap_proposed"], 1),
+                                 fmt(r["swap_fits"], 1),
+                                 fmt(r["share_of_fits_on_swaps"], 3),
+                                 fmt(r["swap_kept"], 1),
+                                 fmt(r["front_from_swap"], 1))
+                                for r in act if r["method"] == a]), ""]
         elif ev and ev["kind"] == "h0_ext":
             p = ev["primary"]
             L += [f"Primary: {p['positive']} datasets favour the fixed code, "
