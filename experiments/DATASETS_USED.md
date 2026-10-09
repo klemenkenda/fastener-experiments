@@ -3,9 +3,23 @@
 A selection of 39 datasets from the UCR/UEA archive at
 [timeseriesclassification.com](https://timeseriesclassification.com), chosen
 2026-10-07 to cover the range of dataset shapes (examples × features) that the
-archive offers. None is downloaded yet, and no experiment uses them yet; an
-experiment that does names them in its own design in
-[`EXPERIMENTS.md`](EXPERIMENTS.md).
+archive offers. All 39 are downloaded, checked and pinned by
+[`download_tsc_datasets.py`](download_tsc_datasets.py) and load by name through
+`datasets.load` (2026-10-09). An experiment that uses them names them in its
+own design in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+**Two corrections, made at download, 2026-10-09.** The archive's table and the
+files it serves disagree on two of the original picks:
+
+- **Epilepsy** is 206 time steps per channel, not 207. The file's header and
+  every row say 206; the table is off by one. Kept, with the correction
+  recorded in the downloader.
+- **UWaveGestureLibrary**, the multivariate version, is served with 440 rows
+  (120 train + 320 test), not the 4,479 the table lists. At 440 rows it is not
+  a C5 dataset. It is replaced by **UWaveGestureLibraryAll** -- the same
+  gestures, X, Y and Z concatenated into one 945-point series, 4,478 rows --
+  which has the shape the pick was made for. C5 keeps LSST as its multivariate
+  set.
 
 ## How the archive was grouped
 
@@ -53,8 +67,8 @@ table in [`tsc_dataset_clusters.csv`](tsc_dataset_clusters.csv).
   TSelect). The papers' own dataset tables could not be read when the
   selection was made, so membership in each paper's table is not checked.
 - **Equal-length series only**, so every dataset has a fixed feature count.
-- **One dataset per near-duplicate family**: UWaveGestureLibrary stands for its
-  X/Y/Z/All variants, ProximalPhalanxOutlineCorrect for the phalanx family.
+- **One dataset per near-duplicate family**: UWaveGestureLibraryAll stands for
+  the UWave family, ProximalPhalanxOutlineCorrect for the phalanx family.
 - **A spread of shapes and problems inside each cluster**: binary and
   many-class, balanced and imbalanced, univariate and multivariate.
 
@@ -72,7 +86,7 @@ Features are written length × channels for multivariate datasets.
 | BeetleFly | 40 | 512 | 2 | image outline |
 | Earthquakes | 461 | 512 | 2 | sensor; imbalanced |
 | BasicMotions | 80 | 100×6 | 4 | multivariate, UEA |
-| Epilepsy | 275 | 207×3 | 4 | multivariate, UEA |
+| Epilepsy | 275 | 206×3 | 4 | multivariate, UEA; 206, not the table's 207 |
 
 ### C2 -- High-dimensional recordings (p ≫ n)
 
@@ -120,7 +134,7 @@ dataset: DuckDuckGeese, MotorImagery and PEMS-SF run to hundreds of MB each.
 | ECG5000 | 5,000 | 140 | 5 | ECG |
 | ChlorineConcentration | 4,307 | 166 | 3 | simulated |
 | StarLightCurves | 9,236 | 1,024 | 3 | longest series in the cluster |
-| UWaveGestureLibrary | 4,479 | 315×3 | 8 | multivariate version; stands for X/Y/Z/All |
+| UWaveGestureLibraryAll | 4,478 | 945 | 8 | X, Y and Z concatenated; stands for the UWave family |
 | LSST | 4,925 | 36×6 | 14 | astronomy; many classes |
 
 ### C6 -- Large audio and industrial sensor datasets

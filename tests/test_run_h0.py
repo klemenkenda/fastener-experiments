@@ -73,11 +73,12 @@ def test_smoke_job_is_quick_and_has_no_experiment(tmp_path):
 
 
 def test_extension_plan_is_every_other_dataset():
-    from datasets import LOADERS
+    from datasets import LOADERS, TSC_DATASETS
     ext = {p["dataset"] for p in run_h0.H0_EXTENSION_PLAN}
     core = {p["dataset"] for p in run_h0.H0_PLAN}
     assert not ext & core
-    assert ext | core == set(LOADERS)
+    # Every dataset on disk when H0 ran; the TSC sets came later.
+    assert ext | core == set(LOADERS) - set(TSC_DATASETS)
     budgets = {p["dataset"]: (p["evaluations"], p["split"])
                for p in run_h0.H0_EXTENSION_PLAN}
     assert budgets["eodata"] == (1000, "eo")

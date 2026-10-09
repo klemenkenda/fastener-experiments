@@ -423,6 +423,87 @@ def load_tall(name: str, max_rows: int = None,
     return ds
 
 
+# ------------------------------------------------- time series classification
+# The 39 UCR/UEA datasets chosen in DATASETS_USED.md, by cluster of shape
+# (examples x features). Downloaded, checked and pinned by
+# download_tsc_datasets.py; each series is one row, its time points (channel
+# by channel for a multivariate set) the features.
+TSC_DIR = DATA_DIR / "tsc"
+TSC_DATASETS = {
+    # C1 -- small lab datasets, p >= n
+    "Coffee": "C1", "OliveOil": "C1", "Ham": "C1", "BeetleFly": "C1",
+    "Earthquakes": "C1", "BasicMotions": "C1", "Epilepsy": "C1",
+    # C2 -- high-dimensional recordings, p >> n
+    "MotorImagery": "C2", "PEMS-SF": "C2", "DuckDuckGeese": "C2",
+    "Heartbeat": "C2", "EigenWorms": "C2",
+    # C3 -- long physiological and device signals
+    "SelfRegulationSCP1": "C3", "FingerMovements": "C3", "NATOPS": "C3",
+    "EthanolConcentration": "C3", "Computers": "C3", "CinCECGTorso": "C3",
+    "HandOutlines": "C3",
+    # C4 -- short series, mid-sized, n >> p
+    "Adiac": "C4", "Strawberry": "C4", "MedicalImages": "C4",
+    "ProximalPhalanxOutlineCorrect": "C4", "TwoLeadECG": "C4",
+    "ItalyPowerDemand": "C4", "Libras": "C4",
+    # C5 -- larger sensor, motion and shape collections
+    "FordA": "C5", "Wafer": "C5", "ECG5000": "C5",
+    "ChlorineConcentration": "C5", "StarLightCurves": "C5",
+    "UWaveGestureLibraryAll": "C5", "LSST": "C5",
+    # C6 -- large audio and industrial sensor datasets
+    "FaceDetection": "C6", "PhonemeSpectra": "C6", "FaultDetectionA": "C6",
+    # C7 -- very many, very short series
+    "Crop": "C7", "ElectricDevices": "C7", "PenDigits": "C7",
+}
+
+
+def load_tsc_raw(name: str):
+    """The unsplit (X, y) of a TSC dataset, plus any classes dropped as too small.
+
+    The archive's own train/test split is not used: the two halves are merged
+    at download and split 60/20/20 here like every other dataset, so the
+    protocol is the same everywhere. Which half a row came from is kept in the
+    npz (`origin`) for anyone who needs the archive's split back.
+    """
+    if name not in TSC_DATASETS:
+        raise KeyError(f"unknown TSC dataset {name!r}; have {list(TSC_DATASETS)}")
+    npz = TSC_DIR / name / f"{name}.npz"
+    if not npz.is_file():
+        raise FileNotFoundError(
+            f"{npz} missing; run "
+            f"`python experiments/download_tsc_datasets.py --only {name}`")
+    with np.load(npz, allow_pickle=False) as d:
+        X, y = d["X"], d["y"]
+        names = d["feature_names"]
+        dropped_missing = int(d["dropped_missing"])
+
+    # The same rule as the paper benchmarks: a class under 5 rows rounds to no
+    # validation and no test rows, so it could be trained on but never scored.
+    counts = np.bincount(y)
+    too_small = np.where((counts > 0) & (counts < 5))[0]
+    dropped = {int(c): int(counts[c]) for c in too_small}
+    if too_small.size:
+        keep_rows = ~np.isin(y, too_small)
+        X, y = X[keep_rows], y[keep_rows]
+        y = np.unique(y, return_inverse=True)[1].astype(int)
+    return X, y, names, dropped, dropped_missing
+
+
+def load_tsc(name: str) -> Dataset:
+    """One of the 39 UCR/UEA datasets, three-way split like every other set.
+
+    None is over the 50,000-row cap (Crop, the largest, has 24,000 rows), so
+    none takes a row cap.
+    """
+    X, y, names, dropped, dropped_missing = load_tsc_raw(name)
+    tr, va, te = _stratified_three_way(y, VAL_FRACTION, TEST_FRACTION,
+                                       SPLIT_SEED)
+    ds = Dataset(name, X[tr], y[tr], X[va], y[va], X[te], y[te],
+                 feature_names=names)
+    ds.source = f"UCR/UEA archive, cluster {TSC_DATASETS[name]}"
+    ds.dropped_small_classes = dropped
+    ds.dropped_missing = dropped_missing
+    return ds
+
+
 LOADERS = {"madelon": load_madelon, "gina": load_gina, "eodata": load_eodata}
 for _name in TALL_DATASETS:
     LOADERS[_name] = (lambda n: lambda: load_tall(n))(_name)
@@ -430,6 +511,9 @@ for _name in TALL_DATASETS:
 # --dataset takes these too, with no special-casing anywhere downstream.
 for _name in PAPER_BENCHMARKS:
     LOADERS[_name] = (lambda n: lambda: load_paper_benchmark(n))(_name)
+for _name in TSC_DATASETS:
+    assert _name not in LOADERS, f"TSC dataset {_name!r} shadows another"
+    LOADERS[_name] = (lambda n: lambda: load_tsc(n))(_name)
 
 
 # Loaders that take a row cap. Every other dataset is far below any cap in use
