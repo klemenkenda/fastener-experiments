@@ -1,0 +1,241 @@
+{
+  "run_id": "20261007T174511Z_h1e02_gisette_nsga2_sparse_s2022",
+  "experiment_id": "H1-E02",
+  "name": "h1e02_gisette_nsga2_sparse_s2022",
+  "started_utc": "2026-10-07T17:45:11.228714+00:00",
+  "command": "run_sota.py --dataset gisette --methods nsga2_sparse --no-fastener --seed 2022 --name h1e02_gisette_nsga2_sparse_s2022 --experiment H1-E02",
+  "params": {
+    "dataset": "gisette",
+    "methods": [
+      "nsga2_sparse"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 6000,
+    "seeds": [
+      2022
+    ],
+    "evaluation_budget_per_seed": 6000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 300,
+    "fs_sds_evaluations_total": 6000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "split": "protocol",
+    "max_rows": null,
+    "n_rows_used": 7000,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "c1422519c97781a429dcb3a2a9e8b004c6612dac",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "M experiments/EXPERIMENTS.md",
+        "?? results/20261007T115349Z_h1e01_eodata_nsga2_s2020/",
+        "?? results/20261007T115350Z_h1e01_eodata_nsga2_s2021/",
+        "?? results/20261007T115352Z_h1e01_eodata_nsga2_s2022/",
+        "?? results/20261007T115354Z_h1e01_eodata_nsga2_s2023/",
+        "?? results/20261007T115356Z_h1e01_eodata_nsga2_s2024/",
+        "?? results/20261007T115358Z_h1e01_eodata_nsga2_sparse_s2020/",
+        "?? results/20261007T115359Z_h1e01_eodata_nsga2_sparse_s2021/",
+        "?? results/20261007T115401Z_h1e01_eodata_nsga2_sparse_s2022/",
+        "?? results/20261007T115403Z_h1e01_eodata_nsga2_sparse_s2023/",
+        "?? results/20261007T115404Z_h1e01_eodata_nsga2_sparse_s2024/",
+        "?? results/20261007T121628Z_h1e02_eodata_nsga2_s2020/",
+        "?? results/20261007T121632Z_h1e02_eodata_nsga2_s2022/",
+        "?? results/20261007T121636Z_h1e02_eodata_nsga2_s2024/",
+        "?? results/20261007T121638Z_h1e02_eodata_nsga2_sparse_s2020/",
+        "?? results/20261007T121640Z_h1e02_eodata_nsga2_sparse_s2021/",
+        "?? results/20261007T121641Z_h1e02_eodata_nsga2_sparse_s2022/",
+        "?? results/20261007T121643Z_h1e02_eodata_nsga2_sparse_s2023/",
+        "?? results/20261007T121644Z_h1e02_eodata_nsga2_sparse_s2024/",
+        "?? results/H1-E02/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "08e6acd94093f81c071230333158b433d43c450a",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": true,
+  "algorithms": {
+    "nsga2_sparse": {
+      "id": "nsga2_sparse@c142251+08e6acd#e31a",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "evaluations": 6000,
+        "init": "sparse"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "gisette",
+    "n_features": 5000,
+    "n_train": 4200,
+    "n_val": 1400,
+    "n_test": 1400,
+    "class_balance_train": {
+      "0": 2100,
+      "1": 2100
+    },
+    "class_balance_val": {
+      "0": 700,
+      "1": 700
+    },
+    "class_balance_test": {
+      "0": 700,
+      "1": 700
+    },
+    "split_seed": 20200,
+    "max_rows": null,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "nsga2_sparse": [
+        6000
+      ]
+    },
+    "elapsed_by_method": {
+      "nsga2_sparse": 1286.4
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-07T18:06:39.691552+00:00",
+  "elapsed_seconds": 1288.463,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "cab5f3a5bc56ba2cb281896333c8d6d2360c4a7e2ff53777efde2e76ff081d78",
+      "bytes": 462
+    },
+    "auf.json": {
+      "sha256": "790f31870737bd60cf8a2c3057dabdddf15b22e3453979b1fda0d3521c35cab1",
+      "bytes": 661
+    },
+    "comparison.csv": {
+      "sha256": "8cd6f715e36f50d880ccff4279e5fd7daa7895d5a5352edb3709da9d4632842d",
+      "bytes": 2340
+    },
+    "comparison.png": {
+      "sha256": "00096569baaa2aa9af909cf23d73c00034579698a74fb7045916fdf5fcd233a7",
+      "bytes": 67240
+    },
+    "comparison_rows.json": {
+      "sha256": "360e6a0f7f9a5c30bb0c948159ef642352a1a1d5773ed6b11484678f346375a0",
+      "bytes": 10884
+    },
+    "progress.json": {
+      "sha256": "b816773834a5488a6d8117dc535ec6ed89250735c56745e0dc38d0caf4994bc1",
+      "bytes": 824
+    },
+    "raw_results.json": {
+      "sha256": "1f07e82050223c70bf38fcf91e985dca383887f891bacac107caa1cc89172b47",
+      "bytes": 79582
+    },
+    "raw_results_partial.json": {
+      "sha256": "1f07e82050223c70bf38fcf91e985dca383887f891bacac107caa1cc89172b47",
+      "bytes": 79582
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/nsga2_sparse_seed2022.jsonl": {
+      "sha256": "0a3b56ea8de0102f47affac411ee45e08074d2b51be67fdbd8d8e0cbcc94d879",
+      "bytes": 22437239
+    }
+  }
+}

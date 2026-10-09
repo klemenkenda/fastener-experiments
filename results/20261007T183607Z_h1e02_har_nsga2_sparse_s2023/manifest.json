@@ -1,0 +1,281 @@
+{
+  "run_id": "20261007T183607Z_h1e02_har_nsga2_sparse_s2023",
+  "experiment_id": "H1-E02",
+  "name": "h1e02_har_nsga2_sparse_s2023",
+  "started_utc": "2026-10-07T18:36:07.893652+00:00",
+  "command": "run_sota.py --dataset har --methods nsga2_sparse --no-fastener --seed 2023 --name h1e02_har_nsga2_sparse_s2023 --experiment H1-E02",
+  "params": {
+    "dataset": "har",
+    "methods": [
+      "nsga2_sparse"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 6000,
+    "seeds": [
+      2023
+    ],
+    "evaluation_budget_per_seed": 6000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 300,
+    "fs_sds_evaluations_total": 6000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100,
+      200,
+      500
+    ],
+    "split": "protocol",
+    "max_rows": 50000,
+    "n_rows_used": 10299,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "c1422519c97781a429dcb3a2a9e8b004c6612dac",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "M experiments/EXPERIMENTS.md",
+        "?? results/20261007T115349Z_h1e01_eodata_nsga2_s2020/",
+        "?? results/20261007T115350Z_h1e01_eodata_nsga2_s2021/",
+        "?? results/20261007T115352Z_h1e01_eodata_nsga2_s2022/",
+        "?? results/20261007T115354Z_h1e01_eodata_nsga2_s2023/",
+        "?? results/20261007T115356Z_h1e01_eodata_nsga2_s2024/",
+        "?? results/20261007T115358Z_h1e01_eodata_nsga2_sparse_s2020/",
+        "?? results/20261007T115359Z_h1e01_eodata_nsga2_sparse_s2021/",
+        "?? results/20261007T115401Z_h1e01_eodata_nsga2_sparse_s2022/",
+        "?? results/20261007T115403Z_h1e01_eodata_nsga2_sparse_s2023/",
+        "?? results/20261007T115404Z_h1e01_eodata_nsga2_sparse_s2024/",
+        "?? results/20261007T121628Z_h1e02_eodata_nsga2_s2020/",
+        "?? results/20261007T121630Z_h1e02_eodata_nsga2_s2021/",
+        "?? results/20261007T121632Z_h1e02_eodata_nsga2_s2022/",
+        "?? results/20261007T121636Z_h1e02_eodata_nsga2_s2024/",
+        "?? results/20261007T121638Z_h1e02_eodata_nsga2_sparse_s2020/",
+        "?? results/20261007T121640Z_h1e02_eodata_nsga2_sparse_s2021/",
+        "?? results/20261007T121641Z_h1e02_eodata_nsga2_sparse_s2022/",
+        "?? results/20261007T121643Z_h1e02_eodata_nsga2_sparse_s2023/",
+        "?? results/20261007T121644Z_h1e02_eodata_nsga2_sparse_s2024/",
+        "?? results/20261007T130505Z_h1e02_gisette_nsga2_s2020/",
+        "?? results/20261007T130600Z_h1e02_gisette_nsga2_s2021/",
+        "?? results/20261007T130907Z_h1e02_gisette_nsga2_s2022/",
+        "?? results/20261007T130948Z_h1e02_gisette_nsga2_s2023/",
+        "?? results/20261007T172834Z_h1e02_gisette_nsga2_sparse_s2020/",
+        "?? results/20261007T173030Z_h1e02_gisette_nsga2_sparse_s2021/",
+        "?? results/20261007T174511Z_h1e02_gisette_nsga2_sparse_s2022/",
+        "?? results/20261007T180002Z_h1e02_gisette_nsga2_sparse_s2023/",
+        "?? results/20261007T180138Z_h1e02_gisette_nsga2_sparse_s2024/",
+        "?? results/20261007T182452Z_h1e02_har_nsga2_sparse_s2020/",
+        "?? results/H1-E02/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "08e6acd94093f81c071230333158b433d43c450a",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": true,
+  "algorithms": {
+    "nsga2_sparse": {
+      "id": "nsga2_sparse@c142251+08e6acd#e31a",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "evaluations": 6000,
+        "init": "sparse"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "har",
+    "n_features": 561,
+    "n_train": 6181,
+    "n_val": 2059,
+    "n_test": 2059,
+    "class_balance_train": {
+      "0": 1034,
+      "1": 926,
+      "2": 844,
+      "3": 1067,
+      "4": 1144,
+      "5": 1166
+    },
+    "class_balance_val": {
+      "0": 344,
+      "1": 309,
+      "2": 281,
+      "3": 355,
+      "4": 381,
+      "5": 389
+    },
+    "class_balance_test": {
+      "0": 344,
+      "1": 309,
+      "2": 281,
+      "3": 355,
+      "4": 381,
+      "5": 389
+    },
+    "split_seed": 20200,
+    "max_rows": 50000,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "inputs": {
+    "har.arff": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\har\\har.arff",
+      "sha256": "16e55052cbf8a3f9d7bc769501e4cb1c7909f50fd3947b8457f5a8c1f75fef4b",
+      "bytes": 55364318
+    },
+    "har.npz": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\har\\har.npz",
+      "sha256": "bb0532c1eeb6b3dd1d421bd0e56c77b5f1859df9e40ac03c010eae34b3e1ee37",
+      "bytes": 18736665
+    },
+    "SHA256SUMS": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\har\\SHA256SUMS",
+      "sha256": "bbb8aa0866f8f50f02683013df611bb1bad8ce060a4c0d175230d0e1cab056b6",
+      "bytes": 151
+    }
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "nsga2_sparse": [
+        6000
+      ]
+    },
+    "elapsed_by_method": {
+      "nsga2_sparse": 421.47
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-07T18:43:11.143140+00:00",
+  "elapsed_seconds": 423.249,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "8180dc01ac78ee4bc676e8fe626d0e4bbca6fa1eeef1d1f2e7df7820c00bd67f",
+      "bytes": 410
+    },
+    "auf.json": {
+      "sha256": "491b54220491e3b52b8fce55cd888f406df15994d9922c4b5e856a127ef07201",
+      "bytes": 591
+    },
+    "comparison.csv": {
+      "sha256": "6c4015aecc04dcdb24f266c34e6aae707af829969073be78fddf9c5f467532da",
+      "bytes": 2331
+    },
+    "comparison.png": {
+      "sha256": "e92f9e6a390cf81fc4e4c0ec07b3fb2687ae5a4fca2ebe3741c23f54177a5b11",
+      "bytes": 60641
+    },
+    "comparison_rows.json": {
+      "sha256": "0254e25ae69d0a404aa204e6f37e02ceee72595d16848d25c527568294306057",
+      "bytes": 10450
+    },
+    "progress.json": {
+      "sha256": "2364ceb2c6ebb571687a88106fc6d1ef844bb76e4813fe66b6c776feb37294c2",
+      "bytes": 815
+    },
+    "raw_results.json": {
+      "sha256": "f6a3fe5fefdcc9ab37b9a4581e6f65f6106dab6729d1fbc3ef123bc9a64d5bb1",
+      "bytes": 81368
+    },
+    "raw_results_partial.json": {
+      "sha256": "f6a3fe5fefdcc9ab37b9a4581e6f65f6106dab6729d1fbc3ef123bc9a64d5bb1",
+      "bytes": 81368
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/nsga2_sparse_seed2023.jsonl": {
+      "sha256": "d1c5856ce49e00f541482d03661b672457b6aad91fa467b8b1c9ed38d7b0d6df",
+      "bytes": 3037479
+    }
+  }
+}

@@ -59,6 +59,7 @@ say so, and name the result.
 | [DEC-29](#dec-29) | 2026-10-07 | H1 on eight datasets spread by feature count, not the four development sets | H1-E01, H1-E02 |
 | [DEC-30](#dec-30) | 2026-10-07 | Run one process per dataset, arm and seed, at most ten at a time | H1-E01, H1-E02 |
 | [DEC-31](#dec-31) | 2026-10-07 | Stop H1-E01 and restart H1 as H1-E02 | H1-E01, H1-E02 |
+| [DEC-32](#dec-32) | 2026-10-09 | Split each report into a short reading (REPORT.md) and its record (SUPPORT.md) | H1-E02 and later |
 
 ## Decisions
 
@@ -569,6 +570,33 @@ time.**
 - **Source:** `EXPERIMENTS.md`, H1-E01 and H1-E02; `reports/H1-E01/REPORT.md`.
 - **Applies to:** H1-E01, H1-E02.
 
+### DEC-32
+
+**2026-10-09 -- Split each report into a short reading (REPORT.md) and its
+record (SUPPORT.md).**
+
+- **Why:** a report holding every run ID, parameter and per-seed number was
+  complete but unreadable. The PI asked for a report a reader can follow, with
+  the tracking detail kept beside it.
+- **Detail:**
+  - `REPORT.md` has three sections. *In brief* gives the hypothesis, how it
+    is judged and the answer, in plain words with one figure. *Findings* gives
+    F1 to FN one at a time, each with an explanation and a figure. The
+    *Assessment* judges the hypothesis on the findings, written as for a
+    paper.
+  - `SUPPORT.md` holds the header, the hypothesis and criteria quoted
+    verbatim, the description of the experiment, the evidence tables and the
+    reproduction commands.
+  - `make_report.py` generates both. The `experiment-report` skill
+    (`.claude/skills/experiment-report/SKILL.md`) is the procedure for writing
+    them. `METHODOLOGY.md`, *The report*, states the rules.
+  - Reports before H1-E02 keep the earlier single-file form.
+- **By:** PI.
+- **Taken after a result:** H1-E02's report had been drafted in the old form.
+  No verdict or criterion changed: it only changes how a report is laid out.
+- **Source:** the commit that adds this entry; `METHODOLOGY.md`, *The report*.
+- **Applies to:** H1-E02 and every later experiment.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -581,5 +609,5 @@ are not repeated.
 | `H0-E02` | reported: supported, narrowly | [DEC-16](#dec-16), [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-21](#dec-21), [DEC-22](#dec-22) | [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25) | [H0-E02](reports/H0-E02/REPORT.md) |
 | `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27), [DEC-28](#dec-28) | [H0-E03](reports/H0-E03/REPORT.md) |
 | `H1-E01` | failed: stopped before any run finished | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30) | [DEC-31](#dec-31) | [H1-E01](reports/H1-E01/REPORT.md) |
-| `H1-E02` | registered | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | -- | -- |
+| `H1-E02` | reported: supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | [DEC-32](#dec-32) | [H1-E02](reports/H1-E02/REPORT.md) |
 | H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28) | -- | -- |

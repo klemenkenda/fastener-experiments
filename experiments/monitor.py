@@ -409,7 +409,12 @@ def render_queue(queue: Dict, experiment: str) -> List[str]:
                         for s in ("running", "done", "failed", "pending")
                         if counts.get(s))]
     active = bool(counts.get("running") or counts.get("pending"))
-    line = f"  elapsed {format_duration(age_seconds(queue.get('started_utc')))}"
+    elapsed = age_seconds(queue.get("started_utc"))
+    ends = [j["ended_utc"] for j in jobs if j.get("ended_utc")]
+    if not active and ends and elapsed is not None:
+        # A finished queue's clock stops at its last job, not at the reading.
+        elapsed -= age_seconds(max(ends)) or 0.0
+    line = f"  elapsed {format_duration(elapsed)}"
     if active:
         eta, floor = queue_eta(jobs, snaps, slots)
         finish = time.localtime(time.time() + eta)

@@ -1,0 +1,23 @@
+Dataset(har: 561 features, 6181/2059/2059 train/val/test)
+  row cap 50000: using 10299 rows
+run dir: E:\Users\Klemen\FASTENER\results\20261007T182315Z_h1e02_har_nsga2_s2024
+experiment: H1-E02
+progress: E:\Users\Klemen\FASTENER\results\20261007T182315Z_h1e02_har_nsga2_s2024\progress.json
+  monitor with: python experiments/monitor.py --run 20261007T182315Z_h1e02_har_nsga2_s2024
+
+nsga2 (6000 fits x 1 seeds):
+  seed 2024: front=23 best test_f1=0.9384 @k=235 fits=6000 (9907.05s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 2h45m
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  nsga2                                                                                                                                                                                  
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  nsga2                   0.0000  0.0000  0.0000      1       0-0 
+
+manifest: E:\Users\Klemen\FASTENER\results\20261007T182315Z_h1e02_har_nsga2_s2024\manifest.json

@@ -111,22 +111,95 @@ what was changed before the next attempt. The report is written before the next
 experiment on the same hypothesis starts, so that what was learned from one
 attempt is fixed before the next can overwrite it.
 
-Location: `experiments/reports/<experiment ID>/REPORT.md`, with its figures in
-`experiments/reports/<experiment ID>/figures/`. Reports and figures are
-committed; the bulk run outputs stay in `results/` under the rules in
-`.gitignore`.
+**Two files: the reading and the record.** A report that carries every run ID,
+parameter and per-seed number is complete but unreadable. So each experiment
+has two files in `experiments/reports/<experiment ID>/`:
 
-**Generated first, then written.** The report skeleton -- header, the
-hypothesis and criteria copied from `HYPOTHESES.md`, the per-seed tables, the
-run facts, and every figure -- is generated from the run directories by script.
-The summary, the description of what happened and the findings are then
-written by hand on top of it. A number in the prose must match a number in a
-generated table or figure; nothing is computed by hand.
+* **`REPORT.md`** -- the reading: what the hypothesis says, whether it held,
+  what was found and what it means. Written for a reader who has not followed
+  the experiment.
+* **`SUPPORT.md`** -- the record: the runs, the criteria quoted as registered,
+  the parameters, the per-seed numbers, what happened during the run, and how
+  to reproduce it all. Written for whoever has to check the reading.
 
-### Structure
+Figures go in `figures/`, the numbers behind them in `tables/`. Both files,
+the figures and the tables are committed; the bulk run outputs stay in
+`results/` under the rules in `.gitignore`.
 
-Sections in this order. None may be dropped; a section that has nothing to say
-says so in one line.
+**Generated first, then written.** `make_report.py` generates both files from
+the run directories: all of `SUPPORT.md` except a few lines of prose, and
+`REPORT.md` as a skeleton of headings, figures and TODO markers. The prose is
+then written by hand, following the `experiment-report` skill
+(`.claude/skills/experiment-report/SKILL.md`). A number in the prose must match
+a number in a generated table or figure; nothing is computed by hand.
+
+Reports of experiments before H1-E02 (H0-E01 to H0-E03, H1-E01) are in the
+earlier single-file form, in which `REPORT.md` holds both the reading and the
+record.
+
+### `REPORT.md`
+
+Three sections, in this order.
+
+#### 1. In brief
+
+Plain language throughout: a reader outside the project should follow it
+without the glossary.
+
+* **The hypothesis** -- what it says, in two or three sentences, and **how it
+  is judged**: the falsification criterion, in plain words.
+* **The answer** -- confirmed or not confirmed (for a failed experiment: no
+  answer, and why), with the reason in two to four sentences and the one
+  number that decides it. Then the figure that shows it, with a one-line
+  caption.
+
+#### 2. Findings
+
+Enumerated F1 to FN, **one at a time**, each with three parts:
+
+```markdown
+### F1 -- The finding, as one specific, falsifiable sentence.
+
+The explanation: what was measured, the numbers behind the sentence (per-seed
+ranges, test statistics where the criterion calls for them), and what they
+mean. A short table if it helps.
+
+![F1](figures/F1_H1_criterion_auf10.png)
+
+*What is plotted, on which axes, which split, what the points or band show.*
+```
+
+Rules for findings and their figures:
+
+* **F1 is the result on the falsification criterion**, as it was
+  pre-registered. Findings from F2 onwards are what else the data showed; one
+  that tests something not written down before the run says so.
+* **A statement that no figure shows is not a finding.** It belongs in the
+  assessment, or in `SUPPORT.md` under *What happened*.
+* **Seed spread is shown on every figure** -- per-seed points or a min-max
+  band. A mean is never plotted alone (*Analysis plan*, item 3).
+* **Progress curves are plotted against cumulative fits**, with wall clock as
+  a second view where it matters (*Progress tracking*).
+* **Validation or test is stated on every figure.** Test-set progress curves
+  are secondary and labelled so.
+* Every figure is produced by a committed script from the run directories.
+  File names are `F<n>_<short description>.png`, numbered as the findings are.
+* A negative or null finding is reported with the same care as a positive one,
+  and with a figure.
+
+#### 3. Assessment
+
+The hypothesis judged on the findings, written as for the results and
+discussion of a paper: what is supported and how strongly, effect sizes with
+their spread, what the result does not show, the limits set by the seeds,
+datasets and budget (*What 5 seeds can and cannot answer* in `HYPOTHESES.md`),
+and what follows for later hypotheses. It refers to findings by number and
+introduces no number they do not contain.
+
+### `SUPPORT.md`
+
+Six sections, in this order. None may be dropped; a section that has nothing
+to say says so in one line.
 
 #### 1. Header
 
@@ -137,8 +210,9 @@ says so in one line.
 | Run IDs | every run ID the report draws on, each with its status from the manifest |
 | Algorithm IDs | one per arm, as defined above |
 | Pre-registration | the commit of `HYPOTHESES.md` the hypothesis and criteria were taken from |
+| Code commits | the commits the runs were made at |
 | Dates | run start and end (UTC), report date |
-| Verdict | `supported`, `not supported`, `inconclusive` or `invalid` -- per hypothesis |
+| Verdict | a pointer to `REPORT.md`, with the generator's mechanical reading of the criterion |
 
 #### 2. Hypothesis
 
@@ -159,14 +233,7 @@ Also quoted verbatim:
 If any entry was revised after pre-registration, the revision's dated entry at
 the bottom of `HYPOTHESES.md` is quoted too, with the reason.
 
-#### 4. Summary
-
-One paragraph, readable on its own: what was tested, on what, and the verdict
-against the criterion, with the one number that decides it and its seed spread.
-Anything surprising that a reader must not miss goes here as a second
-paragraph.
-
-#### 5. Description of the experiment
+#### 4. Description of the experiment
 
 Detailed enough that a reader who has not seen the code can tell what was run,
 and could spot a mistake in it. Two parts.
@@ -194,55 +261,13 @@ and could spot a mistake in it. Two parts.
 * for a failed or invalid experiment: the defect, how it was found, and what
   was changed before the next attempt, with the commit that changed it.
 
-#### 6. Findings
+#### 5. Evidence
 
-Enumerated, **each supported by one figure**. A statement that no figure
-shows is not a finding; it belongs in *What happened* or in *Open questions*.
+The generated tables the criterion is evaluated on -- per dataset and per
+seed -- with the generator's mechanical reading, and the list of figures. No
+interpretation: that is `REPORT.md`'s.
 
-Each finding has the same four parts:
-
-```markdown
-### Finding 1 -- nsga2_sparse reaches a higher AUF(K=10) than nsga2_obl on 5/5 seeds
-
-**Claim.** One sentence, specific and falsifiable.
-
-**Evidence.** The numbers behind the claim: per-seed values, the test statistic
-and p-value where the criterion calls for one, effect size.
-
-![Finding 1](figures/F1_auf10_per_seed.png)
-
-*Figure 1.* What is plotted, on which axes, which split (validation or test),
-and what the band or points show. Run IDs: `20260926T081500Z_h1`.
-
-**Bearing on the hypothesis.** Whether this finding supports, contradicts or
-is neutral to the claim, and why.
-```
-
-Rules for findings and their figures:
-
-* **Finding 1 is always the verdict on the falsification criterion**, as it was
-  pre-registered. Findings from 2 onwards are what else the data showed, and
-  are marked **exploratory** when they test something not written down before
-  the run.
-* **Seed spread is shown on every figure** -- per-seed points or a min-max
-  band. A mean is never plotted alone (*Analysis plan*, item 3).
-* **Progress curves are plotted against cumulative fits**, with wall clock as
-  a second view where it matters (*Progress tracking*).
-* **Validation or test is stated on every figure.** Test-set progress curves
-  are secondary and labelled so.
-* Every figure is produced by a committed script from the run directories and
-  carries the run IDs it was drawn from in its caption. File names are
-  `F<n>_<short description>.png`, numbered as the findings are.
-* A negative or null finding is reported with the same care as a positive one,
-  and with a figure.
-
-#### 7. Limitations and open questions
-
-What this experiment cannot answer, given its seeds, datasets and budget
-(*What 5 seeds can and cannot answer* in `HYPOTHESES.md`), and what it raised
-that a later experiment or hypothesis should take up.
-
-#### 8. Reproduction
+#### 6. Reproduction
 
 The exact commands, from a clean checkout at the recorded commits, that
 reproduce each run and regenerate every table and figure in the report.
@@ -262,7 +287,7 @@ python experiments/run_queue.py --experiment H1-E01 \
     --datasets eodata,gina --methods nsga2,nsga2_sparse --max-procs 10
 python experiments/monitor.py --experiment H1-E01
 
-# 3. Generate the skeleton, then write the prose into REPORT.md.
+# 3. Generate REPORT.md and SUPPORT.md, then write the prose (experiment-report skill).
 python experiments/make_report.py --experiment H1-E01
 
 # 4. Close the ID. It then accepts no further runs.

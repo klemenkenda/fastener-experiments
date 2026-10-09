@@ -1,0 +1,23 @@
+Dataset(eodata: 182 features, 29976/10008/10008 train/val/test)
+  row cap 50000: using 49992 rows
+run dir: E:\Users\Klemen\FASTENER\results\20261007T121628Z_h1e02_eodata_nsga2_s2020
+experiment: H1-E02
+progress: E:\Users\Klemen\FASTENER\results\20261007T121628Z_h1e02_eodata_nsga2_s2020\progress.json
+  monitor with: python experiments/monitor.py --run 20261007T121628Z_h1e02_eodata_nsga2_s2020
+
+nsga2 (6000 fits x 1 seeds):
+  seed 2020: front=100 best test_f1=0.5676 @k=26 fits=6000 (18711.03s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 5h11m
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  nsga2                                                                                  0.540  0.565  0.565  0.565  0.571  0.570  0.570  0.570  0.570  0.570  0.570  0.567  0.568  0.568
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  nsga2                   0.0541  0.0541  0.0541      1       1-1 
+
+manifest: E:\Users\Klemen\FASTENER\results\20261007T121628Z_h1e02_eodata_nsga2_s2020\manifest.json

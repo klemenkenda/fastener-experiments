@@ -3,16 +3,22 @@
 Reads every run of the experiment from `results/<run ID>/`, and writes to
 `experiments/reports/<experiment ID>/`:
 
-* `REPORT.md` -- header, the hypothesis and criteria quoted verbatim from
-  HYPOTHESES.md at the pre-registration commit, the per-seed tables, the run
-  facts, a mechanical reading of the falsification criterion, and every figure,
-  with TODO markers where the prose is to be written by hand;
+* `REPORT.md` -- the reading, in three sections: in brief (the hypothesis, its
+  criterion and the answer, in plain words, with the criterion figure); the
+  findings F1..FN, one at a time, each with its figure; and an assessment of
+  the hypothesis written as for a paper. A skeleton, with TODO markers where
+  the prose is to be written by hand;
+* `SUPPORT.md` -- the record: header, the hypothesis and criteria quoted
+  verbatim from HYPOTHESES.md at the pre-registration commit, the run facts,
+  the per-seed tables, a mechanical reading of the falsification criterion and
+  the reproduction commands;
 * `figures/F<n>_*.png` -- the candidate figures for the findings;
 * `tables/*.csv` -- the numbers behind the tables and figures.
 
-An existing REPORT.md is never overwritten, since it holds hand-written prose;
-the new skeleton goes to REPORT.skeleton.md instead (unless --force). Figures
-and tables are always regenerated: they are a function of the runs.
+An existing REPORT.md or SUPPORT.md is never overwritten, since it holds
+hand-written prose; the new skeleton goes to REPORT.skeleton.md or
+SUPPORT.skeleton.md instead (unless --force). Figures and tables are always
+regenerated: they are a function of the runs.
 
 Usage:
     python experiments/make_report.py --experiment H1-E01
@@ -493,12 +499,18 @@ def _colors(arms: Sequence[str]) -> Dict[str, str]:
     return {a: SERIES[i % len(SERIES)] for i, a in enumerate(arms)}
 
 
+FOOTER_MAX_RUNS = 6
+
+
 def _footer(fig, run_ids: Sequence[str], split: str) -> None:
     import textwrap
     width = int(fig.get_figwidth() * 17)  # characters of 7 pt per inch
-    fig.text(0.01, 0.005, textwrap.fill(
-        f"{split} split  |  runs: {', '.join(run_ids)}", width),
-        fontsize=7, color=INK_2, ha="left", va="bottom")
+    # Past a few runs -- one per dataset, arm and seed under run_queue.py --
+    # the IDs would cover the panels; the report's run-key table lists them.
+    runs = (f"runs: {', '.join(run_ids)}" if len(run_ids) <= FOOTER_MAX_RUNS
+            else f"{len(run_ids)} runs, listed in tables/run_keys.csv")
+    fig.text(0.01, 0.005, textwrap.fill(f"{split} split  |  {runs}", width),
+             fontsize=7, color=INK_2, ha="left", va="bottom")
 
 
 def fig_paired(ev, run_ids, path: Path) -> None:
@@ -762,26 +774,46 @@ def fig_opt_curves(units, arms, K, run_ids, path: Path) -> None:
     plt.close(fig)
 
 
-def fig_min_size(units, arms, run_ids, path: Path) -> None:
+def fig_size_range(units, arms, run_ids, path: Path) -> None:
+    """Where each front lies on the size axis, against the feature count.
+
+    One vertical bar per seed, from the smallest to the largest subset on the
+    final front, at the dataset's feature count p; the arms sit side by side.
+    The guides mark p, p/2 (where OBL starts) and k = 10.
+    """
     import matplotlib.pyplot as plt
     _style(plt)
-    dss = sorted({u["dataset"] for u in units if u["method"] in arms})
-    fig, axes = _grid(plt, max(1, len(dss)))
+    fig, ax = plt.subplots(figsize=(8, 4.6))
     col = _colors(arms)
-    for ax, ds in zip(axes, dss):
-        for i, arm in enumerate(arms):
-            v = [min_size(u["records"]) for u in units
-                 if u["dataset"] == ds and u["method"] == arm and u["records"]]
-            ax.scatter([i] * len(v), v, s=30, color=col[arm],
-                       edgecolor="#fcfcfb", linewidth=1.5, zorder=3)
-        ax.set_yscale("log")
-        ax.set_xticks(range(len(arms)), arms, rotation=20, ha="right")
-        ax.set_title(ds)
-        ax.set_ylabel("smallest subset on front")
-    fig.suptitle("Smallest subset size on the final front, one point per seed",
-                 fontsize=10)
+    ps = sorted({u["n_features"] for u in units if u["n_features"]})
+    for i, arm in enumerate(arms):
+        first = True
+        for u in units:
+            if u["method"] != arm or not u["records"] or not u["n_features"]:
+                continue
+            sizes = [r["n_features"] for r in u["records"]]
+            # Seeds fan out a little around p, arms to either side of it.
+            shift = 1 + 0.06 * (i - (len(arms) - 1) / 2) \
+                + 0.012 * ((u["seed"] or 0) % 5 - 2)
+            x = u["n_features"] * shift
+            ax.plot([x, x], [min(sizes), max(sizes)], color=col[arm], lw=2.2,
+                    solid_capstyle="round", label=arm if first else None)
+            first = False
+    if ps:
+        xs = np.array([ps[0] * 0.7, ps[-1] * 1.4])
+        ax.plot(xs, xs, color=INK_2, lw=0.9, ls="-", label="all features (p)")
+        ax.plot(xs, xs / 2, color=INK_2, lw=0.9, ls="--",
+                label="p/2, where OBL starts")
+        ax.axhline(10, color=INK_2, lw=0.9, ls=":", label="k = 10")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("features in the dataset (p)")
+    ax.set_ylabel("subset sizes on the final front")
+    ax.legend(fontsize=8, frameon=False, loc="upper left")
+    fig.suptitle("Size range of each final front, smallest to largest subset, "
+                 "one bar per seed", fontsize=10)
     _footer(fig, run_ids, "validation-selected front")
-    fig.tight_layout(rect=(0, 0.03, 1, 0.97))
+    fig.tight_layout(rect=(0, 0.04, 1, 0.97))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -934,7 +966,7 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                if h0 else ())
     for slug, fn, args in h0_figs + (
             ("opt_curves", fig_opt_curves, (units, arms_all, K0)),
-            ("min_subset_size", fig_min_size, (units, arms_all)),
+            ("front_size_range", fig_size_range, (units, arms_all)),
             ("cost", fig_cost, (units, arms_all))):
         fig_no += 1
         p = fig_dir / f"F{fig_no}_{slug}.png"
@@ -958,7 +990,12 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
 
     # ---- markdown ------------------------------------------------------
     now = datetime.now(timezone.utc)
-    L: List[str] = [f"# {experiment_id} -- report", ""]
+    # SUPPORT.md: the record -- what ran, under which rules, with which
+    # numbers. The reading of it is REPORT.md, built further down.
+    L: List[str] = [f"# {experiment_id} -- supporting record", "",
+                    "The record behind [REPORT.md](REPORT.md): the runs, the "
+                    "criteria as registered, the parameters, the per-seed "
+                    "numbers and how to reproduce them.", ""]
 
     L += ["## 1. Header", ""]
     run_cells = []
@@ -968,9 +1005,10 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                          f"{'' if m.get('evidence') else ', NOT evidence'})")
     starts = [m["started_utc"] for m in manifests]
     ends = [m.get("ended_utc") for m in manifests if m.get("ended_utc")]
-    verdicts = "; ".join(f"{h['hid']}: " + TODO.format(
-        f"verdict (mechanical reading: {h['ev']['reading']})"
-        if h["ev"] else "verdict") for h in per_h)
+    verdicts = "; ".join(
+        f"{h['hid']}: see [REPORT.md](REPORT.md)"
+        + (f" (mechanical reading: {h['ev']['reading']})" if h["ev"] else "")
+        for h in per_h)
     L += [md_table(("field", "content"), [
         ("Experiment ID", f"`{experiment_id}`"),
         ("Hypothesis ID", ", ".join(hids)),
@@ -986,7 +1024,7 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     ]), ""]
     if len(commits) > 1:
         L += ["**Warning:** the runs were made at different commits of the "
-              "experiments repo; say in section 5 why that does not matter, or "
+              "experiments repo; say in section 4 why that does not matter, or "
               "that it does.", ""]
     if prereg and htext != head_text:
         L += [f"**Note:** `{HYPOTHESES_PATH}` has changed since {hsource}. The "
@@ -1047,11 +1085,7 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
           "hypervolume, the smallest subset size on the front, fits and wall "
           "clock.", ""]
 
-    L += ["## 4. Summary", "", TODO.format(
-        "one paragraph: what was tested, on what, the verdict against the "
-        "criterion, with the deciding number and its seed spread"), ""]
-
-    L += ["## 5. Description of the experiment", "", "### Setup", ""]
+    L += ["## 4. Description of the experiment", "", "### Setup", ""]
     for r in runs:
         m = r["manifest"] or {}
         if not m:
@@ -1121,17 +1155,13 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                       "and for a failed attempt what was changed and in which "
                       "commit"), ""]
 
-    L += ["## 6. Findings", ""]
-    n = 0
+    L += ["## 5. Evidence", "",
+          "The numbers the criterion is evaluated on. What they mean is in "
+          "[REPORT.md](REPORT.md).", ""]
     for h in per_h:
-        n += 1
         ev = h["ev"]
-        L += [f"### Finding {n} -- {h['hid']}: " + TODO.format(
-            "claim as a title"), "",
-            "**Claim.** " + TODO.format(
-                f"the verdict on the pre-registered criterion "
-                f"(mechanical reading: {ev['reading'] if ev else 'n/a'})"), "",
-            "**Evidence.**", ""]
+        L += [f"### {h['hid']}: the criterion"
+              + (f" (mechanical reading: {ev['reading']})" if ev else ""), ""]
         if ev and ev["kind"] == "paired":
             L += [md_table(("dataset", "seeds", f"{ev['challenger']} ahead",
                             "passes (>= 4/5)"),
@@ -1209,41 +1239,22 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                            [(p["opponent"], p["n_datasets"], p["wins"],
                              p["ties"], p["losses"], p["mean_delta"], p["p"],
                              p["p_holm"]) for p in ev["pairs"]]), ""]
-        rel = h["crit_fig"].relative_to(out_dir).as_posix()
-        L += [f"![Finding {n}]({rel})", "",
-              f"*Figure {h['fig_no']}.* " + TODO.format(
-                  "what is plotted, axes, split, what the points/band show"),
-              f" Runs: {', '.join(f'`{r}`' for r in run_ids)}.", "",
-              "**Bearing on the hypothesis.** " + TODO.format(
-                  "supports / contradicts / neutral, and why"), ""]
-    L += ["Candidate figures for further (exploratory) findings. Delete the "
-          "ones no finding uses; a finding without a figure is not a "
-          "finding.", ""]
-    for no, p, slug in extra:
-        L += [f"### Finding {n + 1} (exploratory) -- " + TODO.format(
-                  f"claim, or delete (figure: {slug})"), "",
-              "**Claim.** " + TODO.format("") + "", "",
-              "**Evidence.** " + TODO.format("") + "", ""]
-        if slug == "secondary_deltas" and h0:
-            L += [f"{H0_ARMS[1]} minus {H0_ARMS[0]} per seed, summarised per "
-                  f"dataset (percent for relative measures):", "",
-                  md_table(("dataset", "measure", "seeds",
-                            f"{H0_ARMS[1]} higher", "mean", "min", "max"),
-                           [(r["dataset"], r["measure"], r["seeds"],
-                             r["fixed_higher"], r["mean_delta"],
-                             r["min_delta"], r["max_delta"])
-                            for r in h0_secondary_summary(h0[0])]), ""]
-        L += [f"![{slug}]({p.relative_to(out_dir).as_posix()})", "",
-              f"*Figure {no}.* " + TODO.format("caption") +
-              f" Runs: {', '.join(f'`{r}`' for r in run_ids)}.", "",
-              "**Bearing on the hypothesis.** " + TODO.format("") + "", ""]
-        n += 1
+    if h0:
+        L += [f"### Secondary measures, {H0_ARMS[1]} minus {H0_ARMS[0]}", "",
+              "Per seed, summarised per dataset (percent for relative "
+              "measures):", "",
+              md_table(("dataset", "measure", "seeds",
+                        f"{H0_ARMS[1]} higher", "mean", "min", "max"),
+                       [(r["dataset"], r["measure"], r["seeds"],
+                         r["fixed_higher"], r["mean_delta"],
+                         r["min_delta"], r["max_delta"])
+                        for r in h0_secondary_summary(h0[0])]), ""]
+    L += ["Figures, all in [figures/](figures/): "
+          + ", ".join(f"`{p.name}`" for p in
+                      [h["crit_fig"] for h in per_h] + [e[1] for e in extra])
+          + f". Every figure is drawn from all {len(run_ids)} runs above.", ""]
 
-    L += ["## 7. Limitations and open questions", "",
-          TODO.format("what the seeds, datasets and budget cannot answer; what "
-                      "a later experiment should take up"), ""]
-
-    L += ["## 8. Reproduction", "",
+    L += ["## 6. Reproduction", "",
           "From a clean checkout of both repositories at the commits in the "
           "header:", "", "```"]
     L += [f"python experiments/{r['manifest']['command']}"
@@ -1260,10 +1271,63 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     L += [f"python experiments/make_report.py --experiment {experiment_id} "
           f"--runs {' '.join(run_ids)}", "```", ""]
 
-    target = out_dir / "REPORT.md"
+    write_md(out_dir, "SUPPORT", L, force)
+
+    # REPORT.md: the reading, for someone who has not followed the
+    # experiment. Three sections: in brief, the findings one at a time, and an
+    # assessment in the register of a paper. The record stays in SUPPORT.md.
+    readings = ", ".join(f"{h['hid']}: {h['ev']['reading']}"
+                         for h in per_h if h["ev"])
+    R: List[str] = [
+        f"# {experiment_id} -- report", "",
+        f"*Hypothesis {', '.join(hids)}. The runs, the criteria as registered, "
+        f"the per-seed numbers and how to reproduce them are in "
+        f"[SUPPORT.md](SUPPORT.md).*", "",
+        "## 1. In brief", "",
+        "### The hypothesis", "",
+        TODO.format("what it says, in two or three plain sentences; no "
+                    "jargon a reader outside the project would not know"), "",
+        "**How it is judged.** " + TODO.format(
+            "the falsification criterion, in plain words"), "",
+        "### The answer: " + TODO.format(
+            f"confirmed / not confirmed (mechanical reading -- {readings})"),
+        "",
+        TODO.format("why, in two to four plain sentences, with the one number "
+                    "that decides it"), ""]
+    for h in per_h:
+        rel = h["crit_fig"].relative_to(out_dir).as_posix()
+        R += [f"![{h['hid']}: the criterion]({rel})", "",
+              f"*{TODO.format('one-line caption: what each point is')}*", ""]
+
+    R += ["## 2. Findings", "",
+          "One finding at a time: the statement, what it rests on, and the "
+          "figure that shows it.", ""]
+    figs = [(h["crit_fig"], f"{h['hid']} criterion") for h in per_h] + \
+        [(p, slug) for _, p, slug in extra]
+    for i, (p, slug) in enumerate(figs, 1):
+        R += [f"### F{i} -- " + TODO.format(
+                  f"the finding as one sentence, or delete (figure: {slug})"),
+              "", TODO.format("explanation: what was measured, the numbers, "
+                              "what they mean; a short table if it helps"), "",
+              f"![F{i}]({p.relative_to(out_dir).as_posix()})", "",
+              f"*{TODO.format('caption: what is plotted, axes, split')}*", ""]
+
+    R += ["## 3. Assessment", "",
+          TODO.format("the hypothesis judged on the findings, written as for a "
+                      "paper's results and discussion: what is supported and "
+                      "how strongly, effect sizes with their spread, what the "
+                      "result does not show, the limits of the seeds, datasets "
+                      "and budget, and what follows for later hypotheses"), ""]
+    return write_md(out_dir, "REPORT", R, force)
+
+
+def write_md(out_dir: Path, stem: str, lines: Sequence[str],
+             force: bool) -> Path:
+    """Write <stem>.md, or <stem>.skeleton.md beside a hand-written one."""
+    target = out_dir / f"{stem}.md"
     if target.exists() and not force:
-        target = out_dir / "REPORT.skeleton.md"
-    target.write_text("\n".join(L), encoding="utf-8")
+        target = out_dir / f"{stem}.skeleton.md"
+    target.write_text("\n".join(lines), encoding="utf-8")
     return target
 
 
@@ -1291,10 +1355,11 @@ def main() -> int:
     out = Path(args.out) if args.out else \
         experiment_ids.REPORTS_DIR / args.experiment
     path = build(args.experiment, run_ids, out, force=args.force)
-    print(f"wrote {path}")
+    print(f"wrote {path}, and SUPPORT.md beside it")
     print(f"figures: {out / 'figures'}")
     if path.name == "REPORT.skeleton.md":
-        print("REPORT.md exists and was left alone; merge from the skeleton.")
+        print("REPORT.md exists and was left alone; merge from the skeleton. "
+              "SUPPORT.md is treated the same way.")
     return 0
 
 

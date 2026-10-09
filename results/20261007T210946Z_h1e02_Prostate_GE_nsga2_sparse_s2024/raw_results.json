@@ -1,0 +1,1504 @@
+[
+  {
+    "method": "nsga2_sparse",
+    "family": "genetic",
+    "seed": 2024,
+    "init": "sparse",
+    "elapsed_seconds": 15099.95,
+    "model_fits": 6000,
+    "iterations": 408463,
+    "records": [
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 1,
+        "features": [
+          2585
+        ],
+        "val": {
+          "f1_weighted": 0.7979797979797979,
+          "f1_macro": 0.797979797979798,
+          "f1_binary": 0.7777777777777778,
+          "accuracy": 0.8,
+          "balanced_accuracy": 0.8
+        },
+        "test": {
+          "f1_weighted": 0.6875,
+          "f1_macro": 0.6875,
+          "f1_binary": 0.75,
+          "accuracy": 0.7,
+          "balanced_accuracy": 0.7
+        },
+        "val_score": 0.7979797979797979,
+        "test_score": 0.6875,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      },
+      {
+        "n_features": 2,
+        "features": [
+          2516,
+          2585
+        ],
+        "val": {
+          "f1_weighted": 1.0,
+          "f1_macro": 1.0,
+          "f1_binary": 1.0,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "test": {
+          "f1_weighted": 0.7333333333333333,
+          "f1_macro": 0.7333333333333334,
+          "f1_binary": 0.8,
+          "accuracy": 0.75,
+          "balanced_accuracy": 0.75
+        },
+        "val_score": 1.0,
+        "test_score": 0.7333333333333333,
+        "method": "nsga2_sparse",
+        "seed": 2024,
+        "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+      }
+    ],
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+  }
+]

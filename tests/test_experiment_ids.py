@@ -206,19 +206,30 @@ def test_report_end_to_end_h1(tmp_path, monkeypatch):
                   {"nsga2": 0.5, "nsga2_sparse": 0.6})
     out = tmp_path / "report"
     path = make_report.build("H1-E01", ["R_eodata", "R_satimage"], out)
+    # REPORT.md: the reading, in three sections.
+    assert path.name == "REPORT.md"
     text = path.read_text(encoding="utf-8")
-    for heading in ("## 1. Header", "## 2. Hypothesis",
-                    "## 3. Evaluation criteria", "## 4. Summary",
-                    "## 5. Description of the experiment", "## 6. Findings",
-                    "## 7. Limitations", "## 8. Reproduction"):
+    for heading in ("## 1. In brief", "### The hypothesis", "### The answer",
+                    "## 2. Findings", "### F1 -- ", "## 3. Assessment"):
         assert heading in text
-    assert "mechanical reading: supported" in text
-    assert "**Falsification criterion.**" in text  # quoted verbatim
+    assert "mechanical reading -- H1: supported" in text
+    assert "](SUPPORT.md)" in text
+    # SUPPORT.md: the record.
+    support = (out / "SUPPORT.md").read_text(encoding="utf-8")
+    for heading in ("## 1. Header", "## 2. Hypothesis",
+                    "## 3. Evaluation criteria",
+                    "## 4. Description of the experiment", "## 5. Evidence",
+                    "## 6. Reproduction"):
+        assert heading in support
+    assert "mechanical reading: supported" in support
+    assert "**Falsification criterion.**" in support  # quoted verbatim
+    assert "## 6. Findings" not in support and "Summary" not in support
     figs = sorted(p.name for p in (out / "figures").iterdir())
     assert figs[0].startswith("F1_H1_criterion_auf10")
     assert len(figs) == 4
+    assert any(f.endswith("_front_size_range.png") for f in figs)
     # A second build must not overwrite hand-written prose.
-    assert make_report.build("H1-E01", ["R_eodata", "R_gina"],
+    assert make_report.build("H1-E01", ["R_eodata", "R_satimage"],
                              out).name == "REPORT.skeleton.md"
 
 

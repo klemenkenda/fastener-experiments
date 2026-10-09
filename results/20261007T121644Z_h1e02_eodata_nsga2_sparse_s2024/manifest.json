@@ -1,0 +1,314 @@
+{
+  "run_id": "20261007T121644Z_h1e02_eodata_nsga2_sparse_s2024",
+  "experiment_id": "H1-E02",
+  "name": "h1e02_eodata_nsga2_sparse_s2024",
+  "started_utc": "2026-10-07T12:16:44.771652+00:00",
+  "command": "run_sota.py --dataset eodata --methods nsga2_sparse --no-fastener --seed 2024 --name h1e02_eodata_nsga2_sparse_s2024 --experiment H1-E02",
+  "params": {
+    "dataset": "eodata",
+    "methods": [
+      "nsga2_sparse"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 6000,
+    "seeds": [
+      2024
+    ],
+    "evaluation_budget_per_seed": 6000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 300,
+    "fs_sds_evaluations_total": 6000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 50,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30,
+      50,
+      100
+    ],
+    "split": "protocol",
+    "max_rows": 50000,
+    "n_rows_used": 49992,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "c1422519c97781a429dcb3a2a9e8b004c6612dac",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "M experiments/EXPERIMENTS.md",
+        "?? results/20261007T115349Z_h1e01_eodata_nsga2_s2020/",
+        "?? results/20261007T115350Z_h1e01_eodata_nsga2_s2021/",
+        "?? results/20261007T115352Z_h1e01_eodata_nsga2_s2022/",
+        "?? results/20261007T115354Z_h1e01_eodata_nsga2_s2023/",
+        "?? results/20261007T115356Z_h1e01_eodata_nsga2_s2024/",
+        "?? results/20261007T115358Z_h1e01_eodata_nsga2_sparse_s2020/",
+        "?? results/20261007T115359Z_h1e01_eodata_nsga2_sparse_s2021/",
+        "?? results/20261007T115401Z_h1e01_eodata_nsga2_sparse_s2022/",
+        "?? results/20261007T115403Z_h1e01_eodata_nsga2_sparse_s2023/",
+        "?? results/20261007T115404Z_h1e01_eodata_nsga2_sparse_s2024/",
+        "?? results/H1-E02/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "08e6acd94093f81c071230333158b433d43c450a",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": true,
+  "algorithms": {
+    "nsga2_sparse": {
+      "id": "nsga2_sparse@c142251+08e6acd#e31a",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "evaluations": 6000,
+        "init": "sparse"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "eodata",
+    "n_features": 182,
+    "n_train": 29976,
+    "n_val": 10008,
+    "n_test": 10008,
+    "class_balance_train": {
+      "0": 1249,
+      "1": 1249,
+      "2": 1249,
+      "3": 1249,
+      "4": 1249,
+      "5": 1249,
+      "6": 1249,
+      "7": 1249,
+      "8": 1249,
+      "9": 1249,
+      "10": 1249,
+      "11": 1249,
+      "12": 1249,
+      "13": 1249,
+      "14": 1249,
+      "15": 1249,
+      "16": 1249,
+      "17": 1249,
+      "18": 1249,
+      "19": 1249,
+      "20": 1249,
+      "21": 1249,
+      "22": 1249,
+      "23": 1249
+    },
+    "class_balance_val": {
+      "0": 417,
+      "1": 417,
+      "2": 417,
+      "3": 417,
+      "4": 417,
+      "5": 417,
+      "6": 417,
+      "7": 417,
+      "8": 417,
+      "9": 417,
+      "10": 417,
+      "11": 417,
+      "12": 417,
+      "13": 417,
+      "14": 417,
+      "15": 417,
+      "16": 417,
+      "17": 417,
+      "18": 417,
+      "19": 417,
+      "20": 417,
+      "21": 417,
+      "22": 417,
+      "23": 417
+    },
+    "class_balance_test": {
+      "0": 417,
+      "1": 417,
+      "2": 417,
+      "3": 417,
+      "4": 417,
+      "5": 417,
+      "6": 417,
+      "7": 417,
+      "8": 417,
+      "9": 417,
+      "10": 417,
+      "11": 417,
+      "12": 417,
+      "13": 417,
+      "14": 417,
+      "15": 417,
+      "16": 417,
+      "17": 417,
+      "18": 417,
+      "19": 417,
+      "20": 417,
+      "21": 417,
+      "22": 417,
+      "23": 417
+    },
+    "split_seed": 20200,
+    "max_rows": 50000,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "inputs": {
+    "eodata.npz": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\eodata\\eodata.npz",
+      "sha256": "c117a402af4715887a0a3e9b97ea3baf06471020a31f59e5c319fd8cea2fdf1b",
+      "bytes": 209654952
+    },
+    "FASTENER_dataset.arff": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\eodata\\FASTENER_dataset.arff",
+      "sha256": "89aa90fdcb3e358258c0c1a8c04a9048c6cbb57e75fef78e322f7145e6cf3e76",
+      "bytes": 1412784512
+    },
+    "SHA256SUMS": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\eodata\\SHA256SUMS",
+      "sha256": "0ff3974680faee97319afd379abbf212c852d04dcfe5701a239a5fb7e90133d9",
+      "bytes": 89
+    }
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "nsga2_sparse": [
+        6000
+      ]
+    },
+    "elapsed_by_method": {
+      "nsga2_sparse": 2939.7
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-07T13:05:51.533857+00:00",
+  "elapsed_seconds": 2946.762,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "d855eb633665502ea87c0f9aee48dfebd2da8521301c5d0b72ce60c87ea4272b",
+      "bytes": 411
+    },
+    "auf.json": {
+      "sha256": "d2770a1cf1ca79b6b130d2f170b48a6531811687025b0c408f3e7237dc5e1568",
+      "bytes": 592
+    },
+    "comparison.csv": {
+      "sha256": "ce1693e926441199c4209904c52fab48afa79805dee3149d67af29c5f3f34fe6",
+      "bytes": 2153
+    },
+    "comparison.png": {
+      "sha256": "65966a92e577bca15140b4219a9f3c3433bbab1ab9586d191a220259832bb655",
+      "bytes": 64224
+    },
+    "comparison_rows.json": {
+      "sha256": "a09559b8eaacd17939a18b258d593dbef8315f42713731902f3dab9c9b522c87",
+      "bytes": 9908
+    },
+    "progress.json": {
+      "sha256": "f349b61a164dcd01eef54e4d75d3a117ad4d0c93660e2a556d0c2fa15f42e9a7",
+      "bytes": 822
+    },
+    "raw_results.json": {
+      "sha256": "7b7d14f9899542cb84f8415a9db15821d524704cb4d5ec42ffba0007a004461a",
+      "bytes": 82893
+    },
+    "raw_results_partial.json": {
+      "sha256": "7b7d14f9899542cb84f8415a9db15821d524704cb4d5ec42ffba0007a004461a",
+      "bytes": 82893
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/nsga2_sparse_seed2024.jsonl": {
+      "sha256": "85c25bb296bc458da164e8cea938c56b050eafe3368fdeeca2b74d6b30ded779",
+      "bytes": 889225
+    }
+  }
+}

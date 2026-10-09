@@ -1,0 +1,22 @@
+Dataset(COIL20: 1024 features, 880/280/280 train/val/test)
+run dir: E:\Users\Klemen\FASTENER\results\20261007T195127Z_h1e02_COIL20_nsga2_s2020
+experiment: H1-E02
+progress: E:\Users\Klemen\FASTENER\results\20261007T195127Z_h1e02_COIL20_nsga2_s2020\progress.json
+  monitor with: python experiments/monitor.py --run 20261007T195127Z_h1e02_COIL20_nsga2_s2020
+
+nsga2 (6000 fits x 1 seeds):
+  seed 2020: front=17 best test_f1=0.9355 @k=419 fits=6000 (1839.88s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 30m41s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30     50
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  nsga2                                                                                                                                                                                  
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  nsga2                   0.0000  0.0000  0.0000      1       0-0 
+
+manifest: E:\Users\Klemen\FASTENER\results\20261007T195127Z_h1e02_COIL20_nsga2_s2020\manifest.json

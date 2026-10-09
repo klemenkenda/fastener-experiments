@@ -386,7 +386,10 @@ main reason H1 runs first.
 * `H1-E01` -- the eight datasets and the criterion above. Stopped after 13
   minutes, on EOData only, so the experiment could be restarted with
   per-job monitoring; no result was read. Failed.
-* `H1-E02` -- the same design, restarted.
+* `H1-E02` -- the same design, restarted. Supported: the sparse start won 5 of
+  5 seeds on EOData and on every dataset with 182 features or more, because
+  the OBL start never reached k <= 10 there; on satimage the OBL start was
+  slightly ahead. Neither start's front left the size range it began in.
 
 ## H2 -- A size-preserving move changes the front at all, guided or not
 

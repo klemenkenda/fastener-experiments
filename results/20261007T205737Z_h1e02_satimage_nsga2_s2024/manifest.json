@@ -1,0 +1,313 @@
+{
+  "run_id": "20261007T205737Z_h1e02_satimage_nsga2_s2024",
+  "experiment_id": "H1-E02",
+  "name": "h1e02_satimage_nsga2_s2024",
+  "started_utc": "2026-10-07T20:57:37.377368+00:00",
+  "command": "run_sota.py --dataset satimage --methods nsga2 --no-fastener --seed 2024 --name h1e02_satimage_nsga2_s2024 --experiment H1-E02",
+  "params": {
+    "dataset": "satimage",
+    "methods": [
+      "nsga2"
+    ],
+    "with_fastener": false,
+    "fastener_rounds": 100000,
+    "fastener_arms": [
+      "none",
+      "random",
+      "guided"
+    ],
+    "fastener_max_fits": 6000,
+    "seeds": [
+      2024
+    ],
+    "evaluation_budget_per_seed": 6000,
+    "boruta_max_iter": 100,
+    "boruta_estimator": "protocol decision tree",
+    "fs_sds_k_range": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fs_sds_evaluations_per_k": 300,
+    "fs_sds_evaluations_total": 6000,
+    "fs_sds_population": null,
+    "fs_sds_iterations": null,
+    "poss_k": 36,
+    "nsgaii_miip_init": "obl",
+    "k_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      30
+    ],
+    "split": "protocol",
+    "max_rows": 50000,
+    "n_rows_used": 6430,
+    "model": "DecisionTreeClassifier",
+    "model_seed": 20200,
+    "primary_metric": "f1_weighted",
+    "quick": false
+  },
+  "git": {
+    "experiments": {
+      "path": "E:\\Users\\Klemen\\FASTENER",
+      "available": true,
+      "commit": "c1422519c97781a429dcb3a2a9e8b004c6612dac",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/fastener-experiments.git",
+      "dirty": true,
+      "dirty_files": [
+        "M experiments/EXPERIMENTS.md",
+        "?? results/20261007T115349Z_h1e01_eodata_nsga2_s2020/",
+        "?? results/20261007T115350Z_h1e01_eodata_nsga2_s2021/",
+        "?? results/20261007T115352Z_h1e01_eodata_nsga2_s2022/",
+        "?? results/20261007T115354Z_h1e01_eodata_nsga2_s2023/",
+        "?? results/20261007T115356Z_h1e01_eodata_nsga2_s2024/",
+        "?? results/20261007T115358Z_h1e01_eodata_nsga2_sparse_s2020/",
+        "?? results/20261007T115359Z_h1e01_eodata_nsga2_sparse_s2021/",
+        "?? results/20261007T115401Z_h1e01_eodata_nsga2_sparse_s2022/",
+        "?? results/20261007T115403Z_h1e01_eodata_nsga2_sparse_s2023/",
+        "?? results/20261007T115404Z_h1e01_eodata_nsga2_sparse_s2024/",
+        "?? results/20261007T121628Z_h1e02_eodata_nsga2_s2020/",
+        "?? results/20261007T121630Z_h1e02_eodata_nsga2_s2021/",
+        "?? results/20261007T121632Z_h1e02_eodata_nsga2_s2022/",
+        "?? results/20261007T121634Z_h1e02_eodata_nsga2_s2023/",
+        "?? results/20261007T121636Z_h1e02_eodata_nsga2_s2024/",
+        "?? results/20261007T121638Z_h1e02_eodata_nsga2_sparse_s2020/",
+        "?? results/20261007T121640Z_h1e02_eodata_nsga2_sparse_s2021/",
+        "?? results/20261007T121641Z_h1e02_eodata_nsga2_sparse_s2022/",
+        "?? results/20261007T121643Z_h1e02_eodata_nsga2_sparse_s2023/",
+        "?? results/20261007T121644Z_h1e02_eodata_nsga2_sparse_s2024/",
+        "?? results/20261007T130505Z_h1e02_gisette_nsga2_s2020/",
+        "?? results/20261007T130600Z_h1e02_gisette_nsga2_s2021/",
+        "?? results/20261007T130907Z_h1e02_gisette_nsga2_s2022/",
+        "?? results/20261007T130948Z_h1e02_gisette_nsga2_s2023/",
+        "?? results/20261007T131250Z_h1e02_gisette_nsga2_s2024/",
+        "?? results/20261007T172834Z_h1e02_gisette_nsga2_sparse_s2020/",
+        "?? results/20261007T173030Z_h1e02_gisette_nsga2_sparse_s2021/",
+        "?? results/20261007T174511Z_h1e02_gisette_nsga2_sparse_s2022/",
+        "?? results/20261007T180002Z_h1e02_gisette_nsga2_sparse_s2023/",
+        "?? results/20261007T180138Z_h1e02_gisette_nsga2_sparse_s2024/",
+        "?? results/20261007T180650Z_h1e02_har_nsga2_s2020/",
+        "?? results/20261007T180828Z_h1e02_har_nsga2_s2021/",
+        "?? results/20261007T181210Z_h1e02_har_nsga2_s2022/",
+        "?? results/20261007T182452Z_h1e02_har_nsga2_sparse_s2020/",
+        "?? results/20261007T183149Z_h1e02_har_nsga2_sparse_s2021/",
+        "?? results/20261007T183331Z_h1e02_har_nsga2_sparse_s2022/",
+        "?? results/20261007T183607Z_h1e02_har_nsga2_sparse_s2023/",
+        "?? results/20261007T183924Z_h1e02_har_nsga2_sparse_s2024/",
+        "?? results/20261007T183931Z_h1e02_USPS_nsga2_s2020/",
+        "?? results/20261007T184248Z_h1e02_USPS_nsga2_s2021/",
+        "?? results/20261007T184319Z_h1e02_USPS_nsga2_s2022/",
+        "?? results/20261007T184506Z_h1e02_USPS_nsga2_s2023/",
+        "?? results/20261007T184733Z_h1e02_USPS_nsga2_s2024/",
+        "?? results/20261007T193819Z_h1e02_USPS_nsga2_sparse_s2020/",
+        "?? results/20261007T194241Z_h1e02_USPS_nsga2_sparse_s2021/",
+        "?? results/20261007T194327Z_h1e02_USPS_nsga2_sparse_s2022/",
+        "?? results/20261007T194729Z_h1e02_USPS_nsga2_sparse_s2023/",
+        "?? results/20261007T194945Z_h1e02_USPS_nsga2_sparse_s2024/",
+        "?? results/20261007T195127Z_h1e02_COIL20_nsga2_s2020/",
+        "?? results/20261007T195219Z_h1e02_COIL20_nsga2_s2021/",
+        "?? results/20261007T195225Z_h1e02_COIL20_nsga2_s2022/",
+        "?? results/20261007T195507Z_h1e02_COIL20_nsga2_s2023/",
+        "?? results/20261007T195959Z_h1e02_COIL20_nsga2_s2024/",
+        "?? results/20261007T202212Z_h1e02_COIL20_nsga2_sparse_s2020/",
+        "?? results/20261007T202219Z_h1e02_COIL20_nsga2_sparse_s2021/",
+        "?? results/20261007T202245Z_h1e02_COIL20_nsga2_sparse_s2022/",
+        "?? results/20261007T202302Z_h1e02_COIL20_nsga2_sparse_s2023/",
+        "?? results/20261007T202454Z_h1e02_COIL20_nsga2_sparse_s2024/",
+        "?? results/20261007T202510Z_h1e02_arcene_nsga2_s2020/",
+        "?? results/20261007T202812Z_h1e02_arcene_nsga2_s2021/",
+        "?? results/20261007T202834Z_h1e02_arcene_nsga2_s2022/",
+        "?? results/20261007T202855Z_h1e02_arcene_nsga2_s2023/",
+        "?? results/20261007T203142Z_h1e02_arcene_nsga2_s2024/",
+        "?? results/20261007T205259Z_h1e02_satimage_nsga2_s2020/",
+        "?? results/20261007T205516Z_h1e02_satimage_nsga2_s2021/",
+        "?? results/H1-E02/"
+      ],
+      "code_dirty": false,
+      "code_dirty_files": []
+    },
+    "fastener": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\fastener",
+      "available": true,
+      "commit": "08e6acd94093f81c071230333158b433d43c450a",
+      "branch": "master",
+      "remote": "https://github.com/klemenkenda/FASTENER",
+      "dirty": false,
+      "dirty_files": [],
+      "code_dirty": false,
+      "code_dirty_files": []
+    }
+  },
+  "evidence": true,
+  "algorithms": {
+    "nsga2": {
+      "id": "nsga2@c142251+08e6acd#1aaa",
+      "config": {
+        "model": "DecisionTreeClassifier",
+        "model_seed": 20200,
+        "primary_metric": "f1_weighted",
+        "quick": false,
+        "evaluations": 6000,
+        "init": "obl"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.16 | packaged by Anaconda, Inc. | (main, Aug 27 2026, 14:36:16) [MSC v.1942 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\klemen\\.conda\\envs\\fastener-exp\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "sklearn": "1.9.0",
+      "pandas": "3.0.5",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "dataset": {
+    "name": "satimage",
+    "n_features": 36,
+    "n_train": 3858,
+    "n_val": 1286,
+    "n_test": 1286,
+    "class_balance_train": {
+      "0": 919,
+      "1": 421,
+      "2": 814,
+      "3": 375,
+      "4": 425,
+      "5": 904
+    },
+    "class_balance_val": {
+      "0": 306,
+      "1": 141,
+      "2": 271,
+      "3": 125,
+      "4": 141,
+      "5": 302
+    },
+    "class_balance_test": {
+      "0": 306,
+      "1": 141,
+      "2": 271,
+      "3": 125,
+      "4": 141,
+      "5": 302
+    },
+    "split_seed": 20200,
+    "max_rows": 50000,
+    "split": "protocol",
+    "dropped_missing": 0
+  },
+  "inputs": {
+    "satimage.arff": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\satimage\\satimage.arff",
+      "sha256": "85a02ca850ecd8a005f746fa4d4dfe543250d8da51ef90590ba9db0f31546850",
+      "bytes": 2218190
+    },
+    "satimage.npz": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\satimage\\satimage.npz",
+      "sha256": "eebadedccc6f8916ba971c5092328ef5359c24dfe89ad47f140e3852578e8933",
+      "bytes": 370350
+    },
+    "SHA256SUMS": {
+      "path": "E:\\Users\\Klemen\\FASTENER\\data\\satimage\\SHA256SUMS",
+      "sha256": "32a2a82a207415cc572918b5fc2744248c610fc45ab403d7b4be102311a84aa5",
+      "bytes": 161
+    }
+  },
+  "seed_significance": {},
+  "cost": {
+    "filter_model_fits": 0,
+    "search_fits_per_seed": {
+      "nsga2": [
+        6000
+      ]
+    },
+    "elapsed_by_method": {
+      "nsga2": 136.53
+    }
+  },
+  "status": "ok",
+  "ended_utc": "2026-10-07T20:59:55.602436+00:00",
+  "elapsed_seconds": 138.225,
+  "outputs": {
+    "auf.csv": {
+      "sha256": "75a4b24ad5d3a8651a1183c4e2c7146e7e073c136541451dd9d19ba674aa0bae",
+      "bytes": 395
+    },
+    "auf.json": {
+      "sha256": "5fbcf617f6b9c691ab94697c41f41db7cf01ba9546c5c8524df22976ae18ba2e",
+      "bytes": 576
+    },
+    "comparison.csv": {
+      "sha256": "a928c67c11e2213f476ec37d844d6904347813c71c0f6b6c169fd40d4a305dd9",
+      "bytes": 1674
+    },
+    "comparison.png": {
+      "sha256": "d49fb3c25b966ff8e98960d60dc026c8f62d069af83160cabb9ba4546dcc5c14",
+      "bytes": 62983
+    },
+    "comparison_rows.json": {
+      "sha256": "b2dd58c6275b2a6f53a317c7222343ace01e4ba65e5c94ccbd4dddef3fc1fa63",
+      "bytes": 8194
+    },
+    "progress.json": {
+      "sha256": "d141783606528d4600da734dca8b273abb7bfb7f31d672b7d92810ef6e41e970",
+      "bytes": 797
+    },
+    "raw_results.json": {
+      "sha256": "353b5b426ed1eb72e9eed863cfacd3570ae8931042d5621aff2339c9607d1784",
+      "bytes": 75584
+    },
+    "raw_results_partial.json": {
+      "sha256": "353b5b426ed1eb72e9eed863cfacd3570ae8931042d5621aff2339c9607d1784",
+      "bytes": 75584
+    },
+    "seed_significance.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    "trajectories/nsga2_seed2024.jsonl": {
+      "sha256": "a913e764942bb5d1a804a65ebd8af83b3f7b388386e4c886903b0989f60175cd",
+      "bytes": 522973
+    }
+  }
+}

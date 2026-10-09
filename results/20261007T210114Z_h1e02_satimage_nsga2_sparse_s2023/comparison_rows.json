@@ -1,0 +1,463 @@
+[
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 1,
+    "n_features_used": 1,
+    "val_f1": 0.5724,
+    "test_f1": 0.5464,
+    "test_accuracy": 0.5645,
+    "test_balanced_accuracy": 0.5656,
+    "features": [
+      21
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 2,
+    "n_features_used": 2,
+    "val_f1": 0.8084,
+    "test_f1": 0.774,
+    "test_accuracy": 0.776,
+    "test_balanced_accuracy": 0.7249,
+    "features": [
+      20,
+      21
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 3,
+    "n_features_used": 3,
+    "val_f1": 0.8249,
+    "test_f1": 0.8199,
+    "test_accuracy": 0.8204,
+    "test_balanced_accuracy": 0.7907,
+    "features": [
+      17,
+      20,
+      31
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 4,
+    "n_features_used": 4,
+    "val_f1": 0.8448,
+    "test_f1": 0.8219,
+    "test_accuracy": 0.8219,
+    "test_balanced_accuracy": 0.7964,
+    "features": [
+      11,
+      17,
+      20,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 5,
+    "n_features_used": 5,
+    "val_f1": 0.8534,
+    "test_f1": 0.8288,
+    "test_accuracy": 0.8281,
+    "test_balanced_accuracy": 0.8017,
+    "features": [
+      0,
+      17,
+      20,
+      23,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 6,
+    "n_features_used": 6,
+    "val_f1": 0.8654,
+    "test_f1": 0.8164,
+    "test_accuracy": 0.8157,
+    "test_balanced_accuracy": 0.7848,
+    "features": [
+      4,
+      14,
+      15,
+      17,
+      23,
+      24
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 7,
+    "n_features_used": 7,
+    "val_f1": 0.872,
+    "test_f1": 0.8228,
+    "test_accuracy": 0.8204,
+    "test_balanced_accuracy": 0.7943,
+    "features": [
+      0,
+      15,
+      17,
+      20,
+      23,
+      26,
+      35
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 8,
+    "n_features_used": 8,
+    "val_f1": 0.8754,
+    "test_f1": 0.8332,
+    "test_accuracy": 0.8336,
+    "test_balanced_accuracy": 0.8021,
+    "features": [
+      2,
+      4,
+      15,
+      17,
+      20,
+      23,
+      24,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 9,
+    "n_features_used": 9,
+    "val_f1": 0.8788,
+    "test_f1": 0.8497,
+    "test_accuracy": 0.8468,
+    "test_balanced_accuracy": 0.8305,
+    "features": [
+      0,
+      11,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 10,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 11,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 12,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 13,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 14,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 15,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 16,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 17,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 18,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 19,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 20,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 25,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  {
+    "method": "nsga2_sparse",
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a",
+    "seed": 2023,
+    "budget_k": 30,
+    "n_features_used": 10,
+    "val_f1": 0.8808,
+    "test_f1": 0.85,
+    "test_accuracy": 0.8499,
+    "test_balanced_accuracy": 0.824,
+    "features": [
+      2,
+      4,
+      14,
+      15,
+      17,
+      20,
+      23,
+      24,
+      25,
+      26
+    ]
+  }
+]

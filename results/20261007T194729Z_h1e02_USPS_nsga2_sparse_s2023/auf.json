@@ -1,0 +1,22 @@
+[
+  {
+    "method": "nsga2_sparse",
+    "seed": 2023,
+    "auf10_f1_weighted": 0.682616,
+    "auf10_f1_macro": 0.656756,
+    "auf10_accuracy": 0.685699,
+    "auf10_balanced_accuracy": 0.658679,
+    "k_covered_10": 10,
+    "auf20_f1_weighted": 0.771293,
+    "auf20_f1_macro": 0.751421,
+    "auf20_accuracy": 0.772957,
+    "auf20_balanced_accuracy": 0.752284,
+    "k_covered_20": 20,
+    "hypervolume": 218.888647,
+    "min_subset_size": 1,
+    "model_fits": 6000,
+    "seconds": 448.75,
+    "stopped_on": null,
+    "algorithm_id": "nsga2_sparse@c142251+08e6acd#e31a"
+  }
+]

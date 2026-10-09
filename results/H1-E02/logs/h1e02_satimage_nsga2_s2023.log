@@ -1,0 +1,23 @@
+Dataset(satimage: 36 features, 3858/1286/1286 train/val/test)
+  row cap 50000: using 6430 rows
+run dir: E:\Users\Klemen\FASTENER\results\20261007T205700Z_h1e02_satimage_nsga2_s2023
+experiment: H1-E02
+progress: E:\Users\Klemen\FASTENER\results\20261007T205700Z_h1e02_satimage_nsga2_s2023\progress.json
+  monitor with: python experiments/monitor.py --run 20261007T205700Z_h1e02_satimage_nsga2_s2023
+
+nsga2 (6000 fits x 1 seeds):
+  seed 2023: front=93 best test_f1=0.8449 @k=14 fits=6000 (134.41s)
+
+wrote comparison.csv, auf.csv, raw_results.json, trajectories/, comparison.png
+total wall time: 2m16s
+
+test weighted-F1 by feature budget (mean over seeds):
+  method                      1      2      3      4      5      6      7      8      9     10     11     12     13     14     15     16     17     18     19     20     25     30
+  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  nsga2                   0.550  0.797  0.820  0.835  0.839  0.838  0.839  0.839  0.839  0.839  0.833  0.833  0.848  0.845  0.845  0.845  0.845  0.845  0.845  0.845  0.845  0.845
+
+AUF, K = 10, weighted F1 -- the primary metric for H1-H3, H5, H6:
+  method                    mean     min     max  seeds  k covered
+  nsga2                   0.8035  0.8035  0.8035      1      10-10
+
+manifest: E:\Users\Klemen\FASTENER\results\20261007T205700Z_h1e02_satimage_nsga2_s2023\manifest.json
