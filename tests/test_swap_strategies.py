@@ -378,6 +378,83 @@ def test_swap_candidate_can_win_its_size_slot_on_the_front(tiny_data, run_dir, m
     assert entry.result.score > weak.result.score
 
 
+# --------------------------------------------------------------------------
+# Counting what pruning did
+# --------------------------------------------------------------------------
+
+def test_prune_stats_count_proposals_and_their_fits(tiny_data, run_dir):
+    optimizer = prepared(tiny_data, run_dir,
+                         swap_strategy=InformationGainSwapStrategy(number_of_swaps=2))
+    item = item_from([0, 1, 2, 7]).evaluate(optimizer.fitness_function)
+    before = optimizer.model_fits
+
+    candidates = optimizer.purge_item_candidates(item)
+
+    stats = optimizer.prune_stats
+    assert stats["pruned_items"] == 1
+    assert stats["swap_proposed"] == len(candidates) - 1 == 2
+    # Every fit the step spent is charged to the deletion or to a swap; the
+    # base re-evaluation of `item` is a cache hit.
+    assert stats["deletion_fits"] + stats["swap_fits"] == \
+        optimizer.model_fits - before == 3
+
+
+def test_a_cached_swap_candidate_is_proposed_but_costs_no_fit(tiny_data, run_dir, monkeypatch):
+    optimizer = prepared(tiny_data, run_dir, swap_strategy=RandomSwapStrategy())
+    item = item_from([0, 1, 2, 7]).evaluate(optimizer.fitness_function)
+    swapped = item_from([0, 1, 2, 9])
+    swapped.evaluate(optimizer.fitness_function)
+    monkeypatch.setattr(RandomSwapStrategy, "propose",
+                        lambda self, it, ch: [item_from([0, 1, 2, 9])])
+
+    optimizer.purge_item_candidates(item)
+
+    assert optimizer.prune_stats["swap_proposed"] == 1
+    assert optimizer.prune_stats["swap_fits"] == 0
+
+
+def test_stock_run_proposes_no_swaps(tiny_data, run_dir):
+    optimizer = prepared(tiny_data, run_dir, rounds=6)
+    optimizer.mainloop()
+
+    stats = optimizer.prune_stats
+    assert stats["pruned_items"] > 0
+    assert stats["swap_proposed"] == stats["swap_fits"] == stats["swap_kept"] == 0
+    assert optimizer.front_from_swap() == 0
+
+
+def test_a_swap_that_wins_its_slot_is_counted_as_kept(tiny_data, run_dir, monkeypatch):
+    """Same set-up as the front-update test above: the swap must be seen winning."""
+    optimizer = prepared(tiny_data, run_dir,
+                         swap_strategy=InformationGainSwapStrategy())
+    weak = item_from([9, 10, 11]).evaluate(optimizer.fitness_function)
+    optimizer.pareto_front = {3: weak}
+    monkeypatch.setattr(EntropyOptimizer, "remove_pareto_non_optimal",
+                        lambda self: None)
+
+    random_utils.seed(11)
+    for _ in range(10):
+        optimizer.purge_front_with_information_gain()
+        if optimizer.pareto_front[3].number != weak.number:
+            break
+
+    assert optimizer.prune_stats["swap_kept"] >= 1
+    assert optimizer.pareto_front[3].number in optimizer.swap_made
+    assert optimizer.front_from_swap() >= 1
+
+
+def test_kept_never_exceeds_proposed(tiny_data, run_dir):
+    optimizer = prepared(tiny_data, run_dir,
+                         swap_strategy=RandomSwapStrategy(), rounds=8)
+    optimizer.mainloop()
+
+    stats = optimizer.prune_stats
+    assert stats["swap_proposed"] > 0
+    assert stats["swap_kept"] <= stats["swap_proposed"]
+    assert stats["deletion_kept"] <= stats["pruned_items"]
+    assert optimizer.front_from_swap() <= len(optimizer.pareto_front)
+
+
 @pytest.mark.parametrize("strategy", [None, RandomSwapStrategy, InformationGainSwapStrategy])
 def test_mainloop_runs_end_to_end(strategy, tiny_data, run_dir):
     swap = None if strategy is None else strategy()

@@ -113,7 +113,9 @@ class TrackedOptimizer(EntropyOptimizer):
             if getattr(item, "result", None) is not None:
                 self.trajectory.observe(np.where(item.genes)[0],
                                         item.result.score)
-        self.trajectory.step(iteration, self.model_fits)
+        self.trajectory.step(iteration, self.model_fits,
+                             prune_stats=dict(self.prune_stats),
+                             front_from_swap=self.front_from_swap())
         if self.progress_cb is not None:
             self.progress_cb(self.model_fits)
 
@@ -278,6 +280,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         rec["seed"] = seed
         rec["fastener_internal_val_score"] = float(item.result.score)
         rec["generation_found"] = int(item.generation)
+        rec["from_swap"] = item.number in optimizer.swap_made
         records.append(rec)
 
     return {
@@ -305,6 +308,10 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         "stopped_on": optimizer.stop_reason,
         "rounds_completed": optimizer.rounds_completed,
         "unique_subsets_cached": len(optimizer.cache_data),
+        # What pruning did over the run (cumulative), and how many entries of
+        # the final front a swap put there. Zero swaps on the stock arm.
+        "prune_stats": dict(optimizer.prune_stats),
+        "front_from_swap": optimizer.front_from_swap(),
         "log_dir": str((run_dir / "log" / f"{method}_seed{seed}").resolve()),
         "records": records,
     }
