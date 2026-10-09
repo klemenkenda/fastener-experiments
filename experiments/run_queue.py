@@ -27,6 +27,15 @@ Usage:
 
 An arm written fastener:<arm> runs that FASTENER arm (none, 2020, random,
 guided) instead of a run_sota method. Arguments after `--` go to every job.
+
+--budgets gives each job its own dataset's fit budget, from a JSON file of
+{"budgets": {dataset: fits}} such as calibrate_budget.py writes. Every
+dataset must have one, and --evaluations may not also be passed:
+
+    python experiments/run_queue.py --experiment H2H3-E01 \
+        --datasets eodata,Coffee,... \
+        --methods fastener:none,fastener:random,fastener:guided \
+        --budgets results/h2h3-calibration/budgets.json
 """
 import argparse
 import json
@@ -67,12 +76,32 @@ def parse_args(argv=None):
                     help="comma-separated run_sota methods or fastener:<arm>")
     ap.add_argument("--seeds", default=",".join(map(str, SEEDS)),
                     help="comma-separated, default 2020-2024")
+    ap.add_argument("--budgets", type=Path, default=None,
+                    help="JSON with {\"budgets\": {dataset: fits}}: each job "
+                         "runs with --evaluations set to its dataset's budget")
     ap.add_argument("--max-procs", type=int, default=10)
     ap.add_argument("--python", default=sys.executable)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
     args.passthrough = passthrough
+    args.budget_of = None
+    if args.budgets is not None:
+        if "--evaluations" in passthrough:
+            ap.error("--budgets sets --evaluations per dataset; do not pass "
+                     "--evaluations as well")
+        args.budget_of = load_budgets(args.budgets, split(args.datasets))
     return args
+
+
+def load_budgets(path: Path, datasets) -> dict:
+    """dataset -> fit budget for every dataset, or SystemExit naming the gaps."""
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    budgets = data.get("budgets", data)
+    missing = [d for d in datasets
+               if not isinstance(budgets.get(d), int) or budgets[d] <= 0]
+    if missing:
+        raise SystemExit(f"{path}: no budget for {', '.join(missing)}")
+    return {d: budgets[d] for d in datasets}
 
 
 def split(s: str):
@@ -106,8 +135,12 @@ def build_jobs(args):
                        "--name", name]
                 if args.experiment:
                     cmd += ["--experiment", args.experiment]
+                budget = args.budget_of[ds] if args.budget_of else None
+                if budget is not None:
+                    cmd += ["--evaluations", str(budget)]
                 jobs.append({"name": name, "dataset": ds, "arm": label,
-                             "seed": seed, "cmd": cmd + args.passthrough,
+                             "seed": seed, "budget": budget,
+                             "cmd": cmd + args.passthrough,
                              "state": "pending", "run_dir": None, "log": None,
                              "started_utc": None, "ended_utc": None,
                              "exit_code": None})

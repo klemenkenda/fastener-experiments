@@ -347,7 +347,8 @@ def queue_eta(jobs: List[Dict], snaps: Dict[str, Optional[Dict]],
     return (max(free) if free else 0.0), floor
 
 
-def group_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]]) -> str:
+def group_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]],
+               width: int = 13) -> str:
     states = [j["state"] for j in jobs]
     if "running" in states:
         state = "running"
@@ -368,7 +369,7 @@ def group_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]]) -> str:
     frac = sum(fracs) / len(fracs)
     filled = int(round(frac * EXPERIMENT_BAR))
     seeds = "".join(SEED_MARK.get(s, "?") for s in states)
-    line = (f"  {STATE_MARK.get(state, '?')} {jobs[0]['dataset']:<13}"
+    line = (f"  {STATE_MARK.get(state, '?')} {jobs[0]['dataset']:<{width}}"
             f"{jobs[0]['arm']:<14}[{'#' * filled}{'-' * (EXPERIMENT_BAR - filled)}]"
             f"{frac * 100:4.0f}%  {seeds:<7}")
     running = [j for j in jobs if j["state"] == "running"]
@@ -385,6 +386,13 @@ def group_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]]) -> str:
         rems = [r for r in rems if r is not None]
         if rems:
             line += f"  ~{format_duration(max(rems))} left"
+        elif budget is None:
+            # A method that reports no fits (Boruta): how long it has run.
+            started = [datetime.fromisoformat(j["started_utc"])
+                       for j in running if j.get("started_utc")]
+            if started:
+                age = (datetime.now(timezone.utc) - min(started)).total_seconds()
+                line += f"  running {format_duration(age)}"
         gone = [j for j in running if snaps.get(j["name"])
                 and alive(snaps[j["name"]].get("pid")) is False]
         if gone:
@@ -425,13 +433,14 @@ def render_queue(queue: Dict, experiment: str) -> List[str]:
         out.append("  run_queue.py is no longer running -- pending jobs will"
                    " not start")
     out.append("")
-    out.append(f"    {'dataset':<13}{'arm':<14}{'progress':<25}{'seeds':<7}"
+    width = max([13] + [len(j["dataset"]) + 1 for j in jobs])
+    out.append(f"    {'dataset':<{width}}{'arm':<14}{'progress':<25}{'seeds':<7}"
                f"{'fits in flight':>18}")
     groups: Dict[Tuple[str, str], List[Dict]] = {}
     for j in jobs:
         groups.setdefault((j["dataset"], j["arm"]), []).append(j)
     for g in groups.values():
-        out.append(group_line(g, snaps))
+        out.append(group_line(g, snaps, width))
     out.append("")
     out.append("  seeds: + done  > running  . pending  x failed")
     out.append("")
