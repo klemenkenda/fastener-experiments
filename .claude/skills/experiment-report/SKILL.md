@@ -1,6 +1,6 @@
 ---
 name: experiment-report
-description: Write the report for a finished FASTENER experiment (H<n>-E<nn>) -- verify its runs, generate REPORT.md and SUPPORT.md with make_report.py, write REPORT.md in three sections (in brief, findings F1..FN, assessment) and SUPPORT.md's record, then close the experiment in the ledger, the decision log and reports/LIST.md (one experiment to consider per hypothesis, the rest as superseded or failed). Use when the user says an experiment has finished or failed, asks to generate, write or redo a report, asks to update the list of experiments, or asks what an experiment found.
+description: Write the report for a finished FASTENER experiment (H<n>-E<nn>) -- verify its runs, generate REPORT.md and SUPPORT.md with make_report.py, write REPORT.md in three sections (in brief, findings F1..FN, assessment) and SUPPORT.md's record, then close the experiment in the ledger, the decision log and reports/LIST.md (two short tables: the experiment to consider per hypothesis, and the superseded or failed ones). Use when the user says an experiment has finished or failed, asks to generate, write or redo a report, asks to update the list of experiments, or asks what an experiment found.
 ---
 
 # Experiment report
@@ -116,19 +116,15 @@ It has only a few TODOs:
    verdict to the experiment's bullet in one or two sentences.
 3. `DECISIONS.md`: update the experiment's row in *By experiment* (status,
    verdict, report link). Add a DEC entry only for a decision actually taken.
-4. `experiments/reports/LIST.md` holds every experiment, failed ones included:
-   - **The main table has one row per hypothesis**: the experiment to
-     consider, with its duration, result and a link to its REPORT.md. This is
-     normally the latest reported experiment. If an earlier one remains the
-     valid answer, say why.
-   - **Every other experiment of that hypothesis** goes in *Superseded and
-     failed experiments*, with its status (`superseded`, or `failed` /
-     `invalid` with a few words on why), its result if it has one, and the
-     experiment that replaced it.
-   - **A hypothesis with more than one experiment** gets a short paragraph
-     under *Why some hypotheses have more than one experiment*. In plain
-     words, say why each further attempt was made, which one to consider,
-     and why.
+4. `experiments/reports/LIST.md` holds every experiment, failed ones included,
+   in two tables and nothing else. **Every cell is a few words; no paragraphs.**
+   - **Completed experiments** has one row per hypothesis: the experiment to
+     consider, its duration, its result, *why this one* (a few words, e.g.
+     "rerun of the stopped H1-E01"), and a link to its REPORT.md.
+   - **Superseded and failed** holds every other experiment of a hypothesis:
+     its duration, status (`superseded`, `failed` or `invalid`), its result
+     or `--`, *why* (a few words, naming what replaced it), and a link to its
+     REPORT.md.
    - The duration runs from the first run's `started_utc` to the last run's
      `ended_utc` across the ledger's runs, written as `14 h 47 min`. The
      result is `confirmed`, `not confirmed`, or a qualified form of either
