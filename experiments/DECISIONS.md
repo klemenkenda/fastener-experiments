@@ -60,6 +60,7 @@ say so, and name the result.
 | [DEC-30](#dec-30) | 2026-10-07 | Run one process per dataset, arm and seed, at most ten at a time | H1-E01, H1-E02 |
 | [DEC-31](#dec-31) | 2026-10-07 | Stop H1-E01 and restart H1 as H1-E02 | H1-E01, H1-E02 |
 | [DEC-32](#dec-32) | 2026-10-09 | Split each report into a short reading (REPORT.md) and its record (SUPPORT.md) | H1-E02 and later |
+| [DEC-33](#dec-33) | 2026-10-09 | H2 and H3 on 39 UCR/UEA sets and EOData, datasets as the unit, budget calibrated per dataset | H2, H3 |
 
 ## Decisions
 
@@ -597,6 +598,41 @@ record (SUPPORT.md).**
 - **Source:** the commit that adds this entry; `METHODOLOGY.md`, *The report*.
 - **Applies to:** H1-E02 and every later experiment.
 
+### DEC-33
+
+**2026-10-09 -- H2 and H3 on the 39 UCR/UEA sets and EOData, read with
+datasets as the unit, at a budget calibrated per dataset.**
+
+- **Why:** the four development sets cover 174-970 features and two domains,
+  too narrow for a claim about an operator FASTENER lacks on any data. With
+  40 datasets the per-seed rule on EOData and one other set is no longer the
+  useful test. Fits past the point where a search has settled buy nothing, and
+  that point differs between datasets by more than the protocol's two budgets
+  allow for.
+- **Detail:**
+  - Datasets: the 39 of `DATASETS_USED.md` (with UWaveGestureLibraryAll in
+    place of UWaveGestureLibrary, which the archive serves with 440 rows), and
+    EOData at the 50,000-row cap.
+  - Criterion: per-dataset effect = mean over 5 seeds of the swap arm's test
+    AUF (K = 10) minus stock's; supported if positive on more datasets than
+    negative and a two-sided Wilcoxon signed-rank test is significant at
+    alpha = 0.05, reversed if the same with signs swapped. More than 6 of 40
+    datasets missing makes the result incomplete. EOData's 4-of-5 count,
+    per-cluster effects and the pruning counters are secondary.
+  - Budget: per dataset, from one Boruta run and one 12,000-fit stock FASTENER
+    run, seed 1999, validation only. The smallest of 1,000, 2,000, 4,000,
+    6,000 or 12,000 fits at which validation AUF (K = 10) is within 0.005 of
+    its value at 12,000 and no more than 0.005 below Boruta's, then one step
+    up. The same budget for every arm.
+  - FASTENER clone `b7e724d` (fastener): adds the pruning counters only; the
+    search is unchanged.
+- **By:** PI. The datasets and the criterion were chosen from options Claude
+  proposed; the calibration with Boruta as the reference is the PI's.
+- **Taken before any H2 or H3 run.**
+- **Source:** `b7e724d` (fastener); `a6f91c9`, `ba193c3`; `HYPOTHESES.md`, H2,
+  H3 and *Revisions*, 2026-10-09.
+- **Applies to:** H2, H3.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -610,4 +646,4 @@ are not repeated.
 | `H0-E03` | reported: not supported | [DEC-17](#dec-17), [DEC-19](#dec-19), [DEC-20](#dec-20), [DEC-22](#dec-22), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-25](#dec-25), [DEC-26](#dec-26) | [DEC-27](#dec-27), [DEC-28](#dec-28) | [H0-E03](reports/H0-E03/REPORT.md) |
 | `H1-E01` | failed: stopped before any run finished | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30) | [DEC-31](#dec-31) | [H1-E01](reports/H1-E01/REPORT.md) |
 | `H1-E02` | reported: supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | [DEC-32](#dec-32) | [H1-E02](reports/H1-E02/REPORT.md) |
-| H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28) | -- | -- |
+| H2-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33) (H2, H3) | -- | -- |

@@ -61,9 +61,9 @@ hypothesis.
 | decision | value | note |
 |---|---|---|
 | Classifier | **`protocol.make_model()`: `DecisionTreeClassifier(random_state=20200)`, scikit-learn defaults** (Gini, `min_samples_split=2`) | The setting the paper states in Section 5.1. Drives every search **and** scores every result, for every method. |
-| FASTENER version | **the current code: FASTENER clone `08e6acd`, mating `include_top_genes=True, allow_self_mating=False`** (`run_fastener.MATING_VERSIONS["fixed"]`) | Decided by the PI after H0-E03 (Revisions, 2026-10-07). Every FASTENER arm in H1-H6 -- stock, random swap, guided swap -- runs it. The 2020 mating is run only where an experiment's design names the `fastener_2020` arm. |
+| FASTENER version | **the current code: FASTENER clone `08e6acd`, mating `include_top_genes=True, allow_self_mating=False`** (`run_fastener.MATING_VERSIONS["fixed"]`) | Decided by the PI after H0-E03 (Revisions, 2026-10-07). Every FASTENER arm in H1-H6 -- stock, random swap, guided swap -- runs it. The 2020 mating is run only where an experiment's design names the `fastener_2020` arm. From H2 on the clone is at `b7e724d`, which adds only the pruning counters H2 and H3 report; the search is unchanged (Revisions, 2026-10-09). |
 | Seeds | **5: 2020, 2021, 2022, 2023, 2024** | Set by the PI. See *What 5 seeds can and cannot answer*. |
-| Budget | **6,000 unique fits per run; 12,000 on the 11 datasets in `protocol.LONG_BUDGET_DATASETS`**, enforced by each method's fit cap | Equal across arms: the budget follows the dataset, not the arm. The 11 had not converged at 6,000 in H0 (Revisions, 2026-09-30). Cached re-evaluations of a subset already fitted are not charged. Wall clock is recorded alongside and reported, never substituted: the two diverged 10x in the pilot. |
+| Budget | **6,000 unique fits per run; 12,000 on the 11 datasets in `protocol.LONG_BUDGET_DATASETS`**, enforced by each method's fit cap | Equal across arms: the budget follows the dataset, not the arm. The 11 had not converged at 6,000 in H0 (Revisions, 2026-09-30). Cached re-evaluations of a subset already fitted are not charged. Wall clock is recorded alongside and reported, never substituted: the two diverged 10x in the pilot. **H2 and H3 set the budget per dataset from a calibration step instead** (see H2; Revisions, 2026-10-09). |
 | FS-SDS budget | **k = 1..20, 300 fits per k -- 6,000 in total** (600 per k, 12,000 in total, on the long-budget datasets) | FS-SDS searches one fixed k per run, so its 6,000 are split evenly across the k it runs at. Giving it 6,000 *per k* would hand it 20x the budget of every other arm -- the same kind of mismatch H4 is about. |
 | k grid | **1, 2, ..., 20, then 25, 30, 50, 100, 200, 500**, capped at the dataset's feature count | Every integer up to 20 because AUF needs opt(k) at each k. |
 | Splits | **stratified 60/20/20 train/validation/test, `SPLIT_SEED = 20200`** | Fixed across seeds. Search and selection use validation; test is read once, for the final score. |
@@ -131,8 +131,9 @@ those ranges. A paired test at n=5 will not separate them, and a null result at
 this seed count means "not detected at n=5", never "no effect".
 
 Therefore: **no hypothesis is declared confirmed or refuted on a mean difference
-alone.** H0-H3 use a per-seed sign test that 5 seeds can carry. H4-H6 take
-datasets as the unit instead of seeds, which gives them 25 or 36 observations.
+alone.** H0 and H1 use a per-seed sign test that 5 seeds can carry. H2-H6
+take datasets as the unit instead of seeds, which gives them 40, 25 or 36
+observations.
 If a result lands in the ambiguous middle, the honest output is "needs more
 seeds", and the seed count becomes the finding.
 
@@ -408,15 +409,77 @@ against stock's 0.7960 -- a difference of 0.0004, far inside seed spread.
 
 **Arms.** `fastener` (stock) and `fastener_swap_random`.
 
-**Datasets.** The four development sets.
+**Datasets: 40 -- the 39 UCR/UEA sets of
+[`DATASETS_USED.md`](DATASETS_USED.md) and EOData.** *(Revised 2026-10-09,
+before any H2 or H3 run; see Revisions.)* A claim that FASTENER lacks an
+operator is a claim about FASTENER on any data, so it is tested over as wide a
+range of dataset shapes as is to hand. The 39 were chosen by clustering the
+whole UCR/UEA archive on examples x features and taking datasets from each of
+the seven clusters: n from 40 to 24,000, p from 16 to 363,150. EOData is
+added because it is the setting FASTENER was built for. See *Datasets: time
+series classification*.
 
-**Primary metric.** AUF, K = 10.
+**Fit budget: per dataset, from a calibration step.** *(Revised 2026-10-09.)*
+The budget follows the dataset, as in the protocol, and is the same for every
+arm; what changes is how it is set. A dataset whose search has stopped
+improving gains nothing from more fits, and one that has not needs them.
+Before the experiment, on every dataset, with seed 1999 (not one of the five
+experiment seeds) and validation only:
 
-**Falsification criterion.** `fastener_swap_random` must have a higher AUF
-(K = 10) than `fastener` in **at least 4 of 5 seeds**, on **EOData and on at
-least one other development set**. A null here with a positive H3 would be the
-interesting outcome (the guidance is doing the work); a null in both is the
-likely one given the pilot.
+1. **Boruta** (on the protocol decision tree), one run. Its validation AUF
+   (K = 10) is the accuracy reference: a budget at which FASTENER has not
+   reached what a filter reaches is too small.
+2. **Stock FASTENER**, one run capped at 12,000 fits, recording its
+   validation AUF (K = 10) after every generation.
+3. The budget is the smallest **b** in {1,000, 2,000, 4,000, 6,000, 12,000}
+   at which the calibration run's validation AUF (K = 10) is (i) within 0.005
+   of its value at 12,000 and (ii) no lower than Boruta's minus 0.005, **then
+   one step up the grid** (capped at 12,000), because a swap arm may still be
+   improving where stock FASTENER has stopped. A dataset where no b below
+   12,000 meets both conditions runs at 12,000 and is flagged as possibly
+   unconverged. 0.005 is H0's convergence threshold.
+
+The budgets are written into the experiment's design before any of its runs
+starts. Calibration runs are not evidence for H2 or H3 and are not pooled with
+their runs. Test scores play no part.
+
+**Primary metric.** AUF, K = 10, on test.
+
+**Falsification criterion: datasets as the unit.** *(Revised 2026-10-09; it
+replaces the per-seed rule on EOData and one other development set.)* Per
+dataset, the effect is the mean over the 5 seeds of AUF(`fastener_swap_random`)
+minus AUF(`fastener`). H2 is **supported** if the effect is positive on more
+datasets than negative **and** a two-sided Wilcoxon signed-rank test over the
+per-dataset effects is significant at alpha = 0.05. **Reversed** -- the swap
+makes FASTENER worse -- if the same holds with the signs swapped. Otherwise
+**not supported**: no consistent difference over these datasets. Datasets
+with a zero effect drop out of the test, as the Wilcoxon test requires, and
+their count is reported.
+
+A null here with a positive H3 would be the interesting outcome (the guidance
+is doing the work); a null in both is the likely one given the pilot.
+
+**Incomplete datasets.** A dataset whose runs fail, or that has fewer than 5
+seeds for either arm when the experiment is stopped, is left out of the test
+and listed. If more than 6 of the 40 are left out, the result is reported as
+incomplete rather than as a verdict.
+
+**Reported beside it, as secondary:**
+
+* the per-dataset 4-of-5-seeds count, for every dataset;
+* **EOData on its own**, with its 4-of-5 count. It no longer decides the
+  verdict, but a result that does not hold there is said to not hold in
+  FASTENER's own setting;
+* the effect per cluster, C1-C7 -- descriptive only, since 3-7 datasets per
+  cluster cannot carry a test;
+* the effect against p and against n, since the swap's share of all fits
+  depends on both;
+* **what the swap did**, from the pruning counters (FASTENER `b7e724d`): swaps
+  proposed, swaps that cost a fit, swaps that won their size slot, and
+  final-front entries a swap made, per arm and dataset. A null in which swaps
+  rarely won says something different from one in which they won often and
+  changed nothing;
+* hypervolume, and final test AUF per arm.
 
 ## H3 -- The guided swap improves FASTENER at small k
 
@@ -441,14 +504,22 @@ arms. This hypothesis enters the round with evidence against it.
 **Arms.** `fastener` (stock) and `fastener_swap_guided`. Shares the stock arm
 with H2.
 
-**Datasets.** The four development sets.
+**Datasets, budget, metric, incomplete datasets and secondary reporting.**
+H2's, unchanged: the same 40 datasets, the same calibrated budgets, AUF
+(K = 10) on test. *(Revised 2026-10-09, with H2.)*
 
-**Primary metric.** AUF, K = 10.
+**Falsification criterion.** H2's, with `fastener_swap_guided` in place of
+`fastener_swap_random`: the per-dataset effect is the mean over 5 seeds of
+AUF(`fastener_swap_guided`) minus AUF(`fastener`), and H3 is supported if it is
+positive on more datasets than negative and a two-sided Wilcoxon signed-rank
+test over them is significant at alpha = 0.05. *(Revised 2026-10-09.)*
 
-**Falsification criterion.** `fastener_swap_guided` must have a higher AUF
-(K = 10) than `fastener` in **at least 4 of 5 seeds**, on **EOData and on at
-least one other development set**. Fewer than that at the pilot's effect size
-is indistinguishable from noise, and H3 is recorded as not supported.
+**Reading H3 against H2.** The guidance is credited only where H3 holds and
+the guided arm also beats the random-swap arm: the per-dataset effect
+AUF(`fastener_swap_guided`) minus AUF(`fastener_swap_random`), tested the same
+way, is reported as secondary. If H2 and H3 both hold and that difference does
+not, the result is "FASTENER needed a size-preserving move", not "the guidance
+helps".
 
 **Prior art, which narrows the claim.** FS-SDS's diffusion move is already a
 size-preserving swap: copy a good agent's subset, drop one selected feature at
@@ -581,16 +652,19 @@ therefore a statement about decision trees, and says so.
 
 ## Datasets
 
-Thirty-six datasets are on disk under `data/`, each checksum-pinned by its
-download script, all classification, and all used in this round. Every one loads
+Seventy-five datasets are on disk under `data/`, each checksum-pinned by its
+download script, all classification, and all used in this round: the 36 below,
+and the 39 UCR/UEA time series sets H2 and H3 run on (see *Time series
+classification*). Every one loads
 through `datasets.load(name)` and is split as the protocol table states. Shapes
 below are measured from the files, not transcribed, and are the full datasets
 before the row cap. "Smallest class" is counted after cleaning (see *Dropped
 rows*).
 
-### Development sets -- used by H2, H3, H5 and H6
+### Development sets -- used by H5 and H6
 
-H1 uses EOData and seven other datasets, chosen by feature count (see H1).
+H1 uses EOData and seven other datasets, chosen by feature count (see H1). H2
+and H3 use EOData and the 39 time series sets (Revisions, 2026-10-09).
 
 | dataset | rows | features | classes | smallest / largest class | domain | source |
 |---|---:|---:|---:|---|---|---|
@@ -701,6 +775,45 @@ The 25 sets of the FASTENER paper's Table 1, from scikit-feature
 | RELATHE | 1,427 | 4,322 | 2 | 648 / 779 |
 | PCMAC | 1,943 | 3,289 | 2 | 961 / 982 |
 | BASEHOCK | 1,993 | 4,862 | 2 | 994 / 999 |
+
+### Time series classification -- used by H2 and H3
+
+Thirty-nine datasets from the UCR/UEA archive, chosen 2026-10-07 by clustering
+all 190 of its datasets on log examples and log features (k-means, k = 7) and
+taking seven from each of C1, C3, C4 and C5, five from C2 and three from each
+of C6 and C7. The clusters, the selection and the reasons for each pick are in
+[`DATASETS_USED.md`](DATASETS_USED.md); downloaded, pinned and checked against
+the archive's table by `download_tsc_datasets.py`, loaded by
+`datasets.load_tsc`.
+
+| cluster | shape | datasets | n | p |
+|---|---|---:|---|---|
+| C1 | small lab sets, p >= n | 7 | 40-461 | 286-618 |
+| C2 | high-dimensional recordings, p >> n | 5 | 100-440 | 24,705-363,150 |
+| C3 | long physiological and device signals | 7 | 360-1,420 | 720-5,376 |
+| C4 | short series, mid-sized, n >> p | 7 | 360-1,162 | 24-235 |
+| C5 | larger sensor, motion and shape sets | 7 | 4,307-9,236 | 140-1,024 |
+| C6 | large audio and industrial sensor sets | 3 | 6,668-13,640 | 2,387-8,928 |
+| C7 | very many, very short series | 3 | 10,992-24,000 | 16-96 |
+
+* **One row is one series.** Its time points are the features, channel by
+  channel for a multivariate set; a feature subset is a set of (channel, time)
+  points. Neighbouring time points are strongly correlated, which is the
+  redundancy a feature selector is meant to cut.
+* **The archive's train/test split is not used.** The two halves are merged
+  and split 60/20/20 like every other dataset, so the protocol is the same
+  everywhere. Published accuracies on these sets are on the archive's split
+  and are not comparable with ours.
+* **None needs the row cap**; Crop, the largest, has 24,000 rows. No class
+  falls under the 5-row minimum.
+* **The smallest are very small.** BeetleFly's test split is 8 rows, Coffee's
+  11, OliveOil's smallest class has 2 rows in validation and test. *What the
+  small sets can support* applies to them as to the paper benchmarks.
+* **Two corrections to the selection were made at download** (2026-10-09,
+  before any run): Epilepsy has 206 time steps, not the 207 the archive's
+  table states; UWaveGestureLibrary is served with 440 rows, not 4,479, and
+  was replaced by UWaveGestureLibraryAll (4,478 x 945), which has the C5
+  shape the pick was made for. See `DATASETS_USED.md`.
 
 ### Dropped rows
 
@@ -935,3 +1048,33 @@ started from that commit. It was stopped after 13 minutes, with only EOData's
 ten runs started and none finished, and is recorded as failed; no score was
 looked at. `H1-E02` restarts it from the commit that adds this entry, one
 process per dataset, arm and seed (`run_queue.py`).
+
+**2026-10-09 -- H2 and H3: forty datasets, datasets as the unit, a
+calibrated budget.** Decided by the PI before any H2 or H3 run; no swap-arm
+result of this round exists. Three changes, to both hypotheses alike:
+
+* **Datasets.** The four development sets span 174-970 features and two
+  domains, too narrow for a claim about an operator FASTENER lacks on any
+  data. H2 and H3 now run on the 39 UCR/UEA time series sets of
+  `DATASETS_USED.md`, chosen by shape cluster, and on EOData: 40 datasets,
+  16 to 363,150 features. Crop mapping, madelon and gina leave H2 and H3; they
+  remain development sets for H5 and H6.
+* **Criterion.** With 40 datasets the per-seed rule on EOData and one other
+  set is no longer the useful test. Each hypothesis is now read with datasets
+  as the unit, as H0-E02 was: the per-dataset effect is the mean over seeds of
+  the swap arm's AUF (K = 10) minus stock's, and the hypothesis is supported if
+  the effects lean positive and a two-sided Wilcoxon signed-rank test over them
+  is significant at alpha = 0.05. EOData's own 4-of-5 count is reported beside
+  it, no longer part of the verdict. The seed count stays at 5.
+* **Budget.** Per dataset, set from one Boruta run and one 12,000-fit
+  calibration run of stock FASTENER (seed 1999, validation only), by the rule
+  in H2, the same for every arm. The PI's reason: some datasets settle within
+  1,000 fits and others do not, and fits past the point where the search has
+  settled buy nothing.
+
+Unchanged: the arms, the metric, the seeds, the classifier, the split. The
+FASTENER clone moves to `b7e724d`, which only counts what the pruning step
+does -- swaps proposed, fitted and kept -- for H2 and H3's secondary
+reporting. The counters read what pruning did and draw no random numbers, so
+the search is the one at `08e6acd`.
+Recorded as [DEC-33](DECISIONS.md#dec-33).
