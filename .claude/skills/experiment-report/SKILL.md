@@ -116,7 +116,13 @@ It has only a few TODOs:
    verdict to the experiment's bullet in one or two sentences.
 3. `DECISIONS.md`: update the experiment's row in *By experiment* (status,
    verdict, report link). Add a DEC entry only for a decision actually taken.
-4. Commit the report folder, the run records under `results/` (not
+4. `experiments/reports/LIST.md`: if the experiment was **reported** (not
+   failed or invalid), append a row: experiment ID, duration, result and a
+   link to its REPORT.md. The duration is the first run's `started_utc` to the
+   last run's `ended_utc` across the ledger's runs, written `14 h 47 min`. The
+   result is `confirmed`, `not confirmed`, or a qualified form of either (such
+   as `confirmed, narrowly`), matching REPORT.md's answer.
+5. Commit the report folder, the run records under `results/` (not
    trajectories, per DEC-22), `results/<ID>/` (queue.json, logs) and the
    ledger and doc changes. Commit as the user only (no Co-Authored-By line).
 
