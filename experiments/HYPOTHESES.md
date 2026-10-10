@@ -461,6 +461,12 @@ their count is reported.
 A null here with a positive H3 would be the interesting outcome (the guidance
 is doing the work); a null in both is the likely one given the pilot.
 
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+* `H2H3-E01` -- 39 datasets, run with H3. Not supported: the random swap was
+  ahead on 19 datasets and behind on 20 (p = 0.83), with a median effect of
+  zero.
+
 **Incomplete datasets.** A dataset whose runs fail, or that has fewer than 5
 seeds for either arm when the experiment is stopped, is left out of the test
 and listed. If more than 6 of the 39 are left out, the result is reported as
@@ -522,6 +528,13 @@ AUF(`fastener_swap_guided`) minus AUF(`fastener_swap_random`), tested the same
 way, is reported as secondary. If H2 and H3 both hold and that difference does
 not, the result is "FASTENER needed a size-preserving move", not "the guidance
 helps".
+
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+* `H2H3-E01` -- 39 datasets, run with H2. Supported, narrowly: the guided swap
+  was ahead on 25 datasets and behind on 14 (p = 0.040, median +0.003), but
+  the gain rests on the smallest datasets, and guided did not beat random
+  (p = 0.28).
 
 **Prior art, which narrows the claim.** FS-SDS's diffusion move is already a
 size-preserving swap: copy a good agent's subset, drop one selected feature at

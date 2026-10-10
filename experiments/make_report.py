@@ -616,7 +616,10 @@ def _style(plt) -> None:
 
 
 def _grid(plt, n: int, w: float = 3.2, h: float = 2.6):
-    cols = min(4, max(1, n))
+    # Enough columns that the grid is wider than tall (about 16:9): figures
+    # are read on a screen, beside text, not scrolled down a page.
+    cols = max(min(4, n), int(np.ceil(np.sqrt(1.8 * n * h / w))))
+    cols = min(cols, max(1, n))
     rows = int(np.ceil(n / cols))
     fig, axes = plt.subplots(rows, cols, figsize=(w * cols, h * rows + 0.6),
                              squeeze=False)
@@ -734,72 +737,144 @@ def fig_h0_criterion(ev, run_ids, path: Path) -> None:
     plt.close(fig)
 
 
-def fig_h0_ext_criterion(ev, run_ids, path: Path) -> None:
-    """Per dataset: log2(fits 2020 / fits fixed) per seed, bar = the mean."""
+def _dataset_strip(dss, points, means, groups, ylabel, title, run_ids,
+                   split, path: Path) -> None:
+    """Per dataset along x: one point per seed, a bar at the mean. Wide.
+
+    `points` and `means` are keyed by dataset; `groups` labels each dataset
+    (cluster, group), and a rule separates runs of the same label.
+    """
     import matplotlib.pyplot as plt
     _style(plt)
-    dss = ev["datasets"]
-    fig, ax = plt.subplots(figsize=(7.5, 0.28 * max(8, len(dss)) + 1.6))
+    fig, ax = plt.subplots(figsize=(max(10.0, 0.34 * len(dss) + 2.5), 5.2))
+    prev = None
     for i, ds in enumerate(dss):
-        e = [r["effect_log2"] for r in ev["rows"] if r["dataset"] == ds]
-        ax.scatter(e, [i] * len(e), s=18, color=SERIES[0], alpha=0.75,
+        if prev is not None and groups.get(ds) != prev:
+            ax.axvline(i - 0.5, color=GRID, lw=1)
+        prev = groups.get(ds)
+        e = points[ds]
+        ax.scatter([i] * len(e), e, s=16, color=SERIES[0], alpha=0.75,
                    edgecolor="#fcfcfb", linewidth=0.8, zorder=3)
-        ax.plot([ev["per_dataset"][ds]["effect_log2"]] * 2, [i - 0.35, i + 0.35],
-                color=INK, lw=2, zorder=4)
-    ax.axvline(0, color=INK_2, lw=1)
-    ax.set_yticks(range(len(dss)),
-                  [f"{d} ({ev['per_dataset'][d].get('group') or ''})"
-                   for d in dss], fontsize=7)
-    ax.invert_yaxis()
-    p = ev["primary"]
-    pv = "--" if p["p_value"] is None else f"{p['p_value']:.3g}"
-    ax.set_xlabel("log2(fits to target, 2020 / fixed)  "
-                  "(> 0: the fixed code was faster)")
-    ax.set_title(f"Per dataset: one point per seed, bar = mean\n"
-                 f"{p['positive']} datasets > 0, {p['negative']} < 0, "
-                 f"Wilcoxon p = {pv}")
-    _footer(fig, run_ids, "validation")
-    # The footer lists every run; leave it room below the axis label.
-    lines = 1 + len(", ".join(run_ids)) // int(fig.get_figwidth() * 17)
-    fig.tight_layout(rect=(0, min(0.35, 0.02 + lines * 0.13
-                                  / fig.get_figheight()), 1, 1))
+        if means.get(ds) is not None:
+            ax.plot([i - 0.35, i + 0.35], [means[ds]] * 2, color=INK, lw=2,
+                    zorder=4)
+    ax.axhline(0, color=INK_2, lw=1)
+    ax.set_xticks(range(len(dss)),
+                  [f"{d} ({groups.get(d) or ''})" for d in dss],
+                  fontsize=7, rotation=60, ha="right", rotation_mode="anchor")
+    ax.set_xlim(-0.6, len(dss) - 0.4)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+    _footer(fig, run_ids, split)
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
 
-def fig_dataset_unit(ev, run_ids, path: Path) -> None:
-    """Per dataset, by cluster: AUF delta per seed, bar = the mean (H2, H3)."""
-    import matplotlib.pyplot as plt
-    _style(plt)
-    a, b, K = ev["challenger"], ev["baseline"], ev["K"]
+def fig_h0_ext_criterion(ev, run_ids, path: Path) -> None:
+    """Per dataset: log2(fits 2020 / fits fixed) per seed, bar = the mean."""
     dss = ev["datasets"]
-    fig, ax = plt.subplots(figsize=(7.5, 0.26 * max(8, len(dss)) + 1.8))
-    prev = None
-    for i, ds in enumerate(dss):
-        v = ev["per_dataset"][ds]
-        if prev is not None and v["cluster"] != prev:
-            ax.axhline(i - 0.5, color=GRID, lw=1)
-        prev = v["cluster"]
-        d = list(v["deltas"].values())
-        ax.scatter(d, [i] * len(d), s=16, color=SERIES[0], alpha=0.75,
-                   edgecolor="#fcfcfb", linewidth=0.8, zorder=3)
-        ax.plot([v["effect"]] * 2, [i - 0.35, i + 0.35],
-                color=INK if v["complete"] else INK_2, lw=2, zorder=4)
-    ax.axvline(0, color=INK_2, lw=1)
-    ax.set_yticks(range(len(dss)),
-                  [f"{d} ({ev['per_dataset'][d]['cluster']})" for d in dss],
-                  fontsize=7)
-    ax.invert_yaxis()
     p = ev["primary"]
     pv = "--" if p["p_value"] is None else f"{p['p_value']:.3g}"
-    ax.set_xlabel(f"AUF (K = {K}), test: {a} minus {b}  (> 0: {a} ahead)")
-    ax.set_title(f"Per dataset: one point per seed, bar = mean\n"
-                 f"{p['positive']} datasets > 0, {p['negative']} < 0, "
-                 f"Wilcoxon p = {pv}")
+    _dataset_strip(
+        dss,
+        {d: [r["effect_log2"] for r in ev["rows"] if r["dataset"] == d]
+         for d in dss},
+        {d: ev["per_dataset"][d]["effect_log2"] for d in dss},
+        {d: ev["per_dataset"][d].get("group") for d in dss},
+        "log2(fits to target, 2020 / fixed)\n(> 0: the fixed code was faster)",
+        f"Per dataset: one point per seed, bar = mean.  {p['positive']} "
+        f"datasets > 0, {p['negative']} < 0, Wilcoxon p = {pv}",
+        run_ids, "validation", path)
+
+
+def fig_dataset_unit(ev, run_ids, path: Path) -> None:
+    """Per dataset, by cluster: AUF delta per seed, bar = the mean (H2, H3)."""
+    a, b, K = ev["challenger"], ev["baseline"], ev["K"]
+    dss = ev["datasets"]
+    pd_ = ev["per_dataset"]
+    p = ev["primary"]
+    pv = "--" if p["p_value"] is None else f"{p['p_value']:.3g}"
+    _dataset_strip(
+        dss, {d: list(pd_[d]["deltas"].values()) for d in dss},
+        {d: pd_[d]["effect"] for d in dss}, {d: pd_[d]["cluster"] for d in dss},
+        f"AUF (K = {K}), test:\n{a} minus {b}",
+        f"{a} minus {b}, per dataset: one point per seed, bar = mean.  "
+        f"{p['positive']} datasets > 0, {p['negative']} < 0, Wilcoxon p = {pv}",
+        run_ids, "test", path)
+
+
+def fig_effect_vs_size(evs, run_ids, path: Path) -> None:
+    """Per-dataset effect against rows (n) and features (p), H2 and H3."""
+    import matplotlib.pyplot as plt
+    from scipy.stats import spearmanr
+    _style(plt)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.6), sharey=True)
+    for ax, key, label in ((axes[0], "n", "rows in the dataset (n)"),
+                           (axes[1], "p", "features in the dataset (p)")):
+        for i, ev in enumerate(evs):
+            pd_ = ev["per_dataset"]
+            ds = [d for d in ev["datasets"] if pd_[d].get(key)]
+            x = [pd_[d][key] for d in ds]
+            y = [pd_[d]["effect"] for d in ds]
+            rho = spearmanr(x, y)[0] if len(ds) > 2 else float("nan")
+            ax.scatter(x, y, s=22, color=SERIES[i], alpha=0.8,
+                       edgecolor="#fcfcfb", linewidth=0.8, zorder=3,
+                       label=f"{ev['challenger']} minus {ev['baseline']} "
+                             f"(Spearman rho = {rho:.2f})")
+        ax.axhline(0, color=INK_2, lw=1)
+        ax.set_xscale("log")
+        ax.set_xlabel(label)
+        ax.legend(fontsize=7, loc="upper right")
+    axes[0].set_ylabel(f"effect: mean AUF (K = {evs[0]['K']}) "
+                       f"difference, test")
+    fig.suptitle("Per-dataset effect against dataset size; one point per "
+                 "dataset", fontsize=10)
     _footer(fig, run_ids, "test")
-    lines = 1 + len(", ".join(run_ids)) // int(fig.get_figwidth() * 17)
-    fig.tight_layout(rect=(0, min(0.35, 0.02 + lines * 0.13
-                                  / fig.get_figheight()), 1, 1))
+    fig.tight_layout(rect=(0, 0.04, 1, 0.95))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_swap_success(evs, run_ids, path: Path) -> None:
+    """Guided against random swap, per dataset: how often a swap won its size
+    slot, and how many final-front entries a swap made. Means over seeds."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    act = {}
+    for ev in evs:
+        for r in ev["secondary"]["swap_activity"]:
+            act[(r["dataset"], r["method"])] = r
+    g, rnd = GUIDANCE
+    ds = sorted(d for d, m in act if m == g and (d, rnd) in act)
+
+    def kept(r):
+        return r["swap_kept"] / r["swap_proposed"] if r["swap_proposed"] \
+            else 0.0
+
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.8))
+    for ax, f, label in (
+            (axes[0], kept, "share of swaps that won their size slot"),
+            (axes[1], lambda r: r["front_from_swap"],
+             "final-front entries a swap made")):
+        x = [f(act[(d, rnd)]) for d in ds]
+        y = [f(act[(d, g)]) for d in ds]
+        top = max(x + y + [1e-9]) * 1.08
+        ax.plot([0, top], [0, top], color=INK_2, lw=1, ls="--")
+        ax.scatter(x, y, s=24, color=SERIES[2], alpha=0.85,
+                   edgecolor="#fcfcfb", linewidth=0.8, zorder=3)
+        above = sum(b > a for a, b in zip(x, y))
+        below = sum(b < a for a, b in zip(x, y))
+        ax.set_xlim(0, top)
+        ax.set_ylim(0, top)
+        ax.set_xlabel(rnd)
+        ax.set_ylabel(g)
+        ax.set_title(f"{label}\nabove the diagonal on {above} datasets, "
+                     f"below on {below}")
+    fig.suptitle("Guided against random swap, one point per dataset, mean "
+                 "over seeds", fontsize=10)
+    _footer(fig, run_ids, "search")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.94))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -1147,7 +1222,13 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     h0_figs = ((("progress_val_auf10", fig_h0_progress, (h0[0],)),
                 ("secondary_deltas", fig_h0_secondary, (h0[0],)))
                if h0 else ())
-    for slug, fn, args in h0_figs + (
+    units_ev = [h["ev"] for h in per_h
+                if h["ev"] and h["ev"]["kind"] == "dataset_unit"]
+    unit_figs = ((("effect_vs_size", fig_effect_vs_size, (units_ev,)),)
+                 if units_ev else ())
+    if len(units_ev) == 2:
+        unit_figs += (("swap_success", fig_swap_success, (units_ev,)),)
+    for slug, fn, args in h0_figs + unit_figs + (
             ("opt_curves", fig_opt_curves, (units, arms_all, K0)),
             ("front_size_range", fig_size_range, (units, arms_all)),
             ("cost", fig_cost, (units, arms_all))):
