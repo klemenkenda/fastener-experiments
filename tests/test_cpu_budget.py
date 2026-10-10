@@ -53,3 +53,10 @@ def test_fastener_stops_on_its_cpu_budget(tmp_path):
                                        (123.4, 130)])
 def test_budget_rounds_up_to_ten_seconds(cpu, want):
     assert cpu_budget.budget_from(cpu) == want
+
+
+def test_run_sota_limits_numeric_libraries_to_one_thread():
+    import os
+    import run_sota  # noqa: F401  sets the variables at import
+    for var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
+        assert os.environ[var] == "1"

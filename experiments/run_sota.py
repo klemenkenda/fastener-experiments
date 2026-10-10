@@ -35,6 +35,19 @@ Runs that test a hypothesis pass --experiment (see METHODOLOGY.md): the run is
 then refused from uncommitted code, recorded in EXPERIMENTS.md, and every arm
 gets an algorithm ID in the manifest and in every result row.
 """
+import os
+
+# One thread per numeric library, set before numpy is first imported (DEC-37).
+# The environment's MKL (8 threads) and OpenMP (16) pools only spin and fight
+# over cores here: on lymphoma, 1,500 FASTENER fits took 384.6 CPU s and 91.9 s
+# of wall clock with them, 40.3 and 40.5 s without, with the same front. Runs
+# go in parallel one process per job, so a single thread each is also the
+# fastest setting, and it makes CPU time a measure of work (H4's budget).
+NUMERIC_THREADS = "1"
+for _var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
+             "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ[_var] = NUMERIC_THREADS
+
 import argparse
 import csv
 import sys
@@ -103,6 +116,16 @@ ALL_METHODS = FILTERS + SEEDED_FILTERS + SEARCHES + PER_K_SEARCHES
 # Equal across arms, so the comparison is of search quality, not of who was
 # allowed more compute.
 DEFAULT_EVALUATIONS = FIT_BUDGET
+
+
+def numeric_thread_pools():
+    """Each loaded numeric thread pool and its thread count."""
+    try:
+        from threadpoolctl import threadpool_info
+    except ImportError:
+        return None
+    return {f"{d.get('internal_api')}:{d.get('prefix')}": d.get("num_threads")
+            for d in threadpool_info()}
 
 
 def parse_args():
@@ -273,6 +296,9 @@ def main() -> int:
         "model_seed": MODEL_SEED,
         "primary_metric": "f1_weighted",
         "quick": quick,
+        # What the numeric libraries actually run with (DEC-37), read back
+        # rather than assumed from the environment variables set above.
+        "numeric_threads": numeric_thread_pools(),
     }
 
     # Base method -> everything that changes what that arm does, other than the

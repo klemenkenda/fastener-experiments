@@ -62,6 +62,7 @@ hypothesis.
 |---|---|---|
 | Classifier | **`protocol.make_model()`: `DecisionTreeClassifier(random_state=20200)`, scikit-learn defaults** (Gini, `min_samples_split=2`) | The setting the paper states in Section 5.1. Drives every search **and** scores every result, for every method. |
 | FASTENER version | **the current code: FASTENER clone `08e6acd`, mating `include_top_genes=True, allow_self_mating=False`** (`run_fastener.MATING_VERSIONS["fixed"]`) | Decided by the PI after H0-E03 (Revisions, 2026-10-07). Every FASTENER arm in H1-H6 -- stock, random swap, guided swap -- runs it. The 2020 mating is run only where an experiment's design names the `fastener_2020` arm. From H2 on the clone is at `b7e724d`, which adds only the pruning counters H2 and H3 report; the search is unchanged (Revisions, 2026-10-09). |
+| Numeric threads | **1 per library, per run** (MKL, OpenMP, OpenBLAS), set by `run_sota.py` | From 2026-10-10 ([DEC-37](DECISIONS.md#dec-37)). The default pools only spin: same results, about 10x the CPU time. Runs before then used the default pools; their results are unaffected, their times are not comparable with later ones. |
 | Seeds | **5: 2020, 2021, 2022, 2023, 2024** | Set by the PI. See *What 5 seeds can and cannot answer*. |
 | Budget | **6,000 unique fits per run; 12,000 on the 11 datasets in `protocol.LONG_BUDGET_DATASETS`**, enforced by each method's fit cap | Equal across arms: the budget follows the dataset, not the arm. The 11 had not converged at 6,000 in H0 (Revisions, 2026-09-30). Cached re-evaluations of a subset already fitted are not charged. Wall clock is recorded alongside and reported, never substituted: the two diverged 10x in the pilot. **H2 and H3 set the budget per dataset from a calibration step instead** (see H2; Revisions, 2026-10-09). |
 | FS-SDS budget | **k = 1..20, 300 fits per k -- 6,000 in total** (600 per k, 12,000 in total, on the long-budget datasets) | FS-SDS searches one fixed k per run, so its 6,000 are split evenly across the k it runs at. Giving it 6,000 *per k* would hand it 20x the budget of every other arm -- the same kind of mismatch H4 is about. |
@@ -581,7 +582,9 @@ dataset:
   reported beside the result.
 
 CPU time, not wall clock, because the runs share the machine: wall clock
-would charge a run for its neighbours. A time-stopped run is not reproducible
+would charge a run for its neighbours. Every run is single-threaded
+([DEC-37](DECISIONS.md#dec-37)), so CPU time measures work and not threads
+spinning. A time-stopped run is not reproducible
 fit for fit; rerunning it with its recorded fit count as a fit cap replays it.
 
 **Datasets.** The 25 paper benchmarks.
@@ -1151,3 +1154,14 @@ equal compute, so every H4 run now stops on process CPU time, the same for
 both methods on a dataset, set from one stock FASTENER run per dataset at its
 protocol fit budget (seed 1999). The arms, datasets, seeds, metric and
 criterion are unchanged. Recorded as [DEC-36](DECISIONS.md#dec-36).
+
+**2026-10-10 -- Single-threaded numeric libraries for every run.** Found
+while calibrating H4's CPU budgets, before any H4 run. The environment's MKL
+(8 threads) and OpenMP (16) pools made CPU time exceed wall time on 8 of the
+25 benchmarks (nci9: 3,084 CPU s in 1,629 s). On lymphoma, 1,500 FASTENER
+fits took 384.6 CPU s with the pools and 40.3 s with one thread each, with the
+same front. A CPU budget set on spinning threads would charge the methods for
+idle time, unevenly, so every run now limits each library to one thread, and
+the first calibration (kept as `results/h4-calibration-multithreaded`, not
+used) was repeated. No result of any experiment changes; run times before
+and after are not comparable. Recorded as [DEC-37](DECISIONS.md#dec-37).

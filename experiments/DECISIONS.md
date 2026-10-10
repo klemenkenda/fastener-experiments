@@ -64,6 +64,7 @@ say so, and name the result.
 | [DEC-34](#dec-34) | 2026-10-09 | DuckDuckGeese leaves H2 and H3 | H2H3-E01 |
 | [DEC-35](#dec-35) | 2026-10-09 | End the budget calibration early; read the four unfinished runs to where they stopped | H2H3-E01 |
 | [DEC-36](#dec-36) | 2026-10-10 | H4 at equal compute: both methods stop on the same process CPU time per dataset | H4 |
+| [DEC-37](#dec-37) | 2026-10-10 | One thread per numeric library in every run; repeat H4's calibration | all runs from 2026-10-10 |
 
 ## Decisions
 
@@ -720,6 +721,34 @@ CPU time per dataset.**
   *Revisions*, 2026-10-10.
 - **Applies to:** H4.
 
+### DEC-37
+
+**2026-10-10 -- One thread per numeric library in every run; repeat H4's
+calibration.**
+
+- **Why:** the first H4 calibration showed CPU time above wall time on 8 of
+  25 datasets (nci9: 3,084 CPU s in 1,629 s; orlraws10P: 2,451 in 1,150). The
+  environment's MKL pool (8 threads) and OpenMP pool (16) were the cause. On
+  lymphoma, 1,500 FASTENER fits took 384.6 CPU s and 91.9 s of wall clock with
+  the pools, 40.3 and 40.5 s with one thread each, and the front was
+  identical. The extra threads did no useful work, and a CPU-time budget
+  measured on them would charge a method for spinning threads.
+- **Detail:**
+  - `run_sota.py` sets `OMP_NUM_THREADS`, `MKL_NUM_THREADS`,
+    `OPENBLAS_NUM_THREADS`, `NUMEXPR_NUM_THREADS` and
+    `VECLIB_MAXIMUM_THREADS` to 1 before numpy is imported, and records the
+    pools it actually got (`params.numeric_threads`).
+  - The first calibration is kept as `results/h4-calibration-multithreaded`
+    and not used; the calibration `h4-calibration` is repeated.
+  - Results of earlier experiments do not depend on the thread count (same
+    front); their recorded times are not comparable with later runs.
+- **By:** Claude, working autonomously at the PI's request to debug and
+  repeat what goes wrong; reported to the PI.
+- **Taken before any H4 run.** Only CPU and wall times were read.
+- **Source:** the commit that adds this entry; `HYPOTHESES.md`, protocol table
+  and *Revisions*, 2026-10-10.
+- **Applies to:** every run from 2026-10-10 on; H4's budgets.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -734,4 +763,4 @@ are not repeated.
 | `H1-E01` | failed: stopped before any run finished | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30) | [DEC-31](#dec-31) | [H1-E01](reports/H1-E01/REPORT.md) |
 | `H1-E02` | reported: supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | [DEC-32](#dec-32) | [H1-E02](reports/H1-E02/REPORT.md) |
 | `H2H3-E01` | reported: H2 not supported; H3 supported, narrowly | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-33](#dec-33), [DEC-34](#dec-34), [DEC-35](#dec-35) | -- | [H2H3-E01](reports/H2H3-E01/REPORT.md) |
-| H4-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-36](#dec-36) (H4) | -- | -- |
+| H4-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-36](#dec-36), [DEC-37](#dec-37) (H4) | -- | -- |
