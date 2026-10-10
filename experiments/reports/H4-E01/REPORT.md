@@ -105,6 +105,11 @@ FS-SDS gaining about four times as much as FASTENER is consistent with the
 paper's FS-SDS having been held back by its classifier rather than by its
 search.
 
+*Note added 2026-10-10, after H4-E02: that reading does not hold. With the
+paper's own classifier, the ELM, on both sides, FS-SDS still scores 0.064
+above the paper's FS-SDS against 0.009 for FASTENER (H4-E02, F4). The ELM
+did not hold the paper's FS-SDS back; the cause lies elsewhere.*
+
 ![F4](figures/F4_table3.png)
 
 *Left: our mean test AUF (K = 20) against the paper's Table 3, per dataset
@@ -126,7 +131,8 @@ inside the spread between datasets.
 The two confounds in the paper's comparison pulled in opposite directions.
 The classifier confound favoured FASTENER: our FS-SDS, driven by the tree
 that also scores it, gains about four times as much over its published values
-as FASTENER does (F4). The budget confound favoured FS-SDS, and by more than
+as FASTENER does (F4). *(Note added after H4-E02: with the ELM on both sides
+the gap remains, so the classifier is not its cause; see H4-E02's report.)* The budget confound favoured FS-SDS, and by more than
 the paper's numbers suggest. Counted in fits, FS-SDS received far more in the
 paper (30,000 per subset size); counted in computation, a FS-SDS fit is so
 cheap that equal CPU time already gives it about five times FASTENER's fits

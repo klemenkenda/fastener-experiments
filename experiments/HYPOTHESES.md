@@ -621,6 +621,10 @@ of the paper's gap. The criterion is the same for both.
   methods are comparable (FS-SDS ahead on 10 datasets, FASTENER on 15,
   p = 0.51), and the paper's ordering holds on 14 of 25. FS-SDS made about
   five times FASTENER's fits in the same CPU time.
+* `H4-E02` -- the same with the ELM driving and scoring both methods.
+  Not supported: comparable again (FS-SDS ahead on 10, FASTENER on 15,
+  p = 0.096); the paper's ordering holds on 16 of 25, and which method leads
+  on a dataset is the same with either classifier on 21 of 25.
 
 ## H5 -- Stock FASTENER is the best selector at low k, across all datasets
 

@@ -1,0 +1,51 @@
+dataset,method,runs,fits,cpu_seconds,wall_seconds,stopped_on
+ALLAML,fastener_elm,5,5924.2,240.07799999999997,248.83599999999996,['cpu_budget']
+ALLAML,fs_sds_elm,5,55900.8,205.602,215.336,"[""['cpu_budget', 'stagnation']""]"
+BASEHOCK,fastener_elm,5,7552.8,390.12399999999997,398.944,['cpu_budget']
+BASEHOCK,fs_sds_elm,5,23024.4,390.754,399.38,"[""['cpu_budget']""]"
+CLL_SUB_111,fastener_elm,5,11243.2,720.074,741.9039999999999,['cpu_budget']
+CLL_SUB_111,fs_sds_elm,5,162457.2,720.298,747.864,"[""['cpu_budget']""]"
+COIL20,fastener_elm,5,4709.2,140.026,144.376,['cpu_budget']
+COIL20,fs_sds_elm,5,8799.4,140.61599999999999,144.25599999999997,"[""['cpu_budget']""]"
+GLIOMA,fastener_elm,5,6038.6,180.044,186.57600000000002,['cpu_budget']
+GLIOMA,fs_sds_elm,5,53662.0,177.22199999999998,184.67400000000004,"[""['cpu_budget', 'stagnation']""]"
+GLI_85,fastener_elm,5,5828.6,690.0759999999999,703.826,['cpu_budget']
+GLI_85,fs_sds_elm,5,96186.6,396.47200000000004,411.554,"[""['cpu_budget', 'stagnation']""]"
+Isolet,fastener_elm,5,5524.4,170.086,173.782,['cpu_budget']
+Isolet,fs_sds_elm,5,9836.0,170.64999999999998,175.35,"[""['cpu_budget']""]"
+ORL,fastener_elm,5,10661.4,200.046,207.462,['cpu_budget']
+ORL,fs_sds_elm,5,23132.4,197.71200000000002,205.06199999999998,"[""['cpu_budget', 'stagnation']""]"
+PCMAC,fastener_elm,5,8391.6,360.12399999999997,369.046,['cpu_budget']
+PCMAC,fs_sds_elm,5,21639.6,360.752,369.33000000000004,"[""['cpu_budget']""]"
+Prostate_GE,fastener_elm,5,5501.0,190.08,197.028,['cpu_budget']
+Prostate_GE,fs_sds_elm,5,46541.8,190.322,199.772,"[""['cpu_budget']""]"
+RELATHE,fastener_elm,5,9420.0,390.082,401.386,['cpu_budget']
+RELATHE,fs_sds_elm,5,27699.8,390.66200000000003,400.306,"[""['cpu_budget']""]"
+TOX_171,fastener_elm,5,10723.0,410.06800000000004,420.5179999999999,['cpu_budget']
+TOX_171,fs_sds_elm,5,77750.8,410.27799999999996,423.934,"[""['cpu_budget']""]"
+USPS,fastener_elm,5,5292.2,710.394,724.236,['cpu_budget']
+USPS,fs_sds_elm,5,7321.0,697.932,711.222,"[""['cpu_budget', 'stagnation']""]"
+Yale,fastener_elm,5,7796.4,80.00399999999999,82.49199999999999,['cpu_budget']
+Yale,fs_sds_elm,5,15208.0,80.30799999999999,84.766,"[""['cpu_budget']""]"
+arcene,fastener_elm,5,11309.4,630.05,645.29,['cpu_budget']
+arcene,fs_sds_elm,5,118570.0,630.376,651.0420000000001,"[""['cpu_budget']""]"
+colon,fastener_elm,5,6343.8,90.01,95.374,['cpu_budget']
+colon,fs_sds_elm,5,26179.2,90.03999999999999,93.44,"[""['cpu_budget', 'stagnation']"", ""['cpu_budget']""]"
+gisette,fastener_elm,5,2777.0,330.08799999999997,343.716,['cpu_budget']
+gisette,fs_sds_elm,5,5651.6,332.204,338.0,"[""['cpu_budget']""]"
+leukemia,fastener_elm,5,6092.4,250.064,258.774,['cpu_budget']
+leukemia,fs_sds_elm,5,50818.0,198.48399999999998,213.48200000000003,"[""['cpu_budget', 'stagnation']""]"
+lung,fastener_elm,5,5605.2,140.082,144.35999999999999,['cpu_budget']
+lung,fs_sds_elm,5,23990.6,140.306,146.122,"[""['cpu_budget']""]"
+lung_discrete,fastener_elm,5,11404.4,80.00399999999999,87.77000000000001,['cpu_budget']
+lung_discrete,fs_sds_elm,5,21105.6,77.64000000000001,82.064,"[""['cpu_budget', 'stagnation']""]"
+lymphoma,fastener_elm,5,5817.0,160.026,165.15200000000002,['cpu_budget']
+lymphoma,fs_sds_elm,5,37908.8,160.26399999999998,165.966,"[""['cpu_budget']""]"
+nci9,fastener_elm,5,11807.0,640.03,655.524,['cpu_budget']
+nci9,fs_sds_elm,5,181216.4,640.2940000000001,666.74,"[""['cpu_budget']""]"
+orlraws10P,fastener_elm,5,5609.0,370.152,378.28599999999994,['cpu_budget']
+orlraws10P,fs_sds_elm,5,52716.0,234.202,245.862,"[""['cpu_budget', 'stagnation']""]"
+warpAR10P,fastener_elm,5,10968.8,220.046,229.592,['cpu_budget']
+warpAR10P,fs_sds_elm,5,50092.6,220.10999999999999,231.248,"[""['cpu_budget', 'stagnation']""]"
+warpPIE10P,fastener_elm,5,10723.0,230.07199999999997,240.16800000000003,['cpu_budget']
+warpPIE10P,fs_sds_elm,5,40638.2,230.28199999999998,239.31,"[""['cpu_budget']""]"

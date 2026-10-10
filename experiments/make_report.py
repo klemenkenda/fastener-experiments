@@ -884,7 +884,9 @@ def _dataset_strip(dss, points, means, groups, ylabel, title, run_ids,
                   fontsize=7, rotation=60, ha="right", rotation_mode="anchor")
     ax.set_xlim(-0.6, len(dss) - 0.4)
     ax.set_ylabel(ylabel)
-    ax.set_title(title)
+    # Wrapped to the figure's width: a long title is otherwise cut off.
+    import textwrap
+    ax.set_title(textwrap.fill(title, int(fig.get_figwidth() * 13)))
     _footer(fig, run_ids, split)
     fig.tight_layout(rect=(0, 0.03, 1, 1))
     fig.savefig(path, dpi=150)
