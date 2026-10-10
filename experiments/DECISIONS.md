@@ -742,6 +742,12 @@ calibration.**
     and not used; the calibration `h4-calibration` is repeated.
   - Results of earlier experiments do not depend on the thread count (same
     front); their recorded times are not comparable with later runs.
+  - The repeated calibration reused the first one's job names, and
+    `run_queue.py` linked five jobs (COIL20, gisette, lymphoma, TOX_171,
+    warpPIE10P) to the first calibration's folders: it took the newest folder
+    of that name before the new one existed. The links were corrected from
+    the folders' timestamps before the budgets were read, and `run_queue.py`
+    now accepts only folders stamped after the job started.
 - **By:** Claude, working autonomously at the PI's request to debug and
   repeat what goes wrong; reported to the PI.
 - **Taken before any H4 run.** Only CPU and wall times were read.

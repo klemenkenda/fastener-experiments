@@ -163,6 +163,23 @@ def build_jobs(args):
     return jobs
 
 
+def job_run_dir(j, results_dir: Path = None):
+    """This job's run folder, or None while run_sota.py has not made it yet.
+
+    run_sota.py names its folder <UTC stamp>_<name>, stamped when it starts,
+    so the job's folder is the newest one stamped no earlier than the job was
+    started. Without that bound, a folder left by an earlier queue under the
+    same job name was taken for this job's (the first H4 calibration's
+    COIL20, gisette, lymphoma, TOX_171 and warpPIE10P, DEC-37).
+    """
+    if not j.get("started_utc"):
+        return None
+    since = datetime.fromisoformat(j["started_utc"]).strftime("%Y%m%dT%H%M%SZ")
+    found = sorted(d for d in (results_dir or RESULTS_DIR).glob(f"*_{j['name']}")
+                   if d.name.split("_", 1)[0] >= since)
+    return str(found[-1]) if found else None
+
+
 class Queue:
     def __init__(self, args, jobs):
         self.args, self.jobs = args, jobs
@@ -192,12 +209,7 @@ class Queue:
                 time.sleep(0.1)
 
     def find_run_dir(self, j) -> None:
-        # run_sota.py names its directory <UTC stamp>_<name>; the newest one
-        # is this job's.
-        if j["run_dir"] is None:
-            found = sorted(RESULTS_DIR.glob(f"*_{j['name']}"))
-            if found:
-                j["run_dir"] = str(found[-1])
+        j["run_dir"] = j["run_dir"] or job_run_dir(j)
 
     def start(self, j) -> None:
         log = self.out / "logs" / f"{j['name']}.log"

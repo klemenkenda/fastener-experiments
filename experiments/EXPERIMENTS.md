@@ -274,3 +274,71 @@ clock at ten jobs at a time, more as the last long jobs run alone. EigenWorms
 (about 1.8 h per run) and MotorImagery (1.6 h) are half of it. The swap arms
 spend the same budget in fits; the time per fit is taken from stock FASTENER
 and is assumed for them.
+
+### `H4-E01` -- H4 on the 25 paper benchmarks, at equal compute
+
+Registered 2026-10-10, after DEC-36 and DEC-37 and before any of this
+experiment's runs started. No H4 result exists.
+
+**Design.** [H4](HYPOTHESES.md#h4----the-published-fastener--fs-sds-ordering-does-not-survive-a-clean-protocol)
+as revised on 2026-10-10:
+
+| | |
+|---|---|
+| arms | `fastener` (stock, FASTENER clone `b7e724d`, fixed mating) and `fs_sds`, both driven by the protocol decision tree |
+| datasets | the 25 paper benchmarks |
+| seeds | 2020, 2021, 2022, 2023, 2024 |
+| budget | per dataset, the same process CPU time for both arms (*Budgets*); fits not capped; FS-SDS one twentieth per k over k = 1..20 |
+| threads | one per numeric library ([DEC-37](DECISIONS.md#dec-37)) |
+| primary metric | test AUF, K = 20 |
+| criterion | per dataset, each arm's mean AUF over the 5 seeds; supported if FS-SDS is higher on more datasets and a two-sided Wilcoxon signed-rank test over the 25 differences favours it at alpha = 0.05; refuted if the test favours FASTENER; otherwise the methods are comparable |
+| secondary | mean absolute difference from the paper's Table 3, the paper's ordering checked dataset by dataset; each arm's fits, CPU and wall time per dataset |
+| read by | `make_report.py` (`PAIRWISE["H4"]`) |
+
+**Budgets.** From the calibration queue `h4-calibration`: one stock FASTENER
+run per dataset at the protocol fit budget, seed 1999, single-threaded,
+started 2026-10-10 12:26 UTC at `8631f14`, read by `cpu_budget.py`. The budget is its
+search CPU time rounded up to 10 s. A first calibration with the default
+thread pools is kept as `results/h4-calibration-multithreaded` and not used
+(DEC-37). Five jobs of the repeat were first linked to that calibration's
+folders, which share their names; the link was corrected from the run
+folders' timestamps before the budgets were read, and `run_queue.py` now
+matches only folders made after a job started.
+
+| dataset | fits (protocol budget) | CPU s | wall s | **budget, CPU s** | FS-SDS per k |
+|---|---:|---:|---:|---:|---:|
+| ALLAML | 6,000 | 238.0 | 246.2 | **240** | 12.0 |
+| arcene | 12,000 | 621.3 | 639.2 | **630** | 31.5 |
+| BASEHOCK | 12,000 | 387.4 | 398.8 | **390** | 19.5 |
+| CLL_SUB_111 | 12,000 | 717.5 | 736.5 | **720** | 36.0 |
+| COIL20 | 6,000 | 130.6 | 135.3 | **140** | 7.0 |
+| colon | 6,000 | 85.8 | 90.1 | **90** | 4.5 |
+| gisette | 6,000 | 326.6 | 336.8 | **330** | 16.5 |
+| GLI_85 | 6,000 | 682.3 | 699.0 | **690** | 34.5 |
+| GLIOMA | 6,000 | 171.0 | 177.0 | **180** | 9.0 |
+| Isolet | 6,000 | 169.2 | 174.0 | **170** | 8.5 |
+| leukemia | 6,000 | 241.4 | 249.1 | **250** | 12.5 |
+| lung | 6,000 | 140.0 | 144.8 | **140** | 7.0 |
+| lung_discrete | 12,000 | 77.6 | 81.7 | **80** | 4.0 |
+| lymphoma | 6,000 | 154.4 | 160.0 | **160** | 8.0 |
+| nci9 | 12,000 | 639.4 | 661.8 | **640** | 32.0 |
+| ORL | 12,000 | 190.6 | 200.0 | **200** | 10.0 |
+| orlraws10P | 6,000 | 363.0 | 375.4 | **370** | 18.5 |
+| PCMAC | 12,000 | 350.2 | 357.8 | **360** | 18.0 |
+| Prostate_GE | 6,000 | 187.8 | 194.1 | **190** | 9.5 |
+| RELATHE | 12,000 | 389.8 | 399.6 | **390** | 19.5 |
+| TOX_171 | 12,000 | 406.7 | 420.1 | **410** | 20.5 |
+| USPS | 6,000 | 701.2 | 714.0 | **710** | 35.5 |
+| warpAR10P | 12,000 | 216.2 | 225.3 | **220** | 11.0 |
+| warpPIE10P | 12,000 | 227.1 | 234.5 | **230** | 11.5 |
+| Yale | 6,000 | 71.3 | 73.6 | **80** | 4.0 |
+
+**How it runs.** `run_queue.py --experiment H4-E01 --budgets
+results/h4-calibration/budgets.json`, one `run_sota.py --seed` process per
+dataset, arm and seed -- 250 jobs -- at most ten at a time, longest budgets
+first. Each process is single-threaded, so ten share the machine without
+changing each other's CPU time. Watched with `monitor.py --experiment H4-E01`.
+
+**Expected cost.** Budget x 10 runs per dataset: 8,010 x 10 = 80,100 CPU s,
+about 22 CPU-hours, so about 2.2 to 3 hours of wall clock at ten
+at a time. The longest run is CLL_SUB_111's, 720 s.

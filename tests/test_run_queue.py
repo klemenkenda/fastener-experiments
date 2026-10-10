@@ -75,3 +75,17 @@ def test_an_unknown_budget_unit_is_refused(tmp_path):
     with pytest.raises(SystemExit, match="unknown budget unit"):
         run_queue.parse_args(["--datasets", "colon", "--methods", "fs_sds",
                               "--budgets", str(path)])
+
+
+def test_a_job_is_not_matched_to_an_older_runs_folder(tmp_path):
+    """A folder left under the same job name by an earlier queue is not this
+    job's, even while this job's own folder does not exist yet."""
+    name = "h9calibration_colon_fastener_none_s1999"
+    (tmp_path / f"20261010T121124Z_{name}").mkdir()
+    job = {"name": name, "started_utc": "2026-10-10T12:26:03.5+00:00"}
+    assert run_queue.job_run_dir(job, tmp_path) is None
+    (tmp_path / f"20261010T122603Z_{name}").mkdir()
+    assert run_queue.job_run_dir(job, tmp_path).endswith(
+        f"20261010T122603Z_{name}")
+    assert run_queue.job_run_dir({"name": name, "started_utc": None},
+                                 tmp_path) is None
