@@ -343,3 +343,28 @@ changing each other's CPU time. Watched with `monitor.py --experiment H4-E01`.
 **Expected cost.** Budget x 10 runs per dataset: 8,010 x 10 = 80,100 CPU s,
 about 22 CPU-hours, so about 2.2 to 3 hours of wall clock at ten
 at a time. The longest run is CLL_SUB_111's, 720 s.
+
+### `H4-E02` -- H4 on the 25 paper benchmarks with the ELM, at equal compute
+
+Registered 2026-10-10, after H4-E01 was reported and before any of this
+experiment's runs started.
+
+**Design.** Exactly H4-E01's -- datasets, seeds, CPU budgets, single thread,
+metric (test AUF, K = 20) and criterion -- except the classifier
+([DEC-38](DECISIONS.md#dec-38)):
+
+| | |
+|---|---|
+| arms | `fastener_elm` (stock FASTENER, clone `b7e724d`, fixed mating) and `fs_sds_elm`, both driven **and scored** by the ELM |
+| ELM | `paper_protocol.ELMClassifier`: 160 sigmoid hidden neurons, input weights and biases uniform in [-1, 1] from seed 20200, inputs standardised on the training rows, output layer by least squares |
+| budget | H4-E01's CPU budgets, `results/h4-calibration/budgets.json`, the table in H4-E01's design; FS-SDS one twentieth per k |
+| criterion | H4's: supported if FS-SDS-ELM is higher on more datasets and a two-sided Wilcoxon over the 25 favours it at alpha = 0.05; refuted if it favours FASTENER-ELM; otherwise comparable |
+| secondary | the 2 x 2 with H4-E01: per method, ELM minus tree; per classifier, FS-SDS minus FASTENER (counts and Wilcoxon, descriptive); `fs_sds_elm` against the paper's published FS-SDS row; fits, CPU and wall time per arm |
+
+**How it runs.** `run_queue.py --experiment H4-E02 --methods
+fs_sds,fastener:none --budgets results/h4-calibration/budgets.json --
+--search-model elm`: 250 jobs, ten at a time, longest budgets first. Watched
+with `monitor.py --experiment H4-E02`.
+
+**Expected cost.** The same CPU budgets as H4-E01: about 22 CPU-hours, so
+about 2.5 hours at ten at a time.

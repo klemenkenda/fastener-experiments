@@ -65,6 +65,7 @@ say so, and name the result.
 | [DEC-35](#dec-35) | 2026-10-09 | End the budget calibration early; read the four unfinished runs to where they stopped | H2H3-E01 |
 | [DEC-36](#dec-36) | 2026-10-10 | H4 at equal compute: both methods stop on the same process CPU time per dataset | H4 |
 | [DEC-37](#dec-37) | 2026-10-10 | One thread per numeric library in every run; repeat H4's calibration | all runs from 2026-10-10 |
+| [DEC-38](#dec-38) | 2026-10-10 | H4-E02: both searches driven and scored by the ELM, at H4-E01's CPU budgets | H4-E02 |
 
 ## Decisions
 
@@ -755,6 +756,35 @@ calibration.**
   and *Revisions*, 2026-10-10.
 - **Applies to:** every run from 2026-10-10 on; H4's budgets.
 
+### DEC-38
+
+**2026-10-10 -- H4-E02: both searches driven and scored by the ELM, at
+H4-E01's CPU budgets.**
+
+- **Why:** H4-E01 found FASTENER and FS-SDS comparable at equal compute with
+  the decision tree. The paper ran FS-SDS on an ELM; running both methods on
+  it completes a 2 x 2 of method and classifier, which separates how much of
+  the paper's gap came from the classifier and how much from the search.
+- **Detail:**
+  - Arms `fastener_elm` (stock FASTENER) and `fs_sds_elm`, run with
+    `run_sota.py --search-model elm`; the ELM is
+    `paper_protocol.ELMClassifier` (160 sigmoid hidden neurons, weights from
+    seed 20200, inputs standardised on train, least-squares output layer).
+  - The ELM also scores each arm's final subsets on validation and test
+    (`protocol.evaluate_subset(model_factory=)`); no tree scores are computed
+    for these arms, at the PI's choice.
+  - Budget: `results/h4-calibration/budgets.json`, H4-E01's CPU budgets,
+    unchanged; no new calibration.
+  - `make_report.py` reads H4 on whichever arms the runs hold, sets
+    `fs_sds_elm` beside the paper's FS-SDS row, and adds the 2 x 2 with
+    H4-E01's runs.
+- **By:** PI.
+- **Taken after H4-E01 was reported.** Its result motivates the experiment;
+  no criterion changed.
+- **Source:** the commit that adds this entry; `HYPOTHESES.md`, H4 and
+  *Revisions*, 2026-10-10; `EXPERIMENTS.md`, H4-E02.
+- **Applies to:** H4-E02.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -770,4 +800,5 @@ are not repeated.
 | `H1-E02` | reported: supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | [DEC-32](#dec-32) | [H1-E02](reports/H1-E02/REPORT.md) |
 | `H2H3-E01` | reported: H2 not supported; H3 supported, narrowly | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-33](#dec-33), [DEC-34](#dec-34), [DEC-35](#dec-35) | -- | [H2H3-E01](reports/H2H3-E01/REPORT.md) |
 | `H4-E01` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37) | -- | [H4-E01](reports/H4-E01/REPORT.md) |
+| `H4-E02` | registered | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37), [DEC-38](#dec-38) | -- | -- |
 | H5-H6 | not started | [DEC-07](#dec-07), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-37](#dec-37) | -- | -- |

@@ -67,7 +67,8 @@ from progress import Progress, format_duration  # noqa: E402
 from protocol import (FIT_BUDGET, fit_budget, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
                       ROW_CAP, FitCounter)
 from provenance import DirtyTreeError, Run  # noqa: E402
-from run_fastener import MATING_VERSIONS, run_fastener  # noqa: E402
+from run_fastener import (MATING_VERSIONS, run_fastener,  # noqa: E402
+                          search_model_factory)
 from trajectory import Trajectory  # noqa: E402
 
 # The FASTENER arms. "none", "random" and "guided" are the three pruning arms
@@ -152,6 +153,12 @@ def parse_args():
                          "stops when its search has used this much CPU time; "
                          "FS-SDS gets an even share per k over k = 1..20. "
                          "Only FASTENER arms and fs_sds take it.")
+    ap.add_argument("--search-model", default="tree", choices=("tree", "elm"),
+                    help="classifier that drives the search and scores its "
+                         "result: the protocol's decision tree (default) or "
+                         "the FASTENER paper's ELM (H4-E02). With elm, arms "
+                         "are labelled fastener_elm and fs_sds_elm. Only "
+                         "FASTENER arms and fs_sds take it.")
     ap.add_argument("--boruta-max-iter", type=int, default=100)
     ap.add_argument("--sds-population", type=int, default=None,
                     help="FS-SDS swarm size (default 100, the authors' "
@@ -242,6 +249,19 @@ def main() -> int:
     # one; every other search would silently run on fits, so they are refused.
     cpu_seconds = args.cpu_seconds
     fs_cpu_per_k = None
+    # The classifier the searches use. Every other method is defined on the
+    # protocol tree, so a different model is refused for them rather than
+    # silently ignored.
+    search_model = args.search_model
+    model_suffix = "" if search_model == "tree" else f"_{search_model}"
+    model_desc = {"tree": "DecisionTreeClassifier",
+                  "elm": "ELMClassifier(160 sigmoid hidden, seed 20200)"
+                  }[search_model]
+    if search_model != "tree":
+        other = [m for m in methods if m not in PER_K_SEARCHES]
+        if other:
+            raise SystemExit(f"--search-model {search_model} is supported only "
+                             f"for FASTENER and fs_sds, not {other}")
     if cpu_seconds is not None:
         if cpu_seconds <= 0:
             raise SystemExit("--cpu-seconds must be positive")
@@ -292,7 +312,8 @@ def main() -> int:
         "split": args.split,
         "max_rows": ds.max_rows,
         "n_rows_used": ds.n_rows_used,
-        "model": "DecisionTreeClassifier",
+        "model": model_desc,
+        "search_model": search_model,
         "model_seed": MODEL_SEED,
         "primary_metric": "f1_weighted",
         "quick": quick,
@@ -304,7 +325,7 @@ def main() -> int:
     # Base method -> everything that changes what that arm does, other than the
     # dataset and the seed. Hashed into the algorithm ID, so a flag that alters
     # an arm without a commit still gives it a different ID.
-    common = {"model": "DecisionTreeClassifier", "model_seed": MODEL_SEED,
+    common = {"model": model_desc, "model_seed": MODEL_SEED,
               "primary_metric": "f1_weighted", "quick": quick}
     arm_configs = {
         "mrmr": {"k_grid": grid},
@@ -560,8 +581,11 @@ def main() -> int:
                         max_iterations=args.sds_iterations,
                         progress_cb=(prog.tick if cpu_seconds is None
                                      else cpu_progress()),
-                        trajectory=trajectory(m, seed),
-                        cpu_seconds_per_k=fs_cpu_per_k)
+                        trajectory=trajectory(m + model_suffix, seed),
+                        cpu_seconds_per_k=fs_cpu_per_k,
+                        model_factory=(None if search_model == "tree" else
+                                       search_model_factory(search_model)),
+                        label=m + model_suffix)
                 except Exception as exc:
                     failures[unit] = f"{type(exc).__name__}: {exc}"
                     prog.fail(unit, failures[unit])
@@ -600,7 +624,8 @@ def main() -> int:
                                            rounds=fastener_rounds,
                                            swap=FASTENER_ARMS[arm]["swap"],
                                            mating=FASTENER_ARMS[arm]["mating"],
-                                           method_name=label,
+                                           method_name=label + model_suffix,
+                                           model=search_model,
                                            progress_cb=(
                                                (lambda f: prog.tick(
                                                    f, evaluations))
@@ -609,7 +634,8 @@ def main() -> int:
                                            max_fits=evaluations,
                                            max_cpu_seconds=cpu_seconds,
                                            dump_logs=False,
-                                           trajectory=trajectory(label, seed))
+                                           trajectory=trajectory(
+                                               label + model_suffix, seed))
                     except Exception as exc:
                         failures[unit] = f"{type(exc).__name__}: {exc}"
                         prog.fail(unit, failures[unit])

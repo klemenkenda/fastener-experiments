@@ -608,6 +608,13 @@ methods comparable -- itself a finding, reported as such rather than as a flip.
 **Note on scope.** This is a correction to a paper the PI co-authored, and is
 framed as such: a confound identified and measured, not a defect claimed.
 
+**The classifier, by experiment.** H4's claim needs the same classifier on
+both sides, not a particular one. H4-E01 uses the protocol's decision tree.
+H4-E02 uses the ELM the paper ran FS-SDS on, for both FASTENER and FS-SDS,
+search and test scoring alike ([DEC-38](DECISIONS.md#dec-38)), at H4-E01's CPU
+budgets; read together, the two give the classifier's and the search's share
+of the paper's gap. The criterion is the same for both.
+
 **Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 
 * `H4-E01` -- the 25 paper benchmarks at equal CPU time. Not supported: the
@@ -1172,3 +1179,15 @@ idle time, unevenly, so every run now limits each library to one thread, and
 the first calibration (kept as `results/h4-calibration-multithreaded`, not
 used) was repeated. No result of any experiment changes; run times before
 and after are not comparable. Recorded as [DEC-37](DECISIONS.md#dec-37).
+
+**2026-10-10 -- H4-E02: H4 with the ELM.** Decided by the PI after H4-E01 was
+reported. H4-E01 found the two methods comparable when both are driven by the
+decision tree; whether that holds with the paper's FS-SDS classifier is open.
+H4-E02 drives and scores both FASTENER and FS-SDS with the ELM
+(`paper_protocol.ELMClassifier`: 160 sigmoid hidden neurons, fixed random
+weights, least-squares output), a departure from the protocol's single
+classifier for this experiment only, kept within its spirit: each arm is
+judged by the classifier that drove its search. Budgets are H4-E01's CPU
+budgets, unchanged, so all four method-classifier cells get the same compute.
+No tree scores are computed for the ELM arms. Criterion, datasets, seeds and
+metric are H4's. Recorded as [DEC-38](DECISIONS.md#dec-38).

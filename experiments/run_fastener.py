@@ -75,14 +75,31 @@ class ValidationEvaluator:
 
 
 class CountingModelFactory:
-    """Model factory that counts how many models the search fits."""
+    """Model factory that counts how many models the search fits.
 
-    def __init__(self) -> None:
+    `build` makes the classifier: the protocol tree by default, or the ELM
+    (`paper_protocol.ELMClassifier`, H4-E02). Both are module-level, so the
+    factory pickles with the optimizer.
+    """
+
+    def __init__(self, build=None) -> None:
         self.fits = 0
+        self.build = build or make_model
 
     def __call__(self):
         self.fits += 1
-        return make_model()
+        return self.build()
+
+
+# The classifiers a FASTENER search can be driven by. "tree" is the protocol's
+# and the default everywhere; "elm" is the FASTENER paper's FS-SDS classifier.
+def search_model_factory(model: str):
+    if model == "tree":
+        return make_model
+    if model == "elm":
+        from paper_protocol import ELMClassifier
+        return ELMClassifier
+    raise ValueError(f"unknown search model {model!r}; have 'tree', 'elm'")
 
 
 class TrackedOptimizer(EntropyOptimizer):
@@ -203,7 +220,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  trajectory=None,
                  mating: str = "fixed",
                  progress_cb=None,
-                 max_cpu_seconds: Optional[float] = None) -> Dict:
+                 max_cpu_seconds: Optional[float] = None,
+                 model: str = "tree") -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
     `swap` selects the pruning operator and defaults to the original algorithm:
@@ -241,8 +259,13 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
     reached first stops it; `stopped_on` says which. A time-stopped run is not
     reproducible fit for fit, since where it stops depends on the machine;
     rerunning with `max_fits` set to its `model_fits` replays it exactly.
+
+    `model` is the classifier that drives the search and scores the final
+    front: "tree" (the protocol's) or "elm" (H4-E02). A non-tree model is
+    appended to the method label, e.g. ``fastener_elm``.
     """
-    factory = CountingModelFactory()
+    build = search_model_factory(model)
+    factory = CountingModelFactory(build)
 
     mating_version = mating
     mating = make_mating(mating_version, pool_size)
@@ -252,6 +275,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                              else f"fastener_swap_{swap}")
     if method_name is None and mating_version != "fixed":
         method += f"_{mating_version}"
+    if method_name is None and model != "tree":
+        method += f"_{model}"
 
     if initial_genes is None:
         # Start from single features rather than the reference's fixed [[0]], so
@@ -302,7 +327,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         feats = np.where(item.genes)[0]
         if feats.size == 0:
             continue
-        rec = evaluate_subset(ds, feats, counter=None)
+        rec = evaluate_subset(ds, feats, counter=None, model_factory=build)
         rec["method"] = method
         rec["seed"] = seed
         rec["fastener_internal_val_score"] = float(item.result.score)
@@ -328,6 +353,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             "number_of_swaps": number_of_swaps if swap_strategy is not None else 0,
             "max_fits": max_fits,
             "max_cpu_seconds": max_cpu_seconds,
+            "search_model": model,
         },
         "search_seconds": round(search_seconds, 2),
         # Process CPU time of the search: the unit of an equal-compute budget.

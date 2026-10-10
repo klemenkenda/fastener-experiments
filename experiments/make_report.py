@@ -89,6 +89,14 @@ PAIRWISE = {
     "H5": {"focal": "fastener", "opponents": None, "n_datasets": 36},
     "H6": {"focal": "fastener_swap_guided", "opponents": None, "n_datasets": 36},
 }
+# H4's arms differ by experiment: H4-E01 drives both searches with the tree,
+# H4-E02 with the ELM (DEC-38). Read from the runs, so the reading follows
+# what was run. (focal, opponent, classifier)
+H4_ARMS = (("fs_sds", "fastener", "tree"),
+           ("fs_sds_elm", "fastener_elm", "elm"))
+# The 2 x 2 of H4-E01 and H4-E02: method -> classifier -> arm label.
+H4_CELLS = {"FASTENER": {"tree": "fastener", "elm": "fastener_elm"},
+            "FS-SDS": {"tree": "fs_sds", "elm": "fs_sds_elm"}}
 ALPHA = 0.05
 # H0: fits to a common validation target, per seed (h0_convergence applies the
 # rule). Baseline first, as in PAIRED's figures.
@@ -417,7 +425,9 @@ def evaluate_dataset_unit(hid: str, cells, K: int,
             "reading": primary["reading"]}
 
 
-def table3_comparison(cells, units: Sequence[Dict]) -> Dict[str, Any]:
+def table3_comparison(cells, units: Sequence[Dict],
+                      arms: Tuple[str, str] = ("fs_sds", "fastener")
+                      ) -> Dict[str, Any]:
     """Our per-dataset AUF (K = 20) beside the paper's Table 3 (H4 secondary).
 
     `cells` must be read at K = 20, the paper's aggregate. eval_n is our mean
@@ -430,10 +440,14 @@ def table3_comparison(cells, units: Sequence[Dict]) -> Dict[str, Any]:
             fits[(u["dataset"], u["method"])].append(u["model_fits"])
     rows = []
     for ds, meths in cells.items():
-        for m in ("fastener", "fs_sds"):
+        for m in arms:
             v = list(meths.get(m, {}).values())
+            # FASTENER on any classifier is set beside the paper's FASTENER
+            # row; fs_sds_elm is the paper's own FS-SDS setting and
+            # paper_tables compares it with the FS-SDS row by that name.
+            name = "fastener" if m.startswith("fastener") else m
             if v:
-                rows.append({"dataset": ds, "method": m,
+                rows.append({"dataset": ds, "method": name,
                              "mean": float(np.mean(v)),
                              "max": float(np.max(v)),
                              "median": float(np.median(v)),
@@ -462,8 +476,66 @@ def compute_per_arm(units: Sequence[Dict], methods: Sequence[str]
     return out
 
 
-def evaluate_pairwise(hid: str, cells, K: int) -> Dict[str, Any]:
-    spec = PAIRWISE[hid]
+def h4_arms(units: Sequence[Dict]):
+    """The (focal, opponent, classifier) of the H4 arms these runs hold."""
+    methods = {u["method"] for u in units}
+    for arms in H4_ARMS:
+        if arms[0] in methods or arms[1] in methods:
+            return arms
+    return H4_ARMS[0]
+
+
+def h4_two_by_two(experiment_id: str, cells, K: int) -> Optional[Dict]:
+    """Per dataset, mean AUF of every H4 cell (method x classifier) that the
+    reported H4 experiments hold, this one's runs included.
+
+    The other H4 experiments' runs are read from the ledger, so the table is
+    complete only once both H4-E01 (tree) and H4-E02 (ELM) have run. None if
+    only one classifier is available.
+    """
+    all_cells = {ds: dict(m) for ds, m in cells.items()}
+    for row in experiment_ids.load_ledger():
+        info = experiment_ids.parse_experiment_id(row["experiment"])
+        if info["hypotheses"] != ["H4"] or row["experiment"] == experiment_id \
+                or row["status"] not in ("reported", "running"):
+            continue
+        runs = [load_run(r) for r in row["runs"]
+                if (RESULTS_DIR / r).is_dir()]
+        other = by_cell(units_of(runs)[0], K)
+        for ds, meths in other.items():
+            for m, seeds in meths.items():
+                all_cells.setdefault(ds, {}).setdefault(m, seeds)
+    labels = [lab for cl in H4_CELLS.values() for lab in cl.values()]
+    have = {m for meths in all_cells.values() for m in meths}
+    if not all(lab in have for lab in labels):
+        return None
+    per_ds = {}
+    for ds, meths in sorted(all_cells.items()):
+        if all(meths.get(lab) for lab in labels):
+            per_ds[ds] = {lab: float(np.mean(list(meths[lab].values())))
+                          for lab in labels}
+    effects = {}
+    for meth, cl in H4_CELLS.items():
+        d = [per_ds[ds][cl["elm"]] - per_ds[ds][cl["tree"]] for ds in per_ds]
+        effects[f"{meth}: ELM minus tree"] = d
+    for clf in ("tree", "elm"):
+        d = [per_ds[ds][H4_CELLS["FS-SDS"][clf]]
+             - per_ds[ds][H4_CELLS["FASTENER"][clf]] for ds in per_ds]
+        effects[f"{clf}: FS-SDS minus FASTENER"] = d
+    summary = {k: {"n": len(v), "positive": sum(x > 0 for x in v),
+                   "negative": sum(x < 0 for x in v),
+                   "mean": float(np.mean(v)), "median": float(np.median(v)),
+                   "p": wilcoxon_p(v)} for k, v in effects.items()}
+    return {"per_dataset": per_ds, "summary": summary,
+            "means": {lab: float(np.mean([v[lab] for v in per_ds.values()]))
+                      for lab in labels}}
+
+
+def evaluate_pairwise(hid: str, cells, K: int,
+                      arms: Optional[Tuple[str, str]] = None) -> Dict[str, Any]:
+    spec = dict(PAIRWISE[hid])
+    if arms is not None:
+        spec["focal"], spec["opponents"] = arms[0], (arms[1],)
     focal = spec["focal"]
     means = {ds: {m: float(np.mean(list(s.values())))
                   for m, s in meths.items() if s}
@@ -971,6 +1043,56 @@ def fig_table3(t3, run_ids, path: Path) -> None:
     plt.close(fig)
 
 
+def fig_two_by_two(tbt, run_ids, path: Path) -> None:
+    """H4's 2 x 2: classifier effect per method, search effect per classifier."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    per = tbt["per_dataset"]
+    ds = sorted(per)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8))
+    for ax, pairs, title in (
+            (axes[0], [(meth, cl["tree"], cl["elm"])
+                       for meth, cl in H4_CELLS.items()],
+             "Classifier: AUF with the ELM against with the tree"),
+            (axes[1], [("FS-SDS minus FASTENER",
+                        (H4_CELLS["FS-SDS"]["tree"],
+                         H4_CELLS["FASTENER"]["tree"]),
+                        (H4_CELLS["FS-SDS"]["elm"],
+                         H4_CELLS["FASTENER"]["elm"]))],
+             "Search: FS-SDS minus FASTENER, tree (x) against ELM (y)")):
+        vals = []
+        for i, (label, x_lab, y_lab) in enumerate(pairs):
+            if isinstance(x_lab, tuple):
+                x = [per[d][x_lab[0]] - per[d][x_lab[1]] for d in ds]
+                y = [per[d][y_lab[0]] - per[d][y_lab[1]] for d in ds]
+            else:
+                x = [per[d][x_lab] for d in ds]
+                y = [per[d][y_lab] for d in ds]
+            vals += x + y
+            ax.scatter(x, y, s=24, color=SERIES[i], alpha=0.85,
+                       edgecolor="#fcfcfb", linewidth=0.8, zorder=3,
+                       label=label)
+        lo, hi = min(vals) - 0.03, max(vals) + 0.03
+        ax.plot([lo, hi], [lo, hi], color=INK_2, lw=1, ls="--")
+        if lo < 0 < hi:
+            ax.axhline(0, color=GRID, lw=1)
+            ax.axvline(0, color=GRID, lw=1)
+        ax.set_xlim(lo, hi)
+        ax.set_ylim(lo, hi)
+        ax.set_title(title, fontsize=9)
+        ax.legend(fontsize=7, loc="upper left")
+    axes[0].set_xlabel("mean test AUF (K = 20), decision tree")
+    axes[0].set_ylabel("mean test AUF (K = 20), ELM")
+    axes[1].set_xlabel("decision tree (H4-E01)")
+    axes[1].set_ylabel("ELM (H4-E02)")
+    fig.suptitle("H4 across classifiers, one point per dataset (mean over "
+                 "seeds); dashed line: equal", fontsize=10)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.94))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def fig_effect_vs_size(evs, run_ids, path: Path) -> None:
     """Per-dataset effect against rows (n) and features (p), H2 and H3."""
     import matplotlib.pyplot as plt
@@ -1381,7 +1503,9 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
             ev = evaluate_dataset_unit(hid, cells, K, units)
             arms = [ev["baseline"], ev["challenger"]]
         elif hid in PAIRWISE:
-            ev = evaluate_pairwise(hid, cells, K)
+            ev = evaluate_pairwise(
+                hid, cells, K,
+                h4_arms(units)[:2] if hid == "H4" else None)
             top = sorted((p for p in ev["pairs"] if p["n_datasets"]),
                          key=lambda p: p["mean_delta"])[:3]
             arms = [ev["focal"]] + [p["opponent"] for p in top]
@@ -1435,8 +1559,10 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                       [{"dataset": d, **{f"auf_{m}": x for m, x in
                                          ev["means"][d].items()}}
                        for d in sorted(ev["means"])])
-            ev["table3"] = table3_comparison(cells, units)
-            ev["compute"] = compute_per_arm(units, ("fs_sds", "fastener"))
+            arms4 = (ev["focal"], ev["pairs"][0]["opponent"])
+            ev["table3"] = table3_comparison(cells, units, arms4)
+            ev["compute"] = compute_per_arm(units, arms4)
+            ev["two_by_two"] = h4_two_by_two(experiment_id, cells, K)
             # The per-dataset effect in the shape fig_effect_vs_size reads.
             shape = {}
             for u in units:
@@ -1477,10 +1603,14 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
           and h["ev"].get("compute")]
     if h4:
         unit_figs += (("compute", fig_compute,
-                       (h4[0]["compute"], ("fs_sds", "fastener"))),
+                       (h4[0]["compute"], (h4[0]["focal"],
+                                           h4[0]["pairs"][0]["opponent"]))),
                       ("effect_vs_size", fig_effect_vs_size,
                        ([h4[0]["size_ev"]],)),
                       ("table3", fig_table3, (h4[0]["table3"],)))
+        if h4[0].get("two_by_two"):
+            unit_figs += (("two_by_two", fig_two_by_two,
+                           (h4[0]["two_by_two"],)),)
     if len(units_ev) == 2:
         unit_figs += (("swap_success", fig_swap_success, (units_ev,)),
                       ("by_cluster", fig_by_cluster, (units_ev,)))
@@ -1832,6 +1962,24 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                                  sm["rank_correlation"])
                                 for m, sm in sorted(t3["summary"].items())]),
                       ""]
+            tbt = ev.get("two_by_two")
+            if tbt:
+                L += ["Secondary, H4 across classifiers (H4-E01 tree, H4-E02 "
+                      "ELM): per-dataset differences of mean AUF (K = 20).",
+                      "",
+                      md_table(("comparison", "datasets", "> 0", "< 0",
+                                "mean", "median", "Wilcoxon p"),
+                               [(k, v["n"], v["positive"], v["negative"],
+                                 fmt(v["mean"]), fmt(v["median"]),
+                                 fmt(v["p"]))
+                                for k, v in tbt["summary"].items()]), "",
+                      md_table(("dataset",) + tuple(
+                          f"{m} / {c}" for m, cl in H4_CELLS.items()
+                          for c in cl),
+                          [(d,) + tuple(fmt(v[lab]) for cl in
+                                        H4_CELLS.values()
+                                        for lab in cl.values())
+                           for d, v in tbt["per_dataset"].items()]), ""]
             comp = ev.get("compute")
             if comp:
                 L += ["Compute per run, mean over seeds:", "",

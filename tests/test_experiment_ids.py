@@ -374,3 +374,34 @@ def test_report_end_to_end_h4(tmp_path, monkeypatch):
     assert figs[0] == "F1_H4_effect_per_dataset.png"
     assert any(f.endswith("_compute.png") for f in figs)
     assert (out / "tables" / "H4_table3.csv").is_file()
+
+
+def test_report_h4_reads_the_elm_arms(tmp_path, monkeypatch):
+    """H4-E02 compares fs_sds_elm with fastener_elm, and sets them beside the
+    paper's FS-SDS and FASTENER rows."""
+    from datasets import PAPER_BENCHMARKS
+    monkeypatch.setattr(make_report, "RESULTS_DIR", tmp_path / "results")
+    ids = []
+    for ds in PAPER_BENCHMARKS:
+        _fake_run(tmp_path / "results", f"R_{ds}", ds,
+                  {"fastener_elm": 0.6, "fs_sds_elm": 0.5})
+        ids.append(f"R_{ds}")
+    out = tmp_path / "report"
+    make_report.build("H4-E02", ids, out)
+    support = (out / "SUPPORT.md").read_text(encoding="utf-8")
+    assert "mechanical reading: refuted" in support
+    assert "| fastener_elm | 25 |" in support
+    t3 = (out / "tables" / "H4_table3.csv").read_text(encoding="utf-8")
+    assert "fs_sds_elm" in t3 and "fastener" in t3
+
+
+def test_two_by_two_needs_both_classifiers(tmp_path, monkeypatch):
+    # No other H4 runs on disk: only the ELM column, so no 2 x 2.
+    monkeypatch.setattr(make_report, "RESULTS_DIR", tmp_path)
+    cells = {"colon": {"fastener_elm": {2020: 0.6}, "fs_sds_elm": {2020: 0.5}}}
+    assert make_report.h4_two_by_two("H9-E01", cells, 20) is None
+    # With the tree column too, every comparison is read per dataset.
+    cells["colon"].update({"fastener": {2020: 0.7}, "fs_sds": {2020: 0.4}})
+    tbt = make_report.h4_two_by_two("H9-E01", cells, 20)
+    assert tbt["summary"]["FASTENER: ELM minus tree"]["mean"] ==         pytest.approx(-0.1)
+    assert tbt["summary"]["elm: FS-SDS minus FASTENER"]["mean"] ==         pytest.approx(-0.1)

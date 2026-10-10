@@ -100,16 +100,21 @@ class FitCounter:
         self.fits = 0
 
 
-def evaluate_subset(ds, features: Sequence[int], counter: FitCounter = None) -> Dict:
+def evaluate_subset(ds, features: Sequence[int], counter: FitCounter = None,
+                    model_factory=None) -> Dict:
     """Fit on train with `features`, then score on val and test.
 
     This is the single place a final number is produced, for every method.
+    `model_factory` is the classifier that scores the subset; it defaults to
+    the protocol's decision tree, and is the ELM for an arm whose search the
+    ELM drove (H4-E02), so an arm is always judged by its own classifier.
     """
     features = np.asarray(sorted(set(int(f) for f in features)), dtype=int)
     if features.size == 0:
         raise ValueError("empty feature subset")
 
-    model = make_model().fit(ds.X_train[:, features], ds.y_train)
+    model = (model_factory or make_model)().fit(ds.X_train[:, features],
+                                                ds.y_train)
     if counter is not None:
         counter.fits += 1
 

@@ -547,7 +547,8 @@ def run_fs_sds_method(ds, ks: List[int], seed: int,
                       "cpu_seconds": out["cpu_seconds"]})
         if out["best_genes"] is None:
             continue
-        rec = evaluate_subset(ds, np.where(out["best_genes"])[0], counter=None)
+        rec = evaluate_subset(ds, np.where(out["best_genes"])[0], counter=None,
+                              model_factory=model_factory)
         rec["method"] = label
         rec["seed"] = seed
         records.append(rec)
