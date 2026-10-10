@@ -808,7 +808,7 @@ def _dataset_strip(dss, points, means, groups, ylabel, title, run_ids,
                     zorder=4)
     ax.axhline(0, color=INK_2, lw=1)
     ax.set_xticks(range(len(dss)),
-                  [f"{d} ({groups.get(d) or ''})" for d in dss],
+                  [f"{d} ({groups[d]})" if groups.get(d) else d for d in dss],
                   fontsize=7, rotation=60, ha="right", rotation_mode="anchor")
     ax.set_xlim(-0.6, len(dss) - 0.4)
     ax.set_ylabel(ylabel)
@@ -852,18 +852,35 @@ def fig_dataset_unit(ev, run_ids, path: Path) -> None:
         run_ids, "test", path)
 
 
+# The paper benchmarks' domains, as HYPOTHESES.md groups them (Datasets).
+PAPER_DOMAINS = {
+    **{d: "genes" for d in ("GLIOMA", "nci9", "colon", "ALLAML", "leukemia",
+                            "lung_discrete", "GLI_85", "lymphoma",
+                            "Prostate_GE", "CLL_SUB_111", "TOX_171", "lung")},
+    "arcene": "mass spec.",
+    **{d: "images" for d in ("orlraws10P", "warpAR10P", "Yale", "warpPIE10P",
+                             "ORL", "COIL20")},
+    **{d: "handwriting, speech" for d in ("Isolet", "gisette", "USPS")},
+    **{d: "text" for d in ("RELATHE", "PCMAC", "BASEHOCK")},
+}
+DOMAIN_ORDER = ("genes", "mass spec.", "images", "handwriting, speech", "text")
+
+
 def fig_pairwise_strip(ev, cells, run_ids, path: Path) -> None:
     """H4: per dataset, focal minus opponent AUF; points pair seed numbers."""
     p0 = ev["pairs"][0]
     focal, opp, K = ev["focal"], p0["opponent"], ev["K"]
-    dss = sorted(p0["diffs"], key=lambda d: -p0["diffs"][d])
+    order = {g: i for i, g in enumerate(DOMAIN_ORDER)}
+    dss = sorted(p0["diffs"], key=lambda d: (
+        order.get(PAPER_DOMAINS.get(d), len(order)), -p0["diffs"][d]))
     points = {}
     for d in dss:
         a, b = cells[d].get(focal, {}), cells[d].get(opp, {})
         points[d] = [a[s] - b[s] for s in sorted(set(a) & set(b))]
     pv = "--" if p0["p"] is None or np.isnan(p0["p"]) else f"{p0['p']:.3g}"
     _dataset_strip(
-        dss, points, {d: p0["diffs"][d] for d in dss}, {},
+        dss, points, {d: p0["diffs"][d] for d in dss},
+        {d: PAPER_DOMAINS.get(d) for d in dss},
         f"AUF (K = {K}), test:\n{focal} minus {opp}",
         f"{focal} minus {opp}, per dataset: one point per seed number, bar = "
         f"difference of the means.  {p0['wins']} datasets > 0, "

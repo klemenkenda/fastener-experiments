@@ -353,3 +353,24 @@ def test_stale_ledger_lock_is_removed(tmp_path):
     os.utime(lock, (old, old))
     assert eid.issue("H9", led) == "H9-E01"
     assert not lock.exists()
+
+
+def test_report_end_to_end_h4(tmp_path, monkeypatch):
+    """H4: the strip, the compute check and the Table 3 comparison."""
+    from datasets import PAPER_BENCHMARKS
+    monkeypatch.setattr(make_report, "RESULTS_DIR", tmp_path / "results")
+    ids = []
+    for ds in PAPER_BENCHMARKS:
+        _fake_run(tmp_path / "results", f"R_{ds}", ds,
+                  {"fastener": 0.5, "fs_sds": 0.6})
+        ids.append(f"R_{ds}")
+    out = tmp_path / "report"
+    make_report.build("H4-E01", ids, out)
+    support = (out / "SUPPORT.md").read_text(encoding="utf-8")
+    assert "mechanical reading: supported" in support
+    assert "against the paper's Table 3" in support
+    assert "Compute per run" in support
+    figs = sorted(p.name for p in (out / "figures").iterdir())
+    assert figs[0] == "F1_H4_effect_per_dataset.png"
+    assert any(f.endswith("_compute.png") for f in figs)
+    assert (out / "tables" / "H4_table3.csv").is_file()
