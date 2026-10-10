@@ -41,6 +41,9 @@ Thumbs.db
 .idea/
 .vscode/
 
+# The ledger's lock, held while a run is recorded (experiment_ids.ledger_lock).
+experiments/EXPERIMENTS.md.lock
+
 # Live progress heartbeats and background run logs: per-run scratch, not results.
 results/**/progress.json
 results/*.log

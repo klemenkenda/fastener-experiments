@@ -28,8 +28,10 @@ DATA_DIR = REPO_ROOT / "data"
 # and the record-keeping that runs themselves write (the experiment ledger and
 # the reports). Everything else -- scripts, HYPOTHESES.md, METHODOLOGY.md --
 # counts as code, because a report must be reproducible from a commit.
+# The ledger's lock file exists for the moment a run is being recorded; a job
+# that checked the tree just then was refused as dirty (three H2H3-E01 jobs).
 NON_CODE_PATHS = ("results", "data", "experiments/reports",
-                  "experiments/EXPERIMENTS.md")
+                  "experiments/EXPERIMENTS.md", "experiments/EXPERIMENTS.md.lock")
 
 
 def _git(repo: Path, *args: str) -> Optional[str]:
