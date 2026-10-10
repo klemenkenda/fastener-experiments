@@ -111,6 +111,47 @@ p = 0.28).
 swap, dashed line where they are equal. Left: share of swaps that won their
 size slot. Right: entries of the final front that a swap made.*
 
+### F5 -- By cluster, the guided swap gains only on the small-sample clusters C1 and C2
+
+The datasets were chosen from seven clusters of dataset shape, so each
+comparison can be read cluster by cluster. The guided swap is ahead of stock
+FASTENER on 6 of 7 datasets in C1, the small lab sets (40-461 rows; median
++0.0125, mean +0.035), and on 3 of 4 in C2, the high-dimensional recordings
+with p far above n (259-440 rows; median +0.017). From C5 on -- the clusters
+with thousands of rows -- every cluster's median effect lies within 0.002 of
+zero for both swaps; on EOData the guided swap's effect is +0.005. The random swap's one leaning cluster is C3, the long signals: ahead
+on 6 of 7 datasets (p = 0.047), where the guided swap is not (4 of 7).
+Guided against random leans guided in C1, C2 and C4 (5, 3 and 5 datasets
+ahead) and random in C3 (2 of 7).
+
+| cluster | rows | datasets | random minus stock | guided minus stock | guided minus random |
+|---|---|---:|---|---|---|
+| C1 small lab, p >= n | 40-461 | 7 | +0.001 (4 / 3) | **+0.035 (6 / 1)** | +0.034 (5 / 2) |
+| C2 p >> n recordings | 259-440 | 4 | -0.007 (1 / 3) | +0.007 (3 / 1) | +0.013 (3 / 1) |
+| C3 long signals | 360-1,420 | 7 | +0.011 (6 / 1) | +0.004 (4 / 3) | -0.007 (2 / 5) |
+| C4 short series | 360-1,162 | 7 | -0.007 (2 / 5) | +0.001 (5 / 2) | +0.008 (5 / 2) |
+| C5 larger sensor, shape | 4,307-9,236 | 7 | -0.001 (3 / 4) | -0.001 (3 / 4) | 0.000 (4 / 3) |
+| C6 large audio, industrial | 6,668-13,640 | 3 | +0.001 (1 / 2) | +0.001 (3 / 0) | +0.001 (2 / 1) |
+| C7 many short series | 10,992-24,000 | 3 | +0.001 (1 / 2) | -0.001 (0 / 3) | -0.002 (1 / 2) |
+| EOData | 50,000 | 1 | +0.002 | +0.005 | +0.002 |
+
+*Mean effect on test AUF (K = 10) over the cluster's datasets, with the
+number of datasets ahead / behind.*
+
+None of this is a test: the breakdown was registered as descriptive, with 1
+to 7 datasets per cluster, and the table holds 21 comparisons, so about one
+p < 0.05 -- such as C3's -- is expected by chance. The clusters are ordered
+largely by sample size, and the gains follow it: the two clusters where the
+guided swap leads are the two with the fewest rows. This is F3 seen through
+the clusters, not a separate effect of the kind of data.
+
+![F5](figures/F5_by_cluster.png)
+
+*Per cluster (C1-C7, then EOData): for each comparison, one point per
+dataset (mean effect over seeds on test AUF, K = 10) and a bar at the
+cluster's median. Blue: random swap minus stock; orange: guided swap minus
+stock; green: guided minus random swap.*
+
 ## 3. Assessment
 
 H2 is not supported. Adding a random size-preserving swap to FASTENER's
@@ -130,7 +171,10 @@ three largest gains -- all on sets with 8 to 16 test rows -- takes the
 remaining datasets to p = 0.16. A difference of one or two test rows on such
 sets is the size of these gains, so the result is consistent both with a small
 real advantage on small data and with noise in the scores of the smallest
-sets. Five seeds per dataset do not separate the two.
+sets. Five seeds per dataset do not separate the two. Read by cluster (F5),
+the guided swap leads only in C1 and C2, the two clusters with the fewest
+rows, and nowhere among the clusters with thousands of rows -- the same
+dependence on sample size, not on a kind of data.
 
 The guidance does something real at the level of the operator: guided swaps
 are kept more often and leave more entries on the final front than random

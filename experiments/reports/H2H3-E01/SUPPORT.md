@@ -5170,7 +5170,7 @@ Secondary, what the pruning step did, mean per run:
 | Wafer | fastener_swap_guided | 138.0 | 138.0 | 122.8 | 0.061 | 2.0 | 0.2 |
 | eodata | fastener_swap_guided | 262.6 | 262.6 | 252.4 | 0.126 | 18.2 | 3.0 |
 
-Figures, all in [figures/](figures/): `F1_H2_effect_per_dataset.png`, `F2_H3_effect_per_dataset.png`, `F3_effect_vs_size.png`, `F4_swap_success.png`. Every figure is drawn from all 585 runs above.
+Figures, all in [figures/](figures/): `F1_H2_effect_per_dataset.png`, `F2_H3_effect_per_dataset.png`, `F3_effect_vs_size.png`, `F4_swap_success.png`, `F5_by_cluster.png`. Every figure is drawn from all 585 runs above.
 
 ## 6. Reproduction
 

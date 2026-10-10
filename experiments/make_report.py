@@ -836,6 +836,59 @@ def fig_effect_vs_size(evs, run_ids, path: Path) -> None:
     plt.close(fig)
 
 
+def fig_by_cluster(evs, run_ids, path: Path) -> None:
+    """Per cluster: each swap arm against stock, and guided against random.
+
+    One point per dataset (its mean effect over seeds), a bar at the
+    cluster's median. Descriptive only: 1-7 datasets per cluster.
+    """
+    import matplotlib.pyplot as plt
+    _style(plt)
+    by = {ev["challenger"]: ev for ev in evs}
+    comps = []
+    for ev in evs:
+        comps.append((f"{ev['challenger']} minus {ev['baseline']}",
+                      {d: v["effect"] for d, v in ev["per_dataset"].items()
+                       if v["effect"] is not None}))
+    gv = by.get(GUIDANCE[0], {}).get("secondary", {}).get("guided_vs_random")
+    if gv:
+        comps.append((f"{GUIDANCE[0]} minus {GUIDANCE[1]}",
+                      {d: e for d, e in gv["per_dataset"].items()
+                       if e is not None}))
+    clusters = sorted(set(SWAP_CLUSTERS.values()),
+                      key=lambda c: (c == "EO", c))
+    width = 0.8 / len(comps)
+    fig, ax = plt.subplots(figsize=(12, 4.8))
+    for j, (label, eff) in enumerate(comps):
+        for i, c in enumerate(clusters):
+            x0 = i - 0.4 + width * (j + 0.5)
+            ys = [e for d, e in eff.items() if SWAP_CLUSTERS.get(d) == c]
+            if not ys:
+                continue
+            ax.scatter([x0] * len(ys), ys, s=16, color=SERIES[j], alpha=0.75,
+                       edgecolor="#fcfcfb", linewidth=0.8, zorder=3,
+                       label=label if i == 0 else None)
+            ax.plot([x0 - width * 0.4, x0 + width * 0.4], [np.median(ys)] * 2,
+                    color=INK, lw=2, zorder=4)
+    for i in range(1, len(clusters)):
+        ax.axvline(i - 0.5, color=GRID, lw=1)
+    ax.axhline(0, color=INK_2, lw=1)
+    n_of = {c: sum(1 for d in SWAP_SETS if SWAP_CLUSTERS[d] == c)
+            for c in clusters}
+    ax.set_xticks(range(len(clusters)),
+                  [f"{c}\n({n_of[c]} dataset{'s' if n_of[c] != 1 else ''})"
+                   for c in clusters])
+    ax.set_xlim(-0.5, len(clusters) - 0.5)
+    ax.set_ylabel(f"effect: mean AUF (K = {evs[0]['K']}) difference, test")
+    ax.legend(fontsize=7, loc="upper right")
+    ax.set_title("Per cluster: one point per dataset (mean over seeds), bar = "
+                 "cluster median; descriptive only", fontsize=10)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def fig_swap_success(evs, run_ids, path: Path) -> None:
     """Guided against random swap, per dataset: how often a swap won its size
     slot, and how many final-front entries a swap made. Means over seeds."""
@@ -1227,7 +1280,8 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     unit_figs = ((("effect_vs_size", fig_effect_vs_size, (units_ev,)),)
                  if units_ev else ())
     if len(units_ev) == 2:
-        unit_figs += (("swap_success", fig_swap_success, (units_ev,)),)
+        unit_figs += (("swap_success", fig_swap_success, (units_ev,)),
+                      ("by_cluster", fig_by_cluster, (units_ev,)))
     for slug, fn, args in h0_figs + unit_figs + (
             ("opt_curves", fig_opt_curves, (units, arms_all, K0)),
             ("front_size_range", fig_size_range, (units, arms_all)),
