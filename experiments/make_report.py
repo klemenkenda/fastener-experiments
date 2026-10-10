@@ -924,6 +924,53 @@ def fig_compute(rows: Sequence[Dict], methods: Sequence[str], run_ids,
     plt.close(fig)
 
 
+def fig_table3(t3, run_ids, path: Path) -> None:
+    """H4: ours against the paper's Table 3, values and ordering."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8))
+    ax = axes[0]
+    allv = []
+    for i, (m, es) in enumerate(sorted(t3["per_method"].items())):
+        x = [e["paper_mean"] for e in es]
+        y = [e["ours_mean"] for e in es]
+        allv += x + y
+        ax.scatter(x, y, s=24, color=SERIES[i], alpha=0.85,
+                   edgecolor="#fcfcfb", linewidth=0.8, zorder=3,
+                   label=f"{m} (mean |ours - paper| = "
+                         f"{t3['summary'][m]['mean_abs_delta']:.3f})")
+    lo, hi = min(allv) - 0.03, max(allv) + 0.03
+    ax.plot([lo, hi], [lo, hi], color=INK_2, lw=1, ls="--")
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_xlabel("paper's Table 3: mean AUF")
+    ax.set_ylabel("ours: mean test AUF (K = 20)")
+    ax.legend(fontsize=7, loc="upper left")
+    ax.set_title("Values, one point per dataset and method")
+    ax = axes[1]
+    by = {(e["dataset"], m): e for m, es in t3["per_method"].items()
+          for e in es}
+    ds = sorted({d for d, _ in by})
+    x = [by[(d, "fastener")]["paper_mean"] - by[(d, "fs_sds")]["paper_mean"]
+         for d in ds if (d, "fs_sds") in by and (d, "fastener") in by]
+    y = [by[(d, "fastener")]["ours_mean"] - by[(d, "fs_sds")]["ours_mean"]
+         for d in ds if (d, "fs_sds") in by and (d, "fastener") in by]
+    ax.axhline(0, color=INK_2, lw=1)
+    ax.axvline(0, color=INK_2, lw=1)
+    ax.scatter(x, y, s=24, color=SERIES[0], alpha=0.85, edgecolor="#fcfcfb",
+               linewidth=0.8, zorder=3)
+    ax.set_xlabel("paper: FASTENER minus FS-SDS")
+    ax.set_ylabel("ours: fastener minus fs_sds")
+    ax.set_title(f"Ordering: same sign on {t3['ordering_agreement']} "
+                 f"datasets\n(paper: FASTENER ahead on 24 of 25)")
+    fig.suptitle("Against the FASTENER paper's Table 3 (values not directly "
+                 "comparable: our split and selection differ)", fontsize=10)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.94))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def fig_effect_vs_size(evs, run_ids, path: Path) -> None:
     """Per-dataset effect against rows (n) and features (p), H2 and H3."""
     import matplotlib.pyplot as plt
@@ -1390,6 +1437,17 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                        for d in sorted(ev["means"])])
             ev["table3"] = table3_comparison(cells, units)
             ev["compute"] = compute_per_arm(units, ("fs_sds", "fastener"))
+            # The per-dataset effect in the shape fig_effect_vs_size reads.
+            shape = {}
+            for u in units:
+                shape.setdefault(u["dataset"], (u["n_rows"], u["n_features"]))
+            p0 = ev["pairs"][0]
+            ev["size_ev"] = {
+                "challenger": ev["focal"], "baseline": p0["opponent"],
+                "K": K, "datasets": sorted(p0["diffs"]),
+                "per_dataset": {d: {"effect": x, "n": shape.get(d, (0, 0))[0],
+                                    "p": shape.get(d, (0, 0))[1]}
+                                for d, x in p0["diffs"].items()}}
             write_csv(tab_dir / f"{hid}_table3.csv",
                       [{"method": m, **e} for m, es in
                        ev["table3"]["per_method"].items() for e in es])
@@ -1419,7 +1477,10 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
           and h["ev"].get("compute")]
     if h4:
         unit_figs += (("compute", fig_compute,
-                       (h4[0]["compute"], ("fs_sds", "fastener"))),)
+                       (h4[0]["compute"], ("fs_sds", "fastener"))),
+                      ("effect_vs_size", fig_effect_vs_size,
+                       ([h4[0]["size_ev"]],)),
+                      ("table3", fig_table3, (h4[0]["table3"],)))
     if len(units_ev) == 2:
         unit_figs += (("swap_success", fig_swap_success, (units_ev,)),
                       ("by_cluster", fig_by_cluster, (units_ev,)))

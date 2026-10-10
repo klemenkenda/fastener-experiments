@@ -608,6 +608,13 @@ methods comparable -- itself a finding, reported as such rather than as a flip.
 **Note on scope.** This is a correction to a paper the PI co-authored, and is
 framed as such: a confound identified and measured, not a defect claimed.
 
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+* `H4-E01` -- the 25 paper benchmarks at equal CPU time. Not supported: the
+  methods are comparable (FS-SDS ahead on 10 datasets, FASTENER on 15,
+  p = 0.51), and the paper's ordering holds on 14 of 25. FS-SDS made about
+  five times FASTENER's fits in the same CPU time.
+
 ## H5 -- Stock FASTENER is the best selector at low k, across all datasets
 
 *(sixth: the full grid)*
