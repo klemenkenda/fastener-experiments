@@ -150,6 +150,9 @@ def units_of(runs: Sequence[Dict]) -> Tuple[List[Dict], List[str]]:
                 or (m.get("algorithms", {}).get(res["method"], {}).get("id")),
                 "model_fits": res.get("model_fits"),
                 "seconds": res.get("elapsed_seconds", res.get("search_seconds")),
+                # Process CPU time of the search, where the run recorded it:
+                # the unit of an equal-compute budget (H4).
+                "cpu_seconds": res.get("search_cpu_seconds"),
                 "stopped_on": res.get("stopped_on"),
                 "iterations": res.get("iterations",
                                       res.get("rounds_completed")),
@@ -412,6 +415,51 @@ def evaluate_dataset_unit(hid: str, cells, K: int,
             "datasets": order, "per_dataset": per_ds, "rows": rows,
             "primary": primary, "secondary": secondary,
             "reading": primary["reading"]}
+
+
+def table3_comparison(cells, units: Sequence[Dict]) -> Dict[str, Any]:
+    """Our per-dataset AUF (K = 20) beside the paper's Table 3 (H4 secondary).
+
+    `cells` must be read at K = 20, the paper's aggregate. eval_n is our mean
+    number of fits per run, where the paper's is its evaluation count.
+    """
+    import paper_tables
+    fits = defaultdict(list)
+    for u in units:
+        if u["model_fits"] is not None:
+            fits[(u["dataset"], u["method"])].append(u["model_fits"])
+    rows = []
+    for ds, meths in cells.items():
+        for m in ("fastener", "fs_sds"):
+            v = list(meths.get(m, {}).values())
+            if v:
+                rows.append({"dataset": ds, "method": m,
+                             "mean": float(np.mean(v)),
+                             "max": float(np.max(v)),
+                             "median": float(np.median(v)),
+                             "sd": float(np.std(v)),
+                             "eval_n": float(np.mean(fits[(ds, m)]))
+                             if fits[(ds, m)] else None})
+    return paper_tables.compare(rows)
+
+
+def compute_per_arm(units: Sequence[Dict], methods: Sequence[str]
+                    ) -> List[Dict]:
+    """Per dataset and arm: mean fits, CPU seconds and wall clock per run."""
+    acc = defaultdict(list)
+    for u in units:
+        if u["method"] in methods:
+            acc[(u["dataset"], u["method"])].append(u)
+    out = []
+    for (ds, m), us in sorted(acc.items()):
+        def mean(key):
+            v = [u[key] for u in us if u.get(key) is not None]
+            return float(np.mean(v)) if v else None
+        out.append({"dataset": ds, "method": m, "runs": len(us),
+                    "fits": mean("model_fits"), "cpu_seconds": mean("cpu_seconds"),
+                    "wall_seconds": mean("seconds"),
+                    "stopped_on": sorted({str(u["stopped_on"]) for u in us})})
+    return out
 
 
 def evaluate_pairwise(hid: str, cells, K: int) -> Dict[str, Any]:
@@ -802,6 +850,61 @@ def fig_dataset_unit(ev, run_ids, path: Path) -> None:
         f"{a} minus {b}, per dataset: one point per seed, bar = mean.  "
         f"{p['positive']} datasets > 0, {p['negative']} < 0, Wilcoxon p = {pv}",
         run_ids, "test", path)
+
+
+def fig_pairwise_strip(ev, cells, run_ids, path: Path) -> None:
+    """H4: per dataset, focal minus opponent AUF; points pair seed numbers."""
+    p0 = ev["pairs"][0]
+    focal, opp, K = ev["focal"], p0["opponent"], ev["K"]
+    dss = sorted(p0["diffs"], key=lambda d: -p0["diffs"][d])
+    points = {}
+    for d in dss:
+        a, b = cells[d].get(focal, {}), cells[d].get(opp, {})
+        points[d] = [a[s] - b[s] for s in sorted(set(a) & set(b))]
+    pv = "--" if p0["p"] is None or np.isnan(p0["p"]) else f"{p0['p']:.3g}"
+    _dataset_strip(
+        dss, points, {d: p0["diffs"][d] for d in dss}, {},
+        f"AUF (K = {K}), test:\n{focal} minus {opp}",
+        f"{focal} minus {opp}, per dataset: one point per seed number, bar = "
+        f"difference of the means.  {p0['wins']} datasets > 0, "
+        f"{p0['losses']} < 0, Wilcoxon p = {pv}",
+        run_ids, "test", path)
+
+
+def fig_compute(rows: Sequence[Dict], methods: Sequence[str], run_ids,
+                path: Path) -> None:
+    """Equal compute, checked: CPU seconds and fits per run, per dataset."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    a, b = methods
+    by = {(r["dataset"], r["method"]): r for r in rows}
+    ds = sorted(d for d, m in by if m == a and (d, b) in by)
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.8))
+    for ax, key, label, log in ((axes[0], "cpu_seconds", "CPU seconds per run",
+                                 False),
+                                (axes[1], "fits", "model fits per run", True)):
+        x = [by[(d, b)][key] for d in ds]
+        y = [by[(d, a)][key] for d in ds]
+        pairs = [(u, v) for u, v in zip(x, y) if u and v]
+        if pairs:
+            lo = min(min(pq) for pq in pairs) * 0.8
+            hi = max(max(pq) for pq in pairs) * 1.2
+            ax.plot([lo, hi], [lo, hi], color=INK_2, lw=1, ls="--")
+            ax.scatter(*zip(*pairs), s=24, color=SERIES[0], alpha=0.85,
+                       edgecolor="#fcfcfb", linewidth=0.8, zorder=3)
+            if log:
+                ax.set_xscale("log")
+                ax.set_yscale("log")
+            ratio = np.median([v / u for u, v in pairs])
+            ax.set_title(f"{label}\nmedian {a} / {b} = {ratio:.2f}")
+        ax.set_xlabel(b)
+        ax.set_ylabel(a)
+    fig.suptitle("Compute per run, one point per dataset (mean over seeds); "
+                 "dashed line: equal", fontsize=10)
+    _footer(fig, run_ids, "search")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.94))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
 
 
 def fig_effect_vs_size(evs, run_ids, path: Path) -> None:
@@ -1258,6 +1361,22 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                        ev["secondary"]["by_cluster"].items()])
             write_csv(tab_dir / f"{hid}_swap_activity.csv",
                       ev["secondary"]["swap_activity"])
+        elif ev and hid == "H4":
+            crit_fig = fig_dir / f"F{fig_no}_{hid}_effect_per_dataset.png"
+            fig_pairwise_strip(ev, cells, run_ids, crit_fig)
+            write_csv(tab_dir / f"{hid}_pairwise.csv",
+                      [{k: v for k, v in p.items() if k != "diffs"}
+                       for p in ev["pairs"]])
+            write_csv(tab_dir / f"{hid}_per_dataset.csv",
+                      [{"dataset": d, **{f"auf_{m}": x for m, x in
+                                         ev["means"][d].items()}}
+                       for d in sorted(ev["means"])])
+            ev["table3"] = table3_comparison(cells, units)
+            ev["compute"] = compute_per_arm(units, ("fs_sds", "fastener"))
+            write_csv(tab_dir / f"{hid}_table3.csv",
+                      [{"method": m, **e} for m, es in
+                       ev["table3"]["per_method"].items() for e in es])
+            write_csv(tab_dir / f"{hid}_compute.csv", ev["compute"])
         elif ev:
             fig_pairwise(ev, run_ids, crit_fig)
             write_csv(tab_dir / f"{hid}_pairwise.csv",
@@ -1279,6 +1398,11 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                 if h["ev"] and h["ev"]["kind"] == "dataset_unit"]
     unit_figs = ((("effect_vs_size", fig_effect_vs_size, (units_ev,)),)
                  if units_ev else ())
+    h4 = [h["ev"] for h in per_h if h["hid"] == "H4" and h["ev"]
+          and h["ev"].get("compute")]
+    if h4:
+        unit_figs += (("compute", fig_compute,
+                       (h4[0]["compute"], ("fs_sds", "fastener"))),)
     if len(units_ev) == 2:
         unit_figs += (("swap_success", fig_swap_success, (units_ev,)),
                       ("by_cluster", fig_by_cluster, (units_ev,)))
@@ -1606,6 +1730,40 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                            [(p["opponent"], p["n_datasets"], p["wins"],
                              p["ties"], p["losses"], p["mean_delta"], p["p"],
                              p["p_holm"]) for p in ev["pairs"]]), ""]
+            if ev.get("means"):
+                L += [md_table(("dataset",) + tuple(
+                          f"AUF {m}" for m in (ev["focal"],) + tuple(
+                              p["opponent"] for p in ev["pairs"])),
+                          [(d,) + tuple(fmt(ev["means"][d].get(m))
+                                        for m in (ev["focal"],) + tuple(
+                                            p["opponent"]
+                                            for p in ev["pairs"]))
+                           for d in sorted(ev["means"])]), ""]
+            t3 = ev.get("table3")
+            if t3:
+                L += [f"Secondary, against the paper's Table 3 (values not "
+                      f"directly comparable: our split and selection differ). "
+                      f"The paper's ordering claim -- "
+                      f"{t3['paper_claim']} -- agrees with ours on "
+                      f"{t3['ordering_agreement']} datasets.", "",
+                      md_table(("method", "datasets", "mean delta",
+                                "mean |delta|", "ours above paper",
+                                "rank correlation"),
+                               [(m, sm["n_datasets"], sm["mean_delta"],
+                                 sm["mean_abs_delta"], sm["ours_above_paper"],
+                                 sm["rank_correlation"])
+                                for m, sm in sorted(t3["summary"].items())]),
+                      ""]
+            comp = ev.get("compute")
+            if comp:
+                L += ["Compute per run, mean over seeds:", "",
+                      md_table(("dataset", "arm", "runs", "fits",
+                                "CPU s", "wall s", "stopped on"),
+                               [(r["dataset"], r["method"], r["runs"],
+                                 fmt(r["fits"], 0), fmt(r["cpu_seconds"], 1),
+                                 fmt(r["wall_seconds"], 1),
+                                 ", ".join(r["stopped_on"]))
+                                for r in comp]), ""]
     if h0:
         L += [f"### Secondary measures, {H0_ARMS[1]} minus {H0_ARMS[0]}", "",
               "Per seed, summarised per dataset (percent for relative "

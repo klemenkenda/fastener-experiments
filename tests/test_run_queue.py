@@ -52,3 +52,26 @@ def test_without_budgets_the_passthrough_is_unchanged():
     (job,) = run_queue.build_jobs(args)
     assert job["budget"] is None
     assert _evaluations(job["cmd"]) == ["12000"]
+
+
+def test_cpu_second_budgets_become_cpu_seconds_flags(tmp_path):
+    path = tmp_path / "budgets.json"
+    path.write_text(json.dumps({"unit": "cpu_seconds",
+                                "budgets": {"colon": 120, "USPS": 900.5}}))
+    args = run_queue.parse_args([
+        "--datasets", "colon,USPS", "--methods", "fs_sds,fastener:none",
+        "--seeds", "2020", "--budgets", str(path)])
+    jobs = run_queue.build_jobs(args)
+    for j in jobs:
+        i = j["cmd"].index("--cpu-seconds")
+        assert j["cmd"][i + 1] == str({"colon": 120, "USPS": 900.5}[j["dataset"]])
+        assert "--evaluations" not in j["cmd"]
+        assert j["budget_unit"] == "cpu_seconds"
+
+
+def test_an_unknown_budget_unit_is_refused(tmp_path):
+    path = tmp_path / "budgets.json"
+    path.write_text(json.dumps({"unit": "hours", "budgets": {"colon": 1}}))
+    with pytest.raises(SystemExit, match="unknown budget unit"):
+        run_queue.parse_args(["--datasets", "colon", "--methods", "fs_sds",
+                              "--budgets", str(path)])

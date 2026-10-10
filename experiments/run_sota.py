@@ -38,6 +38,7 @@ gets an algorithm ID in the manifest and in every result row.
 import argparse
 import csv
 import sys
+import time
 import traceback
 from pathlib import Path
 
@@ -122,6 +123,12 @@ def parse_args():
                          "divides it evenly over k = 1..20. Default: "
                          "protocol.fit_budget(dataset), "
                          f"{DEFAULT_EVALUATIONS} on most datasets.")
+    ap.add_argument("--cpu-seconds", type=float, default=None,
+                    help="process-CPU-time budget per run, in place of the fit "
+                         "budget (H4: equal compute between methods). FASTENER "
+                         "stops when its search has used this much CPU time; "
+                         "FS-SDS gets an even share per k over k = 1..20. "
+                         "Only FASTENER arms and fs_sds take it.")
     ap.add_argument("--boruta-max-iter", type=int, default=100)
     ap.add_argument("--sds-population", type=int, default=None,
                     help="FS-SDS swarm size (default 100, the authors' "
@@ -208,6 +215,23 @@ def main() -> int:
     # same on every dataset. The remainder of an uneven division goes unspent
     # rather than to some k and not others.
     fs_per_k = max(1, evaluations // len(FS_SDS_K_RANGE))
+    # A CPU-time budget replaces the fit budget for the two searches that take
+    # one; every other search would silently run on fits, so they are refused.
+    cpu_seconds = args.cpu_seconds
+    fs_cpu_per_k = None
+    if cpu_seconds is not None:
+        if cpu_seconds <= 0:
+            raise SystemExit("--cpu-seconds must be positive")
+        other = [m for m in methods if m not in PER_K_SEARCHES]
+        if other:
+            raise SystemExit(f"--cpu-seconds is supported only for FASTENER "
+                             f"and fs_sds, not {other}")
+        if args.evaluations is not None:
+            raise SystemExit("--cpu-seconds replaces the fit budget; do not "
+                             "pass --evaluations as well")
+        fs_cpu_per_k = cpu_seconds / len(FS_SDS_K_RANGE)
+        evaluations = None
+        fs_per_k = None
     name = args.name or (f"{args.dataset}_sota" + ("_quick" if quick else "")
                          + ("".join(f"_s{s}" for s in seeds) if args.seed
                             else ""))
@@ -228,11 +252,14 @@ def main() -> int:
         "fastener_max_fits": evaluations,
         "seeds": seeds,
         "evaluation_budget_per_seed": evaluations,
+        "cpu_seconds_per_run": cpu_seconds,
+        "fs_sds_cpu_seconds_per_k": fs_cpu_per_k,
         "boruta_max_iter": boruta_max_iter,
         "boruta_estimator": "protocol decision tree",
         "fs_sds_k_range": fs_ks,
         "fs_sds_evaluations_per_k": fs_per_k,
-        "fs_sds_evaluations_total": fs_per_k * len(fs_ks),
+        "fs_sds_evaluations_total": (fs_per_k * len(fs_ks)
+                                     if fs_per_k is not None else None),
         "fs_sds_population": args.sds_population,
         "fs_sds_iterations": args.sds_iterations,
         "poss_k": args.poss_k if args.poss_k is not None
@@ -268,6 +295,8 @@ def main() -> int:
         "poss": {"evaluations": evaluations, "poss_k": args.poss_k},
         "nsgaii_miip": {"evaluations": evaluations, "init": args.init},
         "fs_sds": {"evaluations_per_k": fs_per_k,
+                   **({"cpu_seconds_per_k": fs_cpu_per_k}
+                      if fs_cpu_per_k is not None else {}),
                    "k_range": list(FS_SDS_K_RANGE),
                    "population": args.sds_population,
                    "iterations": args.sds_iterations},
@@ -279,6 +308,8 @@ def main() -> int:
         # change to what "fixed" means changes the algorithm ID's config hash.
         arm_configs[FASTENER_ARM_NAMES[arm]] = {
             "max_fits": evaluations, "rounds": fastener_rounds,
+            **({"cpu_seconds": cpu_seconds} if cpu_seconds is not None
+               else {}),
             "swap": FASTENER_ARMS[arm]["swap"],
             "mating": FASTENER_ARMS[arm]["mating"],
             **MATING_VERSIONS[FASTENER_ARMS[arm]["mating"]]}
@@ -348,7 +379,9 @@ def main() -> int:
         for m in methods:
             if m in PER_K_SEARCHES:
                 for s in seeds:
-                    prog.plan(m, seed=s, budget_fits=fs_per_k * len(fs_ks))
+                    prog.plan(m, seed=s, budget_fits=(
+                        fs_per_k * len(fs_ks) if fs_per_k is not None
+                        else None))
         if not args.no_fastener:
             for arm in fastener_arms:
                 for s in seeds:
@@ -358,6 +391,13 @@ def main() -> int:
         print(f"progress: {run.dir / 'progress.json'}")
         print(f"  monitor with: python experiments/monitor.py "
               f"--run {run.run_id}")
+
+        def cpu_progress():
+            """A progress callback that reports CPU time used, as a fraction
+            of the run's CPU budget, instead of fits against a fit budget."""
+            t0 = time.process_time()
+            return lambda fits: prog.tick(
+                fits, fraction=(time.process_time() - t0) / cpu_seconds)
 
         # ---- deterministic selectors ------------------------------------
         filter_fns = {
@@ -476,8 +516,14 @@ def main() -> int:
         # One SDS run per k over FS_SDS_K_RANGE, the run budget divided evenly
         # across them, so FS-SDS spends what every other arm spends.
         for m in [m for m in methods if m in PER_K_SEARCHES]:
-            print(f"\n{m} ({fs_per_k} fits x {len(fs_ks)} k-values "
-                  f"= {fs_per_k * len(fs_ks)} per seed x {len(seeds)} seeds):")
+            if fs_cpu_per_k is not None:
+                print(f"\n{m} ({fs_cpu_per_k:.1f} CPU s x {len(fs_ks)} "
+                      f"k-values = {cpu_seconds:.0f} CPU s per seed x "
+                      f"{len(seeds)} seeds):")
+            else:
+                print(f"\n{m} ({fs_per_k} fits x {len(fs_ks)} k-values "
+                      f"= {fs_per_k * len(fs_ks)} per seed x "
+                      f"{len(seeds)} seeds):")
             for seed in seeds:
                 unit = f"{m}:{seed}"
                 prog.start(unit)
@@ -486,8 +532,10 @@ def main() -> int:
                         ds, fs_ks, seed=seed, stop_evaluations=fs_per_k,
                         population_size=args.sds_population,
                         max_iterations=args.sds_iterations,
-                        progress_cb=prog.tick,
-                        trajectory=trajectory(m, seed))
+                        progress_cb=(prog.tick if cpu_seconds is None
+                                     else cpu_progress()),
+                        trajectory=trajectory(m, seed),
+                        cpu_seconds_per_k=fs_cpu_per_k)
                 except Exception as exc:
                     failures[unit] = f"{type(exc).__name__}: {exc}"
                     prog.fail(unit, failures[unit])
@@ -514,7 +562,10 @@ def main() -> int:
         if not args.no_fastener:
             for arm in fastener_arms:
                 label = FASTENER_ARM_NAMES[arm]
-                print(f"\n{label} ({evaluations} fits x {len(seeds)} seeds):")
+                print(f"\n{label} ("
+                      + (f"{cpu_seconds:.0f} CPU s" if cpu_seconds is not None
+                         else f"{evaluations} fits")
+                      + f" x {len(seeds)} seeds):")
                 for seed in seeds:
                     unit = f"{label}:{seed}"
                     prog.start(unit)
@@ -524,9 +575,13 @@ def main() -> int:
                                            swap=FASTENER_ARMS[arm]["swap"],
                                            mating=FASTENER_ARMS[arm]["mating"],
                                            method_name=label,
-                                           progress_cb=lambda f: prog.tick(
-                                               f, evaluations),
+                                           progress_cb=(
+                                               (lambda f: prog.tick(
+                                                   f, evaluations))
+                                               if cpu_seconds is None
+                                               else cpu_progress()),
                                            max_fits=evaluations,
+                                           max_cpu_seconds=cpu_seconds,
                                            dump_logs=False,
                                            trajectory=trajectory(label, seed))
                     except Exception as exc:

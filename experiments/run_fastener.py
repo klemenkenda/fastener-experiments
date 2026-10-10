@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import _bootstrap  # noqa: F401,E402  puts ../fastener on sys.path
 
-from fastener import Config, EntropyOptimizer  # noqa: E402
+from fastener import Config, EntropyOptimizer, FitBudgetExhausted  # noqa: E402
 from item import (  # noqa: E402
     InformationGainSwapStrategy,
     IntersectionMatingWithWeightedRandomInformationGain,
@@ -102,6 +102,21 @@ class TrackedOptimizer(EntropyOptimizer):
     # Called with the cumulative fit count after every generation, so a live
     # progress display can see how far a run is. Kept out of the pickled state.
     progress_cb = None
+    # A CPU-time budget (H4): the search stops before the first fit after this
+    # many seconds of process CPU time since `cpu_t0`. None: no time limit.
+    max_cpu_seconds = None
+    cpu_t0 = 0.0
+    cpu_budget_hit = False
+
+    def _fitness_function(self, genes):
+        # Checked where every fit is charged, as the fit budget is, so a run
+        # stops within one fit of its time budget rather than one generation.
+        if self.max_cpu_seconds is not None and \
+                time.process_time() - self.cpu_t0 >= self.max_cpu_seconds:
+            self.cpu_budget_hit = True
+            raise FitBudgetExhausted(
+                f"CPU budget of {self.max_cpu_seconds} s is spent")
+        return super()._fitness_function(genes)
 
     def __getstate__(self):
         state = self.__dict__.copy()
@@ -187,7 +202,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  method_name: Optional[str] = None,
                  trajectory=None,
                  mating: str = "fixed",
-                 progress_cb=None) -> Dict:
+                 progress_cb=None,
+                 max_cpu_seconds: Optional[float] = None) -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
     `swap` selects the pruning operator and defaults to the original algorithm:
@@ -219,6 +235,12 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
     `mating` is ``"fixed"`` (the clone's default) or ``"2020"``, the original
     mating behaviour the published results were produced with (H0). The 2020
     version without a swap is labelled ``fastener_2020``.
+
+    `max_cpu_seconds` stops the search on process CPU time instead of, or as
+    well as, fits (H4: equal compute between methods). Whichever limit is
+    reached first stops it; `stopped_on` says which. A time-stopped run is not
+    reproducible fit for fit, since where it stops depends on the machine;
+    rerunning with `max_fits` set to its `model_fits` replays it exactly.
     """
     factory = CountingModelFactory()
 
@@ -259,12 +281,17 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         )
         optimizer.trajectory = trajectory
         optimizer.progress_cb = progress_cb
+        optimizer.max_cpu_seconds = max_cpu_seconds
+        cpu0 = optimizer.cpu_t0 = time.process_time()
         if quiet:
             with open(os.devnull, "w") as devnull, contextlib.redirect_stdout(devnull):
                 optimizer.mainloop()
         else:
             optimizer.mainloop()
     search_seconds = time.time() - t0
+    search_cpu_seconds = time.process_time() - cpu0
+    stopped_on = ("cpu_budget" if optimizer.cpu_budget_hit
+                  else optimizer.stop_reason)
 
     search_fits = factory.fits
 
@@ -300,12 +327,15 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             "swap": swap or "none",
             "number_of_swaps": number_of_swaps if swap_strategy is not None else 0,
             "max_fits": max_fits,
+            "max_cpu_seconds": max_cpu_seconds,
         },
         "search_seconds": round(search_seconds, 2),
+        # Process CPU time of the search: the unit of an equal-compute budget.
+        "search_cpu_seconds": round(search_cpu_seconds, 2),
         "model_fits": search_fits,
         # Which limit ended the run: "fit_budget" or "rounds". An arm comparison
         # where some arms stopped on "rounds" was not run at equal budget.
-        "stopped_on": optimizer.stop_reason,
+        "stopped_on": stopped_on,
         "rounds_completed": optimizer.rounds_completed,
         "unique_subsets_cached": len(optimizer.cache_data),
         # What pruning did over the run (cumulative), and how many entries of

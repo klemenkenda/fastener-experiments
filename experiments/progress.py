@@ -87,14 +87,23 @@ class Progress:
                         "fits_done": 0, "fraction": 0.0}
         self.write(force=True)
 
-    def tick(self, fits_done: int, budget: Optional[int] = None) -> None:
-        """Report intra-unit progress. Safe to call very often."""
+    def tick(self, fits_done: int, budget: Optional[int] = None,
+             fraction: Optional[float] = None) -> None:
+        """Report intra-unit progress. Safe to call very often.
+
+        `fraction` overrides the fits-based one, for a unit whose budget is
+        not in fits (a CPU-time budget, H4).
+        """
         if self.current is None:
             return
         self.current["fits_done"] = int(fits_done)
-        budget = budget or self._unit(self.current["unit_id"])["budget_fits"]
-        if budget:
-            self.current["fraction"] = min(1.0, fits_done / float(budget))
+        if fraction is not None:
+            self.current["fraction"] = max(0.0, min(1.0, float(fraction)))
+        else:
+            budget = budget or \
+                self._unit(self.current["unit_id"])["budget_fits"]
+            if budget:
+                self.current["fraction"] = min(1.0, fits_done / float(budget))
         self.write()
 
     def finish(self, unit_id: str, fits: Optional[int] = None,

@@ -85,6 +85,7 @@ Roughly half of all diffusion moves are random restarts, because the drawn
 partner is inactive about half the time; that is the algorithm, not a bug, and
 it is why FS-SDS keeps finding fresh regions at the price of re-sampling.
 """
+import time
 from typing import Callable, Dict, List, Optional
 
 import numpy as np
@@ -155,13 +156,14 @@ def run_fs_sds(n_features: int,
                k: int,
                objective: Callable[[np.ndarray], float],
                seed: int = 0,
-               stop_evaluations: int = 6000,
+               stop_evaluations: Optional[int] = 6000,
                population_size: int = DEFAULT_POPULATION,
                max_iterations: Optional[int] = None,
                max_barren_sweeps: int = MAX_BARREN_SWEEPS,
                use_cache: bool = True,
                progress_cb: Optional[Callable[[int], None]] = None,
-               iteration_cb: Optional[Callable[[int, int], None]] = None) -> Dict:
+               iteration_cb: Optional[Callable[[int, int], None]] = None,
+               stop_cpu_seconds: Optional[float] = None) -> Dict:
     """Run FS-SDS for a single subset size k.
 
     `objective` takes a boolean gene vector and returns a score to MAXIMISE. It
@@ -176,6 +178,11 @@ def run_fs_sds(n_features: int,
 
     `iteration_cb(iteration, evaluations)` is called once after initialisation
     (iteration 0) and after every test-and-diffusion sweep.
+
+    `stop_cpu_seconds` stops the run on process CPU time spent in this call
+    (H4: equal compute between methods), checked before every new evaluation;
+    `stop_evaluations=None` removes the fit cap so time alone stops it.
+    `stopped_on` is then "cpu_budget".
     """
     if not 1 <= k <= n_features:
         raise ValueError(f"k must be in 1..{n_features}, got {k}")
@@ -189,6 +196,21 @@ def run_fs_sds(n_features: int,
     cache: Dict[bytes, float] = {}
     evaluations = 0
     budget_reached = False
+    cpu_hit = False
+    cpu0 = time.process_time()
+    if stop_evaluations is None:
+        stop_evaluations = float("inf")
+
+    def out_of_budget() -> bool:
+        """Fit cap or CPU budget reached, checked before a new evaluation."""
+        nonlocal cpu_hit
+        if evaluations >= stop_evaluations:
+            return True
+        if stop_cpu_seconds is not None and \
+                time.process_time() - cpu0 >= stop_cpu_seconds:
+            cpu_hit = True
+            return True
+        return False
 
     best_genes: Optional[np.ndarray] = None
     best_score = -np.inf
@@ -203,7 +225,7 @@ def run_fs_sds(n_features: int,
         """
         nonlocal evaluations, best_genes, best_score, budget_reached
         if not use_cache:
-            if evaluations >= stop_evaluations:
+            if out_of_budget():
                 budget_reached = True
                 return -np.inf
             value = objective(genes)
@@ -215,7 +237,7 @@ def run_fs_sds(n_features: int,
             return value
         key = np.packbits(genes).tobytes()
         if key not in cache:
-            if evaluations >= stop_evaluations:
+            if out_of_budget():
                 budget_reached = True
                 # Out of budget: fall back to the worst possible score rather
                 # than sneaking in an uncharged fit. The caller sees the run
@@ -301,8 +323,10 @@ def run_fs_sds(n_features: int,
         "restarts": restarts,
         "context_resets": context_resets,
         "population_size": population_size,
-        "stopped_on": ("budget" if budget_reached
+        "stopped_on": ("cpu_budget" if cpu_hit
+                       else "budget" if budget_reached
                        else "stagnation" if stagnated else "iterations"),
+        "cpu_seconds": round(time.process_time() - cpu0, 3),
         "barren_sweeps_at_end": barren,
         "paper_evaluations_per_k": PAPER_EVALUATIONS_PER_K,
     }

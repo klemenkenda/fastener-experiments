@@ -28,9 +28,12 @@ Usage:
 An arm written fastener:<arm> runs that FASTENER arm (none, 2020, random,
 guided) instead of a run_sota method. Arguments after `--` go to every job.
 
---budgets gives each job its own dataset's fit budget, from a JSON file of
-{"budgets": {dataset: fits}} such as calibrate_budget.py writes. Every
-dataset must have one, and --evaluations may not also be passed:
+--budgets gives each job its own dataset's budget, from a JSON file of
+{"budgets": {dataset: value}} such as calibrate_budget.py or cpu_budget.py
+writes. Its "unit" says what the values are: "fits" (the default; each job
+gets --evaluations) or "cpu_seconds" (each job gets --cpu-seconds, H4).
+Every dataset must have one, and --evaluations or --cpu-seconds may not also
+be passed:
 
     python experiments/run_queue.py --experiment H2H3-E01 \
         --datasets eodata,Coffee,... \
@@ -84,24 +87,36 @@ def parse_args(argv=None):
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
     args.passthrough = passthrough
-    args.budget_of = None
+    args.budget_of, args.budget_unit = None, None
     if args.budgets is not None:
-        if "--evaluations" in passthrough:
-            ap.error("--budgets sets --evaluations per dataset; do not pass "
-                     "--evaluations as well")
-        args.budget_of = load_budgets(args.budgets, split(args.datasets))
+        if {"--evaluations", "--cpu-seconds"} & set(passthrough):
+            ap.error("--budgets sets the budget per dataset; do not pass "
+                     "--evaluations or --cpu-seconds as well")
+        args.budget_unit, args.budget_of = load_budgets(
+            args.budgets, split(args.datasets))
     return args
 
 
-def load_budgets(path: Path, datasets) -> dict:
-    """dataset -> fit budget for every dataset, or SystemExit naming the gaps."""
+# A budget file's unit -> the run_sota.py flag that carries it.
+BUDGET_FLAGS = {"fits": "--evaluations", "cpu_seconds": "--cpu-seconds"}
+
+
+def load_budgets(path: Path, datasets):
+    """(unit, dataset -> budget) for every dataset, or SystemExit naming gaps."""
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     budgets = data.get("budgets", data)
-    missing = [d for d in datasets
-               if not isinstance(budgets.get(d), int) or budgets[d] <= 0]
+    unit = data.get("unit", "fits")
+    if unit not in BUDGET_FLAGS:
+        raise SystemExit(f"{path}: unknown budget unit {unit!r}; expected one "
+                         f"of {sorted(BUDGET_FLAGS)}")
+    kind = int if unit == "fits" else (int, float)
+
+    def ok(v):
+        return isinstance(v, kind) and not isinstance(v, bool) and v > 0
+    missing = [d for d in datasets if not ok(budgets.get(d))]
     if missing:
         raise SystemExit(f"{path}: no budget for {', '.join(missing)}")
-    return {d: budgets[d] for d in datasets}
+    return unit, {d: budgets[d] for d in datasets}
 
 
 def split(s: str):
@@ -137,9 +152,10 @@ def build_jobs(args):
                     cmd += ["--experiment", args.experiment]
                 budget = args.budget_of[ds] if args.budget_of else None
                 if budget is not None:
-                    cmd += ["--evaluations", str(budget)]
+                    cmd += [BUDGET_FLAGS[args.budget_unit], str(budget)]
                 jobs.append({"name": name, "dataset": ds, "arm": label,
                              "seed": seed, "budget": budget,
+                             "budget_unit": args.budget_unit,
                              "cmd": cmd + args.passthrough,
                              "state": "pending", "run_dir": None, "log": None,
                              "started_utc": None, "ended_utc": None,

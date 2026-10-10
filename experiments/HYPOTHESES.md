@@ -560,8 +560,29 @@ decision trees versus ELMs on these data, not purely about the two searches.
 **Pilot evidence.** The ordering flipped: tree-driven FS-SDS beat FASTENER on 11
 of 14 finished datasets, at a fifth of the paper's FS-SDS budget.
 
-**Arms.** `fastener` and `fs_sds`, both on the decision tree, both at 6,000
-fits in total (FS-SDS as 300 per k over k = 1..20).
+**Arms.** `fastener` and `fs_sds`, both on the decision tree.
+
+**Budget: equal compute, not equal fits.** *(Revised 2026-10-10, before any
+H4 run; see Revisions.)* A fit is not a unit of cost shared by the two
+methods: FS-SDS fits subsets of at most 20 features and does little else,
+while FASTENER also pays for its mutual-information pass, permutation scoring
+and archive. Equal fits would hand one of them more computation. Every run
+therefore stops when its search has used the same **process CPU time** on a
+dataset:
+
+* the budget per dataset is the CPU time stock FASTENER needs to spend the
+  protocol's fit budget there (6,000 fits, 12,000 on the long-budget
+  datasets), measured once per dataset at seed 1999 -- not one of the five
+  experiment seeds -- and rounded up to the next 10 s (`cpu_budget.py`);
+* FASTENER stops before its first fit past the budget; FS-SDS gives each of
+  k = 1..20 an equal twentieth, and time one k leaves unused is not passed
+  on, as unused fits were not;
+* fits are not capped; each run's fits, CPU and wall time are recorded and
+  reported beside the result.
+
+CPU time, not wall clock, because the runs share the machine: wall clock
+would charge a run for its neighbours. A time-stopped run is not reproducible
+fit for fit; rerunning it with its recorded fit count as a fit cap replays it.
 
 **Datasets.** The 25 paper benchmarks.
 
@@ -1119,3 +1140,14 @@ only grid values the run reached can count as settled; nothing else in the
 rule changes. The budgets: 10 datasets at 2,000 fits, 2 at 4,000, 10 at
 6,000, 17 at 12,000 (table in `EXPERIMENTS.md`, H2H3-E01). Recorded as
 [DEC-35](DECISIONS.md#dec-35).
+
+**2026-10-10 -- H4 at equal compute.** Decided by the PI before any H4 run.
+H4 was registered at equal fits, 6,000 per run (12,000 on the long-budget
+datasets), FS-SDS's split over k = 1..20. A fit costs the two methods very
+different amounts: in a 40-second smoke run on colon, at equal CPU time,
+FS-SDS made 14,052 fits and FASTENER 3,479. The comparison the hypothesis is
+about -- which search does better with the same means -- is a comparison at
+equal compute, so every H4 run now stops on process CPU time, the same for
+both methods on a dataset, set from one stock FASTENER run per dataset at its
+protocol fit budget (seed 1999). The arms, datasets, seeds, metric and
+criterion are unchanged. Recorded as [DEC-36](DECISIONS.md#dec-36).

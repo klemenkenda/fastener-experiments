@@ -63,6 +63,7 @@ say so, and name the result.
 | [DEC-33](#dec-33) | 2026-10-09 | H2 and H3 on 39 UCR/UEA sets and EOData, datasets as the unit, budget calibrated per dataset | H2, H3 |
 | [DEC-34](#dec-34) | 2026-10-09 | DuckDuckGeese leaves H2 and H3 | H2H3-E01 |
 | [DEC-35](#dec-35) | 2026-10-09 | End the budget calibration early; read the four unfinished runs to where they stopped | H2H3-E01 |
+| [DEC-36](#dec-36) | 2026-10-10 | H4 at equal compute: both methods stop on the same process CPU time per dataset | H4 |
 
 ## Decisions
 
@@ -686,6 +687,39 @@ runs to where they stopped.**
   2026-10-09; `EXPERIMENTS.md`, H2H3-E01, *Budgets*.
 - **Applies to:** H2H3-E01.
 
+### DEC-36
+
+**2026-10-10 -- H4 at equal compute: both methods stop on the same process
+CPU time per dataset.**
+
+- **Why:** a model fit costs FASTENER and FS-SDS very different amounts, so
+  equal fits is not equal resources. FS-SDS fits subsets of at most 20
+  features and does little else per fit; FASTENER also runs a
+  mutual-information pass, permutation scoring and archive updates. In a
+  40-second smoke run on colon at equal CPU time, FS-SDS made 14,052 fits and
+  FASTENER 3,479. The PI asked that the two be compared at almost the same
+  compute, not the same number of iterations.
+- **Detail:**
+  - Unit: process CPU time of the search (`time.process_time`), checked before
+    every fit. Wall clock is recorded beside it but not used, since parallel
+    runs share the machine.
+  - Per dataset: the search CPU time of one stock FASTENER run at the
+    protocol fit budget (6,000 fits, 12,000 on the long-budget datasets),
+    seed 1999, rounded up to 10 s -- `cpu_budget.py`, from the queue
+    `h4-calibration`.
+  - FS-SDS: an equal twentieth per k over k = 1..20, unused time not passed
+    on. Fits are not capped for either method.
+  - Code: `run_sota.py --cpu-seconds`, `run_fastener(max_cpu_seconds=)`,
+    `fs_sds.run_fs_sds(stop_cpu_seconds=)`, `run_queue.py --budgets` with
+    `"unit": "cpu_seconds"`. `make_report.py` reports each arm's fits, CPU
+    and wall time per dataset, and the comparison with Table 3.
+- **By:** PI.
+- **Taken before any H4 run.** The only numbers seen were from a smoke run
+  (colon, one seed, 40 CPU s): fits and CPU time, no score was read.
+- **Source:** the commit that adds this entry; `HYPOTHESES.md`, H4 and
+  *Revisions*, 2026-10-10.
+- **Applies to:** H4.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -700,4 +734,4 @@ are not repeated.
 | `H1-E01` | failed: stopped before any run finished | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30) | [DEC-31](#dec-31) | [H1-E01](reports/H1-E01/REPORT.md) |
 | `H1-E02` | reported: supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-29](#dec-29), [DEC-30](#dec-30), [DEC-31](#dec-31) | [DEC-32](#dec-32) | [H1-E02](reports/H1-E02/REPORT.md) |
 | `H2H3-E01` | reported: H2 not supported; H3 supported, narrowly | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-33](#dec-33), [DEC-34](#dec-34), [DEC-35](#dec-35) | -- | [H2H3-E01](reports/H2H3-E01/REPORT.md) |
-| H4-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28) | -- | -- |
+| H4-H6 | not started | [DEC-07](#dec-07) (H5, H6), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-36](#dec-36) (H4) | -- | -- |

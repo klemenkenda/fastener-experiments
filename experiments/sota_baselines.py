@@ -37,7 +37,7 @@ import sys
 import time
 import warnings
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import numpy as np
 from sklearn.feature_selection import mutual_info_classif
@@ -459,10 +459,12 @@ def run_poss_method(ds, seed: int, stop_evaluations: int, k: int = None,
 
 
 # -------------------------------------------------------------------- FS-SDS
-def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
+def run_fs_sds_method(ds, ks: List[int], seed: int,
+                      stop_evaluations: Optional[int],
                       population_size: int = None, max_iterations: int = None,
                       model_factory=None, label: str = "fs_sds",
-                      progress_cb=None, trajectory=None) -> Dict:
+                      progress_cb=None, trajectory=None,
+                      cpu_seconds_per_k: Optional[float] = None) -> Dict:
     """FS-SDS behind the shared protocol, one SDS run per feature count.
 
     FS-SDS holds every agent at EXACTLY k features for a whole run, so unlike
@@ -480,6 +482,11 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
     numbered continuously across the per-k runs, and each snapshot carries the
     k of the run it came from.
 
+    `cpu_seconds_per_k` gives each k-run a process-CPU-time budget (H4: equal
+    compute between methods); with `stop_evaluations=None` time alone stops
+    it. Time a k-run leaves unused is not passed on to the next k, as unused
+    fits were not.
+
     `model_factory` overrides the classifier that DRIVES the search. It defaults
     to the shared decision tree; the FASTENER paper ran FS-SDS on an Extreme
     Learning Machine instead, so a replication passes
@@ -496,6 +503,7 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
     build_model = model_factory or make_model
 
     t0 = time.time()
+    cpu0 = time.process_time()
 
     def objective(genes) -> float:
         feats = np.where(genes)[0]
@@ -526,7 +534,8 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
                          stop_evaluations=stop_evaluations,
                          population_size=population_size,
                          max_iterations=max_iterations,
-                         progress_cb=cb, iteration_cb=it_cb)
+                         progress_cb=cb, iteration_cb=it_cb,
+                         stop_cpu_seconds=cpu_seconds_per_k)
         # +1: each k-run starts with its own iteration 0 (initialisation).
         iteration_offset[0] += out["iterations"] + 1
         total_fits += out["evaluations"]
@@ -534,7 +543,8 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
                       "iterations": out["iterations"],
                       "stopped_on": out["stopped_on"],
                       "restarts": out["restarts"],
-                      "context_resets": out["context_resets"]})
+                      "context_resets": out["context_resets"],
+                      "cpu_seconds": out["cpu_seconds"]})
         if out["best_genes"] is None:
             continue
         rec = evaluate_subset(ds, np.where(out["best_genes"])[0], counter=None)
@@ -545,6 +555,9 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
     return {"method": label, "family": "swarm (SDS)", "seed": seed,
             "search_model": "tree" if model_factory is None else "custom",
             "elapsed_seconds": round(time.time() - t0, 2),
+            # Process CPU time of the whole method: the unit of H4's budget.
+            "search_cpu_seconds": round(time.process_time() - cpu0, 2),
+            "cpu_seconds_per_k": cpu_seconds_per_k,
             "model_fits": total_fits,
             "evaluations_per_k": stop_evaluations,
             "population_size": population_size,
@@ -553,9 +566,12 @@ def run_fs_sds_method(ds, ks: List[int], seed: int, stop_evaluations: int,
             "k_grid": [p["k"] for p in per_k],
             "per_k": per_k,
             "budget_note": (
-                f"{stop_evaluations} fits per k over {len(per_k)} values of k "
-                f"= {total_fits} fits in total. The FASTENER paper gave it "
-                f"{PAPER_EVALUATIONS_PER_K} per k."),
+                (f"{cpu_seconds_per_k} CPU seconds per k"
+                 if cpu_seconds_per_k is not None
+                 else f"{stop_evaluations} fits per k")
+                + f" over {len(per_k)} values of k; {total_fits} fits in "
+                f"total. The FASTENER paper gave it "
+                f"{PAPER_EVALUATIONS_PER_K} fits per k."),
             "records": records}
 
 
