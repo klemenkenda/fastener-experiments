@@ -399,9 +399,11 @@ def test_two_by_two_needs_both_classifiers(tmp_path, monkeypatch):
     # No other H4 runs on disk: only the ELM column, so no 2 x 2.
     monkeypatch.setattr(make_report, "RESULTS_DIR", tmp_path)
     cells = {"colon": {"fastener_elm": {2020: 0.6}, "fs_sds_elm": {2020: 0.5}}}
-    assert make_report.h4_two_by_two("H9-E01", cells, 20) is None
+    assert make_report.h4_two_by_two("H4-E02", cells, 20) is None
     # With the tree column too, every comparison is read per dataset.
     cells["colon"].update({"fastener": {2020: 0.7}, "fs_sds": {2020: 0.4}})
-    tbt = make_report.h4_two_by_two("H9-E01", cells, 20)
+    tbt = make_report.h4_two_by_two("H4-E02", cells, 20)
+    # H4-E03 (equal fits) is paired with neither CPU-budget experiment.
+    assert "H4-E03" not in make_report.H4_PAIRED
     assert tbt["summary"]["FASTENER: ELM minus tree"]["mean"] ==         pytest.approx(-0.1)
     assert tbt["summary"]["elm: FS-SDS minus FASTENER"]["mean"] ==         pytest.approx(-0.1)

@@ -168,13 +168,18 @@ def ledger_lock(path: Path = LEDGER_PATH, timeout: float = 60.0,
             os.write(fd, str(os.getpid()).encode())
             os.close(fd)
             break
-        except FileExistsError:
+        except (FileExistsError, PermissionError):
+            # On Windows, creating a file another process is still deleting
+            # raises PermissionError ("delete pending"), not FileExistsError:
+            # the lock is being released, so wait and retry like any held
+            # lock. It made test_concurrent_add_run_loses_no_run fail now and
+            # then, and could fail a queue job registering its run.
             try:
                 if time.time() - lock.stat().st_mtime > stale:
                     lock.unlink()
                     continue
-            except FileNotFoundError:
-                continue
+            except (FileNotFoundError, PermissionError):
+                pass
             if time.time() > deadline:
                 raise TimeoutError(f"could not lock {path} within {timeout} s; "
                                    f"remove {lock} if no run is starting")

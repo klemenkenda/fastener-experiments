@@ -369,3 +369,32 @@ with `monitor.py --experiment H4-E02`.
 
 **Expected cost.** The same CPU budgets as H4-E01: about 22 CPU-hours, so
 about 2.5 hours at ten at a time.
+
+### `H4-E03` -- H4 on the 25 paper benchmarks, at equal model fits
+
+Registered 2026-10-11, after H4-E01 and H4-E02 were reported and before any
+of this experiment's runs started.
+
+**Design.** H4 as registered, with FASTENER's bookkeeping vectorised
+([DEC-39](DECISIONS.md#dec-39)):
+
+| | |
+|---|---|
+| arms | `fastener` (stock FASTENER, clone `3877a1a`, fixed mating) and `fs_sds`, both driven and scored by the protocol decision tree |
+| datasets | the 25 paper benchmarks |
+| seeds | 2020, 2021, 2022, 2023, 2024 |
+| budget | equal model fits per run: `protocol.fit_budget` -- 6,000, or 12,000 on arcene, BASEHOCK, CLL_SUB_111, lung_discrete, nci9, ORL, PCMAC, RELATHE, TOX_171, warpAR10P and warpPIE10P; FS-SDS 300 (600) per k over k = 1..20 |
+| threads | one per numeric library (DEC-37) |
+| primary metric | test AUF, K = 20 |
+| criterion | H4's: supported if FS-SDS is higher on more datasets and a two-sided Wilcoxon over the 25 favours it at alpha = 0.05; refuted if it favours FASTENER; otherwise comparable |
+| secondary | the paper's Table 3; fits, CPU and wall time per arm; a comparison with H4-E01 (equal CPU time), descriptive |
+
+**How it runs.** `run_queue.py --experiment H4-E03 --methods
+fs_sds,fastener:none`, no budget file: each run gets the protocol fit budget.
+250 jobs, ten at a time, slowest datasets first. Watched with
+`monitor.py --experiment H4-E03`.
+
+**Expected cost.** FASTENER's time at these budgets is about the calibration's
+(25 datasets, 8,010 CPU s per seed before the speed-up); FS-SDS at the same
+fits takes less. About 10-14 CPU-hours, so roughly 1.5-2 hours at ten at a
+time.

@@ -94,6 +94,10 @@ PAIRWISE = {
 # what was run. (focal, opponent, classifier)
 H4_ARMS = (("fs_sds", "fastener", "tree"),
            ("fs_sds_elm", "fastener_elm", "elm"))
+# The 2 x 2 is read only between experiments run at the same budget: H4-E01
+# (tree) and H4-E02 (ELM), both at equal CPU time. H4-E03 runs at equal fits
+# and is not paired with either.
+H4_PAIRED = {"H4-E01": "H4-E02", "H4-E02": "H4-E01"}
 # The 2 x 2 of H4-E01 and H4-E02: method -> classifier -> arm label.
 H4_CELLS = {"FASTENER": {"tree": "fastener", "elm": "fastener_elm"},
             "FS-SDS": {"tree": "fs_sds", "elm": "fs_sds_elm"}}
@@ -494,9 +498,9 @@ def h4_two_by_two(experiment_id: str, cells, K: int) -> Optional[Dict]:
     only one classifier is available.
     """
     all_cells = {ds: dict(m) for ds, m in cells.items()}
+    partner = H4_PAIRED.get(experiment_id)
     for row in experiment_ids.load_ledger():
-        info = experiment_ids.parse_experiment_id(row["experiment"])
-        if info["hypotheses"] != ["H4"] or row["experiment"] == experiment_id \
+        if row["experiment"] != partner \
                 or row["status"] not in ("reported", "running"):
             continue
         runs = [load_run(r) for r in row["runs"]

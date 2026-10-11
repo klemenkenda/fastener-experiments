@@ -77,6 +77,17 @@ would have had a fraction of the computation it had here.
 *One point per dataset, mean over seeds. Left: CPU seconds per run, FS-SDS
 against FASTENER. Right: model fits per run, log scales. Dashed lines: equal.*
 
+*Note added 2026-10-11: why the fit counts differ, measured. A profile of
+1,500 fits on nci9 (9,712 features) put FASTENER at 88 ms of CPU per fit, of
+which 2% was fitting trees, 52% its one-off mutual-information pass over all
+features, and 39% bookkeeping in pure Python over all p genes per candidate;
+FS-SDS took 6.5 ms per fit, 22% of it fitting trees. On USPS (256 features)
+tree fits were 76% of FASTENER's time and the gap small (1.8x). The fit ratio
+therefore measures FASTENER's overhead on wide data, much of it an
+implementation inefficiency, not cheap FS-SDS fits. The bookkeeping was
+vectorised in FASTENER clone `3877a1a` (identical fronts for the same seed and
+fits); H4-E03 compares the methods at equal fits.*
+
 ### F3 -- FS-SDS leads more often on the smallest datasets, but not consistently
 
 On the 12 datasets with fewer than 150 rows, FS-SDS is ahead on 7 (median

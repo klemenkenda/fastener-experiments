@@ -66,6 +66,7 @@ say so, and name the result.
 | [DEC-36](#dec-36) | 2026-10-10 | H4 at equal compute: both methods stop on the same process CPU time per dataset | H4 |
 | [DEC-37](#dec-37) | 2026-10-10 | One thread per numeric library in every run; repeat H4's calibration | all runs from 2026-10-10 |
 | [DEC-38](#dec-38) | 2026-10-10 | H4-E02: both searches driven and scored by the ELM, at H4-E01's CPU budgets | H4-E02 |
+| [DEC-39](#dec-39) | 2026-10-11 | H4-E03 at equal model fits, with FASTENER's gene bookkeeping vectorised | H4-E03 |
 
 ## Decisions
 
@@ -785,6 +786,41 @@ H4-E01's CPU budgets.**
   *Revisions*, 2026-10-10; `EXPERIMENTS.md`, H4-E02.
 - **Applies to:** H4-E02.
 
+### DEC-39
+
+**2026-10-11 -- H4-E03 at equal model fits, with FASTENER's gene bookkeeping
+vectorised.**
+
+- **Why:** at equal CPU time (H4-E01, H4-E02) FS-SDS made 4-5 times
+  FASTENER's fits. A profile on nci9 (1,500 fits) found FASTENER at 88 ms per
+  fit with 2% in tree fits, 52% in its one-off mutual-information pass and 39%
+  in pure-Python bookkeeping over all p genes per candidate; FS-SDS at 6.5 ms
+  per fit. The PI asked for the bookkeeping to be fixed and for the methods
+  to be compared on the number of evaluations rather than CPU time.
+- **Detail:**
+  - FASTENER clone `3877a1a`: `Item` size and cache number, gene union,
+    intersection and symmetric difference, and flip mutation in numpy. The
+    mutation draws its p random numbers in one call, which numpy's legacy
+    generator makes identical to p calls. Ten fit-capped cases (both mating
+    versions, all three pruning arms, tree and ELM, 24 to 9,712 features) give
+    identical fronts, fits, generations and pruning counts; 1.0-1.9x faster.
+  - H4-E03: `fastener` and `fs_sds` on the decision tree, at the protocol fit
+    budget per run (`protocol.fit_budget`): 6,000 fits, or 12,000 on the 11
+    long-budget datasets; FS-SDS 300 (600) per k over k = 1..20.
+  - The mutual-information pass is part of FASTENER and was not changed; under
+    a fit budget it costs time, not budget.
+  - Also fixed: `experiment_ids.ledger_lock` treated a lock file being deleted
+    on Windows (PermissionError) as an error; it now waits and retries. It was
+    the intermittent test failure, and could have failed a queue job
+    registering its run.
+- **By:** PI (equal fits, fix the bookkeeping); the implementation and checks
+  by Claude.
+- **Taken after H4-E01 and H4-E02 were reported.** Their verdicts stand; their
+  F2 explanation is corrected by a dated note in each report.
+- **Source:** `3877a1a` (fastener); the commit that adds this entry;
+  `HYPOTHESES.md`, *Revisions*, 2026-10-11; `EXPERIMENTS.md`, H4-E03.
+- **Applies to:** H4-E03.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -801,4 +837,5 @@ are not repeated.
 | `H2H3-E01` | reported: H2 not supported; H3 supported, narrowly | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-33](#dec-33), [DEC-34](#dec-34), [DEC-35](#dec-35) | -- | [H2H3-E01](reports/H2H3-E01/REPORT.md) |
 | `H4-E01` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37) | -- | [H4-E01](reports/H4-E01/REPORT.md) |
 | `H4-E02` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37), [DEC-38](#dec-38) | -- | [H4-E02](reports/H4-E02/REPORT.md) |
+| `H4-E03` | registered | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-37](#dec-37), [DEC-39](#dec-39) | -- | -- |
 | H5-H6 | not started | [DEC-07](#dec-07), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-37](#dec-37) | -- | -- |

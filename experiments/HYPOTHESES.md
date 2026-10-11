@@ -1195,3 +1195,18 @@ judged by the classifier that drove its search. Budgets are H4-E01's CPU
 budgets, unchanged, so all four method-classifier cells get the same compute.
 No tree scores are computed for the ELM arms. Criterion, datasets, seeds and
 metric are H4's. Recorded as [DEC-38](DECISIONS.md#dec-38).
+
+**2026-10-11 -- H4-E03: H4 at equal fits, with FASTENER's bookkeeping
+fixed.** Decided by the PI after H4-E01 and H4-E02 were reported. Profiling
+showed why FS-SDS made 4-5 times FASTENER's fits at equal CPU time: on wide
+data FASTENER spent most of its CPU outside model fits -- a one-off
+mutual-information pass over all features and pure-Python bookkeeping over
+all p genes per candidate (nci9: 2% of its time in tree fits). The
+bookkeeping was vectorised in FASTENER clone `3877a1a`, which gives identical
+fronts for the same seed and fits (checked on 10 cases). H4-E03 compares the
+methods at equal model fits, the budget H4 was first registered with: the
+protocol's fit budget per run, 6,000 or 12,000 on the long-budget datasets,
+FS-SDS's split evenly over k = 1..20. The decision tree drives and scores
+both; criterion, datasets, seeds and metric are H4's. H4-E01 and H4-E02 keep
+their verdicts; their explanation of the fit counts is corrected by a dated
+note. Recorded as [DEC-39](DECISIONS.md#dec-39).
