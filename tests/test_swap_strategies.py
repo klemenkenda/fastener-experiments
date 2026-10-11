@@ -283,16 +283,16 @@ def test_guided_insertion_can_reach_a_zero_information_feature():
 
 def test_guided_swap_reuses_the_mating_strategys_vector(tiny_data, run_dir, monkeypatch):
     """The point of the plumbing: no second `mutual_info_classif` pass."""
-    import sklearn.feature_selection
+    import fast_mi
 
     calls = []
-    real = sklearn.feature_selection.mutual_info_classif
+    real = fast_mi.mutual_info_classif
 
     def counting(*args, **kwargs):
         calls.append(1)
         return real(*args, **kwargs)
 
-    monkeypatch.setattr(sklearn.feature_selection, "mutual_info_classif", counting)
+    monkeypatch.setattr(fast_mi, "mutual_info_classif", counting)
 
     strategy = InformationGainSwapStrategy()
     optimizer = prepared(tiny_data, run_dir, swap_strategy=strategy)

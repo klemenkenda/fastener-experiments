@@ -63,7 +63,35 @@ ROW_CAP = 50_000
 # The score that drives FASTENER's search and selects k for the baselines.
 # Weighted F1 matches the reference eval_fun in fastener.py.
 def primary_score(y_true, y_pred) -> float:
-    return float(f1_score(y_true, y_pred, average="weighted"))
+    return weighted_f1(y_true, y_pred)
+
+
+def weighted_f1(y_true, y_pred) -> float:
+    """`f1_score(y_true, y_pred, average="weighted")`, without its overhead.
+
+    The searches call this thousands of times per run on small arrays, where
+    scikit-learn's parameter validation and multilabel confusion matrix cost
+    about 3.5 ms a call -- more than a tree fit on wide data. The arithmetic is
+    scikit-learn's, in its order: per label in the union of both arrays,
+    F = 2 tp / (true + predicted), 0 where both are 0, then averaged with
+    `np.average` weighted by the true counts. `tests/test_protocol_f1.py`
+    checks equality, bit for bit.
+    """
+    y_true = np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
+    labels, inv = np.unique(np.concatenate([y_true, y_pred]),
+                            return_inverse=True)
+    n_labels = labels.shape[0]
+    t, p = inv[:y_true.shape[0]], inv[y_true.shape[0]:]
+    true_sum = np.bincount(t, minlength=n_labels)
+    pred_sum = np.bincount(p, minlength=n_labels)
+    tp_sum = np.bincount(t[t == p], minlength=n_labels)
+    denom = 1.0 * true_sum.astype(np.float64) + pred_sum.astype(np.float64)
+    zero = denom == 0
+    denom[zero] = 1
+    f = 2.0 * tp_sum.astype(np.float64) / denom
+    f[zero] = 0.0
+    return float(np.average(f, weights=true_sum))
 
 
 def all_scores(y_true, y_pred) -> Dict[str, float]:
