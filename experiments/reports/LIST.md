@@ -8,6 +8,7 @@
 | H3 | `H2H3-E01` | 20 h 45 min | confirmed, narrowly | only one; run with H2 | [REPORT.md](H2H3-E01/REPORT.md) |
 | H4 | `H4-E01` | 2 h 13 min | not confirmed (comparable) | decision tree on both sides | [REPORT.md](H4-E01/REPORT.md) |
 | H4 | `H4-E02` | 2 h 20 min | not confirmed (comparable) | ELM on both sides; read with E01 | [REPORT.md](H4-E02/REPORT.md) |
+| H4 | `H4-E03` | 51 min | refuted (FASTENER ahead) | equal fits; read with E01 | [REPORT.md](H4-E03/REPORT.md) |
 
 ## Superseded and failed
 

@@ -98,6 +98,9 @@ H4_ARMS = (("fs_sds", "fastener", "tree"),
 # (tree) and H4-E02 (ELM), both at equal CPU time. H4-E03 runs at equal fits
 # and is not paired with either.
 H4_PAIRED = {"H4-E01": "H4-E02", "H4-E02": "H4-E01"}
+# The same arms under another budget unit: H4-E03 (equal fits) is read beside
+# H4-E01 (equal CPU time), descriptively.
+H4_BUDGET_PAIR = {"H4-E03": "H4-E01"}
 # The 2 x 2 of H4-E01 and H4-E02: method -> classifier -> arm label.
 H4_CELLS = {"FASTENER": {"tree": "fastener", "elm": "fastener_elm"},
             "FS-SDS": {"tree": "fs_sds", "elm": "fs_sds_elm"}}
@@ -533,6 +536,38 @@ def h4_two_by_two(experiment_id: str, cells, K: int) -> Optional[Dict]:
     return {"per_dataset": per_ds, "summary": summary,
             "means": {lab: float(np.mean([v[lab] for v in per_ds.values()]))
                       for lab in labels}}
+
+
+def h4_budget_compare(experiment_id: str, cells, units: Sequence[Dict],
+                      K: int) -> Optional[Dict]:
+    """Per dataset and arm: mean AUF and fits here and in the paired
+    experiment run under another budget unit (H4_BUDGET_PAIR)."""
+    partner = H4_BUDGET_PAIR.get(experiment_id)
+    row = experiment_ids.find(experiment_ids.load_ledger(), partner) \
+        if partner else None
+    if row is None:
+        return None
+    runs = [load_run(r) for r in row["runs"] if (RESULTS_DIR / r).is_dir()]
+    other_units = units_of(runs)[0]
+    other = by_cell(other_units, K)
+
+    def fits_of(us):
+        acc = defaultdict(list)
+        for u in us:
+            acc[(u["dataset"], u["method"])].append(u["model_fits"])
+        return {k: float(np.mean(v)) for k, v in acc.items()}
+    f_here, f_other = fits_of(units), fits_of(other_units)
+    per_ds = {}
+    for ds, meths in cells.items():
+        for m, seeds in meths.items():
+            o = other.get(ds, {}).get(m)
+            if seeds and o:
+                per_ds.setdefault(ds, {})[m] = {
+                    "here": float(np.mean(list(seeds.values()))),
+                    "other": float(np.mean(list(o.values()))),
+                    "fits_here": f_here.get((ds, m)),
+                    "fits_other": f_other.get((ds, m))}
+    return {"partner": partner, "per_dataset": per_ds}
 
 
 def evaluate_pairwise(hid: str, cells, K: int,
@@ -1099,6 +1134,56 @@ def fig_two_by_two(tbt, run_ids, path: Path) -> None:
     plt.close(fig)
 
 
+def fig_budget_compare(bc, focal, opp, experiment_id, run_ids,
+                       path: Path) -> None:
+    """Each arm's mean AUF here against in the paired experiment, and the
+    per-dataset effect (focal minus opponent) under both budgets."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    per = bc["per_dataset"]
+    ds = sorted(d for d in per if focal in per[d] and opp in per[d])
+    other = bc["partner"]
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8))
+    ax = axes[0]
+    vals = []
+    for i, m in enumerate((opp, focal)):
+        x = [per[d][m]["other"] for d in ds]
+        y = [per[d][m]["here"] for d in ds]
+        vals += x + y
+        ax.scatter(x, y, s=24, color=SERIES[i], alpha=0.85,
+                   edgecolor="#fcfcfb", linewidth=0.8, zorder=3,
+                   label=f"{m} (mean {np.mean(y) - np.mean(x):+.3f})")
+    lo, hi = min(vals) - 0.03, max(vals) + 0.03
+    ax.plot([lo, hi], [lo, hi], color=INK_2, lw=1, ls="--")
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_xlabel(f"mean test AUF, {other}")
+    ax.set_ylabel(f"mean test AUF, {experiment_id}")
+    ax.set_title("Each method's score under the two budgets", fontsize=9)
+    ax.legend(fontsize=7, loc="upper left")
+    ax = axes[1]
+    x = [per[d][focal]["other"] - per[d][opp]["other"] for d in ds]
+    y = [per[d][focal]["here"] - per[d][opp]["here"] for d in ds]
+    lo, hi = min(x + y) - 0.03, max(x + y) + 0.03
+    ax.plot([lo, hi], [lo, hi], color=INK_2, lw=1, ls="--")
+    ax.axhline(0, color=GRID, lw=1)
+    ax.axvline(0, color=GRID, lw=1)
+    ax.scatter(x, y, s=24, color=SERIES[2], alpha=0.85, edgecolor="#fcfcfb",
+               linewidth=0.8, zorder=3)
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_xlabel(f"{focal} minus {opp}, {other}")
+    ax.set_ylabel(f"{focal} minus {opp}, {experiment_id}")
+    ax.set_title(f"Per dataset: > 0 on {sum(v > 0 for v in x)} in {other}, "
+                 f"on {sum(v > 0 for v in y)} here", fontsize=9)
+    fig.suptitle(f"{experiment_id} against {other}, one point per dataset "
+                 f"(mean over seeds); dashed line: equal", fontsize=10)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.94))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def fig_effect_vs_size(evs, run_ids, path: Path) -> None:
     """Per-dataset effect against rows (n) and features (p), H2 and H3."""
     import matplotlib.pyplot as plt
@@ -1569,6 +1654,8 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
             ev["table3"] = table3_comparison(cells, units, arms4)
             ev["compute"] = compute_per_arm(units, arms4)
             ev["two_by_two"] = h4_two_by_two(experiment_id, cells, K)
+            ev["budget_compare"] = h4_budget_compare(experiment_id, cells,
+                                                     units, K)
             # The per-dataset effect in the shape fig_effect_vs_size reads.
             shape = {}
             for u in units:
@@ -1614,6 +1701,10 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                       ("effect_vs_size", fig_effect_vs_size,
                        ([h4[0]["size_ev"]],)),
                       ("table3", fig_table3, (h4[0]["table3"],)))
+        if h4[0].get("budget_compare"):
+            unit_figs += (("budget_compare", fig_budget_compare,
+                           (h4[0]["budget_compare"], h4[0]["focal"],
+                            h4[0]["pairs"][0]["opponent"], experiment_id)),)
         if h4[0].get("two_by_two"):
             unit_figs += (("two_by_two", fig_two_by_two,
                            (h4[0]["two_by_two"],)),)

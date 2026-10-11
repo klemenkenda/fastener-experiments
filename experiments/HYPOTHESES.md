@@ -625,6 +625,11 @@ of the paper's gap. The criterion is the same for both.
   Not supported: comparable again (FS-SDS ahead on 10, FASTENER on 15,
   p = 0.096); the paper's ordering holds on 16 of 25, and which method leads
   on a dataset is the same with either classifier on 21 of 25.
+* `H4-E03` -- the decision tree at equal model fits, FASTENER's bookkeeping
+  vectorised. Refuted: FASTENER ahead on 18 datasets, FS-SDS on 7
+  (p = 0.0034); the paper's ordering holds on 17 of 25. Held to FASTENER's
+  number of fits FS-SDS loses 0.043; at equal CPU time (E01) it had about
+  five times as many and the methods were comparable.
 
 ## H5 -- Stock FASTENER is the best selector at low k, across all datasets
 
