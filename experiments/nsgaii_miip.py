@@ -165,6 +165,10 @@ def cluster_features(X: np.ndarray, y: np.ndarray, rng: np.random.RandomState,
     with np.errstate(divide="ignore", invalid="ignore"):
         dist = 1.0 - np.where(denom > 0, mi / denom, 0.0)
     dist = np.nan_to_num(dist, nan=1.0, posinf=1.0, neginf=0.0)
+    # Normalised MI can exceed 1 by a rounding error, leaving distances a hair
+    # below 0, which k-medoids' seeding cannot use as probabilities
+    # (Heartbeat, EthanolConcentration, LSST).
+    dist = np.maximum(dist, 0.0)
     np.fill_diagonal(dist, 0.0)
 
     # Cluster the FEATURES only; the class column is excluded, as in the source.

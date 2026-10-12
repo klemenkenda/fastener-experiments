@@ -39,6 +39,21 @@ be passed:
         --datasets eodata,Coffee,... \
         --methods fastener:none,fastener:random,fastener:guided \
         --budgets results/h2h3-calibration/budgets.json
+
+--timeout-hours stops a job that has run that long: its process tree is
+killed and the job is recorded as `timeout`, not `failed`. It is the per-run
+cap of H5/H6 (DEC-40): a method that cannot finish a dataset in the cap has
+no result there, and the report says so. A timed-out job leaves its run
+folder unfinished; nothing reads it as a result.
+
+--skip names dataset:arm cells not to run at all, as a comma-separated list
+or @file with one cell per line (# starts a comment): H5/H6's cells known
+before the run to exceed the cap. Every skipped cell must be one the
+datasets and methods would otherwise produce, so a typo cannot pass silently.
+
+Deterministic selectors (run_sota.FILTERS: mRMR, ReliefF, HSIC Lasso, the
+rankers, RFE, all features) give the same answer for every seed, so they run
+once, under the first seed, rather than once per seed.
 """
 import argparse
 import json
@@ -83,6 +98,11 @@ def parse_args(argv=None):
                     help="JSON with {\"budgets\": {dataset: fits}}: each job "
                          "runs with --evaluations set to its dataset's budget")
     ap.add_argument("--max-procs", type=int, default=10)
+    ap.add_argument("--skip", default=None,
+                    help="dataset:arm cells not to run, comma-separated or "
+                         "@file")
+    ap.add_argument("--timeout-hours", type=float, default=None,
+                    help="stop a job after this many hours (state: timeout)")
     ap.add_argument("--python", default=sys.executable)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
@@ -131,12 +151,51 @@ def stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 
+# run_sota.FILTERS, the selectors with no randomness: one job each, not one
+# per seed. Kept here rather than imported, since importing run_sota pins the
+# queue's own numeric threads; tests/test_run_queue.py checks they agree.
+DETERMINISTIC = ("mrmr", "relieff", "hsic_lasso", "kbest_mutual_info",
+                 "kbest_anova_f", "tree_importance", "rfe_tree", "all_features")
+
+
+def parse_skip(spec):
+    """{(dataset, arm)} from 'a:b,c:d' or '@file' (one cell per line)."""
+    if not spec:
+        return set()
+    if spec.startswith("@"):
+        lines = Path(spec[1:]).read_text(encoding="utf-8").splitlines()
+        items = [ln.split("#", 1)[0].strip() for ln in lines]
+    else:
+        items = split(spec)
+    cells = set()
+    for it in filter(None, items):
+        ds, sep, arm = it.partition(":")
+        if not sep or not ds or not arm:
+            raise SystemExit(f"--skip: expected dataset:arm, got {it!r}")
+        cells.add((ds.strip(), arm.strip()))
+    return cells
+
+
+def arm_label(m: str) -> str:
+    return f"fastener_{m.split(':', 1)[1]}" if m.startswith("fastener:") else m
+
+
 def build_jobs(args):
     jobs = []
+    skip = parse_skip(getattr(args, "skip", None))
+    known = {(ds, arm_label(m)) for ds in split(args.datasets)
+             for m in split(args.methods)}
+    unknown = sorted(skip - known)
+    if unknown:
+        raise SystemExit("--skip names cells this queue does not have: "
+                         + ", ".join(f"{d}:{a}" for d, a in unknown))
     prefix = (args.name or args.experiment or "queue").lower().replace("-", "")
+    seeds = [int(s) for s in split(args.seeds)]
     for ds in split(args.datasets):
         for m in split(args.methods):
-            for seed in (int(s) for s in split(args.seeds)):
+            if (ds, arm_label(m)) in skip:
+                continue
+            for seed in (seeds[:1] if m in DETERMINISTIC else seeds):
                 if m.startswith("fastener:"):
                     arm = m.split(":", 1)[1]
                     arm_args = ["--methods", "", "--fastener-arm", arm]
@@ -220,8 +279,32 @@ class Queue:
         j.update(state="running", log=str(log), started_utc=utc())
         print(f"{stamp()}  start  {j['name']}", flush=True)
 
+    def kill_tree(self, j) -> None:
+        proc = self.procs[j["name"]]
+        if os.name == "nt":
+            subprocess.run(["taskkill", "/F", "/T", "/PID", str(proc.pid)],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        else:
+            proc.kill()
+        proc.wait()
+
+    def timed_out(self, j) -> bool:
+        limit = self.args.timeout_hours
+        if limit is None:
+            return False
+        started = datetime.fromisoformat(j["started_utc"])
+        return (datetime.now(timezone.utc) - started).total_seconds()             >= limit * 3600
+
     def reap(self, j) -> None:
         code = self.procs[j["name"]].poll()
+        if code is None and self.timed_out(j):
+            self.kill_tree(j)
+            self.files.pop(j["name"]).close()
+            self.find_run_dir(j)
+            j.update(state="timeout", exit_code=None, ended_utc=utc())
+            print(f"{stamp()}  TIMEOUT {j['name']} (after "
+                  f"{self.args.timeout_hours:g} h)", flush=True)
+            return
         if code is None:
             return
         self.files.pop(j["name"]).close()
@@ -252,10 +335,14 @@ class Queue:
                 break
             time.sleep(POLL_SECONDS)
         failed = [j for j in self.jobs if j["state"] == "failed"]
-        print(f"{stamp()}  finished: {len(self.jobs) - len(failed)} ok, "
-              f"{len(failed)} failed")
+        timeout = [j for j in self.jobs if j["state"] == "timeout"]
+        print(f"{stamp()}  finished: "
+              f"{len(self.jobs) - len(failed) - len(timeout)} ok, "
+              f"{len(failed)} failed, {len(timeout)} timed out")
         for j in failed:
             print(f"  FAILED {j['name']}: see {j['log']}")
+        for j in timeout:
+            print(f"  TIMEOUT {j['name']}")
         return 1 if failed else 0
 
 

@@ -1,0 +1,27 @@
+# H5H6-E01: method x dataset cells not run, and why (DEC-40).
+# Read by run_queue.py --skip @experiments/h5h6_skip.txt.
+#
+# A cell is left out when it cannot finish one run inside the 6 h per-run
+# cap. Times are from the timing pilot of 2026-10-11/12 (one seed, searches at
+# 600 fits, scaled linearly to the dataset's H2/H3 fit budget). A cell
+# predicted under the cap that overruns in the experiment is stopped by the
+# queue (--timeout-hours 6) and recorded as timed out instead.
+
+# NSGAII-MIIP builds a pairwise mutual-information matrix over all features
+# (O(p^2)): at 108,000-192,000 features it needs 90-295 GB and ~10^10 pair
+# computations. In the pilot it ran 16-18 h without finishing at 600 fits.
+MotorImagery:nsgaii_miip      # p = 192,000
+PEMS-SF:nsgaii_miip           # p = 138,672
+EigenWorms:nsgaii_miip        # p = 107,904
+
+# Predicted over the cap. NSGA-II (OBL start) and NSGAII-MIIP start from
+# subsets of about half the features, so every fit is slow on large data.
+FaceDetection:nsga2           # 124.4 h per run at 12,000 fits
+FaceDetection:nsgaii_miip     # 137.8 h per run at 12,000 fits
+FaultDetectionA:nsga2         # 49.1 h per run at 6,000 fits
+FaultDetectionA:nsgaii_miip   # 50.0 h per run at 6,000 fits
+MotorImagery:nsga2            # 16.7 h per run at 6,000 fits
+EigenWorms:nsga2              # 16.1 h per run at 12,000 fits
+PhonemeSpectra:nsga2          # 10.7 h per run at 2,000 fits
+PhonemeSpectra:nsgaii_miip    # 10.8 h per run at 2,000 fits
+HandOutlines:nsgaii_miip      # 6.3 h per run at 12,000 fits

@@ -244,6 +244,13 @@ def run_boruta(ds, ks: List[int], counter: FitCounter,
 def run_hsic_lasso(ds, ks: List[int], counter: FitCounter) -> Dict:
     from pyHSICLasso import HSICLasso
 
+    # pyHSICLasso's nlars catches `np.linalg.linalg.LinAlgError`, a path
+    # numpy 2 removed, so a singular step raised AttributeError instead of
+    # being handled (eodata). Restoring the alias lets its handler run as
+    # written.
+    if not hasattr(np.linalg, "linalg"):
+        np.linalg.linalg = np.linalg
+
     t0 = time.time()
     k_max = min(max(ks), ds.n_features)
     with warnings.catch_warnings():

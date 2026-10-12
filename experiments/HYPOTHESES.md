@@ -650,8 +650,19 @@ random subsets. **All features** is run as a reference line only: it has no
 subset of size <= 10, so it has no AUF (K = 10) and takes no part in the
 pairwise tests.
 
-**Datasets.** All 36: the four development sets, the seven other tall datasets
-and the 25 paper benchmarks.
+**Datasets.** *(Revised 2026-10-12, before any H5 or H6 run; see Revisions.)*
+H2/H3's 39: the 38 UCR/UEA sets of the seven clusters C1-C7 in
+[`DATASETS_USED.md`](DATASETS_USED.md) (DuckDuckGeese excluded) and EOData,
+each at its H2/H3 fit budget. As first registered: all 36 -- the four
+development sets, the seven other tall datasets and the 25 paper benchmarks.
+
+**Per-run cap.** *(Added 2026-10-12.)* One run -- one method, one dataset,
+one seed -- may take at most 6 hours. A method that cannot finish a dataset
+within it has no result there, and the report gives the reason; the pairwise
+tests already read only the datasets on which both methods were run. Cells
+the timing pilot showed to be over the cap are not run
+([`h5h6_skip.txt`](h5h6_skip.txt) lists each with its reason); any other run
+that reaches 6 h is stopped and reported as timed out.
 
 **Primary metric.** AUF, K = 10. Per dataset, an algorithm's score is its mean
 over the 5 seeds.
@@ -686,13 +697,19 @@ option available, against every method, on every dataset. H5 and H6 can split:
 stock FASTENER can lead the field while the guided variant does not, which is
 what the gina pilot suggested, or the reverse.
 
-**Algorithms, datasets, primary metric.** As H5.
+**Algorithms, datasets, per-run cap, primary metric.** As H5; run with it
+as `H5H6-E01`.
 
 **Analysis.** As H5, with guided-swap FASTENER in place of stock FASTENER as the
 algorithm every other one is compared against.
 
 **Falsification criterion.** As H5: more wins than losses, significant after
 Holm correction, against **every** other algorithm including stock FASTENER.
+
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+* `H5H6-E01` -- H5 and H6 in one grid on the 38 C1-C7 datasets and EOData,
+  6-hour cap per run. Registered.
 
 ---
 
@@ -1215,3 +1232,41 @@ FS-SDS's split evenly over k = 1..20. The decision tree drives and scores
 both; criterion, datasets, seeds and metric are H4's. H4-E01 and H4-E02 keep
 their verdicts; their explanation of the fit counts is corrected by a dated
 note. Recorded as [DEC-39](DECISIONS.md#dec-39).
+
+**2026-10-12 -- H5 and H6 on the C1-C7 datasets, with a per-run cap.**
+Decided by the PI before any H5 or H6 run, after a timing pilot (one seed,
+all 18 arms, searches at 600 fits; not an experiment, not in the ledger).
+
+* *Datasets.* H5 and H6 run on H2/H3's 39 datasets -- the 38 UCR/UEA sets
+  drawn from the seven clusters C1-C7 of the archive, and EOData -- instead
+  of the 36 first registered. The 36 lean on wide, small sets (25 paper
+  benchmarks, 12 of them gene expression); the C1-C7 sets were chosen to
+  spread over the archive's shapes, and the result can be read cluster by
+  cluster as H2/H3's was.
+* *Budget.* Each dataset's H2/H3 fit budget
+  (`results/h2h3-calibration/budgets.json`, DEC-33): 2,000 to 12,000 fits
+  per run, for every search alike; FS-SDS splits it evenly over k = 1..20.
+* *Per-run cap: 6 hours.* Uncapped, the pilot put the grid at about 2,500
+  CPU-hours, 90% of it NSGA-II (OBL start) and NSGAII-MIIP on a handful of
+  large datasets, where they start from subsets of about half the features.
+  A method that cannot finish one run in 6 hours has no result on that
+  dataset, with the reason stated. Twelve cells are left out before the run
+  (`h5h6_skip.txt`): NSGAII-MIIP on the three sets with 108,000-192,000
+  features, whose pairwise mutual-information matrix does not fit in memory,
+  and nine NSGA-II and NSGAII-MIIP cells predicted at 6.3 to 138 hours per
+  run. Every other run is stopped if it reaches 6 hours. FASTENER and every
+  other method run on all 39 datasets. The pairwise tests use the datasets
+  on which both methods have results, as registered.
+* *Deterministic selectors run once.* mRMR, ReliefF, HSIC Lasso, the three
+  rankers, RFE and all features give the same subsets for every seed, so each
+  runs once per dataset.
+* *Fixes found by the pilot.* NSGAII-MIIP could compute feature distances a
+  rounding error below zero and fail in k-medoids seeding (Heartbeat,
+  EthanolConcentration, LSST); they are clipped at 0. pyHSICLasso catches an
+  exception under a numpy path numpy 2 removed, so a singular step failed
+  instead of being handled (EOData); the alias is restored. FASTENER clone
+  `3be5697` computes its mutual information 5-11x faster with identical
+  values, and the protocol's weighted F1 is computed in numpy, bit-identical
+  to scikit-learn's; neither changes any result.
+
+Recorded as [DEC-40](DECISIONS.md#dec-40).

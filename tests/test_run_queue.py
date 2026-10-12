@@ -89,3 +89,57 @@ def test_a_job_is_not_matched_to_an_older_runs_folder(tmp_path):
         f"20261010T122603Z_{name}")
     assert run_queue.job_run_dir({"name": name, "started_utc": None},
                                  tmp_path) is None
+
+
+def test_the_deterministic_list_matches_run_sota():
+    import run_sota
+    assert set(run_queue.DETERMINISTIC) == set(run_sota.FILTERS)
+
+
+def test_deterministic_filters_run_once_seeded_methods_per_seed():
+    args = run_queue.parse_args([
+        "--name", "t", "--datasets", "Coffee",
+        "--methods", "relieff,boruta,fastener:none,all_features",
+        "--seeds", "2020,2021,2022"])
+    seeds = {}
+    for j in run_queue.build_jobs(args):
+        seeds.setdefault(j["arm"], []).append(j["seed"])
+    assert seeds == {"relieff": [2020], "all_features": [2020],
+                     "boruta": [2020, 2021, 2022],
+                     "fastener_none": [2020, 2021, 2022]}
+
+
+def test_a_job_past_the_timeout_is_stopped_and_marked(tmp_path, monkeypatch):
+    import sys
+    monkeypatch.setattr(run_queue, "RESULTS_DIR", tmp_path)
+    monkeypatch.setattr(run_queue, "POLL_SECONDS", 0.1)
+    monkeypatch.setattr(run_queue, "STAGGER_SECONDS", 0)
+    args = run_queue.parse_args([
+        "--name", "t", "--datasets", "Coffee", "--methods", "boruta",
+        "--seeds", "2020,2021", "--timeout-hours", str(1.0 / 3600)])
+    jobs = run_queue.build_jobs(args)
+    jobs[0]["cmd"] = [sys.executable, "-c", "import time; time.sleep(60)"]
+    jobs[1]["cmd"] = [sys.executable, "-c", "pass"]
+    assert run_queue.Queue(args, jobs).run() == 0
+    assert [j["state"] for j in jobs] == ["timeout", "done"]
+    assert jobs[0]["exit_code"] is None and jobs[0]["ended_utc"]
+
+
+def test_skipped_cells_get_no_jobs(tmp_path):
+    f = tmp_path / "skip.txt"
+    f.write_text("# too slow\nCoffee:nsga2\nWafer:fastener_none  # comment\n")
+    for spec in ("Coffee:nsga2,Wafer:fastener_none", f"@{f}"):
+        args = run_queue.parse_args([
+            "--name", "t", "--datasets", "Coffee,Wafer",
+            "--methods", "nsga2,fastener:none", "--seeds", "2020,2021",
+            "--skip", spec])
+        cells = {(j["dataset"], j["arm"]) for j in run_queue.build_jobs(args)}
+        assert cells == {("Wafer", "nsga2"), ("Coffee", "fastener_none")}
+
+
+def test_a_skipped_cell_the_queue_does_not_have_is_refused():
+    args = run_queue.parse_args([
+        "--name", "t", "--datasets", "Coffee", "--methods", "nsga2",
+        "--skip", "Cofee:nsga2"])
+    with pytest.raises(SystemExit, match="Cofee:nsga2"):
+        run_queue.build_jobs(args)

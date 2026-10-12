@@ -67,6 +67,7 @@ say so, and name the result.
 | [DEC-37](#dec-37) | 2026-10-10 | One thread per numeric library in every run; repeat H4's calibration | all runs from 2026-10-10 |
 | [DEC-38](#dec-38) | 2026-10-10 | H4-E02: both searches driven and scored by the ELM, at H4-E01's CPU budgets | H4-E02 |
 | [DEC-39](#dec-39) | 2026-10-11 | H4-E03 at equal model fits, with FASTENER's gene bookkeeping vectorised | H4-E03 |
+| [DEC-40](#dec-40) | 2026-10-12 | H5 and H6 on the C1-C7 datasets and EOData, at H2/H3's budgets, with a 6 h per-run cap | H5H6-E01 |
 
 ## Decisions
 
@@ -821,6 +822,48 @@ vectorised.**
   `HYPOTHESES.md`, *Revisions*, 2026-10-11; `EXPERIMENTS.md`, H4-E03.
 - **Applies to:** H4-E03.
 
+### DEC-40
+
+**2026-10-12 -- H5 and H6 on the C1-C7 datasets and EOData, at H2/H3's
+budgets, with a 6-hour per-run cap.**
+
+- **Why:** the PI wants the full grid on the clustered UCR/UEA selection
+  rather than the 36 first registered. A timing pilot (one seed, all 18
+  arms, searches at 600 fits) put the uncapped grid at about 2,500
+  CPU-hours, 90% of it NSGA-II (OBL) and NSGAII-MIIP on a few large
+  datasets. The PI accepted that a method unable to finish a dataset has no
+  result there, with the reason written, and chose a 6-hour cap per run
+  (about 41 hours of wall time at 10 processes, against 71 at a 24-hour cap).
+- **Detail:**
+  - Datasets: H2/H3's 39 (38 UCR/UEA sets from clusters C1-C7, DuckDuckGeese
+    excluded, and EOData). Budgets: `results/h2h3-calibration/budgets.json`.
+  - Arms (18): FASTENER stock, random swap and guided swap (clone
+    `3be5697`); NSGA-II (OBL), NSGA-II (sparse), NSGAII-MIIP, POSS, FS-SDS;
+    Boruta, random subsets; mRMR, ReliefF, HSIC Lasso, the MI, ANOVA-F and
+    tree-importance rankers, RFE, all features (reference only).
+  - Seeds 2020-2024 for the searches, Boruta and random subsets; the
+    deterministic selectors once per dataset (`run_queue.DETERMINISTIC`).
+  - Cap: `run_queue.py --timeout-hours 6`; a run reaching it is killed and
+    recorded as `timeout`. `--skip @experiments/h5h6_skip.txt` leaves out 12
+    cells known to exceed it: NSGAII-MIIP on MotorImagery, PEMS-SF and
+    EigenWorms (pairwise MI matrix out of memory), NSGA-II and NSGAII-MIIP
+    on FaceDetection, FaultDetectionA and PhonemeSpectra, NSGA-II on
+    MotorImagery and EigenWorms, and NSGAII-MIIP on HandOutlines (predicted
+    6.3-138 h per run).
+  - NSGAII-MIIP on Heartbeat (24,705 features) had not finished its 600-fit
+    pilot run after 19 minutes when it was stopped; it runs under the cap.
+    The fixes were checked by rerunning the failed pilot cells: NSGAII-MIIP
+    on EthanolConcentration and LSST and HSIC Lasso on EOData complete.
+  - Fixes: NSGAII-MIIP distances clipped at 0; pyHSICLasso's numpy-2 alias
+    restored; FASTENER's mutual information (`fast_mi`, clone `3be5697`) and
+    the weighted F1 (`protocol.weighted_f1`) faster with identical values.
+- **By:** PI (datasets, accepting missing cells with reasons, the 6 h cap);
+  pilot, estimates and implementation by Claude.
+- **Taken before any H5 or H6 run.**
+- **Source:** `HYPOTHESES.md`, *Revisions*, 2026-10-12; `EXPERIMENTS.md`,
+  H5H6-E01; `experiments/h5h6_skip.txt`.
+- **Applies to:** H5H6-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -838,4 +881,4 @@ are not repeated.
 | `H4-E01` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37) | -- | [H4-E01](reports/H4-E01/REPORT.md) |
 | `H4-E02` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37), [DEC-38](#dec-38) | -- | [H4-E02](reports/H4-E02/REPORT.md) |
 | `H4-E03` | reported: refuted (FASTENER ahead at equal fits) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-37](#dec-37), [DEC-39](#dec-39) | -- | [H4-E03](reports/H4-E03/REPORT.md) |
-| H5-H6 | not started | [DEC-07](#dec-07), [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-37](#dec-37) | -- | -- |
+| `H5H6-E01` | registered | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40) | -- | -- |

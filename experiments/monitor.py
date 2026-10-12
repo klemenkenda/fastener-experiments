@@ -39,7 +39,8 @@ from progress import format_duration  # noqa: E402
 from provenance import RESULTS_DIR  # noqa: E402
 
 BAR_WIDTH = 28
-STATE_MARK = {"done": "+", "running": ">", "pending": ".", "failed": "x"}
+STATE_MARK = {"done": "+", "running": ">", "pending": ".", "failed": "x",
+              "timeout": "t"}
 
 
 def find_run(run: Optional[str]) -> Optional[Path]:
@@ -177,7 +178,8 @@ def render(snap: Dict, path: Path) -> List[str]:
 EXPERIMENT_BAR = 16
 ARM_SHORT = {"fastener": "fixed", "fastener_2020": "2020"}
 SEED_MARK = {"done": "+", "running": ">", "pending": ".", "failed": "x"}
-STATE_ORDER = {"running": 0, "failed": 1, "pending": 2, "done": 3, "skipped": 3}
+STATE_ORDER = {"running": 0, "failed": 1, "timeout": 1, "pending": 2, "done": 3,
+               "skipped": 3}
 # The driver rewrites driver.json every --interval (60 s by default).
 DRIVER_STALE_SECONDS = 300
 
@@ -414,7 +416,7 @@ def render_queue(queue: Dict, experiment: str) -> List[str]:
     slots = queue.get("max_procs") or 1
     out = ["", f"  {experiment}   {len(jobs)} jobs on {slots} processes   "
            + "   ".join(f"{s} {counts[s]}"
-                        for s in ("running", "done", "failed", "pending")
+                        for s in ("running", "done", "failed", "timeout", "pending")
                         if counts.get(s))]
     active = bool(counts.get("running") or counts.get("pending"))
     elapsed = age_seconds(queue.get("started_utc"))
