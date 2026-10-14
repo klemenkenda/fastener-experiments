@@ -2,16 +2,10 @@
 # It is deliberately NOT tracked by this experiments repo.
 fastener/
 
-# Experiment outputs. The small, human-meaningful summaries of each run ARE
-# tracked -- they are the record of what was run and what came out. FASTENER's
-# per-generation pickles are not: thousands of files per run, reproducible from
-# the manifest's seeds and commit.
-results/**/log/
-results/**/*.pickle
-# Progress trajectories are too large for git (up to 2 GB per run on a wide
-# set) and, like the pickles, reproducible from the manifest's seeds and
-# commit. The report tables keep what the analysis read from them.
-results/**/trajectories/
+# Experiment outputs stay on the machine that ran them: there are too many
+# files to track. The reports under reports/ keep what the analysis read.
+results/*
+!results/.gitkeep
 
 # Inputs are fetched and checksum-verified by download_data.py, not stored here.
 data/*
@@ -43,11 +37,3 @@ Thumbs.db
 
 # The ledger's lock, held while a run is recorded (experiment_ids.ledger_lock).
 experiments/EXPERIMENTS.md.lock
-
-# Live progress heartbeats and background run logs: per-run scratch, not results.
-results/**/progress.json
-results/*.log
-
-# Crash-recovery duplicate of raw_results.json, written during a run and
-# byte-identical to it when the run finishes.
-results/**/raw_results_partial.json
