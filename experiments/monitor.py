@@ -20,13 +20,16 @@ and its ETA; above them, the whole experiment's ETA. It reads the driver's
 results/<ID>/driver.json and each dataset's own progress.json.
 
 For an experiment started by run_queue.py it reads results/<ID>/queue.json
-instead, and shows one line per dataset and arm: progress over its seeds, each
-seed's state, the fits of the seeds in flight, and their time left. The
-experiment's ETA plays the remaining jobs over the queue's free processes.
+instead and fits one screen: the totals and ETA, one line per dataset and arm
+with jobs in flight (seeds, fits, time left), then a bar per arm and one per
+dataset, coloured by job state. The experiment's ETA plays the remaining jobs
+over the queue's free processes. Colour is off when stdout is not a terminal
+or NO_COLOR is set.
 """
 import argparse
 import json
 import os
+import shutil
 import sys
 import time
 from datetime import datetime, timezone
@@ -349,103 +352,237 @@ def queue_eta(jobs: List[Dict], snaps: Dict[str, Optional[Dict]],
     return (max(free) if free else 0.0), floor
 
 
-def group_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]],
-               width: int = 13) -> str:
-    states = [j["state"] for j in jobs]
-    if "running" in states:
-        state = "running"
-    elif "failed" in states:
-        state = "failed"
-    elif all(s == "done" for s in states):
-        state = "done"
-    else:
-        state = "pending"
-    fracs = []
+# Colour by job state, as ANSI SGR codes; off unless stdout is a terminal.
+STYLE = {"done": "32", "running": "96", "pending": "90", "failed": "91",
+         "timeout": "95", "title": "1;97", "rule": "94", "label": "97",
+         "warn": "1;93", "dim": "2"}
+GLYPH = {"done": "+", "running": ">", "pending": ".", "failed": "x",
+         "timeout": "t"}
+_color = False
+
+
+def enable_color() -> None:
+    """ANSI colour on a real terminal, unless NO_COLOR is set."""
+    global _color
+    if os.environ.get("NO_COLOR") or not sys.stdout.isatty():
+        return
+    if os.name == "nt":
+        os.system("")  # switches the Windows console to VT processing
+    _color = True
+
+
+def paint(text: str, style: Optional[str]) -> str:
+    if not (_color and style):
+        return text
+    return f"\033[{STYLE[style]}m{text}\033[0m"
+
+
+def fit(text: str, width: int) -> str:
+    """text cut or padded to exactly width characters."""
+    if len(text) > width:
+        return text[:max(0, width - 1)] + "~" if width > 1 else text[:width]
+    return text.ljust(width)
+
+
+def stacked_bar(parts: List[Tuple[float, str]], width: int) -> str:
+    """A bar of width cells, split among (amount, state) parts in order."""
+    total = sum(a for a, _ in parts) or 1.0
+    out, used, acc = [], 0, 0.0
+    for amount, state in parts:
+        acc += amount
+        cells = int(round(acc / total * width)) - used
+        if cells > 0:
+            ch = "░" if state == "pending" else "█"
+            out.append(paint(ch * cells, state))
+            used += cells
+    return "".join(out)
+
+
+def tally(jobs: List[Dict], snaps: Dict[str, Optional[Dict]]) -> Dict:
+    """Jobs by state, with the running ones' progress as a fraction."""
+    t = {"done": 0, "running": 0, "timeout": 0, "failed": 0, "pending": 0,
+         "run_frac": 0.0, "total": len(jobs)}
     for j in jobs:
-        if j["state"] == "done":
-            fracs.append(1.0)
-        elif j["state"] == "running" and snaps.get(j["name"]):
-            fracs.append(run_fraction(snaps[j["name"]]))
-        else:
-            fracs.append(0.0)
-    frac = sum(fracs) / len(fracs)
-    filled = int(round(frac * EXPERIMENT_BAR))
-    seeds = "".join(SEED_MARK.get(s, "?") for s in states)
-    line = (f"  {STATE_MARK.get(state, '?')} {jobs[0]['dataset']:<{width}}"
-            f"{jobs[0]['arm']:<14}[{'#' * filled}{'-' * (EXPERIMENT_BAR - filled)}]"
-            f"{frac * 100:4.0f}%  {seeds:<7}")
+        st = j["state"] if j["state"] in t else "pending"
+        t[st] += 1
+        if st == "running" and snaps.get(j["name"]):
+            t["run_frac"] += run_fraction(snaps[j["name"]])
+    return t
+
+
+def tally_bar(t: Dict, width: int) -> str:
+    return stacked_bar([(t["done"], "done"), (t["timeout"], "timeout"),
+                        (t["failed"], "failed"), (t["run_frac"], "running"),
+                        (t["running"] - t["run_frac"] + t["pending"],
+                         "pending")], width)
+
+
+def finished_share(t: Dict) -> float:
+    return (t["done"] + t["timeout"] + t["failed"] + t["run_frac"]) / (
+        t["total"] or 1)
+
+
+def tally_cell(name: str, t: Dict, width: int, bar_width: int) -> str:
+    """'name bar done/total' in exactly width characters."""
+    count = f"{t['done'] + t['timeout'] + t['failed']}/{t['total']}"
+    count_w = 7
+    name_w = width - bar_width - count_w - 4
+    if t["failed"]:
+        state = "failed"
+    elif t["running"]:
+        state = "running"
+    elif t["done"] + t["timeout"] == t["total"]:
+        state = "done" if not t["timeout"] else "timeout"
+    else:
+        state = "label" if t["done"] else "pending"
+    return (paint(fit(name, name_w), state) + " " + tally_bar(t, bar_width)
+            + " " + paint(count.rjust(count_w), "dim") + "  ")
+
+
+def grid(cells: List[str], cols: int) -> List[str]:
+    """cells laid out down then across, in cols columns."""
+    rows = -(-len(cells) // cols) if cells else 0
+    return ["  " + "".join(cells[c * rows + r] for c in range(cols)
+                           if c * rows + r < len(cells)).rstrip()
+            for r in range(rows)]
+
+
+def rule(title: str, width: int) -> str:
+    head = f"── {title} "
+    return "  " + paint(head + "─" * max(0, width - 4 - len(head)), "rule")
+
+
+def running_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]],
+                 ds_w: int, arm_w: int, width: int) -> str:
+    """One dataset and arm with jobs in flight: seeds, fits, time left."""
+    seeds = "".join(paint(GLYPH.get(j["state"], "?"), j["state"])
+                    for j in jobs)
     running = [j for j in jobs if j["state"] == "running"]
-    if running:
-        fits = [(snaps.get(j["name"]) or {}).get("current") or {}
-                for j in running]
-        done = [c.get("fits_done", 0) for c in fits]
-        budget = next((c.get("budget_fits") for c in fits
-                       if c.get("budget_fits")), None)
-        span = f"{min(done)}" if min(done) == max(done) \
-            else f"{min(done)}-{max(done)}"
-        line += f"{span:>11}/{budget or '?':<6}"
-        rems = [job_remaining(j, snaps.get(j["name"])) for j in running]
-        rems = [r for r in rems if r is not None]
-        if rems:
-            line += f"  ~{format_duration(max(rems))} left"
-        elif budget is None:
-            # A method that reports no fits (Boruta): how long it has run.
-            started = [datetime.fromisoformat(j["started_utc"])
-                       for j in running if j.get("started_utc")]
-            if started:
-                age = (datetime.now(timezone.utc) - min(started)).total_seconds()
-                line += f"  running {format_duration(age)}"
-        gone = [j for j in running if snaps.get(j["name"])
-                and alive(snaps[j["name"]].get("pid")) is False]
-        if gone:
-            line += f"  PROCESS GONE: s{', s'.join(str(j['seed']) for j in gone)}"
-    failed = [j for j in jobs if j["state"] == "failed"]
-    if failed:
-        line += "  failed: " + ", ".join(
-            f"s{j['seed']} ({Path(j['log']).name})" for j in failed)
+    fits = [((snaps.get(j["name"]) or {}).get("current") or {})
+            for j in running]
+    done = [c.get("fits_done", 0) for c in fits]
+    budget = next((c.get("budget_fits") for c in fits
+                   if c.get("budget_fits")), None)
+    span = (f"{min(done)}" if min(done) == max(done)
+            else f"{min(done)}-{max(done)}")
+    fracs = [run_fraction(snaps[j["name"]]) if snaps.get(j["name"]) else 0.0
+             for j in running]
+    frac = sum(fracs) / len(fracs)
+    started = [age_seconds(j.get("started_utc")) or 0.0 for j in running]
+    rems = [r for r in (job_remaining(j, snaps.get(j["name"]))
+                        for j in running) if r is not None]
+    when = f"running {format_duration(max(started))}"
+    if rems:
+        when += f", ~{format_duration(max(rems))} left"
+    line = ("  " + paint(fit(jobs[0]["dataset"], ds_w), "running") + "  "
+            + paint(fit(jobs[0]["arm"], arm_w), "label") + "  "
+            + seeds + " " * max(1, 6 - len(jobs)) + " "
+            + stacked_bar([(frac, "running"), (1 - frac, "pending")], 12)
+            + f" {frac * 100:3.0f}%  "
+            + fit(f"{span}/{budget or '?'} fits", 20)
+            + paint(when[:max(0, width - ds_w - arm_w - 53)], "dim"))
+    gone = [j for j in running if snaps.get(j["name"])
+            and alive(snaps[j["name"]].get("pid")) is False]
+    if gone:
+        line += paint("  PROCESS GONE: s" + ", s".join(
+            str(j["seed"]) for j in gone), "warn")
     return line
 
 
-def render_queue(queue: Dict, experiment: str) -> List[str]:
+def render_queue(queue: Dict, experiment: str,
+                 size: Tuple[int, int] = (120, 30)) -> List[str]:
+    """One screen: totals, the jobs in flight, then every arm and dataset."""
+    width, height = size
+    width = max(80, width)
     jobs = queue.get("jobs", [])
     snaps = {j["name"]: read(Path(j["run_dir"]) / "progress.json")
              if j.get("run_dir") else None for j in jobs}
-    counts: Dict[str, int] = {}
-    for j in jobs:
-        counts[j["state"]] = counts.get(j["state"], 0) + 1
+    total = tally(jobs, snaps)
     slots = queue.get("max_procs") or 1
-    out = ["", f"  {experiment}   {len(jobs)} jobs on {slots} processes   "
-           + "   ".join(f"{s} {counts[s]}"
-                        for s in ("running", "done", "failed", "timeout", "pending")
-                        if counts.get(s))]
-    active = bool(counts.get("running") or counts.get("pending"))
-    elapsed = age_seconds(queue.get("started_utc"))
-    ends = [j["ended_utc"] for j in jobs if j.get("ended_utc")]
-    if not active and ends and elapsed is not None:
-        # A finished queue's clock stops at its last job, not at the reading.
-        elapsed -= age_seconds(max(ends)) or 0.0
-    line = f"  elapsed {format_duration(elapsed)}"
+
+    counts = "   ".join(
+        paint(f"{GLYPH[s]} {total[s]} {s}", s)
+        for s in ("running", "done", "timeout", "failed", "pending")
+        if total[s])
+    jobs_on = (f"   {len(jobs)} jobs on {slots} processes   " if width >= 110
+               else "   ")
+    out = ["", "  " + paint(experiment, "title") + paint(jobs_on, "dim")
+           + counts]
+
+    active = bool(total["running"] or total["pending"])
+    starts = [j["started_utc"] for j in jobs if j.get("started_utc")]
+    line = ("  " + tally_bar(total, max(10, min(40, width - 66)))
+            + paint(f" {finished_share(total) * 100:5.1f}%", "label"))
+    if starts:
+        first = datetime.fromisoformat(min(starts)).astimezone()
+        line += paint(f"   since {first.strftime('%a %H:%M')}", "dim")
     if active:
         eta, floor = queue_eta(jobs, snaps, slots)
-        finish = time.localtime(time.time() + eta)
-        line += (f"   {'at least ' if floor else '~'}{format_duration(eta)}"
-                 f" left, done around {time.strftime('%a %H:%M', finish)}")
+        if floor and eta < 60:
+            line += paint("   time left: not known yet", "dim")
+        else:
+            finish = time.localtime(time.time() + eta)
+            line += ("   " + ("at least " if floor else "~")
+                     + paint(format_duration(eta), "label") + " left, done "
+                     + paint(time.strftime("%a %H:%M", finish), "label"))
     out.append(line)
     if active and alive(queue.get("pid")) is False:
-        out.append("  run_queue.py is no longer running -- pending jobs will"
-                   " not start")
-    out.append("")
-    width = max([13] + [len(j["dataset"]) + 1 for j in jobs])
-    out.append(f"    {'dataset':<{width}}{'arm':<14}{'progress':<25}{'seeds':<7}"
-               f"{'fits in flight':>18}")
+        out.append("  " + paint("run_queue.py is no longer running -- "
+                                "pending jobs will not start", "warn"))
+
     groups: Dict[Tuple[str, str], List[Dict]] = {}
+    by_arm: Dict[str, List[Dict]] = {}
+    by_ds: Dict[str, List[Dict]] = {}
     for j in jobs:
         groups.setdefault((j["dataset"], j["arm"]), []).append(j)
-    for g in groups.values():
-        out.append(group_line(g, snaps, width))
-    out.append("")
-    out.append("  seeds: + done  > running  . pending  x failed")
-    out.append("")
+        by_arm.setdefault(j["arm"], []).append(j)
+        by_ds.setdefault(j["dataset"], []).append(j)
+
+    arm_cols = max(1, (width - 2) // 38)
+    live = [g for g in groups.values()
+            if any(j["state"] == "running" for j in g)]
+    # Datasets in 30-character columns, narrower (down to 26) if that is
+    # what it takes for the screen to fit the terminal's height.
+    ds_cols = max(1, (width - 2) // 30)
+    spare = height - 1 - (len(out) + 5 + min(len(live), 3)
+                          + -(-len(by_arm) // arm_cols))
+    while (-(-len(by_ds) // ds_cols) > spare
+           and (width - 3) // (ds_cols + 1) >= 26):
+        ds_cols += 1
+    # The arm and dataset blocks keep their rows; on a short terminal the
+    # in-flight list is cut instead.
+    fixed = (len(out) + 4 + -(-len(by_arm) // arm_cols)
+             + -(-len(by_ds) // ds_cols))
+    room = max(1, height - 1 - fixed)
+    shown = live if len(live) <= room else live[:room - 1]
+
+    out.append(rule(f"in flight ({total['running']} jobs)", width))
+    ds_w = min(22, max([8] + [len(g[0]["dataset"]) for g in shown]))
+    arm_w = max([8] + [len(g[0]["arm"]) for g in shown])
+    for g in shown:
+        out.append(running_line(g, snaps, ds_w, arm_w, width))
+    if len(shown) < len(live):
+        out.append(paint(f"  ... and {len(live) - len(shown)} more", "dim"))
+    if not live:
+        out.append(paint("  nothing running", "dim"))
+
+    out.append(rule("methods", width))
+    cw = (width - 3) // arm_cols
+    out += grid([tally_cell(a, tally(js, snaps), cw, 10)
+                 for a, js in by_arm.items()], arm_cols)
+    out.append(rule("datasets", width))
+    cw = (width - 3) // ds_cols
+    out += grid([tally_cell(d, tally(js, snaps), cw, 6)
+                 for d, js in by_ds.items()], ds_cols)
+
+    tail = "  " + "  ".join(paint("█ " + s, s) for s in
+                            ("done", "running", "timeout", "failed")) \
+        + "  " + paint("░ pending", "pending")
+    failed = [j for j in jobs if j["state"] == "failed"]
+    if failed:
+        tail += paint(f"   {len(failed)} failed, first: "
+                      f"{Path(failed[0]['log']).name}", "failed")
+    out.append(tail)
     return out
 
 
@@ -458,7 +595,9 @@ def watch_experiment(experiment: str, interval: float, once: bool) -> int:
         queue = read(queue_path)
         driver = None if queue is not None else read(path)
         if queue is not None:
-            text = "\n".join(render_queue(queue, experiment))
+            size = shutil.get_terminal_size((120, 30))
+            text = "\n".join(render_queue(queue, experiment,
+                                           (size.columns, size.lines)))
         elif driver is None:
             if once:
                 print(f"neither {queue_path.name} nor {path.name} found in "
@@ -471,11 +610,16 @@ def watch_experiment(experiment: str, interval: float, once: bool) -> int:
             print(text)
             return 0
         if text != last:
-            os.system("cls" if os.name == "nt" else "clear")
-            print(text)
+            if _color:
+                # Home and overwrite rather than clear: no flicker.
+                print("\033[H" + text.replace("\n", "\033[K\n")
+                      + "\033[J", end="", flush=True)
+            else:
+                os.system("cls" if os.name == "nt" else "clear")
+                print(text)
             last = text
         if queue is not None and all(
-                j["state"] in ("done", "failed")
+                j["state"] in ("done", "failed", "timeout")
                 for j in queue.get("jobs", [])):
             return 0
         if driver is not None and all(
@@ -499,7 +643,12 @@ def main() -> int:
                          "(e.g. H0-E03) or every job of a run_queue.py one "
                          "(e.g. H1-E01)")
     args = ap.parse_args()
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    enable_color()
     if args.experiment:
+        if _color and not args.once:
+            print("\033[2J", end="")
         return watch_experiment(args.experiment, max(args.interval, 5.0),
                                 args.once)
 
