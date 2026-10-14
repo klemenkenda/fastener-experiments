@@ -51,6 +51,14 @@ or @file with one cell per line (# starts a comment): H5/H6's cells known
 before the run to exceed the cap. Every skipped cell must be one the
 datasets and methods would otherwise produce, so a typo cannot pass silently.
 
+--resume restarts a queue that was stopped (the machine went down, say) with
+the same arguments it was started with: jobs that ended done or timeout in
+the queue's queue.json keep that state and are not run again; every other job,
+the ones killed while running included, runs from the start. A killed job's
+run folder is left unfinished, like a timed-out one's, and nothing reads it as
+a result. The job list must match the old one exactly, so a resume cannot
+quietly change the experiment.
+
 Deterministic selectors (run_sota.FILTERS: mRMR, ReliefF, HSIC Lasso, the
 rankers, RFE, all features) give the same answer for every seed, so they run
 once, under the first seed, rather than once per seed.
@@ -103,6 +111,9 @@ def parse_args(argv=None):
                          "@file")
     ap.add_argument("--timeout-hours", type=float, default=None,
                     help="stop a job after this many hours (state: timeout)")
+    ap.add_argument("--resume", action="store_true",
+                    help="keep the done and timed-out jobs of this queue's "
+                         "queue.json; run the rest")
     ap.add_argument("--python", default=sys.executable)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
@@ -219,6 +230,31 @@ def build_jobs(args):
                              "state": "pending", "run_dir": None, "log": None,
                              "started_utc": None, "ended_utc": None,
                              "exit_code": None})
+    return jobs
+
+
+# States a resumed queue keeps; every other job runs again from the start.
+FINISHED = ("done", "timeout")
+
+
+def resume_jobs(jobs, status_path: Path):
+    """jobs with the finished ones' state taken from an earlier queue.json.
+
+    SystemExit if the earlier queue's job names differ from these, which
+    would mean the queue is not being resumed with its own arguments.
+    """
+    old = {j["name"]: j for j in
+           json.loads(Path(status_path).read_text(encoding="utf-8"))["jobs"]}
+    names = [j["name"] for j in jobs]
+    if set(old) != set(names):
+        extra, missing = sorted(set(old) - set(names)), sorted(set(names) - set(old))
+        raise SystemExit(f"--resume: {status_path} has a different job list "
+                         f"({len(extra)} jobs only there, {len(missing)} only "
+                         f"here, e.g. {(extra + missing)[:3]}); resume with "
+                         f"the arguments the queue was started with")
+    for j in jobs:
+        if old[j["name"]]["state"] in FINISHED:
+            j.update({k: v for k, v in old[j["name"]].items() if k != "cmd"})
     return jobs
 
 
@@ -349,6 +385,15 @@ class Queue:
 def main(argv=None) -> int:
     args = parse_args(argv)
     jobs = build_jobs(args)
+    if args.resume:
+        name = args.name or args.experiment
+        if not name:
+            raise SystemExit("--resume needs --experiment or --name")
+        jobs = resume_jobs(jobs, RESULTS_DIR / name / "queue.json")
+        print(f"{stamp()}  resuming: "
+              f"{sum(j['state'] in FINISHED for j in jobs)} jobs kept, "
+              f"{sum(j['state'] == 'pending' for j in jobs)} to run",
+              flush=True)
     if args.dry_run:
         for j in jobs:
             print(subprocess.list2cmdline(j["cmd"]))

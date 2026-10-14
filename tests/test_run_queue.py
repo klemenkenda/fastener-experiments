@@ -143,3 +143,33 @@ def test_a_skipped_cell_the_queue_does_not_have_is_refused():
         "--skip", "Cofee:nsga2"])
     with pytest.raises(SystemExit, match="Cofee:nsga2"):
         run_queue.build_jobs(args)
+
+
+def _queue_args(*extra):
+    return run_queue.parse_args([
+        "--experiment", "H9-E01", "--datasets", "Coffee,Ham",
+        "--methods", "boruta", "--seeds", "2020,2021", *extra])
+
+
+def test_resume_keeps_finished_jobs_and_reruns_the_rest(tmp_path):
+    old = run_queue.build_jobs(_queue_args())
+    states = ["done", "timeout", "failed", "running"]
+    for j, st in zip(old, states):
+        j.update(state=st, run_dir=f"run_{st}", exit_code=0 if st == "done" else None)
+    path = tmp_path / "queue.json"
+    path.write_text(json.dumps({"jobs": [{k: v for k, v in j.items() if k != "cmd"}
+                                         for j in old]}))
+    jobs = run_queue.resume_jobs(run_queue.build_jobs(_queue_args()), path)
+    assert [j["state"] for j in jobs] == ["done", "timeout", "pending", "pending"]
+    assert [j["run_dir"] for j in jobs] == ["run_done", "run_timeout", None, None]
+    assert all(j["cmd"] for j in jobs)
+
+
+def test_resume_with_other_arguments_is_refused(tmp_path):
+    path = tmp_path / "queue.json"
+    path.write_text(json.dumps({"jobs": [
+        {k: v for k, v in j.items() if k != "cmd"}
+        for j in run_queue.build_jobs(_queue_args())]}))
+    with pytest.raises(SystemExit, match="different job list"):
+        run_queue.resume_jobs(
+            run_queue.build_jobs(_queue_args("--seeds", "2020")), path)
