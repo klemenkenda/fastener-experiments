@@ -86,8 +86,9 @@ SWAP_STATS = ("swap_proposed", "swap_fits", "swap_kept")
 # H4-H6: per-dataset mean AUF, focal arm against each opponent across datasets.
 PAIRWISE = {
     "H4": {"focal": "fs_sds", "opponents": ("fastener",), "n_datasets": 25},
-    "H5": {"focal": "fastener", "opponents": None, "n_datasets": 36},
-    "H6": {"focal": "fastener_swap_guided", "opponents": None, "n_datasets": 36},
+    # 39 since the revision of 2026-10-12, before any run (DEC-40).
+    "H5": {"focal": "fastener", "opponents": None, "n_datasets": 39},
+    "H6": {"focal": "fastener_swap_guided", "opponents": None, "n_datasets": 39},
 }
 # H4's arms differ by experiment: H4-E01 drives both searches with the tree,
 # H4-E02 with the ELM (DEC-38). Read from the runs, so the reading follows
@@ -118,6 +119,17 @@ H0_SECONDARY = (("area", "area under val. curve", False),
                 ("seconds", "wall clock, % change", True))
 # No subset of size <= 10, so no AUF(K=10); a reference line only (H5).
 REFERENCE_ONLY = ("all_features",)
+# H5, H6: the arms the opt(k), front-size and cost figures show -- the two
+# focal FASTENER arms, the closest search rival, and the two OBL-started
+# searches whose fronts mostly stay above k = 10.
+FIELD_ARMS = ("fastener", "fastener_swap_guided", "nsga2_sparse", "nsga2",
+              "nsgaii_miip")
+# Cells an experiment left out on purpose (run_queue.py --skip @file).
+SKIP_FILES = {"H5H6-E01": "experiments/h5h6_skip.txt"}
+# run_queue.py's labels for the FASTENER arms, as the runs name the method.
+QUEUE_ARMS = {"fastener_none": "fastener",
+              "fastener_guided": "fastener_swap_guided",
+              "fastener_random": "fastener_swap_random"}
 
 # Reference categorical palette, fixed order (dataviz skill, light mode).
 SERIES = ("#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300",
@@ -835,29 +847,291 @@ def fig_paired(ev, run_ids, path: Path) -> None:
 
 
 def fig_pairwise(ev, run_ids, path: Path) -> None:
+    """The focal arm against each opponent, opponents along x.
+
+    One point per dataset (focal minus opponent, mean AUF over seeds), a bar
+    at the mean; under each opponent its wins-ties-losses and Holm p. A
+    filled point marks a pair significant after Holm.
+    """
     import matplotlib.pyplot as plt
     _style(plt)
-    pairs = ev["pairs"]
-    fig, ax = plt.subplots(figsize=(7, 0.45 * max(3, len(pairs)) + 1.2))
+    pairs = sorted(ev["pairs"], key=lambda p: p["mean_delta"])
+    fig, ax = plt.subplots(figsize=(13, 5.2))
+    rng = np.random.RandomState(0)
     for i, p in enumerate(pairs):
         d = list(p["diffs"].values())
-        ax.scatter(d, [i] * len(d), s=24, color=SERIES[0], alpha=0.8,
-                   edgecolor="#fcfcfb", linewidth=1, zorder=3)
+        sig = p["significant"]
+        ax.scatter(i + rng.uniform(-0.18, 0.18, len(d)), d, s=18,
+                   color=SERIES[0] if sig else "#fcfcfb",
+                   edgecolor=SERIES[0], linewidth=1, alpha=0.85, zorder=3)
         if d:
-            ax.plot([np.mean(d)] * 2, [i - 0.3, i + 0.3], color=INK, lw=2)
-        ax.annotate(f"{p['wins']}-{p['ties']}-{p['losses']}  "
-                    f"p_holm={p['p_holm']:.3g}", (1.01, i),
-                    xycoords=("axes fraction", "data"), fontsize=7,
-                    color=INK_2, va="center")
-    ax.axvline(0, color=INK_2, lw=1)
-    ax.set_yticks(range(len(pairs)), [p["opponent"] for p in pairs])
-    ax.invert_yaxis()
-    ax.set_xlabel(f"per-dataset mean AUF (K = {ev['K']}): {ev['focal']} "
-                  f"minus opponent  (> 0 favours {ev['focal']})")
-    ax.set_title(f"{ev['focal']} against each opponent; one point per dataset, "
-                 f"bar = mean; wins-ties-losses")
+            ax.plot([i - 0.32, i + 0.32], [np.mean(d)] * 2, color=INK, lw=2,
+                    zorder=4)
+    ax.axhline(0, color=INK_2, lw=1)
+    ax.set_xticks(range(len(pairs)),
+                  [f"{p['opponent']}\n{p['wins']}-{p['ties']}-{p['losses']}"
+                   f"\np = {p['p_holm']:.2g}" for p in pairs],
+                  rotation=40, ha="right", rotation_mode="anchor", fontsize=8)
+    ax.set_xlim(-0.6, len(pairs) - 0.4)
+    ax.set_ylabel(f"mean AUF (K = {ev['K']}): {ev['focal']}\nminus opponent "
+                  f"(> 0 favours {ev['focal']})")
+    ax.set_title(f"{ev['focal']} against each opponent: one point per dataset, "
+                 f"bar = mean; under each name wins-ties-losses and Holm p; "
+                 f"filled = significant", fontsize=10)
     _footer(fig, run_ids, "test")
-    fig.tight_layout(rect=(0, 0.03, 0.8, 1))
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def missing_cells(experiment_id: str) -> Dict[Tuple[str, str], str]:
+    """(dataset, method) -> "timeout" or "skipped" for cells with no result.
+
+    Timeouts come from the queue's queue.json, skipped cells from the skip
+    file the queue was run with. A cell counts as timed out only when every
+    seed did: one seed's timeout leaves the other seeds' mean.
+    """
+    out: Dict[Tuple[str, str], str] = {}
+    spec = SKIP_FILES.get(experiment_id)
+    if spec:
+        import run_queue
+        for ds, arm in run_queue.parse_skip(f"@{REPO_ROOT / spec}"):
+            out[(ds, QUEUE_ARMS.get(arm, arm))] = "skipped"
+    q = RESULTS_DIR / experiment_id / "queue.json"
+    if q.is_file():
+        states = defaultdict(set)
+        for j in json.loads(q.read_text(encoding="utf-8"))["jobs"]:
+            states[(j["dataset"], QUEUE_ARMS.get(j["arm"], j["arm"]))].add(
+                j["state"])
+        for cell, s in states.items():
+            if s == {"timeout"}:
+                out[cell] = "timeout"
+    return out
+
+
+def _last_line(path: Path) -> Optional[bytes]:
+    """The last line of a file, read from its end (trajectories are large)."""
+    with open(path, "rb") as fh:
+        fh.seek(0, 2)
+        pos, buf = fh.tell(), b""
+        while pos > 0 and buf.count(b"\n") < 2:
+            step = min(4096, pos)
+            pos -= step
+            fh.seek(pos)
+            buf = fh.read(step) + buf
+    lines = [ln for ln in buf.splitlines() if ln.strip()]
+    return lines[-1] if lines else None
+
+
+# Offspring per generation of the NSGA-II searches (sota_baselines.run_nsga2,
+# run_nsgaii_miip_method): with every offspring new, a run needs about
+# budget / NSGA_POP generations.
+NSGA_POP = 100
+
+
+def timeout_rows(experiment_id: str) -> List[Dict]:
+    """One row per timed-out job: fits reached and generations run.
+
+    Read from the last line of the run's trajectory, the state at the
+    moment the queue killed it. A run that was still finding new subsets
+    needs about budget / NSGA_POP generations; one far past that was mostly
+    re-proposing subsets already scored, which cost no fit.
+    """
+    q = RESULTS_DIR / experiment_id / "queue.json"
+    if not q.is_file():
+        return []
+    rows = []
+    for j in json.loads(q.read_text(encoding="utf-8"))["jobs"]:
+        if j["state"] != "timeout" or not j.get("run_dir"):
+            continue
+        tr = sorted((Path(j["run_dir"]) / "trajectories").glob("*.jsonl"))
+        last = _last_line(tr[0]) if tr else None
+        if last is None:
+            continue
+        t = json.loads(last)
+        rows.append({"dataset": j["dataset"],
+                     "method": QUEUE_ARMS.get(j["arm"], j["arm"]),
+                     "seed": j["seed"], "budget": j["budget"],
+                     "fits": t["fits"], "generations": t["iteration"],
+                     "generations_needed": j["budget"] // NSGA_POP,
+                     "hours": round(t["seconds"] / 3600, 2)})
+    return rows
+
+
+def fig_timeouts(rows, run_ids, path: Path) -> None:
+    """Timed-out runs: generations run against those a fresh run needs.
+
+    Left: generations, log scale, one point per seed, with the budget /
+    population line a run needs when all its offspring are new. Right: the
+    share of the fit budget spent when the cap stopped it.
+    """
+    import matplotlib.pyplot as plt
+    _style(plt)
+    cells = list(dict.fromkeys((r["dataset"], r["method"]) for r in rows))
+    arms = list(dict.fromkeys(r["method"] for r in rows))
+    col = _colors(arms)
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(14, 4.8))
+    for i, (d, m) in enumerate(cells):
+        rs = [r for r in rows if (r["dataset"], r["method"]) == (d, m)]
+        xs = i + np.linspace(-0.2, 0.2, len(rs)) if len(rs) > 1 else [i]
+        a1.scatter(xs, [r["generations"] for r in rs], s=24, color=col[m],
+                   edgecolor="#fcfcfb", zorder=3)
+        a1.plot([i - 0.35, i + 0.35], [rs[0]["generations_needed"]] * 2,
+                color=INK, lw=1.6, zorder=4)
+        a2.scatter(xs, [r["fits"] / r["budget"] for r in rs], s=24,
+                   color=col[m], edgecolor="#fcfcfb", zorder=3)
+    labels = [f"{d}\n{m}" for d, m in cells]
+    for ax in (a1, a2):
+        ax.set_xticks(range(len(cells)), labels, rotation=40, ha="right",
+                      rotation_mode="anchor", fontsize=7)
+        ax.set_xlim(-0.6, len(cells) - 0.4)
+    a1.set_yscale("log")
+    a1.set_ylabel("generations run in 6 h")
+    a1.set_title("Generations run; bar = budget / population, what a run "
+                 "with all-new offspring needs", fontsize=9)
+    a2.set_ylim(0, 1.05)
+    a2.set_ylabel("share of the fit budget spent")
+    a2.set_title("Fits spent when the 6 h cap stopped the run", fontsize=9)
+    fig.suptitle(f"The {len(rows)} timed-out runs, one point per seed",
+                 fontsize=10)
+    _footer(fig, run_ids, "n/a")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.95))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def field_ranks(means: Dict[str, Dict[str, float]]):
+    """Per dataset, each method's rank by mean AUF (1 = best, ties averaged).
+
+    Ranked among the methods with a result on that dataset; reference-only
+    arms are left out.
+    """
+    from scipy.stats import rankdata
+    ranks = {}
+    for ds, m in means.items():
+        ms = [k for k in m if k not in REFERENCE_ONLY]
+        r = rankdata([-m[k] for k in ms], method="average")
+        ranks[ds] = dict(zip(ms, map(float, r)))
+    return ranks
+
+
+def cluster_order() -> List[str]:
+    return sorted(set(SWAP_CLUSTERS.values()), key=lambda c: (c == "EO", c))
+
+
+def cluster_rank_table(means) -> Tuple[List[str], List[str], Dict]:
+    """Methods (best overall first), columns (clusters, then "all"), and
+    {(method, column): (mean rank, datasets with a result)}."""
+    ranks = field_ranks(means)
+    methods = sorted({m for r in ranks.values() for m in r})
+    cols = cluster_order() + ["all"]
+    tab = {}
+    for c in cols:
+        dss = [d for d in ranks if c == "all" or SWAP_CLUSTERS.get(d) == c]
+        for m in methods:
+            rs = [ranks[d][m] for d in dss if m in ranks[d]]
+            tab[(m, c)] = (float(np.mean(rs)) if rs else None, len(rs))
+    methods.sort(key=lambda m: tab[(m, "all")][0])
+    return methods, cols, tab
+
+
+def fig_cluster_ranks(means, run_ids, path: Path) -> None:
+    """Mean rank of every method in every cluster: who leads where.
+
+    Descriptive: 1-7 datasets per cluster. A blank cell is a method with no
+    result on any dataset of the cluster (timed out or skipped).
+    """
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import LinearSegmentedColormap
+    _style(plt)
+    methods, cols, tab = cluster_rank_table(means)
+    n_ds = {c: sum(1 for d in means if c == "all" or SWAP_CLUSTERS.get(d) == c)
+            for c in cols}
+    grid = np.array([[tab[(m, c)][0] if tab[(m, c)][0] is not None else np.nan
+                      for c in cols] for m in methods])
+    cmap = LinearSegmentedColormap.from_list("rank", [SERIES[0], "#f3f2ee",
+                                                      "#c9c7c0"])
+    cmap.set_bad("#fcfcfb")
+    fig, ax = plt.subplots(figsize=(13, 6.4))
+    ax.imshow(grid.T, cmap=cmap, vmin=1, vmax=len(methods), aspect="auto")
+    ax.grid(False)
+    best = np.nanmin(grid, axis=0)
+    for j, c in enumerate(cols):
+        for i, m in enumerate(methods):
+            v, n = tab[(m, c)]
+            if v is None:
+                ax.text(i, j, "--", ha="center", va="center", fontsize=8,
+                        color=INK_2)
+                continue
+            # Ties for the lead are all boxed.
+            lead = bool(np.isclose(v, best[j]))
+            ax.text(i, j, f"{v:.1f}", ha="center", va="center", fontsize=8,
+                    color="#ffffff" if v < len(methods) * 0.3 else INK,
+                    fontweight="bold" if lead else "normal")
+            if lead:
+                ax.add_patch(plt.Rectangle((i - 0.5, j - 0.5), 1, 1, fill=False,
+                                           edgecolor=INK, lw=1.6))
+    ax.axhline(len(cols) - 1.5, color=INK, lw=1.2)
+    ax.set_xticks(range(len(methods)), methods, rotation=40, ha="right",
+                  rotation_mode="anchor")
+    ax.set_yticks(range(len(cols)),
+                  [f"{c}  ({n_ds[c]} ds)" for c in cols])
+    ax.set_title("Mean rank by AUF (K = 10) per cluster, 17 selectors (1 = best "
+                 "on every dataset); boxed = row best, ties all boxed; -- = no "
+                 "result; descriptive", fontsize=10)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_ranks_per_dataset(means, missing, n_features, run_ids,
+                          path: Path) -> None:
+    """Every method's rank on every dataset, datasets along x by cluster.
+
+    Marks: T = timed out on every seed, S = skipped (predicted over the cap),
+    0 = no subset of size <= 10 on any seed, so AUF 0.
+    """
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import LinearSegmentedColormap
+    _style(plt)
+    methods, _, _ = cluster_rank_table(means)
+    ranks = field_ranks(means)
+    dss = sorted(means, key=lambda d: (cluster_order().index(SWAP_CLUSTERS[d]),
+                                       n_features.get(d) or 0))
+    grid = np.array([[ranks[d].get(m, np.nan) for d in dss] for m in methods])
+    cmap = LinearSegmentedColormap.from_list("rank", [SERIES[0], "#f3f2ee",
+                                                      "#c9c7c0"])
+    cmap.set_bad("#fcfcfb")
+    fig, ax = plt.subplots(figsize=(16, 6.6))
+    ax.imshow(grid, cmap=cmap, vmin=1, vmax=len(methods), aspect="auto")
+    ax.grid(False)
+    for i, m in enumerate(methods):
+        for j, d in enumerate(dss):
+            mark = {"timeout": "T", "skipped": "S"}.get(missing.get((d, m)))
+            if mark is None and m in means[d] and means[d][m] == 0:
+                mark = "0"
+            if mark:
+                ax.text(j, i, mark, ha="center", va="center", fontsize=7,
+                        color=SERIES[1] if mark != "0" else INK)
+    edges = [j for j in range(1, len(dss))
+             if SWAP_CLUSTERS[dss[j]] != SWAP_CLUSTERS[dss[j - 1]]]
+    for j in edges:
+        ax.axvline(j - 0.5, color=INK, lw=1.2)
+    starts = [0] + edges + [len(dss)]
+    for a, b in zip(starts, starts[1:]):
+        ax.text((a + b - 1) / 2, -0.9, SWAP_CLUSTERS[dss[a]], ha="center",
+                va="bottom", fontsize=9, fontweight="bold")
+    ax.set_xticks(range(len(dss)), dss, rotation=55, ha="right",
+                  rotation_mode="anchor", fontsize=7)
+    ax.set_yticks(range(len(methods)), methods, fontsize=8)
+    ax.set_ylim(len(methods) - 0.5, -1.2)
+    ax.set_title("Rank by mean AUF (K = 10) on each dataset (blue = best); "
+                 "clusters left to right, datasets by feature count within; "
+                 "T = timed out, S = skipped, 0 = nothing of size <= 10",
+                 fontsize=10, pad=14)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -1684,6 +1958,34 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     arms_all = list(dict.fromkeys(a for h in per_h for a in h["arms"]))
     K0 = per_h[0]["K"]
     extra = []
+    field = [h["ev"] for h in per_h if h["hid"] in ("H5", "H6") and h["ev"]]
+    field_figs = ()
+    if field:
+        # The whole field at once: who leads in which cluster (H5, H6).
+        arms_all = [a for a in FIELD_ARMS if any(u["method"] == a
+                                                 for u in units)]
+        means = field[0]["means"]
+        missing = missing_cells(experiment_id)
+        n_feat = {u["dataset"]: u["n_features"] for u in units}
+        methods, cols, tab = cluster_rank_table(means)
+        write_csv(tab_dir / "cluster_ranks.csv",
+                  [{"method": m, **{f"rank_{c}": tab[(m, c)][0] for c in cols},
+                    **{f"n_{c}": tab[(m, c)][1] for c in cols}}
+                   for m in methods])
+        ranks = field_ranks(means)
+        write_csv(tab_dir / "per_dataset.csv",
+                  [{"dataset": d, "cluster": SWAP_CLUSTERS.get(d),
+                    "n_features": n_feat.get(d), "method": m,
+                    f"auf_k{K0}": means[d].get(m), "rank": ranks[d].get(m),
+                    "missing": missing.get((d, m))}
+                   for d in sorted(means) for m in methods])
+        field_figs = (("cluster_ranks", fig_cluster_ranks, (means,)),
+                      ("ranks_per_dataset", fig_ranks_per_dataset,
+                       (means, missing, n_feat)))
+        touts = timeout_rows(experiment_id)
+        if touts:
+            write_csv(tab_dir / "timeouts.csv", touts)
+            field_figs += (("timeouts", fig_timeouts, (touts,)),)
     h0 = [h["ev"] for h in per_h if h["ev"] and h["ev"]["kind"] == "h0"]
     h0_figs = ((("progress_val_auf10", fig_h0_progress, (h0[0],)),
                 ("secondary_deltas", fig_h0_secondary, (h0[0],)))
@@ -1711,10 +2013,13 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
     if len(units_ev) == 2:
         unit_figs += (("swap_success", fig_swap_success, (units_ev,)),
                       ("by_cluster", fig_by_cluster, (units_ev,)))
-    for slug, fn, args in h0_figs + unit_figs + (
-            ("opt_curves", fig_opt_curves, (units, arms_all, K0)),
-            ("front_size_range", fig_size_range, (units, arms_all)),
-            ("cost", fig_cost, (units, arms_all))):
+    # Over 39 datasets and 17 arms the opt(k) grid shows little the rank
+    # figures do not; H5/H6 keep the front sizes and the cost.
+    generic = ((("opt_curves", fig_opt_curves, (units, arms_all, K0)),)
+               if not field else ()) + (
+        ("front_size_range", fig_size_range, (units, arms_all)),
+        ("cost", fig_cost, (units, arms_all)))
+    for slug, fn, args in h0_figs + unit_figs + field_figs + generic:
         fig_no += 1
         p = fig_dir / f"F{fig_no}_{slug}.png"
         if units:

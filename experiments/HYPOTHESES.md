@@ -709,7 +709,9 @@ Holm correction, against **every** other algorithm including stock FASTENER.
 **Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 
 * `H5H6-E01` -- H5 and H6 in one grid on the 38 C1-C7 datasets and EOData,
-  6-hour cap per run. Registered.
+  6-hour cap per run. **Neither supported**: stock FASTENER is significantly
+  ahead of 5 of 16 opponents, guided FASTENER of 7 (ahead of all 16 on wins);
+  the leader changes by cluster. [Report](reports/H5H6-E01/REPORT.md).
 
 ---
 
