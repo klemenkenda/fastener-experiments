@@ -5,7 +5,10 @@
 #
 #   bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
 #   SKIP_DATA=1 bash hpc/vega/submit.sh hpc/vega/h5h6e02.env   # data already there
-#   MEM=32G SKIP_DATA=1 bash hpc/vega/submit.sh ...            # rerun with more memory
+#   MEM=32G SKIP_DATA=1 SKIP_TEST=1 bash hpc/vega/submit.sh ... # rerun with more memory
+#
+# The chain is: the data job, then a five-minute test job (test.sbatch), then
+# the arrays -- each starts only if the one before it succeeded.
 #
 # Only unfinished jobs are submitted: a job already done or timed out is left
 # alone, so a resubmission after an interruption, or after jobs failed for
@@ -17,7 +20,7 @@ EXPERIMENT_FILE="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 . "$EXPERIMENT_FILE"
 cd "$REPO"
 
-[ -x "$PY" ] || { echo "no Python at $PY; run hpc/vega/setup.sh first" >&2; exit 1; }
+use_env    # the environment, unpacked once into this login node's /tmp
 # The check each run makes (provenance.NON_CODE_PATHS: the ledger, results
 # and data may change; code may not), made once here rather than in 2,000 jobs.
 "$PY" - <<'EOF'
@@ -31,7 +34,7 @@ if s.get("code_dirty"):
 EOF
 
 NAME="fastener-$EXPERIMENT"
-if [ "${FORCE:-0}" != 1 ] && [ -n "$(squeue -h -u "$USER" -n "$NAME,$NAME-data" -o %i)" ]; then
+if [ "${FORCE:-0}" != 1 ] && [ -n "$(squeue -h -u "$USER" -n "$NAME,$NAME-data,$NAME-test" -o %i)" ]; then
     echo "jobs of $EXPERIMENT are still queued or running (squeue -u $USER -n $NAME);" >&2
     echo "wait for them or scancel them first, so no job runs twice (FORCE=1 overrides)" >&2
     exit 1
@@ -60,9 +63,11 @@ fi
 
 OUT="$REPO/results/$EXPERIMENT/slurm"
 mkdir -p "$OUT"
-common=(--parsable --partition "$PARTITION" --export=ALL)
+# Jobs get only what they need: no PATH, modules or conda settings from this
+# shell can reach them.
+common=(--parsable --partition "$PARTITION"
+        --export "HOME,USER,REPO_DIR=$REPO,EXPERIMENT=$EXPERIMENT,EXPERIMENT_FILE=$EXPERIMENT_FILE")
 [ -n "$ACCOUNT" ] && common+=(--account "$ACCOUNT")
-export REPO_DIR="$REPO" EXPERIMENT EXPERIMENT_FILE PY_BIN="$PY"
 
 dep=()
 if [ "${SKIP_DATA:-0}" != 1 ]; then
@@ -70,6 +75,12 @@ if [ "${SKIP_DATA:-0}" != 1 ]; then
         --output "$OUT/data_%j.out" "$REPO/hpc/vega/prepare_data.sbatch")"
     echo "data job: $data_job"
     dep=(--dependency "afterok:$data_job")
+fi
+if [ "${SKIP_TEST:-0}" != 1 ]; then
+    test_job="$(sbatch "${common[@]}" "${dep[@]}" --job-name "$NAME-test" \
+        --output "$OUT/test_%j.out" "$REPO/hpc/vega/test.sbatch")"
+    echo "test job: $test_job (output: results/$EXPERIMENT/slurm/test_$test_job.out)"
+    dep=(--dependency "afterok:$test_job")
 fi
 
 # The SLURM limit: the experiment's cap plus 15 minutes for start-up and the

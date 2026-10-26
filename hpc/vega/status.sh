@@ -7,5 +7,6 @@ set -euo pipefail
 . "$(dirname "${BASH_SOURCE[0]}")/config.sh"
 . "$1"
 cd "$REPO"
+use_env
 "$PY" experiments/hpc_jobs.py collect --experiment "$EXPERIMENT"
 "$PY" experiments/monitor.py --experiment "$EXPERIMENT" --once

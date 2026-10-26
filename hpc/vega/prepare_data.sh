@@ -1,8 +1,7 @@
 #!/bin/bash
 # Download an experiment's datasets, check them against their pinned SHA256s,
 # and build the .npz files the runs read. Run as the first job of a
-# submission (prepare_data.sbatch), or by hand on a login node if the compute
-# nodes cannot reach the internet:
+# submission (prepare_data.sbatch), or by hand on a login node:
 #
 #   bash hpc/vega/prepare_data.sh hpc/vega/h5h6e02.env
 #
@@ -12,6 +11,7 @@ set -euo pipefail
 . "$(dirname "${BASH_SOURCE[0]}")/config.sh"
 . "$1"
 cd "$REPO"
+use_env
 
 tsc=()
 for ds in ${DATASETS//,/ }; do
