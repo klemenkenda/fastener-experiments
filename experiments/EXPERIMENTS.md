@@ -452,7 +452,7 @@ changed for every method ([DEC-41](DECISIONS.md#dec-41)):
 | seeds | 2020-2024 for the searches, `boruta` and `random`; the deterministic selectors once per dataset |
 | budget | H5H6-E01's fit budgets, committed as [`h2h3_budgets.json`](h2h3_budgets.json) (a copy of `results/h2h3-calibration/budgets.json`; 2,000-12,000 fits) |
 | per-run cap | 6 hours, as H5H6-E01; the same 12 cells not run ([`h5h6_skip.txt`](h5h6_skip.txt)); any other run reaching 6 h is stopped and recorded as timed out |
-| where | HPC Vega, one SLURM array task per job, 8 cores (the forest's trees and NSGAII-MIIP's MI matrix) and 32 GB each ([`hpc/vega/`](../hpc/vega/README.md)) |
+| where | HPC Vega (allocation S26T11-01), one SLURM array task per job, 8 cores (the forest's trees and NSGAII-MIIP's MI matrix) and 8 GB each; 64 GB for the 12 jobs estimated to need more ([`h5h6e02_highmem.txt`](../hpc/vega/h5h6e02_highmem.txt)). At most about 880 node-hours if every job ran to the cap ([`hpc/vega/`](../hpc/vega/README.md)) |
 | primary metric, criterion | as H5H6-E01: test AUF, K = 10; H5 and H6 as registered |
 | secondary | the comparison with H5H6-E01, cell by cell: which conclusions survive the change of classifier (D2) |
 

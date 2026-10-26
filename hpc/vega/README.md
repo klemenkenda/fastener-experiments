@@ -21,12 +21,14 @@ cd fastener-experiments
 bash hpc/vega/setup.sh             # Miniforge env + FASTENER clone at 3be5697
 ```
 
-Put local settings in `hpc/vega/config.local.sh`. Git ignores this file, so
-the tree stays clean; runs refuse to start from uncommitted code.
+The defaults in `config.sh` follow the S26T11-01 allocation as checked on
+2026-10-26: account `s26t11-01-users`, partition `cpu`, 8 cores and 8 GB per
+job. Anything you change goes in `hpc/vega/config.local.sh`, which git
+ignores, so the tree stays clean (runs refuse to start from uncommitted
+code):
 
 ```bash
-ACCOUNT=<your SLURM account>       # if your allocation needs one
-# CPUS=8  MEM=32G  MAX_PARALLEL=200  PARTITION=cpu   (defaults in config.sh)
+MAX_PARALLEL=100        # e.g. fewer tasks at once
 ```
 
 ## Submit
@@ -42,16 +44,33 @@ bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
 2. **Submits a data job.** It downloads the 38 UCR/UEA datasets and EOData,
    verifies them against their pinned SHA256s, and converts them to `.npz`
    (`prepare_data.sh`).
-3. **Submits the jobs as arrays** of up to `ARRAY_CHUNK` tasks, which start
-   once the data job has succeeded.
+3. **Submits the jobs as two arrays**, which start once the data job has
+   succeeded. An array task's index is its job's index in the list, and at
+   most `MAX_PARALLEL` tasks of an array run at once.
 
-Each task gets `CPUS` cores (the forest's trees and NSGAII-MIIP's MI matrix
-use them) and `MEM` memory. `hpc_jobs.py` stops a job at the 6-hour cap and
+The two arrays differ only in memory:
+
+| Array | Jobs | Cores | Memory |
+|---|---|---|---|
+| most jobs | every cell not listed below | 8 | 8 GB (1 GB per core) |
+| high-memory | the 12 jobs in the 8 cells of [`h5h6e02_highmem.txt`](h5h6e02_highmem.txt): HSIC Lasso on the wide sets, ReliefF on EOData, NSGAII-MIIP on Heartbeat | 8 | 64 GB |
+
+Each job is limited to 6 hours: `hpc_jobs.py` stops a job at the cap and
 records it as `timeout`. The SLURM time limit is the cap plus 15 minutes.
 
-If the compute nodes cannot reach the internet, the data job fails and the
-arrays never start. In that case, prepare the data on the login node and
-submit without the data job:
+**Billing.** Vega bills memory as well as cores (1 GB = 1 core), so jobs get
+1 GB per core unless they need more. Before finishing, `submit.sh` prints a
+worst case: about 880 node-hours if all 2,202 jobs ran to the cap. Most runs
+finish far sooner. That is against 5,000 CPU node-hours, which SLURM does not
+enforce; check what's used with:
+
+```bash
+sreport -t hours cluster AccountUtilizationByUser account=s26t11-01-users start=2026-10-16
+```
+
+**If the compute nodes cannot reach the internet**, the data job fails and
+the arrays never start. Prepare the data on the login node and submit
+without it:
 
 ```bash
 bash hpc/vega/prepare_data.sh hpc/vega/h5h6e02.env
@@ -72,15 +91,19 @@ squeue -u $USER
 | SLURM output | `results/H5H6-E02/slurm/` |
 | gathered state (`status.sh`) | `results/H5H6-E02/queue.json`, read by `monitor.py` and `make_report.py` |
 
-## After an interruption
+## After an interruption, or a job out of memory
 
-Run `submit.sh` again, with `SKIP_DATA=1` if the data is in place. It is
-safe:
+Run `submit.sh` again, with `SKIP_DATA=1` if the data is in place. It
+submits only the jobs not yet done or timed out, and refuses while jobs of the
+experiment are still queued or running, so that no job runs twice. A job
+killed for memory shows as `failed`. Rerun the failed jobs with more memory:
 
-- the job list must match the one already written;
-- jobs that ended `done` or `timeout` are skipped;
-- everything else runs again from the start, as `run_queue.py --resume` does
-  locally.
+```bash
+MEM=32G SKIP_DATA=1 bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
+```
+
+`sacct -j <array job> --format=JobID,State,MaxRSS,Elapsed` shows which tasks
+ran out of memory and how much they used.
 
 ## Bringing the results home
 

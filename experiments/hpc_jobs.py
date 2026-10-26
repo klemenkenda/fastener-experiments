@@ -11,6 +11,8 @@ run here is the grid run_queue.py would have run.
         --datasets ... --methods ... --budgets experiments/h2h3_budgets.json \\
         --skip @experiments/h5h6_skip.txt --timeout-hours 6 -- --model rf
     python experiments/hpc_jobs.py count --experiment H5H6-E02
+    python experiments/hpc_jobs.py indices --experiment H5H6-E02 --unfinished \
+        --cells @hpc/vega/h5h6e02_highmem.txt [--invert]
     python experiments/hpc_jobs.py run --experiment H5H6-E02 --index 17
     python experiments/hpc_jobs.py collect --experiment H5H6-E02
 
@@ -206,6 +208,42 @@ def collect(experiment: str) -> int:
     return 0
 
 
+def ranges(indices: List[int]) -> str:
+    """0,1,2,5,7,8 -> "0-2,5,7-8": an sbatch --array specification."""
+    out, start = [], None
+    for i, x in enumerate(indices):
+        if start is None:
+            start = x
+        if i + 1 == len(indices) or indices[i + 1] != x + 1:
+            out.append(str(start) if start == x else f"{start}-{x}")
+            start = None
+    return ",".join(out)
+
+
+def select(experiment: str, cells: Optional[str] = None, invert: bool = False,
+           unfinished: bool = False) -> List[int]:
+    """Indices of the jobs to submit.
+
+    `cells` ("dataset:arm,..." or "@file", run_queue's skip syntax; arm `*`
+    matches any) keeps the jobs in those cells -- or, with `invert`, the
+    rest. `unfinished` drops jobs already done or timed out, so a
+    resubmission schedules only the work left.
+    """
+    spec = load_jobs(experiment)
+    want = run_queue.parse_skip(cells) if cells else set()
+    out = []
+    for i, j in enumerate(spec["jobs"]):
+        hit = (j["dataset"], j["arm"]) in want or (j["dataset"], "*") in want
+        if cells and hit == invert:
+            continue
+        if unfinished:
+            st = read_status(spec["name"], j["name"])
+            if st and st.get("state") in FINISHED:
+                continue
+        out.append(i)
+    return out
+
+
 def merge_ledger(experiment: str, other: Path,
                  path: Path = experiment_ids.LEDGER_PATH) -> int:
     """Add the runs `other`'s ledger lists for `experiment` to this ledger.
@@ -232,7 +270,7 @@ def merge_ledger(experiment: str, other: Path,
 
 def main(argv: Optional[List[str]] = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    commands = ("emit", "count", "run", "collect", "merge-ledger")
+    commands = ("emit", "count", "indices", "run", "collect", "merge-ledger")
     if not argv or argv[0] not in commands:
         raise SystemExit(f"usage: hpc_jobs.py {{{','.join(commands)}}} ...")
     cmd, rest = argv[0], argv[1:]
@@ -248,7 +286,19 @@ def main(argv: Optional[List[str]] = None) -> int:
     if cmd == "merge-ledger":
         ap.add_argument("--from", dest="other", required=True, type=Path,
                         help="the other copy of EXPERIMENTS.md")
+    if cmd == "indices":
+        ap.add_argument("--cells", default=None,
+                        help="dataset:arm cells (comma list or @file; arm * "
+                             "for every arm) to keep")
+        ap.add_argument("--invert", action="store_true",
+                        help="keep the jobs NOT in --cells")
+        ap.add_argument("--unfinished", action="store_true",
+                        help="leave out jobs already done or timed out")
     args = ap.parse_args(rest)
+    if cmd == "indices":
+        print(ranges(select(args.experiment, args.cells, args.invert,
+                            args.unfinished)))
+        return 0
     if cmd == "merge-ledger":
         return merge_ledger(args.experiment, args.other)
     if cmd == "count":

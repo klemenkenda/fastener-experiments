@@ -179,3 +179,30 @@ def test_merge_ledger_adds_only_the_clusters_new_runs(tmp_path):
     rows = {r["experiment"]: r for r in experiment_ids.load_ledger(here)}
     assert rows["H9-E01"]["runs"] == ["a", "b", "c"]
     assert rows["H8-E01"]["runs"] == ["x"]
+
+
+def test_ranges_compress_indices_for_sbatch():
+    assert hpc_jobs.ranges([0, 1, 2, 5, 7, 8]) == "0-2,5,7-8"
+    assert hpc_jobs.ranges([4]) == "4" and hpc_jobs.ranges([]) == ""
+
+
+def test_select_splits_by_cells_and_leaves_out_finished_jobs(tmp_path,
+                                                             monkeypatch):
+    monkeypatch.setattr(hpc_jobs, "RESULTS_DIR", tmp_path)
+    monkeypatch.setattr(run_queue, "RESULTS_DIR", tmp_path)
+    hpc_jobs.emit(["--name", "t", "--datasets", "Coffee,Ham",
+                   "--methods", "boruta,mrmr", "--seeds", "2020,2021"])
+    spec = hpc_jobs.load_jobs("t")
+    cells = [(j["dataset"], j["arm"]) for j in spec["jobs"]]
+    high = hpc_jobs.select("t", "Ham:boruta,Coffee:mrmr")
+    assert [cells[i] for i in high] == [("Coffee", "mrmr"), ("Ham", "boruta"),
+                                        ("Ham", "boruta")]
+    low = hpc_jobs.select("t", "Ham:boruta,Coffee:mrmr", invert=True)
+    assert sorted(high + low) == list(range(len(cells)))
+    assert len(hpc_jobs.select("t", "Ham:*")) == 3
+    hpc_jobs.write_json(hpc_jobs.status_path("t", spec["jobs"][0]["name"]),
+                        {"state": "done"})
+    hpc_jobs.write_json(hpc_jobs.status_path("t", spec["jobs"][1]["name"]),
+                        {"state": "failed"})
+    assert 0 not in hpc_jobs.select("t", unfinished=True)
+    assert 1 in hpc_jobs.select("t", unfinished=True)

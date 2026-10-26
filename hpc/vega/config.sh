@@ -11,21 +11,26 @@ REPO="$(cd "$HERE_VEGA/../.." && pwd)"
 [ -f "$HERE_VEGA/config.local.sh" ] && . "$HERE_VEGA/config.local.sh"
 
 # --- SLURM -------------------------------------------------------------------
-# Project account to charge (sbatch --account). Empty: none is passed.
-: "${ACCOUNT:=}"
-# Vega's CPU partition. Jobs are capped at 6 h by the experiment, under its
-# limit.
+# Limits checked on Vega on 2026-10-26: walltime at most 2 days, default 10 min
+# (so --time is always set), MaxArraySize 30,000, no job-count limits on the
+# account. The budget, 5,000 CPU node-hours from 16. 10. 2026, is not
+# enforced by SLURM but tracked by SLING. Billing: CPU = 1.0, memory 1 GB =
+# 1.0, so memory above 1 GB per core costs like extra cores.
+# Project account (allocation S26T11-01).
+: "${ACCOUNT:=s26t11-01-users}"
 : "${PARTITION:=cpu}"
 # Cores per job: the random forest fits its 100 trees on these, and
 # NSGAII-MIIP computes its mutual-information matrix on them.
 : "${CPUS:=8}"
-# Memory per job. NSGAII-MIIP's pairwise MI matrix on Heartbeat (24,705
-# features) alone is about 5 GB.
-: "${MEM:=32G}"
-# At most this many array tasks at once (sbatch --array=...%N).
+# Memory per job: 1 GB per core, Vega's default and free of extra billing.
+: "${MEM:=8G}"
+# Memory for the cells in the experiment's HIGHMEM_CELLS file (HSIC Lasso on
+# the wide sets, ReliefF on EOData, NSGAII-MIIP on Heartbeat).
+: "${HIGHMEM:=64G}"
+# At most this many tasks of one array at once (sbatch --array=...%N).
 : "${MAX_PARALLEL:=200}"
-# Array tasks per sbatch call; Vega's MaxArraySize may be below the job count.
-: "${ARRAY_CHUNK:=1000}"
+# SLURM's array index limit (MaxArraySize - 1).
+: "${MAX_ARRAY_INDEX:=29999}"
 
 # --- software ------------------------------------------------------------------
 # Python environment, built by setup.sh (Miniforge, git-ignored).

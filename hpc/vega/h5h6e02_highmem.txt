@@ -1,0 +1,23 @@
+# H5H6-E02: cells whose jobs get HIGHMEM (config.sh) instead of MEM.
+# Same syntax as h5h6_skip.txt: dataset:arm, or dataset:* for every arm.
+#
+# Vega bills memory (1 GB = 1 CPU), so jobs get 1 GB per core (8 GB) unless
+# listed here. Each line is a cell estimated, as twice its largest array, to
+# need more than 6 GB; H5H6-E01 ran on a 256 GB machine and never showed it.
+# A job killed for memory all the same is listed as failed: rerun it with
+#   MEM=32G SKIP_DATA=1 bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
+
+# HSIC Lasso (pyHSICLasso): kernel blocks of features x rows x 60 (block 20,
+# 3 permutations), float64.
+FaceDetection:hsic_lasso        # ~48 GB
+MotorImagery:hsic_lasso         # ~42 GB
+FaultDetectionA:hsic_lasso      # ~40 GB
+PEMS-SF:hsic_lasso              # ~35 GB
+EigenWorms:hsic_lasso           # ~16 GB
+PhonemeSpectra:hsic_lasso       # ~9 GB
+
+# ReliefF (skrebate): a full rows x rows distance matrix; 29,976 training rows.
+eodata:relieff                  # ~14 GB
+
+# NSGAII-MIIP: the pairwise mutual-information matrix, 24,705 features.
+Heartbeat:nsgaii_miip           # ~10 GB

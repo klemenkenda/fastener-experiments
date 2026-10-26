@@ -1,7 +1,8 @@
 #!/bin/bash
 # One array task = one job of the experiment (experiments/hpc_jobs.py run):
-# one dataset, one arm, one seed. submit.sh sets the array range, the index
-# offset of this chunk, the cores, memory, time limit and output path.
+# one dataset, one arm, one seed. The array index is the job's index in
+# results/<ID>/jobs.json. submit.sh sets the indices, cores, memory, time
+# limit, account and output path.
 #
 # hpc_jobs.py stops the job at the experiment's per-run cap and records it as
 # timed out; the SLURM time limit is set a little above the cap, so that it

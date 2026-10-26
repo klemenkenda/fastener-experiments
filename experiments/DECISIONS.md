@@ -897,9 +897,13 @@ NSGA-II stopping on stagnation, run on HPC Vega.**
     2020-2024, the fit budgets (now committed as
     `experiments/h2h3_budgets.json`), the 12 skipped cells and the 6-hour
     per-run cap.
-  - Run on HPC Vega: one SLURM array task per job, 8 cores and 32 GB each,
-    datasets downloaded and verified by a data job before the arrays start
-    (`hpc/vega/`, `experiments/hpc_jobs.py`).
+  - Run on HPC Vega, allocation S26T11-01 (account `s26t11-01-users`, 5,000
+    CPU node-hours): one SLURM array task per job, 8 cores and 8 GB each, as
+    Vega bills memory above 1 GB per core like cores; 64 GB for the 12 jobs
+    estimated to need more (`hpc/vega/h5h6e02_highmem.txt`). At most about
+    880 node-hours if every job ran to the cap. Datasets are downloaded and
+    verified by a data job before the arrays start (`hpc/vega/`,
+    `experiments/hpc_jobs.py`).
 - **By:** PI (a random forest of 100 trees, the 6-hour cap, the stagnation
   stop, registration as H5H6-E02, Boruta following the protocol model);
   implementation by Claude.
