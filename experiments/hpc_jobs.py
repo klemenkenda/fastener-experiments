@@ -124,7 +124,13 @@ def run(experiment: str, index: int, cpus: Optional[int]) -> int:
         print(f"{j['name']}: already {old['state']}, not run again")
         return 0
     cpus = cpus or int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
-    cmd = j["cmd"] + ["--model-jobs", str(cpus), "--n-jobs", str(cpus)]
+    # The interpreter is this one, not the one stored by `emit`: emit runs on
+    # a login node, where Python is unpacked into that node's /tmp, and a
+    # job's Python is unpacked into a folder of its own on its compute node.
+    # On 2026-10-26 the stored path failed every job of H5H6-E02's first
+    # submission before any of them ran.
+    cmd = ([sys.executable] + j["cmd"][1:]
+           + ["--model-jobs", str(cpus), "--n-jobs", str(cpus)])
     log = queue_dir(name) / "logs" / f"{j['name']}.log"
     log.parent.mkdir(parents=True, exist_ok=True)
     st = {"name": j["name"], "dataset": j["dataset"], "arm": j["arm"],

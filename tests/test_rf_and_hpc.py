@@ -221,3 +221,14 @@ def test_collect_gives_the_eta_the_slots_actually_in_use(tmp_path, monkeypatch):
     hpc_jobs.collect("t")
     q = json.loads((tmp_path / "t" / "queue.json").read_text())
     assert q["max_procs"] == 2              # what the cluster grants now
+
+
+def test_run_uses_its_own_interpreter_not_the_emitted_one(tmp_path,
+                                                          monkeypatch):
+    path, spec = _emit(tmp_path, monkeypatch)
+    marker = tmp_path / "ran"
+    # As emitted on a login node: a Python that does not exist here.
+    _set_cmds(path, spec, [["/tmp/elsewhere/bin/python", "-c",
+                            f"open(r'{marker}', 'w').write('x')"]] * 3)
+    assert hpc_jobs.run("t", 0, cpus=1) == 0
+    assert marker.read_text() == "x"

@@ -1,10 +1,15 @@
 #!/bin/bash
-# The test job of a submission: one quick run of the real code with the
-# experiment's options, on Coffee, before the arrays may start. It checks
-# what the experiment's jobs need -- the environment unpacks and imports,
-# the FASTENER clone and the data are found, the forest runs, a run folder
-# is written -- in about five minutes instead of discovering a problem in
-# 2,000 jobs. Not evidence: it runs without --experiment, as `vegatest`.
+# The test job of a submission, before the arrays may start, in about five
+# minutes instead of discovering a problem in 2,000 jobs:
+#
+# 1. one quick run of the real code with the experiment's options, on
+#    Coffee: the environment unpacks and imports, the FASTENER clone and the
+#    data are found, the forest runs, a run folder is written. Not evidence:
+#    it runs without --experiment, as `vegatest`;
+# 2. one real job of the experiment, the cheapest (Coffee, all features),
+#    through hpc_jobs.py exactly as an array task runs it. The first
+#    submission of H5H6-E02 passed step 1 and failed every array task in
+#    hpc_jobs.py; this catches that. The job counts as done, as any other.
 #SBATCH --job-name=fastener-test
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
@@ -24,4 +29,11 @@ echo "environment unpacked in $(( $(date +%s) - t0 )) s"
     --methods kbest_anova_f,boruta,nsga2_sparse --fastener-arm guided \
     --name vegatest --model-jobs "$SLURM_CPUS_PER_TASK" \
     --n-jobs "$SLURM_CPUS_PER_TASK" $RUN_ARGS
+echo "step 1 passed: run_sota.py"
+
+index="$("$PY" experiments/hpc_jobs.py indices --experiment "$EXPERIMENT" \
+    --cells Coffee:all_features)"
+echo "step 2: job $index of $EXPERIMENT through hpc_jobs.py"
+"$PY" experiments/hpc_jobs.py run --experiment "$EXPERIMENT" --index "$index" \
+    --cpus "$SLURM_CPUS_PER_TASK"
 echo "test passed: $(date)"
