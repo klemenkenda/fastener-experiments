@@ -33,11 +33,19 @@ queue_counts() {
         | awk '{n[$1" "$2]++} END {for (k in n) printf "%s=%d  ", k, n[k]}'
 }
 
-# The data and test jobs' final states, if they have ended badly.
+# The data and test job of the latest submission, if one ended badly. Only
+# that submission's: submit.sh rewrites jobs.json each time, so jobs started
+# before it (an earlier attempt, fixed and resubmitted with SKIP_DATA=1) are
+# no longer news. Two minutes of margin for clocks.
 gate_failures() {
-    timeout 60 sacct -n -X -u "$USER" -S now-7days \
-        --name "$NAME-data,$NAME-test" -o JobName%30,State%20 \
-        | awk '$2 !~ /COMPLETED|RUNNING|PENDING/ {print $1": "$2}' | sort -u
+    local since
+    since="$(date -d "$(date -r "$REPO/results/$EXPERIMENT/jobs.json" -Is) - 2 minutes" +%Y-%m-%dT%H:%M:%S)"
+    timeout 60 sacct -n -X -P -u "$USER" -S "$since" \
+        --name "$NAME-data,$NAME-test" -o JobID,JobName,State \
+        | sort -t'|' -k1,1n \
+        | awk -F'|' '{last[$2] = $3; id[$2] = $1}
+                     END {for (n in last) if (last[n] !~ /COMPLETED|RUNNING|PENDING/)
+                              print n" (job "id[n]"): "last[n]}'
 }
 
 while true; do
