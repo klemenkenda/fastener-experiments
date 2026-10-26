@@ -11,6 +11,7 @@ Nothing here imports FASTENER, so it is safe to use from any script.
 """
 import hashlib
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -23,6 +24,9 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 FASTENER_DIR = REPO_ROOT / "fastener"
 RESULTS_DIR = REPO_ROOT / "results"
 DATA_DIR = REPO_ROOT / "data"
+# Set to "1" by hpc_jobs.py for its jobs: a run then leaves the shared ledger
+# alone, and `hpc_jobs.py ledger` records it later (see Run.__init__).
+DEFER_LEDGER_ENV = "FASTENER_DEFER_LEDGER"
 
 # Paths whose changes do not make the CODE dirty: run outputs, downloaded data,
 # and the record-keeping that runs themselves write (the experiment ledger and
@@ -175,7 +179,16 @@ class Run:
             "environment": environment(),
         }
         if experiment_id is not None:
-            experiment_ids.add_run(experiment_id, self.run_id, ledger)
+            if os.environ.get(DEFER_LEDGER_ENV) == "1":
+                # A cluster job: hundreds start at once, and each rewriting
+                # the one shared ledger under its lock timed out by the
+                # hundred on Ceph (H5H6-E02, 2026-10-26). The run is still
+                # its experiment's: the manifest says so, and
+                # `hpc_jobs.py ledger` adds it to the ledger afterwards, as a
+                # single writer.
+                self.manifest["ledger"] = "deferred"
+            else:
+                experiment_ids.add_run(experiment_id, self.run_id, ledger)
 
     def elapsed(self) -> float:
         """Seconds since the run started, readable while it is still going."""

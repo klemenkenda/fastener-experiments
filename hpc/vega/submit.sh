@@ -51,11 +51,13 @@ if [ "$N" -gt $((MAX_ARRAY_INDEX + 1)) ]; then
 fi
 
 highmem=(); [ -n "${HIGHMEM_CELLS:-}" ] && highmem=(--cells "@$HIGHMEM_CELLS")
+# With FORCE=1 some jobs may still be running: never submit those again.
+running=(); [ "${FORCE:-0}" = 1 ] && running=(--skip-running)
 normal_idx="$("$PY" experiments/hpc_jobs.py indices --experiment "$EXPERIMENT" \
-    --unfinished "${highmem[@]}" ${HIGHMEM_CELLS:+--invert})"
+    --unfinished "${running[@]}" "${highmem[@]}" ${HIGHMEM_CELLS:+--invert})"
 high_idx=""
 [ -n "${HIGHMEM_CELLS:-}" ] && high_idx="$("$PY" experiments/hpc_jobs.py indices \
-    --experiment "$EXPERIMENT" --unfinished "${highmem[@]}")"
+    --experiment "$EXPERIMENT" --unfinished "${running[@]}" "${highmem[@]}")"
 if [ -z "$normal_idx$high_idx" ]; then
     echo "every job of $EXPERIMENT is done or timed out; nothing to submit"
     exit 0

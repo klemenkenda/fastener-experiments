@@ -26,6 +26,10 @@ again, so a whole array can be resubmitted after an interruption. `collect`
 writes results/<ID>/queue.json from the status files; jobs with none are
 pending.
 
+`ledger` adds every run the jobs made to the experiment's ledger row. Jobs
+run by `run` do not write the ledger themselves: hundreds of them rewriting
+it at once timed out on its lock (H5H6-E02's first full submission).
+
 `merge-ledger --from FILE` adds the experiment's runs from another copy of
 EXPERIMENTS.md -- the cluster's, fetched by hpc/vega/fetch.sh -- to this
 ledger's row, so the runs need no commit on the cluster.
@@ -44,6 +48,7 @@ from typing import Dict, List, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import experiment_ids  # noqa: E402
+import provenance  # noqa: E402
 import run_queue  # noqa: E402
 
 RESULTS_DIR = run_queue.RESULTS_DIR
@@ -144,8 +149,12 @@ def run(experiment: str, index: int, cpus: Optional[int]) -> int:
     write_json(status_path(name, j["name"]), st)
 
     with open(log, "w", encoding="utf-8") as fh:
+        # The run leaves the shared ledger alone (provenance.Run): hundreds of
+        # jobs rewriting it at once timed out on its lock. `ledger` records
+        # the experiment's runs afterwards, from the status files.
+        env = dict(os.environ, **{provenance.DEFER_LEDGER_ENV: "1"})
         proc = subprocess.Popen(cmd, stdout=fh, stderr=subprocess.STDOUT,
-                                cwd=str(run_queue.HERE.parent),
+                                cwd=str(run_queue.HERE.parent), env=env,
                                 start_new_session=True)
 
         def stop(signum, frame):
@@ -233,13 +242,16 @@ def ranges(indices: List[int]) -> str:
 
 
 def select(experiment: str, cells: Optional[str] = None, invert: bool = False,
-           unfinished: bool = False) -> List[int]:
+           unfinished: bool = False, skip_running: bool = False) -> List[int]:
     """Indices of the jobs to submit.
 
     `cells` ("dataset:arm,..." or "@file", run_queue's skip syntax; arm `*`
     matches any) keeps the jobs in those cells -- or, with `invert`, the
     rest. `unfinished` drops jobs already done or timed out, so a
-    resubmission schedules only the work left.
+    resubmission schedules only the work left. `skip_running` also drops
+    jobs whose status says running: for a resubmission while some jobs of
+    the experiment still run (submit.sh with FORCE=1). A job killed while
+    running keeps that status; a later resubmission without it picks it up.
     """
     spec = load_jobs(experiment)
     want = run_queue.parse_skip(cells) if cells else set()
@@ -252,8 +264,41 @@ def select(experiment: str, cells: Optional[str] = None, invert: bool = False,
             st = read_status(spec["name"], j["name"])
             if st and st.get("state") in FINISHED:
                 continue
+            if skip_running and st and st.get("state") == "running":
+                continue
         out.append(i)
     return out
+
+
+def record_ledger(experiment: str,
+                  path: Path = experiment_ids.LEDGER_PATH) -> int:
+    """Add every run the experiment's jobs made to its ledger row.
+
+    The runs are read from the jobs' status files (their run folders), in
+    the order the jobs started -- done, timed out, failed or still running
+    alike, as run_queue.py's runs were recorded when they started. Only
+    additions: runs already in the row keep their place. One writer, under
+    the ledger's lock, however many jobs there were.
+    """
+    spec = load_jobs(experiment)
+    found = []
+    for j in spec["jobs"]:
+        st = read_status(spec["name"], j["name"]) or {}
+        run_dir = st.get("run_dir") or run_queue.job_run_dir(st) \
+            if st.get("started_utc") else None
+        if run_dir:
+            found.append((st["started_utc"], Path(run_dir).name))
+    with experiment_ids.ledger_lock(path):
+        rows = experiment_ids.load_ledger(path)
+        row = experiment_ids.find(rows, spec["experiment"])
+        if row is None:
+            raise SystemExit(f"{path} has no row for {spec['experiment']}")
+        new = [r for _, r in sorted(found) if r not in row["runs"]]
+        row["runs"] += new
+        experiment_ids.save_ledger(rows, path)
+    print(f"{spec['experiment']}: {len(new)} runs added, "
+          f"{len(row['runs'])} in the ledger")
+    return 0
 
 
 def merge_ledger(experiment: str, other: Path,
@@ -282,7 +327,8 @@ def merge_ledger(experiment: str, other: Path,
 
 def main(argv: Optional[List[str]] = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    commands = ("emit", "count", "indices", "run", "collect", "merge-ledger")
+    commands = ("emit", "count", "indices", "run", "collect", "ledger",
+                "merge-ledger")
     if not argv or argv[0] not in commands:
         raise SystemExit(f"usage: hpc_jobs.py {{{','.join(commands)}}} ...")
     cmd, rest = argv[0], argv[1:]
@@ -306,10 +352,12 @@ def main(argv: Optional[List[str]] = None) -> int:
                         help="keep the jobs NOT in --cells")
         ap.add_argument("--unfinished", action="store_true",
                         help="leave out jobs already done or timed out")
+        ap.add_argument("--skip-running", action="store_true",
+                        help="also leave out jobs whose status is running")
     args = ap.parse_args(rest)
     if cmd == "indices":
         print(ranges(select(args.experiment, args.cells, args.invert,
-                            args.unfinished)))
+                            args.unfinished, args.skip_running)))
         return 0
     if cmd == "merge-ledger":
         return merge_ledger(args.experiment, args.other)
@@ -318,6 +366,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 0
     if cmd == "collect":
         return collect(args.experiment)
+    if cmd == "ledger":
+        return record_ledger(args.experiment)
     index = args.index
     if index is None:
         if "SLURM_ARRAY_TASK_ID" not in os.environ:

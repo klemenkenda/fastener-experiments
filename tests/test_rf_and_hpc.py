@@ -232,3 +232,52 @@ def test_run_uses_its_own_interpreter_not_the_emitted_one(tmp_path,
                             f"open(r'{marker}', 'w').write('x')"]] * 3)
     assert hpc_jobs.run("t", 0, cpus=1) == 0
     assert marker.read_text() == "x"
+
+
+def test_a_deferred_run_leaves_the_ledger_alone(tmp_path, monkeypatch):
+    import experiment_ids
+    import provenance
+    ledger = tmp_path / "EXPERIMENTS.md"
+    experiment_ids.save_ledger([{"experiment": "H9-E01", "hypothesis": "H9",
+                                 "started": "2026-10-26", "runs": [],
+                                 "status": "running", "report": ""}], ledger)
+    monkeypatch.setenv(provenance.DEFER_LEDGER_ENV, "1")
+    run = provenance.Run("x", root=tmp_path / "results", experiment_id="H9-E01",
+                         allow_dirty=True, ledger=ledger)
+    assert run.manifest["ledger"] == "deferred"
+    assert experiment_ids.find(experiment_ids.load_ledger(ledger),
+                               "H9-E01")["runs"] == []
+
+
+def test_ledger_records_each_jobs_latest_run_once(tmp_path, monkeypatch):
+    import experiment_ids
+    monkeypatch.setattr(hpc_jobs, "RESULTS_DIR", tmp_path)
+    monkeypatch.setattr(run_queue, "RESULTS_DIR", tmp_path)
+    ledger = tmp_path / "EXPERIMENTS.md"
+    experiment_ids.save_ledger([{"experiment": "H9-E01", "hypothesis": "H9",
+                                 "started": "2026-10-26", "runs": ["early"],
+                                 "status": "running", "report": ""}], ledger)
+    hpc_jobs.emit(["--experiment", "H9-E01", "--datasets", "Coffee",
+                   "--methods", "boruta", "--seeds", "2020,2021,2022"])
+    spec = hpc_jobs.load_jobs("H9-E01")
+    runs = {0: ("2026-10-26T17:10:00+00:00", "b_run"),
+            1: ("2026-10-26T17:05:00+00:00", "a_run")}
+    for i, (start, rid) in runs.items():
+        hpc_jobs.write_json(hpc_jobs.status_path("H9-E01", spec["jobs"][i]["name"]),
+                            {"name": spec["jobs"][i]["name"], "state": "done",
+                             "started_utc": start,
+                             "run_dir": str(tmp_path / rid)})
+    hpc_jobs.record_ledger("H9-E01", path=ledger)
+    hpc_jobs.record_ledger("H9-E01", path=ledger)
+    row = experiment_ids.find(experiment_ids.load_ledger(ledger), "H9-E01")
+    assert row["runs"] == ["early", "a_run", "b_run"]
+
+
+def test_skip_running_leaves_out_jobs_still_running(tmp_path, monkeypatch):
+    _emit(tmp_path, monkeypatch)
+    spec = hpc_jobs.load_jobs("t")
+    for i, state in ((0, "running"), (1, "failed")):
+        hpc_jobs.write_json(hpc_jobs.status_path("t", spec["jobs"][i]["name"]),
+                            {"state": state})
+    assert hpc_jobs.select("t", unfinished=True) == [0, 1, 2]
+    assert hpc_jobs.select("t", unfinished=True, skip_running=True) == [1, 2]

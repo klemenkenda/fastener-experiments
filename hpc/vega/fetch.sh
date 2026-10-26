@@ -38,4 +38,7 @@ ledger="$(mktemp)"
 ssh "$VEGA_HOST" "cat '$VEGA_REPO/experiments/EXPERIMENTS.md'" > "$ledger"
 "$PY" experiments/hpc_jobs.py merge-ledger --experiment "$EXPERIMENT" --from "$ledger"
 rm -f "$ledger"
+# The runs themselves: jobs do not write the ledger (hpc_jobs.py run), so
+# they are recorded here, from the status files just fetched.
+"$PY" experiments/hpc_jobs.py ledger --experiment "$EXPERIMENT"
 echo "next: python experiments/make_report.py --experiment $EXPERIMENT"
