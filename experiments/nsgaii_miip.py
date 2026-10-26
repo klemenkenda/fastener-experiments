@@ -394,6 +394,35 @@ def balanced_mutation(pop: np.ndarray, m_rate: float, rng) -> np.ndarray:
     return out
 
 
+# ------------------------------------------------------------------ stopping
+# A converged population re-proposes subsets it has already scored. Repeats
+# come from the cache and cost no fit, so the fit budget is never reached and,
+# with no other stop, the loop spins: in H5H6-E01, 42 NSGA-II runs ran 48,670
+# to 1,125,079 generations until the 6-hour cap killed them, where a run whose
+# offspring are all new needs budget / population, 20-120 (REPORT.md, F5).
+# So a run stops after this many consecutive generations that score no new
+# subset, and says so as stopped_on="stagnation" -- the rule FS-SDS already
+# has (fs_sds.MAX_BARREN_SWEEPS). Shared by NSGAII-MIIP and plain NSGA-II
+# (sota_baselines.run_nsga2). None turns it off, which is the code of
+# H5H6-E01 and every experiment before it (DEC-41).
+MAX_BARREN_GENERATIONS = 50
+
+
+def barren_counter(limit: Optional[int]):
+    """A callable fed the fit count after each generation; True once `limit`
+    consecutive generations added no fit. Never True when `limit` is None."""
+    state = {"last": None, "barren": 0}
+
+    def step(evaluations: int) -> bool:
+        if state["last"] is not None and evaluations == state["last"]:
+            state["barren"] += 1
+        else:
+            state["barren"] = 0
+        state["last"] = evaluations
+        return limit is not None and state["barren"] >= limit
+    return step
+
+
 # ---------------------------------------------------------------------- driver
 def run_nsgaii_miip(n_features: int,
                     objective: Callable[[np.ndarray], float],
@@ -406,7 +435,8 @@ def run_nsgaii_miip(n_features: int,
                     init: str = "obl",
                     progress_cb: Optional[Callable[[int], None]] = None,
                     verbose: bool = False,
-                    iteration_cb: Optional[Callable[[int, int], None]] = None) -> Dict:
+                    iteration_cb: Optional[Callable[[int, int], None]] = None,
+                    max_barren_generations: Optional[int] = None) -> Dict:
     """NSGAIIMIIP.m main loop.
 
     objective returns the score to MAXIMISE for one boolean gene vector; it is
@@ -415,6 +445,11 @@ def run_nsgaii_miip(n_features: int,
 
     `iteration_cb(iteration, evaluations)` is called after the initial
     population (iteration 0) and after every generation.
+
+    The run stops when the fit budget is spent, or after
+    `max_barren_generations` generations in a row that score no new subset
+    (see MAX_BARREN_GENERATIONS; None, the default here, never stops on it);
+    `stopped_on` says which. run_sota.py passes the limit.
     """
     rng = np.random.RandomState(seed)
     m_rate = m_rate if m_rate is not None else 1.0 / n_features
@@ -464,6 +499,9 @@ def run_nsgaii_miip(n_features: int,
     iteration = 0
     if iteration_cb is not None:
         iteration_cb(0, evaluations)
+    barren = barren_counter(max_barren_generations)
+    barren(evaluations)
+    stagnated = False
     while evaluations < stop_evaluations:
         iteration += 1
         if progress_cb is not None:
@@ -508,6 +546,9 @@ def run_nsgaii_miip(n_features: int,
             iteration_cb(iteration, evaluations)
         if verbose:
             print(f"  iter {iteration}: evals={evaluations}")
+        if barren(evaluations):
+            stagnated = True
+            break
 
     final = fast_nondominated_sort(objs)[0]
     return {
@@ -516,4 +557,5 @@ def run_nsgaii_miip(n_features: int,
         "evaluations": evaluations,
         "iterations": iteration,
         "unique_subsets_cached": len(cache),
+        "stopped_on": "stagnation" if stagnated else "budget",
     }

@@ -25,6 +25,9 @@ __pycache__/
 .venv/
 venv/
 env/
+# HPC Vega: the Python environment setup.sh builds, and local settings.
+.hpc/
+hpc/vega/config.local.sh
 
 # Notebooks
 .ipynb_checkpoints/

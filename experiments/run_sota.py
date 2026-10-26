@@ -9,7 +9,8 @@ arms. POSS and FS-SDS are the FASTENER paper's own wrapper comparators.
 The run follows HYPOTHESES.md:
 
 * one classifier, protocol.make_model(), drives every search and scores every
-  result -- Boruta included, on the protocol tree;
+  result -- Boruta included. It is the decision tree, or with --model rf the
+  protocol's 100-tree random forest (H5H6-E02, DEC-41), for every method;
 * every search gets the same fit budget, protocol.FIT_BUDGET (6,000). FS-SDS
   holds a run at one k, so it spreads that budget evenly over k = 1..20;
 * curves are read on protocol.K_GRID, every k up to 20 then a sparse tail;
@@ -64,8 +65,10 @@ import baselines  # noqa: E402
 import sota_baselines as sota  # noqa: E402
 from datasets import DATA_DIR, SPLITS, load  # noqa: E402
 from progress import Progress, format_duration  # noqa: E402
+from nsgaii_miip import MAX_BARREN_GENERATIONS  # noqa: E402
 from protocol import (FIT_BUDGET, fit_budget, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
-                      ROW_CAP, FitCounter)
+                      MODELS, RF_TREES, ROW_CAP, FitCounter, model_description,
+                      set_model)
 from provenance import DirtyTreeError, Run  # noqa: E402
 from run_fastener import (MATING_VERSIONS, run_fastener,  # noqa: E402
                           search_model_factory)
@@ -159,6 +162,23 @@ def parse_args():
                          "the FASTENER paper's ELM (H4-E02). With elm, arms "
                          "are labelled fastener_elm and fs_sds_elm. Only "
                          "FASTENER arms and fs_sds take it.")
+    ap.add_argument("--model", default="tree", choices=MODELS,
+                    help="the protocol classifier, for EVERY method: the "
+                         "decision tree (default) or a random forest of "
+                         f"{RF_TREES} trees (H5H6-E02). Arm labels do not "
+                         "change; the model is in the manifest and in every "
+                         "algorithm ID.")
+    ap.add_argument("--model-jobs", type=int, default=1,
+                    help="threads a random forest fits its trees on. Does "
+                         "not change any result (fixed random_state), so it "
+                         "is recorded but not part of an arm's configuration.")
+    ap.add_argument("--nsga-max-barren", type=int,
+                    default=MAX_BARREN_GENERATIONS,
+                    help="stop nsga2, nsga2_sparse and nsgaii_miip after this "
+                         "many generations in a row score no new subset "
+                         f"(default {MAX_BARREN_GENERATIONS}, DEC-41); 0 runs "
+                         "until the fit budget is spent, the code of "
+                         "H5H6-E01 and earlier.")
     ap.add_argument("--boruta-max-iter", type=int, default=100)
     ap.add_argument("--sds-population", type=int, default=None,
                     help="FS-SDS swarm size (default 100, the authors' "
@@ -218,6 +238,10 @@ def main() -> int:
     args = parse_args()
     quick = args.quick
 
+    # Before anything builds a classifier: every method reads it from here.
+    set_model(args.model, args.model_jobs)
+    barren = args.nsga_max_barren or None
+
     methods = [m.strip() for m in args.methods.split(",") if m.strip()]
     unknown = [m for m in methods if m not in ALL_METHODS]
     if unknown:
@@ -254,9 +278,13 @@ def main() -> int:
     # silently ignored.
     search_model = args.search_model
     model_suffix = "" if search_model == "tree" else f"_{search_model}"
-    model_desc = {"tree": "DecisionTreeClassifier",
+    model_desc = {"tree": model_description(),
                   "elm": "ELMClassifier(160 sigmoid hidden, seed 20200)"
                   }[search_model]
+    if search_model != "tree" and args.model != "tree":
+        raise SystemExit("--search-model elm replaces the decision tree for "
+                         "its arms; it cannot be combined with --model "
+                         f"{args.model}")
     if search_model != "tree":
         other = [m for m in methods if m not in PER_K_SEARCHES]
         if other:
@@ -298,7 +326,7 @@ def main() -> int:
         "cpu_seconds_per_run": cpu_seconds,
         "fs_sds_cpu_seconds_per_k": fs_cpu_per_k,
         "boruta_max_iter": boruta_max_iter,
-        "boruta_estimator": "protocol decision tree",
+        "boruta_estimator": f"protocol {model_description()}",
         "fs_sds_k_range": fs_ks,
         "fs_sds_evaluations_per_k": fs_per_k,
         "fs_sds_evaluations_total": (fs_per_k * len(fs_ks)
@@ -308,12 +336,15 @@ def main() -> int:
         "poss_k": args.poss_k if args.poss_k is not None
                   else min(50, ds.n_features),
         "nsgaii_miip_init": args.init,
+        "nsga_max_barren_generations": barren,
         "k_grid": ks,
         "split": args.split,
         "max_rows": ds.max_rows,
         "n_rows_used": ds.n_rows_used,
         "model": model_desc,
         "search_model": search_model,
+        "protocol_model": args.model,
+        "model_n_jobs": args.model_jobs,
         "model_seed": MODEL_SEED,
         "primary_metric": "f1_weighted",
         "quick": quick,
@@ -327,6 +358,9 @@ def main() -> int:
     # an arm without a commit still gives it a different ID.
     common = {"model": model_desc, "model_seed": MODEL_SEED,
               "primary_metric": "f1_weighted", "quick": quick}
+    # Left out when off, so a run with --nsga-max-barren 0 has the algorithm
+    # ID it had before the stop existed.
+    nsga_stop = {"max_barren_generations": barren} if barren else {}
     arm_configs = {
         "mrmr": {"k_grid": grid},
         "relieff": {"k_grid": grid},
@@ -336,11 +370,13 @@ def main() -> int:
         "boruta": {"k_grid": grid, "max_iter": boruta_max_iter,
                    "estimator": "protocol_tree"},
         "random": {"k_grid": grid, "n_repeats": 10},
-        "nsga2": {"evaluations": evaluations, "init": "obl"},
-        "nsga2_sparse": {"evaluations": evaluations, "init": "sparse"},
+        "nsga2": {"evaluations": evaluations, "init": "obl", **nsga_stop},
+        "nsga2_sparse": {"evaluations": evaluations, "init": "sparse",
+                         **nsga_stop},
         # None = the default rule, min(50, n_features).
         "poss": {"evaluations": evaluations, "poss_k": args.poss_k},
-        "nsgaii_miip": {"evaluations": evaluations, "init": args.init},
+        "nsgaii_miip": {"evaluations": evaluations, "init": args.init,
+                        **nsga_stop},
         "fs_sds": {"evaluations_per_k": fs_per_k,
                    **({"cpu_seconds_per_k": fs_cpu_per_k}
                       if fs_cpu_per_k is not None else {}),
@@ -519,10 +555,11 @@ def main() -> int:
         miip_label = "nsgaii_miip" if args.init == "obl" else "nsgaii_miip_sparse"
         search_fns = {
             "nsga2": lambda s, cb, t: sota.run_nsga2(
-                ds, s, evaluations, init="obl", progress_cb=cb, trajectory=t),
+                ds, s, evaluations, init="obl", progress_cb=cb, trajectory=t,
+                max_barren_generations=barren),
             "nsga2_sparse": lambda s, cb, t: sota.run_nsga2(
                 ds, s, evaluations, init="sparse", progress_cb=cb,
-                trajectory=t),
+                trajectory=t, max_barren_generations=barren),
             # POSS takes no init: the paper starts it at the empty set, which is
             # already the sparse end, so the obl/sparse question does not arise.
             "poss": lambda s, cb, t: sota.run_poss_method(
@@ -531,7 +568,7 @@ def main() -> int:
             "nsgaii_miip": lambda s, cb, t: sota.run_nsgaii_miip_method(
                 ds, s, evaluations, cluster_cache=cluster_cache,
                 n_jobs=args.n_jobs, init=args.init, progress_cb=cb,
-                trajectory=t),
+                trajectory=t, max_barren_generations=barren),
         }
         for m in [m for m in methods if m in SEARCHES]:
             print(f"\n{m} ({evaluations} fits x {len(seeds)} seeds):")

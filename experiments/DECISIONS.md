@@ -68,6 +68,7 @@ say so, and name the result.
 | [DEC-38](#dec-38) | 2026-10-10 | H4-E02: both searches driven and scored by the ELM, at H4-E01's CPU budgets | H4-E02 |
 | [DEC-39](#dec-39) | 2026-10-11 | H4-E03 at equal model fits, with FASTENER's gene bookkeeping vectorised | H4-E03 |
 | [DEC-40](#dec-40) | 2026-10-12 | H5 and H6 on the C1-C7 datasets and EOData, at H2/H3's budgets, with a 6 h per-run cap | H5H6-E01 |
+| [DEC-41](#dec-41) | 2026-10-26 | H5H6-E02: H5H6-E01's grid with a 100-tree random forest, NSGA-II stopping on stagnation, on HPC Vega | H5H6-E02 |
 
 ## Decisions
 
@@ -864,6 +865,50 @@ budgets, with a 6-hour per-run cap.**
   H5H6-E01; `experiments/h5h6_skip.txt`.
 - **Applies to:** H5H6-E01.
 
+### DEC-41
+
+**2026-10-26 -- H5H6-E02: H5H6-E01's grid with a 100-tree random forest,
+NSGA-II stopping on stagnation, run on HPC Vega.**
+
+- **Why:** H5H6-E01 judged every selector with one decision tree, and D2
+  (conclusions are model-dependent) was set aside. The PI wants the same grid
+  under a random forest, to see which of H5H6-E01's conclusions depend on the
+  learner. The NSGA-II searches had no stop for a converged population: 42 of
+  H5H6-E01's 47 timeouts were runs re-proposing subsets already scored (its
+  report, F5). With forest fits, each such run would hold a Vega node for the
+  whole cap.
+- **Detail:**
+  - Classifier: `RandomForestClassifier(n_estimators=100, random_state=20200)`,
+    scikit-learn defaults otherwise (`protocol.set_model("rf")`,
+    `run_sota.py --model rf`), for every method: searches, Boruta's
+    importances, RFE, the tree-importance ranker and every final score. Its
+    thread count (`--model-jobs`, the task's cores) changes no result.
+  - Boruta's code is unchanged. Its estimator wrapper builds the protocol
+    model, so it ranks with the 100-tree forest -- Boruta's usual kind of
+    estimator -- at the protocol's size rather than its own "auto" one. The
+    `estimator` text each Boruta result carries still says "decision tree";
+    the manifest's `boruta_estimator` names the model used.
+  - NSGA-II stop: `nsgaii_miip.MAX_BARREN_GENERATIONS = 50` consecutive
+    generations without a new fit, `stopped_on="stagnation"`, for `nsga2`,
+    `nsga2_sparse` and `nsgaii_miip` (`run_sota.py --nsga-max-barren`, 0 to
+    turn off). It is in those arms' algorithm IDs; with 0 the IDs are as
+    before.
+  - Everything else as H5H6-E01 (DEC-40): 39 datasets, the 18 arms, seeds
+    2020-2024, the fit budgets (now committed as
+    `experiments/h2h3_budgets.json`), the 12 skipped cells and the 6-hour
+    per-run cap.
+  - Run on HPC Vega: one SLURM array task per job, 8 cores and 32 GB each,
+    datasets downloaded and verified by a data job before the arrays start
+    (`hpc/vega/`, `experiments/hpc_jobs.py`).
+- **By:** PI (a random forest of 100 trees, the 6-hour cap, the stagnation
+  stop, registration as H5H6-E02, Boruta following the protocol model);
+  implementation by Claude.
+- **Taken before any H5H6-E02 run.**
+- **Source:** `HYPOTHESES.md`, *Revisions*, 2026-10-26; `EXPERIMENTS.md`,
+  H5H6-E02; H5H6-E01's report, F5.
+- **Applies to:** H5H6-E02, and any later run of the NSGA-II searches through
+  `run_sota.py`.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -881,4 +926,5 @@ are not repeated.
 | `H4-E01` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37) | -- | [H4-E01](reports/H4-E01/REPORT.md) |
 | `H4-E02` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37), [DEC-38](#dec-38) | -- | [H4-E02](reports/H4-E02/REPORT.md) |
 | `H4-E03` | reported: refuted (FASTENER ahead at equal fits) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-37](#dec-37), [DEC-39](#dec-39) | -- | [H4-E03](reports/H4-E03/REPORT.md) |
-| `H5H6-E01` | reported: H5 not supported; H6 not supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40) | -- | [H5H6-E01](reports/H5H6-E01/REPORT.md) |
+| `H5H6-E01` | reported: H5 not supported; H6 not supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40) | [DEC-41](#dec-41) | [H5H6-E01](reports/H5H6-E01/REPORT.md) |
+| `H5H6-E02` | registered | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40), [DEC-41](#dec-41) | -- | -- |

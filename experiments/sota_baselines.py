@@ -274,7 +274,8 @@ def run_hsic_lasso(ds, ks: List[int], counter: FitCounter) -> Dict:
 
 # ------------------------------------------------------------------- NSGA-II
 def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
-              init: str = "obl", progress_cb=None, trajectory=None) -> Dict:
+              init: str = "obl", progress_cb=None, trajectory=None,
+              max_barren_generations: Optional[int] = None) -> Dict:
     """Plain NSGA-II wrapper search: same operators as the MIIP port, minus the
     mutual-information improvement phase.
 
@@ -283,8 +284,13 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
 
     `trajectory` (a `trajectory.Trajectory`) records the best score after every
     generation; generation 0 is the initial population.
+
+    `max_barren_generations` stops a converged run, as in the MIIP port
+    (nsgaii_miip.MAX_BARREN_GENERATIONS); run_sota.py passes it. None (the
+    default here) runs until the budget is spent, as before DEC-41.
     """
-    from nsgaii_miip import (balanced_mutation, binary_tournament_crossover,
+    from nsgaii_miip import (balanced_mutation, barren_counter,
+                             binary_tournament_crossover,
                              crowding_distance, fast_nondominated_sort,
                              obl_initialization, sparse_initialization)
 
@@ -339,6 +345,9 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     iteration = 0
     if trajectory is not None:
         trajectory.step(0, evaluations)
+    barren = barren_counter(max_barren_generations)
+    barren(evaluations)
+    stagnated = False
 
     while evaluations < stop_evaluations:
         iteration += 1
@@ -371,6 +380,9 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
         pop, objs = merged[idx], merged_objs[idx]
         if trajectory is not None:
             trajectory.step(iteration, evaluations)
+        if barren(evaluations):
+            stagnated = True
+            break
 
     final = fast_nondominated_sort(objs)[0]
     records = []
@@ -389,6 +401,8 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     return {"method": name, "family": "genetic", "seed": seed, "init": init,
             "elapsed_seconds": round(time.time() - t0, 2),
             "model_fits": evaluations, "iterations": iteration,
+            "stopped_on": "stagnation" if stagnated else "budget",
+            "max_barren_generations": max_barren_generations,
             "records": records}
 
 
@@ -587,11 +601,14 @@ def run_nsgaii_miip_method(ds, seed: int, stop_evaluations: int,
                            cluster_cache: Dict = None,
                            pop_size: int = 100, n_jobs: int = 1,
                            init: str = "obl", progress_cb=None,
-                           trajectory=None) -> Dict:
+                           trajectory=None,
+                           max_barren_generations: Optional[int] = None
+                           ) -> Dict:
     """Wrapper putting the NSGAII-MIIP port behind the shared protocol.
 
     The MI matrix and clustering depend only on the training data, not the seed,
     so they are computed once and reused across seeds via `cluster_cache`.
+    `max_barren_generations`: see nsgaii_miip.MAX_BARREN_GENERATIONS.
     """
     from nsgaii_miip import cluster_features, run_nsgaii_miip
     from protocol import primary_score
@@ -622,7 +639,8 @@ def run_nsgaii_miip_method(ds, seed: int, stop_evaluations: int,
                           pop_size=pop_size, init=init,
                           progress_cb=progress_cb,
                           iteration_cb=(None if trajectory is None
-                                        else lambda it, ev: trajectory.step(it, ev)))
+                                        else lambda it, ev: trajectory.step(it, ev)),
+                          max_barren_generations=max_barren_generations)
 
     name = "nsgaii_miip" if init == "obl" else "nsgaii_miip_sparse"
     records = []
@@ -639,6 +657,8 @@ def run_nsgaii_miip_method(ds, seed: int, stop_evaluations: int,
             "elapsed_seconds": round(time.time() - t0, 2),
             "mi_prep_seconds": round(prep_seconds, 2),
             "model_fits": out["evaluations"], "iterations": out["iterations"],
+            "stopped_on": out["stopped_on"],
+            "max_barren_generations": max_barren_generations,
             "n_clusters": len(clusters),
             "port_note": "Reimplementation from the authors' MATLAB, not their results.",
             "records": records}

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Dict, List, Sequence
 
 import numpy as np
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, f1_score
 from sklearn.tree import DecisionTreeClassifier
 
@@ -19,8 +20,42 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 # subset, not the learner.
 MODEL_SEED = 20200
 
+# The protocol classifier is one per process: every search, every filter that
+# fits a model (Boruta, RFE, the tree-importance ranker) and every final score
+# use `make_model()`, so switching it here switches it everywhere at once.
+# "tree" is the default and every experiment up to H5H6-E01; "rf" is the
+# random forest of H5H6-E02 (DEC-41), at scikit-learn's defaults with 100
+# trees. Its thread count only splits the trees over cores: a forest with a
+# fixed random_state is the same at any n_jobs, so it is not part of an arm's
+# configuration.
+MODELS = ("tree", "rf")
+RF_TREES = 100
+_MODEL = {"name": "tree", "n_jobs": 1}
+
+
+def set_model(name: str, n_jobs: int = 1) -> None:
+    """Select the protocol classifier for this process ("tree" or "rf")."""
+    if name not in MODELS:
+        raise ValueError(f"unknown protocol model {name!r}; have {MODELS}")
+    _MODEL.update(name=name, n_jobs=max(1, int(n_jobs)))
+
+
+def model_name() -> str:
+    return _MODEL["name"]
+
+
+def model_description() -> str:
+    """The classifier as recorded in manifests and hashed into algorithm IDs."""
+    if _MODEL["name"] == "rf":
+        return f"RandomForestClassifier({RF_TREES} trees)"
+    return "DecisionTreeClassifier"
+
 
 def make_model():
+    if _MODEL["name"] == "rf":
+        return RandomForestClassifier(n_estimators=RF_TREES,
+                                      random_state=MODEL_SEED,
+                                      n_jobs=_MODEL["n_jobs"])
     return DecisionTreeClassifier(random_state=MODEL_SEED)
 
 
@@ -134,8 +169,9 @@ def evaluate_subset(ds, features: Sequence[int], counter: FitCounter = None,
 
     This is the single place a final number is produced, for every method.
     `model_factory` is the classifier that scores the subset; it defaults to
-    the protocol's decision tree, and is the ELM for an arm whose search the
-    ELM drove (H4-E02), so an arm is always judged by its own classifier.
+    the protocol classifier (`make_model`), and is the ELM for an arm whose
+    search the ELM drove (H4-E02), so an arm is always judged by its own
+    classifier.
     """
     features = np.asarray(sorted(set(int(f) for f in features)), dtype=int)
     if features.size == 0:

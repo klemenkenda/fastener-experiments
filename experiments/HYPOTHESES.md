@@ -712,6 +712,9 @@ Holm correction, against **every** other algorithm including stock FASTENER.
   6-hour cap per run. **Neither supported**: stock FASTENER is significantly
   ahead of 5 of 16 opponents, guided FASTENER of 7 (ahead of all 16 on wins);
   the leader changes by cluster. [Report](reports/H5H6-E01/REPORT.md).
+* `H5H6-E02` -- H5 and H6 on H5H6-E01's grid with a 100-tree random forest as
+  the one classifier, NSGA-II stopping on stagnation, on HPC Vega
+  ([DEC-41](DECISIONS.md#dec-41)). Registered.
 
 ---
 
@@ -1272,3 +1275,15 @@ all 18 arms, searches at 600 fits; not an experiment, not in the ledger).
   to scikit-learn's; neither changes any result.
 
 Recorded as [DEC-40](DECISIONS.md#dec-40).
+
+**2026-10-26 -- H5 and H6 again, with a random forest (H5H6-E02).** Added after
+H5H6-E01 was reported, before any H5H6-E02 run. H5's and H6's claims,
+criteria, datasets, budgets and cap are unchanged. The new experiment runs
+them with a random forest of 100 trees as the protocol classifier, for every
+method, in place of the decision tree. It is the first test of D2 (conclusions
+are model-dependent) on this grid: whether the verdicts and the cluster
+picture of H5H6-E01 hold under another learner. NSGA-II (OBL and sparse) and
+NSGAII-MIIP now stop after 50 generations that score no new subset, as FS-SDS
+already did; in H5H6-E01 their converged runs spun until the cap.
+
+Recorded as [DEC-41](DECISIONS.md#dec-41).
