@@ -21,6 +21,7 @@ set -uo pipefail
 . "$1"
 cd "$REPO"
 use_env
+export HPC_MAX_PARALLEL="$MAX_PARALLEL"   # the ETA's cap on slots
 : "${INTERVAL:=600}"
 NAME="fastener-$EXPERIMENT"
 LOG="$REPO/results/$EXPERIMENT/watch.log"

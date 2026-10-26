@@ -194,13 +194,19 @@ def collect(experiment: str) -> int:
         if row["started_utc"]:
             starts.append(row["started_utc"])
         jobs.append(row)
+    # The slots monitor.py schedules the remaining jobs on, for its ETA: as
+    # many as the cluster is running right now -- what fair-share actually
+    # grants -- never more than the arrays' concurrency cap
+    # (HPC_MAX_PARALLEL), and that cap before anything runs.
+    cap = int(os.environ.get("HPC_MAX_PARALLEL", "0")) or len(jobs)
+    running = sum(r["state"] == "running" for r in jobs)
     # pid None: no single driver process to check (monitor.alive -> None).
     write_json(queue_dir(name) / "queue.json",
                {"experiment": spec["experiment"],
                 "started_utc": min(starts) if starts else None,
                 "updated_utc": run_queue.utc(),
-                "max_procs": int(os.environ.get("HPC_MAX_PARALLEL", "0"))
-                or len(jobs), "pid": None, "jobs": jobs})
+                "max_procs": min(running, cap) if running else cap,
+                "pid": None, "jobs": jobs})
     counts: Dict[str, int] = {}
     for r in jobs:
         counts[r["state"]] = counts.get(r["state"], 0) + 1

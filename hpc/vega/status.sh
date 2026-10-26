@@ -8,5 +8,6 @@ set -euo pipefail
 . "$1"
 cd "$REPO"
 use_env
+export HPC_MAX_PARALLEL="$MAX_PARALLEL"   # the ETA's cap on slots
 "$PY" experiments/hpc_jobs.py collect --experiment "$EXPERIMENT"
 "$PY" experiments/monitor.py --experiment "$EXPERIMENT" --once

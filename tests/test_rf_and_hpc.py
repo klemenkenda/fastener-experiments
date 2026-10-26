@@ -206,3 +206,18 @@ def test_select_splits_by_cells_and_leaves_out_finished_jobs(tmp_path,
                         {"state": "failed"})
     assert 0 not in hpc_jobs.select("t", unfinished=True)
     assert 1 in hpc_jobs.select("t", unfinished=True)
+
+
+def test_collect_gives_the_eta_the_slots_actually_in_use(tmp_path, monkeypatch):
+    _emit(tmp_path, monkeypatch)
+    spec = hpc_jobs.load_jobs("t")
+    monkeypatch.setenv("HPC_MAX_PARALLEL", "200")
+    hpc_jobs.collect("t")
+    q = json.loads((tmp_path / "t" / "queue.json").read_text())
+    assert q["max_procs"] == 200            # nothing running yet: the cap
+    for j in spec["jobs"][:2]:
+        hpc_jobs.write_json(hpc_jobs.status_path("t", j["name"]),
+                            {"state": "running", "started_utc": run_queue.utc()})
+    hpc_jobs.collect("t")
+    q = json.loads((tmp_path / "t" / "queue.json").read_text())
+    assert q["max_procs"] == 2              # what the cluster grants now
