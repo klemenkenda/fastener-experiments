@@ -341,3 +341,23 @@ def test_bounded_model_store_gives_the_same_front(tmp_path):
     assert [(r["features"], r["val_score"], r["test_score"])
             for r in a["records"]] == [(r["features"], r["val_score"],
                                         r["test_score"]) for r in b["records"]]
+
+
+def test_a_repo_git_cannot_read_is_unverified_not_clean(tmp_path, monkeypatch):
+    import provenance
+    (tmp_path / ".git").mkdir()
+    monkeypatch.setattr(provenance, "_git", lambda repo, *args: None)
+    st = provenance.git_state(tmp_path, ("results",))
+    assert st["commit"] is None and st["code_dirty"] and st["dirty"]
+    with pytest.raises(provenance.DirtyTreeError):
+        provenance.Run("x", root=tmp_path / "results", experiment_id="H9-E01",
+                       ledger=_one_row_ledger(tmp_path))
+
+
+def _one_row_ledger(tmp_path):
+    import experiment_ids
+    ledger = tmp_path / "EXPERIMENTS.md"
+    experiment_ids.save_ledger([{"experiment": "H9-E01", "hypothesis": "H9",
+                                 "started": "2026-10-28", "runs": [],
+                                 "status": "running", "report": ""}], ledger)
+    return ledger

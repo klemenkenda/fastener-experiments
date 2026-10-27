@@ -67,10 +67,24 @@ def git_state(repo: Path, non_code=()) -> Dict[str, Any]:
     code_status = (_git(repo, "status", "--porcelain", "--", ".",
                         *[f":(exclude){p}" for p in non_code])
                    if non_code else status)
+    commit = _git(repo, "rev-parse", "HEAD")
+    if commit is None or status is None or code_status is None:
+        # git could not answer -- not on PATH, timed out, refused the repo.
+        # The code is then unverified, not clean: a run cannot prove which
+        # code it ran, so it is not evidence (and Run refuses it for an
+        # experiment). Treating "unknown" as "clean" let all 2,202 runs of
+        # H5H6-E02 record commit null with evidence true: git could not run
+        # inside the cluster jobs (Vega's compute nodes have no git; its
+        # login nodes do).
+        unverified = ["(git failed: the commit and the tree could not be read)"]
+        return {"path": str(repo), "available": True, "commit": commit,
+                "branch": None, "remote": None, "dirty": True,
+                "dirty_files": unverified, "code_dirty": True,
+                "code_dirty_files": unverified}
     return {
         "path": str(repo),
         "available": True,
-        "commit": _git(repo, "rev-parse", "HEAD"),
+        "commit": commit,
         "branch": _git(repo, "rev-parse", "--abbrev-ref", "HEAD"),
         "remote": _git(repo, "config", "--get", "remote.origin.url"),
         # A dirty tree means the recorded commit does NOT fully describe the code.

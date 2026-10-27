@@ -714,7 +714,10 @@ Holm correction, against **every** other algorithm including stock FASTENER.
   the leader changes by cluster. [Report](reports/H5H6-E01/REPORT.md).
 * `H5H6-E02` -- H5 and H6 on H5H6-E01's grid with a 100-tree random forest as
   the one classifier, NSGA-II stopping on stagnation, on HPC Vega
-  ([DEC-41](DECISIONS.md#dec-41)). Registered.
+  ([DEC-41](DECISIONS.md#dec-41)). **Neither supported** under the forest
+  either: stock FASTENER is significantly ahead of 9 of 16 opponents, guided
+  FASTENER of 12; the four population searches still tie at the top, and the
+  cluster leaders change in six of eight clusters. [Report](reports/H5H6-E02/REPORT.md).
 
 ---
 

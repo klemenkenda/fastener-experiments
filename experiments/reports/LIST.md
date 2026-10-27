@@ -9,8 +9,10 @@
 | H4 | `H4-E01` | 2 h 13 min | not confirmed (comparable) | decision tree on both sides | [REPORT.md](H4-E01/REPORT.md) |
 | H4 | `H4-E02` | 2 h 20 min | not confirmed (comparable) | ELM on both sides; read with E01 | [REPORT.md](H4-E02/REPORT.md) |
 | H4 | `H4-E03` | 51 min | refuted (FASTENER ahead) | equal fits; read with E01 | [REPORT.md](H4-E03/REPORT.md) |
-| H5 | `H5H6-E01` | 3 d 7 h 46 min | not confirmed | only one; run with H6 | [REPORT.md](H5H6-E01/REPORT.md) |
-| H6 | `H5H6-E01` | 3 d 7 h 46 min | not confirmed | only one; run with H5 | [REPORT.md](H5H6-E01/REPORT.md) |
+| H5 | `H5H6-E01` | 3 d 7 h 46 min | not confirmed | decision tree; run with H6 | [REPORT.md](H5H6-E01/REPORT.md) |
+| H6 | `H5H6-E01` | 3 d 7 h 46 min | not confirmed | decision tree; run with H5 | [REPORT.md](H5H6-E01/REPORT.md) |
+| H5 | `H5H6-E02` | 23 h 28 min | not confirmed | random forest; read with E01 | [REPORT.md](H5H6-E02/REPORT.md) |
+| H6 | `H5H6-E02` | 23 h 28 min | not confirmed | random forest; read with E01 | [REPORT.md](H5H6-E02/REPORT.md) |
 
 ## Superseded and failed
 

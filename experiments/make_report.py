@@ -124,6 +124,11 @@ REFERENCE_ONLY = ("all_features",)
 # searches whose fronts mostly stay above k = 10.
 FIELD_ARMS = ("fastener", "fastener_swap_guided", "nsga2_sparse", "nsga2",
               "nsgaii_miip")
+# The same grid under another classifier (D2): an experiment -> (the paired
+# experiment, its classifier, this one's). Read from the paired report's
+# committed tables/per_dataset.csv, so the pair is compared on exactly the
+# numbers that report shows.
+MODEL_PAIRED = {"H5H6-E02": ("H5H6-E01", "decision tree", "random forest")}
 # Cells an experiment left out on purpose (run_queue.py --skip @file).
 SKIP_FILES = {"H5H6-E01": "experiments/h5h6_skip.txt"}
 # run_queue.py's labels for the FASTENER arms, as the runs name the method.
@@ -907,6 +912,88 @@ def missing_cells(experiment_id: str) -> Dict[Tuple[str, str], str]:
             if s == {"timeout"}:
                 out[cell] = "timeout"
     return out
+
+
+def model_compare_rows(experiment_id: str, rows: Sequence[Dict]) -> List[Dict]:
+    """Per method, this experiment against its MODEL_PAIRED twin.
+
+    `rows` are this experiment's per_dataset rows. Only datasets with a
+    result under both classifiers count, so a method missing cells in one
+    is compared on the cells it has in both.
+    """
+    paired, _, _ = MODEL_PAIRED[experiment_id]
+    path = experiment_ids.REPORTS_DIR / paired / "tables" / "per_dataset.csv"
+    with open(path, encoding="utf-8") as fh:
+        other = {(r["dataset"], r["method"]): r for r in csv.DictReader(fh)}
+    by: Dict[str, Dict[str, List[float]]] = {}
+    for r in rows:
+        o = other.get((r["dataset"], r["method"]))
+        a = r.get(next(k for k in r if k.startswith("auf_k")))
+        if o is None or a in (None, "") or o.get("auf_k10") in (None, ""):
+            continue
+        d = by.setdefault(r["method"], {"a": [], "b": [], "ra": [], "rb": []})
+        d["a"].append(float(o["auf_k10"]))
+        d["b"].append(float(a))
+        d["ra"].append(float(o["rank"]))
+        d["rb"].append(float(r["rank"]))
+    out = []
+    for m, d in by.items():
+        gains = np.array(d["b"]) - np.array(d["a"])
+        out.append({"method": m, "datasets": len(gains),
+                    "auf_paired": float(np.mean(d["a"])),
+                    "auf_this": float(np.mean(d["b"])),
+                    "gain_mean": float(gains.mean()),
+                    "gain_median": float(np.median(gains)),
+                    "gain_positive": int((gains > 0).sum()),
+                    "rank_paired": float(np.mean(d["ra"])),
+                    "rank_this": float(np.mean(d["rb"]))})
+    return sorted(out, key=lambda r: r["rank_this"])
+
+
+def fig_model_compare(cmp_rows, labels, run_ids, path: Path) -> None:
+    """Each method's mean AUF and mean rank under both classifiers.
+
+    Left: mean AUF (K = 10) over the datasets both classifiers have, one
+    marker per classifier joined by a line. Right: mean rank among the 17
+    selectors (1 = best), the arrow from the paired experiment to this one.
+    Methods along x, best mean rank under this experiment's classifier first.
+    """
+    import matplotlib.pyplot as plt
+    _style(plt)
+    a_lab, b_lab = labels
+    ms = [r["method"] for r in cmp_rows]
+    x = np.arange(len(ms))
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(16, 5.6))
+    for i, r in enumerate(cmp_rows):
+        a1.plot([i, i], [r["auf_paired"], r["auf_this"]], color=GRID, lw=2,
+                zorder=1)
+        a2.annotate("", xy=(i, r["rank_this"]), xytext=(i, r["rank_paired"]),
+                    arrowprops=dict(arrowstyle="->", color=INK_2, lw=1.2))
+    a1.scatter(x, [r["auf_paired"] for r in cmp_rows], s=34, color=SERIES[1],
+               label=a_lab, zorder=3)
+    a1.scatter(x, [r["auf_this"] for r in cmp_rows], s=34, color=SERIES[0],
+               label=b_lab, zorder=3)
+    a2.scatter(x, [r["rank_paired"] for r in cmp_rows], s=26, color=SERIES[1],
+               label=a_lab, zorder=3)
+    a2.scatter(x, [r["rank_this"] for r in cmp_rows], s=34, color=SERIES[0],
+               label=b_lab, zorder=3)
+    a2.invert_yaxis()
+    for ax in (a1, a2):
+        ax.set_xticks(x, ms, rotation=40, ha="right", rotation_mode="anchor",
+                      fontsize=8)
+        ax.legend(fontsize=8, loc="lower left" if ax is a1 else "lower right")
+    a1.set_ylabel("mean AUF (K = 10), test")
+    a1.set_title("Mean AUF over the datasets both classifiers have",
+                 fontsize=9)
+    a2.set_ylabel("mean rank among the selectors (1 = best)")
+    a2.set_title(f"Mean rank: arrow from the {a_lab} to the {b_lab}",
+                 fontsize=9)
+    fig.suptitle(f"The same grid under the {a_lab} and the {b_lab}, method "
+                 f"by method", fontsize=10)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.95))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
 
 
 def _last_line(path: Path) -> Optional[bytes]:
@@ -1973,15 +2060,22 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                     **{f"n_{c}": tab[(m, c)][1] for c in cols}}
                    for m in methods])
         ranks = field_ranks(means)
-        write_csv(tab_dir / "per_dataset.csv",
-                  [{"dataset": d, "cluster": SWAP_CLUSTERS.get(d),
+        pd_rows = [{"dataset": d, "cluster": SWAP_CLUSTERS.get(d),
                     "n_features": n_feat.get(d), "method": m,
                     f"auf_k{K0}": means[d].get(m), "rank": ranks[d].get(m),
                     "missing": missing.get((d, m))}
-                   for d in sorted(means) for m in methods])
+                   for d in sorted(means) for m in methods]
+        write_csv(tab_dir / "per_dataset.csv", pd_rows)
         field_figs = (("cluster_ranks", fig_cluster_ranks, (means,)),
                       ("ranks_per_dataset", fig_ranks_per_dataset,
                        (means, missing, n_feat)))
+        if experiment_id in MODEL_PAIRED:
+            cmp_rows = model_compare_rows(
+                experiment_id, [r for r in pd_rows
+                                if r[f"auf_k{K0}"] is not None])
+            write_csv(tab_dir / "model_compare.csv", cmp_rows)
+            field_figs += (("model_compare", fig_model_compare,
+                            (cmp_rows, MODEL_PAIRED[experiment_id][1:])),)
         touts = timeout_rows(experiment_id)
         if touts:
             write_csv(tab_dir / "timeouts.csv", touts)
