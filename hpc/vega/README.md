@@ -168,6 +168,7 @@ Bash on Windows works: it needs only `ssh` and `tar`.
 
 ```bash
 VEGA_HOST=kendak@login.vega.izum.si VEGA_REPO=/ceph/hpc/home/kendak/fastener-experiments \
+    PYTHON=/c/Users/klemen/.conda/envs/fastener-exp/python.exe \
     bash hpc/vega/fetch.sh hpc/vega/h5h6e02.env
 ```
 
