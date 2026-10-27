@@ -156,8 +156,10 @@ ONLY_CELLS=@hpc/vega/h5h6e02_fastener.txt RERUN=1 SKIP_DATA=1 FORCE=1 \
     bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
 ```
 
-Cancel any of those jobs still running under the old code first: `FORCE=1`
-only leaves out jobs whose status says running, it does not stop them.
+Cancel those cells' jobs still queued or running under the old code first.
+A rerun submits every job of its cells, so one still running would run
+twice. `FORCE=1` is needed because the experiment's other jobs are still
+queued.
 
 ## 5. Bringing the results home
 
