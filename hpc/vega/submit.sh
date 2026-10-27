@@ -54,7 +54,10 @@ fi
 
 highmem=(); [ -n "${HIGHMEM_CELLS:-}" ] && highmem=(--cells "@$HIGHMEM_CELLS")
 # With FORCE=1 some jobs may still be running: never submit those again.
-running=(); [ "${FORCE:-0}" = 1 ] && running=(--skip-running)
+# Not with RERUN=1: a rerun names its cells, whose old jobs are cancelled
+# first, and many of them may carry a stale "running" from a job that never
+# started (2026-10-26).
+running=(); [ "${FORCE:-0}" = 1 ] && [ "${RERUN:-0}" != 1 ] && running=(--skip-running)
 # ONLY_CELLS limits the submission to those cells (dataset:arm, "*" for any;
 # a list or @file). RERUN=1 submits them even if done or timed out, and the
 # jobs run again (HPC_RERUN).
