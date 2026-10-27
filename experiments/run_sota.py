@@ -76,8 +76,9 @@ from datasets import DATA_DIR, SPLITS, load  # noqa: E402
 from progress import Progress, format_duration  # noqa: E402
 from nsgaii_miip import MAX_BARREN_GENERATIONS  # noqa: E402
 from protocol import (FIT_BUDGET, fit_budget, FS_SDS_K_RANGE, K_GRID, MODEL_SEED,  # noqa: E402
-                      MODELS, RF_TREES, ROW_CAP, FitCounter, model_description,
-                      set_model)
+                      MODELS, RF_TREES, ROW_CAP, FitCounter,
+                      lgbm_min_child_samples, model_description, set_model,
+                      set_train_rows)
 from provenance import DirtyTreeError, Run  # noqa: E402
 from run_fastener import (MATING_VERSIONS, run_fastener,  # noqa: E402
                           search_model_factory)
@@ -173,8 +174,9 @@ def parse_args():
                          "FASTENER arms and fs_sds take it.")
     ap.add_argument("--model", default="tree", choices=MODELS,
                     help="the protocol classifier, for EVERY method: the "
-                         "decision tree (default) or a random forest of "
-                         f"{RF_TREES} trees (H5H6-E02). Arm labels do not "
+                         "decision tree (default), a random forest of "
+                         f"{RF_TREES} trees (rf, H5H6-E02) or LightGBM "
+                         "(lgbm, H5H6-E03). Arm labels do not "
                          "change; the model is in the manifest and in every "
                          "algorithm ID.")
     ap.add_argument("--model-jobs", type=int, default=1,
@@ -317,6 +319,8 @@ def main() -> int:
                             else ""))
 
     ds = load(args.dataset, max_rows=args.max_rows or None, split=args.split)
+    # LightGBM's smallest leaf follows the training split (DEC-44).
+    set_train_rows(ds.X_train.shape[0])
     print(ds)
     if ds.max_rows and ds.n_rows_used <= ds.max_rows:
         print(f"  row cap {ds.max_rows}: using {ds.n_rows_used} rows")
@@ -354,6 +358,8 @@ def main() -> int:
         "search_model": search_model,
         "protocol_model": args.model,
         "model_n_jobs": args.model_jobs,
+        "lgbm_min_child_samples": (lgbm_min_child_samples(ds.X_train.shape[0])
+                                   if args.model == "lgbm" else None),
         "model_seed": MODEL_SEED,
         "primary_metric": "f1_weighted",
         "quick": quick,

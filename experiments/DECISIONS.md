@@ -70,6 +70,8 @@ say so, and name the result.
 | [DEC-40](#dec-40) | 2026-10-12 | H5 and H6 on the C1-C7 datasets and EOData, at H2/H3's budgets, with a 6 h per-run cap | H5H6-E01 |
 | [DEC-41](#dec-41) | 2026-10-26 | H5H6-E02: H5H6-E01's grid with a 100-tree random forest, NSGA-II stopping on stagnation, on HPC Vega | H5H6-E02 |
 | [DEC-42](#dec-42) | 2026-10-27 | FASTENER keeps fitted models in a bounded store; H5H6-E02's FASTENER jobs rerun | H5H6-E02 |
+| [DEC-43](#dec-43) | 2026-10-28 | Cluster runs read their commit from .git; the clean-tree check is made at submission | cluster runs from H5H6-E03 |
+| [DEC-44](#dec-44) | 2026-10-28 | H5H6-E03: H5H6-E01's grid with LightGBM, its smallest leaf scaled to the training split | H5H6-E03 |
 
 ## Decisions
 
@@ -962,6 +964,61 @@ FASTENER jobs are rerun.**
 - **Source:** this entry; `EXPERIMENTS.md`, H5H6-E02.
 - **Applies to:** H5H6-E02's FASTENER arms, and every later FASTENER run.
 
+### DEC-43
+
+**2026-10-28 -- Cluster runs read their commit from .git; the clean-tree
+check is made at submission.**
+
+- **Why:** Vega's compute nodes have no git (login nodes do), so no run of
+  H5H6-E02 recorded its commit, and the provenance code, taking "unknown"
+  for "clean", marked them evidence; the commits had to be reconstructed
+  from the clone's reflog. The PI's workflow keeps the Vega clone an
+  unedited pull of a pushed commit.
+- **Detail:**
+  - `provenance.git_state` fails closed: when git cannot answer, the tree is
+    unverified (code_dirty) and a run for an experiment is refused.
+  - Except when the submission vouches for it: `hpc/vega/submit.sh` checks
+    both repositories clean with git on the login node and passes their
+    commits to every job (`FASTENER_VERIFIED_EXPERIMENTS`,
+    `FASTENER_VERIFIED_FASTENER`). A job reads its commit from `.git`
+    (`provenance.read_head`: HEAD, a loose ref or packed-refs) and counts as
+    clean only if it is that commit; the manifest says so (`verified`).
+  - So a `git pull` on Vega while jobs still wait makes those jobs refuse,
+    instead of running unverified code as evidence.
+- **By:** PI (approach); implementation by Claude.
+- **Applies to:** every run on the cluster, from H5H6-E03.
+
+### DEC-44
+
+**2026-10-28 -- H5H6-E03: H5H6-E01's grid with LightGBM, its smallest leaf
+scaled to the training split.**
+
+- **Why:** H5H6-E02 showed the field's middle and its cluster leaders move
+  with the classifier (D2); the PI wants a third learner, of another kind --
+  a boosted ensemble, LightGBM.
+- **Detail:**
+  - Classifier: `LGBMClassifier(n_estimators=100, random_state=20200,
+    deterministic=True, force_col_wise=True)`, LightGBM's defaults otherwise
+    (31 leaves, learning rate 0.1), for every method (`run_sota.py --model
+    lgbm`); its thread count changes no result (checked).
+  - Smallest leaf: `min_child_samples = min(20, max(1, n_train // 20))`. At
+    LightGBM's default of 20 the smallest training splits (24-34 rows) barely
+    split: one 10-feature subset scored validation F1 0.39 on Coffee and 0.33
+    on BeetleFly, against 0.62 and 0.73 with leaves of one row; on the large
+    sets the default scored a little higher (EOData 0.54 against 0.52). The
+    rule keeps the default where the split is large and lets small splits
+    learn. It is in the algorithm IDs as the rule; each manifest records the
+    dataset's value.
+  - FASTENER's model store sizes LightGBM models by their booster
+    (`run_fastener.model_nbytes`): without it they counted for nothing and
+    every model would have been kept.
+  - Everything else as H5H6-E02: grid, budgets, skip list, 6-hour cap,
+    NSGA-II stagnation stop, FASTENER's bounded store, Vega resources.
+- **By:** PI (LightGBM; the scaled leaf; registering as H5H6-E03);
+  timings, checks and implementation by Claude.
+- **Taken before any H5H6-E03 run.**
+- **Applies to:** H5H6-E03.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -981,3 +1038,4 @@ are not repeated.
 | `H4-E03` | reported: refuted (FASTENER ahead at equal fits) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-37](#dec-37), [DEC-39](#dec-39) | -- | [H4-E03](reports/H4-E03/REPORT.md) |
 | `H5H6-E01` | reported: H5 not supported; H6 not supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40) | [DEC-41](#dec-41) | [H5H6-E01](reports/H5H6-E01/REPORT.md) |
 | `H5H6-E02` | reported: H5 not supported; H6 not supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40), [DEC-41](#dec-41), [DEC-42](#dec-42) | -- | [H5H6-E02](reports/H5H6-E02/REPORT.md) |
+| `H5H6-E03` | registered | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40), [DEC-41](#dec-41), [DEC-42](#dec-42), [DEC-43](#dec-43), [DEC-44](#dec-44) | -- | -- |

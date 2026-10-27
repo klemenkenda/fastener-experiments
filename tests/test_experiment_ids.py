@@ -114,7 +114,7 @@ def test_set_status_rejects_unknown(tmp_path):
 def test_run_refuses_dirty_code(tmp_path, monkeypatch):
     dirty = {"available": True, "commit": "a" * 40, "dirty": True,
              "code_dirty": True, "code_dirty_files": [" M x.py"]}
-    monkeypatch.setattr(provenance, "git_state", lambda repo, nc=(): dirty)
+    monkeypatch.setattr(provenance, "git_state", lambda repo, *a, **k: dirty)
     led = tmp_path / "EXPERIMENTS.md"
     with pytest.raises(provenance.DirtyTreeError):
         provenance.Run("t", root=tmp_path, experiment_id="H1-E01", ledger=led)
@@ -131,7 +131,7 @@ def test_run_refuses_dirty_code(tmp_path, monkeypatch):
 def test_run_algorithm_id_conflict(tmp_path, monkeypatch):
     clean = {"available": True, "commit": "b" * 40, "dirty": False,
              "code_dirty": False, "code_dirty_files": []}
-    monkeypatch.setattr(provenance, "git_state", lambda repo, nc=(): clean)
+    monkeypatch.setattr(provenance, "git_state", lambda repo, *a, **k: clean)
     run = provenance.Run("t", root=tmp_path)
     assert run.manifest["evidence"] is False  # no experiment ID
     aid = run.algorithm_id("poss", {"k": 5})

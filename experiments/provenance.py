@@ -55,11 +55,50 @@ def _git(repo: Path, *args: str) -> Optional[str]:
     return out.stdout.strip()
 
 
-def git_state(repo: Path, non_code=()) -> Dict[str, Any]:
+# Where a cluster job finds the commit its submission checked as clean, per
+# repository (hpc/vega/submit.sh sets them on the login node, which has git).
+VERIFIED_ENV = {"experiments": "FASTENER_VERIFIED_EXPERIMENTS",
+                "fastener": "FASTENER_VERIFIED_FASTENER"}
+
+
+def read_head(repo: Path) -> Optional[str]:
+    """The commit HEAD points at, read from .git without running git.
+
+    HEAD is a commit hash (detached, as the FASTENER clone is) or a ref, found
+    as a loose file or in packed-refs. None when it cannot be read.
+    """
+    git_dir = repo / ".git"
+    try:
+        head = (git_dir / "HEAD").read_text(encoding="utf-8").strip()
+        if not head.startswith("ref: "):
+            return head or None
+        ref = head[5:].strip()
+        loose = git_dir / ref
+        if loose.is_file():
+            return loose.read_text(encoding="utf-8").strip() or None
+        packed = git_dir / "packed-refs"
+        if packed.is_file():
+            for line in packed.read_text(encoding="utf-8").splitlines():
+                parts = line.split()
+                if len(parts) == 2 and parts[1] == ref:
+                    return parts[0]
+    except OSError:
+        return None
+    return None
+
+
+def git_state(repo: Path, non_code=(), verified_env: Optional[str] = None
+              ) -> Dict[str, Any]:
     """Commit, branch, dirty flags and remote for one repository.
 
     `dirty` counts every change; `code_dirty` ignores the `non_code` paths, and
     is the flag that decides whether a run can be cited as evidence.
+
+    Where git cannot run (Vega's compute nodes have none), the commit is read
+    from .git, and the tree counts as clean only if that commit is the one the
+    environment variable `verified_env` names -- the commit the submission
+    checked as clean with git (DEC-43). A different commit, such as after a
+    `git pull` while jobs still wait, or none, is unverified.
     """
     if not (repo / ".git").exists():
         return {"path": str(repo), "available": False}
@@ -69,14 +108,25 @@ def git_state(repo: Path, non_code=()) -> Dict[str, Any]:
                    if non_code else status)
     commit = _git(repo, "rev-parse", "HEAD")
     if commit is None or status is None or code_status is None:
-        # git could not answer -- not on PATH, timed out, refused the repo.
-        # The code is then unverified, not clean: a run cannot prove which
-        # code it ran, so it is not evidence (and Run refuses it for an
-        # experiment). Treating "unknown" as "clean" let all 2,202 runs of
-        # H5H6-E02 record commit null with evidence true: git could not run
-        # inside the cluster jobs (Vega's compute nodes have no git; its
-        # login nodes do).
-        unverified = ["(git failed: the commit and the tree could not be read)"]
+        # git could not answer -- not installed, timed out, refused the repo.
+        # The code is then unverified, not clean, unless the submission
+        # vouches for this very commit. Treating "unknown" as "clean" let all
+        # 2,202 runs of H5H6-E02 record commit null with evidence true: git
+        # could not run inside the cluster jobs (Vega's compute nodes have no
+        # git; its login nodes do).
+        commit = commit or read_head(repo)
+        vouched = os.environ.get(verified_env) if verified_env else None
+        if commit and vouched and vouched == commit:
+            return {"path": str(repo), "available": True, "commit": commit,
+                    "branch": None, "remote": None, "dirty": False,
+                    "dirty_files": [], "code_dirty": False,
+                    "code_dirty_files": [],
+                    "verified": f"commit read from .git; tree checked clean "
+                                f"at submission ({verified_env})"}
+        unverified = ["(git failed: the commit and the tree could not be read)"
+                      if not commit else
+                      f"(git failed: commit {commit[:7]} read from .git is not "
+                      f"the one checked clean at submission: {vouched})"]
         return {"path": str(repo), "available": True, "commit": commit,
                 "branch": None, "remote": None, "dirty": True,
                 "dirty_files": unverified, "code_dirty": True,
@@ -98,7 +148,8 @@ def git_state(repo: Path, non_code=()) -> Dict[str, Any]:
 def environment() -> Dict[str, Any]:
     """Interpreter and package versions."""
     pkgs: Dict[str, Optional[str]] = {}
-    for name in ("numpy", "scipy", "sklearn", "pandas", "matplotlib"):
+    for name in ("numpy", "scipy", "sklearn", "pandas", "matplotlib",
+                 "lightgbm"):
         try:
             mod = __import__(name)
             pkgs[name] = getattr(mod, "__version__", None)
@@ -152,8 +203,10 @@ class Run:
                  allow_dirty: bool = False,
                  ledger: Optional[Path] = None) -> None:
         git = {
-            "experiments": git_state(REPO_ROOT, NON_CODE_PATHS),
-            "fastener": git_state(FASTENER_DIR),
+            "experiments": git_state(REPO_ROOT, NON_CODE_PATHS,
+                                     VERIFIED_ENV["experiments"]),
+            "fastener": git_state(FASTENER_DIR,
+                                  verified_env=VERIFIED_ENV["fastener"]),
         }
         if experiment_id is not None:
             # Imported here so provenance stays usable without the ledger.

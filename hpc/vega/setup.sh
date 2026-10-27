@@ -28,12 +28,14 @@ curl -fsSL "$MICROMAMBA_URL" -o "$BUILD/mm.tar.bz2"
 tar -xjf "$BUILD/mm.tar.bz2" -C "$BUILD" bin/micromamba
 export MAMBA_ROOT_PREFIX="$BUILD/mamba"
 
-# --- Python and conda-pack from conda-forge, everything else from pip, as on
-# the machine that ran H5H6-E01 (requirements.txt).
+# --- Python, conda-pack and LightGBM from conda-forge, everything else from
+# pip, as on the machine that ran H5H6-E01 (requirements.txt). LightGBM comes
+# from conda-forge so that the OpenMP runtime it links to comes with it,
+# rather than from the compute nodes' system libraries.
 "$BUILD/bin/micromamba" create -y -q -p "$BUILD/env" -c conda-forge \
-    "python=$PYTHON_VERSION" pip conda-pack
+    "python=$PYTHON_VERSION" pip conda-pack "lightgbm>=4.0"
 "$BUILD/env/bin/python" -m pip install --no-cache-dir -q -r requirements.txt
-"$BUILD/env/bin/python" -c "import numpy, scipy, sklearn, pandas, boruta, skrebate, pyHSICLasso; print('python ok: sklearn', sklearn.__version__, 'numpy', numpy.__version__)"
+"$BUILD/env/bin/python" -c "import numpy, scipy, sklearn, pandas, boruta, skrebate, pyHSICLasso, lightgbm; print('python ok: sklearn', sklearn.__version__, 'numpy', numpy.__version__, 'lightgbm', lightgbm.__version__)"
 
 # --- Pack, then copy the single file to Ceph.
 "$BUILD/env/bin/conda-pack" -q -p "$BUILD/env" -o "$BUILD/env.tar.gz" \

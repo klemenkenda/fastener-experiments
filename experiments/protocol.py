@@ -27,17 +27,42 @@ MODEL_SEED = 20200
 # random forest of H5H6-E02 (DEC-41), at scikit-learn's defaults with 100
 # trees. Its thread count only splits the trees over cores: a forest with a
 # fixed random_state is the same at any n_jobs, so it is not part of an arm's
-# configuration.
-MODELS = ("tree", "rf")
+# configuration. "lgbm" is LightGBM, of H5H6-E03 (DEC-44): LightGBM's
+# defaults (100 trees, 31 leaves, learning rate 0.1) except the smallest
+# leaf, which follows the training split -- see lgbm_min_child_samples --
+# and deterministic=True, so its results too are the same at any thread
+# count.
+MODELS = ("tree", "rf", "lgbm")
 RF_TREES = 100
-_MODEL = {"name": "tree", "n_jobs": 1}
+LGBM_TREES = 100
+_MODEL = {"name": "tree", "n_jobs": 1, "n_train": None}
 
 
 def set_model(name: str, n_jobs: int = 1) -> None:
-    """Select the protocol classifier for this process ("tree" or "rf")."""
+    """Select the protocol classifier for this process ("tree", "rf" or
+    "lgbm"). LightGBM also needs the training split's size: set_train_rows."""
     if name not in MODELS:
         raise ValueError(f"unknown protocol model {name!r}; have {MODELS}")
-    _MODEL.update(name=name, n_jobs=max(1, int(n_jobs)))
+    _MODEL.update(name=name, n_jobs=max(1, int(n_jobs)), n_train=None)
+
+
+def set_train_rows(n_train: int) -> None:
+    """The training split's size, which LightGBM's smallest leaf follows."""
+    _MODEL["n_train"] = int(n_train)
+
+
+def lgbm_min_child_samples(n_train: int) -> int:
+    """LightGBM's smallest leaf for a training split of `n_train` rows.
+
+    LightGBM's default, 20 rows, leaves the smallest datasets nearly
+    unlearnable: on Coffee (34 training rows) and BeetleFly (24) one
+    10-feature subset scored validation F1 0.39 and 0.33 at the default, 0.62
+    and 0.73 with leaves of one row, while on the large sets the default
+    scored a little higher (EOData 0.54 against 0.52). So the leaf scales
+    with the split: a twentieth of its rows, at least 1, at most LightGBM's
+    20 (DEC-44).
+    """
+    return min(20, max(1, n_train // 20))
 
 
 def model_name() -> str:
@@ -45,9 +70,16 @@ def model_name() -> str:
 
 
 def model_description() -> str:
-    """The classifier as recorded in manifests and hashed into algorithm IDs."""
+    """The classifier as recorded in manifests and hashed into algorithm IDs.
+
+    For LightGBM it names the leaf rule, not one dataset's value, so an arm
+    keeps one configuration across datasets.
+    """
     if _MODEL["name"] == "rf":
         return f"RandomForestClassifier({RF_TREES} trees)"
+    if _MODEL["name"] == "lgbm":
+        return (f"LGBMClassifier({LGBM_TREES} trees, min_child_samples="
+                f"min(20, max(1, n_train // 20)), deterministic)")
     return "DecisionTreeClassifier"
 
 
@@ -56,6 +88,16 @@ def make_model():
         return RandomForestClassifier(n_estimators=RF_TREES,
                                       random_state=MODEL_SEED,
                                       n_jobs=_MODEL["n_jobs"])
+    if _MODEL["name"] == "lgbm":
+        if _MODEL["n_train"] is None:
+            raise RuntimeError("LightGBM's leaf follows the training split: "
+                               "call protocol.set_train_rows first")
+        from lightgbm import LGBMClassifier
+        return LGBMClassifier(
+            n_estimators=LGBM_TREES, random_state=MODEL_SEED,
+            n_jobs=_MODEL["n_jobs"], deterministic=True, force_col_wise=True,
+            min_child_samples=lgbm_min_child_samples(_MODEL["n_train"]),
+            verbose=-1)
     return DecisionTreeClassifier(random_state=MODEL_SEED)
 
 

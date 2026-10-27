@@ -361,3 +361,77 @@ def _one_row_ledger(tmp_path):
                                  "started": "2026-10-28", "runs": [],
                                  "status": "running", "report": ""}], ledger)
     return ledger
+
+
+# ---------------------------------------------------------------- LightGBM
+def test_lgbm_leaf_follows_the_training_split():
+    assert [protocol.lgbm_min_child_samples(n) for n in (10, 34, 100, 399, 400, 30000)] \
+        == [1, 1, 5, 19, 20, 20]
+
+
+def test_lgbm_needs_the_split_size_and_is_thread_invariant():
+    pytest.importorskip("lightgbm")
+    protocol.set_model("lgbm", n_jobs=2)
+    with pytest.raises(RuntimeError):
+        protocol.make_model()
+    rng = np.random.RandomState(0)
+    X, y = rng.normal(size=(200, 6)), rng.randint(0, 3, 200)
+    preds = []
+    for jobs in (1, 3):
+        protocol.set_model("lgbm", n_jobs=jobs)
+        protocol.set_train_rows(200)
+        m = protocol.make_model()
+        assert m.min_child_samples == 10
+        preds.append(m.fit(X, y).predict_proba(X))
+    assert np.array_equal(*preds)
+    assert "min(20, max(1, n_train // 20))" in protocol.model_description()
+    protocol.set_model("tree")
+
+
+def test_the_model_store_sizes_lgbm_models():
+    pytest.importorskip("lightgbm")
+    import _bootstrap  # noqa: F401
+    from run_fastener import model_nbytes
+    protocol.set_model("lgbm", n_jobs=1)
+    protocol.set_train_rows(300)
+    rng = np.random.RandomState(1)
+    m = protocol.make_model().fit(rng.normal(size=(300, 5)), rng.randint(0, 2, 300))
+    protocol.set_model("tree")
+    assert model_nbytes(m) > 10_000
+
+
+# ------------------------------------------------- commits without git (DEC-43)
+def _fake_repo(tmp_path, head, refs=None, packed=None):
+    g = tmp_path / ".git"
+    (g / "refs" / "heads").mkdir(parents=True)
+    (g / "HEAD").write_text(head)
+    for name, sha in (refs or {}).items():
+        (g / "refs" / "heads" / name).write_text(sha + "\n")
+    if packed:
+        (g / "packed-refs").write_text(packed)
+    return tmp_path
+
+
+def test_read_head_detached_loose_and_packed(tmp_path):
+    import provenance
+    a = _fake_repo(tmp_path / "a", "3be56971101dd77da08450dc7b5712352d0f4d9f\n")
+    assert provenance.read_head(a).startswith("3be5697")
+    b = _fake_repo(tmp_path / "b", "ref: refs/heads/master\n", refs={"master": "f" * 40})
+    assert provenance.read_head(b) == "f" * 40
+    c = _fake_repo(tmp_path / "c", "ref: refs/heads/master\n",
+                   packed="# pack-refs\n" + "e" * 40 + " refs/heads/master\n")
+    assert provenance.read_head(c) == "e" * 40
+
+
+def test_without_git_only_the_verified_commit_counts_as_clean(tmp_path, monkeypatch):
+    import provenance
+    repo = _fake_repo(tmp_path, "ref: refs/heads/master\n", refs={"master": "a" * 40})
+    monkeypatch.setattr(provenance, "_git", lambda repo, *args: None)
+    monkeypatch.setenv("FASTENER_VERIFIED_EXPERIMENTS", "a" * 40)
+    st = provenance.git_state(repo, (), "FASTENER_VERIFIED_EXPERIMENTS")
+    assert st["commit"] == "a" * 40 and not st["code_dirty"] and "verified" in st
+    monkeypatch.setenv("FASTENER_VERIFIED_EXPERIMENTS", "b" * 40)   # pulled since
+    st = provenance.git_state(repo, (), "FASTENER_VERIFIED_EXPERIMENTS")
+    assert st["commit"] == "a" * 40 and st["code_dirty"]
+    monkeypatch.delenv("FASTENER_VERIFIED_EXPERIMENTS")
+    assert provenance.git_state(repo, (), "FASTENER_VERIFIED_EXPERIMENTS")["code_dirty"]

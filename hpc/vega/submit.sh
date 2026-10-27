@@ -23,17 +23,26 @@ EXPERIMENT_FILE="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 cd "$REPO"
 
 use_env    # the environment, unpacked once into this login node's /tmp
-# The check each run makes (provenance.NON_CODE_PATHS: the ledger, results
-# and data may change; code may not), made once here rather than in 2,000 jobs.
-"$PY" - <<'EOF'
+# The clean-tree check, made here with git for both repositories, rather than
+# in the jobs: Vega's compute nodes have no git. Its two commits go to every
+# job, which reads its own commit from .git and counts as clean only if it is
+# this one (provenance.git_state, DEC-43) -- so a `git pull` while jobs still
+# wait makes them refuse, rather than run unverified code as evidence.
+VERIFIED="$("$PY" - <<'EOF'
 import sys
 sys.path.insert(0, "experiments")
-from provenance import NON_CODE_PATHS, REPO_ROOT, git_state
-s = git_state(REPO_ROOT, NON_CODE_PATHS)
-if s.get("code_dirty"):
-    sys.exit("uncommitted code; runs with --experiment would refuse:\n  "
-             + "\n  ".join(s["code_dirty_files"]))
+from provenance import FASTENER_DIR, NON_CODE_PATHS, REPO_ROOT, git_state
+for name, s in (("experiments", git_state(REPO_ROOT, NON_CODE_PATHS)),
+                ("fastener", git_state(FASTENER_DIR))):
+    if not s.get("commit") or s.get("code_dirty"):
+        sys.exit(f"{name}: uncommitted code or no commit; runs with "
+                 "--experiment would refuse:\n  "
+                 + "\n  ".join(s.get("code_dirty_files") or ["(no commit)"]))
+    print(s["commit"])
 EOF
+)"
+read -r VERIFIED_EXPERIMENTS VERIFIED_FASTENER <<< "$(echo $VERIFIED)"
+echo "verified clean: experiments ${VERIFIED_EXPERIMENTS:0:7}, fastener ${VERIFIED_FASTENER:0:7}"
 
 NAME="fastener-$EXPERIMENT"
 if [ "${FORCE:-0}" != 1 ] && [ -n "$(squeue -h -u "$USER" -n "$NAME,$NAME-data,$NAME-test" -o %i)" ]; then
@@ -78,7 +87,7 @@ mkdir -p "$OUT"
 # Jobs get only what they need: no PATH, modules or conda settings from this
 # shell can reach them.
 common=(--parsable --partition "$PARTITION"
-        --export "HOME,USER,REPO_DIR=$REPO,EXPERIMENT=$EXPERIMENT,EXPERIMENT_FILE=$EXPERIMENT_FILE,HPC_RERUN=${RERUN:-0}")
+        --export "HOME,USER,REPO_DIR=$REPO,EXPERIMENT=$EXPERIMENT,EXPERIMENT_FILE=$EXPERIMENT_FILE,HPC_RERUN=${RERUN:-0},FASTENER_VERIFIED_EXPERIMENTS=$VERIFIED_EXPERIMENTS,FASTENER_VERIFIED_FASTENER=$VERIFIED_FASTENER")
 [ -n "$ACCOUNT" ] && common+=(--account "$ACCOUNT")
 
 dep=()

@@ -718,6 +718,9 @@ Holm correction, against **every** other algorithm including stock FASTENER.
   either: stock FASTENER is significantly ahead of 9 of 16 opponents, guided
   FASTENER of 12; the four population searches still tie at the top, and the
   cluster leaders change in six of eight clusters. [Report](reports/H5H6-E02/REPORT.md).
+* `H5H6-E03` -- H5 and H6 on the same grid with LightGBM as the one
+  classifier, its smallest leaf scaled to the training split, on HPC Vega
+  ([DEC-44](DECISIONS.md#dec-44)). Registered.
 
 ---
 
@@ -1290,3 +1293,15 @@ NSGAII-MIIP now stop after 50 generations that score no new subset, as FS-SDS
 already did; in H5H6-E01 their converged runs spun until the cap.
 
 Recorded as [DEC-41](DECISIONS.md#dec-41).
+
+**2026-10-28 -- H5 and H6 again, with LightGBM (H5H6-E03).** Added after
+H5H6-E02 was reported, before any H5H6-E03 run. H5's and H6's claims,
+criteria, datasets, budgets and cap are unchanged. The third learner is a
+boosted ensemble, LightGBM at its defaults except the smallest leaf, which
+scales with the training split (a twentieth of its rows, 1 to 20): at
+LightGBM's default of 20 the smallest datasets, with 24-34 training rows,
+are nearly unlearnable. With the decision tree (H5H6-E01) and the random
+forest (H5H6-E02) it tests D2 with a learner of another kind.
+
+Recorded as [DEC-44](DECISIONS.md#dec-44); runs record their commit as
+[DEC-43](DECISIONS.md#dec-43) describes.

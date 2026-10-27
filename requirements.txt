@@ -39,6 +39,9 @@ Boruta          # from boruta import BorutaPy       -- run_boruta
 skrebate        # from skrebate import ReliefF      -- run_relieff
 pyHSICLasso     # from pyHSICLasso import HSICLasso -- run_hsic_lasso
 
+# The protocol classifier of H5H6-E03 (run_sota.py --model lgbm, DEC-44).
+lightgbm>=4.0
+
 # mRMR, plain NSGA-II and the NSGAII-MIIP port need no extra packages: they are
 # implemented in-repo on top of numpy and scikit-learn.
 

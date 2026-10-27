@@ -106,7 +106,13 @@ def search_model_factory(model: str):
 
 def model_nbytes(model) -> int:
     """About how much memory a fitted model holds: its trees' nodes and
-    values for a tree or a forest, its arrays otherwise (the ELM)."""
+    values for a tree or a forest, its booster's text for LightGBM (no
+    `estimators_`, and arrays of its own count for nothing -- so without this
+    the store would keep every LightGBM model), its arrays otherwise (the
+    ELM)."""
+    booster = getattr(model, "booster_", None)
+    if booster is not None:
+        return len(booster.model_to_string())
     trees = getattr(model, "estimators_", None)
     if trees is None and hasattr(model, "tree_"):
         trees = [model]
