@@ -144,6 +144,21 @@ MEM=32G SKIP_DATA=1 SKIP_TEST=1 bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
 `sacct -u $USER --state=FAILED,OUT_OF_MEMORY --format=JobID,JobName,State,MaxRSS,Elapsed`
 shows which tasks failed and how much memory they used.
 
+## Rerunning some cells
+
+`ONLY_CELLS` limits a submission to some cells (`dataset:arm`, `*` for any,
+a list or `@file`). `RERUN=1` runs them even if they are done or timed out,
+for example after a fix that touches one arm. H5H6-E02's FASTENER jobs were
+rerun this way after DEC-42:
+
+```bash
+ONLY_CELLS=@hpc/vega/h5h6e02_fastener.txt RERUN=1 SKIP_DATA=1 FORCE=1 \
+    bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
+```
+
+Cancel any of those jobs still running under the old code first: `FORCE=1`
+only leaves out jobs whose status says running, it does not stop them.
+
 ## 5. Bringing the results home
 
 Run `fetch.sh` on your own machine, in your clone of this repository. Git
@@ -159,10 +174,10 @@ It copies two things into your local `results/`:
 - `results/H5H6-E02/`: the job list, the states and the logs;
 - every run folder, `results/*_h5h6e02_*`.
 
-It then adds the runs listed in Vega's ledger to your local H5H6-E02 row in
-`experiments/EXPERIMENTS.md`, so nothing needs committing or pushing from the
-cluster. It is safe to run again: it fetches everything again and adds only
-runs the ledger doesn't have yet.
+It then records each job's latest run in your local H5H6-E02 row in
+`experiments/EXPERIMENTS.md`, from the status files, so nothing needs
+committing or pushing from the cluster. A rerun job's earlier run is left
+out. It is safe to run again: it adds only runs the ledger doesn't have yet.
 
 `NO_TRAJECTORIES=1` leaves out the `trajectories/` folders, which are most of
 the volume. The report's progress and timeout figures need them.

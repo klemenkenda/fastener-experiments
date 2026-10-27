@@ -281,3 +281,63 @@ def test_skip_running_leaves_out_jobs_still_running(tmp_path, monkeypatch):
                             {"state": state})
     assert hpc_jobs.select("t", unfinished=True) == [0, 1, 2]
     assert hpc_jobs.select("t", unfinished=True, skip_running=True) == [1, 2]
+
+
+def test_within_keeps_an_arm_on_every_dataset(tmp_path, monkeypatch):
+    monkeypatch.setattr(hpc_jobs, "RESULTS_DIR", tmp_path)
+    monkeypatch.setattr(run_queue, "RESULTS_DIR", tmp_path)
+    hpc_jobs.emit(["--name", "t", "--datasets", "Coffee,Ham",
+                   "--methods", "boruta,fastener:none,fastener:guided",
+                   "--seeds", "2020"])
+    spec = hpc_jobs.load_jobs("t")
+    got = hpc_jobs.select("t", within="*:fastener_none,*:fastener_guided")
+    assert {spec["jobs"][i]["arm"] for i in got} == {"fastener_none",
+                                                     "fastener_guided"}
+    assert len(got) == 4
+    # with the high-memory split on top: Ham's jobs in one array, the rest
+    high = hpc_jobs.select("t", cells="Ham:*", within="*:fastener_none")
+    assert [spec["jobs"][i]["dataset"] for i in high] == ["Ham"]
+
+
+def test_rerun_runs_a_finished_job_again(tmp_path, monkeypatch):
+    path, spec = _emit(tmp_path, monkeypatch)
+    marker = tmp_path / "ran"
+    _set_cmds(path, spec, [[sys.executable, "-c",
+                            f"open(r'{marker}', 'a').write('x')"]] * 3)
+    hpc_jobs.run("t", 0, cpus=1)
+    hpc_jobs.run("t", 0, cpus=1)
+    assert marker.read_text() == "x"
+    monkeypatch.setenv("HPC_RERUN", "1")
+    hpc_jobs.run("t", 0, cpus=1)
+    assert marker.read_text() == "xx"
+
+
+def test_a_job_that_cannot_start_is_marked_failed(tmp_path, monkeypatch):
+    path, spec = _emit(tmp_path, monkeypatch)
+    monkeypatch.setattr(hpc_jobs.sys, "executable", str(tmp_path / "no-python"))
+    with pytest.raises(OSError):
+        hpc_jobs.run("t", 0, cpus=1)
+    assert hpc_jobs.read_status("t", spec["jobs"][0]["name"])["state"] == "failed"
+
+
+def test_bounded_model_store_gives_the_same_front(tmp_path):
+    import _bootstrap  # noqa: F401
+    from run_fastener import run_fastener
+    rng = np.random.RandomState(3)
+    X = rng.normal(size=(120, 15))
+    y = (X[:, 0] + X[:, 3] > 0).astype(int)
+    ds = SimpleNamespace(n_features=15, X_train=X[:70], y_train=y[:70],
+                         X_val=X[70:95], y_val=y[70:95], X_test=X[95:],
+                         y_test=y[95:])
+    runs = {}
+    for cache in (None, 0.0):
+        run_dir = tmp_path / f"cache_{cache}"
+        run_dir.mkdir()
+        runs[cache] = run_fastener(ds, run_dir, seed=1, rounds=1000,
+                                   swap="guided", max_fits=150,
+                                   dump_logs=False, model_cache_mb=cache)
+    a, b = runs[None], runs[0.0]
+    assert b["model_refits"] > 0 and a["model_fits"] == b["model_fits"]
+    assert [(r["features"], r["val_score"], r["test_score"])
+            for r in a["records"]] == [(r["features"], r["val_score"],
+                                        r["test_score"]) for r in b["records"]]

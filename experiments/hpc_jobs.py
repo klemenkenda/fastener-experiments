@@ -125,7 +125,11 @@ def run(experiment: str, index: int, cpus: Optional[int]) -> int:
         raise SystemExit(f"index {index} out of range: {len(jobs)} jobs")
     j = jobs[index]
     old = read_status(name, j["name"])
-    if old and old.get("state") in FINISHED:
+    # HPC_RERUN=1 (submit.sh RERUN=1): run it again even if it finished, as
+    # for H5H6-E02's FASTENER jobs after DEC-42; the new run replaces the old
+    # one in the status file, and so in the ledger (`ledger`).
+    if old and old.get("state") in FINISHED \
+            and os.environ.get("HPC_RERUN") != "1":
         print(f"{j['name']}: already {old['state']}, not run again")
         return 0
     cpus = cpus or int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
@@ -153,9 +157,18 @@ def run(experiment: str, index: int, cpus: Optional[int]) -> int:
         # jobs rewriting it at once timed out on its lock. `ledger` records
         # the experiment's runs afterwards, from the status files.
         env = dict(os.environ, **{provenance.DEFER_LEDGER_ENV: "1"})
-        proc = subprocess.Popen(cmd, stdout=fh, stderr=subprocess.STDOUT,
-                                cwd=str(run_queue.HERE.parent), env=env,
-                                start_new_session=True)
+        try:
+            proc = subprocess.Popen(cmd, stdout=fh, stderr=subprocess.STDOUT,
+                                    cwd=str(run_queue.HERE.parent), env=env,
+                                    start_new_session=True)
+        except OSError as exc:
+            # Not left "running": on 2026-10-26 2,000 jobs that never started
+            # kept that status, and a resubmission took them for running.
+            st.update(state="failed", exit_code=None,
+                      ended_utc=run_queue.utc(),
+                      note=f"could not start: {exc}")
+            write_json(status_path(name, j["name"]), st)
+            raise
 
         def stop(signum, frame):
             # SLURM's own time limit or a scancel: stop the job, and say so,
@@ -241,30 +254,45 @@ def ranges(indices: List[int]) -> str:
     return ",".join(out)
 
 
+def _matcher(cells: str):
+    """dataset:arm cells (a list or @file; `*` as either part matches any)
+    as a predicate on a job."""
+    want = run_queue.parse_skip(cells)
+    return lambda j: ((j["dataset"], j["arm"]) in want
+                      or (j["dataset"], "*") in want or ("*", j["arm"]) in want)
+
+
 def select(experiment: str, cells: Optional[str] = None, invert: bool = False,
-           unfinished: bool = False, skip_running: bool = False) -> List[int]:
+           unfinished: bool = False, skip_running: bool = False,
+           within: Optional[str] = None) -> List[int]:
     """Indices of the jobs to submit.
 
-    `cells` ("dataset:arm,..." or "@file", run_queue's skip syntax; arm `*`
-    matches any) keeps the jobs in those cells -- or, with `invert`, the
-    rest. `unfinished` drops jobs already done or timed out, so a
-    resubmission schedules only the work left. `skip_running` also drops
-    jobs whose status says running: for a resubmission while some jobs of
-    the experiment still run (submit.sh with FORCE=1). A job killed while
-    running keeps that status; a later resubmission without it picks it up.
+    `cells` keeps the jobs in those cells -- or, with `invert`, the rest
+    (submit.sh's split into the normal and the high-memory array). `within`
+    keeps only jobs in its cells, whatever `cells` does (submit.sh
+    ONLY_CELLS). Both take dataset:arm cells, a list or @file, with `*` for
+    any dataset or arm.
+
+    `unfinished` drops jobs already done or timed out, so a resubmission
+    schedules only the work left. `skip_running` drops jobs whose status says
+    running, so a job still running is never started twice (submit.sh with
+    FORCE=1). A job killed while running keeps that status; a later
+    resubmission without the flag picks it up.
     """
     spec = load_jobs(experiment)
-    want = run_queue.parse_skip(cells) if cells else set()
+    in_cells = _matcher(cells) if cells else None
+    in_within = _matcher(within) if within else None
     out = []
     for i, j in enumerate(spec["jobs"]):
-        hit = (j["dataset"], j["arm"]) in want or (j["dataset"], "*") in want
-        if cells and hit == invert:
+        if in_cells and in_cells(j) == invert:
             continue
-        if unfinished:
-            st = read_status(spec["name"], j["name"])
-            if st and st.get("state") in FINISHED:
+        if in_within and not in_within(j):
+            continue
+        if unfinished or skip_running:
+            st = read_status(spec["name"], j["name"]) or {}
+            if unfinished and st.get("state") in FINISHED:
                 continue
-            if skip_running and st and st.get("state") == "running":
+            if skip_running and st.get("state") == "running":
                 continue
         out.append(i)
     return out
@@ -354,10 +382,14 @@ def main(argv: Optional[List[str]] = None) -> int:
                         help="leave out jobs already done or timed out")
         ap.add_argument("--skip-running", action="store_true",
                         help="also leave out jobs whose status is running")
+        ap.add_argument("--within", default=None,
+                        help="keep only jobs in these dataset:arm cells "
+                             "(list or @file; * for any dataset or arm)")
     args = ap.parse_args(rest)
     if cmd == "indices":
         print(ranges(select(args.experiment, args.cells, args.invert,
-                            args.unfinished, args.skip_running)))
+                            args.unfinished, args.skip_running,
+                            args.within)))
         return 0
     if cmd == "merge-ledger":
         return merge_ledger(args.experiment, args.other)

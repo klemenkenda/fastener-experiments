@@ -54,7 +54,16 @@ import csv
 import sys
 import time
 import traceback
+import warnings
 from pathlib import Path
+
+# Raised from the random forest's worker threads, tens of thousands of times a
+# run on some datasets (ItalyPowerDemand under FASTENER's guided swap): the
+# threads cannot be handed scikit-learn's configuration, which this code never
+# changes. It alters no result, and on a cluster it filled every job's log on
+# the shared file system.
+warnings.filterwarnings(
+    "ignore", message=r"`sklearn\.utils\.parallel\.delayed` should be used")
 
 import numpy as np
 

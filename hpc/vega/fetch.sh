@@ -9,9 +9,9 @@
 #
 # It copies the experiment's queue folder (results/<ID>/: job list, states,
 # logs) and every run folder (results/*_<id>_*), streamed as one tar archive.
-# Then it adds the experiment's runs from Vega's ledger to the local
-# experiments/EXPERIMENTS.md row, so nothing has to be committed or pushed
-# from the cluster. Running it again fetches everything again and adds only
+# Then it records each job's latest run in the local experiments/EXPERIMENTS.md
+# row, from the status files, so nothing has to be committed or pushed from
+# the cluster. Running it again fetches everything again and adds only
 # the runs not yet in the ledger.
 #
 # NO_TRAJECTORIES=1 leaves out the per-run trajectories/ folders, which are
@@ -34,11 +34,8 @@ ssh "$VEGA_HOST" "cd '$VEGA_REPO' && tar czf - $exclude results/$EXPERIMENT \
     \$(ls -d results/*_${prefix}_* 2>/dev/null)" | tar xzf -
 echo "results: $(ls -d results/*_"${prefix}"_* 2>/dev/null | wc -l) run folders, and results/$EXPERIMENT"
 
-ledger="$(mktemp)"
-ssh "$VEGA_HOST" "cat '$VEGA_REPO/experiments/EXPERIMENTS.md'" > "$ledger"
-"$PY" experiments/hpc_jobs.py merge-ledger --experiment "$EXPERIMENT" --from "$ledger"
-rm -f "$ledger"
-# The runs themselves: jobs do not write the ledger (hpc_jobs.py run), so
-# they are recorded here, from the status files just fetched.
+# The runs, from the status files just fetched: each job's latest run. Not
+# from Vega's ledger, where the jobs of the first submissions recorded
+# themselves -- among them FASTENER runs replaced by reruns (DEC-42).
 "$PY" experiments/hpc_jobs.py ledger --experiment "$EXPERIMENT"
 echo "next: python experiments/make_report.py --experiment $EXPERIMENT"

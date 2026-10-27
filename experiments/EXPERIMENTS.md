@@ -475,3 +475,11 @@ the tree. A single forest fit can be cheaper than a tree fit on a wide
 subset, since each split considers only the square root of the features. At
 these rates the FASTENER runs take up to about 3 hours. The NSGA-II arms on
 the largest datasets are the runs most likely to reach the cap.
+
+**Changed during the run (2026-10-27, [DEC-42](DECISIONS.md#dec-42)).**
+FASTENER cached every fitted forest and its jobs on mid-sized and large
+datasets ran into their 8 GB; the model store is now bounded, with
+identical fronts, scores and fits, and all 585 FASTENER jobs are rerun
+under it. Runs of the other arms come from commits `5efd5a3` and
+`f3eb230`, which differ only in how runs are recorded (cluster jobs no
+longer write this ledger; `hpc_jobs.py ledger` does).

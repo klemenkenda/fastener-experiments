@@ -6,6 +6,8 @@
 #   bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
 #   SKIP_DATA=1 bash hpc/vega/submit.sh hpc/vega/h5h6e02.env   # data already there
 #   MEM=32G SKIP_DATA=1 SKIP_TEST=1 bash hpc/vega/submit.sh ... # rerun with more memory
+#   ONLY_CELLS=@hpc/vega/h5h6e02_fastener.txt RERUN=1 SKIP_DATA=1 \
+#       bash hpc/vega/submit.sh hpc/vega/h5h6e02.env   # rerun those cells, done or not
 #
 # The chain is: the data job, then a five-minute test job (test.sbatch), then
 # the arrays -- each starts only if the one before it succeeded.
@@ -53,11 +55,16 @@ fi
 highmem=(); [ -n "${HIGHMEM_CELLS:-}" ] && highmem=(--cells "@$HIGHMEM_CELLS")
 # With FORCE=1 some jobs may still be running: never submit those again.
 running=(); [ "${FORCE:-0}" = 1 ] && running=(--skip-running)
+# ONLY_CELLS limits the submission to those cells (dataset:arm, "*" for any;
+# a list or @file). RERUN=1 submits them even if done or timed out, and the
+# jobs run again (HPC_RERUN).
+only=(); [ -n "${ONLY_CELLS:-}" ] && only=(--within "$ONLY_CELLS")
+unfinished=(--unfinished); [ "${RERUN:-0}" = 1 ] && unfinished=()
 normal_idx="$("$PY" experiments/hpc_jobs.py indices --experiment "$EXPERIMENT" \
-    --unfinished "${running[@]}" "${highmem[@]}" ${HIGHMEM_CELLS:+--invert})"
+    "${unfinished[@]}" "${running[@]}" "${only[@]}" "${highmem[@]}" ${HIGHMEM_CELLS:+--invert})"
 high_idx=""
 [ -n "${HIGHMEM_CELLS:-}" ] && high_idx="$("$PY" experiments/hpc_jobs.py indices \
-    --experiment "$EXPERIMENT" --unfinished "${running[@]}" "${highmem[@]}")"
+    --experiment "$EXPERIMENT" "${unfinished[@]}" "${running[@]}" "${only[@]}" "${highmem[@]}")"
 if [ -z "$normal_idx$high_idx" ]; then
     echo "every job of $EXPERIMENT is done or timed out; nothing to submit"
     exit 0
@@ -68,7 +75,7 @@ mkdir -p "$OUT"
 # Jobs get only what they need: no PATH, modules or conda settings from this
 # shell can reach them.
 common=(--parsable --partition "$PARTITION"
-        --export "HOME,USER,REPO_DIR=$REPO,EXPERIMENT=$EXPERIMENT,EXPERIMENT_FILE=$EXPERIMENT_FILE")
+        --export "HOME,USER,REPO_DIR=$REPO,EXPERIMENT=$EXPERIMENT,EXPERIMENT_FILE=$EXPERIMENT_FILE,HPC_RERUN=${RERUN:-0}")
 [ -n "$ACCOUNT" ] && common+=(--account "$ACCOUNT")
 
 dep=()

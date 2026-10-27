@@ -13,6 +13,7 @@ FASTENER's Config hardcodes an output path of "log/<output_folder>" relative to
 the process working directory and refuses to reuse a directory, so we chdir into
 the run directory for the duration of the search and restore afterwards.
 """
+import collections
 import contextlib
 import os
 import sys
@@ -29,6 +30,7 @@ import _bootstrap  # noqa: F401,E402  puts ../fastener on sys.path
 from fastener import Config, EntropyOptimizer, FitBudgetExhausted  # noqa: E402
 from item import (  # noqa: E402
     InformationGainSwapStrategy,
+    Item,
     IntersectionMatingWithWeightedRandomInformationGain,
     RandomEveryoneWithEveryone,
     RandomFlipMutationStrategy,
@@ -102,6 +104,52 @@ def search_model_factory(model: str):
     raise ValueError(f"unknown search model {model!r}; have 'tree', 'elm'")
 
 
+def model_nbytes(model) -> int:
+    """About how much memory a fitted model holds: its trees' nodes and
+    values for a tree or a forest, its arrays otherwise (the ELM)."""
+    trees = getattr(model, "estimators_", None)
+    if trees is None and hasattr(model, "tree_"):
+        trees = [model]
+    if trees is not None:
+        # sklearn's Node struct is 64 bytes; `value` holds the class counts.
+        return int(sum(t.tree_.node_count * 64 + t.tree_.value.nbytes
+                       for t in trees))
+    return int(sum(v.nbytes for v in vars(model).values()
+                   if isinstance(v, np.ndarray)))
+
+
+def default_model_cache_mb() -> float:
+    """How much memory a search may keep fitted models in.
+
+    FASTENER_MODEL_CACHE_MB if set; inside a SLURM job 40% of its memory
+    (SLURM_MEM_PER_NODE, in MB), leaving the rest to the data and the search;
+    4 GB otherwise.
+    """
+    if os.environ.get("FASTENER_MODEL_CACHE_MB"):
+        return float(os.environ["FASTENER_MODEL_CACHE_MB"])
+    if os.environ.get("SLURM_MEM_PER_NODE"):
+        return 0.4 * float(os.environ["SLURM_MEM_PER_NODE"])
+    return 4096.0
+
+
+class _Refit:
+    """A model that is fitted again only when it is first used.
+
+    Stands in for a model the store no longer holds. Most look-ups of a
+    scored subset want only its score (Item.evaluate); only pruning predicts
+    with the model, and only then is it refitted.
+    """
+
+    def __init__(self, optimizer, number, genes):
+        self._opt, self._number, self._genes = optimizer, number, genes
+        self._model = None
+
+    def __getattr__(self, name):
+        if self._model is None:
+            self._model = self._opt._refit(self._number, self._genes)
+        return getattr(self._model, name)
+
+
 class TrackedOptimizer(EntropyOptimizer):
     """EntropyOptimizer that records the best score after every generation.
 
@@ -124,6 +172,66 @@ class TrackedOptimizer(EntropyOptimizer):
     max_cpu_seconds = None
     cpu_t0 = 0.0
     cpu_budget_hit = False
+    # Fitted models kept for reuse, at most this many MB in all (None: no
+    # limit). Upstream's cache keeps every fitted model with its score: a few
+    # MB per run with the tree, but 53 MB per forest on ElectricDevices and
+    # 440 MB on EOData, so H5H6-E02's FASTENER jobs ran into their 8 GB and
+    # crawled (2026-10-27). Scores are still all kept; a model the store has
+    # let go is refitted when pruning needs it. The protocol's models have a
+    # fixed seed, so the refit is the same model, and it is not charged to
+    # the fit budget: fits, fronts and scores are exactly as before.
+    model_cache_bytes = None
+    model_refits = 0
+
+    def _store(self):
+        if "_models" not in self.__dict__:
+            self._models = collections.OrderedDict()
+            self._model_bytes = 0
+        return self._models
+
+    def _keep(self, number, model) -> None:
+        """Keep a model; past the limit, let go of the oldest -- first those
+        not on the Pareto front, whose models pruning will not ask for."""
+        models = self._store()
+        size = model_nbytes(model)
+        models[number] = (model, size)
+        self._model_bytes += size
+        cap = self.model_cache_bytes
+        if cap is None or self._model_bytes <= cap:
+            return
+        front = {item.number for item in self.pareto_front.values()}
+        for keep_front in (True, False):
+            for key in list(models):
+                if self._model_bytes <= cap:
+                    return
+                if key == number or (key in front) == keep_front:
+                    continue
+                self._model_bytes -= models.pop(key)[1]
+
+    def _refit(self, number, genes):
+        """The model of an already scored subset, fitted again: not a new
+        evaluation, so not charged to the budget or the factory's count."""
+        build = getattr(self._model, "build", self._model)
+        model = build().fit(self.train_data[:, genes], self.train_target)
+        self.model_refits += 1
+        self._keep(number, model)
+        return model
+
+    def cached_fitness(self, genes):
+        number = Item.to_number(genes)
+        self.cache_counter[number] += 1
+        hit = self.cache_data.get(number)
+        if hit is None:
+            result, model = self._fitness_function(genes)
+            # The score is cached for good; the model goes to the store.
+            self.cache_data[number] = (result, None)
+            self._keep(number, model)
+            return result, model
+        entry = self._store().get(number)
+        if entry is not None:
+            self._models.move_to_end(number)
+            return hit[0], entry[0]
+        return hit[0], _Refit(self, number, genes.copy())
 
     def _fitness_function(self, genes):
         # Checked where every fit is charged, as the fit budget is, so a run
@@ -138,6 +246,10 @@ class TrackedOptimizer(EntropyOptimizer):
     def __getstate__(self):
         state = self.__dict__.copy()
         state.pop("progress_cb", None)
+        # The kept models are a cache, refitted on demand: not part of the
+        # state, and gigabytes of it under the forest.
+        state.pop("_models", None)
+        state.pop("_model_bytes", None)
         return state
 
     def _snapshot(self, iteration: int) -> None:
@@ -221,7 +333,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  mating: str = "fixed",
                  progress_cb=None,
                  max_cpu_seconds: Optional[float] = None,
-                 model: str = "tree") -> Dict:
+                 model: str = "tree",
+                 model_cache_mb: Optional[float] = None) -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
     `swap` selects the pruning operator and defaults to the original algorithm:
@@ -307,6 +420,9 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         optimizer.trajectory = trajectory
         optimizer.progress_cb = progress_cb
         optimizer.max_cpu_seconds = max_cpu_seconds
+        cache_mb = (default_model_cache_mb() if model_cache_mb is None
+                    else model_cache_mb)
+        optimizer.model_cache_bytes = int(cache_mb * 1e6)
         cpu0 = optimizer.cpu_t0 = time.process_time()
         if quiet:
             with open(os.devnull, "w") as devnull, contextlib.redirect_stdout(devnull):
@@ -364,6 +480,10 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         "stopped_on": stopped_on,
         "rounds_completed": optimizer.rounds_completed,
         "unique_subsets_cached": len(optimizer.cache_data),
+        # Models refitted because the bounded store had let them go: extra
+        # compute, not extra evaluations (TrackedOptimizer.model_cache_bytes).
+        "model_refits": optimizer.model_refits,
+        "model_cache_mb": cache_mb,
         # What pruning did over the run (cumulative), and how many entries of
         # the final front a swap put there. Zero swaps on the stock arm.
         "prune_stats": dict(optimizer.prune_stats),

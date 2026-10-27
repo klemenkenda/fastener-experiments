@@ -69,6 +69,7 @@ say so, and name the result.
 | [DEC-39](#dec-39) | 2026-10-11 | H4-E03 at equal model fits, with FASTENER's gene bookkeeping vectorised | H4-E03 |
 | [DEC-40](#dec-40) | 2026-10-12 | H5 and H6 on the C1-C7 datasets and EOData, at H2/H3's budgets, with a 6 h per-run cap | H5H6-E01 |
 | [DEC-41](#dec-41) | 2026-10-26 | H5H6-E02: H5H6-E01's grid with a 100-tree random forest, NSGA-II stopping on stagnation, on HPC Vega | H5H6-E02 |
+| [DEC-42](#dec-42) | 2026-10-27 | FASTENER keeps fitted models in a bounded store; H5H6-E02's FASTENER jobs rerun | H5H6-E02 |
 
 ## Decisions
 
@@ -913,6 +914,54 @@ NSGA-II stopping on stagnation, run on HPC Vega.**
 - **Applies to:** H5H6-E02, and any later run of the NSGA-II searches through
   `run_sota.py`.
 
+### DEC-42
+
+**2026-10-27 -- FASTENER keeps fitted models in a bounded store; H5H6-E02's
+FASTENER jobs are rerun.**
+
+- **Why:** FASTENER's fitness cache keeps every fitted model with its score.
+  With the tree that is a few MB a run. A 100-tree forest is 53 MB on
+  ElectricDevices, 142 MB on Crop and 439 MB on EOData, so in H5H6-E02 every
+  FASTENER job on a mid-sized or large dataset ran into its 8 GB within
+  100-1,000 fits and slowed to about 200 s per fit. Locally, where memory is
+  plentiful, the same search takes 0.7-1.1 s per fit. Those jobs could only
+  time out, and the arm the hypotheses are about would have had no result
+  on most datasets. The other arms cache scores, not models, and are
+  unaffected.
+- **Detail:**
+  - `run_fastener.TrackedOptimizer` keeps every score, as before, and at
+    most `model_cache_mb` of fitted models: 40% of the job's memory in a
+    SLURM job, 4 GB elsewhere, or `FASTENER_MODEL_CACHE_MB`. Past that it
+    lets go of the oldest models, those off the Pareto front first.
+  - A model let go is fitted again only when pruning predicts with it. The
+    protocol's models have fixed seeds, so the refit is the same model. It is
+    not charged to the fit budget (`model_fits` unchanged); the run reports
+    it as `model_refits`.
+  - Checked before the change: six configurations, tree and forest, swaps
+    none, random and guided, give the same fronts, scores and fit counts bit
+    for bit, also with a 0 MB store where every reused model is refitted
+    (4-17 refits a run). On ElectricDevices with the forest, a 1 GB store
+    peaked at 1.5 GB of memory over 150 fits, where the unbounded cache would
+    have held about 8 GB. The tests check the same on synthetic data.
+  - The upstream FASTENER clone is unchanged; the store lives in the
+    experiment code, like the rest of `TrackedOptimizer`.
+  - A scikit-learn warning raised from the forest's worker threads (tens of
+    thousands of times a run on some datasets) is silenced in `run_sota.py`.
+    It filled the jobs' logs on Ceph and changes no result.
+- **What is rerun:** all 585 FASTENER jobs of H5H6-E02 (3 arms x 39 datasets
+  x 5 seeds), done or not, so that the arm runs under one commit:
+  `ONLY_CELLS=@hpc/vega/h5h6e02_fastener.txt RERUN=1`. The other 1,617 jobs
+  stand: their arms' code is unchanged. A FASTENER job still running under
+  the old code is cancelled first. Each job's latest run is the one recorded
+  (`hpc_jobs.py ledger`, from the status files); the replaced runs stay on
+  disk but out of the ledger.
+- **By:** PI (rerun the FASTENER jobs, after the diagnosis); diagnosis,
+  implementation and checks by Claude.
+- **Taken after:** H5H6-E02's first FASTENER jobs ran into memory; before any
+  FASTENER job ran under the new code.
+- **Source:** this entry; `EXPERIMENTS.md`, H5H6-E02.
+- **Applies to:** H5H6-E02's FASTENER arms, and every later FASTENER run.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -931,4 +980,4 @@ are not repeated.
 | `H4-E02` | reported: not supported (methods comparable) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-36](#dec-36), [DEC-37](#dec-37), [DEC-38](#dec-38) | -- | [H4-E02](reports/H4-E02/REPORT.md) |
 | `H4-E03` | reported: refuted (FASTENER ahead at equal fits) | [DEC-13](#dec-13), [DEC-23](#dec-23), [DEC-24](#dec-24), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-32](#dec-32), [DEC-37](#dec-37), [DEC-39](#dec-39) | -- | [H4-E03](reports/H4-E03/REPORT.md) |
 | `H5H6-E01` | reported: H5 not supported; H6 not supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40) | [DEC-41](#dec-41) | [H5H6-E01](reports/H5H6-E01/REPORT.md) |
-| `H5H6-E02` | registered | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40), [DEC-41](#dec-41) | -- | -- |
+| `H5H6-E02` | registered | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40), [DEC-41](#dec-41), [DEC-42](#dec-42) | -- | -- |

@@ -1,0 +1,7 @@
+# H5H6-E02: the FASTENER jobs, rerun under DEC-42 (bounded model store).
+# Every dataset, the three FASTENER arms: 3 x 195 = 585 jobs. Used as
+#   ONLY_CELLS=@hpc/vega/h5h6e02_fastener.txt RERUN=1 SKIP_DATA=1 \
+#       bash hpc/vega/submit.sh hpc/vega/h5h6e02.env
+*:fastener_none
+*:fastener_guided
+*:fastener_random
