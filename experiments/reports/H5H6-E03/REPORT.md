@@ -194,8 +194,9 @@ FASTENER was level with POSS and FS-SDS; with a cheaper fit, FASTENER's
 mutual information, permutation scoring and archive weigh more, and it is
 now 30-50% slower per run than POSS and FS-SDS at the same fit budget.
 The filters and rankers took under a minute at the median, RFE 3 minutes
-and Boruta 1.5. In all the runs took 1,032 job-hours on 8 cores each
-(967 under the forest), the 71 timeouts included.
+and Boruta 1.5. In all the finished runs took 1,032 job-hours on 8 cores
+each, and the 71 timed-out runs about 6 hours each, some 425 more (967 for
+all runs under the forest, none of which timed out).
 
 ![F8](figures/F8_cost.png)
 

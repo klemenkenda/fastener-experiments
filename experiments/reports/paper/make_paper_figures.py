@@ -20,7 +20,8 @@ REPORTS = HERE.parent
 FIG = HERE / "figures"
 FIG.mkdir(exist_ok=True)
 
-EXPS = {"H5H6-E01": "decision tree", "H5H6-E02": "random forest"}
+EXPS = {"H5H6-E01": "decision tree", "H5H6-E02": "random forest",
+        "H5H6-E03": "LightGBM"}
 CLUSTERS = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "EO"]
 SEARCHES = ["fastener", "fastener_swap_guided", "fastener_swap_random",
             "nsga2_sparse", "nsga2", "nsgaii_miip", "poss", "fs_sds"]
@@ -56,18 +57,28 @@ for exp in EXPS:
                          "total_h": g.sum() / 3600})
     auf = pdx.pivot_table(index="method", columns="cluster", values="auf_k10", aggfunc="mean")
     auf["all"] = pdx.groupby("method")["auf_k10"].mean()
+    # Datasets each mean rests on; a method missing some of a cluster's
+    # datasets (timed out or skipped) is marked in the paper's tables.
+    n = pdx.pivot_table(index="method", columns="cluster", values="auf_k10", aggfunc="count")
+    n["all"] = pdx.groupby("method")["auf_k10"].count()
+    size = pdx.groupby("cluster")["dataset"].nunique()
+    size["all"] = pdx["dataset"].nunique()
     rank = pd.read_csv(REPORTS / exp / "tables" / "cluster_ranks.csv").set_index("method")
-    # Best search against best filter/ranker, per cluster.
+    # Best search against best filter/ranker, per cluster, among the methods
+    # with a result on every dataset of the cluster.
     gap = []
     for c in CLUSTERS:
-        s = auf.loc[[m for m in SEARCHES if m in auf.index], c].dropna()
-        f = auf.loc[[m for m in FILTERS if m in auf.index], c].dropna()
+        full = [m for m in auf.index if n.loc[m, c] == size[c]]
+        s = auf.loc[[m for m in SEARCHES if m in full], c].dropna()
+        f = auf.loc[[m for m in FILTERS if m in full], c].dropna()
         gap.append({"cluster": c, "best_search": s.idxmax(), "search_auf": s.max(),
                     "best_filter": f.idxmax(), "filter_auf": f.max(),
                     "gap": s.max() - f.max()})
     data[exp] = {
         "time": time.reset_index().to_dict("records"),
         "auf": auf.reset_index().to_dict("records"),
+        "auf_n": n.reset_index().to_dict("records"),
+        "cluster_size": {k: int(v) for k, v in size.items()},
         "rank_all": rank["rank_all"].to_dict(),
         "gap": gap,
     }
@@ -82,7 +93,7 @@ for group, colour in ((["fastener", "fastener_swap_guided", "fastener_swap_rando
     for i, m in enumerate(group):
         STYLE[m] = (colour, MARKERS[i])
 FLOOR = 0.575
-fig, axes = plt.subplots(1, 2, figsize=(13, 5), sharey=True)
+fig, axes = plt.subplots(1, 3, figsize=(17, 5), sharey=True)
 for ax, (exp, learner) in zip(axes, EXPS.items()):
     time = pd.DataFrame(data[exp]["time"]).set_index("method")
     auf = pd.DataFrame(data[exp]["auf"]).set_index("method")["all"]
@@ -96,23 +107,23 @@ for ax, (exp, learner) in zip(axes, EXPS.items()):
     ax.set_ylim(FLOOR, 0.705)
     ax.set_xlabel("median wall clock per run (s, log)")
     ax.set_title(f"{exp}: {learner}" + (" (1 core, workstation)" if exp == "H5H6-E01"
-                                        else " (8 cores, HPC Vega)"), fontsize=10)
+                                        else " (8 cores, Vega)"), fontsize=10)
     ax.grid(alpha=0.3)
 axes[0].set_ylabel("mean AUF (K = 10) over datasets")
 h, l = axes[0].get_legend_handles_labels()
 fig.legend(h, l, loc="center right", fontsize=8, frameon=False)
-fig.text(0.79, 0.06, "* mean AUF 0.17-0.32, below the axis;\n  drawn at its edge", fontsize=7.5)
-fig.tight_layout(rect=(0, 0, 0.8, 1))
+fig.text(0.845, 0.06, "* mean AUF 0.17-0.39, below the axis;\n  drawn at its edge", fontsize=7.5)
+fig.tight_layout(rect=(0, 0, 0.845, 1))
 fig.savefig(FIG / "P1_cost_vs_score.png", dpi=150)
 plt.close(fig)
 
 # P2: best search minus best filter, per cluster, both learners.
-fig, ax = plt.subplots(figsize=(12, 4.2))
+fig, ax = plt.subplots(figsize=(13, 4.4))
 x = np.arange(len(CLUSTERS))
 for i, (exp, learner) in enumerate(EXPS.items()):
     gaps = [r["gap"] for r in data[exp]["gap"]]
-    bars = ax.bar(x + (i - 0.5) * 0.38, gaps, 0.38, label=learner,
-                  color=["tab:olive", "tab:purple"][i])
+    bars = ax.bar(x + (i - 1) * 0.27, gaps, 0.27, label=learner,
+                  color=["tab:olive", "tab:purple", "tab:cyan"][i])
     for b, r in zip(bars, data[exp]["gap"]):
         win = LABEL[r["best_search"]] if r["gap"] >= 0 else LABEL[r["best_filter"]]
         ax.annotate(win, (b.get_x() + b.get_width() / 2, b.get_height()),
