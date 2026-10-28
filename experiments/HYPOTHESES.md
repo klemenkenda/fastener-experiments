@@ -783,6 +783,10 @@ checkpoint, since equal fits are not equal time (H1-E02).
 
 **Confirmed on new data** in H9.
 
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+* `H7-E01` -- the analysis above on H5H6-E01 to -E03. Registered.
+
 ## H8 -- An LLM relevance prior lets FASTENER reach its target in fewer fits
 
 *(planned 2026-10-28; needs the prior hook and a dataset selection first)*
