@@ -72,6 +72,7 @@ say so, and name the result.
 | [DEC-42](#dec-42) | 2026-10-27 | FASTENER keeps fitted models in a bounded store; H5H6-E02's FASTENER jobs rerun | H5H6-E02 |
 | [DEC-43](#dec-43) | 2026-10-28 | Cluster runs read their commit from .git; the clean-tree check is made at submission | cluster runs from H5H6-E03 |
 | [DEC-44](#dec-44) | 2026-10-28 | H5H6-E03: H5H6-E01's grid with LightGBM, its smallest leaf scaled to the training split | H5H6-E03 |
+| [DEC-45](#dec-45) | 2026-10-28 | Plan H7-H10: FASTENER part-way through the budget, an LLM prior, a confirmatory grid, a filter-seeded FASTENER | H7-H10 |
 
 ## Decisions
 
@@ -1018,6 +1019,24 @@ scaled to the training split.**
   timings, checks and implementation by Claude.
 - **Taken before any H5H6-E03 run.**
 - **Applies to:** H5H6-E03.
+
+### DEC-45
+
+**2026-10-28 -- Plan H7-H10.**
+
+- **Why:** three grids (H5H6-E01 to -E03) give the same verdict and a flat
+  top, so a claim of one best selector will not hold on them. What they leave
+  open: whether FASTENER's efficiency per fit (H4-E03) shows part-way through
+  the budget (H7); whether prior knowledge speeds it up (H8); whether the
+  pattern found -- search ahead of filtering, more on tall data -- holds on
+  datasets not used to find it (H9); and whether starting FASTENER from a
+  filter gets the better of both (H10).
+- **Detail:** as written in `HYPOTHESES.md`, H7-H10. Each lists what is still
+  to be fixed before its runs.
+- **By:** PI (the direction; H10's seeded FASTENER, with Boruta as a seed);
+  the hypotheses' wording, criteria and mRMR as H10's primary seed proposed by
+  Claude.
+- **Applies to:** H7-H10.
 
 ## By experiment
 

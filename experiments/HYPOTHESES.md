@@ -45,6 +45,12 @@ lettered, so they hold no slot in the run order.
    dataset. The runs behind H1-H4 are part of that grid and are reused, not
    repeated; H5 and H6 add the remaining algorithm-dataset cells. H5 is read
    before H6, since H6's comparison includes stock FASTENER.
+5. **H7-H10, planned 2026-10-28 after H5H6-E03.** H7 first: it needs no new
+   search run, only refits of what the three grids' trajectories record. H10
+   next, on the 39-dataset grid: only its seeded arms are new runs, and it
+   is the data-driven control H8 needs. H8 when its prior hook and datasets
+   are ready. H9 last, the confirmatory grid on new datasets, which carries
+   H7 and H10 as well.
 
 **H2 and H3 are one experiment.** Stock FASTENER, random swap and guided swap
 are three arms over the same seeds and the same budget, run together in one
@@ -726,6 +732,179 @@ Holm correction, against **every** other algorithm including stock FASTENER.
   top is flat under all three classifiers, the cluster leaders are not.
   [Report](reports/H5H6-E03/REPORT.md).
 
+## H7 -- FASTENER reaches good small subsets in fewer fits than its co-leaders
+
+*(planned 2026-10-28; an analysis of the H5H6-E01, -E02 and -E03 runs, no new
+search runs)*
+
+**Claim.** Part-way through the budget, stock FASTENER offers better small
+subsets than sparse NSGA-II and POSS, the searches it ties with at the end of
+the budget (H5H6-E01 to -E03).
+
+**Why it might hold.** At equal fits FASTENER was ahead of FS-SDS on 18 of 25
+datasets (H4-E03): it uses each fit well. Its mating is guided by mutual
+information from the first generation; sparse NSGA-II and POSS start from
+random subsets and learn which features matter only from their fits. The
+end-of-budget grids cannot see this: by then all three have converged to the
+same flat top.
+
+**Why it might not.** POSS adds or removes one feature at a time from the
+empty set and so is strong at small k early; sparse NSGA-II starts at 1-30
+features, inside the k range. FASTENER starts from five single features and
+spends early fits on pruning.
+
+**Data.** The trajectories of the three grids, on disk: every snapshot stores
+the front, with each entry's features, against cumulative fits. No intermediate
+test score has been read or computed before this registration; the
+end-of-budget scores have been.
+
+**Procedure.** For each run of `fastener`, `nsga2_sparse` and `poss` and each
+checkpoint c in {10%, 25%} of the dataset's fit budget: take the last snapshot
+with at most c fits (a run that stopped earlier, on stagnation, contributes its
+final front); for each k = 1..10 the entry of size <= k with the best
+validation F1; refit it with the experiment's classifier on the training split
+and score it once on test; AUF (K = 10) as everywhere else. Per dataset, an
+arm's score is its mean over the 5 seeds.
+
+**Falsification criterion.** For each classifier separately, four
+comparisons -- FASTENER against each of the two rivals at each of the two
+checkpoints -- each with datasets as the unit: more datasets where FASTENER is
+ahead than behind, and a two-sided Wilcoxon signed-rank test significant after
+Holm correction over the four, at alpha = 0.05. H7 is **supported** if all
+four hold under at least two of the three classifiers; **reversed** if a rival
+meets the same condition against FASTENER; otherwise **not supported**. Only
+datasets where both arms have a result count (sparse NSGA-II has none on six
+datasets under the tree).
+
+**Reported beside it:** the same at 50% and 100% of the budget (100% is the
+end-of-budget grid, as a check of the procedure); the per-cluster picture;
+FS-SDS and the swap arms at the same checkpoints; wall clock to each
+checkpoint, since equal fits are not equal time (H1-E02).
+
+**Confirmed on new data** in H9.
+
+## H8 -- An LLM relevance prior lets FASTENER reach its target in fewer fits
+
+*(planned 2026-10-28; needs the prior hook and a dataset selection first)*
+
+**Claim.** On datasets whose features have meaningful names, FASTENER guided
+by a relevance prior from a large language model reaches a common validation
+target in fewer fits than stock FASTENER, and the gain is lost when the
+feature names are scrambled.
+
+**The prior.** One LLM call per dataset, given the data dictionary (names,
+units, sensor, band or statistic, the task and the class names), returns a
+relevance score per feature. FASTENER uses w = MI^(1-lambda) * prior^lambda
+wherever it now uses mutual information alone (the weighted mating sample) and
+draws its initial singles from w. lambda = 0 is stock FASTENER. Priors are made
+on the PI's machine, committed as JSON with the model ID, the prompt and the
+full response, and only read on the cluster.
+
+**Arms.** `fastener` (stock); `fastener_llm` (the prior, lambda fixed before the
+runs); `fastener_llm_scrambled` (the same model and prompt, feature names
+replaced by neutral tokens: the control for memorised benchmark knowledge);
+`fastener_seed_mrmr` from H10 (a prior from the data alone, the control an
+LLM prior has to beat).
+
+**Primary metric.** Fits to a common target, as H0: per dataset and seed, the
+target is the lower of the two arms' final validation AUF (K = 10), and an
+arm's result is the cumulative fits at its first snapshot at or above it.
+
+**Falsification criterion.** Per dataset, the effect is the mean over seeds of
+log2(stock fits / LLM fits). H8 is **supported** if the effect is positive on
+more datasets than negative and a two-sided Wilcoxon test over the datasets is
+significant at alpha = 0.05, **and** the same holds for `fastener_llm` against
+`fastener_llm_scrambled`. Without the second part a gain is attributed to the
+prior's form, not to the knowledge in the names.
+
+**To fix before any run, in a revision:** the datasets (at least 12 with
+meaningful feature names: EOData, crop mapping, har, covertype and higgs are
+on disk; the rest from OpenML), the budget (500-2,000 fits), lambda, the LLM
+and its prompt, and the classifier.
+
+## H9 -- Confirmatory: on unseen datasets, search beats filtering, more so on tall data
+
+*(planned 2026-10-28; a new grid on HPC Vega)*
+
+**Claim.** On datasets none of the earlier experiments used, under an
+ensemble classifier: (a) stock FASTENER has a better low-k score than each
+filter and ranker; (b) its lead over the best filter grows with the number of
+rows; (c) H7's result holds.
+
+**Why.** Under LightGBM, H5H6-E03 found (a) on its 39 datasets, and the three
+grids suggest (b) (search ahead on C5, C7 and EOData, behind or level on the
+small C1 sets). Both were found, not registered. H9 tests them on fresh data.
+
+**Arms.** `fastener`, `nsga2_sparse`, `poss`, `fs_sds`, `boruta`, `rfe_tree`,
+`tree_importance`, `mrmr`, `hsic_lasso`, `relieff`, `kbest_mutual_info`,
+`kbest_anova_f`, `random`, and H10's seeded arms. Left out as settled: the
+OBL-started NSGA-II arms (they seldom reach k <= 10 and time out under
+LightGBM) and the swap arms (H2, H3, H5, H6).
+
+**Falsification criterion.** (a) Against each of the eight filters and
+rankers: more wins than losses and a Wilcoxon test significant after Holm
+correction over the eight. (b) Per dataset, d = FASTENER's AUF minus the
+highest AUF of any filter or ranker on that dataset (an oracle choice of
+filter, which makes the test conservative); Spearman correlation of d with
+log10(rows) positive, one-sided p < 0.05. (c) H7's criterion with this grid's
+classifier. H9 is supported as a whole if (a) and (b) hold; (c) is read on its
+own.
+
+**To fix before any run, in a revision:** the 40 datasets (about 20 UCR/UEA
+sets not yet used, weighted towards C2, C6 and C7, and about 20 OpenML
+tabular sets, chosen by the rules of `DATASETS_USED.md`), their budgets
+(calibrated as for H2/H3), the classifier (LightGBM unless the PI chooses
+otherwise) and the per-run cap.
+
+## H10 -- A filter-seeded FASTENER is as good as the better of the filter and the search
+
+*(planned 2026-10-28; proposed by the PI)*
+
+**Claim.** FASTENER started from a filter's ranking -- its top-k subsets for
+k = 1..10 as the initial population -- is significantly better than the filter
+alone, no worse than stock FASTENER at the end of the budget, and better than
+stock FASTENER part-way through it.
+
+**Why it might hold.** The leader changes with the cluster: filters lead on
+the small C1 sets, searches on the tall ones (H5H6-E01 to -E03). FASTENER's
+front is elitist, so a seeded run starts with the filter's curve on validation
+and can only improve on it; the search then does what it does on the tall
+sets. Stock FASTENER starts from five random single features
+(`run_fastener.py`), so the seed replaces a random start, and needs no change
+to the FASTENER clone (its `initial_genes` argument).
+
+**Why it might not.** Validation overfitting: on the smallest sets the search
+replaces the filter's subsets with ones that score higher on validation and
+lower on test -- the reason filters win on C1 in the first place. And a
+seeded population may converge early around the filter's choice.
+
+**Arms.**
+* `fastener_seed_mrmr`, the primary arm: seeded with mRMR's top-k subsets.
+  mRMR is redundancy-aware, as a small subset needs to be, among the best
+  filters in all three grids, and costs no model fit.
+* `fastener_seed_boruta`, secondary: seeded with Boruta's ranking. Boruta
+  selects all relevant features rather than a small set, ranks the ones it
+  accepts coarsely, and was mid-table in all three grids, so it is expected to
+  be the weaker seed; its own model fits are charged to the run's budget.
+* Compared with `fastener` and with the seed filter alone.
+
+**Budget.** The seed's subsets are scored as fits from the run's budget; the
+filter's CPU time is recorded beside it.
+
+**Falsification criterion,** for the primary arm, datasets as the unit:
+(a) better than mRMR alone: more wins than losses and a Wilcoxon test
+significant at alpha = 0.05; (b) non-inferior to stock FASTENER at the full
+budget: the mean per-dataset difference in AUF (K = 10) has a one-sided 95%
+lower bound above -0.005 (paired bootstrap over datasets); (c) better than
+stock FASTENER at 10% and 25% of the budget, as in H7. Supported if (a), (b)
+and (c) hold. The Boruta arm is reported against the same three, as
+secondary.
+
+**Where.** First on the 39-dataset grid under the H5H6-E03 setup (LightGBM,
+the same budgets and cap), compared with that experiment's `fastener` and
+`mrmr` runs -- only the seeded arms are new runs; then within H9 on the new
+datasets, where it is confirmatory.
+
 ---
 
 ## Deferred, deliberately
@@ -1309,3 +1488,10 @@ forest (H5H6-E02) it tests D2 with a learner of another kind.
 
 Recorded as [DEC-44](DECISIONS.md#dec-44); runs record their commit as
 [DEC-43](DECISIONS.md#dec-43) describes.
+
+**2026-10-28 -- H7 to H10 planned.** Added after H5H6-E03 was reported. Their
+claims and criteria are fixed here; what each lists under *To fix before any
+run* is fixed in a later revision before its runs start. For H7, which
+analyses existing runs, nothing at the intermediate checkpoints had been
+computed or read when it was written: the end-of-budget scores of the three
+grids had been. Recorded as [DEC-45](DECISIONS.md#dec-45).
