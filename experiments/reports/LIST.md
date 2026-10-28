@@ -13,6 +13,8 @@
 | H6 | `H5H6-E01` | 3 d 7 h 46 min | not confirmed | decision tree; run with H5 | [REPORT.md](H5H6-E01/REPORT.md) |
 | H5 | `H5H6-E02` | 23 h 28 min | not confirmed | random forest; read with E01 | [REPORT.md](H5H6-E02/REPORT.md) |
 | H6 | `H5H6-E02` | 23 h 28 min | not confirmed | random forest; read with E01 | [REPORT.md](H5H6-E02/REPORT.md) |
+| H5 | `H5H6-E03` | 16 h 59 min | not confirmed | LightGBM; read with E01, E02 | [REPORT.md](H5H6-E03/REPORT.md) |
+| H6 | `H5H6-E03` | 16 h 59 min | not confirmed | LightGBM; read with E01, E02 | [REPORT.md](H5H6-E03/REPORT.md) |
 
 ## Superseded and failed
 

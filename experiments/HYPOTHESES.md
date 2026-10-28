@@ -720,7 +720,11 @@ Holm correction, against **every** other algorithm including stock FASTENER.
   cluster leaders change in six of eight clusters. [Report](reports/H5H6-E02/REPORT.md).
 * `H5H6-E03` -- H5 and H6 on the same grid with LightGBM as the one
   classifier, its smallest leaf scaled to the training split, on HPC Vega
-  ([DEC-44](DECISIONS.md#dec-44)). Registered.
+  ([DEC-44](DECISIONS.md#dec-44)). **Neither supported** under LightGBM
+  either: both FASTENER arms are significantly ahead of the same 12 of 16
+  opponents and tie with the random swap, sparse NSGA-II and POSS; the
+  top is flat under all three classifiers, the cluster leaders are not.
+  [Report](reports/H5H6-E03/REPORT.md).
 
 ---
 

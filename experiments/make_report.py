@@ -128,7 +128,13 @@ FIELD_ARMS = ("fastener", "fastener_swap_guided", "nsga2_sparse", "nsga2",
 # experiment, its classifier, this one's). Read from the paired report's
 # committed tables/per_dataset.csv, so the pair is compared on exactly the
 # numbers that report shows.
-MODEL_PAIRED = {"H5H6-E02": ("H5H6-E01", "decision tree", "random forest")}
+# Experiments that rerun another's grid with a different classifier: the
+# earlier experiments (ID, classifier), then this one's classifier.
+MODEL_PAIRED = {
+    "H5H6-E02": ((("H5H6-E01", "decision tree"),), "random forest"),
+    "H5H6-E03": ((("H5H6-E01", "decision tree"), ("H5H6-E02", "random forest")),
+                 "LightGBM"),
+}
 # Cells an experiment left out on purpose (run_queue.py --skip @file).
 SKIP_FILES = {"H5H6-E01": "experiments/h5h6_skip.txt"}
 # run_queue.py's labels for the FASTENER arms, as the runs name the method.
@@ -915,39 +921,59 @@ def missing_cells(experiment_id: str) -> Dict[Tuple[str, str], str]:
 
 
 def model_compare_rows(experiment_id: str, rows: Sequence[Dict]) -> List[Dict]:
-    """Per method, this experiment against its MODEL_PAIRED twin.
+    """Per method, this experiment against its MODEL_PAIRED experiments.
 
     `rows` are this experiment's per_dataset rows. Only datasets with a
-    result under both classifiers count, so a method missing cells in one
-    is compared on the cells it has in both.
+    result under every classifier count, so a method missing cells in one
+    is compared on the cells it has in all. With one paired experiment the
+    columns are auf/rank_paired and _this; with several, auf/rank_<i> for
+    each classifier in order (the paired ones, then this one), and the gains
+    are this experiment's over the last paired one.
     """
-    paired, _, _ = MODEL_PAIRED[experiment_id]
-    path = experiment_ids.REPORTS_DIR / paired / "tables" / "per_dataset.csv"
-    with open(path, encoding="utf-8") as fh:
-        other = {(r["dataset"], r["method"]): r for r in csv.DictReader(fh)}
-    by: Dict[str, Dict[str, List[float]]] = {}
+    pairs, _ = MODEL_PAIRED[experiment_id]
+    others = []
+    for paired, _ in pairs:
+        path = experiment_ids.REPORTS_DIR / paired / "tables" / "per_dataset.csv"
+        with open(path, encoding="utf-8") as fh:
+            others.append({(r["dataset"], r["method"]): r
+                           for r in csv.DictReader(fh)})
+    n = len(others) + 1
+    by: Dict[str, Dict[str, List[List[float]]]] = {}
     for r in rows:
-        o = other.get((r["dataset"], r["method"]))
         a = r.get(next(k for k in r if k.startswith("auf_k")))
-        if o is None or a in (None, "") or o.get("auf_k10") in (None, ""):
+        olds = [o.get((r["dataset"], r["method"])) for o in others]
+        if a in (None, "") or any(o is None or o.get("auf_k10") in (None, "")
+                                  for o in olds):
             continue
-        d = by.setdefault(r["method"], {"a": [], "b": [], "ra": [], "rb": []})
-        d["a"].append(float(o["auf_k10"]))
-        d["b"].append(float(a))
-        d["ra"].append(float(o["rank"]))
-        d["rb"].append(float(r["rank"]))
+        d = by.setdefault(r["method"], {"auf": [[] for _ in range(n)],
+                                        "rank": [[] for _ in range(n)]})
+        for i, o in enumerate(olds):
+            d["auf"][i].append(float(o["auf_k10"]))
+            d["rank"][i].append(float(o["rank"]))
+        d["auf"][-1].append(float(a))
+        d["rank"][-1].append(float(r["rank"]))
     out = []
     for m, d in by.items():
-        gains = np.array(d["b"]) - np.array(d["a"])
-        out.append({"method": m, "datasets": len(gains),
-                    "auf_paired": float(np.mean(d["a"])),
-                    "auf_this": float(np.mean(d["b"])),
-                    "gain_mean": float(gains.mean()),
-                    "gain_median": float(np.median(gains)),
-                    "gain_positive": int((gains > 0).sum()),
-                    "rank_paired": float(np.mean(d["ra"])),
-                    "rank_this": float(np.mean(d["rb"]))})
-    return sorted(out, key=lambda r: r["rank_this"])
+        gains = np.array(d["auf"][-1]) - np.array(d["auf"][-2])
+        row = {"method": m, "datasets": len(gains)}
+        if n == 2:
+            row.update(auf_paired=float(np.mean(d["auf"][0])),
+                       auf_this=float(np.mean(d["auf"][1])))
+        else:
+            row.update({f"auf_{i}": float(np.mean(d["auf"][i]))
+                        for i in range(n)})
+        row.update(gain_mean=float(gains.mean()),
+                   gain_median=float(np.median(gains)),
+                   gain_positive=int((gains > 0).sum()))
+        if n == 2:
+            row.update(rank_paired=float(np.mean(d["rank"][0])),
+                       rank_this=float(np.mean(d["rank"][1])))
+        else:
+            row.update({f"rank_{i}": float(np.mean(d["rank"][i]))
+                        for i in range(n)})
+        out.append(row)
+    last = "rank_this" if n == 2 else f"rank_{n - 1}"
+    return sorted(out, key=lambda r: r[last])
 
 
 def fig_model_compare(cmp_rows, labels, run_ids, path: Path) -> None:
@@ -960,6 +986,9 @@ def fig_model_compare(cmp_rows, labels, run_ids, path: Path) -> None:
     """
     import matplotlib.pyplot as plt
     _style(plt)
+    if len(labels) > 2:
+        _fig_model_compare_n(cmp_rows, labels, run_ids, path)
+        return
     a_lab, b_lab = labels
     ms = [r["method"] for r in cmp_rows]
     x = np.arange(len(ms))
@@ -990,6 +1019,45 @@ def fig_model_compare(cmp_rows, labels, run_ids, path: Path) -> None:
                  fontsize=9)
     fig.suptitle(f"The same grid under the {a_lab} and the {b_lab}, method "
                  f"by method", fontsize=10)
+    _footer(fig, run_ids, "test")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.95))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def _fig_model_compare_n(cmp_rows, labels, run_ids, path: Path) -> None:
+    """fig_model_compare for three or more classifiers: one marker per
+    classifier, side by side in the order given, this experiment's largest."""
+    import matplotlib.pyplot as plt
+    ms = [r["method"] for r in cmp_rows]
+    x = np.arange(len(ms))
+    n = len(labels)
+    colours = [SERIES[(j + 1) % len(SERIES)] for j in range(n - 1)] + [SERIES[0]]
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(16, 5.6))
+    off = np.linspace(-0.2, 0.2, n)
+    for i, r in enumerate(cmp_rows):
+        a1.plot(i + off, [r[f"auf_{j}"] for j in range(n)], color=GRID, lw=1.5,
+                zorder=1)
+        a2.plot(i + off, [r[f"rank_{j}"] for j in range(n)], color=GRID,
+                lw=1.5, zorder=1)
+    for j, lab in enumerate(labels):
+        size = 40 if j == n - 1 else 24
+        a1.scatter(x + off[j], [r[f"auf_{j}"] for r in cmp_rows], s=size,
+                   color=colours[j], label=lab, zorder=3)
+        a2.scatter(x + off[j], [r[f"rank_{j}"] for r in cmp_rows], s=size,
+                   color=colours[j], label=lab, zorder=3)
+    a2.invert_yaxis()
+    for ax in (a1, a2):
+        ax.set_xticks(x, ms, rotation=40, ha="right", rotation_mode="anchor",
+                      fontsize=8)
+        ax.legend(fontsize=8, loc="lower left" if ax is a1 else "lower right")
+    a1.set_ylabel("mean AUF (K = 10), test")
+    a1.set_title("Mean AUF over the datasets every classifier has", fontsize=9)
+    a2.set_ylabel("mean rank among the selectors (1 = best)")
+    a2.set_title("Mean rank under each classifier", fontsize=9)
+    a2.legend(fontsize=8, loc="upper right")
+    fig.suptitle("The same grid under the " + ", the ".join(labels[:-1])
+                 + f" and {labels[-1]}, method by method", fontsize=10)
     _footer(fig, run_ids, "test")
     fig.tight_layout(rect=(0, 0.04, 1, 0.95))
     fig.savefig(path, dpi=150)
@@ -1031,7 +1099,12 @@ def timeout_rows(experiment_id: str) -> List[Dict]:
     for j in json.loads(q.read_text(encoding="utf-8"))["jobs"]:
         if j["state"] != "timeout" or not j.get("run_dir"):
             continue
-        tr = sorted((Path(j["run_dir"]) / "trajectories").glob("*.jsonl"))
+        # A cluster run's run_dir is the cluster's path; its folder came home
+        # under the same name (hpc/vega/fetch.sh).
+        rd = Path(j["run_dir"])
+        if not rd.is_dir():
+            rd = RESULTS_DIR / rd.name
+        tr = sorted((rd / "trajectories").glob("*.jsonl"))
         last = _last_line(tr[0]) if tr else None
         if last is None:
             continue
@@ -2075,7 +2148,9 @@ def build(experiment_id: str, run_ids: Sequence[str], out_dir: Path,
                                 if r[f"auf_k{K0}"] is not None])
             write_csv(tab_dir / "model_compare.csv", cmp_rows)
             field_figs += (("model_compare", fig_model_compare,
-                            (cmp_rows, MODEL_PAIRED[experiment_id][1:])),)
+                            (cmp_rows,
+                             tuple(lab for _, lab in MODEL_PAIRED[experiment_id][0])
+                             + (MODEL_PAIRED[experiment_id][1],))),)
         touts = timeout_rows(experiment_id)
         if touts:
             write_csv(tab_dir / "timeouts.csv", touts)
