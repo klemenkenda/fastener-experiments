@@ -37,6 +37,7 @@ ARMS = ("fastener", "fastener_swap_guided", "fastener_swap_random",
 LABEL = {"fastener": "FASTENER", "fastener_swap_guided": "FASTENER, guided swap",
          "fastener_swap_random": "FASTENER, random swap",
          "nsga2_sparse": "sparse NSGA-II", "poss": "POSS"}
+SHORT = {"nsga2_sparse": "NSGA sp.", "poss": "POSS"}
 CLUSTERS = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "EO"]
 
 
@@ -157,7 +158,7 @@ def fig_criterion(crit, run_note, path):
                         ha="center", fontsize=7, annotation_clip=False)
         ax.axhline(0, color=INK_2, lw=0.8)
         ax.set_xticks(range(len(grp)),
-                      [f"vs {LABEL[r['opponent']]}\n{int(r['checkpoint'] * 100)}%"
+                      [f"{SHORT[r['opponent']]}\n{int(r['checkpoint'] * 100)}%"
                        for r in grp], fontsize=7.5)
         ax.set_title(LEARNERS[source], fontsize=10)
         ax.grid(axis="y", color=GRID)

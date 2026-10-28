@@ -785,7 +785,11 @@ checkpoint, since equal fits are not equal time (H1-E02).
 
 **Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 
-* `H7-E01` -- the analysis above on H5H6-E01 to -E03. Registered.
+* `H7-E01` -- the analysis above on H5H6-E01 to -E03. **Not supported**:
+  only under the decision tree, and only against sparse NSGA-II, does
+  FASTENER lead significantly (10% and 25%); it is ahead on wins at 10% in
+  all six classifier-rival pairs, by 0.003-0.013 AUF, a head start gone by
+  half the budget. [Report](reports/H7-E01/REPORT.md).
 
 ## H8 -- An LLM relevance prior lets FASTENER reach its target in fewer fits
 
