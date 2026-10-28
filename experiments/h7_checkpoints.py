@@ -86,8 +86,16 @@ def work(source: str, dataset: str, runs: Sequence[Dict],
         os.environ[provenance.DEFER_LEDGER_ENV] = "1"
     model = SOURCES[source]
     protocol.set_model(model, 1)
-    ds = load(dataset)
+    # The protocol's row cap, as run_sota.py loads every dataset: without it
+    # EOData (480,000 rows) would be split differently from the grids.
+    ds = load(dataset, max_rows=protocol.ROW_CAP)
     protocol.set_train_rows(ds.X_train.shape[0])
+    # The split must be the one the runs searched on.
+    for r in runs:
+        m = json.loads((RESULTS / r["run_id"] / "manifest.json").read_text(encoding="utf-8"))
+        if {k: m["dataset"][k] for k in ("n_train", "n_val", "n_test")} !=                 {"n_train": ds.X_train.shape[0], "n_val": ds.X_val.shape[0],
+                 "n_test": ds.X_test.shape[0]}:
+            raise RuntimeError(f"{dataset}: split differs from {r['run_id']}")
     tag = source.lower().replace("-", "")
     params = {"source": source, "model": model, "dataset": dataset,
               "methods": list(METHODS), "checkpoints": list(checkpoints),
