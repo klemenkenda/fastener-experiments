@@ -1070,6 +1070,24 @@ scaled to the training split.**
 - **Applies to:** every run from commit after this entry, first H10-E01 to
   -E03's checkpoint runs.
 
+### DEC-48
+
+**2026-10-29 -- H11, the Boruta seed as its own hypothesis, judged post hoc on
+H10's runs.**
+
+- **Why:** the Boruta seed, H10's secondary arm, did better than the primary
+  under every classifier. The PI chose to state it as a hypothesis and judge
+  it on the runs already made, with no new experiment.
+- **Detail:** H11 takes H10's registered criterion unchanged, with the
+  Boruta seed as primary, so no criterion is chosen after the results; its
+  verdict is labelled post hoc wherever it appears (HYPOTHESES.md, the
+  report, LIST.md). It is not evidence in the confirmatory sense; a
+  confirmatory test needs runs not yet seen. Claude pointed this out and
+  proposed new datasets (within H9) or new seeds; the PI declined for now.
+- **By:** PI (H11, and judging it on existing runs); the use of H10's
+  criterion unchanged and the post-hoc label proposed by Claude.
+- **Applies to:** H11-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1094,3 +1112,4 @@ are not repeated.
 | `H10-E01` | reported: not supported | [DEC-43](#dec-43), [DEC-44](#dec-44), [DEC-45](#dec-45), [DEC-47](#dec-47) | [DEC-47](#dec-47) | [H10-E01](reports/H10-E01/REPORT.md) |
 | `H10-E02` | reported: not supported (passes a, b) | [DEC-41](#dec-41), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E02](reports/H10-E02/REPORT.md) |
 | `H10-E03` | reported: not supported (passes a) | [DEC-37](#dec-37), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E03](reports/H10-E03/REPORT.md) |
+| `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |

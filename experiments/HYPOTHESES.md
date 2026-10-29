@@ -929,6 +929,44 @@ datasets, where it is confirmatory.
 
 ---
 
+## H11 -- A Boruta-seeded FASTENER is as good as the better of Boruta and the search (post hoc)
+
+*(2026-10-29; proposed by the PI after H10-E01 to -E03 were read. **Post hoc**:
+formed from the results it is judged on, so it cannot confirm anything; see
+[DEC-48](DECISIONS.md#dec-48).)*
+
+**Claim.** H10's claim with the Boruta seed in place of mRMR: FASTENER
+started from Boruta's top-k subsets (k = 1..10) is better than Boruta alone,
+no worse than stock FASTENER at the end of the budget, and better than stock
+FASTENER part-way through it.
+
+**Why it is asked.** In H10 the Boruta seed, registered as secondary and
+expected to be the weaker seed, did better than the mRMR seed under all three
+classifiers (H10-E01 to -E03).
+
+**Criterion.** H10's, unchanged, with `fastener_seed_boruta` as the primary
+arm -- (a) against Boruta alone, (b) non-inferiority to stock FASTENER with
+margin -0.005, (c) ahead of stock FASTENER at 10% and 25% after Holm --
+read under each classifier; the verdict, as H10's, under LightGBM (H10-E01),
+the other two beside it. No part is chosen or changed after the results:
+the criterion is H10's as registered. Reported beside it, as descriptive:
+(a) and (b) together, and the seed's share of the arm's wall clock.
+
+**Data.** No new runs: H10-E01 to -E03's Boruta-seeded runs and their
+checkpoints, against H5H6-E01 to -E03's stock FASTENER and Boruta.
+
+**Experiments.**
+
+* `H11-E01` -- H10's criterion for the Boruta seed, from H10-E01 to -E03's
+  tables. **Not supported** (post hoc): (c) fails under every classifier and
+  (b) under LightGBM; (a) and (b) together hold under the forest and the
+  tree. [Report](reports/H11-E01/REPORT.md).
+
+A confirmatory test would need runs not yet seen -- new datasets (H9) or new
+seeds -- registered before they run.
+
+---
+
 ## Deferred, deliberately
 
 **D1 -- the replication gap is a grading artifact.** `WHY_RESULTS_DIFFER.md`
