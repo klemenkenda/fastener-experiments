@@ -77,7 +77,7 @@ def test_extension_plan_is_every_other_dataset():
     ext = {p["dataset"] for p in run_h0.H0_EXTENSION_PLAN}
     core = {p["dataset"] for p in run_h0.H0_PLAN}
     assert not ext & core
-        # Every dataset on disk when H0 ran; the TSC and H8 sets came later.
+    # Every dataset on disk when H0 ran; the TSC and H8 sets came later.
     assert ext | core == set(LOADERS) - set(TSC_DATASETS) - set(H8_DATASETS)
     budgets = {p["dataset"]: (p["evaluations"], p["split"])
                for p in run_h0.H0_EXTENSION_PLAN}

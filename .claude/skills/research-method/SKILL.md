@@ -1,212 +1,262 @@
 ---
 name: research-method
-description: How FASTENER research is organised, from a research question or a hypothesis through a registered experiment to its report -- research questions (Q<n>) when there is no hypothesis yet, hypotheses (H<n>) with falsification criteria fixed before any result, experiment IDs that are never reused, run and algorithm IDs pinned to both repositories' git commits, no evidence from a dirty tree, the decision log (DEC-nn), the ledger, revisions and the two-file report. Use when the user wants to start a line of work, asks a new research question, proposes a hypothesis or experiment, wants to plan, register or design an experiment, changes the protocol or a decision, asks how the work is organised, or asks whether something may be counted as evidence.
+description: How to organise data-science and machine-learning research so every result is traceable -- start from a research question (exploratory) or a hypothesis (confirmatory), register the plan or falsification criterion before any result, give every experiment an ID that is never reused, pin every run to git commits, data hashes and a config hash, refuse evidence from a dirty tree, keep a decision log and a ledger, change plans only by dated revision, and report every experiment, failed ones included, as a reading and a record. Use when starting a research project or a new line of work, asking a research question, proposing a hypothesis, planning, designing or registering an experiment or benchmark, comparing methods, changing a protocol or taking a decision that shapes results, setting up experiment tracking in a repository, or asking whether a result counts as evidence.
 ---
 
-# Research method
+# Research method for data science
 
-How a question becomes evidence in this project, and how every step stays
-traceable. The detailed rules are in `experiments/METHODOLOGY.md` (IDs,
-ledger, reports), `experiments/HYPOTHESES.md` (questions, hypotheses,
-protocol, revisions) and `experiments/DECISIONS.md` (the decision log). This
-skill is the procedure and the reasons for it. When writing a report, follow
-the `experiment-report` skill. When reading job logs, follow `distill-logs`.
+A procedure for turning questions into evidence that someone else can check:
+which question a number answers, what was written down before the data
+existed, exactly which code and data produced it, and which decisions it ran
+under. If one of those four is missing, the number is a hint, not evidence.
 
-Interpreter: `C:\Users\klemen\.conda\envs\fastener-exp\python.exe`.
+It combines pre-registration (registered plans and the confirmatory/exploratory
+split), reproducible computational research (Sandve et al., *Ten Simple
+Rules*, 2013), the structure of scientific hypothesis work (observation,
+question, hypothesis, prediction and rival explanations kept apart), and
+ML-specific practice (REFORMS; Kapoor and Narayanan's leakage taxonomy;
+Demšar's tests for comparing methods over datasets).
 
-## The principle
+Reference files, to be read when needed:
 
-Anything quoted later must trace back to four things: the question it was
-meant to answer, what was written down before the data existed, the exact
-code (commits) that produced it, and the decisions it ran under. If one of
-the four is missing, the number is not evidence.
+- [references/templates.md](references/templates.md): copy-ready templates for a
+  question, a hypothesis, an experiment design, a decision entry, a revision,
+  the ledger and both report files.
+- [references/provenance.md](references/provenance.md): run manifests, method
+  IDs, the dirty-tree rule, with a minimal Python implementation.
+- [references/ml-pitfalls.md](references/ml-pitfalls.md): leakage, unfair
+  comparisons, seeds and units of analysis, statistics over datasets, what a
+  small n can answer.
+- [references/fastener.md](references/fastener.md): how the FASTENER
+  repository implements all of this (an example to imitate).
 
-## 1. Start from a research question or from a hypothesis
+## 0. Find or set up the project's record
 
-There are two ways in. Pick the one the state of knowledge allows. Do not
-invent a hypothesis to fill the slot.
+Before anything else, find where the project keeps these. Look for files such
+as `METHODOLOGY.md`, `HYPOTHESES.md`, `QUESTIONS.md`, `EXPERIMENTS.md`,
+`DECISIONS.md` and `reports/`. **If they exist, follow their conventions, not
+this file's defaults.** Where they disagree with this skill, the project wins;
+mention the difference to the user once.
 
-| we have | write | it is judged by | what it can produce |
+If nothing exists, propose this layout, create it once the user agrees, and
+commit it before the first experiment:
+
+| file | holds |
+|---|---|
+| `research/METHODOLOGY.md` | this procedure, as adopted: IDs, statuses, report form |
+| `research/PLAN.md` | the protocol (fixed for every experiment), the questions and hypotheses, and *Revisions* at the bottom |
+| `research/EXPERIMENTS.md` | the ledger (one row per experiment ID) and each experiment's design |
+| `research/DECISIONS.md` | the decision log |
+| `research/reports/<ID>/` | `REPORT.md`, `SUPPORT.md`, `figures/`, `tables/` |
+| `research/reports/LIST.md` | which experiment to read per question or hypothesis |
+| `results/<run ID>/` | run outputs and `manifest.json`, usually not in git |
+
+## 1. Start from a question or from a hypothesis
+
+Keep the objects distinct. An **observation** is what was seen. A **research
+question** is what we want to know. A **hypothesis** is a proposed answer that
+could turn out wrong. A **prediction** is an observable consequence of a
+hypothesis, derived before looking. **Evidence** is the data that bears on a
+claim; it is never the claim itself.
+
+There are two ways in. Pick the one the state of knowledge allows, and never
+invent a hypothesis just to have one.
+
+| we have | write | fixed before the runs | it produces |
 |---|---|---|---|
-| a question and no expectation of the answer | a **research question** `Q<n>` | an analysis plan: what is measured and how it is summarised, fixed before the runs | descriptive findings and *candidate* hypotheses |
-| an expectation that could turn out wrong | a **hypothesis** `H<n>` | a falsification criterion fixed before the runs | a verdict: confirmed, not confirmed, refuted (qualified if needed) |
+| a question, and no defensible expectation of the answer | a **research question** `Q<n>` | an **analysis plan**: what is measured, on what, and how it is summarised | descriptive findings and *candidate* hypotheses |
+| an expectation that could turn out wrong | a **hypothesis** `H<n>` | a **falsification criterion**: the unit of analysis, the test, the threshold, and what counts as supported, not supported or reversed | a verdict |
 
-**A research question** goes in `HYPOTHESES.md`, under its own
-`## Q<n> -- <the question>` section. It has:
+**A research question** is specific enough that a figure could answer it ("How
+does validation F1 at k <= 10 grow with model fits on tall datasets?", not "How
+does the method behave?"). It states why we ask, what would change depending
+on the answer, what will be measured, and what it cannot answer.
 
-- **Question.** One sentence, specific enough that a figure could answer it
-  ("How does the best validation F1 at k <= 10 grow with fits on tall
-  datasets?", not "How does FASTENER behave?").
-- **Why we ask.** What is unknown, and what would change depending on the
-  answer.
-- **What will be measured.** Metrics, splits, datasets, arms, budget, and how
-  results are summarised (per-seed points, ranges, curves against cumulative
-  fits). The protocol table applies unless the section says otherwise.
-- **What it cannot answer.** Its limits, stated in advance (seeds, datasets,
-  budget).
-- **Experiments.** Bullets, one per experiment, as for a hypothesis.
+**A hypothesis** states the claim, why it might hold, **why it might not**
+(the rival explanations: a measurement artefact, leakage, a harness bug,
+confounding with compute or tuning, chance), the arms or conditions, the
+budget, and the criterion. Prefer criteria under which the rivals predict
+different outcomes. Declare the claim type (descriptive, associational,
+predictive, causal) and use no causal language a predictive design cannot
+support.
 
-What a research question may and may not conclude:
+**What exploratory findings may and may not do.** Findings of a question are
+exploratory. A pattern found in data is never used as evidence for a hypothesis
+written after looking at that same data (no HARKing). A promising finding
+becomes a new hypothesis with its own criterion, tested on data the question
+did not use: new datasets, seeds, a held-out split, or a later time period. If
+the test must reuse the same data, the hypothesis says so and the result is
+reported as weaker. The hypothesis names the finding it came from.
 
-- Its findings are **exploratory**. They describe; they do not confirm. A
-  pattern found in Q data is never used as evidence for a hypothesis written
-  after looking at that data.
-- A finding that suggests an answer becomes a **new hypothesis** `H<m>`, with
-  a criterion, tested in its own experiment. Where the data allow, test it on
-  datasets, seeds or settings the question did not use (as H9 does for the
-  H5/H6 pattern). If it must reuse the same data, say so in the hypothesis
-  and treat the result as weaker.
-- The hypothesis names the question it came from (`*(from Q2-E01, F3)*`).
+For data that already exist, record what had been seen when the plan was
+written (raw outcomes, summaries, earlier results). A plan written after that
+cannot make those observations prospective.
 
-**A hypothesis** follows the existing form in `HYPOTHESES.md`: **Claim**, **Why
-it might hold**, **Why it might not**, **Arms**, **Budget**, **Falsification
-criterion** (with the unit of analysis, the test and alpha), and
-**Experiments**. Add it to *Why this order* if it changes the run order.
+**Commit the question or hypothesis before any run it covers.** That commit is
+its **pre-registration commit**, and every report quotes from it.
 
-Both are committed before any run they cover. That commit is the
-**pre-registration commit** the report quotes from.
+## 2. Fix the protocol once
 
-## 2. Register the experiment before its first run
+Everything shared by all experiments goes in one protocol table, decided before
+the first run: datasets and their versions, splits (fixed and seeded, with the
+test split read once), the primary metric and its aggregate, seeds, budget and
+its unit (fits, epochs, GPU hours), the model or evaluator, preprocessing, and
+the statistical tests. Each row says why. An experiment may deviate from it only
+if its design says how and why.
 
-1. **Issue the ID.** `H<n>-E<nn>` or `Q<n>-E<nn>`, counted from `E01` per
-   question or hypothesis in the order they start. A joint experiment carries
-   both numbers (`H2H3-E01`). **An ID is never reused.** A crashed, aborted or
-   invalid experiment keeps its ID and the next attempt is `E02`. The number
-   of attempts is part of the record.
-   `python experiments/experiment_ids.py new H10` records it as `running`.
-   *`experiment_ids.py` accepts only `H<n>` IDs (`EXPERIMENT_RE`). Before the
-   first `Q` experiment, extend it to accept `Q<n>` and commit that change
-   first. Tell the user rather than tagging a question's runs with an `H` ID.*
-2. **Write the design** in `EXPERIMENTS.md`, *Experiment designs*,
-   `### <ID> -- <what it does>`: why this experiment, datasets, arms, budget,
-   seeds, and the criterion or analysis plan if it differs from or adds to the
-   parent section. Mark when it was added and what was known then ("*Added
-   <date>, after H0-E01 had been reported*").
-3. **Log the decisions** it runs under that are not already logged (section 4).
-4. **Commit, push, then run.** Code, designs and decisions are all committed
-   before the first run. On Vega, follow the Vega workflow (commit and push
-   here, pull and run there).
+See [references/ml-pitfalls.md](references/ml-pitfalls.md) before fixing it:
+equal budgets and equal tuning across arms, one evaluator for every method,
+no information crossing from test to training, and the right unit of analysis.
 
-A run that serves no question or hypothesis (a smoke test, a timing probe,
-debugging) gets no experiment ID and is never cited. A test job on Vega is
-such a run.
+## 3. Register each experiment before its first run
 
-## 3. Pin the code: run IDs, algorithm IDs, manifests
+1. **Issue an ID.** `<Q or H number>-E<nn>`, e.g. `Q2-E01`, `H4-E03`, counted
+   per question or hypothesis in the order experiments start. A joint
+   experiment carries both numbers (`H2H3-E01`). **IDs are never reused.** A
+   crashed, aborted or invalid experiment keeps its ID, and the next attempt
+   is `E02`: the number of attempts is part of the record. Add the ledger row
+   now, with status `running`.
+2. **Write the design** in the ledger's *Experiment designs*: why this
+   experiment, what was known when it was added, datasets, arms, seeds,
+   budget, and the criterion or plan where it adds to the parent.
+3. **Log the decisions** it runs under (section 5).
+4. **Run a test job** end to end on the target machine. It carries no
+   experiment ID and is never cited.
+5. **Commit and push, then run.**
 
-Every number must be reproducible from commits, not from a working tree.
+Runs that serve no question (smoke tests, timing probes, debugging) get no
+experiment ID and are never evidence.
 
-- **Run ID** `<UTC timestamp>_<name>`: one invocation, one
-  `results/<run ID>/` with `manifest.json` (both repositories' commits and
-  dirty flags, package versions, input-file hashes, seeds, parameters, command
-  line, start and end, `experiment_id`). Written by `provenance.Run`.
+## 4. Pin code, data and configuration
+
+The goal is that every number can be regenerated from a commit, never from a
+working tree. Details and code are in [references/provenance.md](references/provenance.md).
+
+- **Run ID** `<UTC timestamp>_<name>`. One invocation writes one
+  `results/<run ID>/` with a `manifest.json`: commits and dirty flags of every
+  repository involved, package versions, input-data hashes, seeds, the
+  resolved configuration, the command line, host, start and end, status, and
+  the experiment ID.
 - **Run key** `<run ID>/<arm>/<dataset>/s<seed>`: one arm on one dataset with
   one seed.
-- **Algorithm ID** `<arm>@<experiments commit>+<fastener commit>#<config>`,
-  e.g. `nsga2_sparse@a1b2c3d+9f8e7d6#4c1a`. The arm name alone does not say
-  what ran. The two short commits pin the code in both repositories (this
-  one and the FASTENER clone), and the 4-hex SHA-256 of the resolved,
-  sorted-JSON configuration pins the flags. Any flag that changes an arm's
-  behaviour must be part of that configuration. If it is not, add it before
-  the run (DEC-27 is the precedent). Arms with different algorithm IDs are
-  never pooled unless a decision says why they are equivalent.
+- **Method ID** `<arm>@<commit>[+<commit of each other repo>]#<config hash>`,
+  for example `xgb_tuned@a1b2c3d+9f8e7d6#4c1a`. The arm name alone does not
+  say what ran. The commits pin the code, and the short hash of the resolved
+  configuration (sorted JSON) pins every flag. Any option that changes
+  behaviour must be part of that configuration. Results with different
+  method IDs are never pooled unless a decision says why they are equivalent.
 - **No evidence from a dirty tree.** A run tagged with an experiment ID is
-  refused if either repository has uncommitted code, untracked modules
-  included. `--allow-dirty` is for diagnosis only. Its IDs carry `-dirty`,
-  its manifest says `evidence: false`, and it is never cited. Docs and
-  figure scripts count as code. `results/`, `data/`, `experiments/reports/`
-  and `EXPERIMENTS.md` do not (`provenance.NON_CODE_PATHS`).
-- A change to the FASTENER clone is committed *in the clone*, and the
-  protocol table in `HYPOTHESES.md` names the clone commit in force.
+  refused if any repository has uncommitted or untracked code. A forced
+  diagnostic run is marked `-dirty` and `evidence: false`, and is never cited.
+  Plan files, analysis and figure scripts count as code. The outputs runs
+  write do not.
+- **Data are versioned too**: a content hash per input file, or the version
+  of a data-versioning tool, in every manifest.
+- **No manual steps** between raw data and a reported number. Every table and
+  figure comes from a committed script reading run directories, and the
+  numbers behind each figure are saved beside it.
 
-## 4. Log every decision
+## 5. Keep a decision log
 
-`experiments/DECISIONS.md` is the record of why each rule is what it is. Any
-choice that shapes what an experiment tests or how it is read gets an entry:
-a dataset added or dropped, a budget, a classifier, a code fix that changes
-an arm, a criterion, how a crash is handled, whether two package versions
-count as equivalent.
+Every choice that shapes what an experiment tests or how it is read gets a
+numbered entry `DEC-<nn>`: a dataset added or dropped, a budget, a metric, a
+model, a bug fix that changes an arm, how a crash is handled, whether two
+library versions count as equivalent. The template is in
+[references/templates.md](references/templates.md). Every entry has:
 
-Entry form (next number; add it to the **Index** and to **By experiment**):
+- **date and title**, then **Why**, **Detail**, **By** (who decided, and what
+  an assistant proposed or implemented), **Source** (commits, plan section)
+  and **Applies to** (experiment IDs, or questions not yet run);
+- **whether a result had been seen**, and which one. Decisions taken after
+  seeing data are legitimate, but a reader must be able to tell.
 
-```markdown
-### DEC-47
+Rules: never renumber or delete. A reversed decision gets a new entry naming
+the one it replaces, and the old entry gains `Replaced by DEC-nn`. Keep an
+index, and a *By experiment* table listing the decisions each experiment
+**ran under** and **led to**.
 
-**2026-10-29 -- <the decision, as one line>.**
+**The owner decides; the assistant proposes.** Scope, datasets, models,
+accepting an equivalence, excluding a run and changing a criterion belong to
+the person who owns the research. Ask, and record who decided.
 
-- **Why:** the reason.
-- **Detail:** what exactly was decided, with numbers.
-- **By:** PI (what the PI decided); what Claude proposed or implemented.
-- **Taken before any <ID> result was read.** / **Taken after <result>.**
-- **Source:** commits, and the `HYPOTHESES.md` section.
-- **Applies to:** experiment IDs, or questions and hypotheses not yet run.
-```
+## 6. Change the plan only by revision
 
-Rules:
+Once a result exists, the text of a question, hypothesis, criterion or the
+protocol is not edited in place. Add a dated entry to *Revisions*: what
+changed, why, what had been seen, and which experiments run under the old and
+the new version. Add the matching decision entry. A deviation found during a
+run (a crash, a dropped dataset, a changed budget) is logged the same way, with
+its expected effect on the result.
 
-- **Never renumber or delete.** A reversed decision gets a new entry naming
-  the one it replaces, and the old entry gains `Replaced by DEC-nn`.
-- **Say whether a result had been seen**, and which one. A decision taken
-  after seeing data is legitimate, but the reader must be able to tell.
-- **Name who decided.** Choices that belong to the PI (scope, datasets,
-  classifiers, accepting an equivalence, dropping a run) are proposed by
-  Claude and decided by the PI. Ask, do not decide them yourself.
-- In *By experiment*, each experiment's row lists the decisions it **ran
-  under** and the ones it **led to**.
+## 7. Run and watch
 
-## 5. Change the plan only by revision
+- Prefer one process per arm, dataset and seed, so a failure costs one cell
+  and cells can be rerun alone. A single cell run on its own reproduces the
+  same cell run inside a batch.
+- Log progress during the run (for searches: best score against cumulative
+  budget), flushed as it goes, so a killed run still leaves a trajectory.
+- Record wall clock beside the budget unit, and why each arm stopped (budget,
+  convergence, error, time limit).
+- Pin thread counts and hardware where timing is compared.
+- Handle failures with a decision entry, and record them for the report.
 
-After a result exists, the text of a question, hypothesis, criterion or the
-protocol is not edited in place. Add a dated entry to `HYPOTHESES.md`,
-*Revisions*: what changed, why, what had been seen when it changed, and which
-experiments the old and new versions apply to. Then add the matching DEC entry.
-A question's analysis plan follows the same rule. Its findings are only
-exploratory, but changing the plan after seeing data must still be visible.
+## 8. Report every experiment
 
-## 6. Run and watch
+Every experiment gets a report, failed and invalid ones included, written
+before the next experiment on the same question or hypothesis starts. Two
+files in `reports/<ID>/` (templates in
+[references/templates.md](references/templates.md)):
 
-- Queue one process per dataset, arm and seed (`run_queue.py` on the
-  workstation, sbatch on Vega). Watch it with `monitor.py --experiment <ID>`.
-- Every search records progress per iteration against cumulative fits, so
-  that a killed run still leaves its trajectory behind.
-- When something breaks, handle it with a decision (DEC-26, adopting the
-  running runs after a crash, is the precedent), and record it in the
-  report's *What happened*.
+- **`REPORT.md`, the reading**, for someone who has not followed the work.
+  *In brief*: the question or hypothesis and how it is judged, in plain words,
+  then the answer with its deciding number and figure. *Findings* F1..FN:
+  each a specific sentence, the numbers behind it, and a figure. F1 is the
+  registered criterion or plan. Later findings that were not planned are
+  marked as such. *Assessment*: what is supported and how strongly, effect
+  sizes with their spread, what the result does not show, limits, and what
+  follows.
+- **`SUPPORT.md`, the record**: run IDs and method IDs, the pre-registration
+  commit, the question or hypothesis and criterion **quoted verbatim**, the
+  setup and its deviations, *what happened* (timeline, failures, anomalies),
+  the evidence tables, and the commands that reproduce everything.
 
-## 7. Report and close
+Rules: a claim no figure shows is not a finding. Seed or fold spread is on
+every figure; a mean is never plotted alone. Every figure says which split it
+shows. A null or negative result gets the same care as a positive one. Every
+number in the prose matches a generated table; nothing is computed by hand.
+Generate as much of both files as possible from the runs, then write the
+prose.
 
-Every experiment gets a report, failed ones included, written before the next
-experiment on the same question or hypothesis starts. Follow the
-`experiment-report` skill. In short: `REPORT.md` (in brief, findings F1..FN
-each with a figure, assessment) and `SUPPORT.md` (header with run and
-algorithm IDs, the pre-registration commit, the text quoted verbatim,
-setup, what happened, evidence, reproduction). Then set the ledger status,
-the verdict bullet, *By experiment* and `reports/LIST.md`.
+**A hypothesis report** gives a verdict: confirmed, not confirmed, or reversed,
+qualified if needed ("confirmed, narrowly"). Report a mechanical reading of the
+criterion beside the verdict, so a defect the mechanics cannot see can still
+overrule it. "Not detected at n = 5" is never written as "no effect".
 
-For a **research question** the report differs only in its verdict:
+**A question report** gives no verdict. *In brief* states the answer as found.
+The *assessment* ends with **candidate hypotheses**, each with the data a fair
+test needs. They become `H<m>` only when the owner decides to pursue them.
 
-- *In brief* states the question and **the answer as found**: what the data
-  show, with the deciding figure. It gives no confirmed or not confirmed.
-- **F1 is the analysis registered in the plan.** Later findings are what else
-  the data showed, each marked as found, not planned.
-- The *assessment* ends with the **candidate hypotheses** the findings
-  suggest, each with the data a fair test would need. They are registered as
-  `H<m>` only when the user decides to pursue them.
+Then close the experiment: set its ledger status (`reported`, `failed`,
+`invalid`; a row is never deleted), add the verdict to the parent's
+*Experiments* bullets, update *By experiment* in the decision log, and update
+`reports/LIST.md` (per question or hypothesis, the experiment to read, and
+which ones were superseded or failed and why).
 
-## 8. Commit
+## 9. Commit
 
-- Experiments: commit the code, the designs, the decisions, the revisions and
-  `experiments/reports/<ID>/`. Leave `results/` uncommitted.
-- Commit as the user only, with no Claude co-author line.
-- Never rewrite pushed history. Fix mistakes with new commits.
-- Report figures are wide, not tall: landscape, with datasets along x.
+Commit plans, decisions, designs, code and reports. Never rewrite pushed
+history; fix mistakes with new commits. Whether bulk run outputs go in git is
+a project decision: log it as one.
 
-## Checklist before the first run of an experiment
+## Checklist before an experiment's first run
 
-- [ ] The question (`Q<n>`) or hypothesis (`H<n>`) is in `HYPOTHESES.md`,
-      with its analysis plan or falsification criterion.
-- [ ] The experiment ID is issued and its design is in `EXPERIMENTS.md`.
-- [ ] Every decision it runs under has a DEC entry, marked as taken before
-      the results.
-- [ ] Every behaviour-changing flag is in the arms' algorithm-ID config.
-- [ ] Both repositories are clean and committed, and this one is pushed.
-- [ ] A test job (no experiment ID) has run end to end on the target machine.
+- [ ] The question or hypothesis, with its plan or criterion, is committed.
+- [ ] What had already been seen of the data is recorded.
+- [ ] The experiment ID is issued and its design written in the ledger.
+- [ ] Every decision it runs under is logged and marked as taken before the
+      results.
+- [ ] Every behaviour-changing option is in the method ID's config.
+- [ ] Data hashes, seeds and package versions go into the manifest.
+- [ ] Every repository is clean, committed and pushed.
+- [ ] A test job has run end to end on the target machine.
+- [ ] The leakage and fairness checks in `ml-pitfalls.md` pass.
