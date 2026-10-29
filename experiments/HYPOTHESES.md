@@ -915,9 +915,17 @@ datasets, where it is confirmatory.
 
 **Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 
-* `H10-E01` -- the seeded arms on H5H6-E03's grid. Registered.
-* `H10-E02`, `H10-E03` -- the same under the random forest (H5H6-E02's grid)
-  and the decision tree (H5H6-E01's grid). Registered.
+* `H10-E01` -- the seeded arms on H5H6-E03's grid (LightGBM). **Not
+  supported**: the mRMR seed beats mRMR alone (29-0-10, p = 0.0008) but is
+  neither non-inferior to stock FASTENER (lower bound -0.013) nor ahead at
+  10% or 25% of the budget. The Boruta seed does better but also misses (b)
+  and (c). [Report](reports/H10-E01/REPORT.md).
+* `H10-E02` -- the same under the random forest. The mRMR seed passes (a) and
+  (b) (lower bound -0.001) and fails (c) (+0.009 at 10%, Holm p = 0.20); the
+  Boruta seed passes (a), (b) and (c) at 25% only. [Report](reports/H10-E02/REPORT.md).
+* `H10-E03` -- the same under the decision tree. The mRMR seed passes only
+  (a); the Boruta seed passes (a) and (b) (lower bound +0.003). Stock FASTENER
+  peaks at a quarter of the budget under the tree. [Report](reports/H10-E03/REPORT.md).
 
 ---
 

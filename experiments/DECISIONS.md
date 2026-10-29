@@ -1091,3 +1091,6 @@ are not repeated.
 | `H5H6-E02` | reported: H5 not supported; H6 not supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40), [DEC-41](#dec-41), [DEC-42](#dec-42) | -- | [H5H6-E02](reports/H5H6-E02/REPORT.md) |
 | `H5H6-E03` | reported: H5 not supported; H6 not supported | [DEC-07](#dec-07), [DEC-23](#dec-23), [DEC-27](#dec-27), [DEC-28](#dec-28), [DEC-33](#dec-33), [DEC-37](#dec-37), [DEC-40](#dec-40), [DEC-41](#dec-41), [DEC-42](#dec-42), [DEC-43](#dec-43), [DEC-44](#dec-44) | -- | [H5H6-E03](reports/H5H6-E03/REPORT.md) |
 | `H7-E01` | reported: not supported | [DEC-45](#dec-45) | -- | [H7-E01](reports/H7-E01/REPORT.md) |
+| `H10-E01` | reported: not supported | [DEC-43](#dec-43), [DEC-44](#dec-44), [DEC-45](#dec-45), [DEC-47](#dec-47) | [DEC-47](#dec-47) | [H10-E01](reports/H10-E01/REPORT.md) |
+| `H10-E02` | reported: not supported (passes a, b) | [DEC-41](#dec-41), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E02](reports/H10-E02/REPORT.md) |
+| `H10-E03` | reported: not supported (passes a) | [DEC-37](#dec-37), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E03](reports/H10-E03/REPORT.md) |

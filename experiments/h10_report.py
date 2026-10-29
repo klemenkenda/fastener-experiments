@@ -301,6 +301,39 @@ def fig_clusters(final, ckpt, note, path):
     plt.close(fig)
 
 
+def fig_seed_cost(costs, note, path, learner):
+    """Per dataset, the seed's wall clock against the search's (median over
+    seeds), one panel per arm; datasets along x, by the search's time."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    fig, axes = plt.subplots(2, 1, figsize=(17, 7.5), sharex=True)
+    med = lambda rs, k: float(np.median([float(r[k]) for r in rs]))
+    ds = sorted({r["dataset"] for r in costs},
+                key=lambda d: -med([r for r in costs if r["dataset"] == d], "search_seconds"))
+    x = np.arange(len(ds))
+    for ax, arm in zip(axes, ARMS):
+        rows = [r for r in costs if r["method"] == arm]
+        seed = [med([r for r in rows if r["dataset"] == d], "seed_seconds") for d in ds]
+        search = [med([r for r in rows if r["dataset"] == d], "search_seconds") for d in ds]
+        ax.bar(x - 0.2, search, 0.4, color=SERIES[0], label="search")
+        ax.bar(x + 0.2, seed, 0.4, color=SERIES[1], label="seed")
+        tot_seed = sum(float(r["seed_seconds"]) for r in rows)
+        tot = tot_seed + sum(float(r["search_seconds"]) for r in rows)
+        ax.set_yscale("log")
+        ax.set_ylabel("wall clock (s, log)")
+        ax.set_title(f"{LABEL[arm]}: the seed is {tot_seed / tot:.0%} of the arm's time "
+                     f"({tot_seed / 3600:.1f} h of {tot / 3600:.1f} h)", fontsize=10)
+        ax.grid(axis="y", color=GRID)
+        ax.legend(fontsize=8, loc="upper right")
+    axes[-1].set_xticks(x, ds, rotation=60, ha="right", fontsize=7.5)
+    fig.suptitle(f"Seed and search wall clock per dataset, median over seeds ({learner}); "
+                 "datasets by the search's time", fontsize=10)
+    _footer(fig, note, "n/a")
+    fig.tight_layout(rect=(0, 0.03, 1, 0.95))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def write_csv(path: Path, rows: List[Dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     keys: List[str] = []
@@ -343,6 +376,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     fig_criterion(crit, note, figs / "F1_H10_criterion.png")
     fig_curves(final, ckpt, note, figs / "F2_auf_by_checkpoint.png", learner)
     fig_clusters(final, ckpt, note, figs / "F3_by_cluster.png")
+    fig_seed_cost(costs, note, figs / "F4_seed_cost.png", learner)
     print(json.dumps(v))
     for r in crit + beside:
         extra = (f" lower95 {r['lower_95']:+.4f}" if "lower_95" in r else
