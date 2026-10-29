@@ -1,12 +1,13 @@
 """H10: the filter-seeded FASTENER arms against stock FASTENER and the filter.
 
 The criterion as registered for H10-E01 (HYPOTHESES.md, H10; EXPERIMENTS.md,
-H10-E01's design), for `fastener_seed_mrmr`, datasets as the unit (mean over
-seeds):
+H10-E01's design) and applied unchanged to H10-E02 and -E03 under their own
+classifiers (DEC-46), for `fastener_seed_mrmr`, datasets as the unit (mean
+over seeds), against the base grid's runs (BASES):
 
-(a) against mRMR alone (H5H6-E03's `mrmr`), AUF (K = 10): more wins than
+(a) against mRMR alone (the grid's `mrmr`), AUF (K = 10): more wins than
     losses and a two-sided Wilcoxon p < 0.05;
-(b) against stock FASTENER (H5H6-E03's `fastener`) at the full budget: the
+(b) against stock FASTENER (the grid's `fastener`) at the full budget: the
     one-sided 95% lower bound of the mean per-dataset difference above
     -0.005 (paired bootstrap over datasets, 10,000 resamples, seed 20200);
 (c) against stock FASTENER at 10% and 25% of the budget (h7_checkpoints.py's
@@ -20,6 +21,7 @@ Inputs, all made before this script reads them:
 
     python experiments/make_report.py --experiment H10-E01        # run_keys.csv
     python experiments/h7_checkpoints.py --experiment H10-E01 --sources H10-E01 --jobs 12
+    (the same with H10-E02 or H10-E03 for both)
     python experiments/h10_report.py --experiment H10-E01
 """
 from __future__ import annotations
@@ -41,8 +43,11 @@ import provenance
 HERE = Path(__file__).resolve().parent
 REPORTS = HERE / "reports"
 RESULTS = provenance.RESULTS_DIR
-BASE = "H5H6-E03"            # the grid H10-E01 is compared with
-STOCK_CHECKPOINTS = "H7-E01"  # stock FASTENER's checkpoints under LightGBM
+# Each experiment's base grid: its stock FASTENER and filter runs, and the
+# classifier both ran with.
+BASES = {"H10-E01": ("H5H6-E03", "LightGBM"), "H10-E02": ("H5H6-E02", "random forest"),
+         "H10-E03": ("H5H6-E01", "decision tree")}
+STOCK_CHECKPOINTS = "H7-E01"  # stock FASTENER's checkpoints in every grid
 ARMS = ("fastener_seed_mrmr", "fastener_seed_boruta")
 PRIMARY_ARM = "fastener_seed_mrmr"
 FILTER = {"fastener_seed_mrmr": "mrmr", "fastener_seed_boruta": "boruta"}
@@ -83,12 +88,13 @@ def final_means(rows, methods) -> Dict[str, Dict[str, float]]:
 
 def checkpoint_means(experiment: str) -> Dict:
     """(checkpoint, method) -> {dataset: mean AUF over seeds}, for the seeded
-    arms (this experiment) and stock FASTENER under LightGBM (H7-E01)."""
+    arms (this experiment) and stock FASTENER in its base grid (H7-E01)."""
+    base = BASES[experiment][0]
     acc: Dict = {}
     for exp, keep in ((experiment, set(ARMS)), (STOCK_CHECKPOINTS, {"fastener"})):
         with open(RESULTS / exp / "checkpoints.csv", encoding="utf-8") as fh:
             for r in csv.DictReader(fh):
-                if r["source"] not in (experiment, BASE) or r["method"] not in keep:
+                if r["source"] not in (experiment, base) or r["method"] not in keep:
                     continue
                 acc.setdefault((float(r["checkpoint"]), r["method"]), {}) \
                    .setdefault(r["dataset"], []).append(float(r["auf_k10"]))
@@ -233,7 +239,7 @@ def fig_criterion(crit, note, path):
     plt.close(fig)
 
 
-def fig_curves(final, ckpt, note, path):
+def fig_curves(final, ckpt, note, path, learner):
     """Mean AUF at each checkpoint, with the filters' end values as lines."""
     import matplotlib.pyplot as plt
     _style(plt)
@@ -255,7 +261,7 @@ def fig_curves(final, ckpt, note, path):
     ax.set_xticks([c * 100 for c in cps], [f"{int(c * 100)}%" for c in cps])
     ax.set_xlabel("share of the fit budget (the Boruta seed's own fits included)")
     ax.set_ylabel("mean AUF (K = 10), test")
-    ax.set_title(f"Mean AUF at each checkpoint, LightGBM, over the {len(common)} datasets "
+    ax.set_title(f"Mean AUF at each checkpoint, {learner}, over the {len(common)} datasets "
                  "every arm has", fontsize=10)
     ax.grid(color=GRID)
     ax.legend(fontsize=8, loc="center right")
@@ -310,9 +316,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--experiment", required=True)
     args = ap.parse_args(argv)
+    base, learner = BASES[args.experiment]
     own = run_keys(args.experiment)
     final = final_means(own, set(ARMS))
-    final.update(final_means(run_keys(BASE), {"fastener", "mrmr", "boruta"}))
+    final.update(final_means(run_keys(base), {"fastener", "mrmr", "boruta"}))
     ckpt = checkpoint_means(args.experiment)
     crit = criterion(final, ckpt)
     v = verdict(crit)
@@ -331,10 +338,10 @@ def main(argv: Optional[List[str]] = None) -> int:
               + [{"method": m, "checkpoint": c, "dataset": d, "auf_k10": a}
                  for (c, m), by in sorted(ckpt.items()) for d, a in sorted(by.items())])
     (tabs / "verdict.json").write_text(json.dumps(v, indent=1), encoding="utf-8")
-    note = (f"{len(own)} runs of {args.experiment}; {BASE}'s fastener, mrmr, boruta; "
+    note = (f"{len(own)} runs of {args.experiment} ({learner}); {base}'s fastener, mrmr, boruta; "
             f"checkpoints: results/{args.experiment}, results/{STOCK_CHECKPOINTS}")
     fig_criterion(crit, note, figs / "F1_H10_criterion.png")
-    fig_curves(final, ckpt, note, figs / "F2_auf_by_checkpoint.png")
+    fig_curves(final, ckpt, note, figs / "F2_auf_by_checkpoint.png", learner)
     fig_clusters(final, ckpt, note, figs / "F3_by_cluster.png")
     print(json.dumps(v))
     for r in crit + beside:

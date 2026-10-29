@@ -43,9 +43,9 @@ REPORTS = HERE / "reports"
 RESULTS = provenance.RESULTS_DIR
 
 # The grids and the classifier each ran with (DEC-40, DEC-41, DEC-44), and
-# H10-E01's seeded arms, run under H5H6-E03's setup (DEC-45).
+# H10's seeded arms, each run under one grid's setup (DEC-45, DEC-46).
 SOURCES = {"H5H6-E01": "tree", "H5H6-E02": "rf", "H5H6-E03": "lgbm",
-           "H10-E01": "lgbm"}
+           "H10-E01": "lgbm", "H10-E02": "rf", "H10-E03": "tree"}
 # H7's three arms, and the two swap arms reported beside them. FS-SDS is
 # left out: it runs k = 1..20 one after another, so a share of its total fits
 # has seen only the first k's and is not comparable.

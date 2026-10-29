@@ -1038,6 +1038,23 @@ scaled to the training split.**
   Claude.
 - **Applies to:** H7-H10.
 
+### DEC-46
+
+**2026-10-29 -- H10 also under the random forest and the decision tree.**
+
+- **Why:** every H5/H6 and H7 result has been read under three classifiers;
+  a seeded FASTENER that helps under one only would be a weaker finding than
+  one that helps under all three.
+- **Detail:** H10-E02 (H5H6-E02's grid, random forest, 8 cores) and H10-E03
+  (H5H6-E01's grid, decision tree, one core) run H10-E01's two arms and are
+  read with H10-E01's criterion, unchanged. H10's verdict stays H10-E01's;
+  E02 and E03 are reported beside it. H10-E03 runs on Vega with scikit-learn 1.9.1, H5H6-E01 ran with 1.9.0; the PI judged them equivalent, so no reproduction run. All three on Vega; E02 and E03 at the
+  same time, submitted once every H10-E01 job had started. Registered before
+  any H10 result was fetched or read.
+- **By:** PI (running the forest and the tree, at the same time; no reproduction run); the reading
+  of their verdicts beside H10-E01's proposed by Claude.
+- **Applies to:** H10-E02, H10-E03.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol

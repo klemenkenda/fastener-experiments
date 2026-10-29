@@ -916,6 +916,8 @@ datasets, where it is confirmatory.
 **Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 
 * `H10-E01` -- the seeded arms on H5H6-E03's grid. Registered.
+* `H10-E02`, `H10-E03` -- the same under the random forest (H5H6-E02's grid)
+  and the decision tree (H5H6-E01's grid). Registered.
 
 ---
 
@@ -1513,3 +1515,10 @@ bootstrap is 10,000 paired resamples over datasets, seed 20200; (c) is read
 with H7-E01's procedure, Holm over its two checkpoints; a Boruta-seeded run's
 checkpoints are offset by Boruta's own fits, which precede FASTENER's. The
 claim and criterion are unchanged.
+
+**2026-10-29 -- H10 under the forest and the tree.** Before any H10 result was
+fetched or read: H10-E02 and H10-E03 run the same two arms on H5H6-E02's and
+H5H6-E01's grids, and H10's criterion is applied to each unchanged, under its
+classifier. H10's verdict stays H10-E01's, as registered; the other two say
+whether it holds under the other classifiers, as the H5H6 grids did for H5 and
+H6. Recorded as [DEC-46](DECISIONS.md#dec-46).
