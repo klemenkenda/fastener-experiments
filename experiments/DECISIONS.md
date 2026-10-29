@@ -1111,6 +1111,23 @@ proposer as an arm; FASTENER's guidance hooks.**
   generations, 5 subsets).
 - **Applies to:** H8-E01.
 
+### DEC-50
+
+**2026-10-30 -- H8-E01 runs on HPC Vega, not the workstation.**
+
+- **Why:** on the workstation (one thread per run, 12 at a time) the six
+  50,000-row datasets take 2-5 hours per run, about 5-6 days in all, with
+  eodata near the 6-hour cap.
+- **Detail:** `hpc/vega/h8e01.env`: the registered 14 arms, 16 datasets, 5
+  seeds, LightGBM, 1,000 fits (`h8_budgets.json`), 6-hour cap; 8 cores per
+  run. The compute nodes reach OpenRouter (HTTP 200, 2026-10-30); the key is
+  in the Vega clone's git-ignored `.env`. `prepare_data.sh` now downloads the
+  tall and H8 datasets too. The workstation's first start (12 eodata proposer
+  runs, about 3% done) was stopped; its folders are in
+  `results/H8-E01/attempt1_stopped/`, unread, and out of the ledger.
+- **By:** PI (Vega); the setup by Claude.
+- **Applies to:** H8-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol

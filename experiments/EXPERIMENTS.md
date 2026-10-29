@@ -624,7 +624,7 @@ Registered 2026-10-30, before any prior was made and before any run
 | proposer | every 5 generations, up to 5 subsets of at most 10 features, from the front with feature names; evaluated from the run's fit budget; each run's calls logged in its folder |
 | datasets | the 16 of `DATASETS_USED.md`, "H8: datasets with named features"; the 50,000-row cap |
 | classifier, budget, seeds, cap | LightGBM; 1,000 fits per run; seeds 2020-2024; 6 hours per run |
-| runs | 14 arms x 16 datasets x 5 seeds = 1,120, on the workstation (`run_queue.py`) |
+| runs | 14 arms x 16 datasets x 5 seeds = 1,120; on HPC Vega, 8 cores per run (`hpc/vega/h8e01.env`; [DEC-50](DECISIONS.md#dec-50), revised 2026-10-30 before any result: registered first for the workstation) |
 | primary metric | fits to a common target per pair of arms, dataset and seed: the target is the lower of the two runs' final validation AUF (K = 10), read from their trajectories; a run's value is the fits at its first snapshot at or above it |
 | criterion | per model: (i) `fastener_llm_m` vs `fastener`, (ii) `fastener_llm_m` vs `fastener_llm_m_scrambled`; effect per dataset the mean over seeds of log2(opponent's fits / LLM arm's fits); each part needs more positive datasets than negative and a two-sided Wilcoxon p < 0.05 after Holm over the three models; H8 supported if (i) and (ii) hold for at least one model |
 | beside it | the proposer arm against the prior arm and against stock; the ablations against stock and against `fastener_llm_opus`; `fastener_seed_mrmr` against stock and the LLM arms; end-of-budget test AUF (K = 10) of every arm; tokens, cost and wall time of the calls; prior against mutual information (Spearman) |

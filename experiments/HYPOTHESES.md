@@ -1613,3 +1613,12 @@ or any run started.** Recorded as [DEC-49](DECISIONS.md#dec-49).
   reads validation AUF (K = 10) from each run's trajectory: the mean over
   k = 1..10 of the best validation score of a subset of at most k features,
   0 for a size not reached.
+
+**2026-10-30 -- H8-E01 moves to HPC Vega, before any result was read.** On
+the workstation, one thread per run, a 1,000-fit run on the 50,000-row sets
+took about 5 hours (eodata), near the 6-hour cap, so the experiment would
+have taken 5-6 days. It runs on Vega instead, 8 cores per run as H5H6-E03;
+the proposer arms reach OpenRouter from the compute nodes (checked). Nothing
+else changes. The first start on the workstation was stopped after 15
+minutes; its 12 unfinished runs are set aside unread. Recorded as
+[DEC-50](DECISIONS.md#dec-50).
