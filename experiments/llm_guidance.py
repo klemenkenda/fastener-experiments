@@ -21,6 +21,7 @@ model ID asked and served, the prompt, the raw response and the scores;
     # git-ignored .env (a placeholder is there; .env.example shows the form)
     python experiments/llm_guidance.py prior --dataset covertype \\
         --model anthropic/claude-sonnet-5.5 [--scrambled] [--dictionary <json>]
+    python experiments/llm_guidance.py batch --datasets a,b --models m1,m2
 
 Scrambled priors (H8's control) show the model neutral tokens instead of the
 feature names and drop their descriptions; the task and class names stay.
@@ -374,22 +375,48 @@ def main(argv: Optional[List[str]] = None) -> int:
                    help="data dictionary JSON (default priors/dictionaries/<dataset>.json)")
     p.add_argument("--log", type=Path, help="call log (default priors/calls.jsonl)")
     p.add_argument("--out", type=Path)
+    b = sub.add_parser("batch", help="every prior an experiment needs, skipping "
+                                     "those already made")
+    b.add_argument("--datasets", required=True, help="comma list")
+    b.add_argument("--models", required=True, help="comma list of OpenRouter IDs")
+    b.add_argument("--log", type=Path)
     args = ap.parse_args(argv)
 
-    from datasets import load
-    import protocol
-    ds = load(args.dataset, max_rows=protocol.ROW_CAP)
-    dpath = args.dictionary or PRIORS_DIR / "dictionaries" / f"{args.dataset}.json"
-    dictionary = json.loads(dpath.read_text(encoding="utf-8")) if dpath.is_file() else None
-    ctx = context_for(ds, dictionary)
+    if args.cmd == "batch":
+        log = CallLog(args.log or PRIORS_DIR / "calls.jsonl", "record", OpenRouterClient())
+        todo = [(d, m, s) for d in args.datasets.split(",") for m in args.models.split(",")
+                for s in (False, True)]
+        for i, (d, m, s) in enumerate(todo, 1):
+            out = prior_path(d, m, s)
+            if out.is_file():
+                print(f"[{i}/{len(todo)}] {out.name}: exists")
+                continue
+            make_one(d, m, s, log, out, None)
+            print(f"[{i}/{len(todo)}] {out.name}: made", flush=True)
+        print(f"{log.sent} calls sent, {log.replayed} replayed")
+        return 0
     log = CallLog(args.log or PRIORS_DIR / "calls.jsonl", "record", OpenRouterClient())
-    prior = LLMFeaturePrior(log, args.model, scrambled=args.scrambled)
-    scores = prior(ctx)
     out = args.out or prior_path(args.dataset, args.model, args.scrambled)
-    save_prior(out, args.dataset, ctx, prior, scores)
+    prior, ctx = make_one(args.dataset, args.model, args.scrambled, log, out,
+                          args.dictionary)
     print(f"{out}: {ctx.n_features} scores, {len(prior.record['missing'])} missing, "
           f"{log.sent} calls sent, {log.replayed} replayed")
     return 0
+
+
+def make_one(dataset: str, model: str, scrambled: bool, log: CallLog, out: Path,
+             dictionary_path: Optional[Path] = None):
+    """Make, save and return one prior (and its context)."""
+    from datasets import load
+    import protocol
+    ds = load(dataset, max_rows=protocol.ROW_CAP)
+    dpath = dictionary_path or PRIORS_DIR / "dictionaries" / f"{dataset}.json"
+    dictionary = json.loads(dpath.read_text(encoding="utf-8")) if dpath.is_file() else None
+    ctx = context_for(ds, dictionary)
+    prior = LLMFeaturePrior(log, model, scrambled=scrambled)
+    scores = prior(ctx)
+    save_prior(out, dataset, ctx, prior, scores)
+    return prior, ctx
 
 
 if __name__ == "__main__":
