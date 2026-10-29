@@ -54,11 +54,15 @@ def signature(line: str) -> str:
     return s[:200]
 
 
-def read(path: Path) -> List[str]:
+def read(path: Path) -> Iterable[str]:
+    """The log's lines, streamed: a log can be gigabytes (H10-E02's forest
+    logs repeat one scikit-learn warning per fit)."""
     try:
-        return path.read_text(encoding="utf-8", errors="replace").splitlines()
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            for line in fh:
+                yield line.rstrip("\n")
     except OSError as exc:
-        return [f"<unreadable: {exc}>"]
+        yield f"<unreadable: {exc}>"
 
 
 _QUEUES: Dict[Path, Dict[str, str]] = {}
@@ -94,11 +98,29 @@ def distill(paths: Iterable[Path]) -> Dict:
         if g["example"] is None:
             g["example"] = (log, raw.strip()[:300])
 
+    # A line's class and signature, by its exact text: the same line repeated
+    # a million times is classified once.
+    seen: Dict[str, tuple] = {}
+
+    def classify(line):
+        c = seen.get(line)
+        if c is None:
+            c = (("errors", signature(line)) if ERROR.search(line) else
+                 ("warnings", signature(line)) if WARNING.search(line) else (None, None))
+            if len(seen) > 500_000:
+                seen.clear()
+            seen[line] = c
+        return c
+
     for p in paths:
         n += 1
-        lines, name = read(p), p.name
-        in_tb, total, seeds = False, None, []
-        for line in lines:
+        name = p.name
+        in_tb, total, seeds, closed, tail = False, None, [], False, "<empty>"
+        for line in read(p):
+            if line.strip():
+                tail = line
+            if line.startswith(CLOSING):
+                closed = True
             if line.startswith("Traceback (most recent call last)"):
                 in_tb = True
                 continue
@@ -108,23 +130,24 @@ def distill(paths: Iterable[Path]) -> Dict:
                     add("errors", "Traceback -> " + signature(line), name, line)
                     in_tb = False
                 continue
-            m = STOPPED.search(line)
-            if m:
-                stopped[m.group(1)] += 1
-            m = WALL.search(line)
-            if m:
-                total = float(m.group(1))
-            m = SEED_SECONDS.match(line)
-            if m:
-                seeds.append(float(m.group(1)))
-            if ERROR.search(line):
-                add("errors", signature(line), name, line)
-            elif WARNING.search(line):
-                add("warnings", signature(line), name, line)
+            if "stopped_on=" in line:
+                m = STOPPED.search(line)
+                if m:
+                    stopped[m.group(1)] += 1
+            if "total wall time" in line:
+                m = WALL.search(line)
+                if m:
+                    total = float(m.group(1))
+            if "seed " in line:
+                m = SEED_SECONDS.match(line)
+                if m:
+                    seeds.append(float(m.group(1)))
+            kind, sig = classify(line)
+            if kind:
+                add(kind, sig, name, line)
         if total is not None or seeds:
             walls.append(total if total is not None else sum(seeds))
-        if not any(l.startswith(CLOSING) for l in lines):
-            tail = next((l for l in reversed(lines) if l.strip()), "<empty>")
+        if not closed:
             incomplete.append({"log": name, "state": job_state(p),
                                "last_line": tail.strip()[:300]})
 
