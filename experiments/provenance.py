@@ -34,8 +34,11 @@ DEFER_LEDGER_ENV = "FASTENER_DEFER_LEDGER"
 # counts as code, because a report must be reproducible from a commit.
 # The ledger's lock file exists for the moment a run is being recorded; a job
 # that checked the tree just then was refused as dirty (three H2H3-E01 jobs).
+# .claude holds Claude Code's skills and settings: instructions for writing
+# and running experiments, not code a run executes (DEC-47).
 NON_CODE_PATHS = ("results", "data", "experiments/reports",
-                  "experiments/EXPERIMENTS.md", "experiments/EXPERIMENTS.md.lock")
+                  "experiments/EXPERIMENTS.md", "experiments/EXPERIMENTS.md.lock",
+                  ".claude")
 
 
 def _git(repo: Path, *args: str) -> Optional[str]:

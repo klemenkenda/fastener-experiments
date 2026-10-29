@@ -1055,6 +1055,21 @@ scaled to the training split.**
   of their verdicts beside H10-E01's proposed by Claude.
 - **Applies to:** H10-E02, H10-E03.
 
+### DEC-47
+
+**2026-10-29 -- `.claude/` does not make the code dirty.**
+
+- **Why:** H10-E01's checkpoint runs were refused because a skill in
+  `.claude/skills/` was being edited. Skills and Claude Code's settings are
+  instructions for writing and running experiments; no run imports or reads
+  them, so they cannot change a result.
+- **Detail:** `.claude` joins `provenance.NON_CODE_PATHS` (results, data,
+  reports, the ledger). Changes there still show in a run's `dirty` flag, not
+  in `code_dirty`.
+- **By:** PI (choice offered by Claude).
+- **Applies to:** every run from commit after this entry, first H10-E01 to
+  -E03's checkpoint runs.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
