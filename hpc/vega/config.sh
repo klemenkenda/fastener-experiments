@@ -44,7 +44,9 @@ REPO="$(cd "$HERE_VEGA/../.." && pwd)"
 : "${MICROMAMBA_URL:=https://micro.mamba.pm/api/micromamba/linux-64/latest}"
 # The FASTENER clone the experiments ran with (DEC-40, DEC-41).
 : "${FASTENER_URL:=https://github.com/klemenkenda/FASTENER}"
-: "${FASTENER_COMMIT:=3be5697}"
+# From H8-E01: 9226b90, with the guidance hooks (DEC-49); H10 and earlier ran
+# on 3be5697 (their manifests record it).
+: "${FASTENER_COMMIT:=9226b90}"
 
 # Inside a job, a PATH with nothing on a network mount: on 2026-10-26 a PATH
 # entry on a hung mount froze `which`, and with it every command that
