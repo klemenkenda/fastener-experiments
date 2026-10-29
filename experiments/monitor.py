@@ -489,6 +489,64 @@ def running_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]],
     return line
 
 
+# LLM call logs (H8): {path: (size, mtime, calls, cost)}, so a refresh only
+# re-reads a log that has grown.
+_SPEND_CACHE: Dict[str, Tuple[int, float, int, float]] = {}
+PRIOR_CALL_LOG = Path(__file__).resolve().parent / "priors" / "calls.jsonl"
+
+
+def log_spend(path: Path) -> Tuple[int, float]:
+    """Calls and dollars in one call log (OpenRouter's usage.cost)."""
+    try:
+        st = path.stat()
+    except OSError:
+        return 0, 0.0
+    hit = _SPEND_CACHE.get(str(path))
+    if hit and hit[0] == st.st_size and hit[1] == st.st_mtime:
+        return hit[2], hit[3]
+    calls, cost = 0, 0.0
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                usage = json.loads(line).get("response", {}).get("usage") or {}
+            except ValueError:
+                continue
+            calls += 1
+            cost += float(usage.get("cost") or 0.0)
+    except OSError:
+        return 0, 0.0
+    _SPEND_CACHE[str(path)] = (st.st_size, st.st_mtime, calls, cost)
+    return calls, cost
+
+
+def spend_line(jobs: List[Dict], snaps: Dict[str, Optional[Dict]]) -> Optional[str]:
+    """The LLM spend of an experiment with LLM arms, or None."""
+    llm_jobs = [j for j in jobs if "llm" in j["arm"]]
+    if not llm_jobs:
+        return None
+    prior_calls, prior_cost = log_spend(PRIOR_CALL_LOG)
+    run_calls, run_cost = 0, 0.0
+    for j in llm_jobs:
+        if j.get("run_dir"):
+            for f in Path(j["run_dir"]).glob("llm_calls_*.jsonl"):
+                c, d = log_spend(f)
+                run_calls += c
+                run_cost += d
+    text = (f"  LLM spend ${prior_cost + run_cost:,.2f} in "
+            f"{prior_calls + run_calls:,} calls   priors ${prior_cost:,.2f} "
+            f"({prior_calls})   runs ${run_cost:,.2f} ({run_calls})")
+    live = [j for j in llm_jobs if "proposer" in j["arm"]]
+    if live:
+        done = sum(run_fraction(snaps[j["name"]]) if j["state"] == "running"
+                   and snaps.get(j["name"]) else float(j["state"] in ("done", "timeout"))
+                   for j in live) / len(live)
+        if 0 < done < 1 and run_cost > 0:
+            text += f"   proposer arms {done * 100:.0f}% done, ~${run_cost / done:,.2f} at the end"
+    return paint(text, "label")
+
+
 def render_queue(queue: Dict, experiment: str,
                  size: Tuple[int, int] = (120, 30)) -> List[str]:
     """One screen: totals, the jobs in flight, then every arm and dataset."""
@@ -526,6 +584,9 @@ def render_queue(queue: Dict, experiment: str,
                      + paint(format_duration(eta), "label") + " left, done "
                      + paint(time.strftime("%a %H:%M", finish), "label"))
     out.append(line)
+    spend = spend_line(jobs, snaps)
+    if spend:
+        out.append(spend)
     if active and alive(queue.get("pid")) is False:
         out.append("  " + paint("run_queue.py is no longer running -- "
                                 "pending jobs will not start", "warn"))
