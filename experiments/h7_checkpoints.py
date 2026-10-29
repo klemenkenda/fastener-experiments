@@ -42,13 +42,16 @@ HERE = Path(__file__).resolve().parent
 REPORTS = HERE / "reports"
 RESULTS = provenance.RESULTS_DIR
 
-# The grids and the classifier each ran with (DEC-40, DEC-41, DEC-44).
-SOURCES = {"H5H6-E01": "tree", "H5H6-E02": "rf", "H5H6-E03": "lgbm"}
+# The grids and the classifier each ran with (DEC-40, DEC-41, DEC-44), and
+# H10-E01's seeded arms, run under H5H6-E03's setup (DEC-45).
+SOURCES = {"H5H6-E01": "tree", "H5H6-E02": "rf", "H5H6-E03": "lgbm",
+           "H10-E01": "lgbm"}
 # H7's three arms, and the two swap arms reported beside them. FS-SDS is
 # left out: it runs k = 1..20 one after another, so a share of its total fits
 # has seen only the first k's and is not comparable.
 METHODS = ("fastener", "nsga2_sparse", "poss",
-           "fastener_swap_guided", "fastener_swap_random")
+           "fastener_swap_guided", "fastener_swap_random",
+           "fastener_seed_mrmr", "fastener_seed_boruta")
 CHECKPOINTS = (0.10, 0.25, 0.50, 1.00)
 K = 10
 
@@ -97,10 +100,11 @@ def work(source: str, dataset: str, runs: Sequence[Dict],
                  "n_test": ds.X_test.shape[0]}:
             raise RuntimeError(f"{dataset}: split differs from {r['run_id']}")
     tag = source.lower().replace("-", "")
+    prefix = (experiment_id or "H7-E01").lower().replace("-", "")
     params = {"source": source, "model": model, "dataset": dataset,
               "methods": list(METHODS), "checkpoints": list(checkpoints),
               "K": K, "runs": len(runs)}
-    run = provenance.Run(f"h7e01_{tag}_{dataset}", params,
+    run = provenance.Run(f"{prefix}_{tag}_{dataset}", params,
                          root=Path(root) if root else None,
                          experiment_id=experiment_id, allow_dirty=allow_dirty)
     rows, cache = [], {}
@@ -111,7 +115,14 @@ def work(source: str, dataset: str, runs: Sequence[Dict],
             manifest = json.loads((src / "manifest.json").read_text(encoding="utf-8"))
             budget = int(manifest["params"]["evaluation_budget_per_seed"])
             traj, = sorted((src / "trajectories").glob("*.jsonl"))
-            limits = {c: int(c * budget) for c in checkpoints}
+            # A seed filter's own fits (Boruta's) come before FASTENER's and
+            # are not in its trajectory: c x budget for the run is c x budget
+            # - seed_fits in the trajectory (H10-E01's design). A negative
+            # limit reads the front before any FASTENER fit: none.
+            raw = sorted(src.glob("raw_results*.json"))
+            seed_fits = int((json.loads(raw[0].read_text(encoding="utf-8"))[0]
+                             .get("seed_fits") or 0) if raw else 0)
+            limits = {c: int(c * budget) - seed_fits for c in checkpoints}
             for c, (fits, front) in sorted(fronts_at(traj, limits).items()):
                 records = []
                 for e in front:
@@ -125,7 +136,8 @@ def work(source: str, dataset: str, runs: Sequence[Dict],
                 rows.append({"source": source, "model": model,
                              "dataset": dataset, "method": r["method"],
                              "seed": int(r["seed"]), "source_run": r["run_id"],
-                             "budget": budget, "checkpoint": c,
+                             "budget": budget, "seed_fits": seed_fits,
+                             "checkpoint": c,
                              "fit_limit": limits[c], "snapshot_fits": fits,
                              "front_entries_le_k": len(records),
                              "auf_k10": float(curve.mean()),
