@@ -250,7 +250,8 @@ class TrackedOptimizer(EntropyOptimizer):
         return super()._fitness_function(genes)
 
     def __getstate__(self):
-        state = self.__dict__.copy()
+        # Upstream's drops the guidance hooks (clients and closures).
+        state = super().__getstate__()
         state.pop("progress_cb", None)
         # The kept models are a cache, refitted on demand: not part of the
         # state, and gigabytes of it under the forest.
