@@ -913,6 +913,10 @@ the same budgets and cap), compared with that experiment's `fastener` and
 `mrmr` runs -- only the seeded arms are new runs; then within H9 on the new
 datasets, where it is confirmatory.
 
+**Experiments.** Designs, runs and reports in [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+* `H10-E01` -- the seeded arms on H5H6-E03's grid. Registered.
+
 ---
 
 ## Deferred, deliberately
@@ -1503,3 +1507,9 @@ run* is fixed in a later revision before its runs start. For H7, which
 analyses existing runs, nothing at the intermediate checkpoints had been
 computed or read when it was written: the end-of-budget scores of the three
 grids had been. Recorded as [DEC-45](DECISIONS.md#dec-45).
+
+**2026-10-29 -- H10's comparisons fixed for H10-E01.** Before any H10 run: (b)'s
+bootstrap is 10,000 paired resamples over datasets, seed 20200; (c) is read
+with H7-E01's procedure, Holm over its two checkpoints; a Boruta-seeded run's
+checkpoints are offset by Boruta's own fits, which precede FASTENER's. The
+claim and criterion are unchanged.

@@ -178,25 +178,14 @@ class TreeForBoruta:
         return self.tree_.predict(X)
 
 
-def run_boruta(ds, ks: List[int], counter: FitCounter,
-               max_iter: int = 100, seed: int = SEED) -> Dict:
-    """Boruta selects a SET, not a ranking, so it yields one subset.
+def boruta_ranking(ds, seed: int = SEED, max_iter: int = 100):
+    """Boruta on the protocol model: (feature order, confirmed set, fits).
 
-    Its feature ranking is used to fill the k-grid, but the method's own answer
-    is the confirmed set, reported separately as `native_subset`.
-
-    Boruta is stochastic: it permutes every column to build shadow features and
-    refits its estimator on each iteration. It therefore takes a seed and is
-    run once per seed like the population searches, not as a single fixed pass.
-
-    The estimator is the protocol's decision tree (`TreeForBoruta`), not the
-    random forest Boruta is usually paired with: HYPOTHESES.md requires every
-    method to use the one classifier it is judged by. This is a departure from
-    Boruta's usual configuration and is recorded on the result.
+    `fits` is the number of iterations Boruta ran, one fit of its estimator
+    each -- what a run seeded from Boruta's ranking is charged (H10).
     """
     from boruta import BorutaPy
 
-    t0 = time.time()
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         sel = BorutaPy(TreeForBoruta(), n_estimators="auto", random_state=seed,
@@ -215,6 +204,28 @@ def run_boruta(ds, ks: List[int], counter: FitCounter,
     imp = np.nan_to_num(imp, nan=0.0)
     order = np.lexsort((-imp, sel.ranking_))  # rank asc, then importance desc
     confirmed = np.where(sel.support_)[0]
+    fits = int(len(sel.importance_history_) - 1)
+    return order, confirmed, fits
+
+
+def run_boruta(ds, ks: List[int], counter: FitCounter,
+               max_iter: int = 100, seed: int = SEED) -> Dict:
+    """Boruta selects a SET, not a ranking, so it yields one subset.
+
+    Its feature ranking is used to fill the k-grid, but the method's own answer
+    is the confirmed set, reported separately as `native_subset`.
+
+    Boruta is stochastic: it permutes every column to build shadow features and
+    refits its estimator on each iteration. It therefore takes a seed and is
+    run once per seed like the population searches, not as a single fixed pass.
+
+    The estimator is the protocol's decision tree (`TreeForBoruta`), not the
+    random forest Boruta is usually paired with: HYPOTHESES.md requires every
+    method to use the one classifier it is judged by. This is a departure from
+    Boruta's usual configuration and is recorded on the result.
+    """
+    t0 = time.time()
+    order, confirmed, _ = boruta_ranking(ds, seed=seed, max_iter=max_iter)
 
     records = []
     for k in ks:

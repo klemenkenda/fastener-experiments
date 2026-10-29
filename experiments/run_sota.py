@@ -96,10 +96,20 @@ FASTENER_ARMS = {
                "mating": "fixed"},
     "guided": {"label": "fastener_swap_guided", "swap": "guided",
                "mating": "fixed"},
+    # H10: stock FASTENER started from a filter's top-k subsets, k = 1..10,
+    # instead of five random single features. The seed's subsets are fits of
+    # the run (FASTENER scores its initial population); Boruta's own model
+    # fits are charged to the run's budget too, mRMR fits no model.
+    "seed_mrmr": {"label": "fastener_seed_mrmr", "swap": "none",
+                  "mating": "fixed", "seed": "mrmr"},
+    "seed_boruta": {"label": "fastener_seed_boruta", "swap": "none",
+                    "mating": "fixed", "seed": "boruta"},
 }
+# Size of the largest seed subset: H10 seeds k = 1..10, the low-k range.
+SEED_K = 10
 FASTENER_ARM_NAMES = {k: v["label"] for k, v in FASTENER_ARMS.items()}
 # Report order: the fixed stock arm first, then the published code, then swaps.
-FASTENER_ARM_ORDER = ("none", "2020", "random", "guided")
+FASTENER_ARM_ORDER = ("none", "2020", "random", "guided", "seed_mrmr", "seed_boruta")
 # What runs when no arm is named: H2/H3's three arms, as before.
 DEFAULT_FASTENER_ARMS = ("none", "random", "guided")
 
@@ -410,7 +420,15 @@ def main() -> int:
                else {}),
             "swap": FASTENER_ARMS[arm]["swap"],
             "mating": FASTENER_ARMS[arm]["mating"],
-            **MATING_VERSIONS[FASTENER_ARMS[arm]["mating"]]}
+            **MATING_VERSIONS[FASTENER_ARMS[arm]["mating"]],
+            **({"seed": FASTENER_ARMS[arm]["seed"], "seed_k": SEED_K}
+               if "seed" in FASTENER_ARMS[arm] else {}),
+            **({"seed_boruta_max_iter": boruta_max_iter}
+               if FASTENER_ARMS[arm].get("seed") == "boruta" else {})}
+    if cpu_seconds is not None and any("seed" in FASTENER_ARMS[a]
+                                       for a in fastener_arms):
+        raise SystemExit("the seeded FASTENER arms run on a fit budget, not "
+                         "--cpu-seconds")
 
     try:
         run = Run(name, params, experiment_id=args.experiment,
@@ -668,11 +686,37 @@ def main() -> int:
                       + (f"{cpu_seconds:.0f} CPU s" if cpu_seconds is not None
                          else f"{evaluations} fits")
                       + f" x {len(seeds)} seeds):")
+                mrmr_seed = None
                 for seed in seeds:
                     unit = f"{label}:{seed}"
                     prog.start(unit)
                     try:
+                        # H10's seed: the filter's top-k subsets as the
+                        # initial population. mRMR is deterministic, so it is
+                        # ranked once; Boruta is ranked per seed, and its
+                        # fits leave the run fewer of its own.
+                        seed_kind = FASTENER_ARMS[arm].get("seed")
+                        initial, run_fits, seed_info = None, evaluations, None
+                        if seed_kind:
+                            t_seed = time.time()
+                            cpu_seed = time.process_time()
+                            if seed_kind == "mrmr":
+                                if mrmr_seed is None:
+                                    mrmr_seed = (sota.rank_mrmr(ds, SEED_K), 0)
+                                order, seed_fits = mrmr_seed
+                            else:
+                                order, _, seed_fits = sota.boruta_ranking(
+                                    ds, seed=seed, max_iter=boruta_max_iter)
+                            order = [int(i) for i in order[:SEED_K]]
+                            initial = [order[:k] for k in range(1, len(order) + 1)]
+                            run_fits = evaluations - seed_fits
+                            seed_info = {"seed_filter": seed_kind,
+                                         "seed_ranking": order,
+                                         "seed_fits": seed_fits,
+                                         "seed_seconds": round(time.time() - t_seed, 2),
+                                         "seed_cpu_seconds": round(time.process_time() - cpu_seed, 2)}
                         res = run_fastener(ds, run.dir, seed=seed,
+                                           initial_genes=initial,
                                            rounds=fastener_rounds,
                                            swap=FASTENER_ARMS[arm]["swap"],
                                            mating=FASTENER_ARMS[arm]["mating"],
@@ -683,11 +727,13 @@ def main() -> int:
                                                    f, evaluations))
                                                if cpu_seconds is None
                                                else cpu_progress()),
-                                           max_fits=evaluations,
+                                           max_fits=run_fits,
                                            max_cpu_seconds=cpu_seconds,
                                            dump_logs=False,
                                            trajectory=trajectory(
                                                label + model_suffix, seed))
+                        if seed_info:
+                            res.update(seed_info)
                     except Exception as exc:
                         failures[unit] = f"{type(exc).__name__}: {exc}"
                         prog.fail(unit, failures[unit])

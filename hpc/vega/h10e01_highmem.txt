@@ -1,0 +1,7 @@
+# H10-E01: cells whose jobs get HIGHMEM (config.sh, 64 GB) instead of MEM.
+# Boruta under LightGBM ran out of 8 GB on PEMS-SF in H5H6-E03; its peaks
+# there were about 14.5 GB (PEMS-SF), 19 GB (MotorImagery) and 9 GB
+# (EigenWorms), so the Boruta-seeded arm gets HIGHMEM on all three.
+PEMS-SF:fastener_seed_boruta
+MotorImagery:fastener_seed_boruta
+EigenWorms:fastener_seed_boruta
