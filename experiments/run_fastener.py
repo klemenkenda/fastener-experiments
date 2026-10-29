@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _bootstrap  # noqa: F401,E402  puts ../fastener on sys.path
 
 from fastener import Config, EntropyOptimizer, FitBudgetExhausted  # noqa: E402
+from guidance import PriorGuidedMutationStrategy  # noqa: E402
 from item import (  # noqa: E402
     InformationGainSwapStrategy,
     Item,
@@ -341,7 +342,8 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
                  progress_cb=None,
                  max_cpu_seconds: Optional[float] = None,
                  model: str = "tree",
-                 model_cache_mb: Optional[float] = None) -> Dict:
+                 model_cache_mb: Optional[float] = None,
+                 guidance: Optional[Dict] = None) -> Dict:
     """One FASTENER search. Returns the Pareto front re-scored under the protocol.
 
     `swap` selects the pruning operator and defaults to the original algorithm:
@@ -383,13 +385,25 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
     `model` is the classifier that drives the search and scores the final
     front: "tree" (the protocol's) or "elm" (H4-E02). A non-tree model is
     appended to the method label, e.g. ``fastener_elm``.
+
+    `guidance` (H8) passes outside guidance to FASTENER's hooks
+    (fastener/guidance.py): a dict with ``feature_prior`` (scores),
+    ``prior_weight``, ``prior_uses``, ``prior_initial_singles``,
+    ``guidance_context`` and, optionally, ``subset_proposer`` and
+    ``proposer_every``. With "mutation" among the uses the mutation is
+    `PriorGuidedMutationStrategy`; with "initial", the initial population is
+    the singles drawn from the weights unless `initial_genes` is given.
     """
     build = search_model_factory(model)
     factory = CountingModelFactory(build)
 
     mating_version = mating
     mating = make_mating(mating_version, pool_size)
-    mutation = RandomFlipMutationStrategy(1.0 / ds.n_features)
+    guidance = dict(guidance or {})
+    if "mutation" in guidance.get("prior_uses", ()):
+        mutation = PriorGuidedMutationStrategy(1.0 / ds.n_features)
+    else:
+        mutation = RandomFlipMutationStrategy(1.0 / ds.n_features)
     swap_strategy = make_swap_strategy(swap, number_of_swaps)
     method = method_name or ("fastener" if swap_strategy is None
                              else f"fastener_swap_{swap}")
@@ -398,6 +412,9 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
     if method_name is None and model != "tree":
         method += f"_{model}"
 
+    if initial_genes is None and "initial" in guidance.get("prior_uses", ()):
+        # The prior's singles are the whole initial population.
+        initial_genes = []
     if initial_genes is None:
         # Start from single features rather than the reference's fixed [[0]], so
         # the search is not anchored on one arbitrary feature.
@@ -423,6 +440,7 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
             initial_genes=initial_genes,
             config=config,
             swap_strategy=swap_strategy,
+            **guidance,
         )
         optimizer.trajectory = trajectory
         optimizer.progress_cb = progress_cb
@@ -495,6 +513,11 @@ def run_fastener(ds, run_dir: Path, seed: int, rounds: int,
         # the final front a swap put there. Zero swaps on the stock arm.
         "prune_stats": dict(optimizer.prune_stats),
         "front_from_swap": optimizer.front_from_swap(),
+        # H8: what the outside guidance did (None/empty without it).
+        "prior_scores": (None if optimizer.prior_scores is None
+                         else [float(x) for x in optimizer.prior_scores]),
+        "prior_singles": optimizer.prior_singles,
+        "proposal_log": optimizer.proposal_log,
         "log_dir": str((run_dir / "log" / f"{method}_seed{seed}").resolve()),
         "records": records,
     }

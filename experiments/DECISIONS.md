@@ -1088,6 +1088,29 @@ H10's runs.**
   criterion unchanged and the post-hoc label proposed by Claude.
 - **Applies to:** H11-E01.
 
+### DEC-49
+
+**2026-10-30 -- H8-E01: three Anthropic models, all three operators, the
+proposer as an arm; FASTENER's guidance hooks.**
+
+- **Why:** H8 left its datasets, models, budget and classifier to be fixed
+  before any run. The PI chose them, and asked for two things beyond the
+  registered claim: LLM guidance of mutation as well as mating and the
+  initial singles, and an online proposer that suggests subsets during the
+  search.
+- **Detail:** as the revision of 2026-10-30 in `HYPOTHESES.md`. The FASTENER
+  clone takes outside guidance through two hooks, off by default
+  (`guidance.py`, clone `5261cd0`): a feature prior and a subset proposer.
+  The experiments side calls OpenRouter (`llm_guidance.py`); every call is
+  logged with its request and full response, and a run can replay its log.
+  The datasets and dictionaries are in `DATASETS_USED.md`.
+- **By:** PI (the line of work; three Anthropic models; all three operators;
+  the proposer as an arm; lambda 0.5; 1,000 fits; LightGBM; the workstation;
+  the 16 datasets). Proposed by Claude: the hooks' design, the ablation arms,
+  the Holm correction over models, the proposer's settings (every 5
+  generations, 5 subsets).
+- **Applies to:** H8-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol

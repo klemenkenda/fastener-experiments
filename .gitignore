@@ -40,3 +40,6 @@ Thumbs.db
 
 # The ledger's lock, held while a run is recorded (experiment_ids.ledger_lock).
 experiments/EXPERIMENTS.md.lock
+
+# Secrets: the OpenRouter key for H8 (llm_guidance.py reads it). Never commit.
+.env

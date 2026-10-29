@@ -17,7 +17,8 @@ A prior is also saved as one committed JSON file (`save_prior`), with the
 model ID asked and served, the prompt, the raw response and the scores;
 `load_prior` reads it back as the array FASTENER takes.
 
-    # the key: OPENROUTER_API_KEY in the environment
+    # the key: OPENROUTER_API_KEY in the environment, or in the repository's
+    # git-ignored .env (a placeholder is there; .env.example shows the form)
     python experiments/llm_guidance.py prior --dataset covertype \\
         --model anthropic/claude-sonnet-5.5 [--scrambled] [--dictionary <json>]
 
@@ -52,6 +53,20 @@ KEY_ENV = "OPENROUTER_API_KEY"
 Transport = Callable[[str, Dict[str, str], Dict[str, Any], float], Dict[str, Any]]
 
 
+ENV_FILE = HERE.parent / ".env"
+
+
+def api_key_from_env_file(path: Path = ENV_FILE) -> Optional[str]:
+    """OPENROUTER_API_KEY from the repository's git-ignored .env, if set."""
+    if not path.is_file():
+        return None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        key, sep, value = line.partition("=")
+        if sep and key.strip() == KEY_ENV:
+            return value.strip().strip('"').strip("'") or None
+    return None
+
+
 def _http_post(url: str, headers: Dict[str, str], body: Dict[str, Any],
                timeout: float) -> Dict[str, Any]:
     req = urllib.request.Request(url, data=json.dumps(body).encode("utf-8"),
@@ -67,13 +82,16 @@ class OpenRouterClient:
     def __init__(self, api_key: Optional[str] = None, url: str = API_URL,
                  timeout: float = 300.0, retries: int = 3,
                  transport: Optional[Transport] = None) -> None:
-        self.api_key = api_key if api_key is not None else os.environ.get(KEY_ENV)
+        # The argument, else the environment, else the repository's .env.
+        self.api_key = (api_key if api_key is not None
+                        else os.environ.get(KEY_ENV) or api_key_from_env_file())
         self.url, self.timeout, self.retries = url, timeout, retries
         self.transport = transport or _http_post
 
     def chat(self, body: Dict[str, Any]) -> Dict[str, Any]:
         if not self.api_key and self.transport is _http_post:
-            raise RuntimeError(f"no OpenRouter key: set {KEY_ENV}")
+            raise RuntimeError(f"no OpenRouter key: set {KEY_ENV} in the "
+                               f"environment or in {ENV_FILE}")
         headers = {"Authorization": f"Bearer {self.api_key}",
                    "Content-Type": "application/json",
                    "X-Title": "FASTENER experiments"}

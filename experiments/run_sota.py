@@ -51,6 +51,7 @@ for _var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
 
 import argparse
 import csv
+import json
 import sys
 import time
 import traceback
@@ -105,11 +106,44 @@ FASTENER_ARMS = {
     "seed_boruta": {"label": "fastener_seed_boruta", "swap": "none",
                     "mating": "fixed", "seed": "boruta"},
 }
+# H8: stock FASTENER guided by an LLM's relevance prior (llm_guidance.py),
+# one prior per dataset and model, made beforehand and committed
+# (experiments/priors/). Per model: the prior guiding mating, mutation and the
+# initial singles; the same with scrambled feature names (the control); and
+# the prior plus the online subset proposer. With Opus also the prior on one
+# operator at a time, beside the criterion.
+H8_MODELS = {"opus": "anthropic/claude-opus-5.5",
+             "sonnet": "anthropic/claude-sonnet-5.5",
+             "haiku": "anthropic/claude-haiku-5.5"}
+H8_USES = ("mating", "mutation", "initial")
+H8_LAMBDA = 0.5            # w = MI^(1 - lambda) * prior^lambda
+H8_INITIAL_SINGLES = 5     # as many as stock FASTENER's random singles
+H8_PROPOSER_EVERY = 5      # generations between proposer calls
+H8_PROPOSER_SUBSETS = 5    # subsets asked for per call
+for _m, _id in H8_MODELS.items():
+    FASTENER_ARMS[f"llm_{_m}"] = {
+        "label": f"fastener_llm_{_m}", "swap": "none", "mating": "fixed",
+        "llm": {"model": _id, "scrambled": False, "uses": H8_USES,
+                "proposer": False}}
+    FASTENER_ARMS[f"llm_{_m}_scrambled"] = {
+        "label": f"fastener_llm_{_m}_scrambled", "swap": "none", "mating": "fixed",
+        "llm": {"model": _id, "scrambled": True, "uses": H8_USES,
+                "proposer": False}}
+    FASTENER_ARMS[f"llm_{_m}_proposer"] = {
+        "label": f"fastener_llm_{_m}_proposer", "swap": "none", "mating": "fixed",
+        "llm": {"model": _id, "scrambled": False, "uses": H8_USES,
+                "proposer": True}}
+for _use in H8_USES:
+    FASTENER_ARMS[f"llm_opus_{_use}"] = {
+        "label": f"fastener_llm_opus_{_use}", "swap": "none", "mating": "fixed",
+        "llm": {"model": H8_MODELS["opus"], "scrambled": False, "uses": (_use,),
+                "proposer": False}}
 # Size of the largest seed subset: H10 seeds k = 1..10, the low-k range.
 SEED_K = 10
 FASTENER_ARM_NAMES = {k: v["label"] for k, v in FASTENER_ARMS.items()}
 # Report order: the fixed stock arm first, then the published code, then swaps.
-FASTENER_ARM_ORDER = ("none", "2020", "random", "guided", "seed_mrmr", "seed_boruta")
+FASTENER_ARM_ORDER = ("none", "2020", "random", "guided", "seed_mrmr", "seed_boruta") \
+    + tuple(a for a in FASTENER_ARMS if a.startswith("llm_"))
 # What runs when no arm is named: H2/H3's three arms, as before.
 DEFAULT_FASTENER_ARMS = ("none", "random", "guided")
 
@@ -140,6 +174,52 @@ ALL_METHODS = FILTERS + SEEDED_FILTERS + SEARCHES + PER_K_SEARCHES
 # Equal across arms, so the comparison is of search quality, not of who was
 # allowed more compute.
 DEFAULT_EVALUATIONS = FIT_BUDGET
+
+
+def h8_guidance(llm, dataset, ds, run_dir, label, seed):
+    """H8's guidance for one FASTENER run: (run_fastener's `guidance`, info).
+
+    The prior is read from its committed file (llm_guidance.prior_path); a
+    missing prior stops the run rather than calling the model mid-experiment.
+    The proposer's calls go to a log in the run folder, which a rerun of the
+    same run replays. `info["finish"]` adds what was used to the result.
+    """
+    if not llm:
+        return None, None
+    import llm_guidance as lg
+    from provenance import sha256
+    path = lg.prior_path(dataset, llm["model"], llm["scrambled"])
+    if not path.is_file():
+        raise FileNotFoundError(f"{path} missing: make it with "
+                                f"`python experiments/llm_guidance.py prior "
+                                f"--dataset {dataset} --model {llm['model']}"
+                                + (" --scrambled`" if llm["scrambled"] else "`"))
+    dpath = lg.PRIORS_DIR / "dictionaries" / f"{dataset}.json"
+    dictionary = json.loads(dpath.read_text(encoding="utf-8")) if dpath.is_file() else None
+    ctx = lg.context_for(ds, dictionary)
+    guidance = {"feature_prior": lg.load_prior(path, ds.n_features),
+                "prior_weight": H8_LAMBDA, "prior_uses": tuple(llm["uses"]),
+                "prior_initial_singles": H8_INITIAL_SINGLES,
+                "guidance_context": ctx}
+    info = {"llm_model": llm["model"], "llm_scrambled": llm["scrambled"],
+            "prior_file": path.name, "prior_sha256": sha256(path),
+            "prior_uses": list(llm["uses"]), "prior_weight": H8_LAMBDA}
+    proposer = log = None
+    if llm["proposer"]:
+        log = lg.CallLog(Path(run_dir) / f"llm_calls_{label}_s{seed}.jsonl",
+                         "record", lg.OpenRouterClient())
+        proposer = lg.LLMSubsetProposer(log, llm["model"],
+                                        max_subsets=H8_PROPOSER_SUBSETS)
+        guidance.update(subset_proposer=proposer,
+                        proposer_every=H8_PROPOSER_EVERY)
+
+    def finish(info):
+        if proposer is not None:
+            info.update(proposer_calls=proposer.calls,
+                        llm_calls_sent=log.sent, llm_calls_replayed=log.replayed)
+        return info
+    info["finish"] = finish
+    return guidance, info
 
 
 def numeric_thread_pools():
@@ -424,7 +504,15 @@ def main() -> int:
             **({"seed": FASTENER_ARMS[arm]["seed"], "seed_k": SEED_K}
                if "seed" in FASTENER_ARMS[arm] else {}),
             **({"seed_boruta_max_iter": boruta_max_iter}
-               if FASTENER_ARMS[arm].get("seed") == "boruta" else {})}
+               if FASTENER_ARMS[arm].get("seed") == "boruta" else {}),
+            **({"llm": {**FASTENER_ARMS[arm]["llm"],
+                        "uses": list(FASTENER_ARMS[arm]["llm"]["uses"]),
+                        "prior_weight": H8_LAMBDA,
+                        "initial_singles": H8_INITIAL_SINGLES,
+                        **({"proposer_every": H8_PROPOSER_EVERY,
+                            "proposer_subsets": H8_PROPOSER_SUBSETS}
+                           if FASTENER_ARMS[arm]["llm"]["proposer"] else {})}}
+               if "llm" in FASTENER_ARMS[arm] else {})}
     if cpu_seconds is not None and any("seed" in FASTENER_ARMS[a]
                                        for a in fastener_arms):
         raise SystemExit("the seeded FASTENER arms run on a fit budget, not "
@@ -715,7 +803,11 @@ def main() -> int:
                                          "seed_fits": seed_fits,
                                          "seed_seconds": round(time.time() - t_seed, 2),
                                          "seed_cpu_seconds": round(time.process_time() - cpu_seed, 2)}
+                        guidance, llm_info = h8_guidance(
+                            FASTENER_ARMS[arm].get("llm"), args.dataset, ds,
+                            run.dir, label, seed)
                         res = run_fastener(ds, run.dir, seed=seed,
+                                           guidance=guidance,
                                            initial_genes=initial,
                                            rounds=fastener_rounds,
                                            swap=FASTENER_ARMS[arm]["swap"],
@@ -734,6 +826,8 @@ def main() -> int:
                                                label + model_suffix, seed))
                         if seed_info:
                             res.update(seed_info)
+                        if llm_info:
+                            res.update(llm_info.pop("finish")(llm_info))
                     except Exception as exc:
                         failures[unit] = f"{type(exc).__name__}: {exc}"
                         prog.fail(unit, failures[unit])

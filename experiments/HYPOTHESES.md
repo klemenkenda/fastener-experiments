@@ -828,7 +828,14 @@ prior's form, not to the knowledge in the names.
 **To fix before any run, in a revision:** the datasets (at least 12 with
 meaningful feature names: EOData, crop mapping, har, covertype and higgs are
 on disk; the rest from OpenML), the budget (500-2,000 fits), lambda, the LLM
-and its prompt, and the classifier.
+and its prompt, and the classifier. *Fixed on 2026-10-30 (revision below,
+[DEC-49](DECISIONS.md#dec-49)).*
+
+**Experiments.**
+
+* `H8-E01` -- the prior from three Anthropic models on 16 datasets with named
+  features, LightGBM, 1,000 fits, with the scrambled control, the online
+  proposer and single-operator ablations. Registered.
 
 ## H9 -- Confirmatory: on unseen datasets, search beats filtering, more so on tall data
 
@@ -1568,3 +1575,41 @@ H5H6-E01's grids, and H10's criterion is applied to each unchanged, under its
 classifier. H10's verdict stays H10-E01's, as registered; the other two say
 whether it holds under the other classifiers, as the H5H6 grids did for H5 and
 H6. Recorded as [DEC-46](DECISIONS.md#dec-46).
+
+**2026-10-30 -- H8's open points fixed for H8-E01, before any prior was made
+or any run started.** Recorded as [DEC-49](DECISIONS.md#dec-49).
+
+- *Datasets:* the 16 of `DATASETS_USED.md`, "H8: datasets with named
+  features" (six on disk, ten from OpenML), each with a data dictionary
+  (`priors/dictionaries/`, written by `make_h8_dictionaries.py`).
+- *Models and prompt:* three Anthropic models through OpenRouter,
+  `anthropic/claude-opus-5.5`, `anthropic/claude-sonnet-5.5` and
+  `anthropic/claude-haiku-5.5`; temperature 0, seed 20200; the prompt of
+  `llm_guidance.LLMFeaturePrior` (the task, class names, data description and
+  each feature's index, name and documented description; a score in [0, 1]
+  per feature), at most 300 features per call. One prior per dataset and
+  model, and one scrambled (names replaced by neutral tokens, descriptions
+  dropped), made once and committed with the full responses before any run.
+- *What the prior guides:* all three operators -- mating, mutation
+  (`guidance.PriorGuidedMutationStrategy`) and the initial singles, five
+  drawn from the weights in place of stock FASTENER's five random ones --
+  with lambda = 0.5. The claim's "drawn its initial singles from w" and "w
+  wherever it now uses mutual information" are kept; mutation is added.
+- *Arms added:* per model, the prior plus the online subset proposer
+  (`llm_guidance.LLMSubsetProposer`: every 5 generations the model sees the
+  current front and proposes up to 5 subsets of at most 10 features, which
+  are evaluated from the same fit budget); and, with Opus, the prior on one
+  operator at a time (mating, mutation, initial). Both are reported beside the
+  criterion.
+- *Budget, classifier, data:* 1,000 fits per run for every dataset, LightGBM
+  (DEC-44's setting), the 50,000-row cap, seeds 2020-2024, a 6-hour cap per
+  run, on the workstation.
+- *Criterion, made exact for three models:* for each model, part (i)
+  `fastener_llm_<model>` against `fastener` and part (ii) against
+  `fastener_llm_<model>_scrambled`, each as registered (log2 fits ratio to
+  the common target, more positive datasets than negative, two-sided
+  Wilcoxon), Holm-corrected over the three models within each part. H8 is
+  supported if both parts hold for at least one model. The common target
+  reads validation AUF (K = 10) from each run's trajectory: the mean over
+  k = 1..10 of the best validation score of a subset of at most k features,
+  0 for a size not reached.
