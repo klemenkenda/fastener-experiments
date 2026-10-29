@@ -1,0 +1,15 @@
+{
+ "dataset": "mice_protein",
+ "task": "Classify mice by genotype (control c or trisomic t, the Ts65Dn model of Down syndrome), learning protocol (context-shock CS or shock-context SC) and treatment (memantine m or saline s) from protein expression in the cerebral cortex.",
+ "class_names": [
+  "c-CS-m",
+  "c-CS-s",
+  "c-SC-m",
+  "c-SC-s",
+  "t-CS-m",
+  "t-CS-s",
+  "t-SC-m",
+  "t-SC-s"
+ ],
+ "dataset_description": "Expression levels of 77 proteins and protein modifications measured by reverse phase protein arrays in the nuclear fraction of cortex samples. Names are protein symbols with suffix _N; a leading p means a phosphorylated form (e.g. pERK_N)."
+}

@@ -1,0 +1,9 @@
+{
+ "dataset": "phishing",
+ "task": "Decide whether a website is a phishing site.",
+ "class_names": [
+  "phishing",
+  "legitimate"
+ ],
+ "dataset_description": "Rule-based indicators from the page's URL, source code, domain registration and DNS, and its traffic and ranking, each coded -1 (phishing-like), 0 (suspicious) or 1 (legitimate-like)."
+}

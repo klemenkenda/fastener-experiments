@@ -1,0 +1,10 @@
+{
+ "dataset": "diabetes130",
+ "task": "Predict whether a diabetic patient's hospital stay is followed by readmission within 30 days, after more than 30 days, or not at all (130 US hospitals, 1999-2008).",
+ "class_names": [
+  "readmitted within 30 days",
+  "readmitted after 30 days",
+  "not readmitted"
+ ],
+ "dataset_description": "Demographics (race, gender, age bracket, weight); admission type, discharge disposition and admission source as numeric codes; payer code; days in hospital; numbers of lab procedures, other procedures, medications, outpatient, emergency and inpatient visits in the preceding year, and of diagnoses; glucose serum and A1C test results; 23 diabetes medications (No, Steady, Up, Down); whether medication was changed; whether any diabetes medication was prescribed. 'column=value' columns are one-hot categories; a two-valued column is 1 for its second value."
+}

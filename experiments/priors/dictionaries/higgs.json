@@ -1,0 +1,9 @@
+{
+ "dataset": "higgs",
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "dataset_description": "21 low-level detector features: transverse momentum (pT), pseudorapidity (eta) and azimuth (phi) of one lepton and four jets, each jet's b-tag, and the missing transverse energy's magnitude and azimuth; and 7 high-level invariant masses physicists derive from them (m_jj, m_jjj, m_lv, m_jlv, m_bb, m_wbb, m_wwbb)."
+}

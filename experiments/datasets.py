@@ -375,6 +375,12 @@ TALL_DATASETS = (
     "crop_mapping", "covertype", "satimage", "har", "gas_drift", "volkert",
     "miniboone", "higgs",
 )
+# H8's OpenML sets with named features, downloaded and pinned by
+# download_h8_datasets.py into the same .npz layout, so they load the same way.
+H8_DATASETS = (
+    "spambase", "heloc", "mice_protein", "ozone_8hr", "qsar_biodeg",
+    "eye_movements", "phishing", "pc4", "diabetes130", "adult",
+)
 
 
 def load_tall(name: str, max_rows: int = None,
@@ -392,13 +398,15 @@ def load_tall(name: str, max_rows: int = None,
     Rows with missing values were dropped at download (only higgs has any); the
     count is carried on the Dataset as `dropped_missing`.
     """
-    if name not in TALL_DATASETS:
-        raise KeyError(f"unknown tall dataset {name!r}; have {TALL_DATASETS}")
+    if name not in TALL_DATASETS + H8_DATASETS:
+        raise KeyError(f"unknown tall dataset {name!r}; have "
+                       f"{TALL_DATASETS + H8_DATASETS}")
     npz = DATA_DIR / name / f"{name}.npz"
     if not npz.is_file():
+        script = ("download_h8_datasets.py" if name in H8_DATASETS
+                  else "download_tall_datasets.py")
         raise FileNotFoundError(
-            f"{npz} missing; run "
-            f"`python experiments/download_tall_datasets.py --only {name}`")
+            f"{npz} missing; run `python experiments/{script} --only {name}`")
     with np.load(npz, allow_pickle=False) as d:
         X, y = d["X"], d["y"]
         names = d["feature_names"]
@@ -505,7 +513,7 @@ def load_tsc(name: str) -> Dataset:
 
 
 LOADERS = {"madelon": load_madelon, "gina": load_gina, "eodata": load_eodata}
-for _name in TALL_DATASETS:
+for _name in TALL_DATASETS + H8_DATASETS:
     LOADERS[_name] = (lambda n: lambda: load_tall(n))(_name)
 # Each benchmark is addressable by its own name, so every runner that takes
 # --dataset takes these too, with no special-casing anywhere downstream.
@@ -519,7 +527,7 @@ for _name in TSC_DATASETS:
 # Loaders that take a row cap. Every other dataset is far below any cap in use
 # (the largest, USPS, is 9,298 rows), so a cap passed for one of them is a no-op.
 CAPPABLE = {"eodata": load_eodata}
-for _name in TALL_DATASETS:
+for _name in TALL_DATASETS + H8_DATASETS:
     CAPPABLE[_name] = (lambda n: lambda **kw: load_tall(n, **kw))(_name)
 
 

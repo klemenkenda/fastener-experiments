@@ -1,0 +1,9 @@
+{
+ "dataset": "heloc",
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "dataset_description": "Credit-bureau variables of the applicant. M = months, Num = number of, Percent = percentage of trades (credit accounts); Delq = delinquency, Derog = derogatory, Inq = credit inquiries, Revolving/Install = revolving and instalment trades, Burden = balance relative to credit limit; ExternalRiskEstimate is a consolidated external risk score."
+}

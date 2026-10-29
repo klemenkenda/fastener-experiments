@@ -1,0 +1,9 @@
+{
+ "dataset": "pc4",
+ "task": "Predict whether a module of NASA flight software for an earth-orbiting satellite has reported defects.",
+ "class_names": [
+  "no defects",
+  "defects"
+ ],
+ "dataset_description": "Static code metrics of each module: lines of code (LOC_*), McCabe complexities (cyclomatic, essential, design) and their densities, graph counts (nodes, edges, branches, conditions, decisions), and Halstead metrics (operators, operands, length, volume, difficulty, effort, error estimate, programming time)."
+}

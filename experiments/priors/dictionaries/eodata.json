@@ -1,0 +1,31 @@
+{
+ "dataset": "eodata",
+ "task": "Classify the crop type of an agricultural land parcel in Slovenia (or that it is not farmland) from Sentinel-2 satellite observations over the 2017 growing season.",
+ "class_names": [
+  "Not_Farmland",
+  "Beans",
+  "Beets",
+  "Buckwheat",
+  "Fallow_land",
+  "Grass",
+  "Hop",
+  "Legumes_or_grass",
+  "Maize",
+  "Meadows",
+  "Orchards",
+  "Other",
+  "Peas",
+  "Poppy",
+  "Potatoes",
+  "Pumpkins",
+  "Soft_fruits",
+  "Soybean",
+  "Summer_cereals",
+  "Sun_flower",
+  "Vegetables",
+  "Vineyards",
+  "Winter_cereals",
+  "Winter_rape"
+ ],
+ "dataset_description": "Each parcel's time series of four Sentinel-2 bands (BLUE, GREEN, RED, NIR) and six vegetation indices (NDVI, ARVI, EVI, SAVI, NDWI, SIPI) over the season, summarised by statistics; plus terrain elevation (DEM) and slope (INCLINATION). Names are <band or index>_<statistic>: max_val, min_val, mean_val, sd_val of the series; diff_max, diff_min, diff_diff of its differences; max_mean_feature, max_mean_len, max_mean_surf of the interval with the highest mean; pos_* and neg_* (len, rate, surf, tran) of its rising and falling segments: length, rate, area and transitions."
+}

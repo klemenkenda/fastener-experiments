@@ -1,0 +1,9 @@
+{
+ "dataset": "spambase",
+ "task": "Decide whether an e-mail is unsolicited commercial e-mail (spam).",
+ "class_names": [
+  "not spam",
+  "spam"
+ ],
+ "dataset_description": "E-mails collected at Hewlett-Packard Labs. word_freq_WORD is the percentage of words in the e-mail that are WORD; char_freq_CHAR the percentage of characters that are CHAR; capital_run_length_average, _longest and _total describe runs of consecutive capital letters."
+}

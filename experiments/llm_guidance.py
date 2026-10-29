@@ -331,9 +331,15 @@ def context_for(ds, dictionary: Optional[Dict[str, Any]] = None) -> GuidanceCont
     """A guidance context from a loaded dataset and its data dictionary
     (task, class_names, dataset_description, feature_descriptions)."""
     d = dictionary or {}
+    # A dictionary may restore documented names for a set stored with
+    # generic ones (har's V1..V561, ozone_8hr's V1..V72), column for column.
+    names = d.get("feature_names") or [str(n) for n in ds.feature_names]
+    if len(names) != ds.n_features:
+        raise ValueError(f"dictionary has {len(names)} feature names for "
+                         f"{ds.n_features} features")
     return GuidanceContext(
         n_features=ds.n_features,
-        feature_names=[str(n) for n in ds.feature_names],
+        feature_names=[str(n) for n in names],
         task=d.get("task"), class_names=d.get("class_names"),
         metadata={k: d[k] for k in ("dataset_description", "feature_descriptions")
                   if k in d})

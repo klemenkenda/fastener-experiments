@@ -1,0 +1,9 @@
+{
+ "dataset": "eye_movements",
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "dataset_description": "Per-word features of the eye-movement trajectory: fixation durations (Fix...Dur: previous, first, first-pass, next, total, mean), saccade lengths (Sacc...Len), fixation positions within the word, regression length and duration, pupil diameter (maximum, lag) and the share of time spent; lineNo, assgNo, titleNo and wordNo are the line, assignment, title and word numbers."
+}

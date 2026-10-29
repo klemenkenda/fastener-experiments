@@ -174,6 +174,61 @@ Crop, about 4× larger.
 | InsectWingbeat | unequal-length series |
 | FruitFlies, CardiacArrhythmia, InsectSound | large, and add no shape the picks above lack |
 
+# H8: datasets with named features
+
+H8 asks whether an LLM's knowledge of what features mean speeds up FASTENER,
+so its datasets need features whose names a domain expert could reason about.
+The 39 time series above have none (their features are time points). Chosen
+2026-10-29 by the PI from a search of OpenML's curated suites (OpenML-CC18,
+the AutoML benchmark, the Grinsztajn tabular benchmark) and classic UCI sets,
+plus the named tabular sets already on disk.
+
+**Rules.** Classification; at least 1,000 rows (the 50,000-row cap applies);
+10 to about 600 features; at least 80% of them named in the data or in the
+repository's documentation; real measurements (no synthetic, generated or
+pixel data); few high-cardinality categoricals; a spread of domains, with
+both famous sets an LLM may know and obscure ones (the scrambled-name arm
+controls for memorised benchmarks).
+
+| dataset | rows | features | classes | names | domain | source |
+|---|---:|---:|---:|---|---|---|
+| eodata | 480,000 (cap 50k) | 182 | 24 | in the data | earth observation (Slovenia) | PANGAEA, on disk |
+| covertype | 581,012 (cap 50k) | 54 | 7 | in the data | forestry | OpenML 1596, on disk |
+| higgs | 98,049 (cap 50k) | 28 | 2 | in the data | particle physics | OpenML 23512, on disk |
+| har | 10,299 | 561 | 6 | restored from UCI features.txt | wearable sensors | OpenML 1478, on disk |
+| crop_mapping | 325,834 (cap 50k) | 174 | 7 | restored from UCI | radar + optical crops | UCI 525, on disk |
+| gas_drift | 13,910 | 128 | 6 | restored from UCI's layout | chemical sensors | OpenML 1476, on disk |
+| spambase | 4,601 | 57 | 2 | in the data | e-mail | OpenML 44 |
+| heloc | 10,000 | 22 | 2 | in the data | credit risk | OpenML 45026 |
+| mice_protein | 1,080 | 77 | 8 | in the data | proteomics | OpenML 40966 |
+| ozone_8hr | 2,534 | 72 | 2 | restored from UCI | meteorology | OpenML 1487 |
+| qsar_biodeg | 1,055 | 41 | 2 | restored from UCI, with descriptions | chemistry | OpenML 1494 |
+| eye_movements | 7,608 | 20 | 2 | in the data | eye tracking | OpenML 44130 |
+| phishing | 11,055 | 30 | 2 | in the data | web security | OpenML 4534 |
+| pc4 | 1,458 | 37 | 2 | in the data | software defects | OpenML 1049 |
+| diabetes130 | 101,766 (cap 50k) | 132 | 3 | in the data (one-hot) | hospital readmission | OpenML 4541 |
+| adult | 48,842 | 63 | 2 | in the data (one-hot) | census income | OpenML 1590 |
+
+The ten OpenML sets are downloaded, checked (md5) and converted by
+[`download_h8_datasets.py`](download_h8_datasets.py), whose docstring gives the
+conversion: identifier columns and those OpenML marks to ignore are dropped
+(MiceProtein's Genotype, Treatment and Behavior, which together are its
+class; diabetes130's encounter_id and patient_nbr); nominal columns with more
+than 30 values are dropped (diabetes130's three diagnosis codes and
+medical_specialty, adult's native-country); other nominal columns become 0/1
+columns; missing numeric values (MiceProtein's 1,396) take the column median.
+What the LLM is told about each set -- task, classes, description, restored
+names -- is in `priors/dictionaries/`, written by
+[`make_h8_dictionaries.py`](make_h8_dictionaries.py) from the sources in
+`priors/sources/`.
+
+**Rejected:** anonymised features (volkert, miniboone, APSFailure,
+porto-seguro, house_16H, Bioresponse, the AutoML V1... sets), pixels or
+digits (optdigits, pendigits), hashed identifiers (Click_prediction).
+Reserves: steel-plates-fault, segment, sick, MagicTelescope; SpeedDating
+(its decision columns leak the target) and cardiotocography (check for class
+columns first).
+
 ## Sources
 
 - Dataset metadata: [timeseriesclassification.com](https://timeseriesclassification.com)

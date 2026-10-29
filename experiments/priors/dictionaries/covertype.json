@@ -1,0 +1,14 @@
+{
+ "dataset": "covertype",
+ "task": "Predict the forest cover type of a 30 m x 30 m cell in the Roosevelt National Forest, Colorado, from cartographic variables.",
+ "class_names": [
+  "Spruce/Fir",
+  "Lodgepole Pine",
+  "Ponderosa Pine",
+  "Cottonwood/Willow",
+  "Aspen",
+  "Douglas-fir",
+  "Krummholz"
+ ],
+ "dataset_description": "Elevation (m), aspect (degrees azimuth), slope (degrees), horizontal and vertical distances to surface water, horizontal distances to roads and to wildfire ignition points, hillshade indices at 9am, noon and 3pm, four binary wilderness-area indicators (1 Rawah, 2 Neota, 3 Comanche Peak, 4 Cache la Poudre) and 40 binary soil-type indicators (USFS ecological landtype units)."
+}

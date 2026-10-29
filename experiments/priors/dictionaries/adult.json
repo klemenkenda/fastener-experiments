@@ -1,0 +1,9 @@
+{
+ "dataset": "adult",
+ "task": "Predict whether a person's annual income exceeds $50,000, from the 1994 US census.",
+ "class_names": [
+  "income <= 50K",
+  "income > 50K"
+ ],
+ "dataset_description": "Age, work class, fnlwgt (the census sampling weight), education and years of education, marital status, occupation, relationship in the household, race, sex, capital gain and loss, hours worked per week. 'column=value' columns are one-hot categories; sex is 1 for its second value."
+}
