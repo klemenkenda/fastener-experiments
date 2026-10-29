@@ -6,6 +6,10 @@ This repository holds *only* the experiment code, notes and results. The FASTENE
 algorithm itself is a separate, unmodified clone in `fastener/`, which this repo
 ignores — so upstream stays clean and pullable while experiments live alongside it.
 
+FASTENER's own documentation (concepts, reference, examples, LLM guidance,
+regression) is in
+[fastener/docs/](fastener/docs/README.md).
+
 ## Layout
 
 ```
