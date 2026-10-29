@@ -1,0 +1,91 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-29T22:43:13.793138+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "anthropic/claude-sonnet-5.5",
+ "scrambled": true,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "f21e967a9356c70ece3ceb5e06a61da60f049eb858656abf4fd605d935cdb2cb",
+   "served_model": "anthropic/claude-sonnet-5.5",
+   "usage": {
+    "prompt_tokens": 530,
+    "completion_tokens": 874,
+    "total_tokens": 1404,
+    "cost": 0.0098,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0098,
+     "upstream_inference_prompt_cost": 0.00106,
+     "upstream_inference_completions_cost": 0.00874
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "The feature names are anonymized, so I can only guess from the description's ordering, which probably follows the original dataset's column order (the PKDD/IEEE eye-movement dataset from Saloj\u00e4rvi et al.). That order is likely: lineNo, assgNo, prevFixDur, firstFixDur, firstPassFixDur, nextFixDur, firstSaccLen, lastSaccLen, prevFixPos, landingPos, leavingPos, totalFixDur, meanFixDur, regLen, regDur, pupilDiamMax, pupilDiamLag, timeprevious, titleNo, wordNo. I can't confirm this mapping.\n\nIn the original data, lineNo and assgNo are identifiers. They can still leak class information through the assignment structure. titleNo and wordNo are positional identifiers that may also leak.\n\nThe fixation-duration features (total, first-pass, mean) and the regression features are the most plausible signals of relevance. Pupil diameter is also plausible.\n\nBecause the mapping is uncertain, I spread the scores moderately. Identifier-like features get middling scores, since in this benchmark they often prove surprisingly useful. Duration and pupil features get slightly higher scores.\n\nScores by index, using the guessed order:\n- 0 lineNo: 0.4\n- 1 assgNo: 0.4\n- 2 prevFixDur: 0.4\n- 3 firstFixDur: 0.45\n- 4 firstPassFixDur: 0.45\n- 5 nextFixDur: 0.4\n- 6 firstSaccLen: 0.4\n- 7 lastSaccLen: 0.4\n- 8 prevFixPos: 0.35\n- 9 landingPos: 0.35\n- 10 leavingPos: 0.35\n- 11 totalFixDur: 0.5\n- 12 meanFixDur: 0.45\n- 13 regLen: 0.35\n- 14 regDur: 0.4\n- 15 pupilDiamMax: 0.5\n- 16 pupilDiamLag: 0.45\n- 17 timeprevious: 0.4\n- 18 titleNo: 0.5\n- 19 wordNo: 0.45\n\n```json\n{\"scores\": {\"0\":0.4,\"1\":0.4,\"2\":0.4,\"3\":0.45,\"4\":0.45,\"5\":0.4,\"6\":0.4,\"7\":0.4,\"8\":0.35,\"9\":0.35,\"10\":0.35,\"11\":0.5,\"12\":0.45,\"13\":0.35,\"14\":0.4,\"15\":0.5,\"16\":0.45,\"17\":0.4,\"18\":0.5,\"19\":0.45}}\n```"
+  }
+ ],
+ "missing": [],
+ "fill": 0.35,
+ "scores": [
+  0.4,
+  0.4,
+  0.4,
+  0.45,
+  0.45,
+  0.4,
+  0.4,
+  0.4,
+  0.35,
+  0.35,
+  0.35,
+  0.5,
+  0.45,
+  0.35,
+  0.4,
+  0.5,
+  0.45,
+  0.4,
+  0.5,
+  0.45
+ ]
+}

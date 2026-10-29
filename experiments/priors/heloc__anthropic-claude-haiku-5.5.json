@@ -1,0 +1,95 @@
+{
+ "dataset": "heloc",
+ "created_utc": "2026-10-29T22:40:56.735490+00:00",
+ "n_features": 22,
+ "feature_names": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "model": "anthropic/claude-haiku-5.5",
+ "scrambled": false,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "aa9f528dc296435b3738b438d9f86e80cacf356d4fed13e15c58eccdb3445697",
+   "served_model": "anthropic/claude-haiku-5.5",
+   "usage": {
+    "prompt_tokens": 703,
+    "completion_tokens": 185,
+    "total_tokens": 888,
+    "cost": 0.0001628,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0001628,
+     "upstream_inference_prompt_cost": 7.03e-05,
+     "upstream_inference_completions_cost": 9.25e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "{\"scores\": {\"0\": 0.95, \"1\": 0.45, \"2\": 0.35, \"3\": 0.4, \"4\": 0.5, \"5\": 0.45, \"6\": 0.45, \"7\": 0.5, \"8\": 0.4, \"9\": 0.45, \"10\": 0.35, \"11\": 0.35, \"12\": 0.3, \"13\": 0.3, \"14\": 0.4, \"15\": 0.4, \"16\": 0.7, \"17\": 0.4, \"18\": 0.4, \"19\": 0.3, \"20\": 0.45, \"21\": 0.45}}"
+  }
+ ],
+ "missing": [],
+ "fill": 0.3,
+ "scores": [
+  0.95,
+  0.45,
+  0.35,
+  0.4,
+  0.5,
+  0.45,
+  0.45,
+  0.5,
+  0.4,
+  0.45,
+  0.35,
+  0.35,
+  0.3,
+  0.3,
+  0.4,
+  0.4,
+  0.7,
+  0.4,
+  0.4,
+  0.3,
+  0.45,
+  0.45
+ ]
+}

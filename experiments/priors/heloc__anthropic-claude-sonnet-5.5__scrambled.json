@@ -1,0 +1,95 @@
+{
+ "dataset": "heloc",
+ "created_utc": "2026-10-29T22:40:55.570599+00:00",
+ "n_features": 22,
+ "feature_names": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "model": "anthropic/claude-sonnet-5.5",
+ "scrambled": true,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "bde202c0a7e11adfc9f471b51d16c9660071e9e4fc59d88fe140db820f380a7b",
+   "served_model": "anthropic/claude-sonnet-5.5",
+   "usage": {
+    "prompt_tokens": 513,
+    "completion_tokens": 735,
+    "total_tokens": 1248,
+    "cost": 0.008376,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.008376,
+     "upstream_inference_prompt_cost": 0.001026,
+     "upstream_inference_completions_cost": 0.00735
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "The feature names are masked, so I assumed the columns follow the standard HELOC dataset order. That order is my assumption, not something the task confirms.\n\nAssumed order:\n- 0 ExternalRiskEstimate\n- 1 MSinceOldestTradeOpen\n- 2 MSinceMostRecentTradeOpen\n- 3 AverageMInFile\n- 4 NumSatisfactoryTrades\n- 5 NumTrades60Ever2DerogPubRec\n- 6 NumTrades90Ever2DerogPubRec\n- 7 PercentTradesNeverDelq\n- 8 MSinceMostRecentDelq\n- 9 MaxDelq2PublicRecLast12M\n- 10 MaxDelqEver\n- 11 NumTotalTrades\n- 12 NumTradesOpenInLast12M\n- 13 PercentInstallTrades\n- 14 MSinceMostRecentInqexcl7days\n- 15 NumInqLast6M\n- 16 NumInqLast6Mexcl7days\n- 17 NetFractionRevolvingBurden\n- 18 NetFractionInstallBurden\n- 19 NumRevolvingTradesWithBalance\n- 20 NumInstallTradesWithBalance\n- 21 NumBank2NatlTradesWithHighUtilization\n- (the remaining indices follow the dataset's own column order)\n\nExternalRiskEstimate is the strongest single predictor, followed by NetFractionRevolvingBurden. Average months in file, percent of trades never delinquent, and the delinquency and inquiry features carry moderate signal. The remaining counts are weaker.\n\n{\"scores\": {\"0\": 0.95, \"1\": 0.4, \"2\": 0.3, \"3\": 0.6, \"4\": 0.4, \"5\": 0.2, \"6\": 0.2, \"7\": 0.5, \"8\": 0.35, \"9\": 0.3, \"10\": 0.35, \"11\": 0.3, \"12\": 0.2, \"13\": 0.3, \"14\": 0.3, \"15\": 0.35, \"16\": 0.25, \"17\": 0.8, \"18\": 0.4, \"19\": 0.35, \"20\": 0.3, \"21\": 0.3}}"
+  }
+ ],
+ "missing": [],
+ "fill": 0.2,
+ "scores": [
+  0.95,
+  0.4,
+  0.3,
+  0.6,
+  0.4,
+  0.2,
+  0.2,
+  0.5,
+  0.35,
+  0.3,
+  0.35,
+  0.3,
+  0.2,
+  0.3,
+  0.3,
+  0.35,
+  0.25,
+  0.8,
+  0.4,
+  0.35,
+  0.3,
+  0.3
+ ]
+}

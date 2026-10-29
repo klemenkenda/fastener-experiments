@@ -1,0 +1,91 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-29T22:43:06.585292+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "anthropic/claude-sonnet-5.5",
+ "scrambled": false,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "48945e22c4d9d02fbd7f3df7b701649bca7b82592f825a2590f08aa147510fa8",
+   "served_model": "anthropic/claude-sonnet-5.5",
+   "usage": {
+    "prompt_tokens": 563,
+    "completion_tokens": 494,
+    "total_tokens": 1057,
+    "cost": 0.006066,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.006066,
+     "upstream_inference_prompt_cost": 0.001126,
+     "upstream_inference_completions_cost": 0.00494
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "This looks like the eye-movement dataset from the PASCAL/IEEE \"Predicting relevance from eye movements\" challenge, where the identifiers (lineNo, assgNo, titleNo, wordNo) are known to matter. Here the identifiers can be informative because titles and assignments are tied to specific relevance labels. In the original benchmark, assgNo largely determines the question and its set of titles, so it can leak class information. The eye-movement features are weak individually.\n\nThe reasoning behind the scores:\n- Identifier features (assgNo, titleNo, lineNo, wordNo) probably carry the most signal through that leakage.\n- Fixation duration features (totalFixDur, firstPassFixDur, meanFixDur, regressDur) are the most plausible genuine behavioral indicators. Relevant titles tend to get longer reading.\n- Pupil diameter and saccade features are weaker but may help in combination.\n\n\n<invoke name=\"x\">\n</invoke>\n{\"scores\": {\"0\": 0.5, \"1\": 0.65, \"2\": 0.3, \"3\": 0.35, \"4\": 0.4, \"5\": 0.3, \"6\": 0.3, \"7\": 0.3, \"8\": 0.3, \"9\": 0.3, \"10\": 0.3, \"11\": 0.45, \"12\": 0.35, \"13\": 0.35, \"14\": 0.35, \"15\": 0.4, \"16\": 0.35, \"17\": 0.35, \"18\": 0.6, \"19\": 0.5}}"
+  }
+ ],
+ "missing": [],
+ "fill": 0.3,
+ "scores": [
+  0.5,
+  0.65,
+  0.3,
+  0.35,
+  0.4,
+  0.3,
+  0.3,
+  0.3,
+  0.3,
+  0.3,
+  0.3,
+  0.45,
+  0.35,
+  0.35,
+  0.35,
+  0.4,
+  0.35,
+  0.35,
+  0.6,
+  0.5
+ ]
+}

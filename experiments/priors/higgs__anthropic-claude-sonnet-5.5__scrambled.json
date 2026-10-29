@@ -1,0 +1,107 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-29T22:34:45.475096+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "anthropic/claude-sonnet-5.5",
+ "scrambled": true,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "998ea16e9b9d9741fbe8165f513948d9d154742c22750f3ad7a3032299bf24c8",
+   "served_model": "anthropic/claude-sonnet-5.5",
+   "usage": {
+    "prompt_tokens": 542,
+    "completion_tokens": 597,
+    "total_tokens": 1139,
+    "cost": 0.007054,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.007054,
+     "upstream_inference_prompt_cost": 0.001084,
+     "upstream_inference_completions_cost": 0.00597
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "This looks like the HIGGS dataset (UCI). I'm assuming the standard column order, since the feature names are not informative.\n\nAssumed order:\n- 0: lepton pT\n- 1: lepton eta\n- 2: lepton phi\n- 3: missing energy magnitude\n- 4: missing energy phi\n- 5-8: jet 1 (pT, eta, phi, b-tag)\n- 9-12: jet 2 (pT, eta, phi, b-tag)\n- 13-16: jet 3 (pT, eta, phi, b-tag)\n- 17-20: jet 4 (pT, eta, phi, b-tag)\n- 21: m_jj\n- 22: m_jjj\n- 23: m_lv\n- 24: m_jlv\n- 25: m_bb\n- 26: m_wbb\n- 27: m_wwbb\n\nThe high-level masses are the most useful, and m_bb (25), m_wbb (26) and m_wwbb (27) are the strongest of them. Among the low-level features, lepton pT (0), missing energy (3) and the jet pTs are moderately informative. Eta and phi features carry almost no signal on their own, and the b-tags carry some.\n\n\n{\"scores\":{\"0\":0.4,\"1\":0.05,\"2\":0.03,\"3\":0.3,\"4\":0.03,\"5\":0.3,\"6\":0.05,\"7\":0.03,\"8\":0.2,\"9\":0.3,\"10\":0.05,\"11\":0.03,\"12\":0.25,\"13\":0.25,\"14\":0.05,\"15\":0.03,\"16\":0.25,\"17\":0.2,\"18\":0.05,\"19\":0.03,\"20\":0.2,\"21\":0.5,\"22\":0.45,\"23\":0.35,\"24\":0.45,\"25\":0.95,\"26\":0.7,\"27\":0.7}}"
+  }
+ ],
+ "missing": [],
+ "fill": 0.03,
+ "scores": [
+  0.4,
+  0.05,
+  0.03,
+  0.3,
+  0.03,
+  0.3,
+  0.05,
+  0.03,
+  0.2,
+  0.3,
+  0.05,
+  0.03,
+  0.25,
+  0.25,
+  0.05,
+  0.03,
+  0.25,
+  0.2,
+  0.05,
+  0.03,
+  0.2,
+  0.5,
+  0.45,
+  0.35,
+  0.45,
+  0.95,
+  0.7,
+  0.7
+ ]
+}

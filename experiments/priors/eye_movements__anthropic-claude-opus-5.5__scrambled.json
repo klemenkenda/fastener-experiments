@@ -1,0 +1,91 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-29T22:43:02.096322+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "anthropic/claude-opus-5.5",
+ "scrambled": true,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "96ea904e410fa2e2c4ad602db7a8ad0440fd6dc3b52eb5592aa231f664591793",
+   "served_model": "anthropic/claude-opus-5.5",
+   "usage": {
+    "prompt_tokens": 530,
+    "completion_tokens": 839,
+    "total_tokens": 1369,
+    "cost": 0.0189,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0189,
+     "upstream_inference_prompt_cost": 0.00212,
+     "upstream_inference_completions_cost": 0.01678
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 670,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.45, \"2\": 0.3, \"3\": 0.3, \"4\": 0.35, \"5\": 0.4, \"6\": 0.45, \"7\": 0.35, \"8\": 0.4, \"9\": 0.4, \"10\": 0.35, \"11\": 0.35, \"12\": 0.35, \"13\": 0.55, \"14\": 0.45, \"15\": 0.35, \"16\": 0.45, \"17\": 0.5, \"18\": 0.45, \"19\": 0.6}}"
+  }
+ ],
+ "missing": [],
+ "fill": 0.3,
+ "scores": [
+  0.6,
+  0.45,
+  0.3,
+  0.3,
+  0.35,
+  0.4,
+  0.45,
+  0.35,
+  0.4,
+  0.4,
+  0.35,
+  0.35,
+  0.35,
+  0.55,
+  0.45,
+  0.35,
+  0.45,
+  0.5,
+  0.45,
+  0.6
+ ]
+}

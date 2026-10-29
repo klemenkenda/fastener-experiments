@@ -1,0 +1,111 @@
+{
+ "dataset": "phishing",
+ "created_utc": "2026-10-29T22:43:37.459381+00:00",
+ "n_features": 30,
+ "feature_names": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "task": "Decide whether a website is a phishing site.",
+ "class_names": [
+  "phishing",
+  "legitimate"
+ ],
+ "model": "anthropic/claude-haiku-5.5",
+ "scrambled": false,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "43f48bd24883977414e53dfd4de2fce96bc61a169ccd558d436422acdb07a904",
+   "served_model": "anthropic/claude-haiku-5.5",
+   "usage": {
+    "prompt_tokens": 542,
+    "completion_tokens": 249,
+    "total_tokens": 791,
+    "cost": 0.0001787,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0001787,
+     "upstream_inference_prompt_cost": 5.42e-05,
+     "upstream_inference_completions_cost": 0.0001245
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.4, \"2\": 0.4, \"3\": 0.6, \"4\": 0.3, \"5\": 0.6, \"6\": 0.5, \"7\": 0.9, \"8\": 0.5, \"9\": 0.4, \"10\": 0.3, \"11\": 0.6, \"12\": 0.5, \"13\": 0.8, \"14\": 0.6, \"15\": 0.7, \"16\": 0.6, \"17\": 0.8, \"18\": 0.4, \"19\": 0.3, \"20\": 0.2, \"21\": 0.3, \"22\": 0.3, \"23\": 0.6, \"24\": 0.6, \"25\": 0.9, \"26\": 0.7, \"27\": 0.5, \"28\": 0.7, \"29\": 0.5}}"
+  }
+ ],
+ "missing": [],
+ "fill": 0.2,
+ "scores": [
+  0.6,
+  0.4,
+  0.4,
+  0.6,
+  0.3,
+  0.6,
+  0.5,
+  0.9,
+  0.5,
+  0.4,
+  0.3,
+  0.6,
+  0.5,
+  0.8,
+  0.6,
+  0.7,
+  0.6,
+  0.8,
+  0.4,
+  0.3,
+  0.2,
+  0.3,
+  0.3,
+  0.6,
+  0.6,
+  0.9,
+  0.7,
+  0.5,
+  0.7,
+  0.5
+ ]
+}

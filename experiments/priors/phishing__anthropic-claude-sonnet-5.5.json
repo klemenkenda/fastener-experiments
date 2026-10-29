@@ -1,0 +1,111 @@
+{
+ "dataset": "phishing",
+ "created_utc": "2026-10-29T22:43:31.275507+00:00",
+ "n_features": 30,
+ "feature_names": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "task": "Decide whether a website is a phishing site.",
+ "class_names": [
+  "phishing",
+  "legitimate"
+ ],
+ "model": "anthropic/claude-sonnet-5.5",
+ "scrambled": false,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "f91aa985c70fbdf773be441b435f708e9d7fd31bc249a746359531e73741d885",
+   "served_model": "anthropic/claude-sonnet-5.5",
+   "usage": {
+    "prompt_tokens": 542,
+    "completion_tokens": 249,
+    "total_tokens": 791,
+    "cost": 0.003574,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.003574,
+     "upstream_inference_prompt_cost": 0.001084,
+     "upstream_inference_completions_cost": 0.00249
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.2, \"2\": 0.15, \"3\": 0.12, \"4\": 0.12, \"5\": 0.4, \"6\": 0.55, \"7\": 1.0, \"8\": 0.3, \"9\": 0.08, \"10\": 0.08, \"11\": 0.15, \"12\": 0.4, \"13\": 0.85, \"14\": 0.35, \"15\": 0.4, \"16\": 0.12, \"17\": 0.15, \"18\": 0.07, \"19\": 0.07, \"20\": 0.07, \"21\": 0.1, \"22\": 0.1, \"23\": 0.3, \"24\": 0.2, \"25\": 0.65, \"26\": 0.3, \"27\": 0.2, \"28\": 0.2, \"29\": 0.1}}"
+  }
+ ],
+ "missing": [],
+ "fill": 0.07,
+ "scores": [
+  0.2,
+  0.2,
+  0.15,
+  0.12,
+  0.12,
+  0.4,
+  0.55,
+  1.0,
+  0.3,
+  0.08,
+  0.08,
+  0.15,
+  0.4,
+  0.85,
+  0.35,
+  0.4,
+  0.12,
+  0.15,
+  0.07,
+  0.07,
+  0.07,
+  0.1,
+  0.1,
+  0.3,
+  0.2,
+  0.65,
+  0.3,
+  0.2,
+  0.2,
+  0.1
+ ]
+}
