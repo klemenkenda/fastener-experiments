@@ -32,7 +32,12 @@ echo "environment unpacked in $(( $(date +%s) - t0 )) s"
 echo "step 1 passed: run_sota.py"
 
 index="$("$PY" experiments/hpc_jobs.py indices --experiment "$EXPERIMENT" \
-    --cells Coffee:all_features)"
+    --cells "${TEST_CELL:-Coffee:all_features}")"
+index="${index%%[-,]*}"  # the cell's first job
+if [ -z "$index" ]; then
+    echo "step 2: no job of $EXPERIMENT in cell ${TEST_CELL:-Coffee:all_features}; set TEST_CELL" >&2
+    exit 1
+fi
 echo "step 2: job $index of $EXPERIMENT through hpc_jobs.py"
 "$PY" experiments/hpc_jobs.py run --experiment "$EXPERIMENT" --index "$index" \
     --cpus "$SLURM_CPUS_PER_TASK"
