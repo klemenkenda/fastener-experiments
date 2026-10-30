@@ -1,0 +1,146 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:43.673653+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "google/gemini-2.5-flash-lite",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "d058c5d4c5760b2861aef7d00ec3043c313c456f7545746319c3d9810490ca81",
+   "served_model": "google/gemini-2.5-flash-lite",
+   "usage": {
+    "prompt_tokens": 422,
+    "completion_tokens": 179,
+    "total_tokens": 601,
+    "cost": 0.0001138,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0001138,
+     "upstream_inference_prompt_cost": 4.22e-05,
+     "upstream_inference_completions_cost": 7.16e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "I cannot provide a meaningful score for the given features. The feature names are generic placeholders (e.g., \"feature_00\", \"feature_01\") and do not describe the actual information they contain. Without knowing what these features represent, it's impossible to assess their relevance to the task of distinguishing between different types of news article titles based on eye-movement data.\n\nTo provide useful scores, I would need descriptive names for each feature, such as:\n\n*   `Fixation_Duration_First_Pass`\n*   `Saccade_Length_Average`\n*   `Fixation_Position_Ratio`\n*   `Pupil_Diameter_Max`\n*   `Word_Number_In_Title`\n\nWith descriptive feature names, I could then leverage domain knowledge about reading behavior and language processing to estimate their potential usefulness.",
+   "parsed_as": "pairs",
+   "retry": false
+  },
+  {
+   "key": "d058c5d4c5760b2861aef7d00ec3043c313c456f7545746319c3d9810490ca81",
+   "served_model": "google/gemini-2.5-flash-lite",
+   "usage": {
+    "prompt_tokens": 422,
+    "completion_tokens": 179,
+    "total_tokens": 601,
+    "cost": 0.0001138,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0001138,
+     "upstream_inference_prompt_cost": 4.22e-05,
+     "upstream_inference_completions_cost": 7.16e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "I cannot provide a meaningful score for the given features. The feature names are generic placeholders (e.g., \"feature_00\", \"feature_01\") and do not describe the actual information they contain. Without knowing what these features represent, it's impossible to assess their relevance to the task of distinguishing between different types of news article titles based on eye-movement data.\n\nTo provide useful scores, I would need descriptive names for each feature, such as:\n\n*   `Fixation_Duration_First_Pass`\n*   `Saccade_Length_Average`\n*   `Fixation_Position_Ratio`\n*   `Pupil_Diameter_Max`\n*   `Word_Number_In_Title`\n\nWith descriptive feature names, I could then leverage domain knowledge about reading behavior and language processing to estimate their potential usefulness.",
+   "parsed_as": "pairs",
+   "retry": true
+  }
+ ],
+ "missing": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19
+ ],
+ "fill": 0.0,
+ "scores": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ]
+}

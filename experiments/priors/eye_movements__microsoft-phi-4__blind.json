@@ -1,0 +1,116 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:37.988364+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "microsoft/phi-4",
+ "scrambled": true,
+ "blind": true,
+ "permutation": [
+  1,
+  3,
+  18,
+  13,
+  19,
+  4,
+  7,
+  10,
+  8,
+  16,
+  0,
+  17,
+  9,
+  14,
+  6,
+  12,
+  2,
+  11,
+  5,
+  15
+ ],
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "9798561f388c4dd3f00f8dfcce78c48a58a7dc3e93830e8765632e852ce7a8c2",
+   "served_model": "microsoft/phi-4",
+   "usage": {
+    "prompt_tokens": 303,
+    "completion_tokens": 378,
+    "total_tokens": 681,
+    "cost": 7.413e-05,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 7.413e-05,
+     "upstream_inference_prompt_cost": 2.121e-05,
+     "upstream_inference_completions_cost": 5.292e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.6,\n    \"2\": 0.5,\n    \"3\": 0.6,\n    \"4\": 0.7,\n    \"5\": 0.8,\n    \"6\": 0.7,\n    \"7\": 0.6,\n    \"8\": 0.5,\n    \"9\": 0.6,\n    \"10\": 0.7,\n    \"11\": 0.8,\n    \"12\": 0.7,\n    \"13\": 0.6,\n    \"14\": 0.5,\n    \"15\": 0.6,\n    \"16\": 0.7,\n    \"17\": 0.8,\n    \"18\": 0.7,\n    \"19\": 0.6\n  }\n}\n```\n\n### Explanation:\n- **Features 5, 11, 17**: These are rated higher (0.8) as they might capture more nuanced eye movement patterns that could indicate relevance or irrelevance to the preceding question.\n- **Features 0, 4, 6, 10, 12, 16, 18**: These are rated at 0.7, suggesting they likely capture significant patterns in eye movements that could help distinguish between the classes.\n- **Features 1, 3, 7, 9, 13, 15, 19**: These are rated at 0.6, indicating they might capture useful patterns but perhaps not as directly related to the classification task.\n- **Features 2, 8, 14**: These are rated at 0.5, suggesting they might be less directly related to distinguishing between the classes based on eye movements.",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.5,
+ "scores": [
+  0.7,
+  0.7,
+  0.7,
+  0.6,
+  0.8,
+  0.7,
+  0.5,
+  0.7,
+  0.5,
+  0.7,
+  0.6,
+  0.8,
+  0.6,
+  0.6,
+  0.6,
+  0.6,
+  0.6,
+  0.8,
+  0.5,
+  0.7
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-30T02:38:08.582878+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "microsoft/phi-4",
+ "scrambled": false,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "42b321a4a2257fa3a7111f6374f36261d6f2def5f75f057710f31ef83ed451cd",
+   "served_model": "microsoft/phi-4",
+   "usage": {
+    "prompt_tokens": 413,
+    "completion_tokens": 859,
+    "total_tokens": 1272,
+    "cost": 0.00014917,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00014917,
+     "upstream_inference_prompt_cost": 2.891e-05,
+     "upstream_inference_completions_cost": 0.00012026
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,  // lepton_pT: High transverse momentum can be indicative of signal events.\n    \"1\": 0.4,  // lepton_eta: Pseudorapidity of the lepton can help in distinguishing events but is less direct.\n    \"2\": 0.3,  // lepton_phi: Azimuthal angle of the lepton is less directly useful on its own.\n    \"3\": 0.8,  // missing_energy_magnitude: Missing energy is a key feature in identifying signal events.\n    \"4\": 0.5,  // missing_energy_phi: Azimuthal angle of missing energy can be useful in conjunction with magnitude.\n    \"5\": 0.6,  // jet1pt: Jet transverse momentum is important for distinguishing signal from background.\n    \"6\": 0.3,  // jet1eta: Pseudorapidity of jets is less directly useful on its own.\n    \"7\": 0.3,  // jet1phi: Azimuthal angle of jets is less directly useful on its own.\n    \"8\": 0.9,  // jet1b-tag: B-tagging is crucial for identifying b-jets, which are important in Higgs decays.\n    \"9\": 0.6,  // jet2pt: Similar to jet1pt, important for distinguishing events.\n    \"10\": 0.3, // jet2eta: Similar to jet1eta, less directly useful.\n    \"11\": 0.3, // jet2phi: Similar to jet1phi, less directly useful.\n    \"12\": 0.9, // jet2b-tag: Similar to jet1b-tag, crucial for identifying b-jets.\n    \"13\": 0.6, // jet3pt: Similar to jet1pt and jet2pt, important for distinguishing events.\n    \"14\": 0.3, // jet3eta: Similar to jet1eta and jet2eta, less directly useful.\n    \"15\": 0.3, // jet3phi: Similar to jet1phi and jet2phi, less directly useful.\n    \"16\": 0.9, // jet3b-tag: Similar to jet1b-tag and jet2b-tag, crucial for identifying b-jets.\n    \"17\": 0.6, // jet4pt: Similar to jet1pt, jet2pt, and jet3pt, important for distinguishing events.\n    \"18\": 0.3, // jet4eta: Similar to jet1eta, jet2eta, and jet3eta, less directly useful.\n    \"19\": 0.3, // jet4phi: Similar to jet1phi, jet2phi, and jet3phi, less directly useful.\n    \"20\": 0.9, // jet4b-tag: Similar to jet1b-tag, jet2b-tag, and jet3b-tag, crucial for identifying b-jets.\n    \"21\": 0.9, // m_jj: Invariant mass of jet pairs is a key feature for identifying Higgs decays.\n    \"22\": 0.9, // m_jjj: Invariant mass of three jets is important for identifying Higgs decays.\n    \"23\": 0.8, // m_lv: Invariant mass of lepton and missing energy is important for identifying signal.\n    \"24\": 0.8, // m_jlv: Invariant mass of jets, lepton, and missing energy is important for identifying signal.\n    \"25\": 0.9, // m_bb: Invariant mass of b-jets is crucial for identifying Higgs decays.\n    \"26\": 0.9, // m_wbb: Invariant mass of W boson and b-jets is important for identifying signal.\n    \"27\": 0.9  // m_wwbb: Invariant mass of W bosons and b-jets is crucial for identifying signal.\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.3,
+ "scores": [
+  0.7,
+  0.4,
+  0.3,
+  0.8,
+  0.5,
+  0.6,
+  0.3,
+  0.3,
+  0.9,
+  0.6,
+  0.3,
+  0.3,
+  0.9,
+  0.6,
+  0.3,
+  0.3,
+  0.9,
+  0.6,
+  0.3,
+  0.3,
+  0.9,
+  0.9,
+  0.9,
+  0.8,
+  0.8,
+  0.9,
+  0.9,
+  0.9
+ ]
+}

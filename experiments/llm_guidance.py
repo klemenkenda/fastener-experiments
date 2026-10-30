@@ -33,6 +33,7 @@ import hashlib
 import json
 import os
 import re
+import threading
 import sys
 import time
 import urllib.error
@@ -150,6 +151,8 @@ class CallLog:
         # A spending cap in US$ (OpenRouter's usage.cost): no request is sent
         # once this log's calls plus `spent_before` reach it.
         self.max_cost, self.spent_before = max_cost, spent_before
+        # Several threads may share a log (the batch's --workers).
+        self.lock = threading.Lock()
 
     def call(self, body: Dict[str, Any]) -> Dict[str, Any]:
         key = request_key(body)
@@ -161,25 +164,27 @@ class CallLog:
                            f"(model {body.get('model')}); record it first")
         if self.client is None:
             raise RuntimeError("record mode needs a client")
-        if self.max_cost is not None and self.spent() >= self.max_cost:
-            raise RuntimeError(f"spending cap reached: ${self.spent():.2f} of "
+        with self.lock:
+            spent = self.spent()
+        if self.max_cost is not None and spent >= self.max_cost:
+            raise RuntimeError(f"spending cap reached: ${spent:.2f} of "
                                f"${self.max_cost:.2f}; nothing sent")
         t0 = time.time()
         response = self.client.chat(body)
         entry = {"key": key, "utc": datetime.now(timezone.utc).isoformat(),
                  "seconds": round(time.time() - t0, 2), "request": body,
                  "response": response}
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        with open(self.path, "a", encoding="utf-8") as fh:
-            fh.write(json.dumps(entry) + "\n")
-        self.entries[key] = entry
-        self.sent += 1
+        with self.lock:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            with open(self.path, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(entry) + "\n")
+            self.entries[key] = entry
+            self.sent += 1
         return response
-
 
     def spent(self) -> float:
         return self.spent_before + sum(float((e["response"].get("usage") or {}).get("cost") or 0)
-                                       for e in self.entries.values())
+                                       for e in list(self.entries.values()))
 
 
 def spent_in_logs(paths) -> float:
@@ -556,6 +561,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     b.add_argument("--log", type=Path)
     b.add_argument("--variants", default="named,scrambled",
                    help="comma list of named, scrambled, blind")
+    b.add_argument("--workers", type=int, default=1,
+                   help="priors made in parallel within a dataset (loaded once)")
     b.add_argument("--max-cost", type=float, default=None,
                    help="US$: stop before a call once this much is spent, counting "
                         "--count-logs as well as this log")
@@ -567,16 +574,32 @@ def main(argv: Optional[List[str]] = None) -> int:
         log = CallLog(args.log or PRIORS_DIR / "calls.jsonl", "record", OpenRouterClient(),
                       max_cost=args.max_cost,
                       spent_before=spent_in_logs(args.count_logs))
+        from concurrent.futures import ThreadPoolExecutor
         variants = args.variants.split(",")
-        todo = [(d, m, v) for d in args.datasets.split(",") for m in args.models.split(",")
-                for v in variants]
-        for i, (d, m, v) in enumerate(todo, 1):
-            out = prior_path(d, m, v == "scrambled", v == "blind")
-            if out.is_file():
-                print(f"[{i}/{len(todo)}] {out.name}: exists")
+        models = args.models.split(",")
+        total = len(args.datasets.split(",")) * len(models) * len(variants)
+        done = 0
+        for d in args.datasets.split(","):
+            todo = [(m, v, prior_path(d, m, v == "scrambled", v == "blind"))
+                    for m in models for v in variants]
+            todo = [t for t in todo if not t[2].is_file()]
+            done += len(models) * len(variants) - len(todo)
+            if not todo:
                 continue
-            make_one(d, m, v == "scrambled", log, out, None, blind=v == "blind")
-            print(f"[{i}/{len(todo)}] {out.name}: made", flush=True)
+            ctx = dataset_context(d)        # the dataset loaded once
+
+            def one(t, ctx=ctx, d=d):
+                m, v, out = t
+                try:
+                    make_one(d, m, v == "scrambled", log, out, ctx=ctx,
+                             blind=v == "blind")
+                    return f"{out.name}: made"
+                except Exception as exc:  # noqa: BLE001  report it, go on
+                    return f"{out.name}: FAILED {type(exc).__name__}: {str(exc)[:200]}"
+            with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
+                for msg in pool.map(one, todo):
+                    done += 1
+                    print(f"[{done}/{total}] {msg}", flush=True)
         print(f"{log.sent} calls sent, {log.replayed} replayed")
         return 0
     log = CallLog(args.log or PRIORS_DIR / "calls.jsonl", "record", OpenRouterClient())
@@ -588,15 +611,21 @@ def main(argv: Optional[List[str]] = None) -> int:
     return 0
 
 
-def make_one(dataset: str, model: str, scrambled: bool, log: CallLog, out: Path,
-             dictionary_path: Optional[Path] = None, blind: bool = False):
-    """Make, save and return one prior (and its context)."""
+def dataset_context(dataset: str, dictionary_path: Optional[Path] = None) -> GuidanceContext:
+    """A dataset's guidance context: loaded, with its data dictionary."""
     from datasets import load
     import protocol
     ds = load(dataset, max_rows=protocol.ROW_CAP)
     dpath = dictionary_path or PRIORS_DIR / "dictionaries" / f"{dataset}.json"
     dictionary = json.loads(dpath.read_text(encoding="utf-8")) if dpath.is_file() else None
-    ctx = context_for(ds, dictionary)
+    return context_for(ds, dictionary)
+
+
+def make_one(dataset: str, model: str, scrambled: bool, log: CallLog, out: Path,
+             dictionary_path: Optional[Path] = None, blind: bool = False,
+             ctx: Optional[GuidanceContext] = None):
+    """Make, save and return one prior (and its context)."""
+    ctx = ctx or dataset_context(dataset, dictionary_path)
     prior = LLMFeaturePrior(log, model, scrambled=scrambled, blind=blind)
     scores = prior(ctx)
     save_prior(out, dataset, ctx, prior, scores)

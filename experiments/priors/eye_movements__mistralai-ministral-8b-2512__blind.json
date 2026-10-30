@@ -1,0 +1,116 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:33.749067+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "mistralai/ministral-8b-2512",
+ "scrambled": true,
+ "blind": true,
+ "permutation": [
+  1,
+  3,
+  18,
+  13,
+  19,
+  4,
+  7,
+  10,
+  8,
+  16,
+  0,
+  17,
+  9,
+  14,
+  6,
+  12,
+  2,
+  11,
+  5,
+  15
+ ],
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "f6279256f4b9759d9c976f5688b8313207009974045bbab4f6a99b439ea5f965",
+   "served_model": "mistralai/ministral-8b-2512",
+   "usage": {
+    "prompt_tokens": 332,
+    "completion_tokens": 566,
+    "total_tokens": 898,
+    "cost": 0.00011742,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 128,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00011742,
+     "upstream_inference_prompt_cost": 3.252e-05,
+     "upstream_inference_completions_cost": 8.49e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,  // Likely related to dwell time or fixation duration (longer fixations may indicate relevance or interest in the title's content).\n    \"1\": 0.7,  // Possibly related to saccade amplitude or movement patterns (e.g., back-and-forth scanning may indicate confusion or relevance).\n    \"2\": 0.9,  // Likely regression path length (how often the reader revisits the word, suggesting importance or uncertainty).\n    \"3\": 0.6,  // Could be gaze angle or direction (e.g., left-to-right vs. random scanning, hinting at processing strategy).\n    \"4\": 0.5,  // Possibly pupil dilation (arousal or cognitive load, but less direct for classification).\n    \"5\": 0.8,  // Likely fixation count (more fixations may correlate with deeper processing of relevant/answer titles).\n    \"6\": 0.7,  // Could be total reading time (longer time may indicate relevance or confusion).\n    \"7\": 0.4,  // Possibly blink rate (less directly tied to semantic relevance).\n    \"8\": 0.6,  // Could be smooth pursuit speed (less directly relevant unless tied to scanning patterns).\n    \"9\": 0.5,  // Possibly gaze duration variance (mixed signal, but may hint at uncertainty).\n    \"10\": 0.7,  // Likely fixation sequence (order of fixations may reveal processing strategy for relevance).\n    \"11\": 0.6,  // Could be dwell time variance (variability may indicate confusion or deeper analysis).\n    \"12\": 0.8,  // Likely skip probability (skipping words may differ between relevant/irrelevant titles).\n    \"13\": 0.5,  // Possibly saccade latency (less directly tied to semantic relevance).\n    \"14\": 0.4,  // Could be head movement (less relevant unless tied to gaze).\n    \"15\": 0.6,  // Possibly fixation density (local concentration of gaze, but less clear).\n    \"16\": 0.7,  // Likely re-fixation probability (revisiting words may indicate importance).\n    \"17\": 0.5,  // Could be gaze angle dispersion (less directly relevant).\n    \"18\": 0.4,  // Possibly blink timing (less informative).\n    \"19\": 0.6   // Could be gaze stability (less directly tied to semantic relevance)\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.4,
+ "scores": [
+  0.7,
+  0.8,
+  0.7,
+  0.7,
+  0.8,
+  0.4,
+  0.4,
+  0.7,
+  0.6,
+  0.8,
+  0.4,
+  0.5,
+  0.6,
+  0.6,
+  0.5,
+  0.6,
+  0.5,
+  0.6,
+  0.9,
+  0.5
+ ]
+}

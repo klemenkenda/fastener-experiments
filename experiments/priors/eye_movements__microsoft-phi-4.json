@@ -1,0 +1,95 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:34.633425+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "microsoft/phi-4",
+ "scrambled": false,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "fb43b6ce002d96892f21411f6366974adfe543c79dddf41ea48b7cd011587b4f",
+   "served_model": "microsoft/phi-4",
+   "usage": {
+    "prompt_tokens": 394,
+    "completion_tokens": 475,
+    "total_tokens": 869,
+    "cost": 9.408e-05,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 9.408e-05,
+     "upstream_inference_prompt_cost": 2.758e-05,
+     "upstream_inference_completions_cost": 6.65e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.1,\n    \"1\": 0.1,\n    \"2\": 0.7,\n    \"3\": 0.8,\n    \"4\": 0.8,\n    \"5\": 0.6,\n    \"6\": 0.5,\n    \"7\": 0.5,\n    \"8\": 0.6,\n    \"9\": 0.7,\n    \"10\": 0.6,\n    \"11\": 0.8,\n    \"12\": 0.7,\n    \"13\": 0.6,\n    \"14\": 0.6,\n    \"15\": 0.7,\n    \"16\": 0.7,\n    \"17\": 0.7,\n    \"18\": 0.1,\n    \"19\": 0.1\n  }\n}\n```\n\n### Explanation:\n- **lineNo, assgNo, titleNo, wordNo (0, 1, 18, 19):** These features are identifiers and do not inherently contain information about the relevance of the title to the question. They are likely to be less useful for classification.\n- **Fixation Durations (2, 3, 4, 5, 11, 12):** These features are likely to be quite useful as they directly relate to how long a reader focuses on each word, which can indicate relevance or irrelevance.\n- **Saccade Lengths (6, 7):** These features provide information about the movement between fixations, which can be moderately useful.\n- **Fixation Positions (8, 9, 10):** These features can indicate where within a word the reader's attention is focused, which might be useful for understanding relevance.\n- **Regression Length and Duration (13, 14):** These features indicate when a reader goes back to re-read, which can be useful for understanding confusion or relevance.\n- **Pupil Diameter (15, 16):** Changes in pupil size can be indicative of cognitive load or interest, making these features moderately useful.\n- **Time Protection (17):** This feature indicates the proportion of time spent on a word, which can be useful for understanding focus and relevance.",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.1,
+ "scores": [
+  0.1,
+  0.1,
+  0.7,
+  0.8,
+  0.8,
+  0.6,
+  0.5,
+  0.5,
+  0.6,
+  0.7,
+  0.6,
+  0.8,
+  0.7,
+  0.6,
+  0.6,
+  0.7,
+  0.7,
+  0.7,
+  0.1,
+  0.1
+ ]
+}

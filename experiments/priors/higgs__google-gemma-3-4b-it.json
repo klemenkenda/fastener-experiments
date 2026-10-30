@@ -1,0 +1,111 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-30T02:37:57.594299+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "google/gemma-3-4b-it",
+ "scrambled": false,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "5fca8b5b3f553a08f186c34f7f54874ca7f35796b1fbadcf49125aa89e0cf9dc",
+   "served_model": "google/gemma-3-4b-it",
+   "usage": {
+    "prompt_tokens": 454,
+    "completion_tokens": 315,
+    "total_tokens": 769,
+    "cost": 5.42e-05,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 5.42e-05,
+     "upstream_inference_prompt_cost": 2.27e-05,
+     "upstream_inference_completions_cost": 3.15e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.7,\n    \"2\": 0.7,\n    \"3\": 0.9,\n    \"4\": 0.6,\n    \"5\": 0.6,\n    \"6\": 0.6,\n    \"7\": 0.6,\n    \"8\": 0.5,\n    \"9\": 0.6,\n    \"10\": 0.6,\n    \"11\": 0.6,\n    \"12\": 0.5,\n    \"13\": 0.6,\n    \"14\": 0.6,\n    \"15\": 0.6,\n    \"16\": 0.5,\n    \"17\": 0.6,\n    \"18\": 0.6,\n    \"19\": 0.6,\n    \"20\": 0.5,\n    \"21\": 0.8,\n    \"22\": 0.7,\n    \"23\": 0.7,\n    \"24\": 0.7,\n    \"25\": 0.7,\n    \"26\": 0.6,\n    \"27\": 0.6\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.5,
+ "scores": [
+  0.8,
+  0.7,
+  0.7,
+  0.9,
+  0.6,
+  0.6,
+  0.6,
+  0.6,
+  0.5,
+  0.6,
+  0.6,
+  0.6,
+  0.5,
+  0.6,
+  0.6,
+  0.6,
+  0.5,
+  0.6,
+  0.6,
+  0.6,
+  0.5,
+  0.8,
+  0.7,
+  0.7,
+  0.7,
+  0.7,
+  0.6,
+  0.6
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-30T02:38:22.672548+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "openai/gpt-6-luna",
+ "scrambled": false,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "46d69a2ea3ec2846ed3c823f8ad77476b4483053bfbb3089315ffe8e785c54e5",
+   "served_model": "openai/gpt-6-luna",
+   "usage": {
+    "prompt_tokens": 414,
+    "completion_tokens": 1290,
+    "total_tokens": 1704,
+    "cost": 0.0006864,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0006864,
+     "upstream_inference_prompt_cost": 4.14e-05,
+     "upstream_inference_completions_cost": 0.000645
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 1113,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "{\"scores\":{\"0\":0.35,\"1\":0.12,\"2\":0.05,\"3\":0.42,\"4\":0.08,\"5\":0.38,\"6\":0.14,\"7\":0.06,\"8\":0.55,\"9\":0.36,\"10\":0.13,\"11\":0.06,\"12\":0.55,\"13\":0.32,\"14\":0.12,\"15\":0.05,\"16\":0.48,\"17\":0.28,\"18\":0.11,\"19\":0.05,\"20\":0.42,\"21\":0.58,\"22\":0.62,\"23\":0.40,\"24\":0.70,\"25\":0.67,\"26\":0.78,\"27\":0.75}}",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.05,
+ "scores": [
+  0.35,
+  0.12,
+  0.05,
+  0.42,
+  0.08,
+  0.38,
+  0.14,
+  0.06,
+  0.55,
+  0.36,
+  0.13,
+  0.06,
+  0.55,
+  0.32,
+  0.12,
+  0.05,
+  0.48,
+  0.28,
+  0.11,
+  0.05,
+  0.42,
+  0.58,
+  0.62,
+  0.4,
+  0.7,
+  0.67,
+  0.78,
+  0.75
+ ]
+}

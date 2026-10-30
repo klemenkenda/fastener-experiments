@@ -1,0 +1,99 @@
+{
+ "dataset": "heloc",
+ "created_utc": "2026-10-30T02:54:36.866921+00:00",
+ "n_features": 22,
+ "feature_names": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "model": "mistralai/ministral-8b-2512",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "ea4f5ad5b770f935d3ef45cc5e9edc2245140dc05f692a2646e5256fe8819d36",
+   "served_model": "mistralai/ministral-8b-2512",
+   "usage": {
+    "prompt_tokens": 411,
+    "completion_tokens": 886,
+    "total_tokens": 1297,
+    "cost": 0.00017727,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 128,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00017727,
+     "upstream_inference_prompt_cost": 4.437e-05,
+     "upstream_inference_completions_cost": 0.0001329
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.9,  // Likely **Num of Revolving Trades** or **Num of Installment Trades** (high delinquency risk correlates with more accounts)\n    \"1\": 0.85, // Likely **Num of Delinquent Trades (Delq)** or **Num of Derogatory Marks (Derog)** (directly tied to repayment risk)\n    \"2\": 0.8,  // Likely **Num of Credit Inquiries (Inq)** (excessive inquiries may indicate financial distress)\n    \"3\": 0.75, // Likely **Avg Revolving Balance Burden (Percent of limit used)** (high utilization = higher risk)\n    \"4\": 0.7,  // Likely **Num of Revolving Trades 30+ Days Delinquent (Delq)** or **Num of Installment Trades 30+ Days Delinquent**\n    \"5\": 0.65, // Likely **Num of Revolving Trades 60+ Days Delinquent (Delq)** or **Num of Installment Trades 60+ Days Delinquent**\n    \"6\": 0.6,  // Likely **Num of Revolving Trades 90+ Days Delinquent (Delq)** or **Num of Installment Trades 90+ Days Delinquent**\n    \"7\": 0.55, // Likely **Num of Revolving Trades with Derogatory Marks (Derog)** or **Num of Installment Trades with Derogatory Marks**\n    \"8\": 0.5,  // Likely **Num of Revolving Trades Open (Num)** or **Num of Installment Trades Open (Num)** (mixed signal\u2014could indicate stability or over-leveraging)\n    \"9\": 0.45, // Likely **Num of Revolving Trades Closed (Num)** (may indicate past financial stress)\n    \"10\": 0.4, // Likely **Avg Revolving Balance (Num)** or **Avg Installment Balance (Num)** (high balances = higher risk)\n    \"11\": 0.35, // Likely **Num of Revolving Trades with Late Payments (Delq)** or **Num of Installment Trades with Late Payments**\n    \"12\": 0.3,  // Likely **Num of Revolving Trades with High Burden (Percent)** or **Num of Installment Trades with High Burden**\n    \"13\": 0.25, // Likely **Num of Revolving Trades with Low Burden (Percent)** (may indicate underutilization, but less predictive)\n    \"14\": 0.2,  // Likely **Num of Revolving Trades with No Activity (Inactive)** (mixed signal\u2014could indicate low risk or past financial issues)\n    \"15\": 0.15, // Likely **Num of Revolving Trades with Recent Activity (M)** (less predictive unless combined with other features)\n    \"16\": 0.1,  // Likely **Num of Installment Trades with No Activity (Inactive)** (similar to 14)\n    \"17\": 0.05, // Likely **Num of Revolving Trades with Very Low Burden (Percent)** (low predictive power)\n    \"18\": 0.0,  // Likely **Num of Revolving Trades with Very High Burden (Percent)** (may be redundant with feature 12)\n    \"19\": 0.0,  // Likely **ExternalRiskEstimate** (if not already a consolidated score, may be redundant)\n    \"20\": 0.0,  // Likely **Num of Revolving Trades with Minimal Delinquency (Delq)** (low predictive power)\n    \"21\": 0.0   // Likely **Num of Installment Trades with Minimal Burden (Percent)** (low predictive power)\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.0,
+ "scores": [
+  0.9,
+  0.85,
+  0.8,
+  0.75,
+  0.7,
+  0.65,
+  0.6,
+  0.55,
+  0.5,
+  0.45,
+  0.4,
+  0.35,
+  0.3,
+  0.25,
+  0.2,
+  0.15,
+  0.1,
+  0.05,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ]
+}

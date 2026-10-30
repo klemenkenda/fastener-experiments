@@ -1,0 +1,95 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:33.625773+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "mistralai/ministral-8b-2512",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "20f931f0afb0bf779f0741f826473efd9fd351497c4c0886a24757330f25823b",
+   "served_model": "mistralai/ministral-8b-2512",
+   "usage": {
+    "prompt_tokens": 421,
+    "completion_tokens": 651,
+    "total_tokens": 1072,
+    "cost": 0.0001608,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0001608,
+     "upstream_inference_prompt_cost": 6.315e-05,
+     "upstream_inference_completions_cost": 9.765e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,  // Likely **Fixation durations (e.g., first-pass, total, mean)** \u2013 critical for assessing processing depth, relevance, or answer verification.\n    \"1\": 0.7,  // Likely **Saccade lengths (Sacc...Len)** \u2013 may indicate skimming vs. careful reading (e.g., longer saccades for irrelevant titles).\n    \"2\": 0.9,  // Likely **Fixation positions within the word** \u2013 critical for parsing semantic role (e.g., question words vs. answer keywords).\n    \"3\": 0.6,  // Likely **Regression length/duration** \u2013 useful for detecting backtracking (e.g., verifying relevance or correcting misalignment).\n    \"4\": 0.5,  // Likely **Pupil diameter (max/lag)** \u2013 correlates with cognitive load (e.g., higher for relevant/answer titles).\n    \"5\": 0.4,  // Likely **Pupil share of time** \u2013 secondary to max/lag but may reinforce cognitive load signals.\n    \"6\": 0.3,  // **lineNo** \u2013 unlikely to be informative for per-word processing.\n    \"7\": 0.3,  // **assgNo** \u2013 unlikely to be informative for per-word processing.\n    \"8\": 0.3,  // **titleNo** \u2013 unlikely to be informative for per-word processing.\n    \"9\": 0.3,  // **wordNo** \u2013 unlikely to be informative for per-word processing.\n    \"10\": 0.7, // Likely **Fixation durations (next/previous)** \u2013 helps track sequential processing (e.g., question vs. answer flow).\n    \"11\": 0.6, // Likely **Saccade lengths (additional metrics)** \u2013 may complement \"0\" for skimming vs. scrutiny.\n    \"12\": 0.5, // Likely **Fixation durations (first)** \u2013 critical for initial processing (e.g., question words vs. filler).\n    \"13\": 0.4, // Likely **Fixation durations (total)** \u2013 aggregates processing effort (relevant vs. irrelevant).\n    \"14\": 0.4, // Likely **Fixation durations (mean)** \u2013 secondary to total but may smooth noise.\n    \"15\": 0.3, // Likely **Regression duration** \u2013 useful but less direct than length.\n    \"16\": 0.2, // Likely **Pupil diameter (lag)** \u2013 secondary to max diameter.\n    \"17\": 0.2, // Likely **Pupil share of time (redundant)** \u2013 overlaps with max/lag.\n    \"18\": 0.1, // **Unmapped feature (likely noise)** \u2013 no clear domain signal.\n    \"19\": 0.1  // **Unmapped feature (likely noise)** \u2013 no clear domain signal\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.1,
+ "scores": [
+  0.8,
+  0.7,
+  0.9,
+  0.6,
+  0.5,
+  0.4,
+  0.3,
+  0.3,
+  0.3,
+  0.3,
+  0.7,
+  0.6,
+  0.5,
+  0.4,
+  0.4,
+  0.3,
+  0.2,
+  0.2,
+  0.1,
+  0.1
+ ]
+}

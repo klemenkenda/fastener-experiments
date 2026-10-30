@@ -1,0 +1,111 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-30T02:38:08.311504+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "microsoft/phi-4",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "d2b2b1e982a8b5885dea9d8bf6221da9f1753587a285e216f7714bb5cce78ac1",
+   "served_model": "microsoft/phi-4",
+   "usage": {
+    "prompt_tokens": 408,
+    "completion_tokens": 683,
+    "total_tokens": 1091,
+    "cost": 0.00012418,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00012418,
+     "upstream_inference_prompt_cost": 2.856e-05,
+     "upstream_inference_completions_cost": 9.562e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,  // transverse momentum (pT) of lepton\n    \"1\": 0.6,  // pseudorapidity (eta) of lepton\n    \"2\": 0.5,  // azimuth (phi) of lepton\n    \"3\": 0.7,  // transverse momentum (pT) of jet 1\n    \"4\": 0.6,  // pseudorapidity (eta) of jet 1\n    \"5\": 0.5,  // azimuth (phi) of jet 1\n    \"6\": 0.8,  // jet 1 b-tag\n    \"7\": 0.7,  // transverse momentum (pT) of jet 2\n    \"8\": 0.6,  // pseudorapidity (eta) of jet 2\n    \"9\": 0.5,  // azimuth (phi) of jet 2\n    \"10\": 0.8, // jet 2 b-tag\n    \"11\": 0.7, // transverse momentum (pT) of jet 3\n    \"12\": 0.6, // pseudorapidity (eta) of jet 3\n    \"13\": 0.5, // azimuth (phi) of jet 3\n    \"14\": 0.8, // jet 3 b-tag\n    \"15\": 0.7, // transverse momentum (pT) of jet 4\n    \"16\": 0.6, // pseudorapidity (eta) of jet 4\n    \"17\": 0.5, // azimuth (phi) of jet 4\n    \"18\": 0.8, // jet 4 b-tag\n    \"19\": 0.9, // missing transverse energy magnitude\n    \"20\": 0.5, // missing transverse energy azimuth\n    \"21\": 0.9, // invariant mass m_jj\n    \"22\": 0.9, // invariant mass m_jjj\n    \"23\": 0.8, // invariant mass m_lv\n    \"24\": 0.9, // invariant mass m_jlv\n    \"25\": 0.9, // invariant mass m_bb\n    \"26\": 0.9, // invariant mass m_wbb\n    \"27\": 0.9  // invariant mass m_wwbb\n  }\n}\n```\n\n### Explanation:\n- **Transverse momentum (pT) and b-tag features** are highly relevant as they directly relate to the energy and identification of b-jets, which are crucial in Higgs boson events.\n- **Invariant masses** are derived from combinations of particles and are directly related to the presence of the Higgs boson, making them very useful.\n- **Pseudorapidity (eta) and azimuth (phi)** provide spatial information but are generally less directly indicative of the Higgs boson presence compared to pT and invariant masses.\n- **Missing transverse energy magnitude** is crucial for identifying events with neutrinos, which are common in Higgs decays.",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.5,
+ "scores": [
+  0.7,
+  0.6,
+  0.5,
+  0.7,
+  0.6,
+  0.5,
+  0.8,
+  0.7,
+  0.6,
+  0.5,
+  0.8,
+  0.7,
+  0.6,
+  0.5,
+  0.8,
+  0.7,
+  0.6,
+  0.5,
+  0.8,
+  0.9,
+  0.5,
+  0.9,
+  0.9,
+  0.8,
+  0.9,
+  0.9,
+  0.9,
+  0.9
+ ]
+}

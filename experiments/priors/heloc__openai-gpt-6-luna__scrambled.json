@@ -1,0 +1,99 @@
+{
+ "dataset": "heloc",
+ "created_utc": "2026-10-30T02:54:58.693704+00:00",
+ "n_features": 22,
+ "feature_names": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "model": "openai/gpt-6-luna",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "89568d6078e072659fa4f504901404c616725ee5d5d2e896cb3912e49ffe533c",
+   "served_model": "openai/gpt-6-luna",
+   "usage": {
+    "prompt_tokens": 372,
+    "completion_tokens": 1980,
+    "total_tokens": 2352,
+    "cost": 0.0010272,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0010272,
+     "upstream_inference_prompt_cost": 3.72e-05,
+     "upstream_inference_completions_cost": 0.00099
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 1839,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "{\"scores\":{\"0\":0.99,\"1\":0.40,\"2\":0.35,\"3\":0.47,\"4\":0.59,\"5\":0.62,\"6\":0.65,\"7\":0.77,\"8\":0.57,\"9\":0.68,\"10\":0.73,\"11\":0.48,\"12\":0.43,\"13\":0.29,\"14\":0.40,\"15\":0.58,\"16\":0.53,\"17\":0.86,\"18\":0.67,\"19\":0.51,\"20\":0.40,\"21\":0.75}}",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.29,
+ "scores": [
+  0.99,
+  0.4,
+  0.35,
+  0.47,
+  0.59,
+  0.62,
+  0.65,
+  0.77,
+  0.57,
+  0.68,
+  0.73,
+  0.48,
+  0.43,
+  0.29,
+  0.4,
+  0.58,
+  0.53,
+  0.86,
+  0.67,
+  0.51,
+  0.4,
+  0.75
+ ]
+}

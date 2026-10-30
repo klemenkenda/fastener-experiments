@@ -1,0 +1,95 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:43.487570+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "google/gemini-2.5-flash-lite",
+ "scrambled": false,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "7732f64f8ac45a0256ed1e69287a75bde0fa3b6d4a72a287e673baf419b56a81",
+   "served_model": "google/gemini-2.5-flash-lite",
+   "usage": {
+    "prompt_tokens": 399,
+    "completion_tokens": 925,
+    "total_tokens": 1324,
+    "cost": 0.0004099,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0004099,
+     "upstream_inference_prompt_cost": 3.99e-05,
+     "upstream_inference_completions_cost": 0.00037
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "The task is to distinguish between two types of news article titles based on eye movement data. The titles are categorized as either following a question and being irrelevant, relevant, or the correct answer to it. The classes are simplified to two, implying a binary classification. The features are all related to eye movements (fixation durations, saccade lengths, fixation positions, regressions, pupil diameter, time percentage) and some positional information (line number, assignment number, title number, word number).\n\nHere's a breakdown of the likely usefulness of each feature:\n\n*   **Positional Features (0, 1, 18, 19):** `lineNo`, `assgNo`, `titleNo`, `wordNo`. These are unlikely to be directly useful for distinguishing title *types* based on their content or relevance. They are more about the structure of the data presentation. Score: 0.1.\n*   **Fixation Durations (2, 3, 4, 5, 11, 12):** `prevFixDur`, `firstFixDur`, `firstPassFixDur`, `nextFixDur`, `totalFixDur`, `meanFixDur`. These features capture how long a reader's gaze lingers on a word. It's plausible that readers might spend different amounts of time fixating on words in titles that are relevant or answer a question compared to those that are irrelevant. For example, a relevant title might elicit more focused reading. Score: 0.7.\n*   **Saccade Lengths (6, 7):** `firstSaccLen`, `lastSaccLen`. Saccades are eye movements between fixations. The length of these movements could potentially differ if readers are scanning for specific information (relevant/answer) versus just passively reading. Score: 0.6.\n*   **Fixation Positions (8, 9, 10):** `prevFixPos`, `landingPos`, `leavingPos`. Where the eye lands and leaves a word, and the position relative to the previous fixation, can indicate processing depth or attention. A reader might fixate differently on words in a relevant title. Score: 0.6.\n*   **Regression Features (13, 14):** `regressLen`, `regressDur`. Regressions (moving backward) often indicate re-reading or confusion. If a title is relevant or an answer, readers might be more likely to re-read parts to confirm understanding. Score: 0.7.\n*   **Pupil Diameter Features (15, 16):** `pupilDiamMax`, `pupilDiamLag`. Pupil diameter can be related to cognitive effort and arousal. Processing a relevant or answering title might require more cognitive effort, potentially reflected in pupil size. Score: 0.7.\n*   **Time Percentage (17):** `timePrtctg`. This feature represents the share of time spent on a word. Similar to fixation durations, it can indicate how much attention is paid to a word. Score: 0.7.\n\nOverall, the eye movement features (fixation durations, saccade lengths, positions, regressions, pupil diameter, time percentage) are the most likely to capture differences in cognitive processing related to the relevance or answering nature of the title. The positional features are less likely to be informative.\n\n```json\n{\n  \"scores\": {\n    \"0\": 0.1,\n    \"1\": 0.1,\n    \"2\": 0.7,\n    \"3\": 0.7,\n    \"4\": 0.7,\n    \"5\": 0.7,\n    \"6\": 0.6,\n    \"7\": 0.6,\n    \"8\": 0.6,\n    \"9\": 0.6,\n    \"10\": 0.6,\n    \"11\": 0.7,\n    \"12\": 0.7,\n    \"13\": 0.7,\n    \"14\": 0.7,\n    \"15\": 0.7,\n    \"16\": 0.7,\n    \"17\": 0.7,\n    \"18\": 0.1,\n    \"19\": 0.1\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.1,
+ "scores": [
+  0.1,
+  0.1,
+  0.7,
+  0.7,
+  0.7,
+  0.7,
+  0.6,
+  0.6,
+  0.6,
+  0.6,
+  0.6,
+  0.7,
+  0.7,
+  0.7,
+  0.7,
+  0.7,
+  0.7,
+  0.7,
+  0.1,
+  0.1
+ ]
+}

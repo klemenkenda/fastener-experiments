@@ -1,0 +1,99 @@
+{
+ "dataset": "heloc",
+ "created_utc": "2026-10-30T02:54:40.112564+00:00",
+ "n_features": 22,
+ "feature_names": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "model": "google/gemini-2.5-flash-lite",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "186a1b79006c0f732715be7f37a7feccc8169a0f7f6dc5138c3841e026f9f7ea",
+   "served_model": "google/gemini-2.5-flash-lite",
+   "usage": {
+    "prompt_tokens": 402,
+    "completion_tokens": 391,
+    "total_tokens": 793,
+    "cost": 0.0001966,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.0001966,
+     "upstream_inference_prompt_cost": 4.02e-05,
+     "upstream_inference_completions_cost": 0.0001564
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "The user wants me to rate the usefulness of 22 features for predicting HELOC repayment risk. I need to provide a JSON object with scores for each feature index from 0 to 21.\n\nSince the feature names are generic (`feature_00` to `feature_21`) and no descriptions are provided for them, I cannot infer their meaning or relevance to predicting credit risk. Without any information about what these features represent, I must assume they are equally uninformative.\n\nTherefore, I will assign a low, uniform score to all features, indicating that based on the provided information, their usefulness cannot be determined and is likely minimal without further context. A score of 0.1 is a reasonable choice to represent this uncertainty and lack of information.\n\n```json\n{\"scores\": {\n    \"0\": 0.1,\n    \"1\": 0.1,\n    \"2\": 0.1,\n    \"3\": 0.1,\n    \"4\": 0.1,\n    \"5\": 0.1,\n    \"6\": 0.1,\n    \"7\": 0.1,\n    \"8\": 0.1,\n    \"9\": 0.1,\n    \"10\": 0.1,\n    \"11\": 0.1,\n    \"12\": 0.1,\n    \"13\": 0.1,\n    \"14\": 0.1,\n    \"15\": 0.1,\n    \"16\": 0.1,\n    \"17\": 0.1,\n    \"18\": 0.1,\n    \"19\": 0.1,\n    \"20\": 0.1,\n    \"21\": 0.1\n}}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.1,
+ "scores": [
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.1
+ ]
+}

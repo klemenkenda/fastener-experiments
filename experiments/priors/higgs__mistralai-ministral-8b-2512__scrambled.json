@@ -1,0 +1,111 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-30T02:38:02.806019+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "mistralai/ministral-8b-2512",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "49d54a96f09d5c7f88d2ce8e2684fbfa9504a53667b0392dbe041faf7564a5ca",
+   "served_model": "mistralai/ministral-8b-2512",
+   "usage": {
+    "prompt_tokens": 453,
+    "completion_tokens": 850,
+    "total_tokens": 1303,
+    "cost": 0.00017817,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 128,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00017817,
+     "upstream_inference_prompt_cost": 5.067e-05,
+     "upstream_inference_completions_cost": 0.0001275
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.9,  // Likely **m_bb** (invariant mass of b-tagged jets, key for Higgs \u2192 bb decay)\n    \"1\": 0.85, // Likely **m_wbb** (invariant mass of W + bb system, useful for H \u2192 Wb \u2192 l\u03bdbb)\n    \"2\": 0.8,  // Likely **m_wwbb** (invariant mass of WW + bb, discriminates against QCD backgrounds)\n    \"3\": 0.75, // Likely **m_jj** (dijet mass, useful for background rejection)\n    \"4\": 0.7,  // Likely **m_jjj** (trijet mass, helps distinguish jet topologies)\n    \"5\": 0.65, // Likely **m_lv** (lepton-\u03bd invariant mass, key for W \u2192 l\u03bd decay)\n    \"6\": 0.6,  // Likely **m_jlv** (jet-lepton-\u03bd invariant mass, useful for H \u2192 Wb \u2192 l\u03bdjj)\n    \"7\": 0.55, // Likely **pT of lepton** (high pT leptons are more likely in signal)\n    \"8\": 0.5,  // Likely **pT of leading jet** (high pT jets are more common in signal)\n    \"9\": 0.45, // Likely **eta of lepton** (centrality helps distinguish signal)\n    \"10\": 0.4, // Likely **phi of lepton** (directional info, less discriminative alone)\n    \"11\": 0.35, // Likely **pT of missing transverse energy (MET)** (high MET suggests neutrinos, e.g., W \u2192 l\u03bd)\n    \"12\": 0.3,  // Likely **eta of leading jet** (moderate discriminative power)\n    \"13\": 0.25, // Likely **phi of leading jet** (directional info, less useful alone)\n    \"14\": 0.2,  // Likely **b-tag of leading jet** (moderate discriminative power)\n    \"15\": 0.15, // Likely **pT of second jet** (less discriminative than leading jet)\n    \"16\": 0.1,  // Likely **eta of second jet** (low discriminative power)\n    \"17\": 0.05, // Likely **phi of second jet** (low discriminative power)\n    \"18\": 0.0,  // Likely **b-tag of second jet** (low discriminative power unless combined with others)\n    \"19\": 0.0,  // Likely **pT of third jet** (low discriminative power)\n    \"20\": 0.0,  // Likely **eta of third jet** (low discriminative power)\n    \"21\": 0.0,  // Likely **phi of third jet** (low discriminative power)\n    \"22\": 0.0,  // Likely **b-tag of third jet** (low discriminative power)\n    \"23\": 0.0,  // Likely **pT of fourth jet** (low discriminative power)\n    \"24\": 0.0,  // Likely **eta of fourth jet** (low discriminative power)\n    \"25\": 0.0,  // Likely **phi of fourth jet** (low discriminative power)\n    \"26\": 0.0,  // Likely **b-tag of fourth jet** (low discriminative power)\n    \"27\": 0.05  // Likely **phi of MET** (directional info, low discriminative power)\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.0,
+ "scores": [
+  0.9,
+  0.85,
+  0.8,
+  0.75,
+  0.7,
+  0.65,
+  0.6,
+  0.55,
+  0.5,
+  0.45,
+  0.4,
+  0.35,
+  0.3,
+  0.25,
+  0.2,
+  0.15,
+  0.1,
+  0.05,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.05
+ ]
+}

@@ -1,0 +1,122 @@
+{
+ "dataset": "heloc",
+ "created_utc": "2026-10-30T02:54:23.369964+00:00",
+ "n_features": 22,
+ "feature_names": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "model": "google/gemma-3-4b-it",
+ "scrambled": true,
+ "blind": true,
+ "permutation": [
+  1,
+  3,
+  20,
+  10,
+  13,
+  4,
+  7,
+  21,
+  14,
+  17,
+  8,
+  18,
+  0,
+  19,
+  9,
+  16,
+  6,
+  12,
+  2,
+  11,
+  5,
+  15
+ ],
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "c7ae7bd3419280ff9079efc62afda5c3343b310fc06e68edf6029ce1587dec6a",
+   "served_model": "google/gemma-3-4b-it",
+   "usage": {
+    "prompt_tokens": 340,
+    "completion_tokens": 247,
+    "total_tokens": 587,
+    "cost": 2.595e-05,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 2.595e-05,
+     "upstream_inference_prompt_cost": 1.36e-05,
+     "upstream_inference_completions_cost": 1.235e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "\n```json\n{\n  \"0\": 0.3,\n  \"1\": 0.4,\n  \"2\": 0.35,\n  \"3\": 0.25,\n  \"4\": 0.45,\n  \"5\": 0.3,\n  \"6\": 0.2,\n  \"7\": 0.3,\n  \"8\": 0.4,\n  \"9\": 0.3,\n  \"10\": 0.25,\n  \"11\": 0.35,\n  \"12\": 0.2,\n  \"13\": 0.3,\n  \"14\": 0.4,\n  \"15\": 0.2,\n  \"16\": 0.3,\n  \"17\": 0.4,\n  \"18\": 0.3,\n  \"19\": 0.25,\n  \"20\": 0.3,\n  \"21\": 0.4\n}\n```",
+   "parsed_as": "json-flat",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.2,
+ "scores": [
+  0.2,
+  0.3,
+  0.3,
+  0.4,
+  0.3,
+  0.3,
+  0.3,
+  0.2,
+  0.25,
+  0.4,
+  0.25,
+  0.25,
+  0.4,
+  0.45,
+  0.4,
+  0.4,
+  0.2,
+  0.3,
+  0.35,
+  0.3,
+  0.35,
+  0.3
+ ]
+}

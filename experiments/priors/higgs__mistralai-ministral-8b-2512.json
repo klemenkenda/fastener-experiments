@@ -1,0 +1,111 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-30T02:38:02.183103+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "mistralai/ministral-8b-2512",
+ "scrambled": false,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "f011ff492be26acd2240a238962746e065f0d8e0cfd9c1475781ec4a25e737bd",
+   "served_model": "mistralai/ministral-8b-2512",
+   "usage": {
+    "prompt_tokens": 437,
+    "completion_tokens": 728,
+    "total_tokens": 1165,
+    "cost": 0.00017475,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00017475,
+     "upstream_inference_prompt_cost": 6.555e-05,
+     "upstream_inference_completions_cost": 0.0001092
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,  // lepton_pT - Highly discriminative for signal (Higgs decaying to leptons + jets)\n    \"1\": 0.7,  // lepton_eta - Useful for kinematic separation\n    \"2\": 0.6,  // lepton_phi - Less critical than pT/eta but still relevant\n    \"3\": 0.9,  // missing_energy_magnitude - Critical for signal (neutrinos in leptonic decays)\n    \"4\": 0.6,  // missing_energy_phi - Useful for angular correlations\n    \"5\": 0.7,  // jet1pt - Key for jet kinematics in signal\n    \"6\": 0.6,  // jet1eta - Secondary but useful for event topology\n    \"7\": 0.5,  // jet1phi - Less critical than pT/eta\n    \"8\": 0.85, // jet1b-tag - Extremely useful (Higgs \u2192 bb\u0304 decay)\n    \"9\": 0.7,  // jet2pt - Important for multi-jet events\n    \"10\": 0.6, // jet2eta - Secondary but useful\n    \"11\": 0.5, // jet2phi - Less critical\n    \"12\": 0.8, // jet2b-tag - Highly useful (second b-tag in signal)\n    \"13\": 0.6, // jet3pt - Useful for higher-multiplicity jets\n    \"14\": 0.5, // jet3eta - Secondary\n    \"15\": 0.4, // jet3phi - Less critical\n    \"16\": 0.7, // jet3b-tag - Useful if b-tagged (signal often has \u22652 b-jets)\n    \"17\": 0.5, // jet4pt - Secondary but may help in complex events\n    \"18\": 0.4, // jet4eta - Less critical\n    \"19\": 0.4, // jet4phi - Less critical\n    \"20\": 0.6, // jet4b-tag - Useful if b-tagged (signal often has \u22652 b-jets)\n    \"21\": 0.9, // m_jj - Critical for dijet mass (Higgs \u2192 bb\u0304)\n    \"22\": 0.8, // m_jjj - Useful for trijet systems (signal topology)\n    \"23\": 0.95, // m_lv - Extremely useful (Higgs \u2192 W \u2192 lv + jets)\n    \"24\": 0.85, // m_jlv - Highly discriminative (Higgs \u2192 W \u2192 lv + jets)\n    \"25\": 0.9, // m_bb - Critical for b-tagged dijet mass (Higgs \u2192 bb\u0304)\n    \"26\": 0.8, // m_wbb - Useful for W + bb\u0304 system (Higgs decay)\n    \"27\": 0.7  // m_wwbb - Useful for full event topology (Higgs \u2192 W \u2192 lv + bb\u0304)\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.4,
+ "scores": [
+  0.8,
+  0.7,
+  0.6,
+  0.9,
+  0.6,
+  0.7,
+  0.6,
+  0.5,
+  0.85,
+  0.7,
+  0.6,
+  0.5,
+  0.8,
+  0.6,
+  0.5,
+  0.4,
+  0.7,
+  0.5,
+  0.4,
+  0.4,
+  0.6,
+  0.9,
+  0.8,
+  0.95,
+  0.85,
+  0.9,
+  0.8,
+  0.7
+ ]
+}

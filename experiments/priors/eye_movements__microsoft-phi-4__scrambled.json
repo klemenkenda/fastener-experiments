@@ -1,0 +1,95 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:37.363985+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "microsoft/phi-4",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "a7846c9b5436d724d4d02a909014d306e9f2609b86f922020e875ca3a9abda29",
+   "served_model": "microsoft/phi-4",
+   "usage": {
+    "prompt_tokens": 393,
+    "completion_tokens": 476,
+    "total_tokens": 869,
+    "cost": 9.415e-05,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 9.415e-05,
+     "upstream_inference_prompt_cost": 2.751e-05,
+     "upstream_inference_completions_cost": 6.664e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,  // Fixation durations are likely to be useful as they can indicate cognitive processing related to relevance.\n    \"1\": 0.6,  // Saccade lengths might be useful as they can reflect the reader's search for information.\n    \"2\": 0.5,  // Fixation positions within the word could provide insights into which parts of the word are more relevant.\n    \"3\": 0.4,  // Regression length and duration might be useful as they can indicate confusion or re-evaluation.\n    \"4\": 0.6,  // Pupil diameter changes can reflect cognitive load and emotional response, potentially useful.\n    \"5\": 0.5,  // Share of time spent might indicate interest or relevance.\n    \"6\": 0.3,  // Line number is less likely to be directly useful for relevance.\n    \"7\": 0.2,  // Assignment number is likely irrelevant to the task.\n    \"8\": 0.2,  // Title number is likely irrelevant to the task.\n    \"9\": 0.2,  // Word number is likely irrelevant to the task.\n    \"10\": 0.7, // Previous fixation duration could indicate continuity in reading and relevance.\n    \"11\": 0.7, // First fixation duration might indicate initial interest or relevance.\n    \"12\": 0.7, // First-pass duration could reflect initial processing and relevance.\n    \"13\": 0.6, // Next fixation duration might indicate forward planning or relevance.\n    \"14\": 0.7, // Total fixation duration is likely very useful as it reflects overall attention.\n    \"15\": 0.7, // Mean fixation duration could indicate average processing time and relevance.\n    \"16\": 0.5, // Maximum pupil diameter might reflect peak cognitive load or emotional response.\n    \"17\": 0.4, // Lag in pupil diameter changes might be less directly useful.\n    \"18\": 0.3, // Regression duration might be useful but less so than other fixation metrics.\n    \"19\": 0.4  // Saccade lengths could be useful but are less direct than fixation metrics.\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.2,
+ "scores": [
+  0.7,
+  0.6,
+  0.5,
+  0.4,
+  0.6,
+  0.5,
+  0.3,
+  0.2,
+  0.2,
+  0.2,
+  0.7,
+  0.7,
+  0.7,
+  0.6,
+  0.7,
+  0.7,
+  0.5,
+  0.4,
+  0.3,
+  0.4
+ ]
+}

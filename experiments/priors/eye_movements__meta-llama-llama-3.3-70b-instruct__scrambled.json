@@ -1,0 +1,95 @@
+{
+ "dataset": "eye_movements",
+ "created_utc": "2026-10-30T02:59:24.677508+00:00",
+ "n_features": 20,
+ "feature_names": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "task": "From a reader's eye movements on a word of a news-article title, tell two kinds of titles apart: the titles follow a question, and are irrelevant to it, relevant, or its correct answer (two of these three classes, as the tabular benchmark keeps them).",
+ "class_names": [
+  "class 0",
+  "class 1"
+ ],
+ "model": "meta-llama/llama-3.3-70b-instruct",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "88fb5e8c56a813d4ec134f4cc0d03da685702169ec957b65fbb7de9f466e5605",
+   "served_model": "meta-llama/llama-3.3-70b-instruct",
+   "usage": {
+    "prompt_tokens": 398,
+    "completion_tokens": 193,
+    "total_tokens": 591,
+    "cost": 0.00018406,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00018406,
+     "upstream_inference_prompt_cost": 8.756e-05,
+     "upstream_inference_completions_cost": 9.65e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```\n{\n  \"scores\": {\n    \"0\": 0.5,\n    \"1\": 0.5,\n    \"2\": 0.5,\n    \"3\": 0.5,\n    \"4\": 0.5,\n    \"5\": 0.5,\n    \"6\": 0.5,\n    \"7\": 0.5,\n    \"8\": 0.5,\n    \"9\": 0.5,\n    \"10\": 0.5,\n    \"11\": 0.5,\n    \"12\": 0.5,\n    \"13\": 0.5,\n    \"14\": 0.5,\n    \"15\": 0.5,\n    \"16\": 0.5,\n    \"17\": 0.5,\n    \"18\": 0.5,\n    \"19\": 0.5\n  }\n}\n```",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.5,
+ "scores": [
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5
+ ]
+}

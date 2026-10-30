@@ -1,0 +1,99 @@
+{
+ "dataset": "heloc",
+ "created_utc": "2026-10-30T02:54:35.511034+00:00",
+ "n_features": 22,
+ "feature_names": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "task": "Predict the repayment risk of a home-equity line of credit applicant (FICO's HELOC data: risk performance Good or Bad, encoded 0/1).",
+ "class_names": [
+  "risk performance class 0",
+  "risk performance class 1"
+ ],
+ "model": "microsoft/phi-4",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "f0ccd8dc2d2afb95e4f10b4ab6b3e4453dd8a31a14a96931d6f47665256d8de3",
+   "served_model": "microsoft/phi-4",
+   "usage": {
+    "prompt_tokens": 375,
+    "completion_tokens": 558,
+    "total_tokens": 933,
+    "cost": 0.00010437,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00010437,
+     "upstream_inference_prompt_cost": 2.625e-05,
+     "upstream_inference_completions_cost": 7.812e-05
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,  // Assuming feature_00 is related to credit score or similar metric\n    \"1\": 0.8,  // Assuming feature_01 is related to income or debt-to-income ratio\n    \"2\": 0.6,  // Assuming feature_02 is related to employment status\n    \"3\": 0.9,  // Assuming feature_03 is related to credit history length\n    \"4\": 0.8,  // Assuming feature_04 is related to number of open credit lines\n    \"5\": 0.9,  // Assuming feature_05 is related to number of recent credit inquiries\n    \"6\": 0.9,  // Assuming feature_06 is related to number of delinquencies\n    \"7\": 0.8,  // Assuming feature_07 is related to percentage of credit utilization\n    \"8\": 0.7,  // Assuming feature_08 is related to number of derogatory marks\n    \"9\": 0.6,  // Assuming feature_09 is related to number of revolving trades\n    \"10\": 0.7, // Assuming feature_10 is related to number of installment trades\n    \"11\": 0.8, // Assuming feature_11 is related to balance relative to credit limit\n    \"12\": 0.9, // Assuming feature_12 is related to external risk estimate\n    \"13\": 0.5, // Assuming feature_13 is related to age of oldest credit line\n    \"14\": 0.6, // Assuming feature_14 is related to number of recent credit inquiries\n    \"15\": 0.7, // Assuming feature_15 is related to number of accounts with balances\n    \"16\": 0.6, // Assuming feature_16 is related to number of accounts past due\n    \"17\": 0.7, // Assuming feature_17 is related to number of accounts in good standing\n    \"18\": 0.5, // Assuming feature_18 is related to number of accounts closed\n    \"19\": 0.6, // Assuming feature_19 is related to number of accounts opened recently\n    \"20\": 0.7, // Assuming feature_20 is related to number of accounts with high utilization\n    \"21\": 0.8  // Assuming feature_21 is related to number of accounts with recent inquiries\n  }\n}\n```\n\nThese scores are based on typical assumptions about the relevance of various credit-related features to predicting repayment risk. Adjustments may be necessary based on the actual definitions of the features.",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.5,
+ "scores": [
+  0.7,
+  0.8,
+  0.6,
+  0.9,
+  0.8,
+  0.9,
+  0.9,
+  0.8,
+  0.7,
+  0.6,
+  0.7,
+  0.8,
+  0.9,
+  0.5,
+  0.6,
+  0.7,
+  0.6,
+  0.7,
+  0.5,
+  0.6,
+  0.7,
+  0.8
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "dataset": "higgs",
+ "created_utc": "2026-10-30T02:38:24.938792+00:00",
+ "n_features": 28,
+ "feature_names": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "task": "Distinguish simulated proton-proton collision events in which a Higgs boson is produced (signal) from background events.",
+ "class_names": [
+  "background",
+  "signal"
+ ],
+ "model": "qwen/qwen3-14b",
+ "scrambled": true,
+ "blind": false,
+ "permutation": null,
+ "temperature": 0.0,
+ "seed": 20200,
+ "instructions": "You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+ "calls": [
+  {
+   "key": "a78dd8a203af8a60ad52af462248ee06e72ea610a3d174eec752bc6c82881d45",
+   "served_model": "qwen/qwen3-14b",
+   "usage": {
+    "prompt_tokens": 460,
+    "completion_tokens": 1052,
+    "total_tokens": 1512,
+    "cost": 0.00030768,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "cache_write_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": 0.00030768,
+     "upstream_inference_prompt_cost": 5.52e-05,
+     "upstream_inference_completions_cost": 0.00025248
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 845,
+     "image_tokens": 0,
+     "audio_tokens": 0
+    }
+   },
+   "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.5, \"2\": 0.5, \"3\": 0.7, \"4\": 0.6, \"5\": 0.8, \"6\": 0.7, \"7\": 0.6, \"8\": 0.5, \"9\": 0.7, \"10\": 0.8, \"11\": 0.7, \"12\": 0.6, \"13\": 0.5, \"14\": 0.7, \"15\": 0.8, \"16\": 0.9, \"17\": 0.8, \"18\": 0.7, \"19\": 0.6, \"20\": 0.5, \"21\": 0.7, \"22\": 0.8, \"23\": 0.9, \"24\": 0.8, \"25\": 0.7, \"26\": 0.6, \"27\": 0.8}}",
+   "parsed_as": "json",
+   "retry": false
+  }
+ ],
+ "missing": [],
+ "fill": 0.5,
+ "scores": [
+  0.6,
+  0.5,
+  0.5,
+  0.7,
+  0.6,
+  0.8,
+  0.7,
+  0.6,
+  0.5,
+  0.7,
+  0.8,
+  0.7,
+  0.6,
+  0.5,
+  0.7,
+  0.8,
+  0.9,
+  0.8,
+  0.7,
+  0.6,
+  0.5,
+  0.7,
+  0.8,
+  0.9,
+  0.8,
+  0.7,
+  0.6,
+  0.8
+ ]
+}
