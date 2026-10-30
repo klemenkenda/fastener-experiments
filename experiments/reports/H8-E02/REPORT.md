@@ -1,6 +1,6 @@
 # H8-E02 -- report
 
-*Hypothesis H8, for the three Anthropic models. H8-E02 is the strict control for part (ii) of H8-E01's criterion. This report reads H8-E01's 1,120 runs together with H8-E02's 240, and gives H8's verdict for these models. The method, every prompt as sent, and part (i) are in [H8-E01's report](../H8-E01/REPORT.md). The runs, the blind prompt and the numbers are in [SUPPORT.md](SUPPORT.md).*
+*Hypothesis H8, for the three Anthropic models. Section 4 answers whether the blind prior points to a bug (it does not). H8-E02 is the strict control for part (ii) of H8-E01's criterion. This report reads H8-E01's 1,120 runs together with H8-E02's 240, and gives H8's verdict for these models. The method, every prompt as sent, and part (i) are in [H8-E01's report](../H8-E01/REPORT.md). The runs, the blind prompt and the numbers are in [SUPPORT.md](SUPPORT.md).*
 
 ## 1. In brief
 
@@ -196,3 +196,53 @@ recall before part (ii) is read. Two choices belong to the PI:
 - whether to register mutual-information-guided mutation without an LLM as
   its own FASTENER operator. H8-E01's F3 and this report's F4 both point to
   it.
+
+## 4. Why the blind prior is about as fast: is there a bug? (investigation, 2026-10-30)
+
+*Written after the report above, at the PI's request, to answer whether the blind prior's behaviour points to a bug in the code or the method. The numbers come from the committed priors and the training split only, not from any run: `python experiments/h8_blind_diagnosis.py`, which writes `tables/weight_agreement.csv` and `tables/blind_top_positions.csv`.*
+
+**There is no bug in the code.** Three checks:
+- *The prompt does not leak.* It is `Task:`, `Classes:`, then `0: feature_00 ... 56: feature_56` ([methods/](methods/), `prior_spambase_*_blind.txt`). It has no names and no description. The listed indices are always 0..n-1 in order, so the shuffle exists only in how the scores are mapped back.
+- *The mapping is right.* Position p's score goes to column `perm[p]` (`llm_guidance.LLMFeaturePrior.__call__`). The runs read exactly the committed priors (SUPPORT.md, checks after the fetch).
+- *It is not a cache artefact.* Every blind call is a separate, paid call with its own request key and its own reply. Read by index, only 4-44% of the blind scores equal the named ones (spambase and higgs, Opus and Haiku).
+
+Two separate things explain what was seen. Both come from the design, not from a mistake.
+
+### 4.1 The models recognise the dataset and recall its column order
+
+"Spam e-mail, 57 features" is UCI spambase, and "signal vs background, 28 features" is HIGGS. Given only the task, the class names and the number of features, the models score the positions as the columns they remember. The blind prior's top positions, read as the original columns (`tables/blind_top_positions.csv`):
+
+| dataset, model | top blind positions | as the original columns |
+|---|---|---|
+| spambase, Opus | 6, 51, 52, 15 | `word_freq_remove`, `char_freq_!`, `char_freq_$`, `word_freq_free` |
+| spambase, Haiku | 6, 52, 15, 51 | the same four |
+| higgs, Opus | 27, 25, 26, 24 | `m_wwbb`, `m_bb`, `m_wbb`, `m_jlv` (the high-level features of the HIGGS paper) |
+| higgs, Haiku | 27, 25, 23, 26 | `m_wwbb`, `m_bb`, `m_lv`, `m_wbb` |
+
+So the shuffle did its job: the remembered knowledge lands on the wrong columns. The leak did not help the blind arm. It made the blind prior confident and misplaced rather than neutral, and that is why the named prior wins clearly only on higgs and spambase (F2, F3).
+
+### 4.2 The guidance weights are mostly mutual information, whatever the prior
+
+This is the main reason the arms are close, and it follows from the registered design. The weight is w = MI^0.5 x prior^0.5 (lambda 0.5), and the LLM priors are coarse, with a few distinct values. As a factor in w, the named prior's max/median is 1.49 (median over the 48 dataset-model pairs), against 2.07 for mutual information. The weights each arm actually used (`tables/weight_agreement.csv`; "top tenth" is the overlap of the top 10% of features, at least 3):
+
+| comparison of the final weights w | Spearman, median (10th-90th percentile) | top tenth shared, median |
+|---|---|---|
+| named prior vs blind prior | 0.89 (0.72-0.96) | 64% |
+| named prior vs mutual information alone (flat prior) | 0.95 (0.88-0.98) | 75% |
+| blind prior vs mutual information alone | 0.93 (0.82-1.00) | 67% |
+
+The named, blind and MI-only arms therefore push mutation and the starting features in nearly the same direction. Part (i)'s speed-up comes mostly from replacing FASTENER's uniform mutation with mutation guided by mutual information (H8-E01, F3), and any prior multiplied into w brings that along. The flat blind priors, which are mutual information alone, were the fastest blind arms (F4).
+
+### 4.3 The gaps in the method
+
+1. **Part (i) mixes two things.** "LLM prior vs stock" also switches on MI-guided mutation and starting features. No arm had mutual-information guidance alone to separate the two. The flat blind priors stood in for it by accident, on 8 pairs.
+2. **At lambda = 0.5 the prior can only shift the weights a little** (4.2). Given how coarse the priors are, part (ii) had little room to show an effect from the names.
+3. **The blind control still identifies well-known benchmarks** through the task, the class names and the number of features (4.1).
+
+### 4.4 What would fix it (for the PI; none of these needs model calls)
+
+- **An MI-only arm (flat prior):** the right baseline for part (i), and the reference any prior has to beat.
+- **A permuted named prior:** each named prior's scores shuffled across the columns. It keeps the coarseness and the score distribution but carries no knowledge, so it is a cleaner part (ii) control than a blind prompt.
+- **A higher lambda, up to 1.0 (the prior alone):** tests whether the knowledge has any power of its own.
+
+H8-E03 is registered with the same blind prompt and lambda. Its larger models are likely to recall layouts in the same way (check `blind_layout_recall` in `tables/prior_agreement.csv` for its priors). Any of the arms above would need a dated revision before H8-E03's runs start.
