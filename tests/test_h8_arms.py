@@ -36,7 +36,7 @@ def priors(tmp_path, monkeypatch):
 
 def test_every_h8_arm_is_defined_with_its_settings():
     arms = {a: c for a, c in run_sota.FASTENER_ARMS.items() if "llm" in c}
-    assert len(arms) == 4 * 3 + 3
+    assert len(arms) == 4 * 3 + 3 + 4 * 9 + 3
     for m in run_sota.H8_MODELS:
         assert arms[f"llm_{m}_blind"]["llm"]["blind"]
         assert arms[f"llm_{m}"]["llm"]["uses"] == ("mating", "mutation", "initial")

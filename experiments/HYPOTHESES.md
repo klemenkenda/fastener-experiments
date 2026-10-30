@@ -842,6 +842,8 @@ and its prompt, and the classifier. *Fixed on 2026-10-30 (revision below,
 * `H8-E02` -- the strict (blind) control for part (ii): the three models'
   priors with shuffled, position-only features and no description, on
   H8-E01's datasets and setup. Registered.
+* `H8-E03` -- H8-E01's design with nine other models (open-weight and small
+  closed ones), each with H8-E02's blind control. Registered.
 
 ## H9 -- Confirmatory: on unseen datasets, search beats filtering, more so on tall data
 
@@ -1643,3 +1645,20 @@ mapped back to the columns. Its priors (48) are made now; its 240 runs are
 H8-E02, on H8-E01's setup. H8-E01's scrambled arm is reported beside the
 criterion, as names hidden but context kept. Everything else is unchanged.
 Recorded as [DEC-51](DECISIONS.md#dec-51).
+
+**2026-10-30 -- H8-E03: H8 with nine other models.** Registered after H8-E01
+was reported (part (i) holding for the three Anthropic models) and before
+any H8-E03 prior or run: H8-E01's design -- the prior arm, the scrambled
+and proposer arms, the single-operator ablations with one model -- with
+H8-E02's blind arm per model, for nine models from other vendors: `meta-llama/llama-3.3-70b-instruct`, `google/gemma-3-4b-it`, `google/gemma-3-27b-it`, `mistralai/ministral-8b-2512`, `qwen/qwen3-14b`, `microsoft/phi-4`, `deepseek/deepseek-v4-flash`, `openai/gpt-6-luna`, `google/gemini-2.5-flash-lite`.
+The criterion is H8's, applied to each model with Holm over the nine:
+(i) against stock FASTENER, (ii) against the model's blind arm; H8 is read
+over all twelve models (H8-E01/-E02 and H8-E03) in one report, each
+experiment's verdict beside the others. Two rules fixed now, from a pilot
+on two datasets: a prior reply is parsed tolerantly (comments, a missing
+"scores" key, feature names as keys, a cut-off reply's complete pairs;
+`llm_guidance.parse_scores`), and a chunk that leaves out more than 20% of
+its features is asked once more for those, the rest filled with the lowest
+score given. A proposer call that fails or passes the run's cap ($0.015 per
+run) proposes nothing; the search goes on. Recorded as
+[DEC-52](DECISIONS.md#dec-52).

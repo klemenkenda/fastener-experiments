@@ -50,7 +50,9 @@ def test_prior_parses_fills_and_records(tmp_path):
     prior = lg.LLMFeaturePrior(log, "vendor/model", chunk=4)
     scores = prior(ctx())
     np.testing.assert_allclose(scores, [1, 1, 1, 0.1, 0.1, 0.1])
-    assert len(t.calls) == 2                       # 6 features in chunks of 4
+    # 6 features in chunks of 4; the second chunk lacked 1 of 2 (> 20%) and was
+    # asked once more, for that feature only, which the fake still omits.
+    assert len(t.calls) == 3
     assert prior.record["missing"] == [5]
     assert prior.record["calls"][0]["served_model"] == "vendor/model-served"
     assert "the key one" in t.calls[0]["messages"][1]["content"]
@@ -153,3 +155,49 @@ def test_spending_cap_stops_before_sending(tmp_path):
     with pytest.raises(RuntimeError, match="spending cap"):
         lg.LLMFeaturePrior(log, "m")(ctx())
     assert t.calls == []
+
+
+def test_parse_scores_reads_what_small_models_write():
+    names = ["a", "b", "c"]
+    assert lg.parse_scores('{"scores": {"0": 0.3, "1": 0.5}}', names) == ({0: 0.3, 1: 0.5}, "json")
+    commented = '```json\n{"scores": {\n "0": 0.3, // low\n "1": 0.9,\n}}\n```'
+    assert lg.parse_scores(commented, names)[0] == {0: 0.3, 1: 0.9}
+    assert lg.parse_scores('```json\n{"0": 0.6, "2": 0.1}\n```', names) == ({0: 0.6, 2: 0.1}, "json-flat")
+    assert lg.parse_scores('[{"feature": "b", "score": 0.7}]', names)[0] == {1: 0.7}
+    # Cut off by max_tokens: the complete pairs, not the truncated last value.
+    assert lg.parse_scores('{"scores": {"0": 0.2, "1": 0.8, "2": 0.', names)[0] == {0: 0.2, 1: 0.8}
+
+
+class HalfTransport(FakeTransport):
+    """Leaves out half the features on the first ask, answers the rest after."""
+
+    def __call__(self, url, headers, body, timeout):
+        user = body["messages"][-1]["content"]
+        idx = [int(l.split(":")[0]) for l in user.splitlines() if l[:1].isdigit()]
+        self.calls.append(body)
+        keep = idx if len(self.calls) > 1 else idx[: len(idx) // 2]
+        return {"model": body["model"], "choices": [{"message": {"content": json.dumps(
+            {"scores": {str(i): 0.5 for i in keep}})}}]}
+
+
+def test_prior_retries_once_for_missing_features(tmp_path):
+    t = HalfTransport()
+    log = lg.CallLog(tmp_path / "c.jsonl", "record", lg.OpenRouterClient("k", transport=t))
+    p = lg.LLMFeaturePrior(log, "m")
+    s = p(ctx())
+    assert len(t.calls) == 2 and p.record["missing"] == [] and np.allclose(s, 0.5)
+    assert "0: name0" not in t.calls[1]["messages"][1]["content"]   # only the missing ones
+
+
+def test_proposer_survives_errors_and_its_cap(tmp_path):
+    def broken(url, headers, body, timeout):
+        raise RuntimeError("network down")
+    log = lg.CallLog(tmp_path / "c.jsonl", "record", lg.OpenRouterClient("k", transport=broken))
+    p = lg.LLMSubsetProposer(log, "m")
+    pc = ProposalContext(ctx(), 5, [{"size": 1, "features": [3], "score": 0.5}], 40, 100)
+    assert p(pc) == [] and "network down" in p.calls[0]["error"]
+    capped = lg.CallLog(tmp_path / "d.jsonl", "record",
+                        lg.OpenRouterClient("k", transport=FakeTransport()), max_cost=0.0)
+    assert lg.LLMSubsetProposer(capped, "m")(pc) == []
+    assert lg.max_tokens_for("microsoft/phi-4", 16000) == 8000
+    assert lg.max_tokens_for("other/model", 16000) == 16000

@@ -55,16 +55,33 @@ def arm(m: str, kind: str = "") -> str:
     return f"fastener_llm_{m}" + (f"_{kind}" if kind else "")
 
 
-CRITERION = [(m, part, arm(m), STOCK if part == "i" else arm(m, "blind"))
-             for part in ("i", "ii") for m in MODELS]
-BESIDE = ([(arm(m), arm(m, "scrambled")) for m in MODELS]
-          + [(arm(m, "scrambled"), arm(m, "blind")) for m in MODELS]
-          + [(arm(m, "proposer"), arm(m)) for m in MODELS]
-          + [(arm(m, "proposer"), STOCK) for m in MODELS]
-          + [(arm("opus", u), STOCK) for u in USES]
-          + [(arm("opus", u), arm("opus")) for u in USES]
-          + [("fastener_seed_mrmr", STOCK)]
-          + [(arm(m), "fastener_seed_mrmr") for m in MODELS])
+# The model of each arm key, from the runner (H8-E01/-E02: Anthropic;
+# H8-E03: nine others).
+def model_ids() -> Dict[str, str]:
+    import run_sota
+    return {**run_sota.H8_MODELS, **run_sota.H8_E03_MODELS}
+
+
+def configure(methods) -> None:
+    """MODELS, CRITERION and BESIDE for the arms present: the models whose
+    prior arm ran, in the runner's order, and the one with ablation arms."""
+    global MODELS, CRITERION, BESIDE
+    MODELS = tuple(m for m in model_ids() if arm(m) in methods)
+    ablated = next((m for m in MODELS if arm(m, USES[0]) in methods), MODELS[0])
+    CRITERION = [(m, part, arm(m), STOCK if part == "i" else arm(m, "blind"))
+                 for part in ("i", "ii") for m in MODELS]
+    BESIDE = ([(arm(m), arm(m, "scrambled")) for m in MODELS]
+              + [(arm(m, "scrambled"), arm(m, "blind")) for m in MODELS]
+              + [(arm(m, "proposer"), arm(m)) for m in MODELS]
+              + [(arm(m, "proposer"), STOCK) for m in MODELS]
+              + [(arm(ablated, u), STOCK) for u in USES]
+              + [(arm(ablated, u), arm(ablated)) for u in USES]
+              + [("fastener_seed_mrmr", STOCK)]
+              + [(arm(m), "fastener_seed_mrmr") for m in MODELS])
+
+
+CRITERION: List = []
+BESIDE: List = []
 
 
 def _footer(fig, note: str, split: str) -> None:
@@ -208,9 +225,8 @@ def prior_agreement(datasets: List[str]) -> List[Dict]:
     for d in datasets:
         ds = load(d, max_rows=protocol.ROW_CAP)
         mi = fast_mi.mutual_info_classif(ds.X_train, ds.y_train, random_state=0)
-        for m, model_id in zip(MODELS, ("anthropic/claude-opus-5.5",
-                                         "anthropic/claude-sonnet-5.5",
-                                         "anthropic/claude-haiku-5.5")):
+        ids = model_ids()
+        for m, model_id in ((m, ids[m]) for m in MODELS):
             p, ps = lg.prior_path(d, model_id, False), lg.prior_path(d, model_id, True)
             pb = lg.prior_path(d, model_id, True, True)
             if not p.is_file():
@@ -239,7 +255,7 @@ def fig_criterion(crit, note, path):
         for i, r in enumerate(grp):
             e = np.array(r["effects"])
             x = i + np.random.default_rng(i).uniform(-0.18, 0.18, len(e))
-            ax.scatter(x, e, s=16, color=SERIES[i], alpha=0.9 if r["holds"] else 0.5,
+            ax.scatter(x, e, s=16, color=SERIES[i % len(SERIES)], alpha=0.9 if r["holds"] else 0.5,
                        facecolors=None if r["holds"] else "none")
             ax.plot([i - 0.3, i + 0.3], [r["mean_effect"]] * 2, color="k", lw=2)
             ax.annotate(f"{r['wins']}-{r['ties']}-{r['losses']}\np={r['p_holm']:.2g}"
@@ -330,20 +346,22 @@ def fig_priors(agree, costs, note, path):
     x = np.arange(len(ds))
     for j, m in enumerate(MODELS):
         v = {r["dataset"]: r for r in agree if r["model"] == m}
-        axes[0].bar(x + (j - 1) * 0.27, [v[d]["spearman_mi"] if d in v else np.nan for d in ds],
-                    0.27, color=SERIES[j], label=f"{m}: prior vs MI")
-        axes[0].scatter(x + (j - 1) * 0.27,
+        w = 0.8 / len(MODELS)
+        pos = x + (j - (len(MODELS) - 1) / 2) * w
+        axes[0].bar(pos, [v[d]["spearman_mi"] if d in v else np.nan for d in ds],
+                    w, color=SERIES[j % len(SERIES)], label=f"{m}: prior vs MI")
+        axes[0].scatter(pos,
                         [v[d].get("spearman_scrambled", np.nan) if d in v else np.nan for d in ds],
                         color="k", marker="_", s=60, zorder=3,
-                        label="prior vs scrambled (H8-E01)" if j == 0 else None)
-        axes[0].scatter(x + (j - 1) * 0.27,
+                        label="prior vs scrambled" if j == 0 else None)
+        axes[0].scatter(pos,
                         [v[d].get("spearman_blind", np.nan) if d in v else np.nan for d in ds],
                         color=INK_2, marker="x", s=18, zorder=3,
-                        label="prior vs blind (H8-E02)" if j == 0 else None)
+                        label="prior vs blind" if j == 0 else None)
     axes[0].axhline(0, color=INK_2, lw=0.8)
     axes[0].set_xticks(x, ds, rotation=40, ha="right", fontsize=8)
     axes[0].set_ylabel("Spearman correlation")
-    axes[0].legend(fontsize=8, ncol=5, loc="upper center", bbox_to_anchor=(0.5, -0.3))
+    axes[0].legend(fontsize=8, ncol=6, loc="upper center", bbox_to_anchor=(0.5, -0.3))
     axes[0].grid(axis="y", color=GRID)
     axes[0].set_title("What the priors say: agreement with mutual information on the "
                       "training split, and with the scrambled and blind priors", fontsize=10)
@@ -444,6 +462,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     rows = run_keys(args.experiment)
     if args.control:
         rows += [r for r in run_keys(args.control) if r["method"].endswith("_blind")]
+    configure({r["method"] for r in rows})
     cur = curves(rows)
     crit = criterion(cur)
     v = verdict(crit)

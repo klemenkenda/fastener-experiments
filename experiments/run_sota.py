@@ -144,6 +144,34 @@ for _use in H8_USES:
         "label": f"fastener_llm_opus_{_use}", "swap": "none", "mating": "fixed",
         "llm": {"model": H8_MODELS["opus"], "scrambled": False, "uses": (_use,),
                 "proposer": False}}
+# H8-E03: H8-E01's design with nine other models -- open-weight and small
+# closed ones -- and H8-E02's blind control per model (DEC-52). The proposer
+# arms stop asking their model after H8_E03_PROPOSER_CAP US$ in a run (the
+# search goes on without it), so the experiment cannot pass the PI's $50 limit.
+H8_E03_MODELS = {"llama70b": "meta-llama/llama-3.3-70b-instruct",
+                 "gemma4b": "google/gemma-3-4b-it",
+                 "gemma27b": "google/gemma-3-27b-it",
+                 "ministral8b": "mistralai/ministral-8b-2512",
+                 "qwen14b": "qwen/qwen3-14b",
+                 "phi4": "microsoft/phi-4",
+                 "deepseekflash": "deepseek/deepseek-v4-flash",
+                 "gptluna": "openai/gpt-6-luna",
+                 "geminilite": "google/gemini-2.5-flash-lite"}
+H8_E03_PROPOSER_CAP = 0.015
+for _m, _id in H8_E03_MODELS.items():
+    for _kind, _extra in (("", {}), ("_scrambled", {"scrambled": True}),
+                          ("_blind", {"scrambled": True, "blind": True}),
+                          ("_proposer", {"proposer": True,
+                                         "run_cost_cap": H8_E03_PROPOSER_CAP})):
+        FASTENER_ARMS[f"llm_{_m}{_kind}"] = {
+            "label": f"fastener_llm_{_m}{_kind}", "swap": "none", "mating": "fixed",
+            "llm": {"model": _id, "scrambled": False, "uses": H8_USES,
+                    "proposer": False, **_extra}}
+for _use in H8_USES:
+    FASTENER_ARMS[f"llm_llama70b_{_use}"] = {
+        "label": f"fastener_llm_llama70b_{_use}", "swap": "none", "mating": "fixed",
+        "llm": {"model": H8_E03_MODELS["llama70b"], "scrambled": False,
+                "uses": (_use,), "proposer": False}}
 # Size of the largest seed subset: H10 seeds k = 1..10, the low-k range.
 SEED_K = 10
 FASTENER_ARM_NAMES = {k: v["label"] for k, v in FASTENER_ARMS.items()}
@@ -215,7 +243,8 @@ def h8_guidance(llm, dataset, ds, run_dir, label, seed):
     proposer = log = None
     if llm["proposer"]:
         log = lg.CallLog(Path(run_dir) / f"llm_calls_{label}_s{seed}.jsonl",
-                         "record", lg.OpenRouterClient())
+                         "record", lg.OpenRouterClient(),
+                         max_cost=llm.get("run_cost_cap"))
         proposer = lg.LLMSubsetProposer(log, llm["model"],
                                         max_subsets=H8_PROPOSER_SUBSETS)
         guidance.update(subset_proposer=proposer,

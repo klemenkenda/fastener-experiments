@@ -39,7 +39,7 @@ import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Sequence
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -50,6 +50,15 @@ HERE = Path(__file__).resolve().parent
 PRIORS_DIR = HERE / "priors"
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 KEY_ENV = "OPENROUTER_API_KEY"
+
+# Output-token limits for models whose context window is smaller than the
+# default request (prompt + max_tokens must fit): phi-4 has 16,384 tokens.
+MODEL_MAX_TOKENS = {"microsoft/phi-4": 8000}
+
+
+def max_tokens_for(model: str, wanted: int) -> int:
+    return min(wanted, MODEL_MAX_TOKENS.get(model, wanted))
+
 
 Transport = Callable[[str, Dict[str, str], Dict[str, Any], float], Dict[str, Any]]
 
@@ -99,6 +108,11 @@ class OpenRouterClient:
         for attempt in range(self.retries):
             try:
                 return self.transport(self.url, headers, body, self.timeout)
+            except urllib.error.HTTPError as exc:
+                detail = exc.read().decode("utf-8", errors="replace")[:500]
+                if exc.code < 500 and exc.code != 429 or attempt + 1 == self.retries:
+                    raise RuntimeError(f"OpenRouter HTTP {exc.code}: {detail}") from exc
+                time.sleep(2 ** attempt)
             except (urllib.error.URLError, TimeoutError) as exc:
                 if attempt + 1 == self.retries:
                     raise RuntimeError(f"OpenRouter call failed: {exc}") from exc
@@ -196,6 +210,85 @@ def parse_json(text: str) -> Any:
     return json.JSONDecoder().raw_decode(text[start:])[0]
 
 
+_COMMENTS = re.compile(r"//[^\n]*|/\*.*?\*/", re.S)
+_TRAILING = re.compile(r",\s*([}\]])")
+# A "<key>": <number> pair; the number must be followed by a delimiter, so a
+# value cut off at the end of a truncated reply is not read as complete.
+_PAIR = re.compile(r'"?([^"{}\[\],:\n]+?)"?\s*:\s*"?(-?\d+(?:\.\d+)?(?:[eE]-?\d+)?)"?(?=\s*[,}\]\n])')
+
+
+def _loose_json(text: str) -> Any:
+    """parse_json, after removing what small models add to JSON: // and /* */
+    comments and trailing commas. Raises ValueError if still not JSON."""
+    try:
+        return parse_json(text)
+    except ValueError:
+        pass
+    fence = re.search(r"```(?:json)?\s*(.*?)(```|$)", text, re.S)
+    body = fence.group(1) if fence else text
+    body = _TRAILING.sub(r"\1", _COMMENTS.sub("", body))
+    return parse_json(body)
+
+
+def parse_scores(text: str, names: Optional[Sequence[str]] = None) -> Tuple[Dict[int, float], str]:
+    """Feature scores from a prior reply, as {index: score}, and how they were
+    read. Strict replies -- {"scores": {"<index>": <score>}} -- read exactly as
+    before. Beyond that, for small models: comments and trailing commas,
+    a flat {"<index>": <score>} without the "scores" key, a list of
+    {"index"/"feature", "score"} objects, feature names instead of indices,
+    and, for a reply that is not JSON at all (e.g. cut off by max_tokens),
+    every "<key>": <number> pair in it."""
+    lookup = {str(n): i for i, n in enumerate(names or [])}
+
+    def key_to_index(k) -> Optional[int]:
+        k = str(k).strip()
+        if re.fullmatch(r"-?\d+", k):
+            return int(k)
+        return lookup.get(k)
+
+    def from_mapping(d) -> Dict[int, float]:
+        out = {}
+        for k, v in d.items():
+            i = key_to_index(k)
+            try:
+                x = float(v)
+            except (TypeError, ValueError):
+                continue
+            if i is not None and np.isfinite(x):
+                out[i] = x
+        return out
+
+    try:
+        obj = _loose_json(text)
+        how = "json"
+        if isinstance(obj, dict) and isinstance(obj.get("scores"), dict):
+            return from_mapping(obj["scores"]), how
+        if isinstance(obj, dict) and isinstance(obj.get("scores"), list):
+            obj = obj["scores"]
+        if isinstance(obj, list):
+            out = {}
+            for e in obj:
+                if isinstance(e, dict):
+                    k = e.get("index", e.get("feature", e.get("id")))
+                    i, v = key_to_index(k) if k is not None else None, e.get("score")
+                    try:
+                        if i is not None:
+                            out[i] = float(v)
+                    except (TypeError, ValueError):
+                        pass
+            return out, "json-list"
+        if isinstance(obj, dict):
+            return from_mapping(obj), "json-flat"
+    except ValueError:
+        pass
+    pairs = {}
+    for k, v in _PAIR.findall(text):
+        i = key_to_index(k)
+        if i is not None:
+            pairs[i] = float(v)
+    return pairs, "pairs"
+
+
 def neutral_names(n: int) -> List[str]:
     width = len(str(max(n - 1, 0)))
     return [f"feature_{i:0{width}d}" for i in range(n)]
@@ -259,6 +352,9 @@ class LLMFeaturePrior:
                  chunk: int = 300, max_tokens: int = 16000,
                  blind: bool = False) -> None:
         self.blind = blind
+        # A chunk whose reply leaves out more than this share of its features
+        # is asked once more for those features (H8-E03's rule).
+        self.retry_share = 0.2
         scrambled = scrambled or blind
         self.log, self.model, self.scrambled = log, model, scrambled
         self.temperature, self.seed, self.chunk = temperature, seed, chunk
@@ -285,22 +381,30 @@ class LLMFeaturePrior:
         scores = np.full(ctx.n_features, np.nan)
         calls = []
         for start in range(0, ctx.n_features, self.chunk):
-            idx = list(range(start, min(start + self.chunk, ctx.n_features)))
+            idx = chunk = list(range(start, min(start + self.chunk, ctx.n_features)))
             body = {"model": self.model, "messages": self.messages(ctx, idx),
                     "temperature": self.temperature, "seed": self.seed,
-                    "max_tokens": self.max_tokens}
-            response = self.log.call(body)
-            text = content_of(response)
-            parsed = parse_json(text).get("scores", {})
-            for k, v in parsed.items():
-                try:
-                    i, x = int(k), float(v)
-                except (TypeError, ValueError):
-                    continue
-                if i in idx and np.isfinite(x):
-                    scores[i] = min(max(x, 0.0), 1.0)
-            calls.append({"key": request_key(body), "served_model": response.get("model"),
-                          "usage": response.get("usage"), "reply": text})
+                    "max_tokens": max_tokens_for(self.model, self.max_tokens)}
+            for attempt in range(2):
+                if attempt == 1:
+                    # One retry, for a reply that left more than RETRY_SHARE of
+                    # its features out: the same prompt with only those.
+                    idx = [i for i in idx if np.isnan(scores[i])]
+                    if len(idx) <= self.retry_share * len(chunk):
+                        break
+                body = {"model": self.model, "messages": self.messages(ctx, idx),
+                        "temperature": self.temperature, "seed": self.seed,
+                        "max_tokens": max_tokens_for(self.model, self.max_tokens)}
+                response = self.log.call(body)
+                text = content_of(response)
+                names = None if self.scrambled else ctx.feature_names
+                parsed, how = parse_scores(text, names)
+                for i, x in parsed.items():
+                    if i in idx:
+                        scores[i] = min(max(x, 0.0), 1.0)
+                calls.append({"key": request_key(body), "served_model": response.get("model"),
+                              "usage": response.get("usage"), "reply": text,
+                              "parsed_as": how, "retry": attempt == 1})
         perm = None
         if self.blind:
             # Position p showed column perm[p].
@@ -356,20 +460,34 @@ class LLMSubsetProposer:
     def __call__(self, ctx: ProposalContext) -> List[List[int]]:
         body = {"model": self.model, "messages": self.messages(ctx),
                 "temperature": self.temperature, "seed": self.seed,
-                "max_tokens": self.max_tokens}
-        response = self.log.call(body)
-        text = content_of(response)
+                "max_tokens": max_tokens_for(self.model, self.max_tokens)}
+        # A proposer must never stop the search: a failed call (network, an
+        # HTTP error, the run's spending cap) or an unreadable reply is logged
+        # and proposes nothing.
         try:
-            subsets = parse_json(text).get("subsets", [])
-        except (ValueError, AttributeError):
-            subsets = []
+            response = self.log.call(body)
+            text = content_of(response)
+        except Exception as exc:  # noqa: BLE001
+            self.calls.append({"generation": ctx.generation, "key": request_key(body),
+                               "error": f"{type(exc).__name__}: {str(exc)[:300]}",
+                               "subsets": []})
+            return []
+        try:
+            obj = _loose_json(text)
+            subsets = obj.get("subsets", []) if isinstance(obj, dict) else obj
+            if not isinstance(subsets, list):
+                subsets = []
+        except ValueError:
+            subsets = [[int(x) for x in re.findall(r"-?\d+", m)]
+                       for m in re.findall(r"\[([\d,\s]+)\]", text)]
         out = []
         for s in subsets[: self.max_subsets]:
             try:
                 idx = [int(i) for i in s][: self.max_k]
             except (TypeError, ValueError):
                 continue
-            out.append(idx)
+            if idx:
+                out.append(idx)
         self.calls.append({"generation": ctx.generation, "key": request_key(body),
                            "served_model": response.get("model"), "subsets": out})
         return out

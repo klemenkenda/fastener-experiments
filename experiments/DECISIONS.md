@@ -1148,6 +1148,28 @@ is reported beside it.**
   proposed by Claude.
 - **Applies to:** H8-E01, H8-E02.
 
+### DEC-52
+
+**2026-10-30 -- H8-E03: H8-E01's design with nine non-Anthropic models.**
+
+- **Why:** the PI wants H8 tested beyond one vendor, with cheap, open-weight
+  and small models, within the $50 limit on model calls ($33.36 spent).
+- **Detail:** models `meta-llama/llama-3.3-70b-instruct`, `google/gemma-3-4b-it`, `google/gemma-3-27b-it`, `mistralai/ministral-8b-2512`, `qwen/qwen3-14b`, `microsoft/phi-4`, `deepseek/deepseek-v4-flash`, `openai/gpt-6-luna`, `google/gemini-2.5-flash-lite` (Llama 3.3 70B also takes Opus's role
+  in the ablations). Arms per model: prior, scrambled, blind, proposer;
+  once: stock FASTENER, the mRMR seed, the three ablations. 3,280 runs on
+  Vega (`hpc/vega/h8e03.env`). The proposer arms stop calling their model
+  after $0.015 per run, so the experiment cannot spend more than about
+  $11 on proposals (720 runs); priors under a $1.65 cap. A pilot on pc4
+  and har (not evidence; $0.03) found JSON with comments, without the
+  "scores" key, and an HTTP 400 for phi-4 (16k context): the parser was made
+  tolerant (identical on all 144 committed priors), a reply missing more
+  than 20% of its features gets one retry, phi-4's output limit is 8,000
+  tokens, and a proposer never stops a run.
+- **By:** PI (the line, the models but one Llama, the same design as
+  H8-E01, robust parsing); the model choice within that, the caps and the
+  retry rule proposed by Claude.
+- **Applies to:** H8-E03.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
