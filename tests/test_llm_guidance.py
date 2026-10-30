@@ -127,3 +127,29 @@ def test_search_with_llm_guidance_replays_exactly(tiny_data, tmp_path, monkeypat
     assert rec.proposal_log == rep.proposal_log
     assert {k: v.genes for k, v in rec.pareto_front.items()} == \
         {k: v.genes for k, v in rep.pareto_front.items()}
+
+
+def test_blind_prior_hides_names_order_and_description(tmp_path):
+    t = FakeTransport(n_good=2)
+    log = lg.CallLog(tmp_path / "c.jsonl", "record", lg.OpenRouterClient("k", transport=t))
+    c = GuidanceContext(6, [f"name{i}" for i in range(6)], task="toy", class_names=["a", "b"],
+                        metadata={"dataset_description": "SECRET",
+                                  "feature_descriptions": {"name0": "the key one"}})
+    p = lg.LLMFeaturePrior(log, "m", blind=True)
+    scores = p(c)
+    text = t.calls[0]["messages"][1]["content"]
+    assert "SECRET" not in text and "name" not in text and "the key one" not in text
+    assert "Task: toy" in text and "Classes: a, b" in text
+    perm = p.record["permutation"]
+    # The fake rates positions 0 and 1 highest: those are columns perm[0], perm[1].
+    assert sorted(np.flatnonzero(scores == 1.0)) == sorted(perm[:2])
+    assert lg.prior_path("d", "vendor/m", True, True).name == "d__vendor-m__blind.json"
+
+
+def test_spending_cap_stops_before_sending(tmp_path):
+    t = FakeTransport()
+    log = lg.CallLog(tmp_path / "c.jsonl", "record", lg.OpenRouterClient("k", transport=t),
+                     max_cost=1.0, spent_before=1.0)
+    with pytest.raises(RuntimeError, match="spending cap"):
+        lg.LLMFeaturePrior(log, "m")(ctx())
+    assert t.calls == []

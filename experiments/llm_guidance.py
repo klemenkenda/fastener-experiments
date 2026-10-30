@@ -118,7 +118,9 @@ class CallLog:
     """Record-or-replay log of model calls, one JSON object per line."""
 
     def __init__(self, path: Path, mode: str = "record",
-                 client: Optional[OpenRouterClient] = None) -> None:
+                 client: Optional[OpenRouterClient] = None,
+                 max_cost: Optional[float] = None,
+                 spent_before: float = 0.0) -> None:
         if mode not in ("record", "replay"):
             raise ValueError("mode is 'record' or 'replay'")
         self.path, self.mode = Path(path), mode
@@ -131,6 +133,9 @@ class CallLog:
                     self.entries[e["key"]] = e
         self.sent = 0
         self.replayed = 0
+        # A spending cap in US$ (OpenRouter's usage.cost): no request is sent
+        # once this log's calls plus `spent_before` reach it.
+        self.max_cost, self.spent_before = max_cost, spent_before
 
     def call(self, body: Dict[str, Any]) -> Dict[str, Any]:
         key = request_key(body)
@@ -142,6 +147,9 @@ class CallLog:
                            f"(model {body.get('model')}); record it first")
         if self.client is None:
             raise RuntimeError("record mode needs a client")
+        if self.max_cost is not None and self.spent() >= self.max_cost:
+            raise RuntimeError(f"spending cap reached: ${self.spent():.2f} of "
+                               f"${self.max_cost:.2f}; nothing sent")
         t0 = time.time()
         response = self.client.chat(body)
         entry = {"key": key, "utc": datetime.now(timezone.utc).isoformat(),
@@ -153,6 +161,21 @@ class CallLog:
         self.entries[key] = entry
         self.sent += 1
         return response
+
+
+    def spent(self) -> float:
+        return self.spent_before + sum(float((e["response"].get("usage") or {}).get("cost") or 0)
+                                       for e in self.entries.values())
+
+
+def spent_in_logs(paths) -> float:
+    """US$ in call logs (each line's usage.cost)."""
+    total = 0.0
+    for path in paths:
+        for line in Path(path).read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                total += float((json.loads(line)["response"].get("usage") or {}).get("cost") or 0)
+    return total
 
 
 def content_of(response: Dict[str, Any]) -> str:
@@ -189,13 +212,13 @@ def _feature_lines(ctx: GuidanceContext, scrambled: bool,
     return out
 
 
-def _task_lines(ctx: GuidanceContext) -> List[str]:
+def _task_lines(ctx: GuidanceContext, describe: bool = True) -> List[str]:
     lines = []
     if ctx.task:
         lines.append(f"Task: {ctx.task}")
     if ctx.class_names:
         lines.append("Classes: " + ", ".join(map(str, ctx.class_names)))
-    if ctx.metadata.get("dataset_description"):
+    if describe and ctx.metadata.get("dataset_description"):
         lines.append(f"Data: {ctx.metadata['dataset_description']}")
     return lines
 
@@ -220,17 +243,38 @@ PROPOSER_INSTRUCTIONS = (
 
 
 class LLMFeaturePrior:
-    """A FASTENER feature prior from one (or a few, for wide data) calls."""
+    """A FASTENER feature prior from one (or a few, for wide data) calls.
+
+    `scrambled` replaces the names by neutral tokens and drops the feature
+    descriptions; the task, classes and dataset description stay, and so does
+    the column order. `blind` (H8-E02, the strict control) also drops the
+    dataset description and shows the features in a shuffled order (a fixed
+    permutation from `seed`), each as feature_<position>: nothing tells the
+    model which column is which. Its scores are mapped back to the columns,
+    and the permutation is kept in `record`.
+    """
 
     def __init__(self, log: CallLog, model: str, scrambled: bool = False,
                  temperature: float = 0.0, seed: int = 20200,
-                 chunk: int = 300, max_tokens: int = 16000) -> None:
+                 chunk: int = 300, max_tokens: int = 16000,
+                 blind: bool = False) -> None:
+        self.blind = blind
+        scrambled = scrambled or blind
         self.log, self.model, self.scrambled = log, model, scrambled
         self.temperature, self.seed, self.chunk = temperature, seed, chunk
         self.max_tokens = max_tokens
         self.record: Dict[str, Any] = {}
 
     def messages(self, ctx: GuidanceContext, indices: Sequence[int]) -> List[Dict[str, str]]:
+        if self.blind:
+            # Positions, not columns: `indices` are positions in the shuffled
+            # order, each shown as feature_<position>.
+            names = neutral_names(ctx.n_features)
+            user = "\n".join(_task_lines(ctx, describe=False)
+                             + ["", f"Features ({len(indices)} of {ctx.n_features}):"]
+                             + [f"{i}: {names[i]}" for i in indices])
+            return [{"role": "system", "content": PRIOR_INSTRUCTIONS},
+                    {"role": "user", "content": user}]
         user = "\n".join(_task_lines(ctx) + ["", f"Features ({len(indices)} of "
                                              f"{ctx.n_features}):"]
                          + _feature_lines(ctx, self.scrambled, indices))
@@ -257,11 +301,20 @@ class LLMFeaturePrior:
                     scores[i] = min(max(x, 0.0), 1.0)
             calls.append({"key": request_key(body), "served_model": response.get("model"),
                           "usage": response.get("usage"), "reply": text})
+        perm = None
+        if self.blind:
+            # Position p showed column perm[p].
+            perm = np.random.RandomState(self.seed).permutation(ctx.n_features)
+            by_column = np.full(ctx.n_features, np.nan)
+            by_column[perm] = scores
+            scores = by_column
         missing = [int(i) for i in np.flatnonzero(np.isnan(scores))]
         # A feature the model left out gets the lowest score it gave any.
         fill = np.nanmin(scores) if len(missing) < ctx.n_features else 0.0
         scores[np.isnan(scores)] = fill
         self.record = {"model": self.model, "scrambled": self.scrambled,
+                       "blind": self.blind,
+                       "permutation": None if perm is None else [int(i) for i in perm],
                        "temperature": self.temperature, "seed": self.seed,
                        "instructions": PRIOR_INSTRUCTIONS, "calls": calls,
                        "missing": missing, "fill": float(fill)}
@@ -323,9 +376,10 @@ class LLMSubsetProposer:
 
 
 # ------------------------------------------------------------------ files
-def prior_path(dataset: str, model: str, scrambled: bool) -> Path:
+def prior_path(dataset: str, model: str, scrambled: bool, blind: bool = False) -> Path:
     slug = re.sub(r"[^A-Za-z0-9.-]+", "-", model)
-    return PRIORS_DIR / f"{dataset}__{slug}{'__scrambled' if scrambled else ''}.json"
+    suffix = "__blind" if blind else "__scrambled" if scrambled else ""
+    return PRIORS_DIR / f"{dataset}__{slug}{suffix}.json"
 
 
 def save_prior(path: Path, dataset: str, ctx: GuidanceContext,
@@ -371,6 +425,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     p.add_argument("--dataset", required=True)
     p.add_argument("--model", required=True, help="OpenRouter model ID")
     p.add_argument("--scrambled", action="store_true")
+    p.add_argument("--blind", action="store_true",
+                   help="the strict control: shuffled, position-only, no description")
     p.add_argument("--dictionary", type=Path,
                    help="data dictionary JSON (default priors/dictionaries/<dataset>.json)")
     p.add_argument("--log", type=Path, help="call log (default priors/calls.jsonl)")
@@ -380,32 +436,42 @@ def main(argv: Optional[List[str]] = None) -> int:
     b.add_argument("--datasets", required=True, help="comma list")
     b.add_argument("--models", required=True, help="comma list of OpenRouter IDs")
     b.add_argument("--log", type=Path)
+    b.add_argument("--variants", default="named,scrambled",
+                   help="comma list of named, scrambled, blind")
+    b.add_argument("--max-cost", type=float, default=None,
+                   help="US$: stop before a call once this much is spent, counting "
+                        "--count-logs as well as this log")
+    b.add_argument("--count-logs", nargs="*", default=[], type=Path,
+                   help="other call logs whose spend counts against --max-cost")
     args = ap.parse_args(argv)
 
     if args.cmd == "batch":
-        log = CallLog(args.log or PRIORS_DIR / "calls.jsonl", "record", OpenRouterClient())
-        todo = [(d, m, s) for d in args.datasets.split(",") for m in args.models.split(",")
-                for s in (False, True)]
-        for i, (d, m, s) in enumerate(todo, 1):
-            out = prior_path(d, m, s)
+        log = CallLog(args.log or PRIORS_DIR / "calls.jsonl", "record", OpenRouterClient(),
+                      max_cost=args.max_cost,
+                      spent_before=spent_in_logs(args.count_logs))
+        variants = args.variants.split(",")
+        todo = [(d, m, v) for d in args.datasets.split(",") for m in args.models.split(",")
+                for v in variants]
+        for i, (d, m, v) in enumerate(todo, 1):
+            out = prior_path(d, m, v == "scrambled", v == "blind")
             if out.is_file():
                 print(f"[{i}/{len(todo)}] {out.name}: exists")
                 continue
-            make_one(d, m, s, log, out, None)
+            make_one(d, m, v == "scrambled", log, out, None, blind=v == "blind")
             print(f"[{i}/{len(todo)}] {out.name}: made", flush=True)
         print(f"{log.sent} calls sent, {log.replayed} replayed")
         return 0
     log = CallLog(args.log or PRIORS_DIR / "calls.jsonl", "record", OpenRouterClient())
-    out = args.out or prior_path(args.dataset, args.model, args.scrambled)
+    out = args.out or prior_path(args.dataset, args.model, args.scrambled, args.blind)
     prior, ctx = make_one(args.dataset, args.model, args.scrambled, log, out,
-                          args.dictionary)
+                          args.dictionary, blind=args.blind)
     print(f"{out}: {ctx.n_features} scores, {len(prior.record['missing'])} missing, "
           f"{log.sent} calls sent, {log.replayed} replayed")
     return 0
 
 
 def make_one(dataset: str, model: str, scrambled: bool, log: CallLog, out: Path,
-             dictionary_path: Optional[Path] = None):
+             dictionary_path: Optional[Path] = None, blind: bool = False):
     """Make, save and return one prior (and its context)."""
     from datasets import load
     import protocol
@@ -413,7 +479,7 @@ def make_one(dataset: str, model: str, scrambled: bool, log: CallLog, out: Path,
     dpath = dictionary_path or PRIORS_DIR / "dictionaries" / f"{dataset}.json"
     dictionary = json.loads(dpath.read_text(encoding="utf-8")) if dpath.is_file() else None
     ctx = context_for(ds, dictionary)
-    prior = LLMFeaturePrior(log, model, scrambled=scrambled)
+    prior = LLMFeaturePrior(log, model, scrambled=scrambled, blind=blind)
     scores = prior(ctx)
     save_prior(out, dataset, ctx, prior, scores)
     return prior, ctx

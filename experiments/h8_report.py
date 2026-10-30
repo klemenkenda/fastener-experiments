@@ -10,7 +10,11 @@ The criterion as registered for H8-E01 (HYPOTHESES.md, H8 and its revision of
 * per dataset the effect is the mean over seeds of log2(opponent's fits /
   the arm's fits): positive means the arm got there sooner;
 * for each model m: (i) `fastener_llm_m` against `fastener`, (ii) against
-  `fastener_llm_m_scrambled`; each needs more positive datasets than negative
+  `fastener_llm_m_blind` (H8-E02's strict control: shuffled order, names by
+  position only, no dataset description; DEC-51) -- the scrambled arm of
+  H8-E01 kept the description and the column order, through which its priors
+  followed the named ones (Spearman up to 0.99), and is reported beside it;
+  each needs more positive datasets than negative
   and a two-sided Wilcoxon p < 0.05, Holm-corrected over the three models
   within the part. H8 is supported if (i) and (ii) hold for at least one model.
 
@@ -19,7 +23,7 @@ test AUF, the cost of the model calls, and how the priors relate to mutual
 information and to their scrambled twins.
 
     python experiments/make_report.py --experiment H8-E01      # run_keys.csv
-    python experiments/h8_report.py --experiment H8-E01
+    python experiments/h8_report.py --experiment H8-E01 --control H8-E02
 """
 from __future__ import annotations
 
@@ -51,9 +55,11 @@ def arm(m: str, kind: str = "") -> str:
     return f"fastener_llm_{m}" + (f"_{kind}" if kind else "")
 
 
-CRITERION = [(m, part, arm(m), STOCK if part == "i" else arm(m, "scrambled"))
+CRITERION = [(m, part, arm(m), STOCK if part == "i" else arm(m, "blind"))
              for part in ("i", "ii") for m in MODELS]
-BESIDE = ([(arm(m, "proposer"), arm(m)) for m in MODELS]
+BESIDE = ([(arm(m), arm(m, "scrambled")) for m in MODELS]
+          + [(arm(m, "scrambled"), arm(m, "blind")) for m in MODELS]
+          + [(arm(m, "proposer"), arm(m)) for m in MODELS]
           + [(arm(m, "proposer"), STOCK) for m in MODELS]
           + [(arm("opus", u), STOCK) for u in USES]
           + [(arm("opus", u), arm("opus")) for u in USES]
@@ -198,6 +204,7 @@ def prior_agreement(datasets: List[str]) -> List[Dict]:
                                          "anthropic/claude-sonnet-5.5",
                                          "anthropic/claude-haiku-5.5")):
             p, ps = lg.prior_path(d, model_id, False), lg.prior_path(d, model_id, True)
+            pb = lg.prior_path(d, model_id, True, True)
             if not p.is_file():
                 continue
             a = lg.load_prior(p)
@@ -206,6 +213,8 @@ def prior_agreement(datasets: List[str]) -> List[Dict]:
                    "distinct_scores": int(len(np.unique(a)))}
             if ps.is_file():
                 row["spearman_scrambled"] = float(spearmanr(a, lg.load_prior(ps))[0])
+            if pb.is_file():
+                row["spearman_blind"] = float(spearmanr(a, lg.load_prior(pb))[0])
             out.append(row)
     return out
 
@@ -217,7 +226,7 @@ def fig_criterion(crit, note, path):
     fig, axes = plt.subplots(1, 2, figsize=(17, 5), sharey=True)
     for ax, part, title in zip(axes, ("i", "ii"),
                                ("(i) LLM prior against stock FASTENER",
-                                "(ii) LLM prior against the scrambled prior")):
+                                "(ii) LLM prior against the blind control (H8-E02)")):
         grp = [r for r in crit if r["part"] == part]
         for i, r in enumerate(grp):
             e = np.array(r["effects"])
@@ -333,6 +342,69 @@ def fig_priors(agree, costs, note, path):
     plt.close(fig)
 
 
+def write_methods(rows, out: Path, example: str = "spambase") -> List[str]:
+    """The prompts as sent, from the call logs: the two instruction texts, one
+    dataset's full prior request and reply (named and scrambled, every model),
+    and the first proposer exchange of each model. For the methods section."""
+    import llm_guidance as lg
+    out.mkdir(parents=True, exist_ok=True)
+    written = []
+
+    def dump(name, entry):
+        req, resp = entry["request"], entry["response"]
+        u = resp.get("usage") or {}
+        text = [f"model asked: {req['model']}   served: {resp.get('model')}",
+                f"temperature {req.get('temperature')}, seed {req.get('seed')}, "
+                f"max_tokens {req.get('max_tokens')}",
+                f"tokens in {u.get('prompt_tokens')}, out {u.get('completion_tokens')}, "
+                f"cost ${float(u.get('cost') or 0):.4f}, {entry.get('seconds')} s", ""]
+        for m in req["messages"]:
+            text += [f"===== {m['role']} =====", m["content"], ""]
+        text += ["===== reply =====", lg.content_of(resp), ""]
+        (out / name).write_text("\n".join(text), encoding="utf-8")
+        written.append(name)
+
+    (out / "instructions_prior.txt").write_text(lg.PRIOR_INSTRUCTIONS + "\n", encoding="utf-8")
+    (out / "instructions_proposer.txt").write_text(lg.PROPOSER_INSTRUCTIONS + "\n",
+                                                   encoding="utf-8")
+    written += ["instructions_prior.txt", "instructions_proposer.txt"]
+    log = PRIORS / "calls.jsonl"
+    if log.is_file():
+        seen = set()
+        for line in log.read_text(encoding="utf-8").splitlines():
+            e = json.loads(line)
+            user = e["request"]["messages"][-1]["content"]
+            # A scrambled prompt lists neutral tokens; the description may
+            # still mention the real names' pattern (spambase: word_freq_WORD).
+            scrambled = "\n0: feature_0" in user
+            if example not in json.dumps(e["request"]) and not user.startswith(
+                    _dictionary_task(example)):
+                continue
+            key = (e["request"]["model"], scrambled)
+            if key in seen:
+                continue
+            seen.add(key)
+            slug = e["request"]["model"].split("/")[-1]
+            dump(f"prior_{example}_{slug}{'_scrambled' if scrambled else ''}.txt", e)
+    for m in MODELS:
+        for r in rows:
+            if r["method"] != arm(m, "proposer"):
+                continue
+            logs = sorted((RESULTS / r["run_id"]).glob("llm_calls_*.jsonl"))
+            if logs and logs[0].read_text(encoding="utf-8").strip():
+                first = json.loads(logs[0].read_text(encoding="utf-8").splitlines()[0])
+                dump(f"proposer_{m}_{r['dataset']}_s{r['seed']}.txt", first)
+                break
+    return written
+
+
+def _dictionary_task(dataset: str) -> str:
+    p = PRIORS / "dictionaries" / f"{dataset}.json"
+    if not p.is_file():
+        return "\0"
+    return "Task: " + json.loads(p.read_text(encoding="utf-8"))["task"]
+
+
 def write_csv(path: Path, rows: List[Dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     keys: List[str] = []
@@ -347,10 +419,14 @@ def write_csv(path: Path, rows: List[Dict]) -> None:
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--experiment", required=True)
+    ap.add_argument("--control", default=None,
+                    help="the experiment holding the blind arms (H8-E02)")
     ap.add_argument("--no-priors", action="store_true",
                     help="skip the prior-agreement table (loads every dataset)")
     args = ap.parse_args(argv)
     rows = run_keys(args.experiment)
+    if args.control:
+        rows += [r for r in run_keys(args.control) if r["method"].endswith("_blind")]
     cur = curves(rows)
     crit = criterion(cur)
     v = verdict(crit)
@@ -372,6 +448,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     if agree:
         write_csv(tabs / "prior_agreement.csv", agree)
     (tabs / "verdict.json").write_text(json.dumps(v, indent=1), encoding="utf-8")
+    write_methods(rows, out / "methods")
     note = f"{len(rows)} runs of {args.experiment}; LightGBM, 1,000 fits"
     fig_criterion(crit, note, figs / "F1_H8_criterion.png")
     if beside:

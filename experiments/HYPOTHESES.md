@@ -836,6 +836,9 @@ and its prompt, and the classifier. *Fixed on 2026-10-30 (revision below,
 * `H8-E01` -- the prior from three Anthropic models on 16 datasets with named
   features, LightGBM, 1,000 fits, with the scrambled control, the online
   proposer and single-operator ablations. Registered.
+* `H8-E02` -- the strict (blind) control for part (ii): the three models'
+  priors with shuffled, position-only features and no description, on
+  H8-E01's datasets and setup. Registered.
 
 ## H9 -- Confirmatory: on unseen datasets, search beats filtering, more so on tall data
 
@@ -1622,3 +1625,18 @@ the proposer arms reach OpenRouter from the compute nodes (checked). Nothing
 else changes. The first start on the workstation was stopped after 15
 minutes; its 12 unfinished runs are set aside unread. Recorded as
 [DEC-50](DECISIONS.md#dec-50).
+
+**2026-10-30 -- H8's control made strict, before any result of H8-E01 was
+read.** Writing the methods section, the scrambled prompt turned out to keep
+the dataset description (which says how the names are built, e.g. spambase's
+word_freq_WORD) and the column order; the scrambled priors follow the named
+ones closely (Spearman up to 0.99: higgs, phishing, spambase), so they do not
+hide what the features are. Only priors were compared, no run. Part (ii) of
+the criterion is therefore read against a strict control,
+`fastener_llm_<model>_blind`: the features shown in a shuffled order (a fixed
+permutation, seed 20200), each named only by its position, no dataset or
+feature description -- the task and class names stay -- with the scores
+mapped back to the columns. Its priors (48) are made now; its 240 runs are
+H8-E02, on H8-E01's setup. H8-E01's scrambled arm is reported beside the
+criterion, as names hidden but context kept. Everything else is unchanged.
+Recorded as [DEC-51](DECISIONS.md#dec-51).

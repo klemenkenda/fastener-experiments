@@ -129,6 +129,12 @@ for _m, _id in H8_MODELS.items():
         "label": f"fastener_llm_{_m}_scrambled", "swap": "none", "mating": "fixed",
         "llm": {"model": _id, "scrambled": True, "uses": H8_USES,
                 "proposer": False}}
+    # H8-E02: the strict control -- the features shuffled, named only by
+    # position, and the dataset description dropped (llm_guidance, `blind`).
+    FASTENER_ARMS[f"llm_{_m}_blind"] = {
+        "label": f"fastener_llm_{_m}_blind", "swap": "none", "mating": "fixed",
+        "llm": {"model": _id, "scrambled": True, "blind": True, "uses": H8_USES,
+                "proposer": False}}
     FASTENER_ARMS[f"llm_{_m}_proposer"] = {
         "label": f"fastener_llm_{_m}_proposer", "swap": "none", "mating": "fixed",
         "llm": {"model": _id, "scrambled": False, "uses": H8_USES,
@@ -188,12 +194,13 @@ def h8_guidance(llm, dataset, ds, run_dir, label, seed):
         return None, None
     import llm_guidance as lg
     from provenance import sha256
-    path = lg.prior_path(dataset, llm["model"], llm["scrambled"])
+    path = lg.prior_path(dataset, llm["model"], llm["scrambled"], llm.get("blind", False))
     if not path.is_file():
         raise FileNotFoundError(f"{path} missing: make it with "
                                 f"`python experiments/llm_guidance.py prior "
                                 f"--dataset {dataset} --model {llm['model']}"
-                                + (" --scrambled`" if llm["scrambled"] else "`"))
+                                + (" --blind`" if llm.get("blind") else
+                                   " --scrambled`" if llm["scrambled"] else "`"))
     dpath = lg.PRIORS_DIR / "dictionaries" / f"{dataset}.json"
     dictionary = json.loads(dpath.read_text(encoding="utf-8")) if dpath.is_file() else None
     ctx = lg.context_for(ds, dictionary)
@@ -202,6 +209,7 @@ def h8_guidance(llm, dataset, ds, run_dir, label, seed):
                 "prior_initial_singles": H8_INITIAL_SINGLES,
                 "guidance_context": ctx}
     info = {"llm_model": llm["model"], "llm_scrambled": llm["scrambled"],
+            "llm_blind": bool(llm.get("blind")),
             "prior_file": path.name, "prior_sha256": sha256(path),
             "prior_uses": list(llm["uses"]), "prior_weight": H8_LAMBDA}
     proposer = log = None

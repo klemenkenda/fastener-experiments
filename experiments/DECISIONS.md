@@ -1128,6 +1128,26 @@ proposer as an arm; FASTENER's guidance hooks.**
 - **By:** PI (Vega); the setup by Claude.
 - **Applies to:** H8-E01.
 
+### DEC-51
+
+**2026-10-30 -- H8's control is the blind prior (H8-E02); the scrambled arm
+is reported beside it.**
+
+- **Why:** the registered scrambled prompt hid the names but kept the dataset
+  description and the column order; its priors correlate with the named
+  ones up to Spearman 0.99, so part (ii) would test the names on top of
+  information that already identifies the features. Found from the priors,
+  before any H8-E01 result was read.
+- **Detail:** as the revision of 2026-10-30. `llm_guidance.LLMFeaturePrior`
+  with `blind=True`; arms `fastener_llm_<model>_blind`; H8-E02, 240 runs on
+  Vega (`hpc/vega/h8e02.env`). `h8_report.py --control H8-E02` reads part
+  (ii) against them. The prior batch now takes a spending cap
+  (`--max-cost`), after the PI set a hard limit of $50 on the model calls
+  (H8-E01 spent $32.46).
+- **By:** PI (the strict control as an extra arm; the $50 limit); found and
+  proposed by Claude.
+- **Applies to:** H8-E01, H8-E02.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
