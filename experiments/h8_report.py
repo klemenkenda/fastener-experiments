@@ -141,6 +141,14 @@ def verdict(crit) -> Dict:
                      for p in ("i", "ii")} for m in MODELS}
     for m in per_model:
         per_model[m]["both"] = per_model[m]["i"] and per_model[m]["ii"]
+    # Part (ii) needs H8-E02's blind arms; without them it is not yet read.
+    if any(r["n_datasets"] == 0 for r in crit if r["part"] == "ii"):
+        part_i = any(v["i"] for v in per_model.values())
+        return {"verdict": ("pending: part (i) holds for "
+                            + ", ".join(m for m, v in per_model.items() if v["i"])
+                            + "; part (ii) needs H8-E02") if part_i
+                else "not supported: part (i) holds for no model",
+                "models": per_model, "part_ii": "pending (H8-E02)"}
     return {"verdict": "supported" if any(v["both"] for v in per_model.values())
             else "not supported", "models": per_model}
 
