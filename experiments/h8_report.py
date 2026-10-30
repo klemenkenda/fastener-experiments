@@ -23,7 +23,7 @@ test AUF, the cost of the model calls, and how the priors relate to mutual
 information and to their scrambled twins.
 
     python experiments/make_report.py --experiment H8-E01      # run_keys.csv
-    python experiments/h8_report.py --experiment H8-E01 --control H8-E02
+    python experiments/h8_report.py --experiment H8-E01 --control H8-E02 --out H8-E02
 """
 from __future__ import annotations
 
@@ -72,6 +72,7 @@ def configure(methods) -> None:
                  for part in ("i", "ii") for m in MODELS]
     BESIDE = ([(arm(m), arm(m, "scrambled")) for m in MODELS]
               + [(arm(m, "scrambled"), arm(m, "blind")) for m in MODELS]
+              + [(arm(m, "blind"), STOCK) for m in MODELS]
               + [(arm(m, "proposer"), arm(m)) for m in MODELS]
               + [(arm(m, "proposer"), STOCK) for m in MODELS]
               + [(arm(ablated, u), STOCK) for u in USES]
@@ -134,11 +135,15 @@ def compare(cur, a: str, b: str, **meta) -> Dict:
         by_ds.setdefault(r["dataset"], []).append(r["effect"])
     ds = sorted(by_ds)
     e = np.array([np.mean(by_ds[d]) for d in ds])
+    # 95% bootstrap interval of the mean over datasets (descriptive).
+    boot = (np.random.default_rng(0).choice(e, (10_000, len(e))).mean(axis=1)
+            if len(e) else np.array([np.nan]))
     return {**meta, "arm": a, "opponent": b, "n_datasets": len(ds),
             "wins": int((e > 0).sum()), "ties": int((e == 0).sum()),
             "losses": int((e < 0).sum()),
             "mean_effect": float(e.mean()) if len(e) else float("nan"),
             "median_effect": float(np.median(e)) if len(e) else float("nan"),
+            "ci_low": float(np.percentile(boot, 2.5)), "ci_high": float(np.percentile(boot, 97.5)),
             "p": wilcoxon_p(e.tolist()), "datasets": ds, "effects": e.tolist(),
             "seed_rows": seeds}
 
@@ -184,12 +189,15 @@ def end_auf(rows) -> List[Dict]:
 def spend(rows) -> List[Dict]:
     """Calls, tokens, dollars and seconds of the model calls, per source."""
     out = []
+    wanted = {model_ids()[m] for m in MODELS}
 
     def add(source, model, path):
         for line in path.read_text(encoding="utf-8").splitlines():
             if not line.strip():
                 continue
             e = json.loads(line)
+            if e["request"]["model"] not in wanted:   # another experiment's models
+                continue
             u = e["response"].get("usage") or {}
             out.append({"source": source, "model": model or e["request"]["model"],
                         "prompt_tokens": u.get("prompt_tokens", 0),
@@ -238,7 +246,17 @@ def prior_agreement(datasets: List[str]) -> List[Dict]:
             if ps.is_file():
                 row["spearman_scrambled"] = float(spearmanr(a, lg.load_prior(ps))[0])
             if pb.is_file():
-                row["spearman_blind"] = float(spearmanr(a, lg.load_prior(pb))[0])
+                b = lg.load_prior(pb)
+                flat = len(np.unique(b)) == 1      # a flat prior leaves w = MI^0.5
+                row["spearman_blind"] = float("nan") if flat else float(spearmanr(a, b)[0])
+                row["blind_spearman_mi"] = float("nan") if flat else float(spearmanr(b, mi)[0])
+                row["blind_flat"] = flat
+                # The blind prior read by position against the named prior by
+                # column: high when a model scores position p as if it were
+                # the dataset's column p, i.e. recalls the original layout.
+                perm = np.asarray(json.loads(pb.read_text(encoding="utf-8"))["permutation"])
+                row["blind_layout_recall"] = (float("nan") if flat
+                                              else float(spearmanr(np.asarray(b)[perm], a)[0]))
             out.append(row)
     return out
 
@@ -305,6 +323,128 @@ def fig_beside(beside, note, path):
                  "mRMR seed; unadjusted p, descriptive", fontsize=10)
     _footer(fig, note, "validation")
     fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def _effects(beside_and_crit, a, b) -> Dict[str, float]:
+    r = next((r for r in beside_and_crit if r["arm"] == a and r["opponent"] == b), None)
+    return dict(zip(r["datasets"], r["effects"])) if r else {}
+
+
+def fig_blind_split(results, agree, note, path):
+    """Per model: named and blind prior against stock, named against blind,
+    scrambled against blind; a hollow point is a dataset whose blind prior
+    is flat (one score for every feature: the guidance is MI's alone)."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    flat = {(r["dataset"], r["model"]) for r in agree if r.get("blind_flat")}
+    cols = [("named vs stock", "", STOCK), ("blind vs stock", "blind", STOCK),
+            ("named vs blind", "", "blind"), ("scrambled vs blind", "scrambled", "blind")]
+    fig, axes = plt.subplots(1, len(MODELS), figsize=(17, 5), sharey=True)
+    for ax, m in zip(np.atleast_1d(axes), MODELS):
+        for i, (label, ka, kb) in enumerate(cols):
+            e = _effects(results, arm(m, ka), kb if kb == STOCK else arm(m, kb))
+            if not e:
+                continue
+            ds = sorted(e)
+            v = np.array([e[d] for d in ds])
+            x = i + np.random.default_rng(i).uniform(-0.18, 0.18, len(v))
+            hollow = np.array([(d, m) in flat for d in ds])
+            c = SERIES[i % len(SERIES)]
+            ax.scatter(x[~hollow], v[~hollow], s=16, color=c, alpha=0.85)
+            ax.scatter(x[hollow], v[hollow], s=22, facecolors="none", edgecolors=c)
+            ax.plot([i - 0.3, i + 0.3], [v.mean()] * 2, color="k", lw=2)
+            ax.annotate(f"{(v > 0).sum()}-{(v == 0).sum()}-{(v < 0).sum()}\n{v.mean():+.2f}",
+                        (i, 0), xycoords=("data", "axes fraction"), xytext=(0, -46),
+                        textcoords="offset points", ha="center", va="top", fontsize=7.5,
+                        annotation_clip=False)
+        ax.axhline(0, color=INK_2, lw=0.8)
+        ax.set_xticks(range(len(cols)), [c[0] for c in cols], fontsize=8, rotation=20, ha="right")
+        ax.set_title(m, fontsize=10)
+        ax.grid(axis="y", color=GRID)
+    np.atleast_1d(axes)[0].set_ylabel("log2(opponent's fits / arm's fits)\n"
+                                      "(per dataset, mean over seeds; > 0 = arm sooner)")
+    fig.suptitle("Where part (i)'s speed comes from: the blind prior alone against stock, and "
+                 "the named prior against it; hollow = flat blind prior; under each column "
+                 "wins-ties-losses and mean", fontsize=10)
+    _footer(fig, note, "validation")
+    fig.tight_layout(rect=(0, 0.1, 1, 0.94))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_blind_recall(agree, note, path):
+    """Per dataset and model: the blind prior read by position against the
+    named prior by column (bars), and the blind prior's own agreement with
+    mutual information (crosses); flat blind priors marked."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    ds = sorted({r["dataset"] for r in agree})
+    x = np.arange(len(ds))
+    w = 0.8 / len(MODELS)
+    fig, ax = plt.subplots(figsize=(17, 5.2))
+    for j, m in enumerate(MODELS):
+        v = {r["dataset"]: r for r in agree if r["model"] == m}
+        pos = x + (j - (len(MODELS) - 1) / 2) * w
+        rec = [v[d].get("blind_layout_recall", np.nan) if d in v else np.nan for d in ds]
+        ax.bar(pos, rec, w, color=SERIES[j % len(SERIES)],
+               label=f"{m}: blind prior by position vs named prior by column")
+        ax.scatter(pos, [v[d].get("blind_spearman_mi", np.nan) if d in v else np.nan
+                         for d in ds], color="k", marker="x", s=20, zorder=3,
+                   label="blind prior vs mutual information" if j == 0 else None)
+        for p, d in zip(pos, ds):
+            if d in v and v[d].get("blind_flat"):
+                ax.text(p, 0.02, "flat", rotation=90, ha="center", va="bottom",
+                        fontsize=6.5, color=INK_2)
+    ax.axhline(0, color=INK_2, lw=0.8)
+    ax.set_xticks(x, ds, rotation=30, ha="right", fontsize=8)
+    ax.set_ylabel("Spearman correlation")
+    ax.legend(fontsize=8, ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.22))
+    ax.grid(axis="y", color=GRID)
+    ax.set_title("The blind prior recalls the dataset's column order: position p is scored as "
+                 "the named prior scores column p; after the shuffle it points at other "
+                 "features", fontsize=10)
+    _footer(fig, note, "train")
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_blind_mi(results, agree, note, path):
+    """Per dataset and model, the blind prior's Spearman with mutual
+    information (x) against the named-vs-blind and blind-vs-stock effects."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    fig, axes = plt.subplots(1, 2, figsize=(17, 5.2), sharex=True)
+    panels = (("named prior vs blind prior", "", "blind"),
+              ("blind prior vs stock FASTENER", "blind", STOCK))
+    for ax, (title, ka, kb) in zip(axes, panels):
+        for j, m in enumerate(MODELS):
+            e = _effects(results, arm(m, ka), kb if kb == STOCK else arm(m, kb))
+            pts = [(r["blind_spearman_mi"], e[r["dataset"]], r["dataset"]) for r in agree
+                   if r["model"] == m and not r.get("blind_flat")
+                   and r["dataset"] in e and "blind_spearman_mi" in r]
+            if not pts:
+                continue
+            x, y, ds = zip(*pts)
+            ax.scatter(x, y, s=22, color=SERIES[j % len(SERIES)], label=m, alpha=0.85)
+            for xi, yi, d in zip(x, y, ds):
+                if abs(yi) > 0.9 or xi < -0.15:
+                    ax.annotate(d, (xi, yi), xytext=(4, 2), textcoords="offset points",
+                                fontsize=6.5, color=INK_2)
+        ax.axhline(0, color=INK_2, lw=0.8)
+        ax.axvline(0, color=INK_2, lw=0.8)
+        ax.set_title(title, fontsize=10)
+        ax.set_xlabel("blind prior's Spearman correlation with mutual information "
+                      "(training split)")
+        ax.grid(color=GRID)
+    axes[0].set_ylabel("log2(opponent's fits / arm's fits)\n(per dataset, mean over seeds)")
+    axes[0].legend(fontsize=8)
+    fig.suptitle("The named prior beats the blind one where the blind prior runs against "
+                 "mutual information (flat blind priors left out)", fontsize=10)
+    _footer(fig, note, "validation (y), train (x)")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.94))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -411,16 +551,18 @@ def write_methods(rows, out: Path, example: str = "spambase") -> List[str]:
             user = e["request"]["messages"][-1]["content"]
             # A scrambled prompt lists neutral tokens; the description may
             # still mention the real names' pattern (spambase: word_freq_WORD).
+            # A blind prompt (H8-E02) lists them too, with no Data: line.
             scrambled = "\n0: feature_0" in user
+            kind = ("_blind" if "\nData:" not in user else "_scrambled") if scrambled else ""
             if example not in json.dumps(e["request"]) and not user.startswith(
                     _dictionary_task(example)):
                 continue
-            key = (e["request"]["model"], scrambled)
-            if key in seen:
+            key = (e["request"]["model"], kind)
+            if key in seen or e["request"]["model"] not in {model_ids()[m] for m in MODELS}:
                 continue
             seen.add(key)
             slug = e["request"]["model"].split("/")[-1]
-            dump(f"prior_{example}_{slug}{'_scrambled' if scrambled else ''}.txt", e)
+            dump(f"prior_{example}_{slug}{kind}.txt", e)
     for m in MODELS:
         for r in rows:
             if r["method"] != arm(m, "proposer"):
@@ -456,6 +598,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--experiment", required=True)
     ap.add_argument("--control", default=None,
                     help="the experiment holding the blind arms (H8-E02)")
+    ap.add_argument("--out", default=None,
+                    help="the report to write into (default: --experiment; H8-E02's "
+                         "report reads H8-E01's arms with its own)")
     ap.add_argument("--no-priors", action="store_true",
                     help="skip the prior-agreement table (loads every dataset)")
     args = ap.parse_args(argv)
@@ -472,7 +617,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     datasets = sorted({r["dataset"] for r in rows})
     agree = [] if args.no_priors else prior_agreement(datasets)
 
-    out = REPORTS / args.experiment
+    out = REPORTS / (args.out or args.experiment)
     tabs, figs = out / "tables", out / "figures"
     figs.mkdir(parents=True, exist_ok=True)
     write_csv(tabs / "criterion.csv", crit)
@@ -485,13 +630,24 @@ def main(argv: Optional[List[str]] = None) -> int:
         write_csv(tabs / "prior_agreement.csv", agree)
     (tabs / "verdict.json").write_text(json.dumps(v, indent=1), encoding="utf-8")
     write_methods(rows, out / "methods")
-    note = f"{len(rows)} runs of {args.experiment}; LightGBM, 1,000 fits"
+    n_ctl = sum(r["method"].endswith("_blind") for r in rows) if args.control else 0
+    note = (f"{len(rows) - n_ctl} runs of {args.experiment}"
+            + (f" + {n_ctl} of {args.control}" if n_ctl else "") + "; LightGBM, 1,000 fits")
     fig_criterion(crit, note, figs / "F1_H8_criterion.png")
-    if beside:
-        fig_beside(beside, note, figs / "F2_beside.png")
-    fig_end_auf(rows, note, figs / "F3_end_auf.png")
-    if agree or costs:
-        fig_priors(agree, costs, note, figs / "F4_priors_and_cost.png")
+    if args.control and any("blind_flat" in r for r in agree):
+        # With the blind arms (H8-E02's report): the figures in its findings' order.
+        fig_blind_recall(agree, note, figs / "F2_blind_recall.png")
+        fig_blind_mi(crit + beside, agree, note, figs / "F3_blind_mi.png")
+        fig_blind_split(crit + beside, agree, note, figs / "F4_blind_split.png")
+        fig_end_auf(rows, note, figs / "F5_end_auf.png")
+        fig_beside(beside, note, figs / "F6_beside.png")
+        fig_priors(agree, costs, note, figs / "F7_priors_and_cost.png")
+    else:
+        if beside:
+            fig_beside(beside, note, figs / "F2_beside.png")
+        fig_end_auf(rows, note, figs / "F3_end_auf.png")
+        if agree or costs:
+            fig_priors(agree, costs, note, figs / "F4_priors_and_cost.png")
     print(json.dumps(v))
     for r in crit + beside:
         extra = f" holm {r['p_holm']:.3g} holds={r['holds']}" if "p_holm" in r else ""

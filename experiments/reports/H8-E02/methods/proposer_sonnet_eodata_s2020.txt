@@ -1,0 +1,209 @@
+model asked: anthropic/claude-sonnet-5.5   served: anthropic/claude-sonnet-5.5
+temperature 0.0, seed 20200, max_tokens 4000
+tokens in 3491, out 134, cost $0.0083, 1.43 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Below is the search's current best subset for each size, with its validation score (weighted F1, higher is better). Propose new feature subsets of at most 10 features that you expect to score higher than the current subsets of the same size. Use feature indices. Reply with a JSON object only: {"subsets": [[<index>, ...], ...]}, at most 5 subsets.
+
+===== user =====
+Task: Classify the crop type of an agricultural land parcel in Slovenia (or that it is not farmland) from Sentinel-2 satellite observations over the 2017 growing season.
+Classes: Not_Farmland, Beans, Beets, Buckwheat, Fallow_land, Grass, Hop, Legumes_or_grass, Maize, Meadows, Orchards, Other, Peas, Poppy, Potatoes, Pumpkins, Soft_fruits, Soybean, Summer_cereals, Sun_flower, Vegetables, Vineyards, Winter_cereals, Winter_rape
+Data: Each parcel's time series of four Sentinel-2 bands (BLUE, GREEN, RED, NIR) and six vegetation indices (NDVI, ARVI, EVI, SAVI, NDWI, SIPI) over the season, summarised by statistics; plus terrain elevation (DEM) and slope (INCLINATION). Names are <band or index>_<statistic>: max_val, min_val, mean_val, sd_val of the series; diff_max, diff_min, diff_diff of its differences; max_mean_feature, max_mean_len, max_mean_surf of the interval with the highest mean; pos_* and neg_* (len, rate, surf, tran) of its rising and falling segments: length, rate, area and transitions.
+
+Features (182):
+0: INCLINATION
+1: DEM
+2: ARVI_diff_diff
+3: ARVI_diff_max
+4: ARVI_diff_min
+5: ARVI_max_mean_feature
+6: ARVI_max_mean_len
+7: ARVI_max_mean_surf
+8: ARVI_max_val
+9: ARVI_mean_val
+10: ARVI_min_val
+11: ARVI_neg_len
+12: ARVI_neg_rate
+13: ARVI_neg_surf
+14: ARVI_neg_tran
+15: ARVI_pos_len
+16: ARVI_pos_rate
+17: ARVI_pos_surf
+18: ARVI_pos_tran
+19: ARVI_sd_val
+20: EVI_diff_diff
+21: EVI_diff_max
+22: EVI_diff_min
+23: EVI_max_mean_feature
+24: EVI_max_mean_len
+25: EVI_max_mean_surf
+26: EVI_max_val
+27: EVI_mean_val
+28: EVI_min_val
+29: EVI_neg_len
+30: EVI_neg_rate
+31: EVI_neg_surf
+32: EVI_neg_tran
+33: EVI_pos_len
+34: EVI_pos_rate
+35: EVI_pos_surf
+36: EVI_pos_tran
+37: EVI_sd_val
+38: NDVI_diff_diff
+39: NDVI_diff_max
+40: NDVI_diff_min
+41: NDVI_max_mean_feature
+42: NDVI_max_mean_len
+43: NDVI_max_mean_surf
+44: NDVI_max_val
+45: NDVI_mean_val
+46: NDVI_min_val
+47: NDVI_neg_len
+48: NDVI_neg_rate
+49: NDVI_neg_surf
+50: NDVI_neg_tran
+51: NDVI_pos_len
+52: NDVI_pos_rate
+53: NDVI_pos_surf
+54: NDVI_pos_tran
+55: NDVI_sd_val
+56: NDWI_diff_diff
+57: NDWI_diff_max
+58: NDWI_diff_min
+59: NDWI_max_mean_feature
+60: NDWI_max_mean_len
+61: NDWI_max_mean_surf
+62: NDWI_max_val
+63: NDWI_mean_val
+64: NDWI_min_val
+65: NDWI_neg_len
+66: NDWI_neg_rate
+67: NDWI_neg_surf
+68: NDWI_neg_tran
+69: NDWI_pos_len
+70: NDWI_pos_rate
+71: NDWI_pos_surf
+72: NDWI_pos_tran
+73: NDWI_sd_val
+74: SIPI_diff_diff
+75: SIPI_diff_max
+76: SIPI_diff_min
+77: SIPI_max_mean_feature
+78: SIPI_max_mean_len
+79: SIPI_max_mean_surf
+80: SIPI_max_val
+81: SIPI_mean_val
+82: SIPI_min_val
+83: SIPI_neg_len
+84: SIPI_neg_rate
+85: SIPI_neg_surf
+86: SIPI_neg_tran
+87: SIPI_pos_len
+88: SIPI_pos_rate
+89: SIPI_pos_surf
+90: SIPI_pos_tran
+91: SIPI_sd_val
+92: SAVI_diff_diff
+93: SAVI_diff_max
+94: SAVI_diff_min
+95: SAVI_max_mean_feature
+96: SAVI_max_mean_len
+97: SAVI_max_mean_surf
+98: SAVI_max_val
+99: SAVI_mean_val
+100: SAVI_min_val
+101: SAVI_neg_len
+102: SAVI_neg_rate
+103: SAVI_neg_surf
+104: SAVI_neg_tran
+105: SAVI_pos_len
+106: SAVI_pos_rate
+107: SAVI_pos_surf
+108: SAVI_pos_tran
+109: SAVI_sd_val
+110: BLUE_diff_diff
+111: BLUE_diff_max
+112: BLUE_diff_min
+113: BLUE_max_mean_feature
+114: BLUE_max_mean_len
+115: BLUE_max_mean_surf
+116: BLUE_max_val
+117: BLUE_mean_val
+118: BLUE_min_val
+119: BLUE_neg_len
+120: BLUE_neg_rate
+121: BLUE_neg_surf
+122: BLUE_neg_tran
+123: BLUE_pos_len
+124: BLUE_pos_rate
+125: BLUE_pos_surf
+126: BLUE_pos_tran
+127: BLUE_sd_val
+128: GREEN_diff_diff
+129: GREEN_diff_max
+130: GREEN_diff_min
+131: GREEN_max_mean_feature
+132: GREEN_max_mean_len
+133: GREEN_max_mean_surf
+134: GREEN_max_val
+135: GREEN_mean_val
+136: GREEN_min_val
+137: GREEN_neg_len
+138: GREEN_neg_rate
+139: GREEN_neg_surf
+140: GREEN_neg_tran
+141: GREEN_pos_len
+142: GREEN_pos_rate
+143: GREEN_pos_surf
+144: GREEN_pos_tran
+145: GREEN_sd_val
+146: RED_diff_diff
+147: RED_diff_max
+148: RED_diff_min
+149: RED_max_mean_feature
+150: RED_max_mean_len
+151: RED_max_mean_surf
+152: RED_max_val
+153: RED_mean_val
+154: RED_min_val
+155: RED_neg_len
+156: RED_neg_rate
+157: RED_neg_surf
+158: RED_neg_tran
+159: RED_pos_len
+160: RED_pos_rate
+161: RED_pos_surf
+162: RED_pos_tran
+163: RED_sd_val
+164: NIR_diff_diff
+165: NIR_diff_max
+166: NIR_diff_min
+167: NIR_max_mean_feature
+168: NIR_max_mean_len
+169: NIR_max_mean_surf
+170: NIR_max_val
+171: NIR_mean_val
+172: NIR_min_val
+173: NIR_neg_len
+174: NIR_neg_rate
+175: NIR_neg_surf
+176: NIR_neg_tran
+177: NIR_pos_len
+178: NIR_pos_rate
+179: NIR_pos_surf
+180: NIR_pos_tran
+181: NIR_sd_val
+
+Generation 5; 36 of 1000 model fits spent.
+Current front:
+size 1: [137] (GREEN_neg_len) -> 0.1371
+size 2: [65, 116] (NDWI_neg_len, BLUE_max_val) -> 0.2585
+size 3: [65, 91, 116] (NDWI_neg_len, SIPI_sd_val, BLUE_max_val) -> 0.3398
+size 4: [65, 91, 107, 116] (NDWI_neg_len, SIPI_sd_val, SAVI_pos_surf, BLUE_max_val) -> 0.3888
+size 5: [0, 55, 145, 149, 169] (INCLINATION, NDVI_sd_val, GREEN_sd_val, RED_max_mean_feature, NIR_max_mean_surf) -> 0.4407
+size 6: [5, 65, 91, 107, 116, 149] (ARVI_max_mean_feature, NDWI_neg_len, SIPI_sd_val, SAVI_pos_surf, BLUE_max_val, RED_max_mean_feature) -> 0.4671
+size 9: [0, 6, 48, 55, 80, 92, 112, 145, 149] (INCLINATION, ARVI_max_mean_len, NDVI_neg_rate, NDVI_sd_val, SIPI_max_val, SAVI_diff_diff, BLUE_diff_min, GREEN_sd_val, RED_max_mean_feature) -> 0.5329
+size 10: [0, 41, 55, 87, 90, 102, 131, 145, 167, 179] (INCLINATION, NDVI_max_mean_feature, NDVI_sd_val, SIPI_pos_len, SIPI_pos_tran, SAVI_neg_rate, GREEN_max_mean_feature, GREEN_sd_val, NIR_max_mean_feature, NIR_pos_surf) -> 0.5420
+
+===== reply =====
+{"subsets": [[0, 55, 145, 149, 169, 65], [0, 5, 55, 65, 91, 116, 149], [0, 55, 145, 149, 169, 41, 91, 116], [0, 6, 48, 55, 65, 80, 92, 116, 145, 149], [0, 41, 55, 91, 107, 116, 131, 145, 149, 167]]}

@@ -1,6 +1,8 @@
 # H8-E01 -- report
 
-*Hypothesis H8. Part (ii) of the criterion is read against H8-E02 (the strict control, still running), so this report gives part (i) and everything beside the criterion; H8's verdict follows when H8-E02 is in. The runs, the full method -- every prompt as sent -- and the numbers are in [SUPPORT.md](SUPPORT.md).*
+*Hypothesis H8. **Update (2026-10-30):** part (ii) and H8's verdict for these three models are in [H8-E02's report](../H8-E02/REPORT.md): not confirmed. Part (ii) fails for every model, and the blind control turned out to recall the datasets' column order. The text below is as written before H8-E02 was in.*
+
+*Part (ii) of the criterion is read against H8-E02 (the strict control, still running), so this report gives part (i) and everything beside the criterion; H8's verdict follows when H8-E02 is in. The runs, the full method -- every prompt as sent -- and the numbers are in [SUPPORT.md](SUPPORT.md).*
 
 ## 1. In brief
 

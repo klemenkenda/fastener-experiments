@@ -1,0 +1,73 @@
+model asked: anthropic/claude-opus-5.5   served: anthropic/claude-opus-5.5
+temperature 0.0, seed 20200, max_tokens 16000
+tokens in 698, out 779, cost $0.0184, 7.01 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {"scores": {"<feature index>": <score>, ...}} with one entry for every feature index listed.
+
+===== user =====
+Task: Decide whether an e-mail is unsolicited commercial e-mail (spam).
+Classes: not spam, spam
+Data: E-mails collected at Hewlett-Packard Labs. word_freq_WORD is the percentage of words in the e-mail that are WORD; char_freq_CHAR the percentage of characters that are CHAR; capital_run_length_average, _longest and _total describe runs of consecutive capital letters.
+
+Features (57 of 57):
+0: feature_00
+1: feature_01
+2: feature_02
+3: feature_03
+4: feature_04
+5: feature_05
+6: feature_06
+7: feature_07
+8: feature_08
+9: feature_09
+10: feature_10
+11: feature_11
+12: feature_12
+13: feature_13
+14: feature_14
+15: feature_15
+16: feature_16
+17: feature_17
+18: feature_18
+19: feature_19
+20: feature_20
+21: feature_21
+22: feature_22
+23: feature_23
+24: feature_24
+25: feature_25
+26: feature_26
+27: feature_27
+28: feature_28
+29: feature_29
+30: feature_30
+31: feature_31
+32: feature_32
+33: feature_33
+34: feature_34
+35: feature_35
+36: feature_36
+37: feature_37
+38: feature_38
+39: feature_39
+40: feature_40
+41: feature_41
+42: feature_42
+43: feature_43
+44: feature_44
+45: feature_45
+46: feature_46
+47: feature_47
+48: feature_48
+49: feature_49
+50: feature_50
+51: feature_51
+52: feature_52
+53: feature_53
+54: feature_54
+55: feature_55
+56: feature_56
+
+===== reply =====
+{"scores": {"0": 0.3, "1": 0.3, "2": 0.35, "3": 0.2, "4": 0.6, "5": 0.4, "6": 0.8, "7": 0.45, "8": 0.4, "9": 0.35, "10": 0.45, "11": 0.3, "12": 0.25, "13": 0.25, "14": 0.3, "15": 0.75, "16": 0.55, "17": 0.4, "18": 0.55, "19": 0.4, "20": 0.7, "21": 0.3, "22": 0.65, "23": 0.6, "24": 0.75, "25": 0.55, "26": 0.6, "27": 0.35, "28": 0.3, "29": 0.3, "30": 0.2, "31": 0.2, "32": 0.3, "33": 0.2, "34": 0.3, "35": 0.25, "36": 0.4, "37": 0.1, "38": 0.25, "39": 0.2, "40": 0.25, "41": 0.35, "42": 0.3, "43": 0.25, "44": 0.4, "45": 0.45, "46": 0.1, "47": 0.2, "48": 0.25, "49": 0.35, "50": 0.2, "51": 0.85, "52": 0.8, "53": 0.35, "54": 0.6, "55": 0.7, "56": 0.65}}
