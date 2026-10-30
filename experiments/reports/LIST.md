@@ -16,6 +16,7 @@
 | H5 | `H5H6-E03` | 16 h 59 min | not confirmed | LightGBM; read with E01, E02 | [REPORT.md](H5H6-E03/REPORT.md) |
 | H6 | `H5H6-E03` | 16 h 59 min | not confirmed | LightGBM; read with E01, E02 | [REPORT.md](H5H6-E03/REPORT.md) |
 | H7 | `H7-E01` | 2 h 11 min | not confirmed | analysis of the H5/H6 grids' runs | [REPORT.md](H7-E01/REPORT.md) |
+| H8 | `H8-E01` | 1 h 58 min | part (i) confirmed; part (ii) pending | LLM prior, three models; read with H8-E02 | [REPORT.md](H8-E01/REPORT.md) |
 | H10 | `H10-E01` | 5 h 24 min | not confirmed | LightGBM; decides H10 | [REPORT.md](H10-E01/REPORT.md) |
 | H10 | `H10-E02` | 5 h 0 min | not confirmed | random forest; read with E01 | [REPORT.md](H10-E02/REPORT.md) |
 | H10 | `H10-E03` | 4 h 28 min | not confirmed | decision tree; read with E01 | [REPORT.md](H10-E03/REPORT.md) |

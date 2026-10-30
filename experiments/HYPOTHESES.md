@@ -835,7 +835,10 @@ and its prompt, and the classifier. *Fixed on 2026-10-30 (revision below,
 
 * `H8-E01` -- the prior from three Anthropic models on 16 datasets with named
   features, LightGBM, 1,000 fits, with the scrambled control, the online
-  proposer and single-operator ablations. Registered.
+  proposer and single-operator ablations. **Part (i) holds for all three
+  models** (13-0-3 datasets, 1.5-1.7 times fewer fits, Holm p 0.005-0.015);
+  part (ii) awaits H8-E02. The leaky scrambled prior is as fast as the named
+  one, and most of the gain comes through mutation. [Report](reports/H8-E01/REPORT.md).
 * `H8-E02` -- the strict (blind) control for part (ii): the three models'
   priors with shuffled, position-only features and no description, on
   H8-E01's datasets and setup. Registered.

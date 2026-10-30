@@ -247,6 +247,9 @@ def fig_criterion(crit, note, path):
                         (i, 0), xycoords=("data", "axes fraction"), xytext=(0, -34),
                         textcoords="offset points", ha="center", va="top", fontsize=7.5,
                         annotation_clip=False)
+        if not any(r["n_datasets"] for r in grp):
+            ax.text(0.5, 0.5, "pending: needs H8-E02's blind arms", transform=ax.transAxes,
+                    ha="center", va="center", fontsize=11, color=INK_2)
         ax.axhline(0, color=INK_2, lw=0.8)
         ax.set_xticks(range(len(grp)), [r["model"] for r in grp])
         ax.set_title(title, fontsize=10)
@@ -264,26 +267,28 @@ def fig_criterion(crit, note, path):
 def fig_beside(beside, note, path):
     import matplotlib.pyplot as plt
     _style(plt)
-    fig, ax = plt.subplots(figsize=(17, 5.2))
+    fig, ax = plt.subplots(figsize=(17, 6.2))
     for i, r in enumerate(beside):
         e = np.array(r["effects"])
         x = i + np.random.default_rng(i).uniform(-0.18, 0.18, len(e))
         ax.scatter(x, e, s=12, color=SERIES[i % len(SERIES)], alpha=0.7)
         ax.plot([i - 0.3, i + 0.3], [r["mean_effect"]] * 2, color="k", lw=2)
-        ax.annotate(f"{r['wins']}-{r['ties']}-{r['losses']}\np={r['p']:.2g}", (i, 0),
-                    xycoords=("data", "axes fraction"), xytext=(0, -62),
-                    textcoords="offset points", ha="center", va="top", fontsize=7,
+        ax.annotate(f"{r['wins']}-{r['ties']}-{r['losses']}\np={r['p']:.2g}", (i, 1),
+                    xycoords=("data", "axes fraction"), xytext=(0, -3),
+                    textcoords="offset points", ha="center", va="top", fontsize=6.5,
                     annotation_clip=False)
     short = lambda a: a.replace("fastener_", "").replace("llm_", "")
-    ax.set_xticks(range(len(beside)), [f"{short(r['arm'])}\nvs {short(r['opponent'])}"
-                                       for r in beside], fontsize=7, rotation=0)
+    ax.set_xticks(range(len(beside)), [f"{short(r['arm'])} vs {short(r['opponent'])}"
+                                       for r in beside], fontsize=7.5, rotation=35, ha="right")
+    lo, hi = ax.get_ylim()
+    ax.set_ylim(lo, hi + 0.25 * (hi - lo))
     ax.axhline(0, color=INK_2, lw=0.8)
     ax.grid(axis="y", color=GRID)
     ax.set_ylabel("log2(opponent's fits / arm's fits)\n(per dataset; > 0 = arm sooner)")
     ax.set_title("Beside the criterion: proposer, single-operator ablations (Opus), "
                  "mRMR seed; unadjusted p, descriptive", fontsize=10)
     _footer(fig, note, "validation")
-    fig.tight_layout(rect=(0, 0.16, 1, 1))
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -320,7 +325,7 @@ def fig_end_auf(rows, note, path):
 def fig_priors(agree, costs, note, path):
     import matplotlib.pyplot as plt
     _style(plt)
-    fig, axes = plt.subplots(1, 2, figsize=(17, 4.8), gridspec_kw={"width_ratios": [3, 1]})
+    fig, axes = plt.subplots(1, 2, figsize=(17, 5.8), gridspec_kw={"width_ratios": [3, 1]})
     ds = sorted({r["dataset"] for r in agree})
     x = np.arange(len(ds))
     for j, m in enumerate(MODELS):
@@ -330,14 +335,18 @@ def fig_priors(agree, costs, note, path):
         axes[0].scatter(x + (j - 1) * 0.27,
                         [v[d].get("spearman_scrambled", np.nan) if d in v else np.nan for d in ds],
                         color="k", marker="_", s=60, zorder=3,
-                        label="prior vs its scrambled twin" if j == 0 else None)
+                        label="prior vs scrambled (H8-E01)" if j == 0 else None)
+        axes[0].scatter(x + (j - 1) * 0.27,
+                        [v[d].get("spearman_blind", np.nan) if d in v else np.nan for d in ds],
+                        color=INK_2, marker="x", s=18, zorder=3,
+                        label="prior vs blind (H8-E02)" if j == 0 else None)
     axes[0].axhline(0, color=INK_2, lw=0.8)
     axes[0].set_xticks(x, ds, rotation=40, ha="right", fontsize=8)
     axes[0].set_ylabel("Spearman correlation")
-    axes[0].legend(fontsize=8, ncol=4, loc="lower left")
+    axes[0].legend(fontsize=8, ncol=5, loc="upper center", bbox_to_anchor=(0.5, -0.3))
     axes[0].grid(axis="y", color=GRID)
     axes[0].set_title("What the priors say: agreement with mutual information on the "
-                      "training split, and with the scrambled prior", fontsize=10)
+                      "training split, and with the scrambled and blind priors", fontsize=10)
     labels = [f"{c['source']}\n{c['model'].split('/')[-1]}" for c in costs]
     axes[1].bar(range(len(costs)), [c["cost"] for c in costs], color=SERIES[3])
     axes[1].set_xticks(range(len(costs)), labels, fontsize=7, rotation=30, ha="right")

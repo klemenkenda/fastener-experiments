@@ -1,0 +1,7 @@
+model,part,arm,opponent,n_datasets,wins,ties,losses,mean_effect,median_effect,p,p_holm,holds
+opus,i,fastener_llm_opus,fastener,16,13,0,3,0.610124435460127,0.42091131762028405,0.00762939453125,0.0152587890625,True
+sonnet,i,fastener_llm_sonnet,fastener,16,13,0,3,0.731395580327118,0.7377469944247963,0.001678466796875,0.005035400390625,True
+haiku,i,fastener_llm_haiku,fastener,16,13,0,3,0.5705597136495713,0.5425766188186181,0.00762939453125,0.0152587890625,True
+opus,ii,fastener_llm_opus,fastener_llm_opus_blind,0,0,0,0,nan,nan,1.0,1.0,False
+sonnet,ii,fastener_llm_sonnet,fastener_llm_sonnet_blind,0,0,0,0,nan,nan,1.0,1.0,False
+haiku,ii,fastener_llm_haiku,fastener_llm_haiku_blind,0,0,0,0,nan,nan,1.0,1.0,False

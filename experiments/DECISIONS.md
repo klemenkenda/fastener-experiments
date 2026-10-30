@@ -1172,4 +1172,5 @@ are not repeated.
 | `H10-E01` | reported: not supported | [DEC-43](#dec-43), [DEC-44](#dec-44), [DEC-45](#dec-45), [DEC-47](#dec-47) | [DEC-47](#dec-47) | [H10-E01](reports/H10-E01/REPORT.md) |
 | `H10-E02` | reported: not supported (passes a, b) | [DEC-41](#dec-41), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E02](reports/H10-E02/REPORT.md) |
 | `H10-E03` | reported: not supported (passes a) | [DEC-37](#dec-37), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E03](reports/H10-E03/REPORT.md) |
+| `H8-E01` | reported: part (i) holds for all three models; part (ii) pending (H8-E02) | [DEC-44](#dec-44), [DEC-49](#dec-49), [DEC-50](#dec-50), [DEC-51](#dec-51) | [DEC-51](#dec-51) | [H8-E01](reports/H8-E01/REPORT.md) |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |
