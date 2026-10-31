@@ -1,0 +1,500 @@
+{
+ "dataset": "diabetes130",
+ "model": "microsoft/phi-4",
+ "variables": [
+  "race",
+  "gender",
+  "age",
+  "weight",
+  "admission_type_id",
+  "discharge_disposition_id",
+  "admission_source_id",
+  "time_in_hospital",
+  "payer_code",
+  "num_lab_procedures",
+  "num_procedures",
+  "num_medications",
+  "number_outpatient",
+  "number_emergency",
+  "number_inpatient",
+  "number_diagnoses",
+  "max_glu_serum",
+  "A1Cresult",
+  "metformin",
+  "repaglinide",
+  "nateglinide",
+  "chlorpropamide",
+  "glimepiride",
+  "acetohexamide",
+  "glipizide",
+  "glyburide",
+  "tolbutamide",
+  "pioglitazone",
+  "rosiglitazone",
+  "acarbose",
+  "miglitol",
+  "troglitazone",
+  "tolazamide",
+  "examide",
+  "citoglipton",
+  "insulin",
+  "glyburide.metformin",
+  "glipizide.metformin",
+  "glimepiride.pioglitazone",
+  "metformin.rosiglitazone",
+  "metformin.pioglitazone",
+  "change",
+  "diabetesMed"
+ ],
+ "P1a": {
+  "key": "2fe95ea1040d31fb5eae724f7f770848a7be31d5bffdb27c82aacff86aa93f24",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 119,
+   "completion_tokens": 72,
+   "total_tokens": 191,
+   "cost": 1.841e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.841e-05,
+    "upstream_inference_prompt_cost": 8.33e-06,
+    "upstream_inference_completions_cost": 1.008e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Diabetes 130-US hospitals for years 1999-2008\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008\",\n  \"confidence\": 0.9\n}\n```"
+ },
+ "P1b": {
+  "key": "c301322f2870ef06052ac98439abb30eb121b3e23c03449e9c061877ad2a68a1",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 303,
+   "completion_tokens": 47,
+   "total_tokens": 350,
+   "cost": 2.779e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.779e-05,
+    "upstream_inference_prompt_cost": 2.121e-05,
+    "upstream_inference_completions_cost": 6.58e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Diabetes 130-US hospitals for years 1999-2008 Data Set\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 1\n}\n```"
+ },
+ "P2": {
+  "key": "a1e7c34575f9fd8fccd4f4d3a286d9829d70fd22a9ac804ad03d4c8a3c8c12f5",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 110,
+   "completion_tokens": 8000,
+   "total_tokens": 8110,
+   "cost": 0.0011277,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0011277,
+    "upstream_inference_prompt_cost": 7.7e-06,
+    "upstream_inference_completions_cost": 0.00112
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"number_of_inpatient_admissions\",\n    \"number_of_emergency_room_visits\",\n    \"number_of_outpatient_visits\",\n    \"number_of_lab_procedures\",\n    \"number_of_procedures\",\n    \"number_of_medications\",\n    \"number_of_outpatient_visits_per_year\",\n    \"number_of_emergency_room_visits_per_year\",\n    \"number_of_inpatient_admissions_per_year\",\n    \"diabetes_medication\",\n    \"change_in_diabetes_medication\",\n    \"diabetes_medication\",\n    \"metformin\",\n    \"repaglinide\",\n    \"nateglinide\",\n    \"chlorpropamide\",\n    \"glimepiride\",\n    \"acetohexamide\",\n    \"glipizide\",\n    \"glyburide\",\n    \"tolbutamide\",\n    \"pioglitazone\",\n    \"rosiglitazone\",\n    \"acarbose\",\n    \"miglitol\",\n    \"troglitazone\",\n    \"tolazamide\",\n    \"insulin\",\n    \"glyburide-metformin\",\n    \"glipizide-metformin\",\n    \"glimepiride-pioglitazone\",\n    \"metformin-rosiglitazone\",\n    \"metformin-pioglitazone\",\n    \"change_in_diabetes_medication\",\n    \"diabetes_medication\",\n    \"metformin\",\n    \"repaglinide\",\n    \"nateglinide\",\n    \"chlorpropamide\",\n    \"glimepiride\",\n    \"acetohexamide\",\n    \"glipizide\",\n    \"glyburide\",\n    \"tolbutamide\",\n    \"pioglitazone\",\n    \"rosiglitazone\",\n    \"acarbose\",\n    \"miglitol\",\n    \"troglitazone\",\n    \"tolazamide\",\n    \"insulin\",\n    \"glyburide-metformin\",\n    \"glipizide-metformin\",\n    \"glimepiride-pioglitazone\",\n    \"metformin-rosiglitazone\",\n    \"metformin-pioglitazone\",\n    \"change_in_diabetes_medication\",\n    \"diabetes_medication\",\n    \"metformin\",\n    \"repaglinide\",\n    \"nateglinide\",\n    \"chlorpropamide\",\n    \"glimepiride\",\n    \"acetohexamide\",\n    \"glipizide\",\n    \"glyburide\",\n    \"tolbutamide\",\n    \"pioglitazone\",\n    \"rosiglitazone\",\n    \"acarbose\",\n    \"miglitol\",\n    \"troglitazone\",\n    \"tolazamide\",\n    \"insulin\",\n    \"glyburide-metformin\",\n    \"glipizide-metformin\",\n    \"glimepiride-pioglitazone\",\n    \"metformin-rosiglitazone\",\n    \"metformin-pioglitazone\",\n    \"change_in_diabetes_medication\",\n    \"diabetes_medication\",\n    \"metformin\",\n    \"repaglinide\",\n    \"nateglinide\",\n    \"chlorpropamide\",\n    \"glimepiride\",\n    \"acetohexamide\",\n    \"glipizide\",\n    \"glyburide\",\n    \"tolbutamide\",\n    \"pioglitazone\",\n    \"rosiglitazone\",\n    \"acarbose\",\n    \"miglitol\",\n    \"troglitazone\",\n    \"tolazamide\",\n    \"insulin\",\n    \"glyburide-metformin\",\n    \"glipizide-metformin\",\n    \"glimepiride-pioglitazone\",\n    \"metformin-rosiglitazone\",\n    \"metformin-pioglitazone\",\n    \"change_in_diabetes_medication\",\n    \"diabetes_medication\",\n    \"metformin\",\n    \"repaglinide\",\n    \"nateglinide\",\n    \"chlorpropamide\",\n    \"glimepiride\",\n    \"acetohexamide\",\n    \"glipizide\",\n    \"glyburide\",\n    \"tolbutamide\",\n    \"pioglitazone\",\n    \"rosiglitazone\",\n    \"acarbose\",\n    \"miglitol\",\n    \"troglitazone\",\n    \"tolazamide\",\n    \"insulin\",\n    \"glyburide-metformin\",\n    \"glipizide-metformin\",\n    \"glimepiride-pioglitazone\",\n    \"metformin-rosiglitazone\",\n    \"metformin-pioglitazone\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n    \"number_diagnoses\",\n   "
+ },
+ "P3": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f7522d5a3cdf6a0021cfbafc04b50a8e8e526e0528c1e82ce829966c1d49a5a5",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 295,
+     "completion_tokens": 439,
+     "total_tokens": 734,
+     "cost": 8.211e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 8.211e-05,
+      "upstream_inference_prompt_cost": 2.065e-05,
+      "upstream_inference_completions_cost": 6.146e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.6,\n    \"2\": 0.5,\n    \"3\": 0.4,\n    \"4\": 0.6,\n    \"5\": 0.5,\n    \"6\": 0.7,\n    \"7\": 0.8,\n    \"8\": 0.9,\n    \"9\": 0.8,\n    \"10\": 0.7,\n    \"11\": 0.6,\n    \"12\": 0.5,\n    \"13\": 0.4,\n    \"14\": 0.6,\n    \"15\": 0.7,\n    \"16\": 0.8,\n    \"17\": 0.9,\n    \"18\": 0.7,\n    \"19\": 0.6,\n    \"20\": 0.5,\n    \"21\": 0.4,\n    \"22\": 0.6,\n    \"23\": 0.7,\n    \"24\": 0.8,\n    \"25\": 0.9,\n    \"26\": 0.7,\n    \"27\": 0.6,\n    \"28\": 0.5,\n    \"29\": 0.4,\n    \"30\": 0.6,\n    \"31\": 0.7,\n    \"32\": 0.8,\n    \"33\": 0.9,\n    \"34\": 0.7,\n    \"35\": 0.6,\n    \"36\": 0.5,\n    \"37\": 0.4,\n    \"38\": 0.6,\n    \"39\": 0.7,\n    \"40\": 0.8,\n    \"41\": 0.9,\n    \"42\": 0.7\n  }\n}\n```\n\nThese scores are hypothetical and based on typical feature importance in diabetes datasets, such as age, BMI, blood pressure, and lab test results, which are often more predictive of diabetes outcomes.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order (the distributed file's columns encounter_id, patient_nbr, medical_specialty, diag_1, diag_2, diag_3 are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.9,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "26795e0fa6ecdc4670ccde7bc039dc47f5022e4eb0160d28b297bb50021150db",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 246,
+     "completion_tokens": 425,
+     "total_tokens": 671,
+     "cost": 7.672e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.672e-05,
+      "upstream_inference_prompt_cost": 1.722e-05,
+      "upstream_inference_completions_cost": 5.95e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.5,\n    \"1\": 0.4,\n    \"2\": 0.3,\n    \"3\": 0.6,\n    \"4\": 0.2,\n    \"5\": 0.5,\n    \"6\": 0.4,\n    \"7\": 0.3,\n    \"8\": 0.7,\n    \"9\": 0.2,\n    \"10\": 0.6,\n    \"11\": 0.3,\n    \"12\": 0.5,\n    \"13\": 0.4,\n    \"14\": 0.6,\n    \"15\": 0.3,\n    \"16\": 0.7,\n    \"17\": 0.2,\n    \"18\": 0.5,\n    \"19\": 0.4,\n    \"20\": 0.3,\n    \"21\": 0.6,\n    \"22\": 0.2,\n    \"23\": 0.5,\n    \"24\": 0.4,\n    \"25\": 0.7,\n    \"26\": 0.3,\n    \"27\": 0.6,\n    \"28\": 0.2,\n    \"29\": 0.5,\n    \"30\": 0.4,\n    \"31\": 0.3,\n    \"32\": 0.6,\n    \"33\": 0.7,\n    \"34\": 0.2,\n    \"35\": 0.5,\n    \"36\": 0.4,\n    \"37\": 0.3,\n    \"38\": 0.6,\n    \"39\": 0.2,\n    \"40\": 0.5,\n    \"41\": 0.4,\n    \"42\": 0.7\n  }\n}\n``` \n\nThese scores are hypothetical and assume a balanced distribution of feature importance, given the lack of specific information about the dataset.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.2,
+   0.5,
+   0.4,
+   0.3,
+   0.7,
+   0.2,
+   0.6,
+   0.3,
+   0.5,
+   0.4,
+   0.6,
+   0.3,
+   0.7,
+   0.2,
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.2,
+   0.5,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.2,
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.7,
+   0.2,
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.2,
+   0.5,
+   0.4,
+   0.7
+  ]
+ },
+ "P4": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "13c47eaacdbd987d0053d84a3221ff6d0ee8a320a9b685985cff5d9267537981",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 449,
+     "completion_tokens": 567,
+     "total_tokens": 1016,
+     "cost": 0.00011081,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00011081,
+      "upstream_inference_prompt_cost": 3.143e-05,
+      "upstream_inference_completions_cost": 7.938e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.2,\n    \"1\": 0.1,\n    \"2\": 0.3,\n    \"3\": 0.1,\n    \"4\": 0.1,\n    \"5\": 0.1,\n    \"6\": 0.1,\n    \"7\": 0.4,\n    \"8\": 0.1,\n    \"9\": 0.5,\n    \"10\": 0.3,\n    \"11\": 0.4,\n    \"12\": 0.3,\n    \"13\": 0.3,\n    \"14\": 0.4,\n    \"15\": 0.5,\n    \"16\": 0.4,\n    \"17\": 0.5,\n    \"18\": 0.4,\n    \"19\": 0.3,\n    \"20\": 0.3,\n    \"21\": 0.2,\n    \"22\": 0.3,\n    \"23\": 0.2,\n    \"24\": 0.3,\n    \"25\": 0.3,\n    \"26\": 0.2,\n    \"27\": 0.3,\n    \"28\": 0.3,\n    \"29\": 0.2,\n    \"30\": 0.2,\n    \"31\": 0.2,\n    \"32\": 0.2,\n    \"33\": 0.2,\n    \"34\": 0.2,\n    \"35\": 0.4,\n    \"36\": 0.4,\n    \"37\": 0.4,\n    \"38\": 0.4,\n    \"39\": 0.4,\n    \"40\": 0.4,\n    \"41\": 0.3,\n    \"42\": 0.3\n  }\n}\n```\n\n### Explanation:\n- **Age, time_in_hospital, num_lab_procedures, num_medications, number_inpatient, number_diagnoses, max_glu_serum, A1Cresult, insulin, and various medication combinations** are rated higher because they are directly related to the patient's health status and treatment, which are likely to influence readmission.\n- **Gender, race, weight, admission_type_id, discharge_disposition_id, admission_source_id, payer_code** are rated lower as they are less directly related to the medical condition and treatment outcomes.\n- **Number of procedures and medications** are moderately rated as they can indicate the severity of the condition.\n- **Medications** are rated based on their direct relevance to diabetes management, with those more commonly associated with diabetes management receiving higher scores.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.1,
+   0.3,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.4,
+   0.1,
+   0.5,
+   0.3,
+   0.4,
+   0.3,
+   0.3,
+   0.4,
+   0.5,
+   0.4,
+   0.5,
+   0.4,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.2,
+   0.2,
+   0.2,
+   0.2,
+   0.2,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.3,
+   0.3
+  ]
+ },
+ "P5": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "dd1218eae57231af8a232a0386a31ea71c87405cdef06a0c9db8ad9b21c8887b",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 412,
+     "completion_tokens": 401,
+     "total_tokens": 813,
+     "cost": 8.498e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 8.498e-05,
+      "upstream_inference_prompt_cost": 2.884e-05,
+      "upstream_inference_completions_cost": 5.614e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.2,\n    \"1\": 0.1,\n    \"2\": 0.3,\n    \"3\": 0.1,\n    \"4\": 0.2,\n    \"5\": 0.2,\n    \"6\": 0.2,\n    \"7\": 0.4,\n    \"8\": 0.1,\n    \"9\": 0.4,\n    \"10\": 0.3,\n    \"11\": 0.3,\n    \"12\": 0.3,\n    \"13\": 0.3,\n    \"14\": 0.3,\n    \"15\": 0.4,\n    \"16\": 0.3,\n    \"17\": 0.5,\n    \"18\": 0.4,\n    \"19\": 0.3,\n    \"20\": 0.3,\n    \"21\": 0.2,\n    \"22\": 0.3,\n    \"23\": 0.2,\n    \"24\": 0.3,\n    \"25\": 0.3,\n    \"26\": 0.2,\n    \"27\": 0.4,\n    \"28\": 0.4,\n    \"29\": 0.3,\n    \"30\": 0.3,\n    \"31\": 0.2,\n    \"32\": 0.2,\n    \"33\": 0.2,\n    \"34\": 0.2,\n    \"35\": 0.5,\n    \"36\": 0.4,\n    \"37\": 0.4,\n    \"38\": 0.4,\n    \"39\": 0.4,\n    \"40\": 0.4,\n    \"41\": 0.3,\n    \"42\": 0.4\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.1,
+   0.3,
+   0.1,
+   0.2,
+   0.2,
+   0.2,
+   0.4,
+   0.1,
+   0.4,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.4,
+   0.3,
+   0.5,
+   0.4,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.4,
+   0.4,
+   0.3,
+   0.3,
+   0.2,
+   0.2,
+   0.2,
+   0.2,
+   0.5,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.3,
+   0.4
+  ]
+ }
+}

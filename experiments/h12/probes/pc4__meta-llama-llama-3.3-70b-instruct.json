@@ -1,0 +1,470 @@
+{
+ "dataset": "pc4",
+ "model": "meta-llama/llama-3.3-70b-instruct",
+ "variables": [
+  "LOC_BLANK",
+  "BRANCH_COUNT",
+  "CALL_PAIRS",
+  "LOC_CODE_AND_COMMENT",
+  "LOC_COMMENTS",
+  "CONDITION_COUNT",
+  "CYCLOMATIC_COMPLEXITY",
+  "CYCLOMATIC_DENSITY",
+  "DECISION_COUNT",
+  "DECISION_DENSITY",
+  "DESIGN_COMPLEXITY",
+  "DESIGN_DENSITY",
+  "EDGE_COUNT",
+  "ESSENTIAL_COMPLEXITY",
+  "ESSENTIAL_DENSITY",
+  "LOC_EXECUTABLE",
+  "PARAMETER_COUNT",
+  "HALSTEAD_CONTENT",
+  "HALSTEAD_DIFFICULTY",
+  "HALSTEAD_EFFORT",
+  "HALSTEAD_ERROR_EST",
+  "HALSTEAD_LENGTH",
+  "HALSTEAD_LEVEL",
+  "HALSTEAD_PROG_TIME",
+  "HALSTEAD_VOLUME",
+  "MAINTENANCE_SEVERITY",
+  "MODIFIED_CONDITION_COUNT",
+  "MULTIPLE_CONDITION_COUNT",
+  "NODE_COUNT",
+  "NORMALIZED_CYLOMATIC_COMPLEXITY",
+  "NUM_OPERANDS",
+  "NUM_OPERATORS",
+  "NUM_UNIQUE_OPERANDS",
+  "NUM_UNIQUE_OPERATORS",
+  "NUMBER_OF_LINES",
+  "PERCENT_COMMENTS",
+  "LOC_TOTAL"
+ ],
+ "P1a": {
+  "key": "49d04d253a88769b66658ed5c13585d2f08267684e68ef9b2105fac794984a94",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 130,
+   "completion_tokens": 28,
+   "total_tokens": 158,
+   "cost": 3.096e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 96,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.096e-05,
+    "upstream_inference_prompt_cost": 1.64e-05,
+    "upstream_inference_completions_cost": 1.456e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"PCB data set\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.8}"
+ },
+ "P1b": {
+  "key": "865e3e460061d01b0172d76d5169e2bd0e2719d2ceecc62d7f9253df29ed9d58",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 293,
+   "completion_tokens": 25,
+   "total_tokens": 318,
+   "cost": 3.73e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.73e-05,
+    "upstream_inference_prompt_cost": 2.93e-05,
+    "upstream_inference_completions_cost": 8e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"KC1\", \"source\": \"NASA Metrics Data Program\", \"confidence\": 0.9}"
+ },
+ "P2": {
+  "key": "ca048d5663280852e75a31d1d1d95fcbf76a92f7791580facd851d412333b24e",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 100,
+   "completion_tokens": 119,
+   "total_tokens": 219,
+   "cost": 4.808e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 4.808e-05,
+    "upstream_inference_prompt_cost": 1e-05,
+    "upstream_inference_completions_cost": 3.808e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"loc\", \"v(g)\", \"ev(g)\", \"iv(g)\", \"n\", \"v\", \"l\", \"d\", \"i\", \"e\", \"b\", \"lf\", \"lfR\", \"c\", \"t\", \"tx\", \"sx\", \"rx\", \"cx\", \"px\", \"cf\", \"k\", \"r\", \"a\", \"g\", \"h\", \"u\", \"s\", \"nd\", \"nv\", \"ne\", \"nb\", \"sdmc1\", \"sdmc2\", \"sdmc3\"]}"
+ },
+ "P3": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "bf78f075801965ffaec236977cae485891da55b3bb05762457b257566416b95b",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 260,
+     "completion_tokens": 300,
+     "total_tokens": 560,
+     "cost": 0.0001968,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 112,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001968,
+      "upstream_inference_prompt_cost": 4.08e-05,
+      "upstream_inference_completions_cost": 0.000156
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f4dfe2ee4ee14456073cd2d874c81851448c16e014c21132c46061fb48545393",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 239,
+     "completion_tokens": 300,
+     "total_tokens": 539,
+     "cost": 0.00019202,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 96,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00019202,
+      "upstream_inference_prompt_cost": 4.202e-05,
+      "upstream_inference_completions_cost": 0.00015
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a673c1216b863870095e37279dcd841cc0de0ab37864ed80ea2301ced4533b1a",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 424,
+     "completion_tokens": 339,
+     "total_tokens": 763,
+     "cost": 0.00024828,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 128,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00024828,
+      "upstream_inference_prompt_cost": 7.2e-05,
+      "upstream_inference_completions_cost": 0.00017628
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\n    \"0\": 0.2,\n    \"1\": 0.6,\n    \"2\": 0.4,\n    \"3\": 0.3,\n    \"4\": 0.2,\n    \"5\": 0.5,\n    \"6\": 0.8,\n    \"7\": 0.6,\n    \"8\": 0.7,\n    \"9\": 0.6,\n    \"10\": 0.7,\n    \"11\": 0.6,\n    \"12\": 0.5,\n    \"13\": 0.6,\n    \"14\": 0.5,\n    \"15\": 0.6,\n    \"16\": 0.4,\n    \"17\": 0.5,\n    \"18\": 0.6,\n    \"19\": 0.6,\n    \"20\": 0.5,\n    \"21\": 0.5,\n    \"22\": 0.4,\n    \"23\": 0.4,\n    \"24\": 0.5,\n    \"25\": 0.7,\n    \"26\": 0.6,\n    \"27\": 0.5,\n    \"28\": 0.5,\n    \"29\": 0.7,\n    \"30\": 0.5,\n    \"31\": 0.5,\n    \"32\": 0.4,\n    \"33\": 0.4,\n    \"34\": 0.6,\n    \"35\": 0.3,\n    \"36\": 0.6\n}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.6,
+   0.4,
+   0.3,
+   0.2,
+   0.5,
+   0.8,
+   0.6,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.5,
+   0.6,
+   0.5,
+   0.6,
+   0.4,
+   0.5,
+   0.6,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.5,
+   0.7,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.6,
+   0.3,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "173e3bc9a2a36404bc73c76a3e94c99075f105715de4df662192606a70daffac",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 381,
+     "completion_tokens": 339,
+     "total_tokens": 720,
+     "cost": 0.00014658,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00014658,
+      "upstream_inference_prompt_cost": 3.81e-05,
+      "upstream_inference_completions_cost": 0.00010848
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\n  \"0\": 0.2,\n  \"1\": 0.6,\n  \"2\": 0.4,\n  \"3\": 0.3,\n  \"4\": 0.2,\n  \"5\": 0.7,\n  \"6\": 0.9,\n  \"7\": 0.6,\n  \"8\": 0.8,\n  \"9\": 0.7,\n  \"10\": 0.8,\n  \"11\": 0.6,\n  \"12\": 0.5,\n  \"13\": 0.7,\n  \"14\": 0.6,\n  \"15\": 0.8,\n  \"16\": 0.4,\n  \"17\": 0.6,\n  \"18\": 0.7,\n  \"19\": 0.6,\n  \"20\": 0.7,\n  \"21\": 0.6,\n  \"22\": 0.5,\n  \"23\": 0.4,\n  \"24\": 0.6,\n  \"25\": 0.8,\n  \"26\": 0.7,\n  \"27\": 0.6,\n  \"28\": 0.5,\n  \"29\": 0.8,\n  \"30\": 0.6,\n  \"31\": 0.6,\n  \"32\": 0.5,\n  \"33\": 0.5,\n  \"34\": 0.7,\n  \"35\": 0.3,\n  \"36\": 0.8\n}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.6,
+   0.4,
+   0.3,
+   0.2,
+   0.7,
+   0.9,
+   0.6,
+   0.8,
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.8,
+   0.4,
+   0.6,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.8,
+   0.6,
+   0.6,
+   0.5,
+   0.5,
+   0.7,
+   0.3,
+   0.8
+  ]
+ }
+}

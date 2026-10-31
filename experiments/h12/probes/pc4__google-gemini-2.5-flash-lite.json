@@ -1,0 +1,470 @@
+{
+ "dataset": "pc4",
+ "model": "google/gemini-2.5-flash-lite",
+ "variables": [
+  "LOC_BLANK",
+  "BRANCH_COUNT",
+  "CALL_PAIRS",
+  "LOC_CODE_AND_COMMENT",
+  "LOC_COMMENTS",
+  "CONDITION_COUNT",
+  "CYCLOMATIC_COMPLEXITY",
+  "CYCLOMATIC_DENSITY",
+  "DECISION_COUNT",
+  "DECISION_DENSITY",
+  "DESIGN_COMPLEXITY",
+  "DESIGN_DENSITY",
+  "EDGE_COUNT",
+  "ESSENTIAL_COMPLEXITY",
+  "ESSENTIAL_DENSITY",
+  "LOC_EXECUTABLE",
+  "PARAMETER_COUNT",
+  "HALSTEAD_CONTENT",
+  "HALSTEAD_DIFFICULTY",
+  "HALSTEAD_EFFORT",
+  "HALSTEAD_ERROR_EST",
+  "HALSTEAD_LENGTH",
+  "HALSTEAD_LEVEL",
+  "HALSTEAD_PROG_TIME",
+  "HALSTEAD_VOLUME",
+  "MAINTENANCE_SEVERITY",
+  "MODIFIED_CONDITION_COUNT",
+  "MULTIPLE_CONDITION_COUNT",
+  "NODE_COUNT",
+  "NORMALIZED_CYLOMATIC_COMPLEXITY",
+  "NUM_OPERANDS",
+  "NUM_OPERATORS",
+  "NUM_UNIQUE_OPERANDS",
+  "NUM_UNIQUE_OPERATORS",
+  "NUMBER_OF_LINES",
+  "PERCENT_COMMENTS",
+  "LOC_TOTAL"
+ ],
+ "P1a": {
+  "key": "5ee110e1ae94973c8409cf70d9dea22fa86bd5c2bb486cb53c949b6fe0e1c4c6",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 101,
+   "completion_tokens": 31,
+   "total_tokens": 132,
+   "cost": 2.25e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.25e-05,
+    "upstream_inference_prompt_cost": 1.01e-05,
+    "upstream_inference_completions_cost": 1.24e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"unknown\",\n  \"source\": \"unknown\",\n  \"confidence\": 0.1\n}\n```"
+ },
+ "P1b": {
+  "key": "a03de3a1243776a05210254b06db738e40ba4ae8533afb2c6041d74b79c391fc",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 317,
+   "completion_tokens": 52,
+   "total_tokens": 369,
+   "cost": 5.25e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 5.25e-05,
+    "upstream_inference_prompt_cost": 3.17e-05,
+    "upstream_inference_completions_cost": 2.08e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"MSR Data Set\",\n  \"source\": \"https://github.com/AI-SE/MSR-Data-Set\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "0f4c2887db88180975bb558eeb5c1938be91eb95d43169f1b2f8707d5a39c861",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 88,
+   "completion_tokens": 15904,
+   "total_tokens": 15992,
+   "cost": 0.0063704,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0063704,
+    "upstream_inference_prompt_cost": 8.8e-06,
+    "upstream_inference_completions_cost": 0.0063616
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"loc\",\n    \"return\",\n    \"branch\",\n    \"call\",\n    \"complexity\",\n    \"\u0bb3\u0bb5\u0bc1\",\n    \"nloc\",\n    \"param\",\n    \"\u0bb3\u0bbf\u0bb2\u0bcd\",\n    \"throw\",\n    \"try\",\n    \"catch\",\n    \"assert\",\n    \"goto\",\n    \"if\",\n    \"else\",\n    \"for\",\n    \"while\",\n    \"do\",\n    \"switch\",\n    \"case\",\n    \"default\",\n    \"break\",\n    \"continue\",\n    \"return_stmt\",\n    \"goto_stmt\",\n    \"if_stmt\",\n    \"else_stmt\",\n    \"for_stmt\",\n    \"while_stmt\",\n    \"do_stmt\",\n    \"switch_stmt\",\n    \"case_stmt\",\n    \"default_stmt\",\n    \"break_stmt\",\n    \"continue_stmt\",\n    \"try_stmt\",\n    \"catch_stmt\",\n    \"throw_stmt\",\n    \"assert_stmt\",\n    \"block\",\n    \"compound\",\n    \"empty\",\n    \"expression\",\n    \"statement\",\n    \"declaration\",\n    \"initializer\",\n    \"assignment\",\n    \"arithmetic\",\n    \"logical\",\n    \"comparison\",\n    \"bitwise\",\n    \"increment\",\n    \"decrement\",\n    \"ternary\",\n    \"cast\",\n    \"sizeof\",\n    \"new\",\n    \"delete\",\n    \"this\",\n    \"super\",\n    \"base\",\n    \"class\",\n    \"struct\",\n    \"union\",\n    \"enum\",\n    \"typedef\",\n    \"namespace\",\n    \"using\",\n    \"template\",\n    \"friend\",\n    \"public\",\n    \"private\",\n    \"protected\",\n    \"static\",\n    \"const\",\n    \"volatile\",\n    \"inline\",\n    \"virtual\",\n    \"abstract\",\n    \"override\",\n    \"final\",\n    \"auto\",\n    \"register\",\n    \"extern\",\n    \"thread_local\",\n    \"mutable\",\n    \"explicit\",\n    \"typename\",\n    \"decltype\",\n    \"constexpr\",\n    \"noexcept\",\n    \"alignas\",\n    \"alignof\",\n    \"thread_local\",\n    \"using\",\n    \"namespace\",\n    \"operator\",\n    \"lambda\",\n    \"initializer_list\",\n    \"move\",\n    \"forward\",\n    \"unique_ptr\",\n    \"shared_ptr\",\n    \"weak_ptr\",\n    \"atomic\",\n    \"mutex\",\n    \"condition_variable\",\n    \"future\",\n    \"promise\",\n    \"packaged_task\",\n    \"thread\",\n    \"chrono\",\n    \"random\",\n    \"regex\",\n    \"filesystem\",\n    \"iostream\",\n    \"fstream\",\n    \"sstream\",\n    \"iomanip\",\n    \"vector\",\n    \"list\",\n    \"deque\",\n    \"set\",\n    \"map\",\n    \"multiset\",\n    \"multimap\",\n    \"stack\",\n    \"queue\",\n    \"priority_queue\",\n    \"algorithm\",\n    \"iterator\",\n    \"memory\",\n    \"string\",\n    \"utility\",\n    \"tuple\",\n    \"type_traits\",\n    \"functional\",\n    \"exception\",\n    \"limits\",\n    \"numeric\",\n    \"complex\",\n    \"valarray\",\n    \"bitset\",\n    \"locale\",\n    \"codecvt\",\n    \"time\",\n    \"cctype\",\n    \"cwctype\",\n    \"cstdio\",\n    \"cstdlib\",\n    \"cstring\",\n    \"cwchar\",\n    \"cmath\",\n    \"complex\",\n    \"valarray\",\n    \"iostream\",\n    \"fstream\",\n    \"sstream\",\n    \"iomanip\",\n    \"ios\",\n    \"streambuf\",\n    \"istream\",\n    \"ostream\",\n    \"sync_with_stdio\",\n    \"cin\",\n    \"cout\",\n    \"cerr\",\n    \"clog\",\n    \"endl\",\n    \"flush\",\n    \"ws\",\n    \"hex\",\n    \"dec\",\n    \"oct\",\n    \"fixed\",\n    \"scientific\",\n    \"setw\",\n    \"setfill\",\n    \"setprecision\",\n    \"left\",\n    \"right\",\n    \"internal\",\n    \"boolalpha\",\n    \"noboolalpha\",\n    \"showbase\",\n    \"noshowbase\",\n    \"showpoint\",\n    \"noshowpoint\",\n    \"showpos\",\n    \"noshowpos\",\n    \"skipws\",\n    \"noskipws\",\n    \"uppercase\",\n    \"nouppercase\",\n    \"unitbuf\",\n    \"nounitbuf\",\n    \"stdexcept\",\n    \"runtime_error\",\n    \"logic_error\",\n    \"domain_error\",\n    \"invalid_argument\",\n    \"length_error\",\n    \"out_of_range\",\n    \"bad_alloc\",\n    \"bad_cast\",\n    \"bad_typeid\",\n    \"exception\",\n    \"nested_exception\",\n    \"current_exception\",\n    \"rethrow_exception\",\n    \"make_exception_ptr\",\n    \"exception_ptr\",\n    \"exception_cleanup_function\",\n    \"exception_cleanup_context\",\n    \"exception_cleanup_handler\",\n    \"exception_cleanup_policy\",\n    \"exception_cleanup_strategy\",\n    \"exception_cleanup_type\",\n    \"exception_cleanup_value\",\n    \"exception_cleanup_variable\",\n    \"exception_cleanup_vector\",\n    \"exception_cleanup_map\",\n    \"exception_cleanup_set\",\n    \"exception_cleanup_list\",\n    \"exception_cleanup_deque\",\n    \"exception_cleanup_stack\",\n    \"exception_cleanup_queue\",\n    \"exception_cleanup_priority_queue\",\n    \"exception_cleanup_algorithm\",\n    \"exception_cleanup_iterator\",\n    \"exception_cleanup_memory\",\n    \"exception_cleanup_string\",\n    \"exception_cleanup_utility\",\n    \"exception_cleanup_tuple\",\n    \"exception_cleanup_type_traits\",\n    \"exception_cleanup_functional\",\n    \"exception_cleanup_limits\",\n    \"exception_cleanup_numeric\",\n    \"exception_cleanup_complex\",\n    \"exception_cleanup_valarray\",\n    \"exception_cleanup_random\",\n    \"exception_cleanup_regex\",\n    \"exception_cleanup_filesystem\",\n    \"exception_cleanup_locale\",\n    \"exception_cleanup_codecvt\",\n    \"exception_cleanup_time\",\n    \"exception_cleanup_cctype\",\n    \"exception_cleanup_cwctype\",\n    \"exception_cleanup_cstdio\",\n    \"exception_cleanup_cstdlib\",\n    \"exception_cleanup_cstring\",\n    \"exception_cleanup_cwchar\",\n    \"exception_cleanup_cmath\",\n    \"exception_cleanup_atomic\",\n    \"exception_cleanup_mutex\",\n    \"exception_cleanup_condition_variable\",\n    \"exception_cleanup_future\",\n    \"exception_cleanup_promise\",\n    \"exception_cleanup_packaged_task\",\n    \"exception_cleanup_thread\",\n    \"exception_cleanup_chrono\",\n    \"exception_cleanup_iostream\",\n    \"exception_cleanup_fstream\",\n    \"exception_cleanup_sstream\",\n    \"exception_cleanup_iomanip\",\n    \"exception_cleanup_ios\",\n    \"exception_cleanup_streambuf\",\n    \"exception_cleanup_istream\",\n    \"exception_cleanup_ostream\",\n    \"exception_cleanup_sync_with_stdio\",\n    \"exception_cleanup_cin\",\n    \"exception_cleanup_cout\",\n    \"exception_cleanup_cerr\",\n    \"exception_cleanup_clog\",\n    \"exception_cleanup_endl\",\n    \"exception_cleanup_flush\",\n    \"exception_cleanup_ws\",\n    \"exception_cleanup_hex\",\n    \"exception_cleanup_dec\",\n    \"exception_cleanup_oct\",\n    \"exception_cleanup_fixed\",\n    \"exception_cleanup_scientific\",\n    \"exception_cleanup_setw\",\n    \"exception_cleanup_setfill\",\n    \"exception_cleanup_setprecision\",\n    \"exception_cleanup_left\",\n    \"exception_cleanup_right\",\n    \"exception_cleanup_internal\",\n    \"exception_cleanup_boolalpha\",\n    \"exception_cleanup_noboolalpha\",\n    \"exception_cleanup_showbase\",\n    \"exception_cleanup_noshowbase\",\n    \"exception_cleanup_showpoint\",\n    \"exception_cleanup_noshowpoint\",\n    \"exception_cleanup_showpos\",\n    \"exception_cleanup_noshowpos\",\n    \"exception_cleanup_skipws\",\n    \"exception_cleanup_noskipws\",\n    \"exception_cleanup_uppercase\",\n    \"exception_cleanup_nouppercase\",\n    \"exception_cleanup_unitbuf\",\n    \"exception_cleanup_nounitbuf\",\n    \"exception_cleanup_runtime_error\",\n    \"exception_cleanup_logic_error\",\n    \"exception_cleanup_domain_error\",\n    \"exception_cleanup_invalid_argument\",\n    \"exception_cleanup_length_error\",\n    \"exception_cleanup_out_of_range\",\n    \"exception_cleanup_bad_alloc\",\n    \"exception_cleanup_bad_cast\",\n    \"exception_cleanup_bad_typeid\",\n    \"exception_cleanup_nested_exception\",\n    \"exception_cleanup_current_exception\",\n    \"exception_cleanup_rethrow_exception\",\n    \"exception_cleanup_make_exception_ptr\",\n    \"exception_cleanup_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_function\",\n    \"exception_cleanup_exception_cleanup_context\",\n    \"exception_cleanup_exception_cleanup_handler\",\n    \"exception_cleanup_exception_cleanup_policy\",\n    \"exception_cleanup_exception_cleanup_strategy\",\n    \"exception_cleanup_exception_cleanup_type\",\n    \"exception_cleanup_exception_cleanup_value\",\n    \"exception_cleanup_exception_cleanup_variable\",\n    \"exception_cleanup_exception_cleanup_vector\",\n    \"exception_cleanup_exception_cleanup_map\",\n    \"exception_cleanup_exception_cleanup_set\",\n    \"exception_cleanup_exception_cleanup_list\",\n    \"exception_cleanup_exception_cleanup_deque\",\n    \"exception_cleanup_exception_cleanup_stack\",\n    \"exception_cleanup_exception_cleanup_queue\",\n    \"exception_cleanup_exception_cleanup_priority_queue\",\n    \"exception_cleanup_exception_cleanup_algorithm\",\n    \"exception_cleanup_exception_cleanup_iterator\",\n    \"exception_cleanup_exception_cleanup_memory\",\n    \"exception_cleanup_exception_cleanup_string\",\n    \"exception_cleanup_exception_cleanup_utility\",\n    \"exception_cleanup_exception_cleanup_tuple\",\n    \"exception_cleanup_exception_cleanup_type_traits\",\n    \"exception_cleanup_exception_cleanup_functional\",\n    \"exception_cleanup_exception_cleanup_limits\",\n    \"exception_cleanup_exception_cleanup_numeric\",\n    \"exception_cleanup_exception_cleanup_complex\",\n    \"exception_cleanup_exception_cleanup_valarray\",\n    \"exception_cleanup_exception_cleanup_random\",\n    \"exception_cleanup_exception_cleanup_regex\",\n    \"exception_cleanup_exception_cleanup_filesystem\",\n    \"exception_cleanup_exception_cleanup_locale\",\n    \"exception_cleanup_exception_cleanup_codecvt\",\n    \"exception_cleanup_exception_cleanup_time\",\n    \"exception_cleanup_exception_cleanup_cctype\",\n    \"exception_cleanup_exception_cleanup_cwctype\",\n    \"exception_cleanup_exception_cleanup_cstdio\",\n    \"exception_cleanup_exception_cleanup_cstdlib\",\n    \"exception_cleanup_exception_cleanup_cstring\",\n    \"exception_cleanup_exception_cleanup_cwchar\",\n    \"exception_cleanup_exception_cleanup_cmath\",\n    \"exception_cleanup_exception_cleanup_atomic\",\n    \"exception_cleanup_exception_cleanup_mutex\",\n    \"exception_cleanup_exception_cleanup_condition_variable\",\n    \"exception_cleanup_exception_cleanup_future\",\n    \"exception_cleanup_exception_cleanup_promise\",\n    \"exception_cleanup_exception_cleanup_packaged_task\",\n    \"exception_cleanup_exception_cleanup_thread\",\n    \"exception_cleanup_exception_cleanup_chrono\",\n    \"exception_cleanup_exception_cleanup_iostream\",\n    \"exception_cleanup_exception_cleanup_fstream\",\n    \"exception_cleanup_exception_cleanup_sstream\",\n    \"exception_cleanup_exception_cleanup_iomanip\",\n    \"exception_cleanup_exception_cleanup_ios\",\n    \"exception_cleanup_exception_cleanup_streambuf\",\n    \"exception_cleanup_exception_cleanup_istream\",\n    \"exception_cleanup_exception_cleanup_ostream\",\n    \"exception_cleanup_exception_cleanup_sync_with_stdio\",\n    \"exception_cleanup_exception_cleanup_cin\",\n    \"exception_cleanup_exception_cleanup_cout\",\n    \"exception_cleanup_exception_cleanup_cerr\",\n    \"exception_cleanup_exception_cleanup_clog\",\n    \"exception_cleanup_exception_cleanup_endl\",\n    \"exception_cleanup_exception_cleanup_flush\",\n    \"exception_cleanup_exception_cleanup_ws\",\n    \"exception_cleanup_exception_cleanup_hex\",\n    \"exception_cleanup_exception_cleanup_dec\",\n    \"exception_cleanup_exception_cleanup_oct\",\n    \"exception_cleanup_exception_cleanup_fixed\",\n    \"exception_cleanup_exception_cleanup_scientific\",\n    \"exception_cleanup_exception_cleanup_setw\",\n    \"exception_cleanup_exception_cleanup_setfill\",\n    \"exception_cleanup_exception_cleanup_setprecision\",\n    \"exception_cleanup_exception_cleanup_left\",\n    \"exception_cleanup_exception_cleanup_right\",\n    \"exception_cleanup_exception_cleanup_internal\",\n    \"exception_cleanup_exception_cleanup_boolalpha\",\n    \"exception_cleanup_exception_cleanup_noboolalpha\",\n    \"exception_cleanup_exception_cleanup_showbase\",\n    \"exception_cleanup_exception_cleanup_noshowbase\",\n    \"exception_cleanup_exception_cleanup_showpoint\",\n    \"exception_cleanup_exception_cleanup_noshowpoint\",\n    \"exception_cleanup_exception_cleanup_showpos\",\n    \"exception_cleanup_exception_cleanup_noshowpos\",\n    \"exception_cleanup_exception_cleanup_skipws\",\n    \"exception_cleanup_exception_cleanup_noskipws\",\n    \"exception_cleanup_exception_cleanup_uppercase\",\n    \"exception_cleanup_exception_cleanup_nouppercase\",\n    \"exception_cleanup_exception_cleanup_unitbuf\",\n    \"exception_cleanup_exception_cleanup_nounitbuf\",\n    \"exception_cleanup_exception_cleanup_runtime_error\",\n    \"exception_cleanup_exception_cleanup_logic_error\",\n    \"exception_cleanup_exception_cleanup_domain_error\",\n    \"exception_cleanup_exception_cleanup_invalid_argument\",\n    \"exception_cleanup_exception_cleanup_length_error\",\n    \"exception_cleanup_exception_cleanup_out_of_range\",\n    \"exception_cleanup_exception_cleanup_bad_alloc\",\n    \"exception_cleanup_exception_cleanup_bad_cast\",\n    \"exception_cleanup_exception_cleanup_bad_typeid\",\n    \"exception_cleanup_exception_cleanup_nested_exception\",\n    \"exception_cleanup_exception_cleanup_current_exception\",\n    \"exception_cleanup_exception_cleanup_rethrow_exception\",\n    \"exception_cleanup_exception_cleanup_make_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_function\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_context\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_handler\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_policy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_strategy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_type\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_value\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_vector\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_map\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_set\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_list\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_deque\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_stack\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_priority_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_algorithm\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_iterator\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_memory\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_string\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_utility\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_tuple\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_type_traits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_functional\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_limits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_numeric\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_complex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_valarray\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_random\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_regex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_filesystem\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_locale\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_codecvt\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_time\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cwctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cstdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cstdlib\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cstring\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cwchar\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cmath\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_atomic\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_mutex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_condition_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_future\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_promise\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_packaged_task\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_thread\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_chrono\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_iostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_fstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_sstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_iomanip\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_ios\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_streambuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_istream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_ostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_sync_with_stdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cin\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cout\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_cerr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_clog\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_endl\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_flush\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_ws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_hex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_dec\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_oct\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_fixed\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_scientific\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_setw\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_setfill\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_setprecision\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_left\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_right\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_internal\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_boolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_noboolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_showbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_noshowbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_showpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_noshowpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_showpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_noshowpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_skipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_noskipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_uppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_nouppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_unitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_nounitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_runtime_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_logic_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_domain_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_invalid_argument\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_length_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_out_of_range\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_bad_alloc\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_bad_cast\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_bad_typeid\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_nested_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_current_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_rethrow_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_make_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_function\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_context\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_handler\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_policy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_strategy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_value\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_vector\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_map\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_set\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_list\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_deque\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_stack\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_priority_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_algorithm\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iterator\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_memory\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_string\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_utility\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_tuple\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type_traits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_functional\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_limits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_numeric\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_complex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_valarray\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_random\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_regex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_filesystem\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_locale\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_codecvt\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_time\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdlib\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstring\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwchar\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cmath\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_atomic\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_mutex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_condition_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_future\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_promise\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_packaged_task\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_thread\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_chrono\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iomanip\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ios\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_streambuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_istream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sync_with_stdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cin\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cout\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cerr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_clog\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_endl\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_flush\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_hex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_dec\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_oct\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fixed\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_scientific\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setw\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setfill\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setprecision\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_left\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_right\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_internal\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_boolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noboolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_skipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noskipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_uppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nouppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_unitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nounitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_runtime_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_logic_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_domain_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_invalid_argument\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_length_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_out_of_range\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_alloc\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_cast\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_typeid\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nested_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_current_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_rethrow_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_make_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_function\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_context\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_handler\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_policy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_strategy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_value\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_vector\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_map\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_set\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_list\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_deque\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_stack\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_priority_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_algorithm\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iterator\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_memory\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_string\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_utility\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_tuple\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type_traits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_functional\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_limits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_numeric\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_complex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_valarray\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_random\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_regex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_filesystem\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_locale\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_codecvt\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_time\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdlib\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstring\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwchar\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cmath\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_atomic\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_mutex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_condition_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_future\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_promise\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_packaged_task\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_thread\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_chrono\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iomanip\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ios\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_streambuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_istream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sync_with_stdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cin\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cout\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cerr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_clog\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_endl\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_flush\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_hex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_dec\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_oct\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fixed\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_scientific\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setw\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setfill\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setprecision\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_left\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_right\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_internal\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_boolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noboolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_skipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noskipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_uppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nouppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_unitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nounitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_runtime_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_logic_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_domain_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_invalid_argument\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_length_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_out_of_range\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_alloc\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_cast\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_typeid\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nested_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_current_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_rethrow_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_make_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_function\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_context\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_handler\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_policy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_strategy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_value\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_vector\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_map\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_set\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_list\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_deque\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_stack\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_priority_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_algorithm\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iterator\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_memory\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_string\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_utility\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_tuple\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type_traits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_functional\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_limits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_numeric\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_complex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_valarray\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_random\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_regex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_filesystem\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_locale\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_codecvt\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_time\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdlib\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstring\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwchar\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cmath\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_atomic\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_mutex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_condition_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_future\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_promise\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_packaged_task\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_thread\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_chrono\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iomanip\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ios\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_streambuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_istream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sync_with_stdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cin\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cout\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cerr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_clog\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_endl\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_flush\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_hex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_dec\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_oct\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fixed\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_scientific\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setw\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setfill\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setprecision\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_left\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_right\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_internal\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_boolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noboolalpha\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowbase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowpoint\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_showpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noshowpos\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_skipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_noskipws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_uppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nouppercase\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_unitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nounitbuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_runtime_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_logic_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_domain_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_invalid_argument\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_length_error\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_out_of_range\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_alloc\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_cast\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_bad_typeid\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_nested_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_current_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_rethrow_exception\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_make_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_ptr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_function\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_context\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_handler\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_policy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_strategy\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_value\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_vector\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_map\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_set\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_list\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_deque\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_stack\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_priority_queue\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_algorithm\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iterator\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_memory\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_string\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_utility\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_tuple\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_type_traits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_functional\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_limits\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_numeric\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_complex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_valarray\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_random\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_regex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_filesystem\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_locale\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_codecvt\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_time\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwctype\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstdlib\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cstring\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cwchar\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cmath\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_atomic\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_mutex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_condition_variable\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_future\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_promise\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_packaged_task\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_thread\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_chrono\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sstream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_iomanip\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ios\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_streambuf\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_istream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ostream\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_sync_with_stdio\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cin\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cout\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_cerr\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_clog\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_endl\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_flush\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_ws\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_hex\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_dec\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_oct\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_fixed\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_scientific\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setw\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setfill\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_setprecision\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_exception_cleanup_left\",\n    \"exception_cleanup_exception_cleanup_exception_cleanup_exception_"
+ },
+ "P3": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "bafecdc62cf41ddb87ef87fef3b1810590205e525c0e2a57e14361c9c0d90c3b",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 264,
+     "completion_tokens": 329,
+     "total_tokens": 593,
+     "cost": 0.000158,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000158,
+      "upstream_inference_prompt_cost": 2.64e-05,
+      "upstream_inference_completions_cost": 0.0001316
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.7, \"1\": 0.6, \"2\": 0.5, \"3\": 0.5, \"4\": 0.4, \"5\": 0.4, \"6\": 0.3, \"7\": 0.3, \"8\": 0.3, \"9\": 0.3, \"10\": 0.3, \"11\": 0.3, \"12\": 0.3, \"13\": 0.3, \"14\": 0.3, \"15\": 0.3, \"16\": 0.3, \"17\": 0.3, \"18\": 0.3, \"19\": 0.3, \"20\": 0.3, \"21\": 0.3, \"22\": 0.3, \"23\": 0.3, \"24\": 0.3, \"25\": 0.3, \"26\": 0.3, \"27\": 0.3, \"28\": 0.3, \"29\": 0.3, \"30\": 0.3, \"31\": 0.3, \"32\": 0.3, \"33\": 0.3, \"34\": 0.3, \"35\": 0.3, \"36\": 0.3}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P3f": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3cb66b67ce57d45660873ebf08e23bc17f69238c7a67e6c55402e847af088228",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 262,
+     "completion_tokens": 431,
+     "total_tokens": 693,
+     "cost": 0.0001986,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001986,
+      "upstream_inference_prompt_cost": 2.62e-05,
+      "upstream_inference_completions_cost": 0.0001724
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I cannot provide a meaningful assessment of feature usefulness without access to the data or at least some metadata about the features and the class. The 'Brenner field survey 2019' data set is described as internal and unpublished, and I have no information about what these features represent or how they relate to the class.\n\nTherefore, I must assign a neutral score of 0.5 to all features, indicating that their usefulness is unknown and could range from very low to very high.\n\n```json\n{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2878b24982a1dec47119f1a26ac07fa60bdd9556f9706b65dd663ae2455c22a9",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 461,
+     "completion_tokens": 404,
+     "total_tokens": 865,
+     "cost": 0.0002077,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002077,
+      "upstream_inference_prompt_cost": 4.61e-05,
+      "upstream_inference_completions_cost": 0.0001616
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,\n    \"1\": 0.6,\n    \"2\": 0.7,\n    \"3\": 0.3,\n    \"4\": 0.3,\n    \"5\": 0.6,\n    \"6\": 0.8,\n    \"7\": 0.7,\n    \"8\": 0.6,\n    \"9\": 0.7,\n    \"10\": 0.7,\n    \"11\": 0.7,\n    \"12\": 0.6,\n    \"13\": 0.7,\n    \"14\": 0.7,\n    \"15\": 0.4,\n    \"16\": 0.5,\n    \"17\": 0.7,\n    \"18\": 0.7,\n    \"19\": 0.7,\n    \"20\": 0.7,\n    \"21\": 0.7,\n    \"22\": 0.7,\n    \"23\": 0.7,\n    \"24\": 0.7,\n    \"25\": 0.5,\n    \"26\": 0.6,\n    \"27\": 0.6,\n    \"28\": 0.6,\n    \"29\": 0.8,\n    \"30\": 0.7,\n    \"31\": 0.7,\n    \"32\": 0.7,\n    \"33\": 0.7,\n    \"34\": 0.4,\n    \"35\": 0.4,\n    \"36\": 0.4\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.6,
+   0.7,
+   0.3,
+   0.3,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.7,
+   0.7,
+   0.7,
+   0.6,
+   0.7,
+   0.7,
+   0.4,
+   0.5,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.5,
+   0.6,
+   0.6,
+   0.6,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.4,
+   0.4,
+   0.4
+  ]
+ },
+ "P5": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "aa02906cdfaf52b07f2779161b4ffba3a42159f0d2e1b26b89b036f1444c909f",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 436,
+     "completion_tokens": 406,
+     "total_tokens": 842,
+     "cost": 0.000206,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000206,
+      "upstream_inference_prompt_cost": 4.36e-05,
+      "upstream_inference_completions_cost": 0.0001624
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,\n    \"1\": 0.7,\n    \"2\": 0.6,\n    \"3\": 0.3,\n    \"4\": 0.3,\n    \"5\": 0.7,\n    \"6\": 0.8,\n    \"7\": 0.7,\n    \"8\": 0.7,\n    \"9\": 0.7,\n    \"10\": 0.7,\n    \"11\": 0.7,\n    \"12\": 0.6,\n    \"13\": 0.7,\n    \"14\": 0.7,\n    \"15\": 0.4,\n    \"16\": 0.5,\n    \"17\": 0.6,\n    \"18\": 0.6,\n    \"19\": 0.6,\n    \"20\": 0.6,\n    \"21\": 0.6,\n    \"22\": 0.6,\n    \"23\": 0.6,\n    \"24\": 0.6,\n    \"25\": 0.5,\n    \"26\": 0.7,\n    \"27\": 0.7,\n    \"28\": 0.6,\n    \"29\": 0.8,\n    \"30\": 0.6,\n    \"31\": 0.6,\n    \"32\": 0.6,\n    \"33\": 0.6,\n    \"34\": 0.4,\n    \"35\": 0.4,\n    \"36\": 0.4\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.7,
+   0.6,
+   0.3,
+   0.3,
+   0.7,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.6,
+   0.7,
+   0.7,
+   0.4,
+   0.5,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.5,
+   0.7,
+   0.7,
+   0.6,
+   0.8,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.4,
+   0.4,
+   0.4
+  ]
+ }
+}

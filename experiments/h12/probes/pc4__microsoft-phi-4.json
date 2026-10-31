@@ -1,0 +1,470 @@
+{
+ "dataset": "pc4",
+ "model": "microsoft/phi-4",
+ "variables": [
+  "LOC_BLANK",
+  "BRANCH_COUNT",
+  "CALL_PAIRS",
+  "LOC_CODE_AND_COMMENT",
+  "LOC_COMMENTS",
+  "CONDITION_COUNT",
+  "CYCLOMATIC_COMPLEXITY",
+  "CYCLOMATIC_DENSITY",
+  "DECISION_COUNT",
+  "DECISION_DENSITY",
+  "DESIGN_COMPLEXITY",
+  "DESIGN_DENSITY",
+  "EDGE_COUNT",
+  "ESSENTIAL_COMPLEXITY",
+  "ESSENTIAL_DENSITY",
+  "LOC_EXECUTABLE",
+  "PARAMETER_COUNT",
+  "HALSTEAD_CONTENT",
+  "HALSTEAD_DIFFICULTY",
+  "HALSTEAD_EFFORT",
+  "HALSTEAD_ERROR_EST",
+  "HALSTEAD_LENGTH",
+  "HALSTEAD_LEVEL",
+  "HALSTEAD_PROG_TIME",
+  "HALSTEAD_VOLUME",
+  "MAINTENANCE_SEVERITY",
+  "MODIFIED_CONDITION_COUNT",
+  "MULTIPLE_CONDITION_COUNT",
+  "NODE_COUNT",
+  "NORMALIZED_CYLOMATIC_COMPLEXITY",
+  "NUM_OPERANDS",
+  "NUM_OPERATORS",
+  "NUM_UNIQUE_OPERANDS",
+  "NUM_UNIQUE_OPERATORS",
+  "NUMBER_OF_LINES",
+  "PERCENT_COMMENTS",
+  "LOC_TOTAL"
+ ],
+ "P1a": {
+  "key": "b7618c572475c5ef473e7dc06f541da5c15b38fcf6bedf9927d8144c00880910",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 106,
+   "completion_tokens": 41,
+   "total_tokens": 147,
+   "cost": 1.316e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.316e-05,
+    "upstream_inference_prompt_cost": 7.42e-06,
+    "upstream_inference_completions_cost": 5.74e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Statlog (Shuttle) Data Set\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.9\n}\n```"
+ },
+ "P1b": {
+  "key": "e29887b2a02a52f4d23cc5d277081afe87dc8b17ee30223c2405ada816229c25",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 289,
+   "completion_tokens": 52,
+   "total_tokens": 341,
+   "cost": 2.751e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.751e-05,
+    "upstream_inference_prompt_cost": 2.023e-05,
+    "upstream_inference_completions_cost": 7.28e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"NASA MDP\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/NASA+Mars+Lander+Dataset\",\n  \"confidence\": 0.9\n}\n```"
+ },
+ "P2": {
+  "key": "0cc130b017ea0f12b40e79feeb672e24ec8fa1b0c8869ec70818c433ef6c39c9",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 96,
+   "completion_tokens": 8000,
+   "total_tokens": 8096,
+   "cost": 0.00112672,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00112672,
+    "upstream_inference_prompt_cost": 6.72e-06,
+    "upstream_inference_completions_cost": 0.00112
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"LOC\",\n    \"NOM\",\n    \"VOL\",\n    \"FF\",\n    \"LCOM\",\n    \"RFC\",\n    \"DIT\",\n    \"NOC\",\n    \"CBO\",\n    \"WMC\",\n    \"NPM\",\n    \"RFCP\",\n    \"LCOM3\",\n    \"LCOM5\",\n    \"LCOM6\",\n    \"LCOM2\",\n    \"LCOM4\",\n    \"LCOM1\",\n    \"NOM1\",\n    \"NOM2\",\n    \"NOM3\",\n    \"NOM4\",\n    \"NOM5\",\n    \"NOM6\",\n    \"NOM7\",\n    \"NOM8\",\n    \"NOM9\",\n    \"NOM10\",\n    \"NOM11\",\n    \"NOM12\",\n    \"NOM13\",\n    \"NOM14\",\n    \"NOM15\",\n    \"NOM16\",\n    \"NOM17\",\n    \"NOM18\",\n    \"NOM19\",\n    \"NOM20\",\n    \"NOM21\",\n    \"NOM22\",\n    \"NOM23\",\n    \"NOM24\",\n    \"NOM25\",\n    \"NOM26\",\n    \"NOM27\",\n    \"NOM28\",\n    \"NOM29\",\n    \"NOM30\",\n    \"NOM31\",\n    \"NOM32\",\n    \"NOM33\",\n    \"NOM34\",\n    \"NOM35\",\n    \"NOM36\",\n    \"NOM37\",\n    \"NOM38\",\n    \"NOM39\",\n    \"NOM40\",\n    \"NOM41\",\n    \"NOM42\",\n    \"NOM43\",\n    \"NOM44\",\n    \"NOM45\",\n    \"NOM46\",\n    \"NOM47\",\n    \"NOM48\",\n    \"NOM49\",\n    \"NOM50\",\n    \"NOM51\",\n    \"NOM52\",\n    \"NOM53\",\n    \"NOM54\",\n    \"NOM55\",\n    \"NOM56\",\n    \"NOM57\",\n    \"NOM58\",\n    \"NOM59\",\n    \"NOM60\",\n    \"NOM61\",\n    \"NOM62\",\n    \"NOM63\",\n    \"NOM64\",\n    \"NOM65\",\n    \"NOM66\",\n    \"NOM67\",\n    \"NOM68\",\n    \"NOM69\",\n    \"NOM70\",\n    \"NOM71\",\n    \"NOM72\",\n    \"NOM73\",\n    \"NOM74\",\n    \"NOM75\",\n    \"NOM76\",\n    \"NOM77\",\n    \"NOM78\",\n    \"NOM79\",\n    \"NOM80\",\n    \"NOM81\",\n    \"NOM82\",\n    \"NOM83\",\n    \"NOM84\",\n    \"NOM85\",\n    \"NOM86\",\n    \"NOM87\",\n    \"NOM88\",\n    \"NOM89\",\n    \"NOM90\",\n    \"NOM91\",\n    \"NOM92\",\n    \"NOM93\",\n    \"NOM94\",\n    \"NOM95\",\n    \"NOM96\",\n    \"NOM97\",\n    \"NOM98\",\n    \"NOM99\",\n    \"NOM100\",\n    \"NOM101\",\n    \"NOM102\",\n    \"NOM103\",\n    \"NOM104\",\n    \"NOM105\",\n    \"NOM106\",\n    \"NOM107\",\n    \"NOM108\",\n    \"NOM109\",\n    \"NOM110\",\n    \"NOM111\",\n    \"NOM112\",\n    \"NOM113\",\n    \"NOM114\",\n    \"NOM115\",\n    \"NOM116\",\n    \"NOM117\",\n    \"NOM118\",\n    \"NOM119\",\n    \"NOM120\",\n    \"NOM121\",\n    \"NOM122\",\n    \"NOM123\",\n    \"NOM124\",\n    \"NOM125\",\n    \"NOM126\",\n    \"NOM127\",\n    \"NOM128\",\n    \"NOM129\",\n    \"NOM130\",\n    \"NOM131\",\n    \"NOM132\",\n    \"NOM133\",\n    \"NOM134\",\n    \"NOM135\",\n    \"NOM136\",\n    \"NOM137\",\n    \"NOM138\",\n    \"NOM139\",\n    \"NOM140\",\n    \"NOM141\",\n    \"NOM142\",\n    \"NOM143\",\n    \"NOM144\",\n    \"NOM145\",\n    \"NOM146\",\n    \"NOM147\",\n    \"NOM148\",\n    \"NOM149\",\n    \"NOM150\",\n    \"NOM151\",\n    \"NOM152\",\n    \"NOM153\",\n    \"NOM154\",\n    \"NOM155\",\n    \"NOM156\",\n    \"NOM157\",\n    \"NOM158\",\n    \"NOM159\",\n    \"NOM160\",\n    \"NOM161\",\n    \"NOM162\",\n    \"NOM163\",\n    \"NOM164\",\n    \"NOM165\",\n    \"NOM166\",\n    \"NOM167\",\n    \"NOM168\",\n    \"NOM169\",\n    \"NOM170\",\n    \"NOM171\",\n    \"NOM172\",\n    \"NOM173\",\n    \"NOM174\",\n    \"NOM175\",\n    \"NOM176\",\n    \"NOM177\",\n    \"NOM178\",\n    \"NOM179\",\n    \"NOM180\",\n    \"NOM181\",\n    \"NOM182\",\n    \"NOM183\",\n    \"NOM184\",\n    \"NOM185\",\n    \"NOM186\",\n    \"NOM187\",\n    \"NOM188\",\n    \"NOM189\",\n    \"NOM190\",\n    \"NOM191\",\n    \"NOM192\",\n    \"NOM193\",\n    \"NOM194\",\n    \"NOM195\",\n    \"NOM196\",\n    \"NOM197\",\n    \"NOM198\",\n    \"NOM199\",\n    \"NOM200\",\n    \"NOM201\",\n    \"NOM202\",\n    \"NOM203\",\n    \"NOM204\",\n    \"NOM205\",\n    \"NOM206\",\n    \"NOM207\",\n    \"NOM208\",\n    \"NOM209\",\n    \"NOM210\",\n    \"NOM211\",\n    \"NOM212\",\n    \"NOM213\",\n    \"NOM214\",\n    \"NOM215\",\n    \"NOM216\",\n    \"NOM217\",\n    \"NOM218\",\n    \"NOM219\",\n    \"NOM220\",\n    \"NOM221\",\n    \"NOM222\",\n    \"NOM223\",\n    \"NOM224\",\n    \"NOM225\",\n    \"NOM226\",\n    \"NOM227\",\n    \"NOM228\",\n    \"NOM229\",\n    \"NOM230\",\n    \"NOM231\",\n    \"NOM232\",\n    \"NOM233\",\n    \"NOM234\",\n    \"NOM235\",\n    \"NOM236\",\n    \"NOM237\",\n    \"NOM238\",\n    \"NOM239\",\n    \"NOM240\",\n    \"NOM241\",\n    \"NOM242\",\n    \"NOM243\",\n    \"NOM244\",\n    \"NOM245\",\n    \"NOM246\",\n    \"NOM247\",\n    \"NOM248\",\n    \"NOM249\",\n    \"NOM250\",\n    \"NOM251\",\n    \"NOM252\",\n    \"NOM253\",\n    \"NOM254\",\n    \"NOM255\",\n    \"NOM256\",\n    \"NOM257\",\n    \"NOM258\",\n    \"NOM259\",\n    \"NOM260\",\n    \"NOM261\",\n    \"NOM262\",\n    \"NOM263\",\n    \"NOM264\",\n    \"NOM265\",\n    \"NOM266\",\n    \"NOM267\",\n    \"NOM268\",\n    \"NOM269\",\n    \"NOM270\",\n    \"NOM271\",\n    \"NOM272\",\n    \"NOM273\",\n    \"NOM274\",\n    \"NOM275\",\n    \"NOM276\",\n    \"NOM277\",\n    \"NOM278\",\n    \"NOM279\",\n    \"NOM280\",\n    \"NOM281\",\n    \"NOM282\",\n    \"NOM283\",\n    \"NOM284\",\n    \"NOM285\",\n    \"NOM286\",\n    \"NOM287\",\n    \"NOM288\",\n    \"NOM289\",\n    \"NOM290\",\n    \"NOM291\",\n    \"NOM292\",\n    \"NOM293\",\n    \"NOM294\",\n    \"NOM295\",\n    \"NOM296\",\n    \"NOM297\",\n    \"NOM298\",\n    \"NOM299\",\n    \"NOM300\",\n    \"NOM301\",\n    \"NOM302\",\n    \"NOM303\",\n    \"NOM304\",\n    \"NOM305\",\n    \"NOM306\",\n    \"NOM307\",\n    \"NOM308\",\n    \"NOM309\",\n    \"NOM310\",\n    \"NOM311\",\n    \"NOM312\",\n    \"NOM313\",\n    \"NOM314\",\n    \"NOM315\",\n    \"NOM316\",\n    \"NOM317\",\n    \"NOM318\",\n    \"NOM319\",\n    \"NOM320\",\n    \"NOM321\",\n    \"NOM322\",\n    \"NOM323\",\n    \"NOM324\",\n    \"NOM325\",\n    \"NOM326\",\n    \"NOM327\",\n    \"NOM328\",\n    \"NOM329\",\n    \"NOM330\",\n    \"NOM331\",\n    \"NOM332\",\n    \"NOM333\",\n    \"NOM334\",\n    \"NOM335\",\n    \"NOM336\",\n    \"NOM337\",\n    \"NOM338\",\n    \"NOM339\",\n    \"NOM340\",\n    \"NOM341\",\n    \"NOM342\",\n    \"NOM343\",\n    \"NOM344\",\n    \"NOM345\",\n    \"NOM346\",\n    \"NOM347\",\n    \"NOM348\",\n    \"NOM349\",\n    \"NOM350\",\n    \"NOM351\",\n    \"NOM352\",\n    \"NOM353\",\n    \"NOM354\",\n    \"NOM355\",\n    \"NOM356\",\n    \"NOM357\",\n    \"NOM358\",\n    \"NOM359\",\n    \"NOM360\",\n    \"NOM361\",\n    \"NOM362\",\n    \"NOM363\",\n    \"NOM364\",\n    \"NOM365\",\n    \"NOM366\",\n    \"NOM367\",\n    \"NOM368\",\n    \"NOM369\",\n    \"NOM370\",\n    \"NOM371\",\n    \"NOM372\",\n    \"NOM373\",\n    \"NOM374\",\n    \"NOM375\",\n    \"NOM376\",\n    \"NOM377\",\n    \"NOM378\",\n    \"NOM379\",\n    \"NOM380\",\n    \"NOM381\",\n    \"NOM382\",\n    \"NOM383\",\n    \"NOM384\",\n    \"NOM385\",\n    \"NOM386\",\n    \"NOM387\",\n    \"NOM388\",\n    \"NOM389\",\n    \"NOM390\",\n    \"NOM391\",\n    \"NOM392\",\n    \"NOM393\",\n    \"NOM394\",\n    \"NOM395\",\n    \"NOM396\",\n    \"NOM397\",\n    \"NOM398\",\n    \"NOM399\",\n    \"NOM400\",\n    \"NOM401\",\n    \"NOM402\",\n    \"NOM403\",\n    \"NOM404\",\n    \"NOM405\",\n    \"NOM406\",\n    \"NOM407\",\n    \"NOM408\",\n    \"NOM409\",\n    \"NOM410\",\n    \"NOM411\",\n    \"NOM412\",\n    \"NOM413\",\n    \"NOM414\",\n    \"NOM415\",\n    \"NOM416\",\n    \"NOM417\",\n    \"NOM418\",\n    \"NOM419\",\n    \"NOM420\",\n    \"NOM421\",\n    \"NOM422\",\n    \"NOM423\",\n    \"NOM424\",\n    \"NOM425\",\n    \"NOM426\",\n    \"NOM427\",\n    \"NOM428\",\n    \"NOM429\",\n    \"NOM430\",\n    \"NOM431\",\n    \"NOM432\",\n    \"NOM433\",\n    \"NOM434\",\n    \"NOM435\",\n    \"NOM436\",\n    \"NOM437\",\n    \"NOM438\",\n    \"NOM439\",\n    \"NOM440\",\n    \"NOM441\",\n    \"NOM442\",\n    \"NOM443\",\n    \"NOM444\",\n    \"NOM445\",\n    \"NOM446\",\n    \"NOM447\",\n    \"NOM448\",\n    \"NOM449\",\n    \"NOM450\",\n    \"NOM451\",\n    \"NOM452\",\n    \"NOM453\",\n    \"NOM454\",\n    \"NOM455\",\n    \"NOM456\",\n    \"NOM457\",\n    \"NOM458\",\n    \"NOM459\",\n    \"NOM460\",\n    \"NOM461\",\n    \"NOM462\",\n    \"NOM463\",\n    \"NOM464\",\n    \"NOM465\",\n    \"NOM466\",\n    \"NOM467\",\n    \"NOM468\",\n    \"NOM469\",\n    \"NOM470\",\n    \"NOM471\",\n    \"NOM472\",\n    \"NOM473\",\n    \"NOM474\",\n    \"NOM475\",\n    \"NOM476\",\n    \"NOM477\",\n    \"NOM478\",\n    \"NOM479\",\n    \"NOM480\",\n    \"NOM481\",\n    \"NOM482\",\n    \"NOM483\",\n    \"NOM484\",\n    \"NOM485\",\n    \"NOM486\",\n    \"NOM487\",\n    \"NOM488\",\n    \"NOM489\",\n    \"NOM490\",\n    \"NOM491\",\n    \"NOM492\",\n    \"NOM493\",\n    \"NOM494\",\n    \"NOM495\",\n    \"NOM496\",\n    \"NOM497\",\n    \"NOM498\",\n    \"NOM499\",\n    \"NOM500\",\n    \"NOM501\",\n    \"NOM502\",\n    \"NOM503\",\n    \"NOM504\",\n    \"NOM505\",\n    \"NOM506\",\n    \"NOM507\",\n    \"NOM508\",\n    \"NOM509\",\n    \"NOM510\",\n    \"NOM511\",\n    \"NOM512\",\n    \"NOM513\",\n    \"NOM514\",\n    \"NOM515\",\n    \"NOM516\",\n    \"NOM517\",\n    \"NOM518\",\n    \"NOM519\",\n    \"NOM520\",\n    \"NOM521\",\n    \"NOM522\",\n    \"NOM523\",\n    \"NOM524\",\n    \"NOM525\",\n    \"NOM526\",\n    \"NOM527\",\n    \"NOM528\",\n    \"NOM529\",\n    \"NOM530\",\n    \"NOM531\",\n    \"NOM532\",\n    \"NOM533\",\n    \"NOM534\",\n    \"NOM535\",\n    \"NOM536\",\n    \"NOM537\",\n    \"NOM538\",\n    \"NOM539\",\n    \"NOM540\",\n    \"NOM541\",\n    \"NOM542\",\n    \"NOM543\",\n    \"NOM544\",\n    \"NOM545\",\n    \"NOM546\",\n    \"NOM547\",\n    \"NOM548\",\n    \"NOM549\",\n    \"NOM550\",\n    \"NOM551\",\n    \"NOM552\",\n    \"NOM553\",\n    \"NOM554\",\n    \"NOM555\",\n    \"NOM556\",\n    \"NOM557\",\n    \"NOM558\",\n    \"NOM559\",\n    \"NOM560\",\n    \"NOM561\",\n    \"NOM562\",\n    \"NOM563\",\n    \"NOM564\",\n    \"NOM565\",\n    \"NOM566\",\n    \"NOM567\",\n    \"NOM568\",\n    \"NOM569\",\n    \"NOM570\",\n    \"NOM571\",\n    \"NOM572\",\n    \"NOM573\",\n    \"NOM574\",\n    \"NOM575\",\n    \"NOM576\",\n    \"NOM577\",\n    \"NOM578\",\n    \"NOM579\",\n    \"NOM580\",\n    \"NOM581\",\n    \"NOM582\",\n    \"NOM583\",\n    \"NOM584\",\n    \"NOM585\",\n    \"NOM586\",\n    \"NOM587\",\n    \"NOM588\",\n    \"NOM589\",\n    \"NOM590\",\n    \"NOM591\",\n    \"NOM592\",\n    \"NOM593\",\n    \"NOM594\",\n    \"NOM595\",\n    \"NOM596\",\n    \"NOM597\",\n    \"NOM598\",\n    \"NOM599\",\n    \"NOM600\",\n    \"NOM601\",\n    \"NOM602\",\n    \"NOM603\",\n    \"NOM604\",\n    \"NOM605\",\n    \"NOM606\",\n    \"NOM607\",\n    \"NOM608\",\n    \"NOM609\",\n    \"NOM610\",\n    \"NOM611\",\n    \"NOM612\",\n    \"NOM613\",\n    \"NOM614\",\n    \"NOM615\",\n    \"NOM616\",\n    \"NOM617\",\n    \"NOM618\",\n    \"NOM619\",\n    \"NOM620\",\n    \"NOM621\",\n    \"NOM622\",\n    \"NOM623\",\n    \"NOM624\",\n    \"NOM625\",\n    \"NOM626\",\n    \"NOM627\",\n    \"NOM628\",\n    \"NOM629\",\n    \"NOM630\",\n    \"NOM631\",\n    \"NOM632\",\n    \"NOM633\",\n    \"NOM634\",\n    \"NOM635\",\n    \"NOM636\",\n    \"NOM637\",\n    \"NOM638\",\n    \"NOM639\",\n    \"NOM640\",\n    \"NOM641\",\n    \"NOM642\",\n    \"NOM643\",\n    \"NOM644\",\n    \"NOM645\",\n    \"NOM646\",\n    \"NOM647\",\n    \"NOM648\",\n    \"NOM649\",\n    \"NOM650\",\n    \"NOM651\",\n    \"NOM652\",\n    \"NOM653\",\n    \"NOM654\",\n    \"NOM655\",\n    \"NOM656\",\n    \"NOM657\",\n    \"NOM658\",\n    \"NOM659\",\n    \"NOM660\",\n    \"NOM661\",\n    \"NOM662\",\n    \"NOM663\",\n    \"NOM664\",\n    \"NOM665\",\n    \"NOM666\",\n    \"NOM667\",\n    \"NOM668\",\n    \"NOM669\",\n    \"NOM670\",\n    \"NOM671\",\n    \"NOM672\",\n    \"NOM673\",\n    \"NOM674\",\n    \"NOM675\",\n    \"NOM676\",\n    \"NOM677\",\n    \"NOM678\",\n    \"NOM679\",\n    \"NOM680\",\n    \"NOM681\",\n    \"NOM682\",\n    \"NOM683\",\n    \"NOM684\",\n    \"NOM685\",\n    \"NOM686\",\n    \"NOM687\",\n    \"NOM688\",\n    \"NOM689\",\n    \"NOM690\",\n    \"NOM691\",\n    \"NOM692\",\n    \"NOM693\",\n    \"NOM694\",\n    \"NOM695\",\n    \"NOM696\",\n    \"NOM697\",\n    \"NOM698\",\n    \"NOM699\",\n    \"NOM700\",\n    \"NOM701\",\n    \"NOM702\",\n    \"NOM703\",\n    \"NOM704\",\n    \"NOM705\",\n    \"NOM706\",\n    \"NOM707\",\n    \"NOM708\",\n    \"NOM709\",\n    \"NOM710\",\n    \"NOM711\",\n    \"NOM712\",\n    \"NOM713\",\n    \"NOM714\",\n    \"NOM715\",\n    \"NOM716\",\n    \"NOM717\",\n    \"NOM718\",\n    \"NOM719\",\n    \"NOM720\",\n    \"NOM721\",\n    \"NOM722\",\n    \"NOM723\",\n    \"NOM724\",\n    \"NOM725\",\n    \"NOM726\",\n    \"NOM727\",\n    \"NOM728\",\n    \"NOM729\",\n    \"NOM730\",\n    \"NOM731\",\n    \"NOM732\",\n    \"NOM733\",\n    \"NOM734\",\n    \"NOM735\",\n    \"NOM736\",\n    \"NOM737\",\n    \"NOM738\",\n    \"NOM739\",\n    \"NOM740\",\n    \"NOM741\",\n    \"NOM742\",\n    \"NOM743\",\n    \"NOM744\",\n    \"NOM745\",\n    \"NOM746\",\n    \"NOM747\",\n    \"NOM748\",\n    \"NOM749\",\n    \"NOM750\",\n    \"NOM751\",\n    \"NOM752\",\n    \"NOM753\",\n    \"NOM754\",\n    \"NOM755\",\n    \"NOM756\",\n    \"NOM757\",\n    \"NOM758\",\n    \"NOM759\",\n    \"NOM760\",\n    \"NOM761\",\n    \"NOM762\",\n    \"NOM763\",\n    \"NOM764\",\n    \"NOM765\",\n    \"NOM766\",\n    \"NOM767\",\n    \"NOM768\",\n    \"NOM769\",\n    \"NOM770\",\n    \"NOM771\",\n    \"NOM772\",\n    \"NOM773\",\n    \"NOM774\",\n    \"NOM775\",\n    \"NOM776\",\n    \"NOM777\",\n    \"NOM778\",\n    \"NOM779\",\n    \"NOM780\",\n    \"NOM781\",\n    \"NOM782\",\n    \"NOM783\",\n    \"NOM784\",\n    \"NOM785\",\n    \"NOM786\",\n    \"NOM787\",\n    \"NOM788\",\n    \"NOM789\",\n    \"NOM790\",\n    \"NOM791\",\n    \"NOM792\",\n    \"NOM793\",\n    \"NOM794\",\n    \"NOM795\",\n    \"NOM796\",\n    \"NOM797\",\n    \"NOM798\",\n    \"NOM799\",\n    \"NOM800\",\n    \"NOM801\",\n    \"NOM802\",\n    \"NOM803\",\n    \"NOM804\",\n    \"NOM805\",\n    \"NOM806\",\n    \"NOM807\",\n    \"NOM808\",\n    \"NOM809\",\n    \"NOM810\",\n    \"NOM811\",\n    \"NOM812\",\n    \"NOM813\",\n    \"NOM814\",\n    \"NOM815\",\n    \"NOM816\",\n    \"NOM817\",\n    \"NOM818\",\n    \"NOM819\",\n    \"NOM820\",\n    \"NOM821\",\n    \"NOM822\",\n    \"NOM823\",\n    \"NOM824\",\n    \"NOM825\",\n    \"NOM826\",\n    \"NOM827\",\n    \"NOM828\",\n    \"NOM829\",\n    \"NOM830\",\n    \"NOM831\",\n    \"NOM832\",\n    \"NOM833\",\n    \"NOM834\",\n    \"NOM835\",\n    \"NOM836\",\n    \"NOM837\",\n    \"NOM838\",\n    \"NOM839\",\n    \"NOM840\",\n    \"NOM841\",\n    \"NOM842\",\n    \"NOM843\",\n    \"NOM844\",\n    \"NOM845\",\n    \"NOM846\",\n    \"NOM847\",\n    \"NOM848\",\n    \"NOM849\",\n    \"NOM850\",\n    \"NOM851\",\n    \"NOM852\",\n    \"NOM853\",\n    \"NOM854\",\n    \"NOM855\",\n    \"NOM856\",\n    \"NOM857\",\n    \"NOM858\",\n    \"NOM859\",\n    \"NOM860\",\n    \"NOM861\",\n    \"NOM862\",\n    \"NOM863\",\n    \"NOM864\",\n    \"NOM865\",\n    \"NOM866\",\n    \"NOM867\",\n    \"NOM868\",\n    \"NOM869\",\n    \"NOM870\",\n    \"NOM871\",\n    \"NOM872\",\n    \"NOM873\",\n    \"NOM874\",\n    \"NOM875\",\n    \"NOM876\",\n    \"NOM877\",\n    \"NOM878\",\n    \"NOM879\",\n    \"NOM880\",\n    \"NOM881\",\n    \"NOM882\",\n    \"NOM883\",\n    \"NOM884\",\n    \"NOM885\",\n    \"NOM886\",\n    \"NOM887\",\n    \"NOM888\",\n    \"NOM889\",\n    \"NOM890\",\n    \"NOM891\",\n    \"NOM892\",\n    \"NOM893\",\n    \"NOM894\",\n    \"NOM895\",\n    \"NOM896\",\n    \"NOM897\",\n    \"NOM898\",\n    \"NOM899\",\n    \"NOM900\",\n    \"NOM901\",\n    \"NOM902\",\n    \"NOM903\",\n    \"NOM904\",\n    \"NOM905\",\n    \"NOM906\",\n    \"NOM907\",\n    \"NOM908\",\n    \"NOM909\",\n    \"NOM910\",\n    \"NOM911\",\n    \"NOM912\",\n    \"NOM913\",\n    \"NOM914\",\n    \"NOM915\",\n    \"NOM916\",\n    \"NOM917\",\n    \"NOM918\",\n    \"NOM919\",\n    \"NOM920\",\n    \"NOM921\",\n    \"NOM922\",\n    \"NOM923\",\n    \"NOM924\",\n    \"NOM925\",\n    \"NOM926\",\n    \"NOM927\",\n    \"NOM928\",\n    \"NOM929\",\n    \"NOM930\",\n    \"NOM931\",\n    \"NOM932\",\n    \"NOM933\",\n    \"NOM934\",\n    \"NOM935\",\n    \"NOM936\",\n    \"NOM937\",\n    \"NOM938\",\n    \"NOM939\",\n    \"NOM940\",\n    \"NOM941\",\n    \"NOM942\",\n    \"NOM943\",\n    \"NOM944\",\n    \"NOM945\",\n    \"NOM946\",\n    \"NOM947\",\n    \"NOM948\",\n    \"NOM949\",\n    \"NOM950\",\n    \"NOM951\",\n    \"NOM952\",\n    \"NOM953\",\n    \"NOM954\",\n    \"NOM955\",\n    \"NOM956\",\n    \"NOM957\",\n    \"NOM958\",\n    \"NOM959\",\n    \"NOM960\",\n    \"NOM961\",\n    \"NOM962\",\n    \"NOM963\",\n    \"NOM964\",\n    \"NOM965\",\n    \"NOM966\",\n    \"NOM967\",\n    \"NOM968\",\n    \"NOM969\",\n    \"NOM970\",\n    \"NOM971\",\n    \"NOM972\",\n    \"NOM973\",\n    \"NOM974\",\n    \"NOM975\",\n    \"NOM976\",\n    \"NOM977\",\n    \"NOM978\",\n    \"NOM979\",\n    \"NOM980\",\n    \"NOM981\",\n    \"NOM982\",\n    \"NOM983\",\n    \"NOM984\",\n    \"NOM985\",\n    \"NOM986\",\n    \"NOM987\",\n    \"NOM988\",\n    \"NOM989\",\n    \"NOM990\",\n    \"NOM991\",\n    \"NOM992\",\n    \"NOM993\",\n    \"NOM994\",\n    \"NOM995\",\n    \"NOM996\",\n    \"NOM997\",\n    \"NOM998\",\n    \"NOM999\",\n    \"NOM1000\",\n    \"NOM1001\",\n    \"NOM1002\",\n    \"NOM1003\",\n    \"NOM1004\",\n    \"NOM1005\",\n    \"NOM1006\",\n    \"NOM1007\",\n    \"NOM1008\",\n    \"NOM1009\",\n    \"NOM1010\",\n    \"NOM1011\",\n    \"NOM1012\",\n    \"NOM1013\",\n    \"NOM1014\",\n    \"NOM1015\",\n    \"NOM1016\",\n    \"NOM1017\",\n    \"NOM1018\",\n    \"NOM1019\",\n    \"NOM1020\",\n    \"NOM1021\",\n    \"NOM1022\",\n    \"NOM1023\",\n    \"NOM1024\",\n    \"NOM1025\",\n    \"NOM1026\",\n    \"NOM1027\",\n    \"NOM1028\",\n    \"NOM1029\",\n    \"NOM1030\",\n    \"NOM1031\",\n    \"NOM1032\",\n    \"NOM1033\",\n    \"NOM1034\",\n    \"NOM1035\",\n    \"NOM1036\",\n    \"NOM1037\",\n    \"NOM1038\",\n    \"NOM1039\",\n    \"NOM1040\",\n    \"NOM1041\",\n    \"NOM1042\",\n    \"NOM1043\",\n    \"NOM1044\",\n    \"NOM1045\",\n    \"NOM1046\",\n    \"NOM1047\",\n    \"NOM1048\",\n    \"NOM1049\",\n    \"NOM1050\",\n    \"NOM1051\",\n    \"NOM1052\",\n    \"NOM1053\",\n    \"NOM1054\",\n    \"NOM1055\",\n    \"NOM1056\",\n    \"NOM1057\",\n    \"NOM1058\",\n    \"NOM1059\",\n    \"NOM1060\",\n    \"NOM1061\",\n    \"NOM1062\",\n    \"NOM1063\",\n    \"NOM1064\",\n    \"NOM1065\",\n    \"NOM1066\",\n    \"NOM1067\",\n    \"NOM1068\",\n    \"NOM1069\",\n    \"NOM1070\",\n    \"NOM1071\",\n    \"NOM1072\",\n    \"NOM1073\",\n    \"NOM1074\",\n    \"NOM1075\",\n    \"NOM1076\",\n    \"NOM1077\",\n    \"NOM1078\",\n    \"NOM1079\",\n    \"NOM1080\",\n    \"NOM1081\",\n    \"NOM1082\",\n    \"NOM1083\",\n    \"NOM1084\",\n    \"NOM1085\",\n    \"NOM1086\",\n    \"NOM1087\",\n    \"NOM1088\",\n    \"NOM1089\",\n    \"NOM1090\",\n    \"NOM1091\",\n    \"NOM1092\",\n    \"NOM1093\",\n    \"NOM1094\",\n    \"NOM1095\",\n    \"NOM1096\",\n    \"NOM1097\",\n    \"NOM1098\",\n    \"NOM1099\",\n    \"NOM1100\",\n    \"NOM1101\",\n    \"NOM1102\",\n    \"NOM1103\",\n    \"NOM1104\",\n    \"NOM1105\",\n    \"NOM1106\",\n    \"NOM1107\",\n    \"NOM1108\",\n    \"NOM1109\",\n    \"NOM1110\",\n    \"NOM1111\",\n    \"NOM1112\",\n    \"NOM1113\",\n    \"NOM1114\",\n    \"NOM1115\",\n    \"NOM1116\",\n    \"NOM1117\",\n    \"NOM1118\",\n    \"NOM1119\",\n    \"NOM1120\",\n    \"NOM1121\",\n    \"NOM1122\",\n    \"NOM1123\",\n    \"NOM1124\",\n    \"NOM1125\",\n    \"NOM1126\",\n    \"NOM1127\",\n    \"NOM1128\",\n    \"NOM1129\",\n    \"NOM1130\",\n    \"NOM1131\",\n    \"NOM1132\",\n    \"NOM1133\",\n    \"NOM1134\",\n    \"NOM1135\",\n    \"NOM1136\",\n    \"NOM1137\",\n    \"NOM1138\",\n    \"NOM1139\",\n    \"NOM1140\",\n    \"NOM1141\",\n    \"NOM1142\",\n    \"NOM1143\",\n    \"NOM1144\",\n    \"NOM1145\",\n    \"NOM1146\",\n    \"NOM1147\",\n    \"NOM1148\",\n    \"NOM1149\",\n    \"NOM1150\",\n    \"NOM1151\",\n    \"NOM1152\",\n    \"NOM1153\",\n    \"NOM1154\",\n    \"NOM1155\",\n    \"NOM1156\",\n    \"NOM1157\",\n    \"NOM1158\",\n    \"NOM1159\",\n    \"NOM1160\",\n    \"NOM1161\",\n    \"NOM1162\",\n    \"NOM1163\",\n    \"NOM1164\",\n    \"NOM1165\",\n    \"NOM1166\",\n    \"NOM1167\",\n    \"NOM1168\",\n    \"NOM1169\",\n    \"NOM1170\",\n    \"NOM1171\",\n    \"NOM1172\",\n    \"NOM1173\",\n    \"NOM1174\",\n    \"NOM1175\",\n    \"NOM1176\",\n    \"NOM1177\",\n    \"NOM1178\",\n    \"NOM1179\",\n    \"NOM1180\",\n    \"NOM1181\",\n    \"NOM1182\",\n    \"NOM1183\",\n    \"NOM1184\",\n    \"NOM1185\",\n    \"NOM1186\",\n    \"NOM1187\",\n    \"NOM1188\",\n    \"NOM1189\",\n    \"NOM1190\",\n    \"NOM1191\",\n    \"NOM1192\",\n    \"NOM1193\",\n    \"NOM1194\",\n    \"NOM1195\",\n    \"NOM1196\",\n    \"NOM1197\",\n    \"NOM1198\",\n    \"NOM1199\",\n    \"NOM1200\",\n    \"NOM1201\",\n    \"NOM1202\",\n    \"NOM1203\",\n    \"NOM1204\",\n    \"NOM1205\",\n    \"NOM1206\",\n    \"NOM1207\",\n    \"NOM1208\",\n    \"NOM1209\",\n    \"NOM1210\",\n    \"NOM1211\",\n    \"NOM1212\",\n    \"NOM1213\",\n    \"NOM1214\",\n    \"NOM1215\",\n    \"NOM1216\",\n    \"NOM1217\",\n    \"NOM1218\",\n    \"NOM1219\",\n    \"NOM1220\",\n    \"NOM1221\",\n    \"NOM1222\",\n    \"NOM1223\",\n    \"NOM1224\",\n    \"NOM1225\",\n    \"NOM1226\",\n    \"NOM1227\",\n    \"NOM1228\",\n    \"NOM1229\",\n    \"NOM1230\",\n    \"NOM1231\",\n    \"NOM1232\",\n    \"NOM1233\",\n    \"NOM1234\",\n    \"NOM1235\",\n    \"NOM1236\",\n    \"NOM1237\",\n    \"NOM1238\",\n    \"NOM1239\",\n    \"NOM1240\",\n    \"NOM1241\",\n    \"NOM1242\",\n    \"NOM1243\",\n    \"NOM1244\",\n    \"NOM1245\",\n    \"NOM1246\",\n    \"NOM1247\",\n    \"NOM1248\",\n    \"NOM1249\",\n    \"NOM1250\",\n    \"NOM1251\",\n    \"NOM1252\",\n    \"NOM1253\",\n    \"NOM1254\",\n    \"NOM1255\",\n    \"NOM1256\",\n    \"NOM1257\",\n    \"NOM1258\",\n    \"NOM1259\",\n    \"NOM1260\",\n    \"NOM1261\",\n    \"NOM1262\",\n    \"NOM1263\",\n    \"NOM1264\",\n    \"NOM1265\",\n    \"NOM1266\",\n    \"NOM1267\",\n    \"NOM1268\",\n    \"NOM1269\",\n    \"NOM1270\",\n    \"NOM1271\",\n"
+ },
+ "P3": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d22fa5fe29e603c22df3ab397ea17fefc1c09f749b8bc3aedd85578361646e34",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 236,
+     "completion_tokens": 401,
+     "total_tokens": 637,
+     "cost": 7.266e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.266e-05,
+      "upstream_inference_prompt_cost": 1.652e-05,
+      "upstream_inference_completions_cost": 5.614e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.5,\n    \"2\": 0.4,\n    \"3\": 0.5,\n    \"4\": 0.6,\n    \"5\": 0.7,\n    \"6\": 0.5,\n    \"7\": 0.4,\n    \"8\": 0.3,\n    \"9\": 0.5,\n    \"10\": 0.6,\n    \"11\": 0.7,\n    \"12\": 0.5,\n    \"13\": 0.4,\n    \"14\": 0.6,\n    \"15\": 0.5,\n    \"16\": 0.7,\n    \"17\": 0.6,\n    \"18\": 0.5,\n    \"19\": 0.4,\n    \"20\": 0.6,\n    \"21\": 0.7,\n    \"22\": 0.5,\n    \"23\": 0.4,\n    \"24\": 0.6,\n    \"25\": 0.5,\n    \"26\": 0.7,\n    \"27\": 0.6,\n    \"28\": 0.5,\n    \"29\": 0.4,\n    \"30\": 0.6,\n    \"31\": 0.7,\n    \"32\": 0.5,\n    \"33\": 0.4,\n    \"34\": 0.6,\n    \"35\": 0.5,\n    \"36\": 0.7\n  }\n}\n```\n\nThese scores are hypothetical and based on the assumption that some features are more likely to be informative for predicting software defects, given typical characteristics of such datasets. Features with higher scores are assumed to have a stronger potential for predictive power, either individually or in combination with others.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.3,
+   0.5,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.6,
+   0.5,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "33350d9ccc389dd10716aeb0cae382462afae016ad1c2712dc8f384868b78ee6",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 234,
+     "completion_tokens": 371,
+     "total_tokens": 605,
+     "cost": 6.832e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.832e-05,
+      "upstream_inference_prompt_cost": 1.638e-05,
+      "upstream_inference_completions_cost": 5.194e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.5,\n    \"1\": 0.4,\n    \"2\": 0.3,\n    \"3\": 0.6,\n    \"4\": 0.2,\n    \"5\": 0.7,\n    \"6\": 0.5,\n    \"7\": 0.3,\n    \"8\": 0.4,\n    \"9\": 0.6,\n    \"10\": 0.5,\n    \"11\": 0.2,\n    \"12\": 0.7,\n    \"13\": 0.4,\n    \"14\": 0.3,\n    \"15\": 0.6,\n    \"16\": 0.5,\n    \"17\": 0.4,\n    \"18\": 0.3,\n    \"19\": 0.7,\n    \"20\": 0.5,\n    \"21\": 0.6,\n    \"22\": 0.4,\n    \"23\": 0.3,\n    \"24\": 0.7,\n    \"25\": 0.5,\n    \"26\": 0.4,\n    \"27\": 0.6,\n    \"28\": 0.3,\n    \"29\": 0.7,\n    \"30\": 0.5,\n    \"31\": 0.4,\n    \"32\": 0.6,\n    \"33\": 0.3,\n    \"34\": 0.7,\n    \"35\": 0.5,\n    \"36\": 0.4\n  }\n}\n``` \n\nThese scores are hypothetical and assume a balanced distribution of feature importance, given the lack of specific information about the dataset.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.2,
+   0.7,
+   0.5,
+   0.3,
+   0.4,
+   0.6,
+   0.5,
+   0.2,
+   0.7,
+   0.4,
+   0.3,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.7,
+   0.5,
+   0.6,
+   0.4,
+   0.3,
+   0.7,
+   0.5,
+   0.4,
+   0.6,
+   0.3,
+   0.7,
+   0.5,
+   0.4,
+   0.6,
+   0.3,
+   0.7,
+   0.5,
+   0.4
+  ]
+ },
+ "P4": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c5010878ce59903ed3a650600773f0811248ed1950e585985dbad0f57ec72ac6",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 400,
+     "completion_tokens": 528,
+     "total_tokens": 928,
+     "cost": 0.00010192,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00010192,
+      "upstream_inference_prompt_cost": 2.8e-05,
+      "upstream_inference_completions_cost": 7.392e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.1,\n    \"1\": 0.7,\n    \"2\": 0.6,\n    \"3\": 0.3,\n    \"4\": 0.2,\n    \"5\": 0.7,\n    \"6\": 0.8,\n    \"7\": 0.5,\n    \"8\": 0.7,\n    \"9\": 0.5,\n    \"10\": 0.6,\n    \"11\": 0.5,\n    \"12\": 0.7,\n    \"13\": 0.8,\n    \"14\": 0.5,\n    \"15\": 0.7,\n    \"16\": 0.6,\n    \"17\": 0.6,\n    \"18\": 0.6,\n    \"19\": 0.6,\n    \"20\": 0.6,\n    \"21\": 0.6,\n    \"22\": 0.6,\n    \"23\": 0.6,\n    \"24\": 0.6,\n    \"25\": 0.7,\n    \"26\": 0.7,\n    \"27\": 0.7,\n    \"28\": 0.7,\n    \"29\": 0.8,\n    \"30\": 0.6,\n    \"31\": 0.6,\n    \"32\": 0.6,\n    \"33\": 0.6,\n    \"34\": 0.3,\n    \"35\": 0.2,\n    \"36\": 0.3\n  }\n}\n```\n\n### Explanation:\n- **High Scores (0.7 - 0.8):** Features like `BRANCH_COUNT`, `CYCLOMATIC_COMPLEXITY`, `ESSENTIAL_COMPLEXITY`, and `NORMALIZED_CYCLOMATIC_COMPLEXITY` are directly related to code complexity, which is often correlated with defects.\n- **Moderate Scores (0.5 - 0.6):** Features such as `CALL_PAIRS`, `CONDITION_COUNT`, `DECISION_COUNT`, and various Halstead metrics are moderately useful as they provide insights into code structure and complexity.\n- **Low Scores (0.1 - 0.3):** Features like `LOC_BLANK`, `LOC_COMMENTS`, `PERCENT_COMMENTS`, and `LOC_TOTAL` are less directly related to defects, as they measure aspects of the code that do not inherently indicate complexity or potential errors.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.7,
+   0.6,
+   0.3,
+   0.2,
+   0.7,
+   0.8,
+   0.5,
+   0.7,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.5,
+   0.7,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.6,
+   0.6,
+   0.6,
+   0.6,
+   0.3,
+   0.2,
+   0.3
+  ]
+ },
+ "P5": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "501c42c834b7b224f8a87602b19a36e9a2d260d500ea9f5267bf9011600bcfb7",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 377,
+     "completion_tokens": 347,
+     "total_tokens": 724,
+     "cost": 7.497e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.497e-05,
+      "upstream_inference_prompt_cost": 2.639e-05,
+      "upstream_inference_completions_cost": 4.858e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.1,\n    \"1\": 0.7,\n    \"2\": 0.6,\n    \"3\": 0.3,\n    \"4\": 0.2,\n    \"5\": 0.7,\n    \"6\": 0.8,\n    \"7\": 0.5,\n    \"8\": 0.7,\n    \"9\": 0.5,\n    \"10\": 0.6,\n    \"11\": 0.5,\n    \"12\": 0.7,\n    \"13\": 0.8,\n    \"14\": 0.5,\n    \"15\": 0.6,\n    \"16\": 0.5,\n    \"17\": 0.4,\n    \"18\": 0.4,\n    \"19\": 0.4,\n    \"20\": 0.3,\n    \"21\": 0.3,\n    \"22\": 0.3,\n    \"23\": 0.3,\n    \"24\": 0.4,\n    \"25\": 0.6,\n    \"26\": 0.7,\n    \"27\": 0.6,\n    \"28\": 0.7,\n    \"29\": 0.8,\n    \"30\": 0.5,\n    \"31\": 0.5,\n    \"32\": 0.4,\n    \"33\": 0.4,\n    \"34\": 0.3,\n    \"35\": 0.2,\n    \"36\": 0.3\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.7,
+   0.6,
+   0.3,
+   0.2,
+   0.7,
+   0.8,
+   0.5,
+   0.7,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.4,
+   0.4,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.4,
+   0.6,
+   0.7,
+   0.6,
+   0.7,
+   0.8,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.3,
+   0.2,
+   0.3
+  ]
+ }
+}

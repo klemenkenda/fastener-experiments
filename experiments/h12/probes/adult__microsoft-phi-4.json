@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "microsoft/phi-4",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "75915b433488ca2ead384f793def311b924319d864b2f2265ce2fb2c2b24ab60",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 113,
+   "completion_tokens": 42,
+   "total_tokens": 155,
+   "cost": 1.379e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.379e-05,
+    "upstream_inference_prompt_cost": 7.91e-06,
+    "upstream_inference_completions_cost": 5.88e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Adult\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Adult\",\n  \"confidence\": 1.0\n}\n```"
+ },
+ "P1b": {
+  "key": "115acc04e3647bfb77ee14a82f0f2d223cd7dd46eb18743169e2f6c219ec0212",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 133,
+   "completion_tokens": 33,
+   "total_tokens": 166,
+   "cost": 1.393e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.393e-05,
+    "upstream_inference_prompt_cost": 9.31e-06,
+    "upstream_inference_completions_cost": 4.62e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Adult Income\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 1\n}\n```"
+ },
+ "P2": {
+  "key": "1ec2b611e7847d06ece7ebb1b318b0ba8e6fea618363234c86a9497033b8b933",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 97,
+   "completion_tokens": 82,
+   "total_tokens": 179,
+   "cost": 1.827e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.827e-05,
+    "upstream_inference_prompt_cost": 6.79e-06,
+    "upstream_inference_completions_cost": 1.148e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"age\",\n    \"workclass\",\n    \"fnlwgt\",\n    \"education\",\n    \"education-num\",\n    \"marital-status\",\n    \"occupation\",\n    \"relationship\",\n    \"race\",\n    \"sex\",\n    \"capital-gain\",\n    \"capital-loss\",\n    \"hours-per-week\",\n    \"native-country\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "52b9709cca14318c4493904dc6fbc8ca6bacfd5aa61b99d13ac7db83cfa12383",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 203,
+     "completion_tokens": 178,
+     "total_tokens": 381,
+     "cost": 3.913e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 3.913e-05,
+      "upstream_inference_prompt_cost": 1.421e-05,
+      "upstream_inference_completions_cost": 2.492e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.9,\n    \"2\": 0.7,\n    \"3\": 0.6,\n    \"4\": 0.9,\n    \"5\": 0.8,\n    \"6\": 0.7,\n    \"7\": 0.6,\n    \"8\": 0.5,\n    \"9\": 0.7,\n    \"10\": 0.6,\n    \"11\": 0.5,\n    \"12\": 0.4\n  }\n}\n```\n\nThese scores are based on general knowledge of the Adult dataset, where features like age, education, and occupation are typically more predictive of income level. The exact scores are subjective and could vary based on specific data distributions and preprocessing steps.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.9,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.4
+  ]
+ },
+ "P3f": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2f580af130ff5ba430dec8c25fcb9633e0c8b54238830b13aa7df0cefd8f0d80",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 186,
+     "completion_tokens": 168,
+     "total_tokens": 354,
+     "cost": 3.654e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 3.654e-05,
+      "upstream_inference_prompt_cost": 1.302e-05,
+      "upstream_inference_completions_cost": 2.352e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.5,\n    \"2\": 0.7,\n    \"3\": 0.4,\n    \"4\": 0.8,\n    \"5\": 0.3,\n    \"6\": 0.6,\n    \"7\": 0.5,\n    \"8\": 0.7,\n    \"9\": 0.4,\n    \"10\": 0.6,\n    \"11\": 0.5,\n    \"12\": 0.7\n  }\n}\n``` \n\nThese scores are hypothetical and based on typical assumptions about feature importance in a classification task. Without specific data, these values are speculative and meant to illustrate a possible distribution of feature utility.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.7,
+   0.4,
+   0.8,
+   0.3,
+   0.6,
+   0.5,
+   0.7,
+   0.4,
+   0.6,
+   0.5,
+   0.7
+  ]
+ },
+ "P4": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "80de26509c781ed5eeb4846a6be2cff22a2a7996c0aa8404fcf4443325a36d2c",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 205,
+     "completion_tokens": 376,
+     "total_tokens": 581,
+     "cost": 6.699e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.699e-05,
+      "upstream_inference_prompt_cost": 1.435e-05,
+      "upstream_inference_completions_cost": 5.264e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.6,\n    \"2\": 0.1,\n    \"3\": 0.7,\n    \"4\": 0.7,\n    \"5\": 0.6,\n    \"6\": 0.6,\n    \"7\": 0.5,\n    \"8\": 0.4,\n    \"9\": 0.7,\n    \"10\": 0.6,\n    \"11\": 0.3,\n    \"12\": 0.7\n  }\n}\n```\n\n### Explanation:\n- **Age (0):** Likely to be quite useful as income often correlates with age.\n- **Workclass (1):** Useful, as different work classes can have different income levels.\n- **Fnlwgt (2):** Generally not useful for prediction as it's a sample weight.\n- **Education (3) & Education-num (4):** Both are useful, with education-num being a numerical representation of education.\n- **Marital-status (5):** Useful, as marital status can influence income.\n- **Occupation (6):** Useful, as different occupations have different income levels.\n- **Relationship (7):** Moderately useful, as it can provide context about family roles.\n- **Race (8):** Somewhat useful, as there may be income disparities across races.\n- **Sex (9):** Useful, as there are known income disparities between genders.\n- **Capital-gain (10):** Useful, as it indicates investment income.\n- **Capital-loss (11):** Less useful, as it's less common and less indicative of income.\n- **Hours-per-week (12):** Useful, as more hours can correlate with higher income.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.1,
+   0.7,
+   0.7,
+   0.6,
+   0.6,
+   0.5,
+   0.4,
+   0.7,
+   0.6,
+   0.3,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "836e30bca5f1d567b2e0e2a81e5b9870a5dbb5d6688c78b3f061828071dd0cc8",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 181,
+     "completion_tokens": 192,
+     "total_tokens": 373,
+     "cost": 3.955e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 3.955e-05,
+      "upstream_inference_prompt_cost": 1.267e-05,
+      "upstream_inference_completions_cost": 2.688e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.5,\n    \"2\": 0.1,\n    \"3\": 0.6,\n    \"4\": 0.6,\n    \"5\": 0.6,\n    \"6\": 0.5,\n    \"7\": 0.4,\n    \"8\": 0.3,\n    \"9\": 0.6,\n    \"10\": 0.5,\n    \"11\": 0.4,\n    \"12\": 0.7\n  }\n}\n``` \n\nThese scores are based on general assumptions about the potential predictive power of each feature in relation to income classification. Features like age, education, and hours-per-week are often more directly related to income levels, while others like fnlwgt (final weight) are less likely to be useful on their own.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.5,
+   0.1,
+   0.6,
+   0.6,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.5,
+   0.4,
+   0.7
+  ]
+ }
+}

@@ -1,0 +1,385 @@
+{
+ "dataset": "eye_movements",
+ "model": "anthropic/claude-sonnet-5.5",
+ "variables": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "P1a": {
+  "key": "2d11d11147454e1981e38b3279be0a884b3842a0c5446813031a85c6e6c26962",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 143,
+   "completion_tokens": 580,
+   "total_tokens": 723,
+   "cost": 0.006086,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.006086,
+    "upstream_inference_prompt_cost": 0.000286,
+    "upstream_inference_completions_cost": 0.0058
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 489,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"eye_movements\", \"source\": \"OpenML eye_movements (ID 1044), as used in the Grinsztajn et al. tabular benchmark, 'Why do tree-based models still outperform deep learning on tabular data?'\", \"confidence\": 0.5}"
+ },
+ "P1b": {
+  "key": "eb4fc398f7a282369acb755ddb3d648e93b0e16bb86a5189c51f1713267168e9",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 261,
+   "completion_tokens": 264,
+   "total_tokens": 525,
+   "cost": 0.003162,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.003162,
+    "upstream_inference_prompt_cost": 0.000522,
+    "upstream_inference_completions_cost": 0.00264
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "I recognise this as the eye-tracking data from the \"Predicting Relevance Based on Eye Movements\" challenge, the PASCAL / NIPS 2005 workshop \"Inferring Relevance from Eye Movements\" (Saloj\u00e4rvi et al., Helsinki University of Technology). Its features include lineNo, assgNo, prevFixDur, firstfixDur and so on. The data are also on OpenML as \"eye_movements\" (ID 1044), and the task is to classify each word as irrelevant, relevant or the correct answer.\n\n{\"name\": \"eye_movements\", \"source\": \"OpenML (ID 1044); Inferring Relevance from Eye Movements Challenge, PASCAL/NIPS 2005 workshop (Saloj\u00e4rvi et al.)\", \"confidence\": 0.9}"
+ },
+ "P2": {
+  "key": "1298c387441c34f568d27c85912effd51f3b23c63c53e7af56ef385f09e2693c",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 140,
+   "completion_tokens": 2320,
+   "total_tokens": 2460,
+   "cost": 0.02348,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.02348,
+    "upstream_inference_prompt_cost": 0.00028,
+    "upstream_inference_completions_cost": 0.0232
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 2116,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"lineNo\",\"assgnNo\",\"prevFixDur\",\"firstfixDur\",\"firstPassFixDur\",\"nextFixDur\",\"firstSaccLen\",\"lastSaccLen\",\"prevFixPos\",\"landingPos\",\"leavingPos\",\"totalFixDur\",\"meanFixDur\",\"regressLen\",\"regressDur\",\"pupilDiamMax\",\"pupilDiamLag\",\"timePrtctg\",\"titleNo\",\"wordNo\",\"nWordsInTitle\",\"nextWordRegress\",\"P1stFixation\",\"P2stFixation\",\"nRegressFrom\",\"pupilDiamMean\",\"numberOfFixPrevWord\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d86b9a9bd16e29f437052c250ea31b01c1c8cdc6de2d74697ea9af11e55e0cbb",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 267,
+     "completion_tokens": 519,
+     "total_tokens": 786,
+     "cost": 0.005724,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.005724,
+      "upstream_inference_prompt_cost": 0.000534,
+      "upstream_inference_completions_cost": 0.00519
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I'm working from memory of the data set's structure, not from the data, so these scores are rough guesses.\n\nAs I recall, the eye-movement data has 27 features in the original ordering: the first columns are numberOfPredictedRegressions, numberOfPredictedFixations, and so on, and the later columns are the ones that characterize fixations. OpenML 1044 appears to have 20 features after some were dropped. The names I remember are:\n\n- Early columns: nrSacc, nrFix, meanFixDur, meanPupilDiam\n- Others: regressions, firstPassFixDur, ... and so on.\n- Later columns: the \"feature\" variables such as fixDur and the regression-related ones.\n\nI can't map indices to names reliably. The class is relevance of the title: irrelevant, relevant, or correct answer. The features are all weak predictors, and accuracy is typically around 0.5\u20130.6. The ones that tend to matter are the regression-related and fixation-duration features, plus the pupil diameter features.\n\nSince I can't tell which index is which, I'll spread the scores in a narrow band, giving slightly higher values to the middle and later features.\n\n{\"scores\": {\"0\":0.3,\"1\":0.3,\"2\":0.35,\"3\":0.3,\"4\":0.35,\"5\":0.4,\"6\":0.4,\"7\":0.35,\"8\":0.35,\"9\":0.4,\"10\":0.4,\"11\":0.45,\"12\":0.45,\"13\":0.4,\"14\":0.4,\"15\":0.45,\"16\":0.5,\"17\":0.45,\"18\":0.5,\"19\":0.45}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.35,
+   0.3,
+   0.35,
+   0.4,
+   0.4,
+   0.35,
+   0.35,
+   0.4,
+   0.4,
+   0.45,
+   0.45,
+   0.4,
+   0.4,
+   0.45,
+   0.5,
+   0.45,
+   0.5,
+   0.45
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "9e444dbeeded0a4f2a560568a85df7e29a44fb10e3e0b6f4ebf3ca5b85ec4d8b",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 247,
+     "completion_tokens": 229,
+     "total_tokens": 476,
+     "cost": 0.002784,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.002784,
+      "upstream_inference_prompt_cost": 0.000494,
+      "upstream_inference_completions_cost": 0.00229
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I have no information about these features beyond their indices: no names, no values, and no description of the data set. Any score I give would be a guess, so I assign every feature the same low-to-moderate value rather than invent differences. These scores should not be used to rank or drop features.\n\n{\"scores\": {\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "451eb9c67e42ed7994893be0c4b772d51000687fe0b1ccd2138647abb1ef80a9",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 370,
+     "completion_tokens": 169,
+     "total_tokens": 539,
+     "cost": 0.00243,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00243,
+      "upstream_inference_prompt_cost": 0.00074,
+      "upstream_inference_completions_cost": 0.00169
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.15, \"2\": 0.3, \"3\": 0.3, \"4\": 0.3, \"5\": 0.3, \"6\": 0.35, \"7\": 0.3, \"8\": 0.3, \"9\": 0.35, \"10\": 0.3, \"11\": 0.45, \"12\": 0.35, \"13\": 0.2, \"14\": 0.2, \"15\": 0.4, \"16\": 0.35, \"17\": 0.3, \"18\": 0.2, \"19\": 0.2}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.15,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.15,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.35,
+   0.3,
+   0.3,
+   0.35,
+   0.3,
+   0.45,
+   0.35,
+   0.2,
+   0.2,
+   0.4,
+   0.35,
+   0.3,
+   0.2,
+   0.2
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a602f565fde88e113e441fef4bb1c654facfea5f29faac4462fe6244db6e1020",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 320,
+     "completion_tokens": 353,
+     "total_tokens": 673,
+     "cost": 0.00417,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00417,
+      "upstream_inference_prompt_cost": 0.00064,
+      "upstream_inference_completions_cost": 0.00353
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "This looks like the eye-tracking data set from the 2005 PASCAL challenge (Saloj\u00e4rvi et al.), where the task is to predict whether a word is relevant. Features such as lineNo, assgNo, titleNo and wordNo are position or identifier variables. Of these, wordNo and lineNo may carry some signal, while assgNo is probably weak. Fixation durations (firstfixDur, totalFixDur, meanFixDur) and the regression features are likely the most informative. Pupil diameter and the saccade-length features are likely to help only a little.\n\nThese scores are guesses from that background knowledge, not from the data.\n\n{\"scores\": {\"0\":0.4,\"1\":0.3,\"2\":0.35,\"3\":0.5,\"4\":0.5,\"5\":0.35,\"6\":0.4,\"7\":0.4,\"8\":0.35,\"9\":0.4,\"10\":0.4,\"11\":0.6,\"12\":0.45,\"13\":0.5,\"14\":0.5,\"15\":0.4,\"16\":0.4,\"17\":0.45,\"18\":0.3,\"19\":0.4}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.4,
+   0.3,
+   0.35,
+   0.5,
+   0.5,
+   0.35,
+   0.4,
+   0.4,
+   0.35,
+   0.4,
+   0.4,
+   0.6,
+   0.45,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.45,
+   0.3,
+   0.4
+  ]
+ }
+}

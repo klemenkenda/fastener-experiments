@@ -1,0 +1,470 @@
+{
+ "dataset": "pc4",
+ "model": "openai/gpt-6-luna",
+ "variables": [
+  "LOC_BLANK",
+  "BRANCH_COUNT",
+  "CALL_PAIRS",
+  "LOC_CODE_AND_COMMENT",
+  "LOC_COMMENTS",
+  "CONDITION_COUNT",
+  "CYCLOMATIC_COMPLEXITY",
+  "CYCLOMATIC_DENSITY",
+  "DECISION_COUNT",
+  "DECISION_DENSITY",
+  "DESIGN_COMPLEXITY",
+  "DESIGN_DENSITY",
+  "EDGE_COUNT",
+  "ESSENTIAL_COMPLEXITY",
+  "ESSENTIAL_DENSITY",
+  "LOC_EXECUTABLE",
+  "PARAMETER_COUNT",
+  "HALSTEAD_CONTENT",
+  "HALSTEAD_DIFFICULTY",
+  "HALSTEAD_EFFORT",
+  "HALSTEAD_ERROR_EST",
+  "HALSTEAD_LENGTH",
+  "HALSTEAD_LEVEL",
+  "HALSTEAD_PROG_TIME",
+  "HALSTEAD_VOLUME",
+  "MAINTENANCE_SEVERITY",
+  "MODIFIED_CONDITION_COUNT",
+  "MULTIPLE_CONDITION_COUNT",
+  "NODE_COUNT",
+  "NORMALIZED_CYLOMATIC_COMPLEXITY",
+  "NUM_OPERANDS",
+  "NUM_OPERATORS",
+  "NUM_UNIQUE_OPERANDS",
+  "NUM_UNIQUE_OPERATORS",
+  "NUMBER_OF_LINES",
+  "PERCENT_COMMENTS",
+  "LOC_TOTAL"
+ ],
+ "P1a": {
+  "key": "a3f3e7d6748f8508d02c422e43359c4133d6bf503f315384036b559bc1c9bf73",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 105,
+   "completion_tokens": 1224,
+   "total_tokens": 1329,
+   "cost": 0.0006225,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0006225,
+    "upstream_inference_prompt_cost": 1.05e-05,
+    "upstream_inference_completions_cost": 0.000612
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1186,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"PC4 (NASA software defect dataset)\",\"source\":\"PROMISE Software Engineering Repository (NASA Metrics Data Program)\",\"confidence\":0.97}"
+ },
+ "P1b": {
+  "key": "9a1b2e3cfd393e546d25fcc997d8607fea250e28c467b99c52b62c412e62650c",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 298,
+   "completion_tokens": 1118,
+   "total_tokens": 1416,
+   "cost": 0.0005888,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0005888,
+    "upstream_inference_prompt_cost": 2.98e-05,
+    "upstream_inference_completions_cost": 0.000559
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1078,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"NASA MDP software defect dataset\",\"source\":\"NASA Metrics Data Program (MDP); also distributed through the PROMISE repository\",\"confidence\":0.9}"
+ },
+ "P2": {
+  "key": "030e1a25213d48dc21e51f50b791ab9013b9c5d326a40bfed3a37a57ca0c8f17",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 94,
+   "completion_tokens": 2507,
+   "total_tokens": 2601,
+   "cost": 0.0012629,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0012629,
+    "upstream_inference_prompt_cost": 9.4e-06,
+    "upstream_inference_completions_cost": 0.0012535
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 2294,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\":[\"LOC_BLANK\",\"BRANCH_COUNT\",\"CALL_PAIRS\",\"LOC_CODE_AND_COMMENT\",\"LOC_COMMENTS\",\"CONDITION_COUNT\",\"CYCLOMATIC_COMPLEXITY\",\"CYCLOMATIC_DENSITY\",\"DECISION_COUNT\",\"DECISION_DENSITY\",\"DESIGN_COMPLEXITY\",\"DESIGN_DENSITY\",\"EDGE_COUNT\",\"ESSENTIAL_COMPLEXITY\",\"ESSENTIAL_DENSITY\",\"LOC_EXECUTABLE\",\"PARAMETER_COUNT\",\"HALSTEAD_CONTENT\",\"HALSTEAD_DIFFICULTY\",\"HALSTEAD_EFFORT\",\"HALSTEAD_ERROR_EST\",\"HALSTEAD_LENGTH\",\"HALSTEAD_LEVEL\",\"HALSTEAD_PROG_TIME\",\"HALSTEAD_VOLUME\",\"MAINTENANCE_SEVERITY\",\"MODIFIED_CONDITION_COUNT\",\"MULTIPLE_CONDITION_COUNT\",\"NODE_COUNT\",\"NORMALIZED_CYLOMATIC_COMPLEXITY\",\"NUM_OPERANDS\",\"NUM_OPERATORS\",\"NUM_UNIQUE_OPERANDS\",\"NUM_UNIQUE_OPERATORS\",\"NUMBER_OF_LINES\",\"PERCENT_COMMENTS\",\"LOC_TOTAL\"]}"
+ },
+ "P3": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "8758c8105622f20caf90b5476430ee156cd4b990a280caf470dbc33075666590",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 234,
+     "completion_tokens": 1077,
+     "total_tokens": 1311,
+     "cost": 0.0005619,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0005619,
+      "upstream_inference_prompt_cost": 2.34e-05,
+      "upstream_inference_completions_cost": 0.0005385
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 846,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.55,\"1\":0.58,\"2\":0.53,\"3\":0.52,\"4\":0.64,\"5\":0.56,\"6\":0.55,\"7\":0.57,\"8\":0.51,\"9\":0.61,\"10\":0.53,\"11\":0.48,\"12\":0.45,\"13\":0.42,\"14\":0.47,\"15\":0.43,\"16\":0.55,\"17\":0.52,\"18\":0.62,\"19\":0.59,\"20\":0.65,\"21\":0.54,\"22\":0.48,\"23\":0.44,\"24\":0.50,\"25\":0.46,\"26\":0.57,\"27\":0.52,\"28\":0.60,\"29\":0.56,\"30\":0.63,\"31\":0.49,\"32\":0.45,\"33\":0.54,\"34\":0.51,\"35\":0.58,\"36\":0.47}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.42,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.55,
+   0.58,
+   0.53,
+   0.52,
+   0.64,
+   0.56,
+   0.55,
+   0.57,
+   0.51,
+   0.61,
+   0.53,
+   0.48,
+   0.45,
+   0.42,
+   0.47,
+   0.43,
+   0.55,
+   0.52,
+   0.62,
+   0.59,
+   0.65,
+   0.54,
+   0.48,
+   0.44,
+   0.5,
+   0.46,
+   0.57,
+   0.52,
+   0.6,
+   0.56,
+   0.63,
+   0.49,
+   0.45,
+   0.54,
+   0.51,
+   0.58,
+   0.47
+  ]
+ },
+ "P3f": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "16ecbfba82fd9f2b9098daa842cbb09499e7cf7228f10fd24f2e23a0759b61bc",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 233,
+     "completion_tokens": 308,
+     "total_tokens": 541,
+     "cost": 0.0001773,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001773,
+      "upstream_inference_prompt_cost": 2.33e-05,
+      "upstream_inference_completions_cost": 0.000154
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 77,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.5,\"21\":0.5,\"22\":0.5,\"23\":0.5,\"24\":0.5,\"25\":0.5,\"26\":0.5,\"27\":0.5,\"28\":0.5,\"29\":0.5,\"30\":0.5,\"31\":0.5,\"32\":0.5,\"33\":0.5,\"34\":0.5,\"35\":0.5,\"36\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fe330410dac7951d22af4ff278a556b5e4b7ee5dbf10a6515798cb65f2f005be",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 407,
+     "completion_tokens": 287,
+     "total_tokens": 694,
+     "cost": 0.0001842,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001842,
+      "upstream_inference_prompt_cost": 4.07e-05,
+      "upstream_inference_completions_cost": 0.0001435
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 56,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.48,\"1\":0.72,\"2\":0.34,\"3\":0.29,\"4\":0.30,\"5\":0.67,\"6\":0.70,\"7\":0.20,\"8\":0.68,\"9\":0.18,\"10\":0.57,\"11\":0.19,\"12\":0.69,\"13\":0.35,\"14\":0.14,\"15\":0.55,\"16\":0.24,\"17\":0.40,\"18\":0.54,\"19\":0.56,\"20\":0.30,\"21\":0.53,\"22\":0.44,\"23\":0.54,\"24\":0.55,\"25\":0.16,\"26\":0.46,\"27\":0.47,\"28\":0.69,\"29\":0.20,\"30\":0.51,\"31\":0.54,\"32\":0.48,\"33\":0.48,\"34\":0.54,\"35\":0.18,\"36\":0.53}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.14,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.48,
+   0.72,
+   0.34,
+   0.29,
+   0.3,
+   0.67,
+   0.7,
+   0.2,
+   0.68,
+   0.18,
+   0.57,
+   0.19,
+   0.69,
+   0.35,
+   0.14,
+   0.55,
+   0.24,
+   0.4,
+   0.54,
+   0.56,
+   0.3,
+   0.53,
+   0.44,
+   0.54,
+   0.55,
+   0.16,
+   0.46,
+   0.47,
+   0.69,
+   0.2,
+   0.51,
+   0.54,
+   0.48,
+   0.48,
+   0.54,
+   0.18,
+   0.53
+  ]
+ },
+ "P5": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "515b27a3fa7543785b556f76188b5f55c91209b4fc0daab4fb43640fd7f68c4f",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 385,
+     "completion_tokens": 407,
+     "total_tokens": 792,
+     "cost": 0.000242,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000242,
+      "upstream_inference_prompt_cost": 3.85e-05,
+      "upstream_inference_completions_cost": 0.0002035
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 176,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.28,\"1\":0.62,\"2\":0.24,\"3\":0.18,\"4\":0.22,\"5\":0.62,\"6\":0.64,\"7\":0.32,\"8\":0.61,\"9\":0.30,\"10\":0.48,\"11\":0.28,\"12\":0.63,\"13\":0.39,\"14\":0.20,\"15\":0.74,\"16\":0.28,\"17\":0.48,\"18\":0.48,\"19\":0.60,\"20\":0.42,\"21\":0.58,\"22\":0.44,\"23\":0.58,\"24\":0.61,\"25\":0.37,\"26\":0.48,\"27\":0.50,\"28\":0.62,\"29\":0.32,\"30\":0.55,\"31\":0.56,\"32\":0.51,\"33\":0.50,\"34\":0.72,\"35\":0.20,\"36\":0.72}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.18,
+  "header": [
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.28,
+   0.62,
+   0.24,
+   0.18,
+   0.22,
+   0.62,
+   0.64,
+   0.32,
+   0.61,
+   0.3,
+   0.48,
+   0.28,
+   0.63,
+   0.39,
+   0.2,
+   0.74,
+   0.28,
+   0.48,
+   0.48,
+   0.6,
+   0.42,
+   0.58,
+   0.44,
+   0.58,
+   0.61,
+   0.37,
+   0.48,
+   0.5,
+   0.62,
+   0.32,
+   0.55,
+   0.56,
+   0.51,
+   0.5,
+   0.72,
+   0.2,
+   0.72
+  ]
+ }
+}

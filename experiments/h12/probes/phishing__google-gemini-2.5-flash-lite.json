@@ -1,0 +1,496 @@
+{
+ "dataset": "phishing",
+ "model": "google/gemini-2.5-flash-lite",
+ "variables": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "P1a": {
+  "key": "64203dbaf39e82b346658419a7f5df05ab28d957bdb7f1799ad81a361b95f2c2",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 101,
+   "completion_tokens": 39,
+   "total_tokens": 140,
+   "cost": 2.57e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.57e-05,
+    "upstream_inference_prompt_cost": 1.01e-05,
+    "upstream_inference_completions_cost": 1.56e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Phishing Websites Data Set\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P1b": {
+  "key": "b11d6556512e67726b543974fa9caf68f65431c3fd87ecdf6b9c1eb061e27ba6",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 231,
+   "completion_tokens": 39,
+   "total_tokens": 270,
+   "cost": 3.87e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.87e-05,
+    "upstream_inference_prompt_cost": 2.31e-05,
+    "upstream_inference_completions_cost": 1.56e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Phishing Websites Data Set\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "346e421f9c81ba9fe9192c9af509d5f7778bf0ac65abdb29fea4055b9a58d093",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 98,
+   "completion_tokens": 251,
+   "total_tokens": 349,
+   "cost": 0.0001102,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001102,
+    "upstream_inference_prompt_cost": 9.8e-06,
+    "upstream_inference_completions_cost": 0.0001004
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"having_IP_Address\", \"URL_Length\", \"Shortining_Service\", \"having_at_symbol\", \"double_slash_redirecting\", \"Prefix_Suffix\", \"having_sub_domain\", \"SSLfinal_State\", \"Domain_registration_length\", \"Favicon\", \"port\", \"HTTPS_token\", \"Request_URL\", \"URL_of_Anchor\", \"Links_in_tags\", \"SFH\", \"Submitting_to_email\", \"iFrame\", \"age_of_domain\", \"DN_ROA\", \"path\", \"URL_of_Redirect\", \"on_mouseover\", \"RightClick\", \"PopUpWindow\", \"Iframe_content\", \"age_of_domain\", \"Statistical_features_of_the_domain_based_on_WHOIS\", \"Domain_with_IP\", \"IP_based_URL\", \"whois_registered_domain\", \"server_host_name\", \"redirect\", \"on_change\", \"Image_URL\", \"Website_traffic\", \"Google_Index\", \"Links_pointing_to_page\", \"External_links_in_tags\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "6158b78dca8eb1b6febfc91c17c1a42e22731281d4210136af3b4055efdfa88d",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 253,
+     "completion_tokens": 267,
+     "total_tokens": 520,
+     "cost": 0.0001321,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001321,
+      "upstream_inference_prompt_cost": 2.53e-05,
+      "upstream_inference_completions_cost": 0.0001068
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.7, \"1\": 0.7, \"2\": 0.6, \"3\": 0.6, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.7,
+   0.6,
+   0.6,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b2b5b33811194c5458c44f8e822138e49253db67a914d1e91cdb8ede40a99762",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 241,
+     "completion_tokens": 61,
+     "total_tokens": 302,
+     "cost": 4.85e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.85e-05,
+      "upstream_inference_prompt_cost": 2.41e-05,
+      "upstream_inference_completions_cost": 2.44e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I am sorry, but I cannot provide a meaningful assessment of feature usefulness without access to the data itself or at least some description of the features and their relationship to the class. The feature indices alone do not provide enough information to infer their potential predictive power. Therefore, I cannot generate the requested JSON object.",
+    "parsed_as": "pairs",
+    "retry": false
+   },
+   {
+    "key": "b2b5b33811194c5458c44f8e822138e49253db67a914d1e91cdb8ede40a99762",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 241,
+     "completion_tokens": 61,
+     "total_tokens": 302,
+     "cost": 4.85e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.85e-05,
+      "upstream_inference_prompt_cost": 2.41e-05,
+      "upstream_inference_completions_cost": 2.44e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I am sorry, but I cannot provide a meaningful assessment of feature usefulness without access to the data itself or at least some description of the features and their relationship to the class. The feature indices alone do not provide enough information to infer their potential predictive power. Therefore, I cannot generate the requested JSON object.",
+    "parsed_as": "pairs",
+    "retry": true
+   }
+  ],
+  "missing": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29
+  ],
+  "fill": 0.0,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "P4": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e5cdc521f75d51181dbde8384778798c518296d90f7107a2b1a5564b6e092725",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 362,
+     "completion_tokens": 333,
+     "total_tokens": 695,
+     "cost": 0.0001694,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001694,
+      "upstream_inference_prompt_cost": 3.62e-05,
+      "upstream_inference_completions_cost": 0.0001332
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,\n    \"1\": 0.4,\n    \"2\": 0.5,\n    \"3\": 0.3,\n    \"4\": 0.6,\n    \"5\": 0.7,\n    \"6\": 0.6,\n    \"7\": 0.8,\n    \"8\": 0.5,\n    \"9\": 0.4,\n    \"10\": 0.3,\n    \"11\": 0.7,\n    \"12\": 0.7,\n    \"13\": 0.6,\n    \"14\": 0.5,\n    \"15\": 0.5,\n    \"16\": 0.6,\n    \"17\": 0.7,\n    \"18\": 0.6,\n    \"19\": 0.4,\n    \"20\": 0.2,\n    \"21\": 0.4,\n    \"22\": 0.4,\n    \"23\": 0.6,\n    \"24\": 0.5,\n    \"25\": 0.7,\n    \"26\": 0.7,\n    \"27\": 0.6,\n    \"28\": 0.5,\n    \"29\": 0.6\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.6,
+   0.8,
+   0.5,
+   0.4,
+   0.3,
+   0.7,
+   0.7,
+   0.6,
+   0.5,
+   0.5,
+   0.6,
+   0.7,
+   0.6,
+   0.4,
+   0.2,
+   0.4,
+   0.4,
+   0.6,
+   0.5,
+   0.7,
+   0.7,
+   0.6,
+   0.5,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d70a135236d1f4bf8c521ce1a59de92a9484b5611a155ac5e4da1dab45721776",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 327,
+     "completion_tokens": 331,
+     "total_tokens": 658,
+     "cost": 0.0001651,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001651,
+      "upstream_inference_prompt_cost": 3.27e-05,
+      "upstream_inference_completions_cost": 0.0001324
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,\n    \"1\": 0.4,\n    \"2\": 0.5,\n    \"3\": 0.6,\n    \"4\": 0.5,\n    \"5\": 0.7,\n    \"6\": 0.6,\n    \"7\": 0.8,\n    \"8\": 0.7,\n    \"9\": 0.4,\n    \"10\": 0.3,\n    \"11\": 0.6,\n    \"12\": 0.7,\n    \"13\": 0.7,\n    \"14\": 0.5,\n    \"15\": 0.6,\n    \"16\": 0.8,\n    \"17\": 0.7,\n    \"18\": 0.6,\n    \"19\": 0.4,\n    \"20\": 0.3,\n    \"21\": 0.4,\n    \"22\": 0.5,\n    \"23\": 0.7,\n    \"24\": 0.6,\n    \"25\": 0.8,\n    \"26\": 0.7,\n    \"27\": 0.6,\n    \"28\": 0.5,\n    \"29\": 0.8\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.8,
+   0.7,
+   0.4,
+   0.3,
+   0.6,
+   0.7,
+   0.7,
+   0.5,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.4,
+   0.3,
+   0.4,
+   0.5,
+   0.7,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.8
+  ]
+ }
+}

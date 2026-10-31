@@ -1,0 +1,395 @@
+{
+ "dataset": "heloc",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "P1a": {
+  "key": "9a9a6d33dc8f02c67599ec9e9c613fb123aab3ee2a572716e93706e1d2e48067",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 112,
+   "completion_tokens": 58,
+   "total_tokens": 170,
+   "cost": 2.55e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.55e-05,
+    "upstream_inference_prompt_cost": 1.68e-05,
+    "upstream_inference_completions_cost": 8.7e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"German Credit Dataset (GMD)\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/German+Credit+Data (UCI ML Repository)\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P1b": {
+  "key": "7061f3ad5c23c80fd93096d4ee193fa4105f21f7d12f3afe318ab40449682055",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 268,
+   "completion_tokens": 51,
+   "total_tokens": 319,
+   "cost": 4.785e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 4.785e-05,
+    "upstream_inference_prompt_cost": 4.02e-05,
+    "upstream_inference_completions_cost": 7.65e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"German Credit Dataset (GMD)\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/German+Credit\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "143a3a62c0dc05a0d3f25fa3ef3f64ca46c31d874c97159ed1d3e3a0eaa5bb08",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 98,
+   "completion_tokens": 16000,
+   "total_tokens": 16098,
+   "cost": 0.0024147,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0024147,
+    "upstream_inference_prompt_cost": 1.47e-05,
+    "upstream_inference_completions_cost": 0.0024
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"MSIN\",\n    \"CLAGE\",\n    \"NUMB\",\n    \"CLNO\",\n    \"DELINQ\",\n    \"DELQ\",\n    \"CL_AGE\",\n    \"NINQ\",\n    \"CLNO_D\",\n    \"DEROG\",\n    \"DELQ_2YRS\",\n    \"MORT_DUE\",\n    \"RECENT_CC_INQS\",\n    \"PUB_REC\",\n    \"MORT_DUE_TOTAL\",\n    \"NUMB_D\",\n    \"NUMB_ACCTS\",\n    \"NUMB_BANKR\",\n    \"NUMB_CAR_LOAN\",\n    \"NUMB_CD\",\n    \"NUMB_CREDIT\",\n    \"NUMB_DEBIT\",\n    \"NUMB_MORT\",\n    \"NUMB_REV\",\n    \"NUMB_SAV\",\n    \"NUMB_OTHER\",\n    \"NUMB_ACCTS_OWN\",\n    \"NUMB_ACCTS_JOINT\",\n    \"NUMB_ACCTS_AUTH\",\n    \"NUMB_ACCTS_PAY\",\n    \"NUMB_ACCTS_REC\",\n    \"NUMB_ACCTS_DELQ\",\n    \"NUMB_ACCTS_CL\",\n    \"NUMB_ACCTS_NOC\",\n    \"NUMB_ACCTS_CL_AGE\",\n    \"NUMB_ACCTS_CL_AGE_1\",\n    \"NUMB_ACCTS_CL_AGE_2\",\n    \"NUMB_ACCTS_CL_AGE_3\",\n    \"NUMB_ACCTS_CL_AGE_4\",\n    \"NUMB_ACCTS_CL_AGE_5\",\n    \"NUMB_ACCTS_CL_AGE_6\",\n    \"NUMB_ACCTS_CL_AGE_7\",\n    \"NUMB_ACCTS_CL_AGE_8\",\n    \"NUMB_ACCTS_CL_AGE_9\",\n    \"NUMB_ACCTS_CL_AGE_10\",\n    \"NUMB_ACCTS_CL_AGE_11\",\n    \"NUMB_ACCTS_CL_AGE_12\",\n    \"NUMB_ACCTS_CL_AGE_13\",\n    \"NUMB_ACCTS_CL_AGE_14\",\n    \"NUMB_ACCTS_CL_AGE_15\",\n    \"NUMB_ACCTS_CL_AGE_16\",\n    \"NUMB_ACCTS_CL_AGE_17\",\n    \"NUMB_ACCTS_CL_AGE_18\",\n    \"NUMB_ACCTS_CL_AGE_19\",\n    \"NUMB_ACCTS_CL_AGE_20\",\n    \"NUMB_ACCTS_CL_AGE_21\",\n    \"NUMB_ACCTS_CL_AGE_22\",\n    \"NUMB_ACCTS_CL_AGE_23\",\n    \"NUMB_ACCTS_CL_AGE_24\",\n    \"NUMB_ACCTS_CL_AGE_25\",\n    \"NUMB_ACCTS_CL_AGE_26\",\n    \"NUMB_ACCTS_CL_AGE_27\",\n    \"NUMB_ACCTS_CL_AGE_28\",\n    \"NUMB_ACCTS_CL_AGE_29\",\n    \"NUMB_ACCTS_CL_AGE_30\",\n    \"NUMB_ACCTS_CL_AGE_31\",\n    \"NUMB_ACCTS_CL_AGE_32\",\n    \"NUMB_ACCTS_CL_AGE_33\",\n    \"NUMB_ACCTS_CL_AGE_34\",\n    \"NUMB_ACCTS_CL_AGE_35\",\n    \"NUMB_ACCTS_CL_AGE_36\",\n    \"NUMB_ACCTS_CL_AGE_37\",\n    \"NUMB_ACCTS_CL_AGE_38\",\n    \"NUMB_ACCTS_CL_AGE_39\",\n    \"NUMB_ACCTS_CL_AGE_40\",\n    \"NUMB_ACCTS_CL_AGE_41\",\n    \"NUMB_ACCTS_CL_AGE_42\",\n    \"NUMB_ACCTS_CL_AGE_43\",\n    \"NUMB_ACCTS_CL_AGE_44\",\n    \"NUMB_ACCTS_CL_AGE_45\",\n    \"NUMB_ACCTS_CL_AGE_46\",\n    \"NUMB_ACCTS_CL_AGE_47\",\n    \"NUMB_ACCTS_CL_AGE_48\",\n    \"NUMB_ACCTS_CL_AGE_49\",\n    \"NUMB_ACCTS_CL_AGE_50\",\n    \"NUMB_ACCTS_CL_AGE_51\",\n    \"NUMB_ACCTS_CL_AGE_52\",\n    \"NUMB_ACCTS_CL_AGE_53\",\n    \"NUMB_ACCTS_CL_AGE_54\",\n    \"NUMB_ACCTS_CL_AGE_55\",\n    \"NUMB_ACCTS_CL_AGE_56\",\n    \"NUMB_ACCTS_CL_AGE_57\",\n    \"NUMB_ACCTS_CL_AGE_58\",\n    \"NUMB_ACCTS_CL_AGE_59\",\n    \"NUMB_ACCTS_CL_AGE_60\",\n    \"NUMB_ACCTS_CL_AGE_61\",\n    \"NUMB_ACCTS_CL_AGE_62\",\n    \"NUMB_ACCTS_CL_AGE_63\",\n    \"NUMB_ACCTS_CL_AGE_64\",\n    \"NUMB_ACCTS_CL_AGE_65\",\n    \"NUMB_ACCTS_CL_AGE_66\",\n    \"NUMB_ACCTS_CL_AGE_67\",\n    \"NUMB_ACCTS_CL_AGE_68\",\n    \"NUMB_ACCTS_CL_AGE_69\",\n    \"NUMB_ACCTS_CL_AGE_70\",\n    \"NUMB_ACCTS_CL_AGE_71\",\n    \"NUMB_ACCTS_CL_AGE_72\",\n    \"NUMB_ACCTS_CL_AGE_73\",\n    \"NUMB_ACCTS_CL_AGE_74\",\n    \"NUMB_ACCTS_CL_AGE_75\",\n    \"NUMB_ACCTS_CL_AGE_76\",\n    \"NUMB_ACCTS_CL_AGE_77\",\n    \"NUMB_ACCTS_CL_AGE_78\",\n    \"NUMB_ACCTS_CL_AGE_79\",\n    \"NUMB_ACCTS_CL_AGE_80\",\n    \"NUMB_ACCTS_CL_AGE_81\",\n    \"NUMB_ACCTS_CL_AGE_82\",\n    \"NUMB_ACCTS_CL_AGE_83\",\n    \"NUMB_ACCTS_CL_AGE_84\",\n    \"NUMB_ACCTS_CL_AGE_85\",\n    \"NUMB_ACCTS_CL_AGE_86\",\n    \"NUMB_ACCTS_CL_AGE_87\",\n    \"NUMB_ACCTS_CL_AGE_88\",\n    \"NUMB_ACCTS_CL_AGE_89\",\n    \"NUMB_ACCTS_CL_AGE_90\",\n    \"NUMB_ACCTS_CL_AGE_91\",\n    \"NUMB_ACCTS_CL_AGE_92\",\n    \"NUMB_ACCTS_CL_AGE_93\",\n    \"NUMB_ACCTS_CL_AGE_94\",\n    \"NUMB_ACCTS_CL_AGE_95\",\n    \"NUMB_ACCTS_CL_AGE_96\",\n    \"NUMB_ACCTS_CL_AGE_97\",\n    \"NUMB_ACCTS_CL_AGE_98\",\n    \"NUMB_ACCTS_CL_AGE_99\",\n    \"NUMB_ACCTS_CL_AGE_100\",\n    \"NUMB_ACCTS_CL_AGE_101\",\n    \"NUMB_ACCTS_CL_AGE_102\",\n    \"NUMB_ACCTS_CL_AGE_103\",\n    \"NUMB_ACCTS_CL_AGE_104\",\n    \"NUMB_ACCTS_CL_AGE_105\",\n    \"NUMB_ACCTS_CL_AGE_106\",\n    \"NUMB_ACCTS_CL_AGE_107\",\n    \"NUMB_ACCTS_CL_AGE_108\",\n    \"NUMB_ACCTS_CL_AGE_109\",\n    \"NUMB_ACCTS_CL_AGE_110\",\n    \"NUMB_ACCTS_CL_AGE_111\",\n    \"NUMB_ACCTS_CL_AGE_112\",\n    \"NUMB_ACCTS_CL_AGE_113\",\n    \"NUMB_ACCTS_CL_AGE_114\",\n    \"NUMB_ACCTS_CL_AGE_115\",\n    \"NUMB_ACCTS_CL_AGE_116\",\n    \"NUMB_ACCTS_CL_AGE_117\",\n    \"NUMB_ACCTS_CL_AGE_118\",\n    \"NUMB_ACCTS_CL_AGE_119\",\n    \"NUMB_ACCTS_CL_AGE_120\",\n    \"NUMB_ACCTS_CL_AGE_121\",\n    \"NUMB_ACCTS_CL_AGE_122\",\n    \"NUMB_ACCTS_CL_AGE_123\",\n    \"NUMB_ACCTS_CL_AGE_124\",\n    \"NUMB_ACCTS_CL_AGE_125\",\n    \"NUMB_ACCTS_CL_AGE_126\",\n    \"NUMB_ACCTS_CL_AGE_127\",\n    \"NUMB_ACCTS_CL_AGE_128\",\n    \"NUMB_ACCTS_CL_AGE_129\",\n    \"NUMB_ACCTS_CL_AGE_130\",\n    \"NUMB_ACCTS_CL_AGE_131\",\n    \"NUMB_ACCTS_CL_AGE_132\",\n    \"NUMB_ACCTS_CL_AGE_133\",\n    \"NUMB_ACCTS_CL_AGE_134\",\n    \"NUMB_ACCTS_CL_AGE_135\",\n    \"NUMB_ACCTS_CL_AGE_136\",\n    \"NUMB_ACCTS_CL_AGE_137\",\n    \"NUMB_ACCTS_CL_AGE_138\",\n    \"NUMB_ACCTS_CL_AGE_139\",\n    \"NUMB_ACCTS_CL_AGE_140\",\n    \"NUMB_ACCTS_CL_AGE_141\",\n    \"NUMB_ACCTS_CL_AGE_142\",\n    \"NUMB_ACCTS_CL_AGE_143\",\n    \"NUMB_ACCTS_CL_AGE_144\",\n    \"NUMB_ACCTS_CL_AGE_145\",\n    \"NUMB_ACCTS_CL_AGE_146\",\n    \"NUMB_ACCTS_CL_AGE_147\",\n    \"NUMB_ACCTS_CL_AGE_148\",\n    \"NUMB_ACCTS_CL_AGE_149\",\n    \"NUMB_ACCTS_CL_AGE_150\",\n    \"NUMB_ACCTS_CL_AGE_151\",\n    \"NUMB_ACCTS_CL_AGE_152\",\n    \"NUMB_ACCTS_CL_AGE_153\",\n    \"NUMB_ACCTS_CL_AGE_154\",\n    \"NUMB_ACCTS_CL_AGE_155\",\n    \"NUMB_ACCTS_CL_AGE_156\",\n    \"NUMB_ACCTS_CL_AGE_157\",\n    \"NUMB_ACCTS_CL_AGE_158\",\n    \"NUMB_ACCTS_CL_AGE_159\",\n    \"NUMB_ACCTS_CL_AGE_160\",\n    \"NUMB_ACCTS_CL_AGE_161\",\n    \"NUMB_ACCTS_CL_AGE_162\",\n    \"NUMB_ACCTS_CL_AGE_163\",\n    \"NUMB_ACCTS_CL_AGE_164\",\n    \"NUMB_ACCTS_CL_AGE_165\",\n    \"NUMB_ACCTS_CL_AGE_166\",\n    \"NUMB_ACCTS_CL_AGE_167\",\n    \"NUMB_ACCTS_CL_AGE_168\",\n    \"NUMB_ACCTS_CL_AGE_169\",\n    \"NUMB_ACCTS_CL_AGE_170\",\n    \"NUMB_ACCTS_CL_AGE_171\",\n    \"NUMB_ACCTS_CL_AGE_172\",\n    \"NUMB_ACCTS_CL_AGE_173\",\n    \"NUMB_ACCTS_CL_AGE_174\",\n    \"NUMB_ACCTS_CL_AGE_175\",\n    \"NUMB_ACCTS_CL_AGE_176\",\n    \"NUMB_ACCTS_CL_AGE_177\",\n    \"NUMB_ACCTS_CL_AGE_178\",\n    \"NUMB_ACCTS_CL_AGE_179\",\n    \"NUMB_ACCTS_CL_AGE_180\",\n    \"NUMB_ACCTS_CL_AGE_181\",\n    \"NUMB_ACCTS_CL_AGE_182\",\n    \"NUMB_ACCTS_CL_AGE_183\",\n    \"NUMB_ACCTS_CL_AGE_184\",\n    \"NUMB_ACCTS_CL_AGE_185\",\n    \"NUMB_ACCTS_CL_AGE_186\",\n    \"NUMB_ACCTS_CL_AGE_187\",\n    \"NUMB_ACCTS_CL_AGE_188\",\n    \"NUMB_ACCTS_CL_AGE_189\",\n    \"NUMB_ACCTS_CL_AGE_190\",\n    \"NUMB_ACCTS_CL_AGE_191\",\n    \"NUMB_ACCTS_CL_AGE_192\",\n    \"NUMB_ACCTS_CL_AGE_193\",\n    \"NUMB_ACCTS_CL_AGE_194\",\n    \"NUMB_ACCTS_CL_AGE_195\",\n    \"NUMB_ACCTS_CL_AGE_196\",\n    \"NUMB_ACCTS_CL_AGE_197\",\n    \"NUMB_ACCTS_CL_AGE_198\",\n    \"NUMB_ACCTS_CL_AGE_199\",\n    \"NUMB_ACCTS_CL_AGE_200\",\n    \"NUMB_ACCTS_CL_AGE_201\",\n    \"NUMB_ACCTS_CL_AGE_202\",\n    \"NUMB_ACCTS_CL_AGE_203\",\n    \"NUMB_ACCTS_CL_AGE_204\",\n    \"NUMB_ACCTS_CL_AGE_205\",\n    \"NUMB_ACCTS_CL_AGE_206\",\n    \"NUMB_ACCTS_CL_AGE_207\",\n    \"NUMB_ACCTS_CL_AGE_208\",\n    \"NUMB_ACCTS_CL_AGE_209\",\n    \"NUMB_ACCTS_CL_AGE_210\",\n    \"NUMB_ACCTS_CL_AGE_211\",\n    \"NUMB_ACCTS_CL_AGE_212\",\n    \"NUMB_ACCTS_CL_AGE_213\",\n    \"NUMB_ACCTS_CL_AGE_214\",\n    \"NUMB_ACCTS_CL_AGE_215\",\n    \"NUMB_ACCTS_CL_AGE_216\",\n    \"NUMB_ACCTS_CL_AGE_217\",\n    \"NUMB_ACCTS_CL_AGE_218\",\n    \"NUMB_ACCTS_CL_AGE_219\",\n    \"NUMB_ACCTS_CL_AGE_220\",\n    \"NUMB_ACCTS_CL_AGE_221\",\n    \"NUMB_ACCTS_CL_AGE_222\",\n    \"NUMB_ACCTS_CL_AGE_223\",\n    \"NUMB_ACCTS_CL_AGE_224\",\n    \"NUMB_ACCTS_CL_AGE_225\",\n    \"NUMB_ACCTS_CL_AGE_226\",\n    \"NUMB_ACCTS_CL_AGE_227\",\n    \"NUMB_ACCTS_CL_AGE_228\",\n    \"NUMB_ACCTS_CL_AGE_229\",\n    \"NUMB_ACCTS_CL_AGE_230\",\n    \"NUMB_ACCTS_CL_AGE_231\",\n    \"NUMB_ACCTS_CL_AGE_232\",\n    \"NUMB_ACCTS_CL_AGE_233\",\n    \"NUMB_ACCTS_CL_AGE_234\",\n    \"NUMB_ACCTS_CL_AGE_235\",\n    \"NUMB_ACCTS_CL_AGE_236\",\n    \"NUMB_ACCTS_CL_AGE_237\",\n    \"NUMB_ACCTS_CL_AGE_238\",\n    \"NUMB_ACCTS_CL_AGE_239\",\n    \"NUMB_ACCTS_CL_AGE_240\",\n    \"NUMB_ACCTS_CL_AGE_241\",\n    \"NUMB_ACCTS_CL_AGE_242\",\n    \"NUMB_ACCTS_CL_AGE_243\",\n    \"NUMB_ACCTS_CL_AGE_244\",\n    \"NUMB_ACCTS_CL_AGE_245\",\n    \"NUMB_ACCTS_CL_AGE_246\",\n    \"NUMB_ACCTS_CL_AGE_247\",\n    \"NUMB_ACCTS_CL_AGE_248\",\n    \"NUMB_ACCTS_CL_AGE_249\",\n    \"NUMB_ACCTS_CL_AGE_250\",\n    \"NUMB_ACCTS_CL_AGE_251\",\n    \"NUMB_ACCTS_CL_AGE_252\",\n    \"NUMB_ACCTS_CL_AGE_253\",\n    \"NUMB_ACCTS_CL_AGE_254\",\n    \"NUMB_ACCTS_CL_AGE_255\",\n    \"NUMB_ACCTS_CL_AGE_256\",\n    \"NUMB_ACCTS_CL_AGE_257\",\n    \"NUMB_ACCTS_CL_AGE_258\",\n    \"NUMB_ACCTS_CL_AGE_259\",\n    \"NUMB_ACCTS_CL_AGE_260\",\n    \"NUMB_ACCTS_CL_AGE_261\",\n    \"NUMB_ACCTS_CL_AGE_262\",\n    \"NUMB_ACCTS_CL_AGE_263\",\n    \"NUMB_ACCTS_CL_AGE_264\",\n    \"NUMB_ACCTS_CL_AGE_265\",\n    \"NUMB_ACCTS_CL_AGE_266\",\n    \"NUMB_ACCTS_CL_AGE_267\",\n    \"NUMB_ACCTS_CL_AGE_268\",\n    \"NUMB_ACCTS_CL_AGE_269\",\n    \"NUMB_ACCTS_CL_AGE_270\",\n    \"NUMB_ACCTS_CL_AGE_271\",\n    \"NUMB_ACCTS_CL_AGE_272\",\n    \"NUMB_ACCTS_CL_AGE_273\",\n    \"NUMB_ACCTS_CL_AGE_274\",\n    \"NUMB_ACCTS_CL_AGE_275\",\n    \"NUMB_ACCTS_CL_AGE_276\",\n    \"NUMB_ACCTS_CL_AGE_277\",\n    \"NUMB_ACCTS_CL_AGE_278\",\n    \"NUMB_ACCTS_CL_AGE_279\",\n    \"NUMB_ACCTS_CL_AGE_280\",\n    \"NUMB_ACCTS_CL_AGE_281\",\n    \"NUMB_ACCTS_CL_AGE_282\",\n    \"NUMB_ACCTS_CL_AGE_283\",\n    \"NUMB_ACCTS_CL_AGE_284\",\n    \"NUMB_ACCTS_CL_AGE_285\",\n    \"NUMB_ACCTS_CL_AGE_286\",\n    \"NUMB_ACCTS_CL_AGE_287\",\n    \"NUMB_ACCTS_CL_AGE_288\",\n    \"NUMB_ACCTS_CL_AGE_289\",\n    \"NUMB_ACCTS_CL_AGE_290\",\n    \"NUMB_ACCTS_CL_AGE_291\",\n    \"NUMB_ACCTS_CL_AGE_292\",\n    \"NUMB_ACCTS_CL_AGE_293\",\n    \"NUMB_ACCTS_CL_AGE_294\",\n    \"NUMB_ACCTS_CL_AGE_295\",\n    \"NUMB_ACCTS_CL_AGE_296\",\n    \"NUMB_ACCTS_CL_AGE_297\",\n    \"NUMB_ACCTS_CL_AGE_298\",\n    \"NUMB_ACCTS_CL_AGE_299\",\n    \"NUMB_ACCTS_CL_AGE_300\",\n    \"NUMB_ACCTS_CL_AGE_301\",\n    \"NUMB_ACCTS_CL_AGE_302\",\n    \"NUMB_ACCTS_CL_AGE_303\",\n    \"NUMB_ACCTS_CL_AGE_304\",\n    \"NUMB_ACCTS_CL_AGE_305\",\n    \"NUMB_ACCTS_CL_AGE_306\",\n    \"NUMB_ACCTS_CL_AGE_307\",\n    \"NUMB_ACCTS_CL_AGE_308\",\n    \"NUMB_ACCTS_CL_AGE_309\",\n    \"NUMB_ACCTS_CL_AGE_310\",\n    \"NUMB_ACCTS_CL_AGE_311\",\n    \"NUMB_ACCTS_CL_AGE_312\",\n    \"NUMB_ACCTS_CL_AGE_313\",\n    \"NUMB_ACCTS_CL_AGE_314\",\n    \"NUMB_ACCTS_CL_AGE_315\",\n    \"NUMB_ACCTS_CL_AGE_316\",\n    \"NUMB_ACCTS_CL_AGE_317\",\n    \"NUMB_ACCTS_CL_AGE_318\",\n    \"NUMB_ACCTS_CL_AGE_319\",\n    \"NUMB_ACCTS_CL_AGE_320\",\n    \"NUMB_ACCTS_CL_AGE_321\",\n    \"NUMB_ACCTS_CL_AGE_322\",\n    \"NUMB_ACCTS_CL_AGE_323\",\n    \"NUMB_ACCTS_CL_AGE_324\",\n    \"NUMB_ACCTS_CL_AGE_325\",\n    \"NUMB_ACCTS_CL_AGE_326\",\n    \"NUMB_ACCTS_CL_AGE_327\",\n    \"NUMB_ACCTS_CL_AGE_328\",\n    \"NUMB_ACCTS_CL_AGE_329\",\n    \"NUMB_ACCTS_CL_AGE_330\",\n    \"NUMB_ACCTS_CL_AGE_331\",\n    \"NUMB_ACCTS_CL_AGE_332\",\n    \"NUMB_ACCTS_CL_AGE_333\",\n    \"NUMB_ACCTS_CL_AGE_334\",\n    \"NUMB_ACCTS_CL_AGE_335\",\n    \"NUMB_ACCTS_CL_AGE_336\",\n    \"NUMB_ACCTS_CL_AGE_337\",\n    \"NUMB_ACCTS_CL_AGE_338\",\n    \"NUMB_ACCTS_CL_AGE_339\",\n    \"NUMB_ACCTS_CL_AGE_340\",\n    \"NUMB_ACCTS_CL_AGE_341\",\n    \"NUMB_ACCTS_CL_AGE_342\",\n    \"NUMB_ACCTS_CL_AGE_343\",\n    \"NUMB_ACCTS_CL_AGE_344\",\n    \"NUMB_ACCTS_CL_AGE_345\",\n    \"NUMB_ACCTS_CL_AGE_346\",\n    \"NUMB_ACCTS_CL_AGE_347\",\n    \"NUMB_ACCTS_CL_AGE_348\",\n    \"NUMB_ACCTS_CL_AGE_349\",\n    \"NUMB_ACCTS_CL_AGE_350\",\n    \"NUMB_ACCTS_CL_AGE_351\",\n    \"NUMB_ACCTS_CL_AGE_352\",\n    \"NUMB_ACCTS_CL_AGE_353\",\n    \"NUMB_ACCTS_CL_AGE_354\",\n    \"NUMB_ACCTS_CL_AGE_355\",\n    \"NUMB_ACCTS_CL_AGE_356\",\n    \"NUMB_ACCTS_CL_AGE_357\",\n    \"NUMB_ACCTS_CL_AGE_358\",\n    \"NUMB_ACCTS_CL_AGE_359\",\n    \"NUMB_ACCTS_CL_AGE_360\",\n    \"NUMB_ACCTS_CL_AGE_361\",\n    \"NUMB_ACCTS_CL_AGE_362\",\n    \"NUMB_ACCTS_CL_AGE_363\",\n    \"NUMB_ACCTS_CL_AGE_364\",\n    \"NUMB_ACCTS_CL_AGE_365\",\n    \"NUMB_ACCTS_CL_AGE_366\",\n    \"NUMB_ACCTS_CL_AGE_367\",\n    \"NUMB_ACCTS_CL_AGE_368\",\n    \"NUMB_ACCTS_CL_AGE_369\",\n    \"NUMB_ACCTS_CL_AGE_370\",\n    \"NUMB_ACCTS_CL_AGE_371\",\n    \"NUMB_ACCTS_CL_AGE_372\",\n    \"NUMB_ACCTS_CL_AGE_373\",\n    \"NUMB_ACCTS_CL_AGE_374\",\n    \"NUMB_ACCTS_CL_AGE_375\",\n    \"NUMB_ACCTS_CL_AGE_376\",\n    \"NUMB_ACCTS_CL_AGE_377\",\n    \"NUMB_ACCTS_CL_AGE_378\",\n    \"NUMB_ACCTS_CL_AGE_379\",\n    \"NUMB_ACCTS_CL_AGE_380\",\n    \"NUMB_ACCTS_CL_AGE_381\",\n    \"NUMB_ACCTS_CL_AGE_382\",\n    \"NUMB_ACCTS_CL_AGE_383\",\n    \"NUMB_ACCTS_CL_AGE_384\",\n    \"NUMB_ACCTS_CL_AGE_385\",\n    \"NUMB_ACCTS_CL_AGE_386\",\n    \"NUMB_ACCTS_CL_AGE_387\",\n    \"NUMB_ACCTS_CL_AGE_388\",\n    \"NUMB_ACCTS_CL_AGE_389\",\n    \"NUMB_ACCTS_CL_AGE_390\",\n    \"NUMB_ACCTS_CL_AGE_391\",\n    \"NUMB_ACCTS_CL_AGE_392\",\n    \"NUMB_ACCTS_CL_AGE_393\",\n    \"NUMB_ACCTS_CL_AGE_394\",\n    \"NUMB_ACCTS_CL_AGE_395\",\n    \"NUMB_ACCTS_CL_AGE_396\",\n    \"NUMB_ACCTS_CL_AGE_397\",\n    \"NUMB_ACCTS_CL_AGE_398\",\n    \"NUMB_ACCTS_CL_AGE_399\",\n    \"NUMB_ACCTS_CL_AGE_400\",\n    \"NUMB_ACCTS_CL_AGE_401\",\n    \"NUMB_ACCTS_CL_AGE_402\",\n    \"NUMB_ACCTS_CL_AGE_403\",\n    \"NUMB_ACCTS_CL_AGE_404\",\n    \"NUMB_ACCTS_CL_AGE_405\",\n    \"NUMB_ACCTS_CL_AGE_406\",\n    \"NUMB_ACCTS_CL_AGE_407\",\n    \"NUMB_ACCTS_CL_AGE_408\",\n    \"NUMB_ACCTS_CL_AGE_409\",\n    \"NUMB_ACCTS_CL_AGE_410\",\n    \"NUMB_ACCTS_CL_AGE_411\",\n    \"NUMB_ACCTS_CL_AGE_412\",\n    \"NUMB_ACCTS_CL_AGE_413\",\n    \"NUMB_ACCTS_CL_AGE_414\",\n    \"NUMB_ACCTS_CL_AGE_415\",\n    \"NUMB_ACCTS_CL_AGE_416\",\n    \"NUMB_ACCTS_CL_AGE_417\",\n    \"NUMB_ACCTS_CL_AGE_418\",\n    \"NUMB_ACCTS_CL_AGE_419\",\n    \"NUMB_ACCTS_CL_AGE_420\",\n    \"NUMB_ACCTS_CL_AGE_421\",\n    \"NUMB_ACCTS_CL_AGE_422\",\n    \"NUMB_ACCTS_CL_AGE_423\",\n    \"NUMB_ACCTS_CL_AGE_424\",\n    \"NUMB_ACCTS_CL_AGE_425\",\n    \"NUMB_ACCTS_CL_AGE_426\",\n    \"NUMB_ACCTS_CL_AGE_427\",\n    \"NUMB_ACCTS_CL_AGE_428\",\n    \"NUMB_ACCTS_CL_AGE_429\",\n    \"NUMB_ACCTS_CL_AGE_430\",\n    \"NUMB_ACCTS_CL_AGE_431\",\n    \"NUMB_ACCTS_CL_AGE_432\",\n    \"NUMB_ACCTS_CL_AGE_433\",\n    \"NUMB_ACCTS_CL_AGE_434\",\n    \"NUMB_ACCTS_CL_AGE_435\",\n    \"NUMB_ACCTS_CL_AGE_436\",\n    \"NUMB_ACCTS_CL_AGE_437\",\n    \"NUMB_ACCTS_CL_AGE_438\",\n    \"NUMB_ACCTS_CL_AGE_439\",\n    \"NUMB_ACCTS_CL_AGE_440\",\n    \"NUMB_ACCTS_CL_AGE_441\",\n    \"NUMB_ACCTS_CL_AGE_442\",\n    \"NUMB_ACCTS_CL_AGE_443\",\n    \"NUMB_ACCTS_CL_AGE_444\",\n    \"NUMB_ACCTS_CL_AGE_445\",\n    \"NUMB_ACCTS_CL_AGE_446\",\n    \"NUMB_ACCTS_CL_AGE_447\",\n    \"NUMB_ACCTS_CL_AGE_448\",\n    \"NUMB_ACCTS_CL_AGE_449\",\n    \"NUMB_ACCTS_CL_AGE_450\",\n    \"NUMB_ACCTS_CL_AGE_451\",\n    \"NUMB_ACCTS_CL_AGE_452\",\n    \"NUMB_ACCTS_CL_AGE_453\",\n    \"NUMB_ACCTS_CL_AGE_454\",\n    \"NUMB_ACCTS_CL_AGE_455\",\n    \"NUMB_ACCTS_CL_AGE_456\",\n    \"NUMB_ACCTS_CL_AGE_457\",\n    \"NUMB_ACCTS_CL_AGE_458\",\n    \"NUMB_ACCTS_CL_AGE_459\",\n    \"NUMB_ACCTS_CL_AGE_460\",\n    \"NUMB_ACCTS_CL_AGE_461\",\n    \"NUMB_ACCTS_CL_AGE_462\",\n    \"NUMB_ACCTS_CL_AGE_463\",\n    \"NUMB_ACCTS_CL_AGE_464\",\n    \"NUMB_ACCTS_CL_AGE_465\",\n    \"NUMB_ACCTS_CL_AGE_466\",\n    \"NUMB_ACCTS_CL_AGE_467\",\n    \"NUMB_ACCTS_CL_AGE_468\",\n    \"NUMB_ACCTS_CL_AGE_469\",\n    \"NUMB_ACCTS_CL_AGE_470\",\n    \"NUMB_ACCTS_CL_AGE_471\",\n    \"NUMB_ACCTS_CL_AGE_472\",\n    \"NUMB_ACCTS_CL_AGE_473\",\n    \"NUMB_ACCTS_CL_AGE_474\",\n    \"NUMB_ACCTS_CL_AGE_475\",\n    \"NUMB_ACCTS_CL_AGE_476\",\n    \"NUMB_ACCTS_CL_AGE_477\",\n    \"NUMB_ACCTS_CL_AGE_478\",\n    \"NUMB_ACCTS_CL_AGE_479\",\n    \"NUMB_ACCTS_CL_AGE_480\",\n    \"NUMB_ACCTS_CL_AGE_481\",\n    \"NUMB_ACCTS_CL_AGE_482\",\n    \"NUMB_ACCTS_CL_AGE_483\",\n    \"NUMB_ACCTS_CL_AGE_484\",\n    \"NUMB_ACCTS_CL_AGE_485\",\n    \"NUMB_ACCTS_CL_AGE_486\",\n    \"NUMB_ACCTS_CL_AGE_487\",\n    \"NUMB_ACCTS_CL_AGE_488\",\n    \"NUMB_ACCTS_CL_AGE_489\",\n    \"NUMB_ACCTS_CL_AGE_490\",\n    \"NUMB_ACCTS_CL_AGE_491\",\n    \"NUMB_ACCTS_CL_AGE_492\",\n    \"NUMB_ACCTS_CL_AGE_493\",\n    \"NUMB_ACCTS_CL_AGE_494\",\n    \"NUMB_ACCTS_CL_AGE_495\",\n    \"NUMB_ACCTS_CL_AGE_496\",\n    \"NUMB_ACCTS_CL_AGE_497\",\n    \"NUMB_ACCTS_CL_AGE_498\",\n    \"NUMB_ACCTS_CL_AGE_499\",\n    \"NUMB_ACCTS_CL_AGE_500\",\n    \"NUMB_ACCTS_CL_AGE_501\",\n    \"NUMB_ACCTS_CL_AGE_502\",\n    \"NUMB_ACCTS_CL_AGE_503\",\n    \"NUMB_ACCTS_CL_AGE_504\",\n    \"NUMB_ACCTS_CL_AGE_505\",\n    \"NUMB_ACCTS_CL_AGE_506\",\n    \"NUMB_ACCTS_CL_AGE_507\",\n    \"NUMB_ACCTS_CL_AGE_508\",\n    \"NUMB_ACCTS_CL_AGE_509\",\n    \"NUMB_ACCTS_CL_AGE_510\",\n    \"NUMB_ACCTS_CL_AGE_511\",\n    \"NUMB_ACCTS_CL_AGE_512\",\n    \"NUMB_ACCTS_CL_AGE_513\",\n    \"NUMB_ACCTS_CL_AGE_514\",\n    \"NUMB_ACCTS_CL_AGE_515\",\n    \"NUMB_ACCTS_CL_AGE_516\",\n    \"NUMB_ACCTS_CL_AGE_517\",\n    \"NUMB_ACCTS_CL_AGE_518\",\n    \"NUMB_ACCTS_CL_AGE_519\",\n    \"NUMB_ACCTS_CL_AGE_520\",\n    \"NUMB_ACCTS_CL_AGE_521\",\n    \"NUMB_ACCTS_CL_AGE_522\",\n    \"NUMB_ACCTS_CL_AGE_523\",\n    \"NUMB_ACCTS_CL_AGE_524\",\n    \"NUMB_ACCTS_CL_AGE_525\",\n    \"NUMB_ACCTS_CL_AGE_526\",\n    \"NUMB_ACCTS_CL_AGE_527\",\n    \"NUMB_ACCTS_CL_AGE_528\",\n    \"NUMB_ACCTS_CL_AGE_529\",\n    \"NUMB_ACCTS_CL_AGE_530\",\n    \"NUMB_ACCTS_CL_AGE_531\",\n    \"NUMB_ACCTS_CL_AGE_532\",\n    \"NUMB_ACCTS_CL_AGE_533\",\n    \"NUMB_ACCTS_CL_AGE_534\",\n    \"NUMB_ACCTS_CL_AGE_535\",\n    \"NUMB_ACCTS_CL_AGE_536\",\n    \"NUMB_ACCTS_CL_AGE_537\",\n    \"NUMB_ACCTS_CL_AGE_538\",\n    \"NUMB_ACCTS_CL_AGE_539\",\n    \"NUMB_ACCTS_CL_AGE_540\",\n    \"NUMB_ACCTS_CL_AGE_541\",\n    \"NUMB_ACCTS_CL_AGE_542\",\n    \"NUMB_ACCTS_CL_AGE_543\",\n    \"NUMB_ACCTS_CL_AGE_544\",\n    \"NUMB_ACCTS_CL_AGE_545\",\n    \"NUMB_ACCTS_CL_AGE_546\",\n    \"NUMB_ACCTS_CL_AGE_547\",\n    \"NUMB_ACCTS_CL_AGE_548\",\n    \"NUMB_ACCTS_CL_AGE_549\",\n    \"NUMB_ACCTS_CL_AGE_550\",\n    \"NUMB_ACCTS_CL_AGE_551\",\n    \"NUMB_ACCTS_CL_AGE_552\",\n    \"NUMB_ACCTS_CL_AGE_553\",\n    \"NUMB_ACCTS_CL_AGE_554\",\n    \"NUMB_ACCTS_CL_AGE_555\",\n    \"NUMB_ACCTS_CL_AGE_556\",\n    \"NUMB_ACCTS_CL_AGE_557\",\n    \"NUMB_ACCTS_CL_AGE_558\",\n    \"NUMB_ACCTS_CL_AGE_559\",\n    \"NUMB_ACCTS_CL_AGE_560\",\n    \"NUMB_ACCTS_CL_AGE_561\",\n    \"NUMB_ACCTS_CL_AGE_562\",\n    \"NUMB_ACCTS_CL_AGE_563\",\n    \"NUMB_ACCTS_CL_AGE_564\",\n    \"NUMB_ACCTS_CL_AGE_565\",\n    \"NUMB_ACCTS_CL_AGE_566\",\n    \"NUMB_ACCTS_CL_AGE_567\",\n    \"NUMB_ACCTS_CL_AGE_568\",\n    \"NUMB_ACCTS_CL_AGE_569\",\n    \"NUMB_ACCTS_CL_AGE_570\",\n    \"NUMB_ACCTS_CL_AGE_571\",\n    \"NUMB_ACCTS_CL_AGE_572\",\n    \"NUMB_ACCTS_CL_AGE_573\",\n    \"NUMB_ACCTS_CL_AGE_574\",\n    \"NUMB_ACCTS_CL_AGE_575\",\n    \"NUMB_ACCTS_CL_AGE_576\",\n    \"NUMB_ACCTS_CL_AGE_577\",\n    \"NUMB_ACCTS_CL_AGE_578\",\n    \"NUMB_ACCTS_CL_AGE_579\",\n    \"NUMB_ACCTS_CL_AGE_580\",\n    \"NUMB_ACCTS_CL_AGE_581\",\n    \"NUMB_ACCTS_CL_AGE_582\",\n    \"NUMB_ACCTS_CL_AGE_583\",\n    \"NUMB_ACCTS_CL_AGE_584\",\n    \"NUMB_ACCTS_CL_AGE_585\",\n    \"NUMB_ACCTS_CL_AGE_586\",\n    \"NUMB_ACCTS_CL_AGE_587\",\n    \"NUMB_ACCTS_CL_AGE_588\",\n    \"NUMB_ACCTS_CL_AGE_589\",\n    \"NUMB_ACCTS_CL_AGE_590\",\n    \"NUMB_ACCTS_CL_AGE_591\",\n    \"NUMB_ACCTS_CL_AGE_592\",\n    \"NUMB_ACCTS_CL_AGE_593\",\n    \"NUMB_ACCTS_CL_AGE_594\",\n    \"NUMB_ACCTS_CL_AGE_595\",\n    \"NUMB_ACCTS_CL_AGE_596\",\n    \"NUMB_ACCTS_CL_AGE_597\",\n    \"NUMB_ACCTS_CL_AGE_598\",\n    \"NUMB_ACCTS_CL_AGE_599\",\n    \"NUMB_ACCTS_CL_AGE_600\",\n    \"NUMB_ACCTS_CL_AGE_601\",\n    \"NUMB_ACCTS_CL_AGE_602\",\n    \"NUMB_ACCTS_CL_AGE_603\",\n    \"NUMB_ACCTS_CL_AGE_604\",\n    \"NUMB_ACCTS_CL_AGE_605\",\n    \"NUMB_ACCTS_CL_AGE_606\",\n    \"NUMB_ACCTS_CL_AGE_607\",\n    \"NUMB_ACCTS_CL_AGE_608\",\n    \"NUMB_ACCTS_CL_AGE_609\",\n    \"NUMB_ACCTS_CL_AGE_610\",\n    \"NUMB_ACCTS_CL_AGE_611\",\n    \"NUMB_ACCTS_CL_AGE_612\",\n    \"NUMB_ACCTS_CL_AGE_613\",\n    \"NUMB_ACCTS_CL_AGE_614\",\n    \"NUMB_ACCTS_CL_AGE_615\",\n    \"NUMB_ACCTS_CL_AGE_616\",\n    \"NUMB_ACCTS_CL_AGE_617\",\n    \"NUMB_ACCTS_CL_AGE_618\",\n    \"NUMB_ACCTS_CL_AGE_619\",\n    \"NUMB_ACCTS_CL_AGE_620\",\n    \"NUMB_ACCTS_CL_AGE_621\",\n    \"NUMB_ACCTS_CL_AGE_622\",\n    \"NUMB_ACCTS_CL_AGE_623\",\n    \"NUMB_ACCTS_CL_AGE_624\",\n    \"NUMB_ACCTS_CL_AGE_625\",\n    \"NUMB_ACCTS_CL_AGE_626\",\n    \"NUMB_ACCTS_CL_AGE_627\",\n    \"NUMB_ACCTS_CL_AGE_628\",\n    \"NUMB_ACCTS_CL_AGE_629\",\n    \"NUMB_ACCTS_CL_AGE_630\",\n    \"NUMB_ACCTS_CL_AGE_631\",\n    \"NUMB_ACCTS_CL_AGE_632\",\n    \"NUMB_ACCTS_CL_AGE_633\",\n    \"NUMB_ACCTS_CL_AGE_634\",\n    \"NUMB_ACCTS_CL_AGE_635\",\n    \"NUMB_ACCTS_CL_AGE_636\",\n    \"NUMB_ACCTS_CL_AGE_637\",\n    \"NUMB_ACCTS_CL_AGE_638\",\n    \"NUMB_ACCTS_CL_AGE_639\",\n    \"NUMB_ACCTS_CL_AGE_640\",\n    \"NUMB_ACCTS_CL_AGE_641\",\n    \"NUMB_ACCTS_CL_AGE_642\",\n    \"NUMB_ACCTS_CL_AGE_643\",\n    \"NUMB_ACCTS_CL_AGE_644\",\n    \"NUMB_ACCTS_CL_AGE_645\",\n    \"NUMB_ACCTS_CL_AGE_646\",\n    \"NUMB_ACCTS_CL_AGE_647\",\n    \"NUMB_ACCTS_CL_AGE_648\",\n    \"NUMB_ACCTS_CL_AGE_649\",\n    \"NUMB_ACCTS_CL_AGE_650\",\n    \"NUMB_ACCTS_CL_AGE_651\",\n    \"NUMB_ACCTS_CL_AGE_652\",\n    \"NUMB_ACCTS_CL_AGE_653\",\n    \"NUMB_ACCTS_CL_AGE_654\",\n    \"NUMB_ACCTS_CL_AGE_655\",\n    \"NUMB_ACCTS_CL_AGE_656\",\n    \"NUMB_ACCTS_CL_AGE_657\",\n    \"NUMB_ACCTS_CL_AGE_658\",\n    \"NUMB_ACCTS_CL_AGE_659\",\n    \"NUMB_ACCTS_CL_AGE_660\",\n    \"NUMB_ACCTS_CL_AGE_661\",\n    \"NUMB_ACCTS_CL_AGE_662\",\n    \"NUMB_ACCTS_CL_AGE_663\",\n    \"NUMB_ACCTS_CL_AGE_664\",\n    \"NUMB_ACCTS_CL_AGE_665\",\n    \"NUMB_ACCTS_CL_AGE_666\",\n    \"NUMB_ACCTS_CL_AGE_667\",\n    \"NUMB_ACCTS_CL_AGE_668\",\n    \"NUMB_ACCTS_CL_AGE_669\",\n    \"NUMB_ACCTS_CL_AGE_670\",\n    \"NUMB_ACCTS_CL_AGE_671\",\n    \"NUMB_ACCTS_CL_AGE_672\",\n    \"NUMB_ACCTS_CL_AGE_673\",\n    \"NUMB_ACCTS_CL_AGE_674\",\n    \"NUMB_ACCTS_CL_AGE_675\",\n    \"NUMB_ACCTS_CL_AGE_676\",\n    \"NUMB_ACCTS_CL_AGE_677\",\n    \"NUMB_ACCTS_CL_AGE_678\",\n    \"NUMB_ACCTS_CL_AGE_679\",\n    \"NUMB_ACCTS_CL_AGE_680\",\n    \"NUMB_ACCTS_CL_AGE_681\",\n    \"NUMB_ACCTS_CL_AGE_682\",\n    \"NUMB_ACCTS_CL_AGE_683\",\n    \"NUMB_ACCTS_CL_AGE_684\",\n    \"NUMB_ACCTS_CL_AGE_685\",\n    \"NUMB_ACCTS_CL_AGE_686\",\n    \"NUMB_ACCTS_CL_AGE_687\",\n    \"NUMB_ACCTS_CL_AGE_688\",\n    \"NUMB_ACCTS_CL_AGE_689\",\n    \"NUMB_ACCTS_CL_AGE_690\",\n    \"NUMB_ACCTS_CL_AGE_691\",\n    \"NUMB_ACCTS_CL_AGE_692\",\n    \"NUMB_ACCTS_CL_AGE_693\",\n    \"NUMB_ACCTS_CL_AGE_694\",\n    \"NUMB_ACCTS_CL_AGE_695\",\n    \"NUMB_ACCTS_CL_AGE_696\",\n    \"NUMB_ACCTS_CL_AGE_697\",\n    \"NUMB_ACCTS_CL_AGE_698\",\n    \"NUMB_ACCTS_CL_AGE_699\",\n    \"NUMB_ACCTS_CL_AGE_700\",\n    \"NUMB_ACCTS_CL_AGE_701\",\n    \"NUMB_ACCTS_CL_AGE_702\",\n    \"NUMB_ACCTS_CL_AGE_703\",\n    \"NUMB_ACCTS_CL_AGE_704\",\n    \"NUMB_ACCTS_CL_AGE_705\",\n    \"NUMB_ACCTS_CL_AGE_706\",\n    \"NUMB_ACCTS_CL_AGE_707\",\n    \"NUMB_ACCTS_CL_AGE_708\",\n    \"NUMB_ACCTS_CL_AGE_709\",\n    \"NUMB_ACCTS_CL_AGE_710\",\n    \"NUMB_ACCTS_CL_AGE_711\",\n    \"NUMB_ACCTS_CL_AGE_712\",\n    \"NUMB_ACCTS_CL_AGE_713\",\n    \"NUMB_ACCTS_CL_AGE_714\",\n    \"NUMB_ACCTS_CL_AGE_715\",\n    \"NUMB_ACCTS_CL_AGE_716\",\n    \"NUMB_ACCTS_CL_AGE_717\",\n    \"NUMB_ACCTS_CL_AGE_718\",\n    \"NUMB_ACCTS_CL_AGE_719\",\n    \"NUMB_ACCTS_CL_AGE_720\",\n    \"NUMB_ACCTS_CL_AGE_721\",\n    \"NUMB_ACCTS_CL_AGE_722\",\n    \"NUMB_ACCTS_CL_AGE_723\",\n    \"NUMB_ACCTS_CL_AGE_724\",\n    \"NUMB_ACCTS_CL_AGE_725\",\n    \"NUMB_ACCTS_CL_AGE_726\",\n    \"NUMB_ACCTS_CL_AGE_727\",\n    \"NUMB_ACCTS_CL_AGE_728\",\n    \"NUMB_ACCTS_CL_AGE_729\",\n    \"NUMB_ACCTS_CL_AGE_730\",\n    \"NUMB_ACCTS_CL_AGE_731\",\n    \"NUMB_ACCTS_CL_AGE_732\",\n    \"NUMB_ACCTS_CL_AGE_733\",\n    \"NUMB_ACCTS_CL_AGE_734\",\n    \"NUMB_ACCTS_CL_AGE_735\",\n    \"NUMB_ACCTS_CL_AGE_736\",\n    \"NUMB_ACCTS_CL_AGE_737\",\n    \"NUMB_ACCTS_CL_AGE_738\",\n    \"NUMB_ACCTS_CL_AGE_739\",\n    \"NUMB_ACCTS_CL_AGE_740\",\n    \"NUMB_ACCTS_CL_AGE_741\",\n    \"NUMB_ACCTS_CL_AGE_742\",\n    \"NUMB_ACCTS_CL_AGE_743\",\n    \"NUMB_ACCTS_CL_AGE_744\",\n    \"NUMB_ACCTS_CL_AGE_745\",\n    \"NUMB_ACCTS_CL_AGE_746\",\n    \"NUMB_ACCTS_CL_AGE_747\",\n    \"NUMB_ACCTS_CL_AGE_748\",\n    \"NUMB_ACCTS_CL_AGE_749\",\n    \"NUMB_ACCTS_CL_AGE_750\",\n    \"NUMB_ACCTS_CL_AGE_751\",\n    \"NUMB_ACCTS_CL_AGE_752\",\n    \"NUMB_ACCTS_CL_AGE_753\",\n    \"NUMB_ACCTS_CL_AGE_754\",\n    \"NUMB_ACCTS_CL_AGE_755\",\n    \"NUMB_ACCTS_CL_AGE_756\",\n    \"NUMB_ACCTS_CL_AGE_757\",\n    \"NUMB_ACCTS_CL_AGE_758\",\n    \"NUMB_ACCTS_CL_AGE_759\",\n    \"NUMB_ACCTS_CL_AGE_760\",\n    \"NUMB_ACCTS_CL_AGE_761\",\n    \"NUMB_ACCTS_CL_AGE_762\",\n    \"NUMB_ACCTS_CL_AGE_763\",\n    \"NUMB_ACCTS_CL_AGE_764\",\n    \"NUMB_ACCTS_CL_AGE_765\",\n    \"NUMB_ACCTS_CL_AGE_766\",\n    \"NUMB_ACCTS_CL_AGE_767\",\n    \"NUMB_ACCTS_CL_AGE_768\",\n    \"NUMB_ACCTS_CL_AGE_769\",\n    \"NUMB_ACCTS_CL_AGE_770\",\n    \"NUMB_ACCTS_CL_AGE_771\",\n    \"NUMB_ACCTS_CL_AGE_772\",\n    \"NUMB_ACCTS_CL_AGE_773\",\n    \"NUMB_ACCTS_CL_AGE_774\",\n    \"NUMB_ACCTS_CL_AGE_775\",\n    \"NUMB_ACCTS_CL_AGE_776\",\n    \"NUMB_ACCTS_CL_AGE_777\",\n    \"NUMB_ACCTS_CL_AGE_778\",\n    \"NUMB_ACCTS_CL_AGE_779\",\n    \"NUMB_ACCTS_CL_AGE_780\",\n    \"NUMB_ACCTS_CL_AGE_781\",\n    \"NUMB_ACCTS_CL_AGE_782\",\n    \"NUMB_ACCTS_CL_AGE_783\",\n    \"NUMB_ACCTS_CL_AGE_784\",\n    \"NUMB_ACCTS_CL_AGE_785\",\n    \"NUMB_ACCTS_CL_AGE_786\",\n    \"NUMB_ACCTS_CL_AGE_787\",\n    \"NUMB_ACCTS_CL_AGE_788\",\n    \"NUMB_ACCTS_CL_AGE_789\",\n    \"NUMB_ACCTS_CL_AGE_790\",\n    \"NUMB_ACCTS_CL_AGE_791\",\n    \"NUMB_ACCTS_CL_AGE_792\",\n    \"NUMB_ACCTS_CL_AGE_793\",\n    \"NUMB_ACCTS_CL_AGE_794\",\n    \"NUMB_ACCTS_CL_AGE_795\",\n    \"NUMB_ACCTS_CL_AGE_796\",\n    \"NUMB_ACCTS_CL_AGE_797\",\n    \"NUMB_ACCTS_CL_AGE_798\",\n    \"NUMB_ACCTS_CL_AGE_799\",\n    \"NUMB_ACCTS_CL_AGE_800\",\n    \"NUMB_ACCTS_CL_AGE_801\",\n    \"NUMB_ACCTS_CL_AGE_802\",\n    \"NUMB_ACCTS_CL_AGE_803\",\n    \"NUMB_ACCTS_CL_AGE_804\",\n    \"NUMB_ACCTS_CL_AGE_805\",\n    \"NUMB_ACCTS_CL_AGE_806\",\n    \"NUMB_ACCTS_CL_AGE_807\",\n    \"NUMB_ACCTS_CL_AGE_808\",\n    \"NUMB_ACCTS_CL_AGE_809\",\n    \"NUMB_ACCTS_CL_AGE_810\",\n    \"NUMB_ACCTS_CL_AGE_811\",\n    \"NUMB_ACCTS_CL_AGE_812\",\n    \"NUMB_ACCTS_CL_AGE_813\",\n    \"NUMB_ACCTS_CL_AGE_814\",\n    \"NUMB_ACCTS_CL_AGE_815\",\n    \"NUMB_ACCTS_CL_AGE_816\",\n    \"NUMB_ACCTS_CL_AGE_817\",\n    \"NUMB_ACCTS_CL_AGE_818\",\n    \"NUMB_ACCTS_CL_AGE_819\",\n    \"NUMB_ACCTS_CL_AGE_820\",\n    \"NUMB_ACCTS_CL_AGE_821\",\n    \"NUMB_ACCTS_CL_AGE_822\",\n    \"NUMB_ACCTS_CL_AGE_823\",\n    \"NUMB_ACCTS_CL_AGE_824\",\n    \"NUMB_ACCTS_CL_AGE_825\",\n    \"NUMB_ACCTS_CL_AGE_826\",\n    \"NUMB_ACCTS_CL_AGE_827\",\n    \"NUMB_ACCTS_CL_AGE_828\",\n    \"NUMB_ACCTS_CL_AGE_829\",\n    \"NUMB_ACCTS_CL_AGE_830\",\n    \"NUMB_ACCTS_CL_AGE_831\",\n    \"NUMB_ACCTS_CL_AGE_832\",\n    \"NUMB_ACCTS_CL_AGE_833\",\n    \"NUMB_ACCTS_CL_AGE_834\",\n    \"NUMB_ACCTS_CL_AGE_835\",\n    \"NUMB_ACCTS_CL_AGE_836\",\n    \"NUMB_ACCTS_CL_AGE_837\",\n    \"NUMB_ACCTS_CL_AGE_838\",\n    \"NUMB_ACCTS_CL_AGE_839\",\n    \"NUMB_ACCTS_CL_AGE_840\",\n    \"NUMB_ACCTS_CL_AGE_841\",\n    \"NUMB_ACCTS_CL_AGE_842\",\n    \"NUMB_ACCTS_CL_AGE_843\",\n    \"NUMB_ACCTS_CL_AGE_844\",\n    \"NUMB_ACCTS_CL_AGE_845\",\n    \"NUMB_ACCTS_CL_AGE_846\",\n    \"NUMB_ACCTS_CL_AGE_847\",\n    \"NUMB_ACCTS_CL_AGE_848\",\n    \"NUMB_ACCTS_CL_AGE_849\",\n    \"NUMB_ACCTS_CL_AGE_850\",\n    \"NUMB_ACCTS_CL_AGE_851\",\n    \"NUMB_ACCTS_CL_AGE_852\",\n    \"NUMB_ACCTS_CL_AGE_853\",\n    \"NUMB_ACCTS_CL_AGE_854\",\n    \"NUMB_ACCTS_CL_AGE_855\",\n    \"NUMB_ACCTS_CL_AGE_856\",\n    \"NUMB_ACCTS_CL_AGE_857\",\n    \"NUMB_ACCTS_CL_AGE_858\",\n    \"NUMB_ACCTS_CL_AGE_859\",\n    \"NUMB_ACCTS_CL_AGE_860\",\n    \"NUMB_ACCTS_CL_AGE_861\",\n    \"NUMB_ACCTS_CL_AGE_862\",\n    \"NUMB_ACCTS_CL_AGE_863\",\n    \"NUMB_ACCTS_CL_AGE_864\",\n    \"NUMB_ACCTS_CL_AGE_865\",\n    \"NUMB_ACCTS_CL_AGE_866\",\n    \"NUMB_ACCTS_CL_AGE_867\",\n    \"NUMB_ACCTS_CL_AGE_868\",\n    \"NUMB_ACCTS_CL_AGE_869\",\n    \"NUMB_ACCTS_CL_AGE_870\",\n    \"NUMB_ACCTS_CL_AGE_871\",\n    \"NUMB_ACCTS_CL_AGE_872\",\n    \"NUMB_ACCTS_CL_AGE_873\",\n    \"NUMB_ACCTS_CL_AGE_874\",\n    \"NUMB_ACCTS_CL_AGE_875\",\n    \"NUMB_ACCTS_CL_AGE_876\",\n    \"NUMB_ACCTS_CL_AGE_877\",\n    \"NUMB_ACCTS_CL_AGE_878\",\n    \"NUMB_ACCTS_CL_AGE_879\",\n    \"NUMB_ACCTS_CL_AGE_880\",\n    \"NUMB_ACCTS_CL_AGE_881\",\n    \"NUMB_ACCTS_CL_AGE_882\",\n    \"NUMB_ACCTS_CL_AGE_883\",\n    \"NUMB_ACCTS_CL_AGE_884\",\n    \"NUMB_ACCTS_CL_AGE_885\",\n    \"NUMB_ACCTS_CL_AGE_886\",\n    \"NUMB_ACCTS_CL_AGE_887\",\n    \"NUMB_ACCTS_CL_AGE_888\",\n    \"NUMB_ACCTS_CL_AGE_889\",\n    \"NUMB_ACCTS_CL_AGE_890\",\n    \"NUMB_ACCTS_CL_AGE_891\",\n    \"NUMB_ACCTS_CL_AGE_892\",\n    \"NUMB_ACCTS_CL_AGE_893\",\n    \"NUMB_ACCTS_CL_AGE_894\",\n    \"NUMB_ACCTS_CL_AGE_895\",\n    \"NUMB_ACCTS_CL_AGE_896\",\n    \"NUMB_ACCTS_CL_AGE_897\",\n    \"NUMB_ACCTS_CL_AGE_898\",\n    \"NUMB_ACCTS_CL_AGE_899\",\n    \"NUMB_ACCTS_CL_AGE_900\",\n    \"NUMB_ACCTS_CL_AGE_901\",\n    \"NUMB_ACCTS_CL_AGE_902\",\n    \"NUMB_ACCTS_CL_AGE_903\",\n    \"NUMB_ACCTS_CL_AGE_904\",\n    \"NUMB_ACCTS_CL_AGE_905\",\n    \"NUMB_ACCTS_CL_AGE_906\",\n    \"NUMB_ACCTS_CL_AGE_907\",\n    \"NUMB_ACCTS_CL_AGE_908\",\n    \"NUMB_ACCTS_CL_AGE_909\",\n    \"NUMB_ACCTS_CL_AGE_910\",\n    \"NUMB_ACCTS_CL_AGE_911\",\n    \"NUMB_ACCTS_CL_AGE_912\",\n    \"NUMB_ACCTS_CL_AGE_913\",\n    \"NUMB_ACCTS_CL_AGE_914\",\n    \"NUMB_ACCTS_CL_AGE_915\",\n    \"NUMB_ACCTS_CL_AGE_916\",\n    \"NUMB_ACCTS_CL_AGE_917\",\n    \"NUMB_ACCTS_CL_AGE_918\",\n    \"NUMB_ACCTS_CL_AGE_919\",\n    \"NUMB_ACCTS_CL_AGE_920\",\n    \"NUMB_ACCTS_CL_AGE_921\",\n    \"NUMB_ACCTS_CL_AGE_922\",\n    \"NUMB_ACCTS_CL_AGE_923\",\n    \"NUMB_ACCTS_CL_AGE_924\",\n    \"NUMB_ACCTS_CL_AGE_925\",\n    \"NUMB_ACCTS_CL_AGE_926\",\n    \"NUMB_ACCTS_CL_AGE_927\",\n    \"NUMB_ACCTS_CL_AGE_928\",\n    \"NUMB_ACCTS_CL_AGE_929\",\n    \"NUMB_ACCTS_CL_AGE_930\",\n    \"NUMB_ACCTS_CL_AGE_931\",\n    \"NUMB_ACCTS_CL_AGE_932\",\n    \"NUMB_ACCTS_CL_AGE_933\",\n    \"NUMB_ACCTS_CL_AGE_934\",\n    \"NUMB_ACCTS_CL_AGE_935\",\n    \"NUMB_ACCTS_CL_AGE_936\",\n    \"NUMB_ACCTS_CL_AGE_937\",\n    \"NUMB_ACCTS_CL_AGE_938\",\n    \"NUMB_ACCTS_CL_AGE_939\",\n    \"NUMB_ACCTS_CL_AGE_940\",\n    \"NUMB_ACCTS_CL_AGE_941\",\n    \"NUMB_ACCTS_CL_AGE_942\",\n    \"NUMB_ACCTS_CL_AGE_943\",\n    \"NUMB_ACCTS_CL_AGE_944\",\n    \"NUMB_ACCTS_CL_AGE_945\",\n    \"NUMB_ACCTS_CL_AGE_946\",\n    \"NUMB_ACCTS_CL_AGE_947\",\n    \"NUMB_ACCTS_CL_AGE_948\",\n    \"NUMB_ACCTS_CL_AGE_949\",\n    \"NUMB_ACCTS_CL_AGE_950\",\n    \"NUMB_ACCTS_CL_AGE_951\",\n    \"NUMB_ACCTS_CL_AGE_952\",\n    \"NUMB_ACCTS_CL_AGE_953\",\n    \"NUMB_ACCTS_CL_AGE_954\",\n    \"NUMB_ACCTS_CL_AGE_955\",\n    \"NUMB_ACCTS_CL_AGE_956\",\n    \"NUMB_ACCTS_CL_AGE_957\",\n    \"NUMB_ACCTS_CL_AGE_958\",\n    \"NUMB_ACCTS_CL_AGE_959\",\n    \"NUMB_ACCTS_CL_AGE_960\",\n    \"NUMB_ACCTS_CL_AGE_961\",\n    \"NUMB_ACCTS_CL_AGE_962\",\n    \"NUMB_ACCTS_CL_AGE_963\",\n    \"NUMB_ACCTS_CL_AGE_964\",\n    \"NUMB_ACCTS_CL_AGE_965\",\n    \"NUMB_ACCTS_CL_AGE_966\",\n    \"NUMB_ACCTS_CL_AGE_967\",\n    \"NUMB_ACCTS_CL_AGE_968\",\n    \"NUMB_ACCTS_CL_AGE_969\",\n    \"NUMB_ACCTS_CL_AGE_970\",\n    \"NUMB_ACCTS_CL_AGE_971\",\n    \"NUMB_ACCTS_CL_AGE_972\",\n    \"NUMB_ACCTS_CL_AGE_973\",\n    \"NUMB_ACCTS_CL_AGE_974\",\n    \"NUMB_ACCTS_CL_AGE_975\",\n    \"NUMB_ACCTS_CL_AGE_976\",\n    \"NUMB_ACCTS_CL_AGE_977\",\n    \"NUMB_ACCTS_CL_AGE_978\",\n    \"NUMB_ACCTS_CL_AGE_979\",\n    \"NUMB_ACCTS_CL_AGE_980\",\n    \"NUMB_ACCTS_CL_AGE_981\",\n    \"NUMB_ACCTS_CL_AGE_982\",\n    \"NUMB_ACCTS_CL_AGE_983\",\n    \"NUMB_ACCTS_CL_AGE_984\",\n    \"NUMB_ACCTS_CL_AGE_985\",\n    \"NUMB_ACCTS_CL_AGE_986\",\n    \"NUMB_ACCTS_CL_AGE_987\",\n    \"NUMB_ACCTS_CL_AGE_988\",\n    \"NUMB_ACCTS_CL_AGE_989\",\n    \"NUMB_ACCTS_CL_AGE_990\",\n    \"NUMB_ACCTS_CL_AGE_991\",\n    \"NUMB_ACCTS_CL_AGE_992\",\n    \"NUMB_ACCTS_CL_AGE_993\",\n    \"NUMB_ACCTS_CL_AGE_994\",\n    \"NUMB_ACCTS_CL_AGE_995\",\n    \"NUMB_ACCTS_CL_AGE_996\",\n    \"NUMB_ACCTS_CL_AGE_997\",\n    \"NUMB_ACCTS_CL_AGE_998\",\n    \"NUMB_ACCTS_CL_AGE_999\",\n    \"NUMB_ACCTS_CL_AGE_1000\",\n    \"NUMB_ACCTS_CL_AGE_1001\",\n    \"NUMB_ACCTS_CL_AGE_1002\",\n    \"NUMB_ACCTS_CL_AGE_1003\",\n    \"NUMB_ACCTS_CL_AGE_1004\",\n    \"NUMB_ACCTS_CL_AGE_1005\",\n    \"NUMB_ACCTS_CL_AGE_1006\",\n    \"NUMB_ACCTS_CL_AGE_1007\",\n    \"NUMB_ACCTS_CL_AGE_1008\",\n    \"NUMB_ACCTS_CL_AGE_1009\",\n    \"NUMB_ACCTS_CL_AGE_1010\",\n    \"NUMB_ACCTS_CL_AGE_1011\",\n    \"NUMB_ACCTS_CL_AGE_1012\",\n    \"NUMB_ACCTS_CL_AGE_1013\",\n    \"NUMB_ACCTS_CL_AGE_1014\",\n    \"NUMB_ACCTS_CL_AGE_1015\",\n    \"NUMB_ACCTS_CL_AGE_1016\",\n    \"NUMB_ACCTS_CL_AGE_1017\",\n    \"NUMB_ACCTS_CL_AGE_1018\",\n    \"NUMB_ACCTS_CL_AGE_1019\",\n    \"NUMB_ACCTS_CL_AGE_1020\",\n    \"NUMB_ACCTS_CL_AGE_1021\",\n    \"NUMB_ACCTS_CL_AGE_1022\",\n    \"NUMB_ACCTS_CL_AGE_1023\",\n    \"NUMB_ACCTS_CL_AGE_1024\",\n    \"NUMB_ACCTS_CL_AGE_1025\",\n    \"NUMB_ACCTS_CL_AGE_1026\",\n    \"NUMB_ACCTS_CL_AGE_1027\",\n    \"NUMB_ACCTS_CL_AGE_1028\",\n    \"NUMB_ACCTS_CL_AGE_1029\",\n    \"NUMB_ACCTS_CL_AGE_1030\",\n    \"NUMB_ACCTS_CL_AGE_1031\",\n    \"NUMB_ACCTS_CL_AGE_1032\",\n    \"NUMB_ACCTS_CL_AGE_1033\",\n    \"NUMB_ACCTS_CL_AGE_1034\",\n    \"NUMB_ACCTS_CL_AGE_1035\",\n    \"NUMB_ACCTS_CL_AGE_1036\",\n    \"NUMB_ACCTS_CL_AGE_1037\",\n    \"NUMB_ACCTS_CL_AGE_1038\",\n    \"NUMB_ACCTS_CL_AGE_1039\",\n    \"NUMB_ACCTS_CL_AGE_1040\",\n    \"NUMB_ACCTS_CL_AGE_1041\",\n    \"NUMB_ACCTS_CL_AGE_1042\",\n    \"NUMB_ACCTS_CL_AGE_1043\",\n    \"NUMB_ACCTS_CL_AGE_1044\",\n    \"NUMB_ACCTS_CL_AGE_1045\",\n    \"NUMB_ACCTS_CL_AGE_1046\",\n    \"NUMB_ACCTS_CL_AGE_1047\",\n    \"NUMB_ACCTS_CL_AGE_1048\",\n    \"NUMB_ACCTS_CL_AGE_1049\",\n    \"NUMB_ACCTS_CL_AGE_1050\",\n    \"NUMB_ACCTS_CL_AGE_1051\",\n    \"NUMB_ACCTS_CL"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "cb9476d446a07bc0bb575ee8a2ee6fc9701471acf94ce5372080813f7ab556fd",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 227,
+     "completion_tokens": 247,
+     "total_tokens": 474,
+     "cost": 7.11e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.11e-05,
+      "upstream_inference_prompt_cost": 3.405e-05,
+      "upstream_inference_completions_cost": 3.705e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.95,\n    \"1\": 0.85,\n    \"2\": 0.75,\n    \"3\": 0.65,\n    \"4\": 0.80,\n    \"5\": 0.70,\n    \"6\": 0.55,\n    \"7\": 0.90,\n    \"8\": 0.60,\n    \"9\": 0.45,\n    \"10\": 0.70,\n    \"11\": 0.50,\n    \"12\": 0.85,\n    \"13\": 0.60,\n    \"14\": 0.40,\n    \"15\": 0.55,\n    \"16\": 0.35,\n    \"17\": 0.45,\n    \"18\": 0.75,\n    \"19\": 0.65,\n    \"20\": 0.50,\n    \"21\": 0.30\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.85,
+   0.75,
+   0.65,
+   0.8,
+   0.7,
+   0.55,
+   0.9,
+   0.6,
+   0.45,
+   0.7,
+   0.5,
+   0.85,
+   0.6,
+   0.4,
+   0.55,
+   0.35,
+   0.45,
+   0.75,
+   0.65,
+   0.5,
+   0.3
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "00adca9584868c626b76433af6abd526db55481cac1278166569158b0e04c49e",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 218,
+     "completion_tokens": 225,
+     "total_tokens": 443,
+     "cost": 6.645e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.645e-05,
+      "upstream_inference_prompt_cost": 3.27e-05,
+      "upstream_inference_completions_cost": 3.375e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.4,\n    \"2\": 0.8,\n    \"3\": 0.3,\n    \"4\": 0.6,\n    \"5\": 0.9,\n    \"6\": 0.2,\n    \"7\": 0.5,\n    \"8\": 0.1,\n    \"9\": 0.7,\n    \"10\": 0.4,\n    \"11\": 0.6,\n    \"12\": 0.3,\n    \"13\": 0.8,\n    \"14\": 0.2,\n    \"15\": 0.5,\n    \"16\": 0.1,\n    \"17\": 0.4,\n    \"18\": 0.7,\n    \"19\": 0.3,\n    \"20\": 0.6,\n    \"21\": 0.2\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.8,
+   0.3,
+   0.6,
+   0.9,
+   0.2,
+   0.5,
+   0.1,
+   0.7,
+   0.4,
+   0.6,
+   0.3,
+   0.8,
+   0.2,
+   0.5,
+   0.1,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.2
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d8d4c8803322d1e118c88666e22837835c4b1cb83e290aaf74bac2aeb16a1879",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 381,
+     "completion_tokens": 671,
+     "total_tokens": 1052,
+     "cost": 0.0001578,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001578,
+      "upstream_inference_prompt_cost": 5.715e-05,
+      "upstream_inference_completions_cost": 0.00010065
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.95,  // ExternalRiskEstimate (likely a strong proxy for risk, very useful)\n    \"1\": 0.7,   // MSinceOldestTradeOpen (moderate relevance, older accounts may indicate stability)\n    \"2\": 0.65,  // MSinceMostRecentTradeOpen (some predictive power, but less than oldest)\n    \"3\": 0.5,   // AverageMInFile (marginal, but could correlate with credit history length)\n    \"4\": 0.8,   // NumSatisfactoryTrades (highly relevant, strong indicator of responsible behavior)\n    \"5\": 0.75,  // NumTrades60Ever2DerogPubRec (highly predictive of risk, derogatory marks matter)\n    \"6\": 0.85,  // NumTrades90Ever2DerogPubRec (even stronger than 60-day delinquencies)\n    \"7\": 0.7,   // PercentTradesNeverDelq (useful, but less than derogatory counts)\n    \"8\": 0.6,   // MSinceMostRecentDelq (some signal, but less direct than counts)\n    \"9\": 0.75,  // MaxDelq2PublicRecLast12M (highly predictive, severe delinquencies matter)\n    \"10\": 0.6,  // NumTotalTrades (moderate, but diluted by mix of good/bad trades)\n    \"11\": 0.65, // NumTradesOpeninLast12M (some relevance, but not as strong as derogatory features)\n    \"12\": 0.55, // PercentInstallTrades (marginal, but may indicate stability)\n    \"13\": 0.5,  // MSinceMostRecentInqexcl7days (some signal, but less direct)\n    \"14\": 0.6,  // NumInqLast6M (moderate, but noisy\u2014many legitimate inquiries)\n    \"15\": 0.5,  // NumInqLast6Mexcl7days (similar to 14, but slightly less noisy)\n    \"16\": 0.7,  // NetFractionRevolvingBurden (highly relevant, debt burden matters)\n    \"17\": 0.6,  // NetFractionInstallBurden (moderate, but less than revolving)\n    \"18\": 0.55, // NumRevolvingTradesWBalance (some relevance, but less direct)\n    \"19\": 0.5,  // NumInstallTradesWBalance (marginal, but may indicate stability)\n    \"20\": 0.65, // NumBank2NatlTradesWHighUtilization (highly predictive, high utilization is risky)\n    \"21\": 0.7   // PercentTradesWBalance (useful, but less than derogatory features)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.7,
+   0.65,
+   0.5,
+   0.8,
+   0.75,
+   0.85,
+   0.7,
+   0.6,
+   0.75,
+   0.6,
+   0.65,
+   0.55,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.55,
+   0.5,
+   0.65,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "921e5909b0128c5299d42565cb906a9659f3a1a76cf6c351f5397e7a4177a6ad",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 349,
+     "completion_tokens": 617,
+     "total_tokens": 966,
+     "cost": 0.0001449,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001449,
+      "upstream_inference_prompt_cost": 5.235e-05,
+      "upstream_inference_completions_cost": 9.255e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.95,  // ExternalRiskEstimate (likely a strong proxy for risk, highly predictive)\n    \"1\": 0.65,  // MSinceOldestTradeOpen (moderate relevance, may indicate stability)\n    \"2\": 0.70,  // MSinceMostRecentTradeOpen (similar to #1, slightly stronger signal)\n    \"3\": 0.40,  // AverageMInFile (mixed utility, depends on context)\n    \"4\": 0.85,  // NumSatisfactoryTrades (strong positive indicator of reliability)\n    \"5\": 0.80,  // NumTrades60Ever2DerogPubRec (highly relevant for derogatory history)\n    \"6\": 0.88,  // NumTrades90Ever2DerogPubRec (even stronger signal than #5)\n    \"7\": 0.82,  // PercentTradesNeverDelq (excellent for risk assessment)\n    \"8\": 0.90,  // MSinceMostRecentDelq (critical for recent delinquency)\n    \"9\": 0.92,  // MaxDelq2PublicRecLast12M (highly predictive of severe risk)\n    \"10\": 0.60, // NumTotalTrades (moderate, but less direct than others)\n    \"11\": 0.75, // NumTradesOpeninLast12M (good indicator of current activity)\n    \"12\": 0.55, // PercentInstallTrades (some relevance, but less direct)\n    \"13\": 0.78, // MSinceMostRecentInqexcl7days (strong signal for recent activity)\n    \"14\": 0.85, // NumInqLast6M (highly relevant for credit-seeking behavior)\n    \"15\": 0.83, // NumInqLast6Mexcl7days (similar to #14, slightly stronger)\n    \"16\": 0.70, // NetFractionRevolvingBurden (moderate, but useful in combination)\n    \"17\": 0.65, // NetFractionInstallBurden (similar to #16)\n    \"18\": 0.60, // NumRevolvingTradesWBalance (moderate, but less direct)\n    \"19\": 0.62, // NumInstallTradesWBalance (similar to #18)\n    \"20\": 0.80, // NumBank2NatlTradesWHighUtilization (highly relevant for risk)\n    \"21\": 0.75  // PercentTradesWBalance (good indicator of active credit usage)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.65,
+   0.7,
+   0.4,
+   0.85,
+   0.8,
+   0.88,
+   0.82,
+   0.9,
+   0.92,
+   0.6,
+   0.75,
+   0.55,
+   0.78,
+   0.85,
+   0.83,
+   0.7,
+   0.65,
+   0.6,
+   0.62,
+   0.8,
+   0.75
+  ]
+ }
+}

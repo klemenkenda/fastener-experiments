@@ -1,0 +1,500 @@
+{
+ "dataset": "diabetes130",
+ "model": "google/gemma-3-4b-it",
+ "variables": [
+  "race",
+  "gender",
+  "age",
+  "weight",
+  "admission_type_id",
+  "discharge_disposition_id",
+  "admission_source_id",
+  "time_in_hospital",
+  "payer_code",
+  "num_lab_procedures",
+  "num_procedures",
+  "num_medications",
+  "number_outpatient",
+  "number_emergency",
+  "number_inpatient",
+  "number_diagnoses",
+  "max_glu_serum",
+  "A1Cresult",
+  "metformin",
+  "repaglinide",
+  "nateglinide",
+  "chlorpropamide",
+  "glimepiride",
+  "acetohexamide",
+  "glipizide",
+  "glyburide",
+  "tolbutamide",
+  "pioglitazone",
+  "rosiglitazone",
+  "acarbose",
+  "miglitol",
+  "troglitazone",
+  "tolazamide",
+  "examide",
+  "citoglipton",
+  "insulin",
+  "glyburide.metformin",
+  "glipizide.metformin",
+  "glimepiride.pioglitazone",
+  "metformin.rosiglitazone",
+  "metformin.pioglitazone",
+  "change",
+  "diabetesMed"
+ ],
+ "P1a": {
+  "key": "8c8531a141d42b359d724087ffc153f273b7ea9427a92cc6b5893d0dfc4687e2",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 126,
+   "completion_tokens": 52,
+   "total_tokens": 178,
+   "cost": 1.15e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.15e-05,
+    "upstream_inference_prompt_cost": 6.3e-06,
+    "upstream_inference_completions_cost": 5.2e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"MIMIC-III Readmission Dataset\",\n  \"source\": \"https://mimic.physionet.org/\",\n  \"confidence\": 0.95\n}\n```\n"
+ },
+ "P1b": {
+  "key": "cb7936ca70ea7b34006a9a6b95ecaae77fb082898b52955b631eabdd384f1c20",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 303,
+   "completion_tokens": 51,
+   "total_tokens": 354,
+   "cost": 2.025e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.025e-05,
+    "upstream_inference_prompt_cost": 1.515e-05,
+    "upstream_inference_completions_cost": 5.1e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"UCI Adult Health Dataset\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/adult\",\n  \"confidence\": 1.0\n}\n```"
+ },
+ "P2": {
+  "key": "d3753003fce77b3a628cd93ec69ab8a23fc919bb35379745118ac0fb93298342",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 118,
+   "completion_tokens": 61,
+   "total_tokens": 179,
+   "cost": 1.2e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.2e-05,
+    "upstream_inference_prompt_cost": 5.9e-06,
+    "upstream_inference_completions_cost": 6.1e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"Pregnancies\", \"Glucose\", \"BloodPressure\", \"SkinThickness\", \"Insulin\", \"BMI\", \"DiabetesPedigree\", \"Age\", \"RestingBloodPressure\", \"Smoking\", \"AgeCategory\", \"GlucoseCategory\", \"BMICategory\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "edc25d2376094a7e06c0b4d8e068560b3825ff1e743681eb5f3ca52ff85c6b29",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 349,
+     "completion_tokens": 471,
+     "total_tokens": 820,
+     "cost": 6.455e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.455e-05,
+      "upstream_inference_prompt_cost": 1.745e-05,
+      "upstream_inference_completions_cost": 4.71e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.3,\n  \"2\": 0.3,\n  \"3\": 0.3,\n  \"4\": 0.3,\n  \"5\": 0.3,\n  \"6\": 0.3,\n  \"7\": 0.3,\n  \"8\": 0.3,\n  \"9\": 0.3,\n  \"10\": 0.3,\n  \"11\": 0.3,\n  \"12\": 0.3,\n  \"13\": 0.3,\n  \"14\": 0.3,\n  \"15\": 0.3,\n  \"16\": 0.3,\n  \"17\": 0.3,\n  \"18\": 0.3,\n  \"19\": 0.3,\n  \"20\": 0.3,\n  \"21\": 0.3,\n  \"22\": 0.3,\n  \"23\": 0.3,\n  \"24\": 0.3,\n  \"25\": 0.3,\n  \"26\": 0.3,\n  \"27\": 0.3,\n  \"28\": 0.3,\n  \"29\": 0.3,\n  \"30\": 0.3,\n  \"31\": 0.3,\n  \"32\": 0.3,\n  \"33\": 0.3,\n  \"34\": 0.3,\n  \"35\": 0.3,\n  \"36\": 0.3,\n  \"37\": 0.3,\n  \"38\": 0.3,\n  \"39\": 0.3,\n  \"40\": 0.3,\n  \"41\": 0.3,\n  \"42\": 0.3\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order (the distributed file's columns encounter_id, patient_nbr, medical_specialty, diag_1, diag_2, diag_3 are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P3f": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "bc47eaee19a6a6f2dfef8c4e08aa448e54200a6062a67af33ed921378e4e584d",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 288,
+     "completion_tokens": 471,
+     "total_tokens": 759,
+     "cost": 6.15e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.15e-05,
+      "upstream_inference_prompt_cost": 1.44e-05,
+      "upstream_inference_completions_cost": 4.71e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.3,\n  \"2\": 0.3,\n  \"3\": 0.3,\n  \"4\": 0.3,\n  \"5\": 0.3,\n  \"6\": 0.3,\n  \"7\": 0.3,\n  \"8\": 0.3,\n  \"9\": 0.3,\n  \"10\": 0.3,\n  \"11\": 0.3,\n  \"12\": 0.3,\n  \"13\": 0.3,\n  \"14\": 0.3,\n  \"15\": 0.3,\n  \"16\": 0.3,\n  \"17\": 0.3,\n  \"18\": 0.3,\n  \"19\": 0.3,\n  \"20\": 0.3,\n  \"21\": 0.3,\n  \"22\": 0.3,\n  \"23\": 0.3,\n  \"24\": 0.3,\n  \"25\": 0.3,\n  \"26\": 0.3,\n  \"27\": 0.3,\n  \"28\": 0.3,\n  \"29\": 0.3,\n  \"30\": 0.3,\n  \"31\": 0.3,\n  \"32\": 0.3,\n  \"33\": 0.3,\n  \"34\": 0.3,\n  \"35\": 0.3,\n  \"36\": 0.3,\n  \"37\": 0.3,\n  \"38\": 0.3,\n  \"39\": 0.3,\n  \"40\": 0.3,\n  \"41\": 0.3,\n  \"42\": 0.3\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b4e996a157670cb287c65502c352e468725bcc2f229806cd2a51928bc07814af",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 498,
+     "completion_tokens": 471,
+     "total_tokens": 969,
+     "cost": 7.2e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.2e-05,
+      "upstream_inference_prompt_cost": 2.49e-05,
+      "upstream_inference_completions_cost": 4.71e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.1,\n  \"1\": 0.2,\n  \"2\": 0.7,\n  \"3\": 0.3,\n  \"4\": 0.2,\n  \"5\": 0.2,\n  \"6\": 0.2,\n  \"7\": 0.6,\n  \"8\": 0.3,\n  \"9\": 0.4,\n  \"10\": 0.4,\n  \"11\": 0.5,\n  \"12\": 0.2,\n  \"13\": 0.3,\n  \"14\": 0.2,\n  \"15\": 0.4,\n  \"16\": 0.6,\n  \"17\": 0.8,\n  \"18\": 0.5,\n  \"19\": 0.4,\n  \"20\": 0.3,\n  \"21\": 0.3,\n  \"22\": 0.3,\n  \"23\": 0.3,\n  \"24\": 0.3,\n  \"25\": 0.3,\n  \"26\": 0.3,\n  \"27\": 0.4,\n  \"28\": 0.4,\n  \"29\": 0.3,\n  \"30\": 0.3,\n  \"31\": 0.2,\n  \"32\": 0.2,\n  \"33\": 0.2,\n  \"34\": 0.1,\n  \"35\": 0.5,\n  \"36\": 0.4,\n  \"37\": 0.4,\n  \"38\": 0.4,\n  \"39\": 0.3,\n  \"40\": 0.3,\n  \"41\": 0.5,\n  \"42\": 0.2\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.2,
+   0.7,
+   0.3,
+   0.2,
+   0.2,
+   0.2,
+   0.6,
+   0.3,
+   0.4,
+   0.4,
+   0.5,
+   0.2,
+   0.3,
+   0.2,
+   0.4,
+   0.6,
+   0.8,
+   0.5,
+   0.4,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.4,
+   0.4,
+   0.3,
+   0.3,
+   0.2,
+   0.2,
+   0.2,
+   0.1,
+   0.5,
+   0.4,
+   0.4,
+   0.4,
+   0.3,
+   0.3,
+   0.5,
+   0.2
+  ]
+ },
+ "P5": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3bf33eb5d2351d6bdbc408ca661db725fb2e5f95c27de943359b59fc09fa0685",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 451,
+     "completion_tokens": 486,
+     "total_tokens": 937,
+     "cost": 7.115e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.115e-05,
+      "upstream_inference_prompt_cost": 2.255e-05,
+      "upstream_inference_completions_cost": 4.86e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.2,\n  \"2\": 0.7,\n  \"3\": 0.4,\n  \"4\": 0.5,\n  \"5\": 0.6,\n  \"6\": 0.4,\n  \"7\": 0.8,\n  \"8\": 0.5,\n  \"9\": 0.6,\n  \"10\": 0.55,\n  \"11\": 0.65,\n  \"12\": 0.35,\n  \"13\": 0.45,\n  \"14\": 0.5,\n  \"15\": 0.75,\n  \"16\": 0.6,\n  \"17\": 0.7,\n  \"18\": 0.55,\n  \"19\": 0.4,\n  \"20\": 0.35,\n  \"21\": 0.3,\n  \"22\": 0.3,\n  \"23\": 0.3,\n  \"24\": 0.3,\n  \"25\": 0.3,\n  \"26\": 0.3,\n  \"27\": 0.4,\n  \"28\": 0.35,\n  \"29\": 0.3,\n  \"30\": 0.25,\n  \"31\": 0.2,\n  \"32\": 0.2,\n  \"33\": 0.25,\n  \"34\": 0.15,\n  \"35\": 0.5,\n  \"36\": 0.6,\n  \"37\": 0.6,\n  \"38\": 0.55,\n  \"39\": 0.5,\n  \"40\": 0.45,\n  \"41\": 0.65,\n  \"42\": 0.55\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.15,
+  "header": [
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.2,
+   0.7,
+   0.4,
+   0.5,
+   0.6,
+   0.4,
+   0.8,
+   0.5,
+   0.6,
+   0.55,
+   0.65,
+   0.35,
+   0.45,
+   0.5,
+   0.75,
+   0.6,
+   0.7,
+   0.55,
+   0.4,
+   0.35,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.4,
+   0.35,
+   0.3,
+   0.25,
+   0.2,
+   0.2,
+   0.25,
+   0.15,
+   0.5,
+   0.6,
+   0.6,
+   0.55,
+   0.5,
+   0.45,
+   0.65,
+   0.55
+  ]
+ }
+}

@@ -1,0 +1,385 @@
+{
+ "dataset": "eye_movements",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "P1a": {
+  "key": "dc2442653c96abd17f654af04c490fa7f3fc88ff5eeb8b44aea68ea1d86f61f1",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 107,
+   "completion_tokens": 67,
+   "total_tokens": 174,
+   "cost": 2.61e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.61e-05,
+    "upstream_inference_prompt_cost": 1.605e-05,
+    "upstream_inference_completions_cost": 1.005e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Wisconsin Breast Cancer Diagnostic (Diagnostic Breast Cancer Co. Wisconsin)\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)\",\n  \"confidence\": 0.99\n}\n```"
+ },
+ "P1b": {
+  "key": "93aafd37551a8e06597ced320f3a400fb30dc1b65c320a2a07113617fedfaad6",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 178,
+   "completion_tokens": 185,
+   "total_tokens": 363,
+   "cost": 5.445e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 5.445e-05,
+    "upstream_inference_prompt_cost": 2.67e-05,
+    "upstream_inference_completions_cost": 2.775e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"SACCADIC MOVEMENT DATASET (e.g., Eye Tracking Data for Classification)\",\n  \"source\": \"Unknown specific dataset, but closely resembles **EyeTrackingData** or **Saccade-Based Classification Tasks** (e.g., from **UCI ML Repository** or **Kaggle** datasets like *Eye Movement Classification* or *Fixation-Based Tasks*). Alternatively, it may be derived from **NAIST Eye Tracking Dataset** or **CrowdEye** (if labeled for classification).\",\n  \"confidence\": 0.3\n}\n```\n\n*Note: This description matches common eye-tracking feature sets (e.g., for predicting user intent, reading behavior, or cognitive load). If tied to a specific paper, it would likely cite **Duchowski (2007), Holmqvist et al., or similar works**.*"
+ },
+ "P2": {
+  "key": "443344a17cb5bdb8f7814f9f59b0207ed27b55031d438153bd6020be4c1128cd",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 106,
+   "completion_tokens": 1281,
+   "total_tokens": 1387,
+   "cost": 0.00020805,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00020805,
+    "upstream_inference_prompt_cost": 1.59e-05,
+    "upstream_inference_completions_cost": 0.00019215
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"fixation_x\",\n    \"fixation_y\",\n    \"fixation_duration\",\n    \"fixation_area\",\n    \"fixation_gaze_angle\",\n    \"fixation_sequence\",\n    \"fixation_onset_time\",\n    \"fixation_offset_time\",\n    \"fixation_heatmap_x\",\n    \"fixation_heatmap_y\",\n    \"fixation_heatmap_duration\",\n    \"fixation_heatmap_area\",\n    \"fixation_heatmap_gaze_angle\",\n    \"fixation_heatmap_sequence\",\n    \"fixation_heatmap_onset_time\",\n    \"fixation_heatmap_offset_time\",\n    \"fixation_heatmap_id\",\n    \"fixation_id\",\n    \"fixation_type\",\n    \"fixation_related_area\",\n    \"fixation_related_area_x\",\n    \"fixation_related_area_y\",\n    \"fixation_related_area_width\",\n    \"fixation_related_area_height\",\n    \"fixation_related_area_id\",\n    \"fixation_related_area_type\",\n    \"fixation_related_area_label\",\n    \"fixation_related_area_category\",\n    \"fixation_related_area_hierarchy\",\n    \"fixation_related_area_hierarchy_level\",\n    \"fixation_related_area_hierarchy_parent\",\n    \"fixation_related_area_hierarchy_children\",\n    \"fixation_related_area_hierarchy_siblings\",\n    \"fixation_related_area_hierarchy_depth\",\n    \"fixation_related_area_hierarchy_position\",\n    \"fixation_related_area_hierarchy_ancestors\",\n    \"fixation_related_area_hierarchy_descendants\",\n    \"fixation_related_area_hierarchy_leaf\",\n    \"fixation_related_area_hierarchy_root\",\n    \"fixation_related_area_hierarchy_is_leaf\",\n    \"fixation_related_area_hierarchy_is_root\",\n    \"fixation_related_area_hierarchy_is_internal_node\",\n    \"fixation_related_area_hierarchy_is_ancestor\",\n    \"fixation_related_area_hierarchy_is_descendant\",\n    \"fixation_related_area_hierarchy_is_sibling\",\n    \"fixation_related_area_hierarchy_is_parent\",\n    \"fixation_related_area_hierarchy_is_child\",\n    \"fixation_related_area_hierarchy_is_grandparent\",\n    \"fixation_related_area_hierarchy_is_grandchild\",\n    \"fixation_related_area_hierarchy_is_great_grandparent\",\n    \"fixation_related_area_hierarchy_is_great_grandchild\",\n    \"fixation_related_area_hierarchy_is_relative\",\n    \"fixation_related_area_hierarchy_is_cousin\",\n    \"fixation_related_area_hierarchy_is_uncle\",\n    \"fixation_related_area_hierarchy_is_aunt\",\n    \"fixation_related_area_hierarchy_is_nephew\",\n    \"fixation_related_area_hierarchy_is_niece\",\n    \"fixation_related_area_hierarchy_is_granduncle\",\n    \"fixation_related_area_hierarchy_is_grandniece\",\n    \"fixation_related_area_hierarchy_is_grandnephew\",\n    \"fixation_related_area_hierarchy_is_great_granduncle\",\n    \"fixation_related_area_hierarchy_is_great_grandniece\",\n    \"fixation_related_area_hierarchy_is_great_grandnephew\",\n    \"fixation_related_area_hierarchy_is_great_grandniece\",\n    \"fixation_related_area_hierarchy_is_great_great_granduncle\",\n    \"fixation_related_area_hierarchy_is_great_great_grandniece\",\n    \"fixation_related_area_hierarchy_is_great_great_grandnephew\",\n    \"fixation_related_area_hierarchy_is_great_great_grandniece\",\n    \"fixation_related_area_hierarchy_is_great_great_great_granduncle\",\n    \"fixation_related_area_hierarchy_is_great_great_great_grandniece\",\n    \"fixation_related_area_hierarchy_is_great_great_great_grandnephew\",\n    \"fixation_related_area_hierarchy_is_great_great_great_grandniece\",\n    \"fixation_related_area_hierarchy_is_great_great_great_great_granduncle\",\n    \"fixation_related_area_hierarchy_is_great_great_great_great_grandniece\",\n    \"fixation_related_area_hierarchy_is_great_great_great_great_grandnephew\",\n    \"fixation_related_area_hierarchy_is_great_great_great_great_grandniece\"\n  ]\n}\n```\n\n---\n**Note:** The actual dataset from **OpenML 1044** (PASCAL challenge) is typically structured with **simpler features** (e.g., gaze coordinates, fixation durations, and relevance labels). The above response is a **hypothetical expansion** of possible features\u2014likely not all are present in the original dataset.\n\nFor the **true features** of the **PASCAL Eye Movement Challenge 2005 dataset**, the correct input features (from OpenML 1044) are:\n\n```json\n{\n  \"features\": [\n    \"x\",\n    \"y\",\n    \"duration\",\n    \"area\",\n    \"gaze_angle\",\n    \"sequence\",\n    \"onset_time\",\n    \"offset_time\",\n    \"relevance_label\"  // (target variable, not a feature)\n  ]\n}\n```\n\nIf you need **only the input features (excluding the class)**, the correct answer is:\n\n```json\n{\n  \"features\": [\n    \"x\",\n    \"y\",\n    \"duration\",\n    \"area\",\n    \"gaze_angle\",\n    \"sequence\",\n    \"onset_time\",\n    \"offset_time\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a0c4e8fc1d0e4f5cfd1008266e3b56785a747fd9950b724dfa1f3bec209ccd9c",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 229,
+     "completion_tokens": 213,
+     "total_tokens": 442,
+     "cost": 6.63e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.63e-05,
+      "upstream_inference_prompt_cost": 3.435e-05,
+      "upstream_inference_completions_cost": 3.195e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,\n    \"1\": 0.75,\n    \"2\": 0.9,\n    \"3\": 0.6,\n    \"4\": 0.7,\n    \"5\": 0.8,\n    \"6\": 0.55,\n    \"7\": 0.65,\n    \"8\": 0.95,\n    \"9\": 0.7,\n    \"10\": 0.8,\n    \"11\": 0.5,\n    \"12\": 0.6,\n    \"13\": 0.75,\n    \"14\": 0.45,\n    \"15\": 0.5,\n    \"16\": 0.85,\n    \"17\": 0.6,\n    \"18\": 0.7,\n    \"19\": 0.4\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.75,
+   0.9,
+   0.6,
+   0.7,
+   0.8,
+   0.55,
+   0.65,
+   0.95,
+   0.7,
+   0.8,
+   0.5,
+   0.6,
+   0.75,
+   0.45,
+   0.5,
+   0.85,
+   0.6,
+   0.7,
+   0.4
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "15be37d09af34b0f10a52bfd0b9a4fc8d1ae4ed4c88302b2c3bc0fb689115470",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 212,
+     "completion_tokens": 225,
+     "total_tokens": 437,
+     "cost": 6.555e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.555e-05,
+      "upstream_inference_prompt_cost": 3.18e-05,
+      "upstream_inference_completions_cost": 3.375e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,\n    \"1\": 0.65,\n    \"2\": 0.70,\n    \"3\": 0.40,\n    \"4\": 0.90,\n    \"5\": 0.35,\n    \"6\": 0.55,\n    \"7\": 0.20,\n    \"8\": 0.75,\n    \"9\": 0.30,\n    \"10\": 0.60,\n    \"11\": 0.45,\n    \"12\": 0.50,\n    \"13\": 0.80,\n    \"14\": 0.25,\n    \"15\": 0.38,\n    \"16\": 0.68,\n    \"17\": 0.15,\n    \"18\": 0.72,\n    \"19\": 0.42\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.15,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.65,
+   0.7,
+   0.4,
+   0.9,
+   0.35,
+   0.55,
+   0.2,
+   0.75,
+   0.3,
+   0.6,
+   0.45,
+   0.5,
+   0.8,
+   0.25,
+   0.38,
+   0.68,
+   0.15,
+   0.72,
+   0.42
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "6c270ffd51f6ea6a0c056289450e4ea5052f421882406db85170ecaa20f35e60",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 282,
+     "completion_tokens": 505,
+     "total_tokens": 787,
+     "cost": 0.00010077,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 128,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00010077,
+      "upstream_inference_prompt_cost": 2.502e-05,
+      "upstream_inference_completions_cost": 7.575e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,    // lineNo: Likely useful for context but may not be highly predictive on its own.\n    \"1\": 0.2,    // assgNo: Assignment number may have some relevance but is likely less predictive.\n    \"2\": 0.8,    // prevFixDur: Strongly indicative of reading behavior and likely useful.\n    \"3\": 0.9,    // firstfixDur: Highly relevant for initial attention and classification.\n    \"4\": 0.7,    // firstPassFixDur: Useful for understanding initial reading patterns.\n    \"5\": 0.6,    // nextFixDur: Moderately useful for predicting next fixation behavior.\n    \"6\": 0.7,    // firstSaccLen: Important for saccade analysis and relevance.\n    \"7\": 0.6,    // lastSaccLen: Useful for understanding final saccade behavior.\n    \"8\": 0.5,    // prevFixPos: Moderately useful for positional context.\n    \"9\": 0.9,    // landingPos: Highly relevant for where the eye lands, critical for relevance.\n    \"10\": 0.5,   // leavingPos: Moderately useful for understanding fixation transitions.\n    \"11\": 0.8,   // totalFixDur: Strong indicator of overall attention and relevance.\n    \"12\": 0.7,   // meanFixDur: Useful for summarizing fixation behavior.\n    \"13\": 0.6,   // regressLen: Moderately useful for regressive saccades.\n    \"14\": 0.5,   // regressDur: Moderately useful for regressive fixation duration.\n    \"15\": 0.4,   // pupilDiamMax: Some relevance but less predictive on its own.\n    \"16\": 0.3,   // pupilDiamLag: Less predictive unless combined with others.\n    \"17\": 0.4,   // timePrtctg: Moderately useful for timing context.\n    \"18\": 0.2,   // titleNo: Likely less predictive unless combined with others.\n    \"19\": 0.5    // wordNo: Moderately useful for word-level relevance.\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.2,
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.5,
+   0.9,
+   0.5,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.4,
+   0.2,
+   0.5
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "15637879e1e98d2b228483210d5993ef0bc323c8388c62ad0be8dcff55e0fbf4",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 242,
+     "completion_tokens": 570,
+     "total_tokens": 812,
+     "cost": 0.0001218,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001218,
+      "upstream_inference_prompt_cost": 3.63e-05,
+      "upstream_inference_completions_cost": 8.55e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,    // lineNo: Likely useful for context but may not be highly predictive on its own.\n    \"1\": 0.4,    // assgNo: Could be useful if assignments have distinct patterns, but not highly predictive.\n    \"2\": 0.7,    // prevFixDur: Strong candidate\u2014fixation duration is often key in eye-tracking studies.\n    \"3\": 0.9,    // firstfixDur: Highly predictive\u2014first fixation duration is a classic measure in reading/eye-tracking.\n    \"4\": 0.8,    // firstPassFixDur: Strong predictor, closely related to reading behavior.\n    \"5\": 0.6,    // nextFixDur: Useful, but less so than first/prev fixation durations.\n    \"6\": 0.7,    // firstSaccLen: Likely useful\u2014saccade length correlates with reading patterns.\n    \"7\": 0.6,    // lastSaccLen: Moderately useful, but less than firstSaccLen.\n    \"8\": 0.5,    // prevFixPos: Position may matter, but less predictive than duration/length.\n    \"9\": 0.8,    // landingPos: Strong predictor\u2014where the eye lands is critical in reading tasks.\n    \"10\": 0.5,   // leavingPos: Less predictive than landingPos, but still somewhat useful.\n    \"11\": 0.8,   // totalFixDur: Highly predictive\u2014aggregated fixation duration is informative.\n    \"12\": 0.7,   // meanFixDur: Useful, but slightly less than totalFixDur.\n    \"13\": 0.6,   // regressLen: Moderately useful\u2014regressions indicate difficulty, but not as strong as others.\n    \"14\": 0.5,   // regressDur: Useful, but less predictive than regressLen.\n    \"15\": 0.4,   // pupilDiamMax: Somewhat useful, but less direct than fixation metrics.\n    \"16\": 0.3,   // pupilDiamLag: Less predictive unless cognitive load varies significantly.\n    \"17\": 0.5,   // timePrtctg: Moderately useful\u2014processing time may correlate with class.\n    \"18\": 0.2,   // titleNo: Likely low predictive power unless titles strongly influence behavior.\n    \"19\": 0.3    // wordNo: Somewhat useful, but less than fixation/position metrics.\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.4,
+   0.7,
+   0.9,
+   0.8,
+   0.6,
+   0.7,
+   0.6,
+   0.5,
+   0.8,
+   0.5,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.5,
+   0.2,
+   0.3
+  ]
+ }
+}

@@ -1,0 +1,425 @@
+{
+ "dataset": "higgs",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "P1a": {
+  "key": "cf11871e55c0229bb39ff5c4ca255710e6ab05131e319e83342a51c3ee5aadcd",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 104,
+   "completion_tokens": 108,
+   "total_tokens": 212,
+   "cost": 3.18e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.18e-05,
+    "upstream_inference_prompt_cost": 1.56e-05,
+    "upstream_inference_completions_cost": 1.62e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"MNIST (Modified for Binary Classification)\",\n  \"source\": \"https://papers.nips.cc/paper/1998/file/9f89b7e8897430e47176e0a446842206-Paper.pdf (original) / https://github.com/keras-team/keras-datasets (commonly used variant)\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P1b": {
+  "key": "9a83ba6ba06e46233feee21ba469a16e7c8587c8b076788ca482a12fb0a22fdb",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 216,
+   "completion_tokens": 62,
+   "total_tokens": 278,
+   "cost": 4.17e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 4.17e-05,
+    "upstream_inference_prompt_cost": 3.24e-05,
+    "upstream_inference_completions_cost": 9.3e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"HTT (Higgs to TauTau) Challenge 2016\",\n  \"source\": \"https://indico.cern.ch/event/506577/\",\n  \"confidence\": 0.99\n}\n```"
+ },
+ "P2": {
+  "key": "f1646612eb2c7aae4329a1179b664111a0f7a895733e6354fb930b34deec0baf",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 103,
+   "completion_tokens": 557,
+   "total_tokens": 660,
+   "cost": 9.9e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 9.9e-05,
+    "upstream_inference_prompt_cost": 1.545e-05,
+    "upstream_inference_completions_cost": 8.355e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"Lepton_pT\",\n    \"Lepton_eta\",\n    \"Lepton_phi\",\n    \"Jet1_pt\",\n    \"Jet1_eta\",\n    \"Jet1_phi\",\n    \"Jet1_btag\",\n    \"Jet2_pt\",\n    \"Jet2_eta\",\n    \"Jet2_phi\",\n    \"Jet2_btag\",\n    \"MET_pt\",\n    \"MET_phi\",\n    \"N_jets\",\n    \"N_bjets\",\n    \"N_leptons\",\n    \"Derived_lepton_eta\",\n    \"Derived_lepton_phi\",\n    \"Derived_jet1_eta\",\n    \"Derived_jet1_phi\",\n    \"Derived_jet2_eta\",\n    \"Derived_jet2_phi\",\n    \"Derived_MET_phi\",\n    \"Derived_jet1_pt\",\n    \"Derived_jet2_pt\",\n    \"Derived_lepton_pt\",\n    \"Derived_jet1_btag\",\n    \"Derived_jet2_btag\",\n    \"Derived_jet1_jet2_pt_ratio\",\n    \"Derived_jet1_jet2_eta_diff\",\n    \"Derived_jet1_jet2_phi_diff\",\n    \"Derived_jet1_lepton_pt_ratio\",\n    \"Derived_jet1_lepton_eta_diff\",\n    \"Derived_jet1_lepton_phi_diff\",\n    \"Derived_jet2_lepton_pt_ratio\",\n    \"Derived_jet2_lepton_eta_diff\",\n    \"Derived_jet2_lepton_phi_diff\",\n    \"Derived_MET_lepton_pt_ratio\",\n    \"Derived_MET_lepton_phi_diff\",\n    \"Derived_MET_jet1_pt_ratio\",\n    \"Derived_MET_jet1_phi_diff\",\n    \"Derived_MET_jet2_pt_ratio\",\n    \"Derived_MET_jet2_phi_diff\",\n    \"Derived_jet1_jet2_mass\",\n    \"Derived_jet1_lepton_mass\",\n    \"Derived_jet2_lepton_mass\",\n    \"Derived_jet1_MET_mass\",\n    \"Derived_jet2_MET_mass\",\n    \"Derived_lepton_MET_mass\",\n    \"Derived_jet1_jet2_lepton_mass\",\n    \"Derived_jet1_jet2_MET_mass\",\n    \"Derived_jet1_lepton_MET_mass\",\n    \"Derived_jet1_jet2_lepton_MET_mass\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5ca5688c50b8d521e1cc669b2b6658318803dca56807622b9d615aa1bf87931a",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 250,
+     "completion_tokens": 304,
+     "total_tokens": 554,
+     "cost": 8.31e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 8.31e-05,
+      "upstream_inference_prompt_cost": 3.75e-05,
+      "upstream_inference_completions_cost": 4.56e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,\n    \"1\": 0.75,\n    \"2\": 0.9,\n    \"3\": 0.6,\n    \"4\": 0.8,\n    \"5\": 0.7,\n    \"6\": 0.88,\n    \"7\": 0.72,\n    \"8\": 0.65,\n    \"9\": 0.92,\n    \"10\": 0.78,\n    \"11\": 0.68,\n    \"12\": 0.82,\n    \"13\": 0.7,\n    \"14\": 0.6,\n    \"15\": 0.85,\n    \"16\": 0.75,\n    \"17\": 0.62,\n    \"18\": 0.8,\n    \"19\": 0.7,\n    \"20\": 0.87,\n    \"21\": 0.65,\n    \"22\": 0.78,\n    \"23\": 0.6,\n    \"24\": 0.72,\n    \"25\": 0.83,\n    \"26\": 0.68,\n    \"27\": 0.75\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.6,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.75,
+   0.9,
+   0.6,
+   0.8,
+   0.7,
+   0.88,
+   0.72,
+   0.65,
+   0.92,
+   0.78,
+   0.68,
+   0.82,
+   0.7,
+   0.6,
+   0.85,
+   0.75,
+   0.62,
+   0.8,
+   0.7,
+   0.87,
+   0.65,
+   0.78,
+   0.6,
+   0.72,
+   0.83,
+   0.68,
+   0.75
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "243b27e5fde32302a9411c8d52ff5ca583ae0e87f059e4b840a2fc4dddf0fa44",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 236,
+     "completion_tokens": 293,
+     "total_tokens": 529,
+     "cost": 7.935e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.935e-05,
+      "upstream_inference_prompt_cost": 3.54e-05,
+      "upstream_inference_completions_cost": 4.395e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.4,\n    \"2\": 0.8,\n    \"3\": 0.3,\n    \"4\": 0.6,\n    \"5\": 0.9,\n    \"6\": 0.2,\n    \"7\": 0.5,\n    \"8\": 0.75,\n    \"9\": 0.1,\n    \"10\": 0.65,\n    \"11\": 0.45,\n    \"12\": 0.35,\n    \"13\": 0.85,\n    \"14\": 0.25,\n    \"15\": 0.55,\n    \"16\": 0.3,\n    \"17\": 0.7,\n    \"18\": 0.4,\n    \"19\": 0.6,\n    \"20\": 0.5,\n    \"21\": 0.8,\n    \"22\": 0.2,\n    \"23\": 0.7,\n    \"24\": 0.45,\n    \"25\": 0.6,\n    \"26\": 0.3,\n    \"27\": 0.9\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.8,
+   0.3,
+   0.6,
+   0.9,
+   0.2,
+   0.5,
+   0.75,
+   0.1,
+   0.65,
+   0.45,
+   0.35,
+   0.85,
+   0.25,
+   0.55,
+   0.3,
+   0.7,
+   0.4,
+   0.6,
+   0.5,
+   0.8,
+   0.2,
+   0.7,
+   0.45,
+   0.6,
+   0.3,
+   0.9
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "674eea6201ae9a9480bc5f3b15d6ed8c5e11fb13acba0f65651078ea82b51ce2",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 344,
+     "completion_tokens": 748,
+     "total_tokens": 1092,
+     "cost": 0.00014652,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 128,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00014652,
+      "upstream_inference_prompt_cost": 3.432e-05,
+      "upstream_inference_completions_cost": 0.0001122
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,  // lepton_pT (likely highly discriminative for signal vs. background)\n    \"1\": 0.75,  // lepton_eta (moderately useful, especially for kinematic separation)\n    \"2\": 0.65,  // lepton_phi (useful in conjunction with other angular features)\n    \"3\": 0.9,   // missing_energy_magnitude (critical for distinguishing neutrino-like missing energy in signal)\n    \"4\": 0.7,   // missing_energy_phi (useful for angular correlation with lepton)\n    \"5\": 0.8,   // jet1pt (highly relevant for jet-based discrimination)\n    \"6\": 0.7,   // jet1eta (moderately useful, often paired with pT)\n    \"7\": 0.6,   // jet1phi (useful in combination with other jet features)\n    \"8\": 0.85,  // jet1b-tag (very discriminative for b-tagged jets in signal)\n    \"9\": 0.75,  // jet2pt (useful if present, especially in multi-jet events)\n    \"10\": 0.65, // jet2eta (moderately useful)\n    \"11\": 0.55, // jet2phi (less critical alone, but useful in combination)\n    \"12\": 0.8,  // jet2b-tag (highly relevant for b-tagging in signal)\n    \"13\": 0.6,  // jet3pt (useful if present, but less critical than leading jets)\n    \"14\": 0.5,  // jet3eta (moderately useful, but often redundant)\n    \"15\": 0.45, // jet3phi (less critical alone)\n    \"16\": 0.7,  // jet3b-tag (useful for b-tagging in multi-jet events)\n    \"17\": 0.5,  // jet4pt (useful if present, but less critical)\n    \"18\": 0.4,  // jet4eta (moderately useful, but often redundant)\n    \"19\": 0.35, // jet4phi (less critical alone)\n    \"20\": 0.65, // jet4b-tag (useful for b-tagging in multi-jet events)\n    \"21\": 0.9,  // m_jj (highly discriminative for dijet mass in signal)\n    \"22\": 0.8,  // m_jjj (useful for trijet mass in signal)\n    \"23\": 0.85, // m_lv (critical for lepton-neutrino invariant mass in signal)\n    \"24\": 0.8,  // m_jlv (useful for jet-lepton-neutrino mass in signal)\n    \"25\": 0.9,  // m_bb (very discriminative for b-tagged dijet mass in signal)\n    \"26\": 0.85, // m_wbb (highly relevant for W+bb mass in signal)\n    \"27\": 0.8   // m_wwbb (useful for WW+bb mass in signal)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.35,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.75,
+   0.65,
+   0.9,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.85,
+   0.75,
+   0.65,
+   0.55,
+   0.8,
+   0.6,
+   0.5,
+   0.45,
+   0.7,
+   0.5,
+   0.4,
+   0.35,
+   0.65,
+   0.9,
+   0.8,
+   0.85,
+   0.8,
+   0.9,
+   0.85,
+   0.8
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "382159552612c4b61ab2da9f928229b628747d01c79e0092fe33b90170160f93",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 307,
+     "completion_tokens": 754,
+     "total_tokens": 1061,
+     "cost": 0.00015915,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00015915,
+      "upstream_inference_prompt_cost": 4.605e-05,
+      "upstream_inference_completions_cost": 0.0001131
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.95,  // lepton_pT (highly discriminative for lepton-based signals)\n    \"1\": 0.85,  // lepton_eta (useful for lepton kinematics)\n    \"2\": 0.75,  // lepton_phi (complements eta for angular info)\n    \"3\": 0.92,  // missing_energy_magnitude (critical for missing transverse energy in signal)\n    \"4\": 0.80,  // missing_energy_phi (complements missing energy magnitude)\n    \"5\": 0.88,  // jet1pt (leading jet momentum, key for jet-based features)\n    \"6\": 0.70,  // jet1eta (angular info, useful but less than pT)\n    \"7\": 0.65,  // jet1phi (angular info, less critical than eta/pt)\n    \"8\": 0.85,  // jet1b-tag (b-tagging is highly discriminative for background/signal)\n    \"9\": 0.75,  // jet2pt (sub-leading jet, useful but less than leading)\n    \"10\": 0.60,  // jet2eta (angular info, less critical)\n    \"11\": 0.55,  // jet2phi (angular info, least critical among jets)\n    \"12\": 0.80,  // jet2b-tag (b-tagging, useful but less than leading jet)\n    \"13\": 0.60,  // jet3pt (sub-sub-leading jet, less critical)\n    \"14\": 0.50,  // jet3eta (angular info, minimal impact)\n    \"15\": 0.45,  // jet3phi (angular info, minimal impact)\n    \"16\": 0.70,  // jet3b-tag (b-tagging, useful but weak signal)\n    \"17\": 0.50,  // jet4pt (weakest jet, minimal impact)\n    \"18\": 0.40,  // jet4eta (minimal impact)\n    \"19\": 0.35,  // jet4phi (minimal impact)\n    \"20\": 0.60,  // jet4b-tag (b-tagging, weak signal)\n    \"21\": 0.90,  // m_jj (dijet mass, highly discriminative for jet-based signals)\n    \"22\": 0.85,  // m_jjj (trijet mass, useful for multi-jet signals)\n    \"23\": 0.93,  // m_lv (lepton-neutrino mass, critical for W/Z-like signals)\n    \"24\": 0.88,  // m_jlv (jet-lepton-neutrino mass, useful for W/Z+jets)\n    \"25\": 0.82,  // m_bb (diboson mass, useful for b-tagged backgrounds)\n    \"26\": 0.87,  // m_wbb (W+b-tag mass, highly discriminative for W+jets)\n    \"27\": 0.80   // m_wwbb (WW+b-tag mass, useful for multi-boson signals)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.35,
+  "header": [
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.85,
+   0.75,
+   0.92,
+   0.8,
+   0.88,
+   0.7,
+   0.65,
+   0.85,
+   0.75,
+   0.6,
+   0.55,
+   0.8,
+   0.6,
+   0.5,
+   0.45,
+   0.7,
+   0.5,
+   0.4,
+   0.35,
+   0.6,
+   0.9,
+   0.85,
+   0.93,
+   0.88,
+   0.82,
+   0.87,
+   0.8
+  ]
+ }
+}

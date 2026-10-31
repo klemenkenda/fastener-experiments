@@ -1,0 +1,435 @@
+{
+ "dataset": "phishing",
+ "model": "microsoft/phi-4",
+ "variables": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "P1a": {
+  "key": "893a74b5a6ca4148930487e6592eb95c84feb62c0502e987eab31c57e629c5d4",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 105,
+   "completion_tokens": 50,
+   "total_tokens": 155,
+   "cost": 1.435e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.435e-05,
+    "upstream_inference_prompt_cost": 7.35e-06,
+    "upstream_inference_completions_cost": 7e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Phishing Websites Data Set\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Phishing+Websites\",\n  \"confidence\": 0.9\n}\n```"
+ },
+ "P1b": {
+  "key": "051b3b2f0e41a4a29c343471c20e1f4abd0ba79b0412e34abe289a3d52bcb5ff",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 212,
+   "completion_tokens": 50,
+   "total_tokens": 262,
+   "cost": 2.184e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.184e-05,
+    "upstream_inference_prompt_cost": 1.484e-05,
+    "upstream_inference_completions_cost": 7e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Phishing Websites Data Set\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Phishing+Websites\",\n  \"confidence\": 1.0\n}\n```"
+ },
+ "P2": {
+  "key": "62e17a11a8401eeb5a05c31f96dc331f3f3818cff2837d5b39ef831c97cdc564",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 105,
+   "completion_tokens": 175,
+   "total_tokens": 280,
+   "cost": 3.185e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.185e-05,
+    "upstream_inference_prompt_cost": 7.35e-06,
+    "upstream_inference_completions_cost": 2.45e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"having_ip_address\",\n    \"url_length\",\n    \"shortining_service\",\n    \"having_at_symbol\",\n    \"double_slash_redirecting\",\n    \"prefix_suffix\",\n    \"having_sub_domain\",\n    \"ssl_final_state\",\n    \"domain_registeration_length\",\n    \"fwd_slash_dot\",\n    \"having_abnormal_url\",\n    \"port\",\n    \"HTTPS_token\",\n    \"request_url\",\n    \"URL_of_anchor\",\n    \"Links_in_tags\",\n    \"SFH\",\n    \"submitting_to_email\",\n    \"abnormal_URL\",\n    \"redirect\",\n    \"on_mouseover\",\n    \"right_click\",\n    \"pop_up_window\",\n    \"Iframe\",\n    \"age_of_domain\",\n    \"DNSRecord\",\n    \"web_traffic\",\n    \"page_rank\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "1c59e522ac22e281f20ae663266b33c6448ba50eb3d26795432065a7949d1ba2",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 231,
+     "completion_tokens": 334,
+     "total_tokens": 565,
+     "cost": 6.293e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.293e-05,
+      "upstream_inference_prompt_cost": 1.617e-05,
+      "upstream_inference_completions_cost": 4.676e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.6,\n    \"2\": 0.5,\n    \"3\": 0.6,\n    \"4\": 0.7,\n    \"5\": 0.8,\n    \"6\": 0.7,\n    \"7\": 0.6,\n    \"8\": 0.5,\n    \"9\": 0.6,\n    \"10\": 0.7,\n    \"11\": 0.8,\n    \"12\": 0.7,\n    \"13\": 0.6,\n    \"14\": 0.5,\n    \"15\": 0.7,\n    \"16\": 0.8,\n    \"17\": 0.7,\n    \"18\": 0.6,\n    \"19\": 0.5,\n    \"20\": 0.7,\n    \"21\": 0.8,\n    \"22\": 0.7,\n    \"23\": 0.6,\n    \"24\": 0.5,\n    \"25\": 0.7,\n    \"26\": 0.8,\n    \"27\": 0.7,\n    \"28\": 0.6,\n    \"29\": 0.5\n  }\n}\n```\n\nThese scores are hypothetical and based on the assumption that features in a phishing website dataset might include various indicators of phishing, such as URL characteristics, webpage content, and server information. Features that are more directly related to known phishing indicators are rated higher.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b445c1f700f7f3c7deaf6fb5c2386e7e3b653eacd073d190fc71da45e3345336",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 220,
+     "completion_tokens": 317,
+     "total_tokens": 537,
+     "cost": 5.978e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.978e-05,
+      "upstream_inference_prompt_cost": 1.54e-05,
+      "upstream_inference_completions_cost": 4.438e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.5,\n    \"1\": 0.4,\n    \"2\": 0.3,\n    \"3\": 0.6,\n    \"4\": 0.2,\n    \"5\": 0.7,\n    \"6\": 0.5,\n    \"7\": 0.3,\n    \"8\": 0.4,\n    \"9\": 0.6,\n    \"10\": 0.5,\n    \"11\": 0.2,\n    \"12\": 0.7,\n    \"13\": 0.4,\n    \"14\": 0.3,\n    \"15\": 0.6,\n    \"16\": 0.5,\n    \"17\": 0.4,\n    \"18\": 0.7,\n    \"19\": 0.3,\n    \"20\": 0.6,\n    \"21\": 0.5,\n    \"22\": 0.4,\n    \"23\": 0.7,\n    \"24\": 0.3,\n    \"25\": 0.6,\n    \"26\": 0.5,\n    \"27\": 0.4,\n    \"28\": 0.7,\n    \"29\": 0.3\n  }\n}\n``` \n\nThese scores are hypothetical and based on typical assumptions about feature importance in a classification task. Without specific data or feature names, it's challenging to provide precise scores.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.2,
+   0.7,
+   0.5,
+   0.3,
+   0.4,
+   0.6,
+   0.5,
+   0.2,
+   0.7,
+   0.4,
+   0.3,
+   0.6,
+   0.5,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.5,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.5,
+   0.4,
+   0.7,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fe1d0ce69d4da0325ee2225988c722a8ad464dd3501bddc88f261c4f23e67d81",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 319,
+     "completion_tokens": 313,
+     "total_tokens": 632,
+     "cost": 6.615e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.615e-05,
+      "upstream_inference_prompt_cost": 2.233e-05,
+      "upstream_inference_completions_cost": 4.382e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.7,\n    \"2\": 0.6,\n    \"3\": 0.7,\n    \"4\": 0.7,\n    \"5\": 0.6,\n    \"6\": 0.7,\n    \"7\": 0.8,\n    \"8\": 0.6,\n    \"9\": 0.5,\n    \"10\": 0.5,\n    \"11\": 0.7,\n    \"12\": 0.7,\n    \"13\": 0.7,\n    \"14\": 0.6,\n    \"15\": 0.7,\n    \"16\": 0.7,\n    \"17\": 0.8,\n    \"18\": 0.7,\n    \"19\": 0.6,\n    \"20\": 0.6,\n    \"21\": 0.6,\n    \"22\": 0.7,\n    \"23\": 0.7,\n    \"24\": 0.7,\n    \"25\": 0.6,\n    \"26\": 0.6,\n    \"27\": 0.5,\n    \"28\": 0.6,\n    \"29\": 0.5\n  }\n}\n``` \n\nThese scores are based on the typical relevance of these features in distinguishing phishing websites from legitimate ones, considering their common usage in phishing detection literature.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.7,
+   0.6,
+   0.7,
+   0.7,
+   0.6,
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.5,
+   0.7,
+   0.7,
+   0.7,
+   0.6,
+   0.7,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.6,
+   0.7,
+   0.7,
+   0.7,
+   0.6,
+   0.6,
+   0.5,
+   0.6,
+   0.5
+  ]
+ },
+ "P5": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "0021fda2802b999477f1090663b5fd1be5e027292ce2f52f986a7ecc577eff5e",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 287,
+     "completion_tokens": 284,
+     "total_tokens": 571,
+     "cost": 5.985e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.985e-05,
+      "upstream_inference_prompt_cost": 2.009e-05,
+      "upstream_inference_completions_cost": 3.976e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.8,\n    \"2\": 0.6,\n    \"3\": 0.5,\n    \"4\": 0.7,\n    \"5\": 0.6,\n    \"6\": 0.7,\n    \"7\": 0.8,\n    \"8\": 0.6,\n    \"9\": 0.4,\n    \"10\": 0.5,\n    \"11\": 0.7,\n    \"12\": 0.8,\n    \"13\": 0.7,\n    \"14\": 0.6,\n    \"15\": 0.7,\n    \"16\": 0.6,\n    \"17\": 0.8,\n    \"18\": 0.7,\n    \"19\": 0.5,\n    \"20\": 0.5,\n    \"21\": 0.5,\n    \"22\": 0.6,\n    \"23\": 0.7,\n    \"24\": 0.6,\n    \"25\": 0.7,\n    \"26\": 0.6,\n    \"27\": 0.5,\n    \"28\": 0.7,\n    \"29\": 0.6\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.7,
+   0.8,
+   0.6,
+   0.4,
+   0.5,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.8,
+   0.7,
+   0.5,
+   0.5,
+   0.5,
+   0.6,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.6
+  ]
+ }
+}

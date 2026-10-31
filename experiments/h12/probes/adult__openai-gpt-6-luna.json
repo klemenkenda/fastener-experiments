@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "openai/gpt-6-luna",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "8976f92e56a7f73a05d722ba0049493210f09e0ca62d6f3ebcb17953997f2d39",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 112,
+   "completion_tokens": 94,
+   "total_tokens": 206,
+   "cost": 5.82e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 5.82e-05,
+    "upstream_inference_prompt_cost": 1.12e-05,
+    "upstream_inference_completions_cost": 4.7e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 61,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"Adult (Census Income)\",\"source\":\"UCI Machine Learning Repository: Adult dataset\",\"confidence\":0.99}"
+ },
+ "P1b": {
+  "key": "a3ea0fa686b57f08f498e07562831f1515d466daa23e24c8e58cc4fea68c2267",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 132,
+   "completion_tokens": 93,
+   "total_tokens": 225,
+   "cost": 5.97e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 5.97e-05,
+    "upstream_inference_prompt_cost": 1.32e-05,
+    "upstream_inference_completions_cost": 4.65e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 60,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"Adult (Census Income)\",\"source\":\"UCI Machine Learning Repository: Adult dataset\",\"confidence\":0.99}"
+ },
+ "P2": {
+  "key": "c379fb2557e2d3fd7c23e9cca1d330f65a172d5c567592fcd836b45cf96c7eca",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 96,
+   "completion_tokens": 196,
+   "total_tokens": 292,
+   "cost": 0.0001076,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001076,
+    "upstream_inference_prompt_cost": 9.6e-06,
+    "upstream_inference_completions_cost": 9.8e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 146,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\":[\"age\",\"workclass\",\"fnlwgt\",\"education\",\"education-num\",\"marital-status\",\"occupation\",\"relationship\",\"race\",\"sex\",\"capital-gain\",\"capital-loss\",\"hours-per-week\",\"native-country\"]}"
+ },
+ "P3": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "15d8e47c234405dd72f254f8e7b5898c683a4007ac53e470c10d79dbb6a7c920",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 202,
+     "completion_tokens": 318,
+     "total_tokens": 520,
+     "cost": 0.0001792,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001792,
+      "upstream_inference_prompt_cost": 2.02e-05,
+      "upstream_inference_completions_cost": 0.000159
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 231,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.65,\"1\":0.35,\"2\":0.08,\"3\":0.55,\"4\":0.68,\"5\":0.72,\"6\":0.43,\"7\":0.70,\"8\":0.18,\"9\":0.38,\"10\":0.82,\"11\":0.35,\"12\":0.45}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.08,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.65,
+   0.35,
+   0.08,
+   0.55,
+   0.68,
+   0.72,
+   0.43,
+   0.7,
+   0.18,
+   0.38,
+   0.82,
+   0.35,
+   0.45
+  ]
+ },
+ "P3f": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a9976ea9b1d54217bc278114a85abf8f0dfb1e62696332e9d4a44d9287f4eab2",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 185,
+     "completion_tokens": 151,
+     "total_tokens": 336,
+     "cost": 9.4e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.4e-05,
+      "upstream_inference_prompt_cost": 1.85e-05,
+      "upstream_inference_completions_cost": 7.55e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 64,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a5223f0d2cbde39a945e7536b63aca85dd7c77c9abd48a155ef9021c8625c047",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 204,
+     "completion_tokens": 241,
+     "total_tokens": 445,
+     "cost": 0.0001409,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001409,
+      "upstream_inference_prompt_cost": 2.04e-05,
+      "upstream_inference_completions_cost": 0.0001205
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 154,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.78,\"1\":0.46,\"2\":0.08,\"3\":0.58,\"4\":0.72,\"5\":0.82,\"6\":0.60,\"7\":0.76,\"8\":0.25,\"9\":0.42,\"10\":0.95,\"11\":0.52,\"12\":0.65}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.08,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.78,
+   0.46,
+   0.08,
+   0.58,
+   0.72,
+   0.82,
+   0.6,
+   0.76,
+   0.25,
+   0.42,
+   0.95,
+   0.52,
+   0.65
+  ]
+ },
+ "P5": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "525e8b655fc8d33bab8273f2464c23ef3ba2e113c67dace9485d02a7edffe569",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 180,
+     "completion_tokens": 273,
+     "total_tokens": 453,
+     "cost": 0.0001545,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001545,
+      "upstream_inference_prompt_cost": 1.8e-05,
+      "upstream_inference_completions_cost": 0.0001365
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 186,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.68,\"1\":0.28,\"2\":0.04,\"3\":0.34,\"4\":0.73,\"5\":0.79,\"6\":0.48,\"7\":0.70,\"8\":0.13,\"9\":0.35,\"10\":0.87,\"11\":0.45,\"12\":0.56}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.04,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.68,
+   0.28,
+   0.04,
+   0.34,
+   0.73,
+   0.79,
+   0.48,
+   0.7,
+   0.13,
+   0.35,
+   0.87,
+   0.45,
+   0.56
+  ]
+ }
+}

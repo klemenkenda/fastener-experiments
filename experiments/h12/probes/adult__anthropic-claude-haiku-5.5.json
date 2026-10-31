@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "anthropic/claude-haiku-5.5",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "07399b97b40137e493763a09569d1cd7ca3a046ecb743218de6dd593553081ae",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 148,
+   "completion_tokens": 286,
+   "total_tokens": 434,
+   "cost": 0.0001578,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001578,
+    "upstream_inference_prompt_cost": 1.48e-05,
+    "upstream_inference_completions_cost": 0.000143
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 213,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Adult (Census Income)\", \"source\": \"UCI Machine Learning Repository (Becker & Kohavi, 1996, extracted from the 1994 US Census database)\", \"confidence\": 0.93}"
+ },
+ "P1b": {
+  "key": "f14eb4d74b65b80cf5789e531da92a8e2f18f8e94e91ad296de6dd29d814a842",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 184,
+   "completion_tokens": 265,
+   "total_tokens": 449,
+   "cost": 0.0001509,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001509,
+    "upstream_inference_prompt_cost": 1.84e-05,
+    "upstream_inference_completions_cost": 0.0001325
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 167,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Adult (Census Income)\", \"source\": \"UCI Machine Learning Repository; Kohavi (1996), \\\"Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid\\\"\", \"confidence\": 0.85}"
+ },
+ "P2": {
+  "key": "21f09dd9111e30831f6fc2c2092f5e9c7ac6eef0bce9cf1a1aab5ec6293d207e",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 124,
+   "completion_tokens": 334,
+   "total_tokens": 458,
+   "cost": 0.0001794,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001794,
+    "upstream_inference_prompt_cost": 1.24e-05,
+    "upstream_inference_completions_cost": 0.000167
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 246,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"age\", \"workclass\", \"fnlwgt\", \"education\", \"education-num\", \"marital-status\", \"occupation\", \"relationship\", \"race\", \"sex\", \"capital-gain\", \"capital-loss\", \"hours-per-week\", \"native-country\"]}\n```"
+ },
+ "P3": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c1eccc2b1d0195f146e4a38b29b8cdcf133229d3a2bbbaab0125e16968118345",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 256,
+     "completion_tokens": 407,
+     "total_tokens": 663,
+     "cost": 0.0002291,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002291,
+      "upstream_inference_prompt_cost": 2.56e-05,
+      "upstream_inference_completions_cost": 0.0002035
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 289,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.6, \"1\": 0.3, \"2\": 0.05, \"3\": 0.5, \"4\": 0.7, \"5\": 0.7, \"6\": 0.5, \"7\": 0.6, \"8\": 0.2, \"9\": 0.4, \"10\": 0.7, \"11\": 0.4, \"12\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.3,
+   0.05,
+   0.5,
+   0.7,
+   0.7,
+   0.5,
+   0.6,
+   0.2,
+   0.4,
+   0.7,
+   0.4,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fe41b3865a5322d2f8005608b3c04fd15469f3c30e3b75937b940765cf47440e",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 233,
+     "completion_tokens": 218,
+     "total_tokens": 451,
+     "cost": 0.0001323,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001323,
+      "upstream_inference_prompt_cost": 2.33e-05,
+      "upstream_inference_completions_cost": 0.000109
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 105,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b51bcba285af88b619ebca52097cccd2e3b435b9b422971aa5330ba872f75a56",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 268,
+     "completion_tokens": 377,
+     "total_tokens": 645,
+     "cost": 0.0002153,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002153,
+      "upstream_inference_prompt_cost": 2.68e-05,
+      "upstream_inference_completions_cost": 0.0001885
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 259,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.6, \"1\": 0.3, \"2\": 0.05, \"3\": 0.6, \"4\": 0.75, \"5\": 0.7, \"6\": 0.45, \"7\": 0.6, \"8\": 0.2, \"9\": 0.35, \"10\": 0.7, \"11\": 0.4, \"12\": 0.55}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.3,
+   0.05,
+   0.6,
+   0.75,
+   0.7,
+   0.45,
+   0.6,
+   0.2,
+   0.35,
+   0.7,
+   0.4,
+   0.55
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "8aba813641b0d0c69cb2046aaeb5bd675db42a6c66b22dd27f85876bdb49e256",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 234,
+     "completion_tokens": 258,
+     "total_tokens": 492,
+     "cost": 0.0001524,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001524,
+      "upstream_inference_prompt_cost": 2.34e-05,
+      "upstream_inference_completions_cost": 0.000129
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 126,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\n\"0\": 0.6,\n\"1\": 0.3,\n\"2\": 0.05,\n\"3\": 0.45,\n\"4\": 0.7,\n\"5\": 0.7,\n\"6\": 0.5,\n\"7\": 0.55,\n\"8\": 0.15,\n\"9\": 0.25,\n\"10\": 0.75,\n\"11\": 0.35,\n\"12\": 0.55\n}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.3,
+   0.05,
+   0.45,
+   0.7,
+   0.7,
+   0.5,
+   0.55,
+   0.15,
+   0.25,
+   0.75,
+   0.35,
+   0.55
+  ]
+ }
+}

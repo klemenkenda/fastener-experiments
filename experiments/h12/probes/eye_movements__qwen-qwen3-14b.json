@@ -1,0 +1,385 @@
+{
+ "dataset": "eye_movements",
+ "model": "qwen/qwen3-14b",
+ "variables": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "P1a": {
+  "key": "e8fd280d5914f2ad5b1b4401e1d8b0424cee4b7379758d172b5ed3a5ab5d1fcf",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 115,
+   "completion_tokens": 1517,
+   "total_tokens": 1632,
+   "cost": 0.00034524,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00034524,
+    "upstream_inference_prompt_cost": 1.15e-05,
+    "upstream_inference_completions_cost": 0.00033374
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1412,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"unknown\", \"source\": \"unknown\", \"confidence\": 0.2}"
+ },
+ "P1b": {
+  "key": "927401ff26112e040c4d56fec2fd7d8539583e341899737ee91db067b5faa43e",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 186,
+   "completion_tokens": 1274,
+   "total_tokens": 1460,
+   "cost": 0.00032808,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00032808,
+    "upstream_inference_prompt_cost": 2.232e-05,
+    "upstream_inference_completions_cost": 0.00030576
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1276,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"POGIL\", \"source\": \"POGIL repository or associated paper\", \"confidence\": 0.9}"
+ },
+ "P2": {
+  "key": "25e0a11564df4bf28b3fdf56e1172d9622b587ff0654b1dd58e9ec847a17dc5a",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 115,
+   "completion_tokens": 981,
+   "total_tokens": 1096,
+   "cost": 0.00022732,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00022732,
+    "upstream_inference_prompt_cost": 1.15e-05,
+    "upstream_inference_completions_cost": 0.00021582
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 993,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"x\", \"y\", \"t\", \"dur\", \"fix\", \"sacc\", \"area\", \"time\", \"count\", \"x1\", \"y1\", \"x2\", \"y2\", \"x3\", \"y3\", \"x4\", \"y4\", \"x5\", \"y5\", \"x6\", \"y6\", \"x7\", \"y7\", \"x8\", \"y8\", \"x9\", \"y9\", \"x10\", \"y10\"]}"
+ },
+ "P3": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f4882667ed7c06c18f628eb4daac83089e2fe53e51017db6aa83167050cbe6c8",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 235,
+     "completion_tokens": 1267,
+     "total_tokens": 1502,
+     "cost": 0.00030224,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00030224,
+      "upstream_inference_prompt_cost": 2.35e-05,
+      "upstream_inference_completions_cost": 0.00027874
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1265,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.8, \"1\": 0.7, \"2\": 0.6, \"3\": 0.7, \"4\": 0.8, \"5\": 0.6, \"6\": 0.7, \"7\": 0.5, \"8\": 0.7, \"9\": 0.6, \"10\": 0.7, \"11\": 0.6, \"12\": 0.8, \"13\": 0.5, \"14\": 0.7, \"15\": 0.6, \"16\": 0.7, \"17\": 0.6, \"18\": 0.8, \"19\": 0.7}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.7,
+   0.6,
+   0.7,
+   0.8,
+   0.6,
+   0.7,
+   0.5,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.8,
+   0.5,
+   0.7,
+   0.6,
+   0.7,
+   0.6,
+   0.8,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "25a8e9dcb8f15439e16834358c994f0f6268b29f025efc6bb8c8abd3e1245051",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 219,
+     "completion_tokens": 829,
+     "total_tokens": 1048,
+     "cost": 0.00022524,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00022524,
+      "upstream_inference_prompt_cost": 2.628e-05,
+      "upstream_inference_completions_cost": 0.00019896
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 754,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "066646fae85aaf11797b740bff1190fde01475053f85a729f83f0849acf169d7",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 290,
+     "completion_tokens": 1423,
+     "total_tokens": 1713,
+     "cost": 0.00034206,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00034206,
+      "upstream_inference_prompt_cost": 2.9e-05,
+      "upstream_inference_completions_cost": 0.00031306
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1442,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.1, \"2\": 0.6, \"3\": 0.7, \"4\": 0.7, \"5\": 0.5, \"6\": 0.4, \"7\": 0.3, \"8\": 0.5, \"9\": 0.8, \"10\": 0.6, \"11\": 0.8, \"12\": 0.7, \"13\": 0.6, \"14\": 0.5, \"15\": 0.4, \"16\": 0.2, \"17\": 0.3, \"18\": 0.1, \"19\": 0.3}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.1,
+   0.6,
+   0.7,
+   0.7,
+   0.5,
+   0.4,
+   0.3,
+   0.5,
+   0.8,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.2,
+   0.3,
+   0.1,
+   0.3
+  ]
+ },
+ "P5": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fb308a765c1661dec2b20373727b19e671f99f671c3a3daeb6a0cb7dfedb2bc6",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 251,
+     "completion_tokens": 1000,
+     "total_tokens": 1251,
+     "cost": 0.0002451,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002451,
+      "upstream_inference_prompt_cost": 2.51e-05,
+      "upstream_inference_completions_cost": 0.00022
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 797,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.2, \"2\": 0.6, \"3\": 0.7, \"4\": 0.6, \"5\": 0.6, \"6\": 0.5, \"7\": 0.5, \"8\": 0.7, \"9\": 0.75, \"10\": 0.6, \"11\": 0.8, \"12\": 0.7, \"13\": 0.65, \"14\": 0.6, \"15\": 0.7, \"16\": 0.4, \"17\": 0.3, \"18\": 0.2, \"19\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.2,
+   0.6,
+   0.7,
+   0.6,
+   0.6,
+   0.5,
+   0.5,
+   0.7,
+   0.75,
+   0.6,
+   0.8,
+   0.7,
+   0.65,
+   0.6,
+   0.7,
+   0.4,
+   0.3,
+   0.2,
+   0.5
+  ]
+ }
+}

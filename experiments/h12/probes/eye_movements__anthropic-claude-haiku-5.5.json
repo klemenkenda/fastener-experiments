@@ -1,0 +1,385 @@
+{
+ "dataset": "eye_movements",
+ "model": "anthropic/claude-haiku-5.5",
+ "variables": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "P1a": {
+  "key": "a1b6e8026baad05ecb6cbcce07038f1eb5741ef0d15e25bd2063b8553e575247",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 143,
+   "completion_tokens": 666,
+   "total_tokens": 809,
+   "cost": 0.0003473,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0003473,
+    "upstream_inference_prompt_cost": 1.43e-05,
+    "upstream_inference_completions_cost": 0.000333
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 637,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"unknown\", \"source\": \"unknown\", \"confidence\": 0.05}"
+ },
+ "P1b": {
+  "key": "f3e3295c90549a0fd8eec7366b4cfb9fbb80ecc57bb0dba621e2a8d597410ad0",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 261,
+   "completion_tokens": 920,
+   "total_tokens": 1181,
+   "cost": 0.0004861,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0004861,
+    "upstream_inference_prompt_cost": 2.61e-05,
+    "upstream_inference_completions_cost": 0.00046
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 841,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"name\": \"Eye Movements\", \"source\": \"UCI Machine Learning Repository, \\\"Eye Movements\\\" data set (reading eye-tracking features; original authors not confirmed)\", \"confidence\": 0.6}\n```"
+ },
+ "P2": {
+  "key": "3b25c990b55b811bf2457a0bff27857b1b2004e5b2afcb785bb88cb86498760a",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 140,
+   "completion_tokens": 1594,
+   "total_tokens": 1734,
+   "cost": 0.000811,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.000811,
+    "upstream_inference_prompt_cost": 1.4e-05,
+    "upstream_inference_completions_cost": 0.000797
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1348,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "I can't reliably recall the exact column names for this dataset, so the list below is a best-effort reconstruction and may be wrong. It has 23 entries, matching the number of predictive features I believe the dataset has.\n\n{\"features\": [\"lineNo\", \"assgNo\", \"prevFixDur\", \"firstFixDur\", \"firstFixPos\", \"nextFixDur\", \"nextFixPos\", \"prevFixPos\", \"fixDur\", \"fixPos\", \"nFix\", \"sumFixDur\", \"meanFixDur\", \"maxFixDur\", \"minFixDur\", \"sacAmp\", \"sacDur\", \"sacVel\", \"pupilDiam\", \"pupilDiamMax\", \"pupilDiamMin\", \"fixNo\", \"sentenceNo\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "6bc4d1d690be163aad958a95d6f08b258617312502caa572ed4e8b79187fdf10",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 267,
+     "completion_tokens": 365,
+     "total_tokens": 632,
+     "cost": 0.0002092,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002092,
+      "upstream_inference_prompt_cost": 2.67e-05,
+      "upstream_inference_completions_cost": 0.0001825
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 191,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.35, \"1\": 0.4, \"2\": 0.3, \"3\": 0.45, \"4\": 0.5, \"5\": 0.3, \"6\": 0.55, \"7\": 0.25, \"8\": 0.4, \"9\": 0.35, \"10\": 0.6, \"11\": 0.3, \"12\": 0.45, \"13\": 0.2, \"14\": 0.5, \"15\": 0.35, \"16\": 0.4, \"17\": 0.25, \"18\": 0.3, \"19\": 0.45}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.35,
+   0.4,
+   0.3,
+   0.45,
+   0.5,
+   0.3,
+   0.55,
+   0.25,
+   0.4,
+   0.35,
+   0.6,
+   0.3,
+   0.45,
+   0.2,
+   0.5,
+   0.35,
+   0.4,
+   0.25,
+   0.3,
+   0.45
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "939fa04e2671ac769a932d773d7c0ecf3bf724d5c4b2ffcc2da8c69ff1da8d96",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 247,
+     "completion_tokens": 333,
+     "total_tokens": 580,
+     "cost": 0.0001912,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001912,
+      "upstream_inference_prompt_cost": 2.47e-05,
+      "upstream_inference_completions_cost": 0.0001665
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 164,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fe1132b15eab4399542636f076b6372da1cf083e24bf23d447c6d1f0e701a5ab",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 370,
+     "completion_tokens": 254,
+     "total_tokens": 624,
+     "cost": 0.000164,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000164,
+      "upstream_inference_prompt_cost": 3.7e-05,
+      "upstream_inference_completions_cost": 0.000127
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 85,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.25, \"2\": 0.45, \"3\": 0.5, \"4\": 0.55, \"5\": 0.45, \"6\": 0.4, \"7\": 0.35, \"8\": 0.3, \"9\": 0.35, \"10\": 0.3, \"11\": 0.6, \"12\": 0.5, \"13\": 0.35, \"14\": 0.4, \"15\": 0.55, \"16\": 0.45, \"17\": 0.2, \"18\": 0.15, \"19\": 0.2}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.15,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.25,
+   0.45,
+   0.5,
+   0.55,
+   0.45,
+   0.4,
+   0.35,
+   0.3,
+   0.35,
+   0.3,
+   0.6,
+   0.5,
+   0.35,
+   0.4,
+   0.55,
+   0.45,
+   0.2,
+   0.15,
+   0.2
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "57ca3dd2a670d33663e56cbbe0143a3895a4bfe9c8bd15d50dea7e8afb88eaea",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 320,
+     "completion_tokens": 344,
+     "total_tokens": 664,
+     "cost": 0.000204,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000204,
+      "upstream_inference_prompt_cost": 3.2e-05,
+      "upstream_inference_completions_cost": 0.000172
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 175,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.15, \"2\": 0.45, \"3\": 0.5, \"4\": 0.45, \"5\": 0.45, \"6\": 0.4, \"7\": 0.4, \"8\": 0.3, \"9\": 0.35, \"10\": 0.35, \"11\": 0.6, \"12\": 0.55, \"13\": 0.4, \"14\": 0.45, \"15\": 0.35, \"16\": 0.3, \"17\": 0.25, \"18\": 0.1, \"19\": 0.2}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.15,
+   0.45,
+   0.5,
+   0.45,
+   0.45,
+   0.4,
+   0.4,
+   0.3,
+   0.35,
+   0.35,
+   0.6,
+   0.55,
+   0.4,
+   0.45,
+   0.35,
+   0.3,
+   0.25,
+   0.1,
+   0.2
+  ]
+ }
+}

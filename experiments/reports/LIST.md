@@ -22,6 +22,7 @@
 | H10 | `H10-E02` | 5 h 0 min | not confirmed | random forest; read with E01 | [REPORT.md](H10-E02/REPORT.md) |
 | H10 | `H10-E03` | 4 h 28 min | not confirmed | decision tree; read with E01 | [REPORT.md](H10-E03/REPORT.md) |
 | H11 | `H11-E01` | -- | not confirmed (post hoc) | H10's runs, Boruta seed as primary | [REPORT.md](H11-E01/REPORT.md) |
+| H12 | `H12-E01` | 24 min | not confirmed | only one; 12 models, 16 H8 datasets | [REPORT.md](H12-E01/REPORT.md) |
 
 ## Superseded and failed
 

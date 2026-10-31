@@ -1,0 +1,425 @@
+{
+ "dataset": "higgs",
+ "model": "anthropic/claude-haiku-5.5",
+ "variables": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "P1a": {
+  "key": "61e91b2efce224da7195817ea0fe8939998ee5a0db4f19390c7bedbbc4841cf4",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 140,
+   "completion_tokens": 434,
+   "total_tokens": 574,
+   "cost": 0.000231,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.000231,
+    "upstream_inference_prompt_cost": 1.4e-05,
+    "upstream_inference_completions_cost": 0.000217
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 326,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"HIGGS\", \"source\": \"UCI Machine Learning Repository (Baldi et al., 2014, 'Searching for Exotic Particles in High-Energy Physics with Deep Learning'); a 98,050-row version is also distributed via OpenML as 'higgs'\", \"confidence\": 0.6}"
+ },
+ "P1b": {
+  "key": "64570443e4b361c3e1af6ccb79fd6e089c3eb72faeb75e57a9780a66f8ed4526",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 313,
+   "completion_tokens": 289,
+   "total_tokens": 602,
+   "cost": 0.0001758,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001758,
+    "upstream_inference_prompt_cost": 3.13e-05,
+    "upstream_inference_completions_cost": 0.0001445
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 184,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"name\": \"HIGGS\", \"source\": \"UCI Machine Learning Repository (Baldi, Sadowski & Whiteson, \\\"Searching for Exotic Particles in High-Energy Physics with Deep Learning\\\", Nature Communications, 2014)\", \"confidence\": 0.95}\n```"
+ },
+ "P2": {
+  "key": "90f0750c091f30f8a004b2481d6e772ca2fe7db115f2483ac4027bb299bb967d",
+  "served_model": "anthropic/claude-haiku-5.5",
+  "usage": {
+   "prompt_tokens": 135,
+   "completion_tokens": 856,
+   "total_tokens": 991,
+   "cost": 0.0004415,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0004415,
+    "upstream_inference_prompt_cost": 1.35e-05,
+    "upstream_inference_completions_cost": 0.000428
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 597,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"lepton_pT\", \"lepton_eta\", \"lepton_phi\", \"missing_energy_magnitude\", \"missing_energy_phi\", \"jet_1_pt\", \"jet_1_eta\", \"jet_1_phi\", \"jet_1_b-tag\", \"jet_2_pt\", \"jet_2_eta\", \"jet_2_phi\", \"jet_2_b-tag\", \"jet_3_pt\", \"jet_3_eta\", \"jet_3_phi\", \"jet_3_b-tag\", \"jet_4_pt\", \"jet_4_eta\", \"jet_4_phi\", \"jet_4_b-tag\", \"m_jj\", \"m_jjj\", \"m_lv\", \"m_jlv\", \"m_bb\", \"m_wbb\", \"m_wwbb\"]}\n```"
+ },
+ "P3": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "ef47204eb55ab117ccda97be0b7e573cce944426d9e19452d01069e63d18bb5c",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 278,
+     "completion_tokens": 867,
+     "total_tokens": 1145,
+     "cost": 0.0004613,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0004613,
+      "upstream_inference_prompt_cost": 2.78e-05,
+      "upstream_inference_completions_cost": 0.0004335
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 634,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.35, \"1\": 0.15, \"2\": 0.05, \"3\": 0.3, \"4\": 0.05, \"5\": 0.3, \"6\": 0.15, \"7\": 0.05, \"8\": 0.25, \"9\": 0.25, \"10\": 0.12, \"11\": 0.05, \"12\": 0.2, \"13\": 0.2, \"14\": 0.1, \"15\": 0.05, \"16\": 0.15, \"17\": 0.15, \"18\": 0.08, \"19\": 0.05, \"20\": 0.12, \"21\": 0.45, \"22\": 0.55, \"23\": 0.4, \"24\": 0.5, \"25\": 0.45, \"26\": 0.6, \"27\": 0.7}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.35,
+   0.15,
+   0.05,
+   0.3,
+   0.05,
+   0.3,
+   0.15,
+   0.05,
+   0.25,
+   0.25,
+   0.12,
+   0.05,
+   0.2,
+   0.2,
+   0.1,
+   0.05,
+   0.15,
+   0.15,
+   0.08,
+   0.05,
+   0.12,
+   0.45,
+   0.55,
+   0.4,
+   0.5,
+   0.45,
+   0.6,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "461584c1691a9096b9054b3b2d61591742b9a89c74d95f45889e6a42d384073c",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 263,
+     "completion_tokens": 356,
+     "total_tokens": 619,
+     "cost": 0.0002043,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002043,
+      "upstream_inference_prompt_cost": 2.63e-05,
+      "upstream_inference_completions_cost": 0.000178
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 123,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5c0dd676264fd0b7e0aa39d2b164b8c4171363b9761537d03eec4ec90bde7f31",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 430,
+     "completion_tokens": 917,
+     "total_tokens": 1347,
+     "cost": 0.0005015,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0005015,
+      "upstream_inference_prompt_cost": 4.3e-05,
+      "upstream_inference_completions_cost": 0.0004585
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 679,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.35, \"1\": 0.1, \"2\": 0.05, \"3\": 0.3, \"4\": 0.05, \"5\": 0.35, \"6\": 0.1, \"7\": 0.05, \"8\": 0.2, \"9\": 0.3, \"10\": 0.1, \"11\": 0.05, \"12\": 0.2, \"13\": 0.25, \"14\": 0.1, \"15\": 0.05, \"16\": 0.2, \"17\": 0.2, \"18\": 0.1, \"19\": 0.05, \"20\": 0.15, \"21\": 0.5, \"22\": 0.45, \"23\": 0.35, \"24\": 0.45, \"25\": 0.5, \"26\": 0.5, \"27\": 0.6}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.35,
+   0.1,
+   0.05,
+   0.3,
+   0.05,
+   0.35,
+   0.1,
+   0.05,
+   0.2,
+   0.3,
+   0.1,
+   0.05,
+   0.2,
+   0.25,
+   0.1,
+   0.05,
+   0.2,
+   0.2,
+   0.1,
+   0.05,
+   0.15,
+   0.5,
+   0.45,
+   0.35,
+   0.45,
+   0.5,
+   0.5,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-haiku-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "0f56ab783be52d56eb1aec4da2867b929288253093a438caa0e59b48da0c8202",
+    "served_model": "anthropic/claude-haiku-5.5",
+    "usage": {
+     "prompt_tokens": 385,
+     "completion_tokens": 469,
+     "total_tokens": 854,
+     "cost": 0.000273,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000273,
+      "upstream_inference_prompt_cost": 3.85e-05,
+      "upstream_inference_completions_cost": 0.0002345
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 236,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.45, \"1\": 0.15, \"2\": 0.05, \"3\": 0.35, \"4\": 0.05, \"5\": 0.4, \"6\": 0.15, \"7\": 0.05, \"8\": 0.3, \"9\": 0.35, \"10\": 0.12, \"11\": 0.05, \"12\": 0.3, \"13\": 0.3, \"14\": 0.1, \"15\": 0.05, \"16\": 0.25, \"17\": 0.2, \"18\": 0.08, \"19\": 0.05, \"20\": 0.15, \"21\": 0.4, \"22\": 0.5, \"23\": 0.4, \"24\": 0.55, \"25\": 0.6, \"26\": 0.7, \"27\": 0.8}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.45,
+   0.15,
+   0.05,
+   0.35,
+   0.05,
+   0.4,
+   0.15,
+   0.05,
+   0.3,
+   0.35,
+   0.12,
+   0.05,
+   0.3,
+   0.3,
+   0.1,
+   0.05,
+   0.25,
+   0.2,
+   0.08,
+   0.05,
+   0.15,
+   0.4,
+   0.5,
+   0.4,
+   0.55,
+   0.6,
+   0.7,
+   0.8
+  ]
+ }
+}

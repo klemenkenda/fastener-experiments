@@ -1,0 +1,425 @@
+{
+ "dataset": "higgs",
+ "model": "qwen/qwen3-14b",
+ "variables": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "P1a": {
+  "key": "8ddb20519e2a513010a9f5f815390ea7b21beef3cf62928167f0ca6854b308fc",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 112,
+   "completion_tokens": 1592,
+   "total_tokens": 1704,
+   "cost": 0.00036144,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00036144,
+    "upstream_inference_prompt_cost": 1.12e-05,
+    "upstream_inference_completions_cost": 0.00035024
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1591,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Higgs\", \"source\": \"ATLAS experiment, UCI Machine Learning Repository\", \"confidence\": 0.7}"
+ },
+ "P1b": {
+  "key": "5ab46a7f6e3671663127da8ff914f92000b72fab11f12c82e274bd2724e0db04",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 217,
+   "completion_tokens": 351,
+   "total_tokens": 568,
+   "cost": 0.00011028,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00011028,
+    "upstream_inference_prompt_cost": 2.604e-05,
+    "upstream_inference_completions_cost": 8.424e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 362,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Higgs\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.95}"
+ },
+ "P2": {
+  "key": "538d0e790da77130feb69bba92c8aed7c0e9e4e0ce491067db079039175ca17f",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 114,
+   "completion_tokens": 1391,
+   "total_tokens": 1505,
+   "cost": 0.00031742,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00031742,
+    "upstream_inference_prompt_cost": 1.14e-05,
+    "upstream_inference_completions_cost": 0.00030602
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1070,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"DER_mass_Jet1Jet2\", \"DER_mass_Jet1Jet3\", \"DER_mass_Jet1Jet4\", \"DER_mass_Jet1Jet5\", \"DER_mass_Jet1Jet6\", \"DER_mass_Jet1Jet7\", \"DER_mass_Jet1Jet8\", \"DER_mass_Jet2Jet3\", \"DER_mass_Jet2Jet4\", \"DER_mass_Jet2Jet5\", \"DER_mass_Jet2Jet6\", \"DER_mass_Jet2Jet7\", \"DER_mass_Jet2Jet8\", \"DER_mass_Jet3Jet4\", \"DER_mass_Jet3Jet5\", \"DER_mass_Jet3Jet6\", \"DER_mass_Jet3Jet7\", \"DER_mass_Jet3Jet8\", \"DER_mass_Jet4Jet5\", \"DER_mass_Jet4Jet6\", \"DER_mass_Jet4Jet7\", \"DER_mass_Jet4Jet8\", \"DER_mass_Jet5Jet6\", \"DER_mass_Jet5Jet7\", \"DER_mass_Jet5Jet8\", \"DER_mass_Jet6Jet7\", \"DER_mass_Jet6Jet8\", \"DER_mass_Jet7Jet8\", \"weight\"]}"
+ },
+ "P3": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "85c75024fb9135945218ed1d5e52b2f53973cf7d8c1a5abc270b20b70c55d1e7",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 258,
+     "completion_tokens": 984,
+     "total_tokens": 1242,
+     "cost": 0.00026712,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00026712,
+      "upstream_inference_prompt_cost": 3.096e-05,
+      "upstream_inference_completions_cost": 0.00023616
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 891,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.6, \"2\": 0.5, \"3\": 0.4, \"4\": 0.3, \"5\": 0.2, \"6\": 0.1, \"7\": 0.2, \"8\": 0.3, \"9\": 0.4, \"10\": 0.5, \"11\": 0.6, \"12\": 0.7, \"13\": 0.8, \"14\": 0.9, \"15\": 0.7, \"16\": 0.6, \"17\": 0.5, \"18\": 0.4, \"19\": 0.3, \"20\": 0.2, \"21\": 0.1, \"22\": 0.2, \"23\": 0.3, \"24\": 0.4, \"25\": 0.5, \"26\": 0.6, \"27\": 0.7}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.2,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.2,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "baeb66d6e412163eda9d2c2a4a5264b7ec5285098b636320caab5d021546f081",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 243,
+     "completion_tokens": 941,
+     "total_tokens": 1184,
+     "cost": 0.00023132,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00023132,
+      "upstream_inference_prompt_cost": 2.43e-05,
+      "upstream_inference_completions_cost": 0.00020702
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 806,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "49e15ef1f3f32eb65c50f1aa988a14e235df29a679c307b7bf55bdca254714f0",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 345,
+     "completion_tokens": 1719,
+     "total_tokens": 2064,
+     "cost": 0.00041268,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00041268,
+      "upstream_inference_prompt_cost": 3.45e-05,
+      "upstream_inference_completions_cost": 0.00037818
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1255,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.8, \"1\": 0.6, \"2\": 0.6, \"3\": 0.9, \"4\": 0.5, \"5\": 0.7, \"6\": 0.6, \"7\": 0.6, \"8\": 0.8, \"9\": 0.6, \"10\": 0.5, \"11\": 0.5, \"12\": 0.7, \"13\": 0.5, \"14\": 0.4, \"15\": 0.4, \"16\": 0.6, \"17\": 0.4, \"18\": 0.3, \"19\": 0.3, \"20\": 0.5, \"21\": 0.7, \"22\": 0.6, \"23\": 0.8, \"24\": 0.7, \"25\": 0.8, \"26\": 0.7, \"27\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.6,
+   0.9,
+   0.5,
+   0.7,
+   0.6,
+   0.6,
+   0.8,
+   0.6,
+   0.5,
+   0.5,
+   0.7,
+   0.5,
+   0.4,
+   0.4,
+   0.6,
+   0.4,
+   0.3,
+   0.3,
+   0.5,
+   0.7,
+   0.6,
+   0.8,
+   0.7,
+   0.8,
+   0.7,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "460bc3f47125559341f28995eff7f4f4e59e6a8ebac4537d1106bf1ff4663047",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 307,
+     "completion_tokens": 1063,
+     "total_tokens": 1370,
+     "cost": 0.00026456,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00026456,
+      "upstream_inference_prompt_cost": 3.07e-05,
+      "upstream_inference_completions_cost": 0.00023386
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 776,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.8, \"1\": 0.6, \"2\": 0.6, \"3\": 0.8, \"4\": 0.5, \"5\": 0.7, \"6\": 0.6, \"7\": 0.6, \"8\": 0.8, \"9\": 0.7, \"10\": 0.6, \"11\": 0.6, \"12\": 0.8, \"13\": 0.7, \"14\": 0.6, \"15\": 0.6, \"16\": 0.8, \"17\": 0.7, \"18\": 0.6, \"19\": 0.6, \"20\": 0.8, \"21\": 0.7, \"22\": 0.7, \"23\": 0.8, \"24\": 0.7, \"25\": 0.8, \"26\": 0.8, \"27\": 0.8}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.6,
+   0.8,
+   0.5,
+   0.7,
+   0.6,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.8,
+   0.7,
+   0.7,
+   0.8,
+   0.7,
+   0.8,
+   0.8,
+   0.8
+  ]
+ }
+}

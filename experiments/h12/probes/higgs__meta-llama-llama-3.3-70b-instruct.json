@@ -1,0 +1,425 @@
+{
+ "dataset": "higgs",
+ "model": "meta-llama/llama-3.3-70b-instruct",
+ "variables": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "P1a": {
+  "key": "ac50341805748461e6e757fbcbd7c902dfddbe6fe090c47a564bb51c7b45eb53",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 129,
+   "completion_tokens": 26,
+   "total_tokens": 155,
+   "cost": 2.972e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 96,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.972e-05,
+    "upstream_inference_prompt_cost": 1.62e-05,
+    "upstream_inference_completions_cost": 1.352e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Higgs\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.9}"
+ },
+ "P1b": {
+  "key": "cbd4ec626cb5b3e422cf4e0ae546433ad587b8dcd23cbb4e3afee845ded57719",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 217,
+   "completion_tokens": 29,
+   "total_tokens": 246,
+   "cost": 3.098e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.098e-05,
+    "upstream_inference_prompt_cost": 2.17e-05,
+    "upstream_inference_completions_cost": 9.28e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Higgs Boson Detection\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.8}"
+ },
+ "P2": {
+  "key": "7b153ba4e737557bfe317bf38d987dd1c5b8662ee66b82aef5987c55d658cd1b",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 108,
+   "completion_tokens": 263,
+   "total_tokens": 371,
+   "cost": 9.496e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 9.496e-05,
+    "upstream_inference_prompt_cost": 1.08e-05,
+    "upstream_inference_completions_cost": 8.416e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"lepton_pT\", \"lepton_eta\", \"lepton_phi\", \"missing_energy_magnitude\", \"missing_energy_phi\", \"jet1_pt\", \"jet1_eta\", \"jet1_phi\", \"jet1_b-tag\", \"jet2_pt\", \"jet2_eta\", \"jet2_phi\", \"jet2_b-tag\", \"jet3_pt\", \"jet3_eta\", \"jet3_phi\", \"jet3_b-tag\", \"jet4_pt\", \"jet4_eta\", \"jet4_phi\", \"jet4_b-tag\", \"m_jj\", \"m_jjj\", \"m_lv\", \"m_jlv\", \"m_bb\", \"m_wbb\", \"m_wwbb\", \"dEta_jj\", \"dEta_jjj\", \"dPhi_jj\", \"dPhi_jjj\", \"dR_jj\", \"dR_jjj\", \"W_pt\", \"W_eta\", \"W_phi\", \"W_m\", \"W_nu_pT\", \"W_nu_eta\", \"W_nu_phi\", \"b_pt\", \"b_eta\", \"b_phi\", \"b_m\", \"b_nu_pT\", \"b_nu_eta\", \"b_nu_phi\", \"nbjet\", \"njet\"]}"
+ },
+ "P3": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f7d60bd47489a2ecea0306ba6c0f0355b839ce07d64981d75c6228521dd1ca55",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 230,
+     "completion_tokens": 228,
+     "total_tokens": 458,
+     "cost": 9.596e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.596e-05,
+      "upstream_inference_prompt_cost": 2.3e-05,
+      "upstream_inference_completions_cost": 7.296e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "00469b74038d9259b75db3857df214b6fffb4f7bbfd670d0266c6dad3a14cd7b",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 221,
+     "completion_tokens": 228,
+     "total_tokens": 449,
+     "cost": 0.00015206,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 96,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00015206,
+      "upstream_inference_prompt_cost": 3.806e-05,
+      "upstream_inference_completions_cost": 0.000114
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e618f9678c014cf7d6d012634ca45b53eaa1e226577ea8b9d1226c7c47a09f22",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 339,
+     "completion_tokens": 230,
+     "total_tokens": 569,
+     "cost": 0.0001858,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 16,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001858,
+      "upstream_inference_prompt_cost": 6.62e-05,
+      "upstream_inference_completions_cost": 0.0001196
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\n\"0\": 0.7,\n\"1\": 0.4,\n\"2\": 0.3,\n\"3\": 0.8,\n\"4\": 0.3,\n\"5\": 0.6,\n\"6\": 0.4,\n\"7\": 0.3,\n\"8\": 0.7,\n\"9\": 0.6,\n\"10\": 0.4,\n\"11\": 0.3,\n\"12\": 0.7,\n\"13\": 0.5,\n\"14\": 0.4,\n\"15\": 0.3,\n\"16\": 0.7,\n\"17\": 0.5,\n\"18\": 0.4,\n\"19\": 0.3,\n\"20\": 0.7,\n\"21\": 0.8,\n\"22\": 0.8,\n\"23\": 0.9,\n\"24\": 0.9,\n\"25\": 0.8,\n\"26\": 0.8,\n\"27\": 0.8\n}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.3,
+   0.8,
+   0.3,
+   0.6,
+   0.4,
+   0.3,
+   0.7,
+   0.6,
+   0.4,
+   0.3,
+   0.7,
+   0.5,
+   0.4,
+   0.3,
+   0.7,
+   0.5,
+   0.4,
+   0.3,
+   0.7,
+   0.8,
+   0.8,
+   0.9,
+   0.9,
+   0.8,
+   0.8,
+   0.8
+  ]
+ },
+ "P5": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fa2b675640c2f4ee3b871fdeaf2db7c6581ad9519708a5bac42286c6930a8b52",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 289,
+     "completion_tokens": 258,
+     "total_tokens": 547,
+     "cost": 0.00018378,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 80,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00018378,
+      "upstream_inference_prompt_cost": 5.478e-05,
+      "upstream_inference_completions_cost": 0.000129
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\n  \"0\": 0.7,\n  \"1\": 0.4,\n  \"2\": 0.3,\n  \"3\": 0.8,\n  \"4\": 0.5,\n  \"5\": 0.6,\n  \"6\": 0.4,\n  \"7\": 0.3,\n  \"8\": 0.9,\n  \"9\": 0.6,\n  \"10\": 0.4,\n  \"11\": 0.3,\n  \"12\": 0.9,\n  \"13\": 0.5,\n  \"14\": 0.4,\n  \"15\": 0.3,\n  \"16\": 0.8,\n  \"17\": 0.5,\n  \"18\": 0.4,\n  \"19\": 0.3,\n  \"20\": 0.7,\n  \"21\": 0.8,\n  \"22\": 0.7,\n  \"23\": 0.9,\n  \"24\": 0.9,\n  \"25\": 0.8,\n  \"26\": 0.9,\n  \"27\": 0.8\n}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.3,
+   0.8,
+   0.5,
+   0.6,
+   0.4,
+   0.3,
+   0.9,
+   0.6,
+   0.4,
+   0.3,
+   0.9,
+   0.5,
+   0.4,
+   0.3,
+   0.8,
+   0.5,
+   0.4,
+   0.3,
+   0.7,
+   0.8,
+   0.7,
+   0.9,
+   0.9,
+   0.8,
+   0.9,
+   0.8
+  ]
+ }
+}

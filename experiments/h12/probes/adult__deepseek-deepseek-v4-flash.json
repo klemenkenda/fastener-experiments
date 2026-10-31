@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "deepseek/deepseek-v4-flash",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "fd63af4a80b4fcf32765f19b38be02d480e5f64eca860e1a9d42d9ada53b85da",
+  "served_model": "deepseek/deepseek-v4-flash",
+  "usage": {
+   "prompt_tokens": 108,
+   "completion_tokens": 23,
+   "total_tokens": 131,
+   "cost": 1.386e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.386e-05,
+    "upstream_inference_prompt_cost": 9.72e-06,
+    "upstream_inference_completions_cost": 4.14e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Adult\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 1}"
+ },
+ "P1b": {
+  "key": "29b41a197e0c33ff5b8120a87274c4d2bb777b0ad23939ff8fa5a5369d55f2eb",
+  "served_model": "deepseek/deepseek-v4-flash",
+  "usage": {
+   "prompt_tokens": 131,
+   "completion_tokens": 23,
+   "total_tokens": 154,
+   "cost": 8.251e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 8.251e-05,
+    "upstream_inference_prompt_cost": 7.86e-05,
+    "upstream_inference_completions_cost": 3.91e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Adult\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 1}"
+ },
+ "P2": {
+  "key": "a2a4dd0c1a80b0f4cb3ae5b751520df301464e2caca14833c0f5a2fbcafb20de",
+  "served_model": "deepseek/deepseek-v4-flash",
+  "usage": {
+   "prompt_tokens": 91,
+   "completion_tokens": 62,
+   "total_tokens": 153,
+   "cost": 6.514e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 6.514e-05,
+    "upstream_inference_prompt_cost": 5.46e-05,
+    "upstream_inference_completions_cost": 1.054e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"age\", \"workclass\", \"fnlwgt\", \"education\", \"education-num\", \"marital-status\", \"occupation\", \"relationship\", \"race\", \"sex\", \"capital-gain\", \"capital-loss\", \"hours-per-week\", \"native-country\"]}"
+ },
+ "P3": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3bf03f6b6466b209ca0218ae148c9fd32e57c73963b1f7c5590344b8a4394e92",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 198,
+     "completion_tokens": 749,
+     "total_tokens": 947,
+     "cost": 0.0001633093,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001633093,
+      "upstream_inference_prompt_cost": 1.91268e-05,
+      "upstream_inference_completions_cost": 0.0001441825
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 572,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.3, \"2\": 0.0, \"3\": 0.6, \"4\": 0.9, \"5\": 0.9, \"6\": 0.7, \"7\": 0.7, \"8\": 0.2, \"9\": 0.5, \"10\": 0.9, \"11\": 0.8, \"12\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.0,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.3,
+   0.0,
+   0.6,
+   0.9,
+   0.9,
+   0.7,
+   0.7,
+   0.2,
+   0.5,
+   0.9,
+   0.8,
+   0.6
+  ]
+ },
+ "P3f": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "6507d530360a4dd78c4fd89293596384465dc0374ac5c715d4c46f947080d221",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 260,
+     "completion_tokens": 585,
+     "total_tokens": 845,
+     "cost": 0.0001149876,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 208,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001149876,
+      "upstream_inference_prompt_cost": 8.5176e-06,
+      "upstream_inference_completions_cost": 0.00010647
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 475,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b916c3b06844fb5d4d2b69657ba5aaf784bec1aaecc1a40ddba2f45a0b845a75",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 202,
+     "completion_tokens": 109,
+     "total_tokens": 311,
+     "cost": 3.78e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 3.78e-05,
+      "upstream_inference_prompt_cost": 1.818e-05,
+      "upstream_inference_completions_cost": 1.962e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.5, \"2\": 0.1, \"3\": 0.7, \"4\": 0.7, \"5\": 0.8, \"6\": 0.6, \"7\": 0.7, \"8\": 0.2, \"9\": 0.3, \"10\": 0.9, \"11\": 0.8, \"12\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.1,
+   0.7,
+   0.7,
+   0.8,
+   0.6,
+   0.7,
+   0.2,
+   0.3,
+   0.9,
+   0.8,
+   0.5
+  ]
+ },
+ "P5": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "24f66a7ecb9fafaadbde596c605a55a3f3f706996ca15cb3f7236c183a2610b0",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 178,
+     "completion_tokens": 109,
+     "total_tokens": 287,
+     "cost": 0.00012533,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00012533,
+      "upstream_inference_prompt_cost": 0.0001068,
+      "upstream_inference_completions_cost": 1.853e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.5, \"2\": 0.1, \"3\": 0.7, \"4\": 0.7, \"5\": 0.8, \"6\": 0.7, \"7\": 0.7, \"8\": 0.2, \"9\": 0.4, \"10\": 0.9, \"11\": 0.8, \"12\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.1,
+   0.7,
+   0.7,
+   0.8,
+   0.7,
+   0.7,
+   0.2,
+   0.4,
+   0.9,
+   0.8,
+   0.6
+  ]
+ }
+}

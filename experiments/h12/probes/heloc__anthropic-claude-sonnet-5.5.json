@@ -1,0 +1,395 @@
+{
+ "dataset": "heloc",
+ "model": "anthropic/claude-sonnet-5.5",
+ "variables": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "P1a": {
+  "key": "4be5a78985975445baa4b57b2af9d3ec6ca22717282e513586c125d731e40c82",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 151,
+   "completion_tokens": 287,
+   "total_tokens": 438,
+   "cost": 0.003172,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.003172,
+    "upstream_inference_prompt_cost": 0.000302,
+    "upstream_inference_completions_cost": 0.00287
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 188,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"FICO HELOC (Home Equity Line of Credit) data set, Explainable Machine Learning Challenge\", \"source\": \"FICO Explainable Machine Learning Challenge (community.fico.com); also available on OpenML as 'heloc'\", \"confidence\": 0.5}"
+ },
+ "P1b": {
+  "key": "66a5959cdbcbc4f460efdea2820a934a0e4987252d06f84793774c1ae02c7569",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 428,
+   "completion_tokens": 118,
+   "total_tokens": 546,
+   "cost": 0.002036,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.002036,
+    "upstream_inference_prompt_cost": 0.000856,
+    "upstream_inference_completions_cost": 0.00118
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"FICO HELOC (Home Equity Line of Credit) dataset from the FICO Explainable Machine Learning Challenge\", \"source\": \"FICO xML Challenge 2018 (community.fico.com/s/explainable-machine-learning-challenge); also used in the IBM AIX360 toolkit\", \"confidence\": 0.9}"
+ },
+ "P2": {
+  "key": "82bd3a71c1b2d1999ae40dead4492165c3d17fc7e09c455e52d3c666bdd0b065",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 132,
+   "completion_tokens": 718,
+   "total_tokens": 850,
+   "cost": 0.007444,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.007444,
+    "upstream_inference_prompt_cost": 0.000264,
+    "upstream_inference_completions_cost": 0.00718
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 377,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"ExternalRiskEstimate\", \"MSinceOldestTradeOpen\", \"MSinceMostRecentTradeOpen\", \"AverageMInFile\", \"NumSatisfactoryTrades\", \"NumTrades60Ever2DerogPubRec\", \"NumTrades90Ever2DerogPubRec\", \"PercentTradesNeverDelq\", \"MSinceMostRecentDelq\", \"MaxDelq2PublicRecLast12M\", \"MaxDelqEver\", \"NumTotalTrades\", \"NumTradesOpeninLast12M\", \"PercentInstallTrades\", \"MSinceMostRecentInqexcl7days\", \"NumInqLast6M\", \"NumInqLast6Mexcl7days\", \"NetFractionRevolvingBurden\", \"NetFractionInstallBurden\", \"NumRevolvingTradesWBalance\", \"NumInstallTradesWBalance\", \"NumBank2NatlTradesWHighUtilization\", \"PercentTradesWBalance\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "eaaf023dd1d12844da28af868666e338e2e408aab0aa4657b4e16782d160d4ef",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 263,
+     "completion_tokens": 764,
+     "total_tokens": 1027,
+     "cost": 0.008166,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.008166,
+      "upstream_inference_prompt_cost": 0.000526,
+      "upstream_inference_completions_cost": 0.00764
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 601,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":1.0,\"1\":0.4,\"2\":0.25,\"3\":0.6,\"4\":0.4,\"5\":0.15,\"6\":0.15,\"7\":0.5,\"8\":0.3,\"9\":0.2,\"10\":0.3,\"11\":0.3,\"12\":0.15,\"13\":0.25,\"14\":0.1,\"15\":0.35,\"16\":0.3,\"17\":0.8,\"18\":0.3,\"19\":0.25,\"20\":0.2,\"21\":0.3}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.4,
+   0.25,
+   0.6,
+   0.4,
+   0.15,
+   0.15,
+   0.5,
+   0.3,
+   0.2,
+   0.3,
+   0.3,
+   0.15,
+   0.25,
+   0.1,
+   0.35,
+   0.3,
+   0.8,
+   0.3,
+   0.25,
+   0.2,
+   0.3
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "7958e4582776ab54087cc9fae2ccf404a1412290f45098fe885b04fc412df308",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 251,
+     "completion_tokens": 234,
+     "total_tokens": 485,
+     "cost": 0.002842,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.002842,
+      "upstream_inference_prompt_cost": 0.000502,
+      "upstream_inference_completions_cost": 0.00234
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I have no information about these features beyond their indices: no names, no data, and no description of the class. Any differentiation between them would be invented. I am therefore giving every feature the same moderate score, which carries no real signal about which features matter.\n\n{\"scores\": {\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.5,\"21\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a0948105c6a343c14e28aa7611fd3cba29e44f68c49c1444b8069ca1c05d8f60",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 541,
+     "completion_tokens": 185,
+     "total_tokens": 726,
+     "cost": 0.002932,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.002932,
+      "upstream_inference_prompt_cost": 0.001082,
+      "upstream_inference_completions_cost": 0.00185
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 1.0, \"1\": 0.45, \"2\": 0.3, \"3\": 0.6, \"4\": 0.45, \"5\": 0.2, \"6\": 0.2, \"7\": 0.5, \"8\": 0.35, \"9\": 0.3, \"10\": 0.3, \"11\": 0.15, \"12\": 0.25, \"13\": 0.15, \"14\": 0.25, \"15\": 0.2, \"16\": 0.7, \"17\": 0.4, \"18\": 0.3, \"19\": 0.2, \"20\": 0.3, \"21\": 0.4}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.15,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.45,
+   0.3,
+   0.6,
+   0.45,
+   0.2,
+   0.2,
+   0.5,
+   0.35,
+   0.3,
+   0.3,
+   0.15,
+   0.25,
+   0.15,
+   0.25,
+   0.2,
+   0.7,
+   0.4,
+   0.3,
+   0.2,
+   0.3,
+   0.4
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c3b21f317b48740a40e1a6becf837962ed84e0749b4ed2d42655f0ef3ae955e1",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 499,
+     "completion_tokens": 367,
+     "total_tokens": 866,
+     "cost": 0.004668,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.004668,
+      "upstream_inference_prompt_cost": 0.000998,
+      "upstream_inference_completions_cost": 0.00367
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "This looks like the FICO HELOC dataset. My scores come from prior knowledge of which HELOC features tend to predict risk performance, not from the data itself.\n\nExternalRiskEstimate is the strongest single predictor. NetFractionRevolvingBurden, PercentTradesNeverDelq, AverageMInFile, MSinceOldestTradeOpen and NumSatisfactoryTrades follow it. Next come the inquiry counts, MSinceMostRecentDelq, NumRevolvingTradesWBalance and PercentTradesWBalance. The remaining features are weaker.\n\n```json\n{\"scores\":{\"0\":1.0,\"1\":0.5,\"2\":0.3,\"3\":0.6,\"4\":0.45,\"5\":0.2,\"6\":0.2,\"7\":0.55,\"8\":0.35,\"9\":0.3,\"10\":0.3,\"11\":0.2,\"12\":0.25,\"13\":0.2,\"14\":0.3,\"15\":0.3,\"16\":0.75,\"17\":0.4,\"18\":0.3,\"19\":0.3,\"20\":0.3,\"21\":0.4}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.5,
+   0.3,
+   0.6,
+   0.45,
+   0.2,
+   0.2,
+   0.55,
+   0.35,
+   0.3,
+   0.3,
+   0.2,
+   0.25,
+   0.2,
+   0.3,
+   0.3,
+   0.75,
+   0.4,
+   0.3,
+   0.3,
+   0.3,
+   0.4
+  ]
+ }
+}

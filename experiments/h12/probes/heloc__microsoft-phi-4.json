@@ -1,0 +1,395 @@
+{
+ "dataset": "heloc",
+ "model": "microsoft/phi-4",
+ "variables": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "P1a": {
+  "key": "ec0513c24400437f22f14f45d292b7ff572007c4c137f9161e9a7a2188e4806a",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 113,
+   "completion_tokens": 30,
+   "total_tokens": 143,
+   "cost": 1.211e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.211e-05,
+    "upstream_inference_prompt_cost": 7.91e-06,
+    "upstream_inference_completions_cost": 4.2e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"unknown\",\n  \"source\": \"unknown\",\n  \"confidence\": 0.0\n}\n```"
+ },
+ "P1b": {
+  "key": "9a9cf843903050c597927921926e9678af1a97cbf7ec40d8fa6e1ff600deece5",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 268,
+   "completion_tokens": 37,
+   "total_tokens": 305,
+   "cost": 2.394e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.394e-05,
+    "upstream_inference_prompt_cost": 1.876e-05,
+    "upstream_inference_completions_cost": 5.18e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"German Credit Data Set\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "cf3e5ca83335a2a116b709812aac21aabe32c93728d6bbfee22244b558ee0ef4",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 98,
+   "completion_tokens": 734,
+   "total_tokens": 832,
+   "cost": 0.00010962,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00010962,
+    "upstream_inference_prompt_cost": 6.86e-06,
+    "upstream_inference_completions_cost": 0.00010276
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"FICO Score at application\",\n    \"Age of account at application\",\n    \"Months employed\",\n    \"Debt to income ratio\",\n    \"Revolving balance to credit limit\",\n    \"Number of accounts at time of application\",\n    \"Number of derogatory public records\",\n    \"Number of derogatory accounts\",\n    \"Number of inquiries in last 6 months\",\n    \"Number of current 30-59 days past due accounts\",\n    \"Number of current 60-89 days past due accounts\",\n    \"Number of current 90+ days past due accounts\",\n    \"Number of accounts ever 30-59 days past due\",\n    \"Number of accounts ever 60-89 days past due\",\n    \"Number of accounts ever 90+ days past due\",\n    \"Number of mortgage accounts\",\n    \"Number of open credit lines\",\n    \"Number of real estate accounts\",\n    \"Number of installment accounts\",\n    \"Number of open installment accounts\",\n    \"Number of open real estate accounts\",\n    \"Number of open credit lines and loans\",\n    \"Number of derogatory public records in last 2 years\",\n    \"Number of derogatory public records in last 3 years\",\n    \"Number of derogatory public records in last 4 years\",\n    \"Number of derogatory public records in last 5 years\",\n    \"Number of derogatory public records in last 6 years\",\n    \"Number of derogatory public records in last 7 years\",\n    \"Number of derogatory public records in last 8 years\",\n    \"Number of derogatory public records in last 9 years\",\n    \"Number of derogatory public records in last 10 years\",\n    \"Number of inquiries in last 2 years\",\n    \"Number of inquiries in last 3 years\",\n    \"Number of inquiries in last 4 years\",\n    \"Number of inquiries in last 5 years\",\n    \"Number of inquiries in last 6 years\",\n    \"Number of inquiries in last 7 years\",\n    \"Number of inquiries in last 8 years\",\n    \"Number of inquiries in last 9 years\",\n    \"Number of inquiries in last 10 years\",\n    \"Number of current 30-59 days past due mortgage accounts\",\n    \"Number of current 60-89 days past due mortgage accounts\",\n    \"Number of current 90+ days past due mortgage accounts\",\n    \"Number of accounts ever 30-59 days past due mortgage accounts\",\n    \"Number of accounts ever 60-89 days past due mortgage accounts\",\n    \"Number of accounts ever 90+ days past due mortgage accounts\",\n    \"Number of current 30-59 days past due real estate accounts\",\n    \"Number of current 60-89 days past due real estate accounts\",\n    \"Number of current 90+ days past due real estate accounts\",\n    \"Number of accounts ever 30-59 days past due real estate accounts\",\n    \"Number of accounts ever 60-89 days past due real estate accounts\",\n    \"Number of accounts ever 90+ days past due real estate accounts\",\n    \"Number of current 30-59 days past due installment accounts\",\n    \"Number of current 60-89 days past due installment accounts\",\n    \"Number of current 90+ days past due installment accounts\",\n    \"Number of accounts ever 30-59 days past due installment accounts\",\n    \"Number of accounts ever 60-89 days past due installment accounts\",\n    \"Number of accounts ever 90+ days past due installment accounts\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "861a23ddee598103b6fc9fdc7dc934aa88c6d65dd065a4504342c364cc81e74a",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 208,
+     "completion_tokens": 265,
+     "total_tokens": 473,
+     "cost": 5.166e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.166e-05,
+      "upstream_inference_prompt_cost": 1.456e-05,
+      "upstream_inference_completions_cost": 3.71e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.7,\n    \"2\": 0.6,\n    \"3\": 0.7,\n    \"4\": 0.9,\n    \"5\": 0.8,\n    \"6\": 0.7,\n    \"7\": 0.6,\n    \"8\": 0.5,\n    \"9\": 0.7,\n    \"10\": 0.6,\n    \"11\": 0.8,\n    \"12\": 0.7,\n    \"13\": 0.6,\n    \"14\": 0.7,\n    \"15\": 0.5,\n    \"16\": 0.6,\n    \"17\": 0.7,\n    \"18\": 0.8,\n    \"19\": 0.7,\n    \"20\": 0.6,\n    \"21\": 0.5\n  }\n}\n```\n\nThese scores are hypothetical and based on the assumption that the dataset involves financial data related to FICO scores and HELOC (Home Equity Line of Credit) applications. Features related to credit scores, financial history, and loan characteristics are generally more predictive in such contexts.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.7,
+   0.6,
+   0.7,
+   0.9,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "dcddf47e3ad811655a6e1fbe3f235d27e70da42520e58723bafd0edeb75f7f18",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 204,
+     "completion_tokens": 236,
+     "total_tokens": 440,
+     "cost": 4.732e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.732e-05,
+      "upstream_inference_prompt_cost": 1.428e-05,
+      "upstream_inference_completions_cost": 3.304e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.5,\n    \"1\": 0.4,\n    \"2\": 0.6,\n    \"3\": 0.3,\n    \"4\": 0.7,\n    \"5\": 0.5,\n    \"6\": 0.4,\n    \"7\": 0.6,\n    \"8\": 0.3,\n    \"9\": 0.5,\n    \"10\": 0.7,\n    \"11\": 0.4,\n    \"12\": 0.6,\n    \"13\": 0.3,\n    \"14\": 0.5,\n    \"15\": 0.7,\n    \"16\": 0.4,\n    \"17\": 0.6,\n    \"18\": 0.3,\n    \"19\": 0.5,\n    \"20\": 0.7,\n    \"21\": 0.4\n  }\n}\n``` \n\nThese scores are hypothetical and assume a balanced distribution of feature importance, given the lack of specific information about the dataset.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.4,
+   0.6,
+   0.3,
+   0.7,
+   0.5,
+   0.4,
+   0.6,
+   0.3,
+   0.5,
+   0.7,
+   0.4,
+   0.6,
+   0.3,
+   0.5,
+   0.7,
+   0.4,
+   0.6,
+   0.3,
+   0.5,
+   0.7,
+   0.4
+  ]
+ },
+ "P4": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f05b4d32e797aadd8ccdc4f1a5a1008f0782b5ecac62aa2c58e345a597f983be",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 360,
+     "completion_tokens": 248,
+     "total_tokens": 608,
+     "cost": 5.992e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.992e-05,
+      "upstream_inference_prompt_cost": 2.52e-05,
+      "upstream_inference_completions_cost": 3.472e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.6,\n    \"2\": 0.6,\n    \"3\": 0.4,\n    \"4\": 0.7,\n    \"5\": 0.7,\n    \"6\": 0.7,\n    \"7\": 0.7,\n    \"8\": 0.7,\n    \"9\": 0.7,\n    \"10\": 0.5,\n    \"11\": 0.5,\n    \"12\": 0.4,\n    \"13\": 0.6,\n    \"14\": 0.6,\n    \"15\": 0.6,\n    \"16\": 0.7,\n    \"17\": 0.7,\n    \"18\": 0.6,\n    \"19\": 0.6,\n    \"20\": 0.8,\n    \"21\": 0.7\n  }\n}\n``` \n\nThese scores are based on the typical relevance of such features in credit risk assessment contexts, where features related to credit history, delinquency, and utilization are often highly predictive.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.6,
+   0.4,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.5,
+   0.5,
+   0.4,
+   0.6,
+   0.6,
+   0.6,
+   0.7,
+   0.7,
+   0.6,
+   0.6,
+   0.8,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e47a1291bcee8071e5a36666d9cfca10a2e24b71e32be3ba0945f964364d25f5",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 335,
+     "completion_tokens": 212,
+     "total_tokens": 547,
+     "cost": 5.313e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.313e-05,
+      "upstream_inference_prompt_cost": 2.345e-05,
+      "upstream_inference_completions_cost": 2.968e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.7,\n    \"2\": 0.7,\n    \"3\": 0.5,\n    \"4\": 0.6,\n    \"5\": 0.7,\n    \"6\": 0.7,\n    \"7\": 0.8,\n    \"8\": 0.8,\n    \"9\": 0.7,\n    \"10\": 0.6,\n    \"11\": 0.6,\n    \"12\": 0.5,\n    \"13\": 0.6,\n    \"14\": 0.6,\n    \"15\": 0.6,\n    \"16\": 0.7,\n    \"17\": 0.7,\n    \"18\": 0.6,\n    \"19\": 0.6,\n    \"20\": 0.7,\n    \"21\": 0.7\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.7,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.5,
+   0.6,
+   0.6,
+   0.6,
+   0.7,
+   0.7,
+   0.6,
+   0.6,
+   0.7,
+   0.7
+  ]
+ }
+}

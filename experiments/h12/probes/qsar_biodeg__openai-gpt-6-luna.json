@@ -1,0 +1,490 @@
+{
+ "dataset": "qsar_biodeg",
+ "model": "openai/gpt-6-luna",
+ "variables": [
+  "SpMax_L",
+  "J_Dz(e)",
+  "nHM",
+  "F01[N-N]",
+  "F04[C-N]",
+  "NssssC",
+  "nCb-",
+  "C%",
+  "nCp",
+  "nO",
+  "F03[C-N]",
+  "SdssC",
+  "HyWi_B(m)",
+  "LOC",
+  "SM6_L",
+  "F03[C-O]",
+  "Me",
+  "Mi",
+  "nN-N",
+  "nArNO2",
+  "nCRX3",
+  "SpPosA_B(p)",
+  "nCIR",
+  "B01[C-Br]",
+  "B03[C-Cl]",
+  "N-073",
+  "SpMax_A",
+  "Psi_i_1d",
+  "B04[C-Br]",
+  "SdO",
+  "TI2_L",
+  "nCrt",
+  "C-026",
+  "F02[C-N]",
+  "nHDon",
+  "SpMax_B(m)",
+  "Psi_i_A",
+  "nN",
+  "SM6_B(m)",
+  "nArCOOR",
+  "nX"
+ ],
+ "P1a": {
+  "key": "59601944f92edacd841959710f8b3fc0b31e7356b4861690b31212aaedcbacfa",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 107,
+   "completion_tokens": 184,
+   "total_tokens": 291,
+   "cost": 0.0001027,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001027,
+    "upstream_inference_prompt_cost": 1.07e-05,
+    "upstream_inference_completions_cost": 9.2e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 144,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"QSAR biodegradation (Biodeg)\",\"source\":\"UCI Machine Learning Repository: QSAR biodegradation data set\",\"confidence\":0.99}"
+ },
+ "P1b": {
+  "key": "de0768cc7fce195d41e1af858b19f0075fc127ef896678b592385fa7877f1d92",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 263,
+   "completion_tokens": 360,
+   "total_tokens": 623,
+   "cost": 0.0002063,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0002063,
+    "upstream_inference_prompt_cost": 2.63e-05,
+    "upstream_inference_completions_cost": 0.00018
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 305,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"QSAR biodegradation\",\"source\":\"UCI Machine Learning Repository; Mansouri et al. (2013), \u201cQuantitative Structure\u2013Activity Relationship Models for Predicting Biodegradation of Chemicals\u201d\",\"confidence\":0.99}"
+ },
+ "P2": {
+  "key": "2119a35c80f61cc00c3bfec2ecec0f1c4dd19ad5a258a0691eb9cfc379c288ff",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 100,
+   "completion_tokens": 6898,
+   "total_tokens": 6998,
+   "cost": 0.003459,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.003459,
+    "upstream_inference_prompt_cost": 1e-05,
+    "upstream_inference_completions_cost": 0.003449
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 6754,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\":[\"SpMax_L\",\"J_Dz(e)\",\"nHM\",\"F01[N-N]\",\"F04[C-N]\",\"NssssC\",\"nCb-\",\"C%\",\"nCp\",\"nO\",\"F03[C-N]\",\"SdssC\",\"HyWi_B(m)\",\"LOC\",\"SM6_L\",\"F03[C-O]\",\"Me\",\"Mi\",\"nN\",\"nArNO2\",\"nCRX3\",\"nCrt\",\"C-026\",\"F02[C-N]\",\"nHDon\",\"SpMax_B(m)\",\"Psi_i_1d\",\"B02[C-N]\",\"nN-N\",\"nArCO\",\"nX\"]}"
+ },
+ "P3": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "97e0e72747359ea3cbeb78eb9088f75ebb32cdd6f110b7960991cc9930cc4613",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 248,
+     "completion_tokens": 1610,
+     "total_tokens": 1858,
+     "cost": 0.0008298,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0008298,
+      "upstream_inference_prompt_cost": 2.48e-05,
+      "upstream_inference_completions_cost": 0.000805
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1355,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.60,\"1\":0.56,\"2\":0.45,\"3\":0.65,\"4\":0.58,\"5\":0.40,\"6\":0.35,\"7\":0.52,\"8\":0.42,\"9\":0.68,\"10\":0.55,\"11\":0.45,\"12\":0.55,\"13\":0.56,\"14\":0.54,\"15\":0.50,\"16\":0.56,\"17\":0.40,\"18\":0.55,\"19\":0.50,\"20\":0.68,\"21\":0.72,\"22\":0.50,\"23\":0.51,\"24\":0.52,\"25\":0.40,\"26\":0.40,\"27\":0.54,\"28\":0.53,\"29\":0.56,\"30\":0.55,\"31\":0.58,\"32\":0.55,\"33\":0.68,\"34\":0.70,\"35\":0.57,\"36\":0.70,\"37\":0.55,\"38\":0.48,\"39\":0.55,\"40\":0.50}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.35,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.56,
+   0.45,
+   0.65,
+   0.58,
+   0.4,
+   0.35,
+   0.52,
+   0.42,
+   0.68,
+   0.55,
+   0.45,
+   0.55,
+   0.56,
+   0.54,
+   0.5,
+   0.56,
+   0.4,
+   0.55,
+   0.5,
+   0.68,
+   0.72,
+   0.5,
+   0.51,
+   0.52,
+   0.4,
+   0.4,
+   0.54,
+   0.53,
+   0.56,
+   0.55,
+   0.58,
+   0.55,
+   0.68,
+   0.7,
+   0.57,
+   0.7,
+   0.55,
+   0.48,
+   0.55,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "9ee41ee35bab81b65d3f71df2ee7611e32314826a3fff0e964136f72b10b5efa",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 241,
+     "completion_tokens": 372,
+     "total_tokens": 613,
+     "cost": 0.0002101,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002101,
+      "upstream_inference_prompt_cost": 2.41e-05,
+      "upstream_inference_completions_cost": 0.000186
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 117,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.5,\"21\":0.5,\"22\":0.5,\"23\":0.5,\"24\":0.5,\"25\":0.5,\"26\":0.5,\"27\":0.5,\"28\":0.5,\"29\":0.5,\"30\":0.5,\"31\":0.5,\"32\":0.5,\"33\":0.5,\"34\":0.5,\"35\":0.5,\"36\":0.5,\"37\":0.5,\"38\":0.5,\"39\":0.5,\"40\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2d9ff093d34d8bd234e15bf26e96076fc3c002380238e12434d7b2306259792c",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 391,
+     "completion_tokens": 1128,
+     "total_tokens": 1519,
+     "cost": 0.0006031,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0006031,
+      "upstream_inference_prompt_cost": 3.91e-05,
+      "upstream_inference_completions_cost": 0.000564
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 873,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.55,\"1\":0.35,\"2\":0.48,\"3\":0.58,\"4\":0.50,\"5\":0.40,\"6\":0.50,\"7\":0.57,\"8\":0.40,\"9\":0.72,\"10\":0.54,\"11\":0.40,\"12\":0.38,\"13\":0.52,\"14\":0.50,\"15\":0.62,\"16\":0.40,\"17\":0.38,\"18\":0.56,\"19\":0.83,\"20\":0.55,\"21\":0.45,\"22\":0.45,\"23\":0.76,\"24\":0.76,\"25\":0.50,\"26\":0.52,\"27\":0.42,\"28\":0.70,\"29\":0.50,\"30\":0.48,\"31\":0.43,\"32\":0.45,\"33\":0.52,\"34\":0.68,\"35\":0.47,\"36\":0.44,\"37\":0.67,\"38\":0.47,\"39\":0.65,\"40\":0.86}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.35,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.55,
+   0.35,
+   0.48,
+   0.58,
+   0.5,
+   0.4,
+   0.5,
+   0.57,
+   0.4,
+   0.72,
+   0.54,
+   0.4,
+   0.38,
+   0.52,
+   0.5,
+   0.62,
+   0.4,
+   0.38,
+   0.56,
+   0.83,
+   0.55,
+   0.45,
+   0.45,
+   0.76,
+   0.76,
+   0.5,
+   0.52,
+   0.42,
+   0.7,
+   0.5,
+   0.48,
+   0.43,
+   0.45,
+   0.52,
+   0.68,
+   0.47,
+   0.44,
+   0.67,
+   0.47,
+   0.65,
+   0.86
+  ]
+ },
+ "P5": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "67bc3c0b8813682439d099024924795f27787947a2ee64e76c14cdfd8dd99935",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 363,
+     "completion_tokens": 658,
+     "total_tokens": 1021,
+     "cost": 0.0003653,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0003653,
+      "upstream_inference_prompt_cost": 3.63e-05,
+      "upstream_inference_completions_cost": 0.000329
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 403,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.45,\"1\":0.38,\"2\":0.25,\"3\":0.28,\"4\":0.34,\"5\":0.30,\"6\":0.22,\"7\":0.43,\"8\":0.23,\"9\":0.55,\"10\":0.33,\"11\":0.31,\"12\":0.36,\"13\":0.40,\"14\":0.42,\"15\":0.46,\"16\":0.35,\"17\":0.36,\"18\":0.35,\"19\":0.78,\"20\":0.41,\"21\":0.40,\"22\":0.31,\"23\":0.68,\"24\":0.65,\"25\":0.37,\"26\":0.46,\"27\":0.39,\"28\":0.58,\"29\":0.37,\"30\":0.43,\"31\":0.30,\"32\":0.34,\"33\":0.34,\"34\":0.57,\"35\":0.44,\"36\":0.39,\"37\":0.48,\"38\":0.42,\"39\":0.54,\"40\":0.72}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.22,
+  "header": [
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.45,
+   0.38,
+   0.25,
+   0.28,
+   0.34,
+   0.3,
+   0.22,
+   0.43,
+   0.23,
+   0.55,
+   0.33,
+   0.31,
+   0.36,
+   0.4,
+   0.42,
+   0.46,
+   0.35,
+   0.36,
+   0.35,
+   0.78,
+   0.41,
+   0.4,
+   0.31,
+   0.68,
+   0.65,
+   0.37,
+   0.46,
+   0.39,
+   0.58,
+   0.37,
+   0.43,
+   0.3,
+   0.34,
+   0.34,
+   0.57,
+   0.44,
+   0.39,
+   0.48,
+   0.42,
+   0.54,
+   0.72
+  ]
+ }
+}

@@ -1,0 +1,490 @@
+{
+ "dataset": "qsar_biodeg",
+ "model": "meta-llama/llama-3.3-70b-instruct",
+ "variables": [
+  "SpMax_L",
+  "J_Dz(e)",
+  "nHM",
+  "F01[N-N]",
+  "F04[C-N]",
+  "NssssC",
+  "nCb-",
+  "C%",
+  "nCp",
+  "nO",
+  "F03[C-N]",
+  "SdssC",
+  "HyWi_B(m)",
+  "LOC",
+  "SM6_L",
+  "F03[C-O]",
+  "Me",
+  "Mi",
+  "nN-N",
+  "nArNO2",
+  "nCRX3",
+  "SpPosA_B(p)",
+  "nCIR",
+  "B01[C-Br]",
+  "B03[C-Cl]",
+  "N-073",
+  "SpMax_A",
+  "Psi_i_1d",
+  "B04[C-Br]",
+  "SdO",
+  "TI2_L",
+  "nCrt",
+  "C-026",
+  "F02[C-N]",
+  "nHDon",
+  "SpMax_B(m)",
+  "Psi_i_A",
+  "nN",
+  "SM6_B(m)",
+  "nArCOOR",
+  "nX"
+ ],
+ "P1a": {
+  "key": "6eba9ea08361808dc6ca790eb7b73e8c8082a252f6511edb126b72d81eaf68ee",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 116,
+   "completion_tokens": 27,
+   "total_tokens": 143,
+   "cost": 2.024e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.024e-05,
+    "upstream_inference_prompt_cost": 1.16e-05,
+    "upstream_inference_completions_cost": 8.64e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Biodegradation\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.9}"
+ },
+ "P1b": {
+  "key": "f2d1c3affd3a4422f3016f81f48232f15d21bdeeae87909d5a715b97a9c36cb6",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 275,
+   "completion_tokens": 36,
+   "total_tokens": 311,
+   "cost": 3.902e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.902e-05,
+    "upstream_inference_prompt_cost": 2.75e-05,
+    "upstream_inference_completions_cost": 1.152e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"MUV\", \"source\": \"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2967835/\", \"confidence\": 0.8}"
+ },
+ "P2": {
+  "key": "6abca358eb9ebc2a39aa2dd2113ad41c2cb504f91cd2f777301e65f85d77c529",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 106,
+   "completion_tokens": 543,
+   "total_tokens": 649,
+   "cost": 0.00018436,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00018436,
+    "upstream_inference_prompt_cost": 1.06e-05,
+    "upstream_inference_completions_cost": 0.00017376
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"SpMax_L\", \"J_Dz(e)\", \"nHM\", \"F01[N-N]\", \"F04[C-N]\", \"NdsCH\", \"NdssCH\", \"Mv\", \"MV\", \"SpPubChem\", \"SC1\", \"SC2\", \"SC3\", \"SC4\", \"SC5\", \"SC6\", \"SC7\", \"LogKow\", \"MI\", \"nHBa\", \"nHBd\", \"nHBp\", \"nOHs\", \"nOHt\", \"nOHNH\", \"nOHOther\", \"nN\", \"nNH\", \"nNH2\", \"nNH3\", \"nNHR\", \"nArN\", \"nArNH\", \"nArO\", \"nArNO2\", \"nArH\", \"nBEH\", \"nBEN\", \"nBN\", \"nC\", \"nCN\", \"nCO\", \"nCOO\", \"nCOOH\", \"nH\", \"hmin\", \"hmax\", \"LUMO\", \"HOMO\", \"nhet\", \"IC\", \"LocI\", \"nHs\", \"nHO\", \"nHOther\", \"omega\", \"TIC1\", \"TIC2\", \"TIC3\", \"TIC4\", \"TIC5\", \"S1K\", \"S2K\", \"S3K\", \"S4K\", \"S5K\", \"WNSA1\", \"WNSA2\", \"WNSA3\", \"WNSA4\", \"WNSA5\", \"PNSA1\", \"PNSA2\", \"PNSA3\", \"PNSA4\", \"PNSA5\", \"DLI\", \"nhet\", \"nHs\", \"Psi\", \"B01[C-Br]\", \"B01[C-C]\", \"B01[C-Cl]\", \"B01[C-F]\", \"B01[C-N]\", \"B01[C-O]\", \"B02[C-N]\", \"B02[N-O]\", \"B03[C-N]\", \"B04[C-N]\", \"B05[C-Br]\", \"B06[C-C]\", \"B06[C-Cl]\", \"B06[C-F]\", \"B06[C-N]\", \"B06[C-O]\", \"B07[C-N]\", \"F01[C-Br]\", \"F01[C-C]\", \"F01[C-Cl]\", \"F01[C-F]\", \"F01[C-N]\", \"F01[C-O]\", \"F02[C-N]\", \"F03[C-N]\"]}"
+ },
+ "P3": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "839c1797fdc76bcbcb31d29b06b0691da08f2dd2b5ef8b9960dae409158bfcda",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 255,
+     "completion_tokens": 332,
+     "total_tokens": 587,
+     "cost": 0.0002133,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 80,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002133,
+      "upstream_inference_prompt_cost": 4.73e-05,
+      "upstream_inference_completions_cost": 0.000166
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5, \"37\": 0.5, \"38\": 0.5, \"39\": 0.5, \"40\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "9a3a343835b1397dab6ae4dad9939c00407a12a5af0fbfd9fbda992fbaa452a8",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 246,
+     "completion_tokens": 332,
+     "total_tokens": 578,
+     "cost": 0.00013084,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00013084,
+      "upstream_inference_prompt_cost": 2.46e-05,
+      "upstream_inference_completions_cost": 0.00010624
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5, \"37\": 0.5, \"38\": 0.5, \"39\": 0.5, \"40\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "cf03daaff9e8382b2b055e9bc88830413ccffea5fc1ded710c28bbc6c4460226",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 408,
+     "completion_tokens": 332,
+     "total_tokens": 740,
+     "cost": 0.00014704,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00014704,
+      "upstream_inference_prompt_cost": 4.08e-05,
+      "upstream_inference_completions_cost": 0.00010624
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.5, \"2\": 0.7, \"3\": 0.4, \"4\": 0.5, \"5\": 0.6, \"6\": 0.7, \"7\": 0.8, \"8\": 0.6, \"9\": 0.7, \"10\": 0.5, \"11\": 0.6, \"12\": 0.7, \"13\": 0.8, \"14\": 0.6, \"15\": 0.5, \"16\": 0.4, \"17\": 0.5, \"18\": 0.6, \"19\": 0.7, \"20\": 0.5, \"21\": 0.6, \"22\": 0.7, \"23\": 0.4, \"24\": 0.5, \"25\": 0.6, \"26\": 0.7, \"27\": 0.5, \"28\": 0.4, \"29\": 0.6, \"30\": 0.7, \"31\": 0.5, \"32\": 0.6, \"33\": 0.5, \"34\": 0.7, \"35\": 0.6, \"36\": 0.5, \"37\": 0.7, \"38\": 0.6, \"39\": 0.5, \"40\": 0.4}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.7,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.4
+  ]
+ },
+ "P5": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "00afe746c6d37f67fcee5ef5d64dca71d0046842734e7fd0addc36c697860982",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 379,
+     "completion_tokens": 334,
+     "total_tokens": 713,
+     "cost": 0.00014478,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00014478,
+      "upstream_inference_prompt_cost": 3.79e-05,
+      "upstream_inference_completions_cost": 0.00010688
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\n\"0\": 0.6,\n\"1\": 0.5,\n\"2\": 0.7,\n\"3\": 0.4,\n\"4\": 0.4,\n\"5\": 0.6,\n\"6\": 0.5,\n\"7\": 0.8,\n\"8\": 0.6,\n\"9\": 0.8,\n\"10\": 0.4,\n\"11\": 0.6,\n\"12\": 0.5,\n\"13\": 0.3,\n\"14\": 0.6,\n\"15\": 0.4,\n\"16\": 0.5,\n\"17\": 0.5,\n\"18\": 0.6,\n\"19\": 0.4,\n\"20\": 0.5,\n\"21\": 0.6,\n\"22\": 0.5,\n\"23\": 0.3,\n\"24\": 0.3,\n\"25\": 0.5,\n\"26\": 0.6,\n\"27\": 0.5,\n\"28\": 0.3,\n\"29\": 0.6,\n\"30\": 0.5,\n\"31\": 0.6,\n\"32\": 0.5,\n\"33\": 0.4,\n\"34\": 0.8,\n\"35\": 0.6,\n\"36\": 0.5,\n\"37\": 0.7,\n\"38\": 0.6,\n\"39\": 0.6,\n\"40\": 0.5\n}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.7,
+   0.4,
+   0.4,
+   0.6,
+   0.5,
+   0.8,
+   0.6,
+   0.8,
+   0.4,
+   0.6,
+   0.5,
+   0.3,
+   0.6,
+   0.4,
+   0.5,
+   0.5,
+   0.6,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.3,
+   0.3,
+   0.5,
+   0.6,
+   0.5,
+   0.3,
+   0.6,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.8,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.6,
+   0.5
+  ]
+ }
+}

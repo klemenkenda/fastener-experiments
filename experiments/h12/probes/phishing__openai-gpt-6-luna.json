@@ -1,0 +1,435 @@
+{
+ "dataset": "phishing",
+ "model": "openai/gpt-6-luna",
+ "variables": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "P1a": {
+  "key": "92caef57faf39f80b8d0dbc7b7eb8f45f097d2114bfa4b532068f62afd887b06",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 104,
+   "completion_tokens": 159,
+   "total_tokens": 263,
+   "cost": 8.99e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 8.99e-05,
+    "upstream_inference_prompt_cost": 1.04e-05,
+    "upstream_inference_completions_cost": 7.95e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 126,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"Phishing Websites\",\"source\":\"UCI Machine Learning Repository: Phishing Websites Data Set\",\"confidence\":0.99}"
+ },
+ "P1b": {
+  "key": "6c7372b627981cdc76357946a3c67616488df62bc3b2f41732e7f792526930a7",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 211,
+   "completion_tokens": 133,
+   "total_tokens": 344,
+   "cost": 8.76e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 8.76e-05,
+    "upstream_inference_prompt_cost": 2.11e-05,
+    "upstream_inference_completions_cost": 6.65e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 100,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"Phishing Websites\",\"source\":\"UCI Machine Learning Repository: Phishing Websites Data Set\",\"confidence\":0.99}"
+ },
+ "P2": {
+  "key": "28ff99cd13a14ecb837ef17e3cc3fcad0e273df96a29d58a0736deb233dd0908",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 104,
+   "completion_tokens": 558,
+   "total_tokens": 662,
+   "cost": 0.0002894,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0002894,
+    "upstream_inference_prompt_cost": 1.04e-05,
+    "upstream_inference_completions_cost": 0.000279
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 432,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\":[\"having_IP_Address\",\"URL_Length\",\"Shortining_Service\",\"having_At_Symbol\",\"double_slash_redirecting\",\"Prefix_Suffix\",\"having_Sub_Domain\",\"SSLfinal_State\",\"Domain_registeration_length\",\"Favicon\",\"port\",\"HTTPS_token\",\"Request_URL\",\"URL_of_Anchor\",\"Links_in_tags\",\"SFH\",\"Submitting_to_email\",\"Abnormal_URL\",\"Redirect\",\"on_mouseover\",\"RightClick\",\"popUpWidnow\",\"Iframe\",\"age_of_domain\",\"DNSRecord\",\"web_traffic\",\"Page_Rank\",\"Google_Index\",\"Links_pointing_to_page\",\"Statistical_report\"]}"
+ },
+ "P3": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "4b57e0e69247188627b7518bd16f4e9438aaf3d28a405be08db05564fdbd5e1b",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 230,
+     "completion_tokens": 652,
+     "total_tokens": 882,
+     "cost": 0.000349,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000349,
+      "upstream_inference_prompt_cost": 2.3e-05,
+      "upstream_inference_completions_cost": 0.000326
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 463,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.28,\"1\":0.30,\"2\":0.24,\"3\":0.22,\"4\":0.27,\"5\":0.56,\"6\":0.58,\"7\":0.88,\"8\":0.46,\"9\":0.23,\"10\":0.18,\"11\":0.34,\"12\":0.60,\"13\":0.82,\"14\":0.52,\"15\":0.43,\"16\":0.33,\"17\":0.42,\"18\":0.12,\"19\":0.22,\"20\":0.12,\"21\":0.20,\"22\":0.18,\"23\":0.62,\"24\":0.51,\"25\":0.72,\"26\":0.57,\"27\":0.59,\"28\":0.43,\"29\":0.37}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.12,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.28,
+   0.3,
+   0.24,
+   0.22,
+   0.27,
+   0.56,
+   0.58,
+   0.88,
+   0.46,
+   0.23,
+   0.18,
+   0.34,
+   0.6,
+   0.82,
+   0.52,
+   0.43,
+   0.33,
+   0.42,
+   0.12,
+   0.22,
+   0.12,
+   0.2,
+   0.18,
+   0.62,
+   0.51,
+   0.72,
+   0.57,
+   0.59,
+   0.43,
+   0.37
+  ]
+ },
+ "P3f": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "7a09cfd05b2a946ad88fcba1643d2f5633e6c13e779640e476eaf0564ebed6a9",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 219,
+     "completion_tokens": 317,
+     "total_tokens": 536,
+     "cost": 0.0001804,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001804,
+      "upstream_inference_prompt_cost": 2.19e-05,
+      "upstream_inference_completions_cost": 0.0001585
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 128,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.5,\"21\":0.5,\"22\":0.5,\"23\":0.5,\"24\":0.5,\"25\":0.5,\"26\":0.5,\"27\":0.5,\"28\":0.5,\"29\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "744908fd66a25e917922b51f80b20db817d23dc606315c6e213b7736002176dd",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 319,
+     "completion_tokens": 367,
+     "total_tokens": 686,
+     "cost": 0.0002154,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002154,
+      "upstream_inference_prompt_cost": 3.19e-05,
+      "upstream_inference_completions_cost": 0.0001835
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 178,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.68,\"1\":0.56,\"2\":0.55,\"3\":0.57,\"4\":0.57,\"5\":0.74,\"6\":0.75,\"7\":0.88,\"8\":0.57,\"9\":0.48,\"10\":0.38,\"11\":0.64,\"12\":0.68,\"13\":0.86,\"14\":0.75,\"15\":0.69,\"16\":0.55,\"17\":0.63,\"18\":0.34,\"19\":0.47,\"20\":0.37,\"21\":0.43,\"22\":0.43,\"23\":0.72,\"24\":0.64,\"25\":0.79,\"26\":0.69,\"27\":0.62,\"28\":0.53,\"29\":0.48}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.34,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.68,
+   0.56,
+   0.55,
+   0.57,
+   0.57,
+   0.74,
+   0.75,
+   0.88,
+   0.57,
+   0.48,
+   0.38,
+   0.64,
+   0.68,
+   0.86,
+   0.75,
+   0.69,
+   0.55,
+   0.63,
+   0.34,
+   0.47,
+   0.37,
+   0.43,
+   0.43,
+   0.72,
+   0.64,
+   0.79,
+   0.69,
+   0.62,
+   0.53,
+   0.48
+  ]
+ },
+ "P5": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "874684cad7b1f4198e2234267641d10aac05dcc656aba5dc00b542653997b342",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 287,
+     "completion_tokens": 384,
+     "total_tokens": 671,
+     "cost": 0.0002207,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002207,
+      "upstream_inference_prompt_cost": 2.87e-05,
+      "upstream_inference_completions_cost": 0.000192
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 195,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.55,\"1\":0.62,\"2\":0.48,\"3\":0.42,\"4\":0.48,\"5\":0.72,\"6\":0.72,\"7\":0.88,\"8\":0.63,\"9\":0.38,\"10\":0.42,\"11\":0.55,\"12\":0.69,\"13\":0.86,\"14\":0.69,\"15\":0.65,\"16\":0.47,\"17\":0.56,\"18\":0.30,\"19\":0.35,\"20\":0.28,\"21\":0.34,\"22\":0.29,\"23\":0.72,\"24\":0.65,\"25\":0.80,\"26\":0.71,\"27\":0.60,\"28\":0.62,\"29\":0.46}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.28,
+  "header": [
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.55,
+   0.62,
+   0.48,
+   0.42,
+   0.48,
+   0.72,
+   0.72,
+   0.88,
+   0.63,
+   0.38,
+   0.42,
+   0.55,
+   0.69,
+   0.86,
+   0.69,
+   0.65,
+   0.47,
+   0.56,
+   0.3,
+   0.35,
+   0.28,
+   0.34,
+   0.29,
+   0.72,
+   0.65,
+   0.8,
+   0.71,
+   0.6,
+   0.62,
+   0.46
+  ]
+ }
+}

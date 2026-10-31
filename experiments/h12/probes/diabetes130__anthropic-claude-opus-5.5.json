@@ -1,0 +1,500 @@
+{
+ "dataset": "diabetes130",
+ "model": "anthropic/claude-opus-5.5",
+ "variables": [
+  "race",
+  "gender",
+  "age",
+  "weight",
+  "admission_type_id",
+  "discharge_disposition_id",
+  "admission_source_id",
+  "time_in_hospital",
+  "payer_code",
+  "num_lab_procedures",
+  "num_procedures",
+  "num_medications",
+  "number_outpatient",
+  "number_emergency",
+  "number_inpatient",
+  "number_diagnoses",
+  "max_glu_serum",
+  "A1Cresult",
+  "metformin",
+  "repaglinide",
+  "nateglinide",
+  "chlorpropamide",
+  "glimepiride",
+  "acetohexamide",
+  "glipizide",
+  "glyburide",
+  "tolbutamide",
+  "pioglitazone",
+  "rosiglitazone",
+  "acarbose",
+  "miglitol",
+  "troglitazone",
+  "tolazamide",
+  "examide",
+  "citoglipton",
+  "insulin",
+  "glyburide.metformin",
+  "glipizide.metformin",
+  "glimepiride.pioglitazone",
+  "metformin.rosiglitazone",
+  "metformin.pioglitazone",
+  "change",
+  "diabetesMed"
+ ],
+ "P1a": {
+  "key": "c6762ecbc9a67a8791b065a649dfcc38818aff954c8d4fa7f0e99f7949829b81",
+  "served_model": "anthropic/claude-opus-5.5",
+  "usage": {
+   "prompt_tokens": 161,
+   "completion_tokens": 181,
+   "total_tokens": 342,
+   "cost": 0.004264,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.004264,
+    "upstream_inference_prompt_cost": 0.000644,
+    "upstream_inference_completions_cost": 0.00362
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 104,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Diabetes 130-US Hospitals for Years 1999-2008\", \"source\": \"UCI Machine Learning Repository (Strack et al., 2014, BioMed Research International)\", \"confidence\": 0.95}"
+ },
+ "P1b": {
+  "key": "f1f4fdc20b5e70ae6e255d3c01f4d88e918f53f37a1ac809206c24dcc07086fe",
+  "served_model": "anthropic/claude-opus-5.5",
+  "usage": {
+   "prompt_tokens": 405,
+   "completion_tokens": 304,
+   "total_tokens": 709,
+   "cost": 0.0077,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0077,
+    "upstream_inference_prompt_cost": 0.00162,
+    "upstream_inference_completions_cost": 0.00608
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 209,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"name\": \"Diabetes 130-US hospitals for years 1999-2008 (readmission prediction)\", \"source\": \"UCI Machine Learning Repository (Strack et al., 2014); also on OpenML as Diabetes130US\", \"confidence\": 0.9}\n```"
+ },
+ "P2": {
+  "key": "fb656fc218995b783c2b9e90af7df4ce909a05990c1218ec7d3082336d787ef1",
+  "served_model": "anthropic/claude-opus-5.5",
+  "usage": {
+   "prompt_tokens": 141,
+   "completion_tokens": 758,
+   "total_tokens": 899,
+   "cost": 0.015724,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.015724,
+    "upstream_inference_prompt_cost": 0.000564,
+    "upstream_inference_completions_cost": 0.01516
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 388,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"encounter_id\", \"patient_nbr\", \"race\", \"gender\", \"age\", \"weight\", \"admission_type_id\", \"discharge_disposition_id\", \"admission_source_id\", \"time_in_hospital\", \"payer_code\", \"medical_specialty\", \"num_lab_procedures\", \"num_procedures\", \"num_medications\", \"number_outpatient\", \"number_emergency\", \"number_inpatient\", \"diag_1\", \"diag_2\", \"diag_3\", \"number_diagnoses\", \"max_glu_serum\", \"A1Cresult\", \"metformin\", \"repaglinide\", \"nateglinide\", \"chlorpropamide\", \"glimepiride\", \"acetohexamide\", \"glipizide\", \"glyburide\", \"tolbutamide\", \"pioglitazone\", \"rosiglitazone\", \"acarbose\", \"miglitol\", \"troglitazone\", \"tolazamide\", \"examide\", \"citoglipton\", \"insulin\", \"glyburide-metformin\", \"glipizide-metformin\", \"glimepiride-pioglitazone\", \"metformin-rosiglitazone\", \"metformin-pioglitazone\", \"change\", \"diabetesMed\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "426ef6be800d538b40caf1d2df4a99460f1ffaea9511c5b1d69f6768041621de",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 365,
+     "completion_tokens": 1115,
+     "total_tokens": 1480,
+     "cost": 0.02376,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.02376,
+      "upstream_inference_prompt_cost": 0.00146,
+      "upstream_inference_completions_cost": 0.0223
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 762,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.12, \"2\": 0.4, \"3\": 0.08, \"4\": 0.35, \"5\": 0.75, \"6\": 0.45, \"7\": 0.5, \"8\": 0.35, \"9\": 0.45, \"10\": 0.35, \"11\": 0.5, \"12\": 0.55, \"13\": 0.65, \"14\": 1.0, \"15\": 0.6, \"16\": 0.15, \"17\": 0.25, \"18\": 0.3, \"19\": 0.12, \"20\": 0.05, \"21\": 0.03, \"22\": 0.08, \"23\": 0.01, \"24\": 0.1, \"25\": 0.08, \"26\": 0.02, \"27\": 0.08, \"28\": 0.08, \"29\": 0.04, \"30\": 0.03, \"31\": 0.01, \"32\": 0.02, \"33\": 0.0, \"34\": 0.0, \"35\": 0.4, \"36\": 0.04, \"37\": 0.01, \"38\": 0.0, \"39\": 0.0, \"40\": 0.0, \"41\": 0.3, \"42\": 0.35}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.0,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order (the distributed file's columns encounter_id, patient_nbr, medical_specialty, diag_1, diag_2, diag_3 are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.12,
+   0.4,
+   0.08,
+   0.35,
+   0.75,
+   0.45,
+   0.5,
+   0.35,
+   0.45,
+   0.35,
+   0.5,
+   0.55,
+   0.65,
+   1.0,
+   0.6,
+   0.15,
+   0.25,
+   0.3,
+   0.12,
+   0.05,
+   0.03,
+   0.08,
+   0.01,
+   0.1,
+   0.08,
+   0.02,
+   0.08,
+   0.08,
+   0.04,
+   0.03,
+   0.01,
+   0.02,
+   0.0,
+   0.0,
+   0.4,
+   0.04,
+   0.01,
+   0.0,
+   0.0,
+   0.0,
+   0.3,
+   0.35
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a7218482e6337c4d6d4f30447d19fad25121d71581e488056f9bc0a524f55fbe",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 293,
+     "completion_tokens": 421,
+     "total_tokens": 714,
+     "cost": 0.009592,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.009592,
+      "upstream_inference_prompt_cost": 0.001172,
+      "upstream_inference_completions_cost": 0.00842
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 68,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5, \"37\": 0.5, \"38\": 0.5, \"39\": 0.5, \"40\": 0.5, \"41\": 0.5, \"42\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e63204d6866bd9ed679d619ec78d8e65b2e6c74ae8df69ef31b8f294dcf0d91c",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 579,
+     "completion_tokens": 353,
+     "total_tokens": 932,
+     "cost": 0.009376,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.009376,
+      "upstream_inference_prompt_cost": 0.002316,
+      "upstream_inference_completions_cost": 0.00706
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.1, \"2\": 0.3, \"3\": 0.05, \"4\": 0.3, \"5\": 0.75, \"6\": 0.4, \"7\": 0.4, \"8\": 0.35, \"9\": 0.35, \"10\": 0.25, \"11\": 0.4, \"12\": 0.5, \"13\": 0.6, \"14\": 0.95, \"15\": 0.5, \"16\": 0.15, \"17\": 0.2, \"18\": 0.2, \"19\": 0.1, \"20\": 0.05, \"21\": 0.03, \"22\": 0.05, \"23\": 0.01, \"24\": 0.1, \"25\": 0.08, \"26\": 0.02, \"27\": 0.08, \"28\": 0.08, \"29\": 0.04, \"30\": 0.03, \"31\": 0.01, \"32\": 0.02, \"33\": 0.0, \"34\": 0.0, \"35\": 0.3, \"36\": 0.03, \"37\": 0.02, \"38\": 0.01, \"39\": 0.01, \"40\": 0.01, \"41\": 0.2, \"42\": 0.25}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.0,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.1,
+   0.3,
+   0.05,
+   0.3,
+   0.75,
+   0.4,
+   0.4,
+   0.35,
+   0.35,
+   0.25,
+   0.4,
+   0.5,
+   0.6,
+   0.95,
+   0.5,
+   0.15,
+   0.2,
+   0.2,
+   0.1,
+   0.05,
+   0.03,
+   0.05,
+   0.01,
+   0.1,
+   0.08,
+   0.02,
+   0.08,
+   0.08,
+   0.04,
+   0.03,
+   0.01,
+   0.02,
+   0.0,
+   0.0,
+   0.3,
+   0.03,
+   0.02,
+   0.01,
+   0.01,
+   0.01,
+   0.2,
+   0.25
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2bcf4d92c6c51c643764b1f3af2cb83d36bcc8c8440afd87f9c203d3604bba5e",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 528,
+     "completion_tokens": 353,
+     "total_tokens": 881,
+     "cost": 0.009172,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.009172,
+      "upstream_inference_prompt_cost": 0.002112,
+      "upstream_inference_completions_cost": 0.00706
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.1, \"2\": 0.3, \"3\": 0.05, \"4\": 0.3, \"5\": 0.6, \"6\": 0.35, \"7\": 0.4, \"8\": 0.3, \"9\": 0.35, \"10\": 0.25, \"11\": 0.4, \"12\": 0.5, \"13\": 0.6, \"14\": 0.95, \"15\": 0.5, \"16\": 0.15, \"17\": 0.2, \"18\": 0.2, \"19\": 0.08, \"20\": 0.04, \"21\": 0.02, \"22\": 0.06, \"23\": 0.01, \"24\": 0.08, \"25\": 0.06, \"26\": 0.01, \"27\": 0.06, \"28\": 0.06, \"29\": 0.03, \"30\": 0.02, \"31\": 0.01, \"32\": 0.01, \"33\": 0.0, \"34\": 0.0, \"35\": 0.3, \"36\": 0.03, \"37\": 0.01, \"38\": 0.01, \"39\": 0.01, \"40\": 0.01, \"41\": 0.2, \"42\": 0.25}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.0,
+  "header": [
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.1,
+   0.3,
+   0.05,
+   0.3,
+   0.6,
+   0.35,
+   0.4,
+   0.3,
+   0.35,
+   0.25,
+   0.4,
+   0.5,
+   0.6,
+   0.95,
+   0.5,
+   0.15,
+   0.2,
+   0.2,
+   0.08,
+   0.04,
+   0.02,
+   0.06,
+   0.01,
+   0.08,
+   0.06,
+   0.01,
+   0.06,
+   0.06,
+   0.03,
+   0.02,
+   0.01,
+   0.01,
+   0.0,
+   0.0,
+   0.3,
+   0.03,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.2,
+   0.25
+  ]
+ }
+}

@@ -1,0 +1,470 @@
+{
+ "dataset": "pc4",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "LOC_BLANK",
+  "BRANCH_COUNT",
+  "CALL_PAIRS",
+  "LOC_CODE_AND_COMMENT",
+  "LOC_COMMENTS",
+  "CONDITION_COUNT",
+  "CYCLOMATIC_COMPLEXITY",
+  "CYCLOMATIC_DENSITY",
+  "DECISION_COUNT",
+  "DECISION_DENSITY",
+  "DESIGN_COMPLEXITY",
+  "DESIGN_DENSITY",
+  "EDGE_COUNT",
+  "ESSENTIAL_COMPLEXITY",
+  "ESSENTIAL_DENSITY",
+  "LOC_EXECUTABLE",
+  "PARAMETER_COUNT",
+  "HALSTEAD_CONTENT",
+  "HALSTEAD_DIFFICULTY",
+  "HALSTEAD_EFFORT",
+  "HALSTEAD_ERROR_EST",
+  "HALSTEAD_LENGTH",
+  "HALSTEAD_LEVEL",
+  "HALSTEAD_PROG_TIME",
+  "HALSTEAD_VOLUME",
+  "MAINTENANCE_SEVERITY",
+  "MODIFIED_CONDITION_COUNT",
+  "MULTIPLE_CONDITION_COUNT",
+  "NODE_COUNT",
+  "NORMALIZED_CYLOMATIC_COMPLEXITY",
+  "NUM_OPERANDS",
+  "NUM_OPERATORS",
+  "NUM_UNIQUE_OPERANDS",
+  "NUM_UNIQUE_OPERATORS",
+  "NUMBER_OF_LINES",
+  "PERCENT_COMMENTS",
+  "LOC_TOTAL"
+ ],
+ "P1a": {
+  "key": "68f0ad46b57a7499b76ed912afab697ac4738709779df8be21b9e6946f6d2741",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 104,
+   "completion_tokens": 56,
+   "total_tokens": 160,
+   "cost": 2.4e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.4e-05,
+    "upstream_inference_prompt_cost": 1.56e-05,
+    "upstream_inference_completions_cost": 8.4e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Wafer Fault Data Set\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Wafer+Fault+Data+Set\",\n  \"confidence\": 0.99\n}\n```"
+ },
+ "P1b": {
+  "key": "82ea22e55c69b24e9d21fb853096c32e5b5ad6c205754122ccd682ae61247502",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 350,
+   "completion_tokens": 57,
+   "total_tokens": 407,
+   "cost": 6.105e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 6.105e-05,
+    "upstream_inference_prompt_cost": 5.25e-05,
+    "upstream_inference_completions_cost": 8.55e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"PROMISE Data Sets (e.g., Defect Prediction Data Set)\",\n  \"source\": \"https://github.com/promisedata/promise-dataset\",\n  \"confidence\": 0.98\n}\n```"
+ },
+ "P2": {
+  "key": "c1823c38fd2f64d7dc1ae05f3b4f1060f2e496f04561fbbc8f35f167b5fc4ec0",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 92,
+   "completion_tokens": 1886,
+   "total_tokens": 1978,
+   "cost": 0.0002967,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0002967,
+    "upstream_inference_prompt_cost": 1.38e-05,
+    "upstream_inference_completions_cost": 0.0002829
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"num_pkg\",\n    \"num_loc\",\n    \"num_virtual\",\n    \"num_comment\",\n    \"num_code\",\n    \"num_blank\",\n    \"num_blank_end\",\n    \"num_blank_start\",\n    \"num_blank_total\",\n    \"num_comment_end\",\n    \"num_comment_start\",\n    \"num_comment_total\",\n    \"num_code_end\",\n    \"num_code_start\",\n    \"num_code_total\",\n    \"num_loc_end\",\n    \"num_loc_start\",\n    \"num_loc_total\",\n    \"num_pkg_end\",\n    \"num_pkg_start\",\n    \"num_pkg_total\",\n    \"num_virtual_end\",\n    \"num_virtual_start\",\n    \"num_virtual_total\",\n    \"num_blank_line\",\n    \"num_comment_line\",\n    \"num_code_line\",\n    \"num_loc_line\",\n    \"num_pkg_line\",\n    \"num_virtual_line\",\n    \"num_blank_line_end\",\n    \"num_blank_line_start\",\n    \"num_blank_line_total\",\n    \"num_comment_line_end\",\n    \"num_comment_line_start\",\n    \"num_comment_line_total\",\n    \"num_code_line_end\",\n    \"num_code_line_start\",\n    \"num_code_line_total\",\n    \"num_loc_line_end\",\n    \"num_loc_line_start\",\n    \"num_loc_line_total\",\n    \"num_pkg_line_end\",\n    \"num_pkg_line_start\",\n    \"num_pkg_line_total\",\n    \"num_virtual_line_end\",\n    \"num_virtual_line_start\",\n    \"num_virtual_line_total\",\n    \"num_blank_line_per_pkg\",\n    \"num_comment_line_per_pkg\",\n    \"num_code_line_per_pkg\",\n    \"num_loc_line_per_pkg\",\n    \"num_pkg_line_per_pkg\",\n    \"num_virtual_line_per_pkg\",\n    \"num_blank_line_per_loc\",\n    \"num_comment_line_per_loc\",\n    \"num_code_line_per_loc\",\n    \"num_loc_line_per_loc\",\n    \"num_pkg_line_per_loc\",\n    \"num_virtual_line_per_loc\",\n    \"num_blank_line_per_virtual\",\n    \"num_comment_line_per_virtual\",\n    \"num_code_line_per_virtual\",\n    \"num_loc_line_per_virtual\",\n    \"num_pkg_line_per_virtual\",\n    \"num_virtual_line_per_virtual\",\n    \"num_blank_line_per_code\",\n    \"num_comment_line_per_code\",\n    \"num_code_line_per_code\",\n    \"num_loc_line_per_code\",\n    \"num_pkg_line_per_code\",\n    \"num_virtual_line_per_code\",\n    \"num_blank_line_per_blank\",\n    \"num_comment_line_per_blank\",\n    \"num_code_line_per_blank\",\n    \"num_loc_line_per_blank\",\n    \"num_pkg_line_per_blank\",\n    \"num_virtual_line_per_blank\",\n    \"num_blank_line_per_comment\",\n    \"num_comment_line_per_comment\",\n    \"num_code_line_per_comment\",\n    \"num_loc_line_per_comment\",\n    \"num_pkg_line_per_comment\",\n    \"num_virtual_line_per_comment\",\n    \"num_blank_line_per_loc_line\",\n    \"num_comment_line_per_loc_line\",\n    \"num_code_line_per_loc_line\",\n    \"num_loc_line_per_loc_line\",\n    \"num_pkg_line_per_loc_line\",\n    \"num_virtual_line_per_loc_line\",\n    \"num_blank_line_per_pkg_line\",\n    \"num_comment_line_per_pkg_line\",\n    \"num_code_line_per_pkg_line\",\n    \"num_loc_line_per_pkg_line\",\n    \"num_pkg_line_per_pkg_line\",\n    \"num_virtual_line_per_pkg_line\",\n    \"num_blank_line_per_virtual_line\",\n    \"num_comment_line_per_virtual_line\",\n    \"num_code_line_per_virtual_line\",\n    \"num_loc_line_per_virtual_line\",\n    \"num_pkg_line_per_virtual_line\",\n    \"num_virtual_line_per_virtual_line\",\n    \"num_blank_line_per_code_line\",\n    \"num_comment_line_per_code_line\",\n    \"num_code_line_per_code_line\",\n    \"num_loc_line_per_code_line\",\n    \"num_pkg_line_per_code_line\",\n    \"num_virtual_line_per_code_line\",\n    \"num_blank_line_per_blank_line\",\n    \"num_comment_line_per_blank_line\",\n    \"num_code_line_per_blank_line\",\n    \"num_loc_line_per_blank_line\",\n    \"num_pkg_line_per_blank_line\",\n    \"num_virtual_line_per_blank_line\",\n    \"num_blank_line_per_comment_line\",\n    \"num_comment_line_per_comment_line\",\n    \"num_code_line_per_comment_line\",\n    \"num_loc_line_per_comment_line\",\n    \"num_pkg_line_per_comment_line\",\n    \"num_virtual_line_per_comment_line\",\n    \"num_blank_line_per_loc_line_2\",\n    \"num_comment_line_per_loc_line_2\",\n    \"num_code_line_per_loc_line_2\",\n    \"num_loc_line_per_loc_line_2\",\n    \"num_pkg_line_per_loc_line_2\",\n    \"num_virtual_line_per_loc_line_2\",\n    \"num_blank_line_per_pkg_line_2\",\n    \"num_comment_line_per_pkg_line_2\",\n    \"num_code_line_per_pkg_line_2\",\n    \"num_loc_line_per_pkg_line_2\",\n    \"num_pkg_line_per_pkg_line_2\",\n    \"num_virtual_line_per_pkg_line_2\",\n    \"num_blank_line_per_virtual_line_2\",\n    \"num_comment_line_per_virtual_line_2\",\n    \"num_code_line_per_virtual_line_2\",\n    \"num_loc_line_per_virtual_line_2\",\n    \"num_pkg_line_per_virtual_line_2\",\n    \"num_virtual_line_per_virtual_line_2\",\n    \"num_blank_line_per_code_line_2\",\n    \"num_comment_line_per_code_line_2\",\n    \"num_code_line_per_code_line_2\",\n    \"num_loc_line_per_code_line_2\",\n    \"num_pkg_line_per_code_line_2\",\n    \"num_virtual_line_per_code_line_2\",\n    \"num_blank_line_per_blank_line_2\",\n    \"num_comment_line_per_blank_line_2\",\n    \"num_code_line_per_blank_line_2\",\n    \"num_loc_line_per_blank_line_2\",\n    \"num_pkg_line_per_blank_line_2\",\n    \"num_virtual_line_per_blank_line_2\",\n    \"num_blank_line_per_comment_line_2\",\n    \"num_comment_line_per_comment_line_2\",\n    \"num_code_line_per_comment_line_2\",\n    \"num_loc_line_per_comment_line_2\",\n    \"num_pkg_line_per_comment_line_2\",\n    \"num_virtual_line_per_comment_line_2\",\n    \"num_blank_line_per_loc_line_3\",\n    \"num_comment_line_per_loc_line_3\",\n    \"num_code_line_per_loc_line_3\",\n    \"num_loc_line_per_loc_line_3\",\n    \"num_pkg_line_per_loc_line_3\",\n    \"num_virtual_line_per_loc_line_3\",\n    \"num_blank_line_per_pkg_line_3\",\n    \"num_comment_line_per_pkg_line_3\",\n    \"num_code_line_per_pkg_line_3\",\n    \"num_loc_line_per_pkg_line_3\",\n    \"num_pkg_line_per_pkg_line_3\",\n    \"num_virtual_line_per_pkg_line_3\",\n    \"num_blank_line_per_virtual_line_3\",\n    \"num_comment_line_per_virtual_line_3\",\n    \"num_code_line_per_virtual_line_3\",\n    \"num_loc_line_per_virtual_line_3\",\n    \"num_pkg_line_per_virtual_line_3\",\n    \"num_virtual_line_per_virtual_line_3\",\n    \"num_blank_line_per_code_line_3\",\n    \"num_comment_line_per_code_line_3\",\n    \"num_code_line_per_code_line_3\",\n    \"num_loc_line_per_code_line_3\",\n    \"num_pkg_line_per_code_line_3\",\n    \"num_virtual_line_per_code_line_3\",\n    \"num_blank_line_per_blank_line_3\",\n    \"num_comment_line_per_blank_line_3\",\n    \"num_code_line_per_blank_line_3\",\n    \"num_loc_line_per_blank_line_3\",\n    \"num_pkg_line_per_blank_line_3\",\n    \"num_virtual_line_per_blank_line_3\",\n    \"num_blank_line_per_comment_line_3\",\n    \"num_comment_line_per_comment_line_3\",\n    \"num_code_line_per_comment_line_3\",\n    \"num_loc_line_per_comment_line_3\",\n    \"num_pkg_line_per_comment_line_3\",\n    \"num_virtual_line_per_comment_line_3\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "dfab3b1a273d2224cccfbfdcb806ace1f4a13e52f554ac7b2322f1809ee59e1a",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 266,
+     "completion_tokens": 391,
+     "total_tokens": 657,
+     "cost": 9.855e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.855e-05,
+      "upstream_inference_prompt_cost": 3.99e-05,
+      "upstream_inference_completions_cost": 5.865e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,\n    \"1\": 0.75,\n    \"2\": 0.65,\n    \"3\": 0.9,\n    \"4\": 0.55,\n    \"5\": 0.7,\n    \"6\": 0.45,\n    \"7\": 0.8,\n    \"8\": 0.6,\n    \"9\": 0.5,\n    \"10\": 0.75,\n    \"11\": 0.4,\n    \"12\": 0.65,\n    \"13\": 0.5,\n    \"14\": 0.85,\n    \"15\": 0.35,\n    \"16\": 0.7,\n    \"17\": 0.4,\n    \"18\": 0.6,\n    \"19\": 0.55,\n    \"20\": 0.75,\n    \"21\": 0.3,\n    \"22\": 0.6,\n    \"23\": 0.5,\n    \"24\": 0.45,\n    \"25\": 0.7,\n    \"26\": 0.35,\n    \"27\": 0.65,\n    \"28\": 0.5,\n    \"29\": 0.4,\n    \"30\": 0.7,\n    \"31\": 0.3,\n    \"32\": 0.55,\n    \"33\": 0.4,\n    \"34\": 0.6,\n    \"35\": 0.35,\n    \"36\": 0.5\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.75,
+   0.65,
+   0.9,
+   0.55,
+   0.7,
+   0.45,
+   0.8,
+   0.6,
+   0.5,
+   0.75,
+   0.4,
+   0.65,
+   0.5,
+   0.85,
+   0.35,
+   0.7,
+   0.4,
+   0.6,
+   0.55,
+   0.75,
+   0.3,
+   0.6,
+   0.5,
+   0.45,
+   0.7,
+   0.35,
+   0.65,
+   0.5,
+   0.4,
+   0.7,
+   0.3,
+   0.55,
+   0.4,
+   0.6,
+   0.35,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3967d7ff932f6e5a970c6ca2ad54b688f961f362d4b831c570fdfc1550c5f86e",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 263,
+     "completion_tokens": 375,
+     "total_tokens": 638,
+     "cost": 9.57e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.57e-05,
+      "upstream_inference_prompt_cost": 3.945e-05,
+      "upstream_inference_completions_cost": 5.625e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.4,\n    \"2\": 0.8,\n    \"3\": 0.3,\n    \"4\": 0.6,\n    \"5\": 0.2,\n    \"6\": 0.9,\n    \"7\": 0.5,\n    \"8\": 0.1,\n    \"9\": 0.7,\n    \"10\": 0.4,\n    \"11\": 0.3,\n    \"12\": 0.8,\n    \"13\": 0.2,\n    \"14\": 0.6,\n    \"15\": 0.5,\n    \"16\": 0.3,\n    \"17\": 0.7,\n    \"18\": 0.4,\n    \"19\": 0.2,\n    \"20\": 0.6,\n    \"21\": 0.8,\n    \"22\": 0.3,\n    \"23\": 0.5,\n    \"24\": 0.1,\n    \"25\": 0.7,\n    \"26\": 0.4,\n    \"27\": 0.6,\n    \"28\": 0.2,\n    \"29\": 0.5,\n    \"30\": 0.3,\n    \"31\": 0.7,\n    \"32\": 0.4,\n    \"33\": 0.2,\n    \"34\": 0.6,\n    \"35\": 0.8,\n    \"36\": 0.3\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.8,
+   0.3,
+   0.6,
+   0.2,
+   0.9,
+   0.5,
+   0.1,
+   0.7,
+   0.4,
+   0.3,
+   0.8,
+   0.2,
+   0.6,
+   0.5,
+   0.3,
+   0.7,
+   0.4,
+   0.2,
+   0.6,
+   0.8,
+   0.3,
+   0.5,
+   0.1,
+   0.7,
+   0.4,
+   0.6,
+   0.2,
+   0.5,
+   0.3,
+   0.7,
+   0.4,
+   0.2,
+   0.6,
+   0.8,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e8c20fc7177051296f8168f472364f345d19e900e9d5b737a5d0c9e530ff2624",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 487,
+     "completion_tokens": 1087,
+     "total_tokens": 1574,
+     "cost": 0.0002361,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002361,
+      "upstream_inference_prompt_cost": 7.305e-05,
+      "upstream_inference_completions_cost": 0.00016305
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,    // LOC_BLANK (likely correlated with LOC_TOTAL, less informative alone)\n    \"1\": 0.8,    // BRANCH_COUNT (highly indicative of control flow complexity, strong predictor)\n    \"2\": 0.7,    // CALL_PAIRS (indicates coupling, useful for defect prediction)\n    \"3\": 0.5,    // LOC_CODE_AND_COMMENT (redundant with LOC_TOTAL, moderate utility)\n    \"4\": 0.4,    // LOC_COMMENTS (marginal standalone, better with LOC_TOTAL)\n    \"5\": 0.75,   // CONDITION_COUNT (directly tied to logical complexity, very useful)\n    \"6\": 0.9,    // CYCLOMATIC_COMPLEXITY (gold standard for defect prediction, highly useful)\n    \"7\": 0.6,    // CYCLOMATIC_DENSITY (useful but often correlated with CYCLOMATIC_COMPLEXITY)\n    \"8\": 0.85,   // DECISION_COUNT (similar to CONDITION_COUNT, very useful)\n    \"9\": 0.65,   // DECISION_DENSITY (moderately useful, often redundant with DECISION_COUNT)\n    \"10\": 0.7,   // DESIGN_COMPLEXITY (broad metric, useful but less precise than others)\n    \"11\": 0.5,   // DESIGN_DENSITY (less informative alone, often correlated with DESIGN_COMPLEXITY)\n    \"12\": 0.6,   // EDGE_COUNT (indicates control flow, useful but less direct than BRANCH_COUNT)\n    \"13\": 0.7,   // ESSENTIAL_COMPLEXITY (similar to CYCLOMATIC_COMPLEXITY, useful)\n    \"14\": 0.55,  // ESSENTIAL_DENSITY (moderately useful, often redundant)\n    \"15\": 0.4,   // LOC_EXECUTABLE (less informative alone, better with LOC_TOTAL)\n    \"16\": 0.5,   // PARAMETER_COUNT (useful for API-related defects, moderate utility)\n    \"17\": 0.6,   // HALSTEAD_CONTENT (broad metric, useful but less precise)\n    \"18\": 0.5,   // HALSTEAD_DIFFICULTY (moderately useful, often correlated with others)\n    \"19\": 0.45,  // HALSTEAD_EFFORT (less informative alone, better with other HALSTEAD metrics)\n    \"20\": 0.4,   // HALSTEAD_ERROR_EST (moderate utility, often redundant)\n    \"21\": 0.5,   // HALSTEAD_LENGTH (similar to LOC_TOTAL, less informative alone)\n    \"22\": 0.5,   // HALSTEAD_LEVEL (moderately useful, often correlated with others)\n    \"23\": 0.4,   // HALSTEAD_PROG_TIME (less informative alone)\n    \"24\": 0.6,   // HALSTEAD_VOLUME (broad metric, useful but less precise)\n    \"25\": 0.8,   // MAINTENANCE_SEVERITY (directly tied to defect likelihood, very useful)\n    \"26\": 0.85,  // MODIFIED_CONDITION_COUNT (refines CONDITION_COUNT, highly useful)\n    \"27\": 0.75,  // MULTIPLE_CONDITION_COUNT (indicates nested conditions, very useful)\n    \"28\": 0.5,   // NODE_COUNT (less informative alone, often correlated with others)\n    \"29\": 0.9,   // NORMALIZED_CYLOMATIC_COMPLEXITY (highly useful, normalized version of CYCLOMATIC_COMPLEXITY)\n    \"30\": 0.5,   // NUM_OPERANDS (moderately useful, often redundant with NUM_OPERATORS)\n    \"31\": 0.6,   // NUM_OPERATORS (useful for syntactic complexity, moderate utility)\n    \"32\": 0.45,  // NUM_UNIQUE_OPERANDS (less informative alone)\n    \"33\": 0.5,   // NUM_UNIQUE_OPERATORS (moderately useful, often redundant)\n    \"34\": 0.4,   // NUMBER_OF_LINES (similar to LOC_TOTAL, less informative alone)\n    \"35\": 0.4,   // PERCENT_COMMENTS (marginal standalone, better with LOC_TOTAL)\n    \"36\": 0.55   // LOC_TOTAL (broad metric, useful but less precise than others)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.8,
+   0.7,
+   0.5,
+   0.4,
+   0.75,
+   0.9,
+   0.6,
+   0.85,
+   0.65,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.55,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.45,
+   0.4,
+   0.5,
+   0.5,
+   0.4,
+   0.6,
+   0.8,
+   0.85,
+   0.75,
+   0.5,
+   0.9,
+   0.5,
+   0.6,
+   0.45,
+   0.5,
+   0.4,
+   0.4,
+   0.55
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "82827fd5e79c4955a590ec37aab4e77ad5e49e783c09f8967a81565896cb126e",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 461,
+     "completion_tokens": 1004,
+     "total_tokens": 1465,
+     "cost": 0.00021975,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00021975,
+      "upstream_inference_prompt_cost": 6.915e-05,
+      "upstream_inference_completions_cost": 0.0001506
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,    // LOC_BLANK (likely low predictive power on its own)\n    \"1\": 0.8,    // BRANCH_COUNT (highly indicative of control flow complexity)\n    \"2\": 0.7,    // CALL_PAIRS (moderate to high relevance for defect prediction)\n    \"3\": 0.4,    // LOC_CODE_AND_COMMENT (moderate, but often correlated with others)\n    \"4\": 0.3,    // LOC_COMMENTS (low standalone utility, but may help in combination)\n    \"5\": 0.75,   // CONDITION_COUNT (strong predictor of defects)\n    \"6\": 0.9,    // CYCLOMATIC_COMPLEXITY (one of the strongest predictors)\n    \"7\": 0.85,   // CYCLOMATIC_DENSITY (highly relevant, normalized complexity)\n    \"8\": 0.8,    // DECISION_COUNT (similar to BRANCH_COUNT, strong predictor)\n    \"9\": 0.85,   // DECISION_DENSITY (normalized, high relevance)\n    \"10\": 0.7,   // DESIGN_COMPLEXITY (moderate to high, often correlated with others)\n    \"11\": 0.75,  // DESIGN_DENSITY (normalized, useful predictor)\n    \"12\": 0.7,   // EDGE_COUNT (moderate to high, related to control flow)\n    \"13\": 0.8,   // ESSENTIAL_COMPLEXITY (strong predictor, similar to CYCLOMATIC_COMPLEXITY)\n    \"14\": 0.85,  // ESSENTIAL_DENSITY (normalized, high relevance)\n    \"15\": 0.5,   // LOC_EXECUTABLE (moderate, but often correlated with others)\n    \"16\": 0.6,   // PARAMETER_COUNT (moderate, but may help in combination)\n    \"17\": 0.6,   // HALSTEAD_CONTENT (moderate, useful in combination)\n    \"18\": 0.65,  // HALSTEAD_DIFFICULTY (moderate to high, related to complexity)\n    \"19\": 0.5,   // HALSTEAD_EFFORT (moderate, often correlated with others)\n    \"20\": 0.5,   // HALSTEAD_ERROR_EST (moderate, useful in combination)\n    \"21\": 0.5,   // HALSTEAD_LENGTH (moderate, often correlated with LOC)\n    \"22\": 0.6,   // HALSTEAD_LEVEL (moderate, useful in combination)\n    \"23\": 0.5,   // HALSTEAD_PROG_TIME (moderate, often correlated with others)\n    \"24\": 0.6,   // HALSTEAD_VOLUME (moderate, useful in combination)\n    \"25\": 0.7,   // MAINTENANCE_SEVERITY (moderate to high, likely relevant)\n    \"26\": 0.8,   // MODIFIED_CONDITION_COUNT (strong predictor, similar to CONDITION_COUNT)\n    \"27\": 0.75,  // MULTIPLE_CONDITION_COUNT (high relevance, nested conditions)\n    \"28\": 0.6,   // NODE_COUNT (moderate, related to control flow)\n    \"29\": 0.85,  // NORMALIZED_CYLOMATIC_COMPLEXITY (highly relevant, normalized)\n    \"30\": 0.5,   // NUM_OPERANDS (moderate, useful in combination)\n    \"31\": 0.6,   // NUM_OPERATORS (moderate, useful in combination)\n    \"32\": 0.5,   // NUM_UNIQUE_OPERANDS (moderate, useful in combination)\n    \"33\": 0.5,   // NUM_UNIQUE_OPERATORS (moderate, useful in combination)\n    \"34\": 0.4,   // NUMBER_OF_LINES (low standalone utility, often correlated with others)\n    \"35\": 0.3,   // PERCENT_COMMENTS (low standalone utility, but may help in combination)\n    \"36\": 0.4    // LOC_TOTAL (low standalone utility, often correlated with others)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.8,
+   0.7,
+   0.4,
+   0.3,
+   0.75,
+   0.9,
+   0.85,
+   0.8,
+   0.85,
+   0.7,
+   0.75,
+   0.7,
+   0.8,
+   0.85,
+   0.5,
+   0.6,
+   0.6,
+   0.65,
+   0.5,
+   0.5,
+   0.5,
+   0.6,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.75,
+   0.6,
+   0.85,
+   0.5,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.3,
+   0.4
+  ]
+ }
+}

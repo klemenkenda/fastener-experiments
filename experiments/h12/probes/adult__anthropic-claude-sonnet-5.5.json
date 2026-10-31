@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "anthropic/claude-sonnet-5.5",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "327111a29d575b86156993f6616aee809e9d000172e95ed696a0605bebe0290e",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 148,
+   "completion_tokens": 273,
+   "total_tokens": 421,
+   "cost": 0.003026,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.003026,
+    "upstream_inference_prompt_cost": 0.000296,
+    "upstream_inference_completions_cost": 0.00273
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "This matches the Adult data set, also called the Census Income data set. It was extracted by Barry Becker from the 1994 US Census database and is hosted in the UCI Machine Learning Repository. The 48,842 rows and the two income classes (<=50K and >50K) both fit. The original data has 14 attributes, so the \"13 input features\" count probably leaves one out, such as fnlwgt or the duplicate education-num/education column.\n\n```json\n{\"name\": \"Adult (Census Income)\", \"source\": \"UCI Machine Learning Repository; Kohavi, R. (1996), 'Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid', KDD-96 (data extracted by Barry Becker from the 1994 Census database)\", \"confidence\": 0.93}\n```"
+ },
+ "P1b": {
+  "key": "dcb83f286cff37358c7b82b893a76dd10b1dfb163f0149ca76646d491398a0dd",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 184,
+   "completion_tokens": 205,
+   "total_tokens": 389,
+   "cost": 0.002418,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.002418,
+    "upstream_inference_prompt_cost": 0.000368,
+    "upstream_inference_completions_cost": 0.00205
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "This looks like the Adult (Census Income) data set, but with 13 features rather than the usual 14. The standard version also has native-country, which is missing from this list. It is likely a variant with that column dropped, or a version with different preprocessing. The target is whether income exceeds $50K per year.\n\n{\"name\": \"Adult (Census Income) data set, variant without native-country\", \"source\": \"UCI Machine Learning Repository, Adult data set (Kohavi, 1996, 'Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid')\", \"confidence\": 0.85}"
+ },
+ "P2": {
+  "key": "fc713a8c7a228d16aebb25e8dd941e41085b5c3e1ea08152c036c30b045c7c4d",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 124,
+   "completion_tokens": 213,
+   "total_tokens": 337,
+   "cost": 0.002378,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.002378,
+    "upstream_inference_prompt_cost": 0.000248,
+    "upstream_inference_completions_cost": 0.00213
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "The Adult data set (OpenML 1590) has these columns in its distributed file, besides the class column: age, workclass, fnlwgt, education, education-num, marital-status, occupation, relationship, race, sex, capital-gain, capital-loss, hours-per-week, native-country.\n\nI'm giving the names as they appear in the UCI/OpenML version, which uses hyphens.\n\n```json\n{\"features\": [\"age\", \"workclass\", \"fnlwgt\", \"education\", \"education-num\", \"marital-status\", \"occupation\", \"relationship\", \"race\", \"sex\", \"capital-gain\", \"capital-loss\", \"hours-per-week\", \"native-country\"]}\n```"
+ },
+ "P3": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "88b4dd255ae556a0ee65e218558c0b408f553c8fa71cbf056a285fd431871e86",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 256,
+     "completion_tokens": 350,
+     "total_tokens": 606,
+     "cost": 0.004012,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.004012,
+      "upstream_inference_prompt_cost": 0.000512,
+      "upstream_inference_completions_cost": 0.0035
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 237,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.3, \"2\": 0.08, \"3\": 0.5, \"4\": 0.85, \"5\": 0.75, \"6\": 0.55, \"7\": 0.8, \"8\": 0.1, \"9\": 0.3, \"10\": 0.7, \"11\": 0.35, \"12\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.08,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.3,
+   0.08,
+   0.5,
+   0.85,
+   0.75,
+   0.55,
+   0.8,
+   0.1,
+   0.3,
+   0.7,
+   0.35,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b9c1a57e8f11fec4fa8560d26f10cc53e23cf2c73aa1ca253309db36d0dffe52",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 233,
+     "completion_tokens": 186,
+     "total_tokens": 419,
+     "cost": 0.002326,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.002326,
+      "upstream_inference_prompt_cost": 0.000466,
+      "upstream_inference_completions_cost": 0.00186
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I have no usable information about these features: there are no names, no descriptions, and I cannot see the data. Any differentiation between them would be invented, so I give every feature the same middling score. These scores carry no real signal about relative usefulness.\n\n{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e64722ea0907ef48295d27705a8dbdc1a6c0b0380d3b24a1786257a8e87e5bb7",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 268,
+     "completion_tokens": 113,
+     "total_tokens": 381,
+     "cost": 0.001666,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.001666,
+      "upstream_inference_prompt_cost": 0.000536,
+      "upstream_inference_completions_cost": 0.00113
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.25, \"2\": 0.05, \"3\": 0.45, \"4\": 0.8, \"5\": 0.75, \"6\": 0.55, \"7\": 0.75, \"8\": 0.1, \"9\": 0.25, \"10\": 0.7, \"11\": 0.35, \"12\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.25,
+   0.05,
+   0.45,
+   0.8,
+   0.75,
+   0.55,
+   0.75,
+   0.1,
+   0.25,
+   0.7,
+   0.35,
+   0.5
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "28d93e8a4c337a0b9b7d6fc99d60d4e92a769a73d077f52bed8616ab1eb03b33",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 234,
+     "completion_tokens": 113,
+     "total_tokens": 347,
+     "cost": 0.001598,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.001598,
+      "upstream_inference_prompt_cost": 0.000468,
+      "upstream_inference_completions_cost": 0.00113
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.25, \"2\": 0.05, \"3\": 0.4, \"4\": 0.7, \"5\": 0.65, \"6\": 0.5, \"7\": 0.65, \"8\": 0.1, \"9\": 0.2, \"10\": 0.6, \"11\": 0.3, \"12\": 0.4}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.25,
+   0.05,
+   0.4,
+   0.7,
+   0.65,
+   0.5,
+   0.65,
+   0.1,
+   0.2,
+   0.6,
+   0.3,
+   0.4
+  ]
+ }
+}

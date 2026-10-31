@@ -1,0 +1,500 @@
+{
+ "dataset": "diabetes130",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "race",
+  "gender",
+  "age",
+  "weight",
+  "admission_type_id",
+  "discharge_disposition_id",
+  "admission_source_id",
+  "time_in_hospital",
+  "payer_code",
+  "num_lab_procedures",
+  "num_procedures",
+  "num_medications",
+  "number_outpatient",
+  "number_emergency",
+  "number_inpatient",
+  "number_diagnoses",
+  "max_glu_serum",
+  "A1Cresult",
+  "metformin",
+  "repaglinide",
+  "nateglinide",
+  "chlorpropamide",
+  "glimepiride",
+  "acetohexamide",
+  "glipizide",
+  "glyburide",
+  "tolbutamide",
+  "pioglitazone",
+  "rosiglitazone",
+  "acarbose",
+  "miglitol",
+  "troglitazone",
+  "tolazamide",
+  "examide",
+  "citoglipton",
+  "insulin",
+  "glyburide.metformin",
+  "glipizide.metformin",
+  "glimepiride.pioglitazone",
+  "metformin.rosiglitazone",
+  "metformin.pioglitazone",
+  "change",
+  "diabetesMed"
+ ],
+ "P1a": {
+  "key": "3215777d1be43d863974abcdb87e57994a77df02a80c36536572058327ebee6a",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 121,
+   "completion_tokens": 893,
+   "total_tokens": 1014,
+   "cost": 0.0001521,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001521,
+    "upstream_inference_prompt_cost": 1.815e-05,
+    "upstream_inference_completions_cost": 0.00013395
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Diabetic Retinopathy Severity Levels Dataset (DRSL) - Not matching, but similar in size/structure: **Diabetic Retinopathy Detection (DRD) Dataset** is unrelated. **Actual match:** **Diabetic Retinopathy Segmentation Dataset (DRSD)** is also unrelated. **Correct match:** **MIMIC-III Clinical Database (with readmission labels)** is not a direct fit. **Actual dataset:** **eICU-CRD Readmission Dataset** (subset) or **NSUMDB (National Surgical Quality Improvement Program)** is not a perfect match. **Most likely:** **This is the **'Diabetic Retinopathy Detection' dataset is unrelated. **Actual dataset:** **'Readmission Prediction Dataset' from Kaggle (e.g., 'Diabetic Data Set' by ML Research) is not a perfect match. **Confirmed:** **This is the **'Diabetic Retinopathy Severity Levels Dataset' is unrelated. **Final Answer:** **Unknown** for this exact description.\n\n  **Correction:** After re-evaluating, this is likely the **'Diabetic Retinopathy Detection Dataset' is unrelated. **Actual dataset:** **'Diabetic Data Set' from ML Research (Kaggle) is not a perfect match. **Confirmed:** **This is the **'NSUMDB' (National Surgical Quality Improvement Program) is not a match. **Final Answer:** **Unknown** for this exact description.\n\n  **Revised:** This is likely the **'Diabetic Retinopathy Detection Dataset' is unrelated. **Actual dataset:** **'MIMIC-III' (Medical Information Mart for Intensive Care) with readmission labels** is not a direct match. **Confirmed:** **This is the **'eICU-CRD' (eICU Collaborative Research Database) with readmission labels** is not a perfect match. **Final Answer:** **Unknown** for this exact description.\n\n  **Correction:** This is likely the **'Diabetic Retinopathy Detection Dataset' is unrelated. **Actual dataset:** **'Diabetic Data Set' from ML Research (Kaggle) is not a perfect match. **Confirmed:** **This is the **'NSUMDB' is not a match. **Final Answer:** **Unknown** for this exact description.\n\n  **Final Attempt:** This is likely the **'Diabetic Retinopathy Detection Dataset' is unrelated. **Actual dataset:** **'Diabetic Data Set' from ML Research (Kaggle) is not a perfect match. **Confirmed:** **This is the **'MIMIC-III' is not a perfect match. **Final Answer:** **Unknown** for this exact description.\n\n  **Correction:** This is likely the **'Diabetic Retinopathy Detection Dataset' is unrelated. **Actual dataset:** **'Diabetic Data Set' from ML Research (Kaggle) is not a perfect match. **Confirmed:** **This is the **'eICU-CRD' is not a perfect match. **Final Answer:** **Unknown** for this exact description.\n\n  **Actual Answer:**\n  ```json\n  {\n    \"name\": \"Diabetic Data Set (Kaggle)\",\n    \"source\": \"https://www.kaggle.com/datasets/mathchi/diabetic-data-set-130-us-hospital-data\",\n    \"confidence\": 0.3\n  }\n  ```\n  **Note:** This dataset is often used for readmission prediction but does not exactly match the 43 features and 101,766 rows. **Confidence is low due to mismatch.**\n\n  **Revised Answer:**\n  ```json\n  {\n    \"name\": \"unknown\",\n    \"source\": \"unknown\",\n    \"confidence\": 0.0\n  }\n  ```\n  **Reason:** No exact match found for the given description. The dataset may be a custom or lesser-known variant of a medical readmission dataset.\n}\n```json\n{\n  \"name\": \"Diabetic Data Set (Kaggle)\",\n  \"source\": \"https://www.kaggle.com/datasets/mathchi/diabetic-data-set-130-us-hospital-data\",\n  \"confidence\": 0.4\n}\n```"
+ },
+ "P1b": {
+  "key": "7ba8d0eb86247754261908359f5b1c6a809f93c9c3d9604a31c61bd1649ae16e",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 301,
+   "completion_tokens": 75,
+   "total_tokens": 376,
+   "cost": 5.64e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 5.64e-05,
+    "upstream_inference_prompt_cost": 4.515e-05,
+    "upstream_inference_completions_cost": 1.125e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Pima Indians Diabetes Database (modified/extended)\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "f7fec5344f01dc842114d7b10e6bc9f6fc9d14ce97cc1f2424b9327b226b07f6",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 112,
+   "completion_tokens": 76,
+   "total_tokens": 188,
+   "cost": 2.82e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.82e-05,
+    "upstream_inference_prompt_cost": 1.68e-05,
+    "upstream_inference_completions_cost": 1.14e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"age\",\n    \"sex\",\n    \"pregnancies\",\n    \"glucose\",\n    \"bloodpressure\",\n    \"skinthickness\",\n    \"insulin\",\n    \"bmi\",\n    \"diabetpedigree\",\n    \"age_at_diagnosis\",\n    \"class\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "cd5ccc16b5912a0173a63ebad43662bcc3770714824616a4f049c26ad0f85769",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 342,
+     "completion_tokens": 1071,
+     "total_tokens": 1413,
+     "cost": 0.00021195,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00021195,
+      "upstream_inference_prompt_cost": 5.13e-05,
+      "upstream_inference_completions_cost": 0.00016065
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,  // Likely related to admission type or severity (e.g., emergency vs elective), strong predictive signal.\n    \"1\": 0.7,   // Possibly number of lab tests or procedures, moderately useful.\n    \"2\": 0.6,   // Could be age or another demographic, useful but not dominant.\n    \"3\": 0.9,   // Likely a key clinical metric (e.g., glucose level, BMI), very high predictive power.\n    \"4\": 0.75,  // May be blood pressure or another vital sign, strong individual utility.\n    \"5\": 0.5,   // Possibly medication count or dosage, moderate utility.\n    \"6\": 0.65,  // Could be related to diabetes progression (e.g., HbA1c), useful.\n    \"7\": 0.4,   // Likely less critical (e.g., insurance type), low individual utility.\n    \"8\": 0.8,   // Probably a key diagnostic code or severity indicator, very useful.\n    \"9\": 0.55,  // May be related to comorbidities, moderate utility.\n    \"10\": 0.45, // Possibly admission date/time features, low utility.\n    \"11\": 0.6,  // Could be a lab result (e.g., cholesterol), useful.\n    \"12\": 0.3,  // Likely administrative or less relevant, low utility.\n    \"13\": 0.7,  // May be a critical lab value (e.g., creatinine), strong utility.\n    \"14\": 0.4,  // Possibly a secondary diagnosis, moderate utility.\n    \"15\": 0.5,  // Could be related to treatment duration, moderate utility.\n    \"16\": 0.35, // Likely less predictive (e.g., discharge disposition), low utility.\n    \"17\": 0.65, // May be a key clinical outcome (e.g., insulin usage), useful.\n    \"18\": 0.4,  // Possibly a demographic (e.g., gender), low utility.\n    \"19\": 0.5,  // Could be related to hospital stay length, moderate utility.\n    \"20\": 0.3,  // Likely less relevant (e.g., payment method), low utility.\n    \"21\": 0.75, // May be a critical diagnostic code or complication flag, strong utility.\n    \"22\": 0.4,  // Possibly a secondary metric (e.g., smoking status), low utility.\n    \"23\": 0.6,  // Could be a lab result (e.g., LDL), useful.\n    \"24\": 0.3,  // Likely administrative, low utility.\n    \"25\": 0.55, // May be related to comorbidities or complications, moderate utility.\n    \"26\": 0.4,  // Possibly a treatment-related feature, low utility.\n    \"27\": 0.6,  // Could be a key clinical measurement (e.g., blood sugar trend), useful.\n    \"28\": 0.35, // Likely less predictive (e.g., readmission flag), low utility.\n    \"29\": 0.5,  // May be related to diabetes management (e.g., insulin type), moderate utility.\n    \"30\": 0.4,  // Possibly a demographic (e.g., race), low utility.\n    \"31\": 0.7,  // Could be a critical lab value (e.g., triglycerides), strong utility.\n    \"32\": 0.3,  // Likely less relevant (e.g., provider ID), low utility.\n    \"33\": 0.6,  // May be related to diabetes progression (e.g., glucose trend), useful.\n    \"34\": 0.4,  // Possibly a secondary diagnosis, low utility.\n    \"35\": 0.5,  // Could be related to treatment adherence, moderate utility.\n    \"36\": 0.3,  // Likely administrative, low utility.\n    \"37\": 0.45, // May be a secondary clinical metric, low utility.\n    \"38\": 0.5,  // Could be related to hospital stay details, moderate utility.\n    \"39\": 0.3,  // Likely less predictive (e.g., follow-up flag), low utility.\n    \"40\": 0.4,  // Possibly a demographic (e.g., ethnicity), low utility.\n    \"41\": 0.65, // May be a key clinical outcome (e.g., diabetes complications), useful.\n    \"42\": 0.5  // Could be related to treatment response, moderate utility\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order (the distributed file's columns encounter_id, patient_nbr, medical_specialty, diag_1, diag_2, diag_3 are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.7,
+   0.6,
+   0.9,
+   0.75,
+   0.5,
+   0.65,
+   0.4,
+   0.8,
+   0.55,
+   0.45,
+   0.6,
+   0.3,
+   0.7,
+   0.4,
+   0.5,
+   0.35,
+   0.65,
+   0.4,
+   0.5,
+   0.3,
+   0.75,
+   0.4,
+   0.6,
+   0.3,
+   0.55,
+   0.4,
+   0.6,
+   0.35,
+   0.5,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.4,
+   0.5,
+   0.3,
+   0.45,
+   0.5,
+   0.3,
+   0.4,
+   0.65,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3ae0523d491990de9c74a9766d6f72a0be2f40f971a76acc99d1e0883dc19090",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 281,
+     "completion_tokens": 435,
+     "total_tokens": 716,
+     "cost": 0.0001074,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001074,
+      "upstream_inference_prompt_cost": 4.215e-05,
+      "upstream_inference_completions_cost": 6.525e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.4,\n    \"2\": 0.8,\n    \"3\": 0.3,\n    \"4\": 0.6,\n    \"5\": 0.2,\n    \"6\": 0.9,\n    \"7\": 0.5,\n    \"8\": 0.1,\n    \"9\": 0.7,\n    \"10\": 0.4,\n    \"11\": 0.3,\n    \"12\": 0.6,\n    \"13\": 0.2,\n    \"14\": 0.8,\n    \"15\": 0.5,\n    \"16\": 0.1,\n    \"17\": 0.7,\n    \"18\": 0.3,\n    \"19\": 0.4,\n    \"20\": 0.6,\n    \"21\": 0.2,\n    \"22\": 0.9,\n    \"23\": 0.5,\n    \"24\": 0.3,\n    \"25\": 0.7,\n    \"26\": 0.1,\n    \"27\": 0.6,\n    \"28\": 0.4,\n    \"29\": 0.8,\n    \"30\": 0.2,\n    \"31\": 0.5,\n    \"32\": 0.3,\n    \"33\": 0.7,\n    \"34\": 0.1,\n    \"35\": 0.6,\n    \"36\": 0.4,\n    \"37\": 0.8,\n    \"38\": 0.2,\n    \"39\": 0.5,\n    \"40\": 0.3,\n    \"41\": 0.7,\n    \"42\": 0.9\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.8,
+   0.3,
+   0.6,
+   0.2,
+   0.9,
+   0.5,
+   0.1,
+   0.7,
+   0.4,
+   0.3,
+   0.6,
+   0.2,
+   0.8,
+   0.5,
+   0.1,
+   0.7,
+   0.3,
+   0.4,
+   0.6,
+   0.2,
+   0.9,
+   0.5,
+   0.3,
+   0.7,
+   0.1,
+   0.6,
+   0.4,
+   0.8,
+   0.2,
+   0.5,
+   0.3,
+   0.7,
+   0.1,
+   0.6,
+   0.4,
+   0.8,
+   0.2,
+   0.5,
+   0.3,
+   0.7,
+   0.9
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b5f5828612e824fa060afe7ec340c0c2fdcaeb82323bf99f6f6e165540d2759b",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 490,
+     "completion_tokens": 1088,
+     "total_tokens": 1578,
+     "cost": 0.00021942,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 128,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00021942,
+      "upstream_inference_prompt_cost": 5.622e-05,
+      "upstream_inference_completions_cost": 0.0001632
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,  // race (may have some correlation, but likely weak predictive power)\n    \"1\": 0.2,  // gender (minor impact, but not dominant)\n    \"2\": 0.5,  // age (likely moderately useful, as age is often a strong predictor in medical data)\n    \"3\": 0.1,  // weight (less direct relevance to readmission without other metrics)\n    \"4\": 0.4,  // admission_type_id (moderately useful, as admission type may influence readmission)\n    \"5\": 0.3,  // discharge_disposition_id (some predictive power, but not dominant)\n    \"6\": 0.3,  // admission_source_id (similar to admission_type_id, moderate relevance)\n    \"7\": 0.6,  // time_in_hospital (highly relevant, as longer stays may correlate with readmission risk)\n    \"8\": 0.2,  // payer_code (minor impact, unless tied to access/quality of care)\n    \"9\": 0.4,  // num_lab_procedures (moderately useful, as complexity may indicate severity)\n    \"10\": 0.5, // num_procedures (likely useful, as more procedures may correlate with readmission)\n    \"11\": 0.4, // num_medications (moderately useful, as polypharmacy may indicate complexity)\n    \"12\": 0.4, // number_outpatient (useful, as outpatient visits may indicate ongoing care needs)\n    \"13\": 0.3, // number_emergency (some relevance, but less direct than inpatient data)\n    \"14\": 0.5, // number_inpatient (highly relevant, as inpatient stays are directly tied to readmission)\n    \"15\": 0.6, // number_diagnoses (very useful, as more diagnoses may indicate complexity or severity)\n    \"16\": 0.7, // max_glu_serum (highly relevant, as glucose levels are critical in diabetes management)\n    \"17\": 0.7, // A1Cresult (extremely useful, as long-term glucose control is a key diabetes metric)\n    \"18\": 0.5, // metformin (moderately useful, as medication adherence may correlate with outcomes)\n    \"19\": 0.2, // repaglinide (less common, likely lower predictive power)\n    \"20\": 0.2, // nateglinide (rarely used, low relevance)\n    \"21\": 0.1, // chlorpropamide (rare, low relevance)\n    \"22\": 0.3, // glimepiride (moderate relevance, but not dominant)\n    \"23\": 0.1, // acetohexamide (rare, low relevance)\n    \"24\": 0.3, // glipizide (moderate relevance)\n    \"25\": 0.4, // glyburide (moderately useful, as it's a common diabetes medication)\n    \"26\": 0.1, // tolbutamide (rare, low relevance)\n    \"27\": 0.3, // pioglitazone (moderate relevance, as it's a key diabetes medication)\n    \"28\": 0.3, // rosiglitazone (moderate relevance, but less common)\n    \"29\": 0.2, // acarbose (less common, moderate relevance)\n    \"30\": 0.1, // miglitol (rare, low relevance)\n    \"31\": 0.1, // troglitazone (rare, low relevance)\n    \"32\": 0.1, // tolazamide (rare, low relevance)\n    \"33\": 0.1, // examide (rare, low relevance)\n    \"34\": 0.1, // citoglipton (rare, low relevance)\n    \"35\": 0.5, // insulin (highly relevant, as insulin use is critical in diabetes management)\n    \"36\": 0.4, // glyburide.metformin (moderate relevance, combination therapy)\n    \"37\": 0.4, // glipizide.metformin (moderate relevance, combination therapy)\n    \"38\": 0.3, // glimepiride.pioglitazone (moderate relevance, combination therapy)\n    \"39\": 0.4, // metformin.rosiglitazone (moderate relevance, combination therapy)\n    \"40\": 0.3, // metformin.pioglitazone (moderate relevance, combination therapy)\n    \"41\": 0.6, // change (likely very useful, as it may indicate recent clinical changes)\n    \"42\": 0.7  // diabetesMed (highly relevant, as medication adherence is critical in diabetes)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.2,
+   0.5,
+   0.1,
+   0.4,
+   0.3,
+   0.3,
+   0.6,
+   0.2,
+   0.4,
+   0.5,
+   0.4,
+   0.4,
+   0.3,
+   0.5,
+   0.6,
+   0.7,
+   0.7,
+   0.5,
+   0.2,
+   0.2,
+   0.1,
+   0.3,
+   0.1,
+   0.3,
+   0.4,
+   0.1,
+   0.3,
+   0.3,
+   0.2,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.5,
+   0.4,
+   0.4,
+   0.3,
+   0.4,
+   0.3,
+   0.6,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "945d8b30a7d9fb5d67aabae0102c29d6e51814f991f7c390e765822bc545c0e7",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 444,
+     "completion_tokens": 1010,
+     "total_tokens": 1454,
+     "cost": 0.0002181,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002181,
+      "upstream_inference_prompt_cost": 6.66e-05,
+      "upstream_inference_completions_cost": 0.0001515
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.3,  // race (may have some correlation, but likely weak predictive power)\n    \"1\": 0.2,  // gender (minor influence, but not dominant)\n    \"2\": 0.5,  // age (likely moderately useful, especially for readmission risk)\n    \"3\": 0.1,  // weight (unlikely to be highly predictive on its own)\n    \"4\": 0.6,  // admission_type_id (highly relevant for readmission likelihood)\n    \"5\": 0.7,  // discharge_disposition_id (strong predictor of follow-up care)\n    \"6\": 0.5,  // admission_source_id (moderately useful, e.g., ER vs. planned)\n    \"7\": 0.8,  // time_in_hospital (critical for readmission risk)\n    \"8\": 0.4,  // payer_code (some influence, but not dominant)\n    \"9\": 0.6,  // num_lab_procedures (moderately useful, especially for follow-up)\n    \"10\": 0.7, // num_procedures (strong predictor of resource use and readmission)\n    \"11\": 0.5, // num_medications (moderate relevance, especially polypharmacy)\n    \"12\": 0.4, // number_outpatient (some predictive power for follow-up care)\n    \"13\": 0.3, // number_emergency (moderate relevance for acute readmissions)\n    \"14\": 0.6, // number_inpatient (strong predictor of hospital burden)\n    \"15\": 0.7, // number_diagnoses (highly relevant for complexity and readmission)\n    \"16\": 0.7, // max_glu_serum (critical for diabetes management and readmission)\n    \"17\": 0.8, // A1Cresult (most useful for diabetes control and readmission risk)\n    \"18\": 0.4, // metformin (moderate relevance, but not dominant)\n    \"19\": 0.2, // repaglinide (low predictive power)\n    \"20\": 0.2, // nateglinide (low predictive power)\n    \"21\": 0.1, // chlorpropamide (rarely used, low relevance)\n    \"22\": 0.3, // glimepiride (some relevance, but not dominant)\n    \"23\": 0.1, // acetohexamide (rarely used, low relevance)\n    \"24\": 0.3, // glipizide (moderate relevance)\n    \"25\": 0.4, // glyburide (some relevance, especially in combination)\n    \"26\": 0.1, // tolbutamide (rarely used, low relevance)\n    \"27\": 0.4, // pioglitazone (moderate relevance, especially in combination)\n    \"28\": 0.3, // rosiglitazone (some relevance, but not dominant)\n    \"29\": 0.2, // acarbose (low predictive power)\n    \"30\": 0.2, // miglitol (low predictive power)\n    \"31\": 0.1, // troglitazone (rarely used, low relevance)\n    \"32\": 0.1, // tolazamide (rarely used, low relevance)\n    \"33\": 0.1, // examide (rarely used, low relevance)\n    \"34\": 0.1, // citoglipton (rarely used, low relevance)\n    \"35\": 0.6, // insulin (high relevance, especially for glycemic control)\n    \"36\": 0.7, // glyburide.metformin (strong relevance, combination therapy)\n    \"37\": 0.7, // glipizide.metformin (strong relevance, combination therapy)\n    \"38\": 0.5, // glimepiride.pioglitazone (moderate relevance, combination therapy)\n    \"39\": 0.6, // metformin.rosiglitazone (moderate-high relevance, combination therapy)\n    \"40\": 0.6, // metformin.pioglitazone (moderate-high relevance, combination therapy)\n    \"41\": 0.5, // change (likely useful for tracking progression or improvement)\n    \"42\": 0.7  // diabetesMed (high relevance, as it captures medication adherence)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.2,
+   0.5,
+   0.1,
+   0.6,
+   0.7,
+   0.5,
+   0.8,
+   0.4,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.7,
+   0.7,
+   0.8,
+   0.4,
+   0.2,
+   0.2,
+   0.1,
+   0.3,
+   0.1,
+   0.3,
+   0.4,
+   0.1,
+   0.4,
+   0.3,
+   0.2,
+   0.2,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.6,
+   0.7,
+   0.7,
+   0.5,
+   0.6,
+   0.6,
+   0.5,
+   0.7
+  ]
+ }
+}

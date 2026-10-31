@@ -1,0 +1,425 @@
+{
+ "dataset": "higgs",
+ "model": "google/gemini-2.5-flash-lite",
+ "variables": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "P1a": {
+  "key": "e785f546dae56012990269f7803996328492c22065b98bcf8b476b58afc92d2a",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 101,
+   "completion_tokens": 39,
+   "total_tokens": 140,
+   "cost": 2.57e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.57e-05,
+    "upstream_inference_prompt_cost": 1.01e-05,
+    "upstream_inference_completions_cost": 1.56e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Higgs Boson dataset\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P1b": {
+  "key": "fdf1864cae1e4e9e4b114220f749bfc4b343566b680a2d35b74075c59821a512",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 222,
+   "completion_tokens": 40,
+   "total_tokens": 262,
+   "cost": 3.82e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.82e-05,
+    "upstream_inference_prompt_cost": 2.22e-05,
+    "upstream_inference_completions_cost": 1.6e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Higgs Boson Data Set\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "541023ea4e11278389c198cd1435b696b92bf2e2cf82d23e7ca9cff874077710",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 100,
+   "completion_tokens": 248,
+   "total_tokens": 348,
+   "cost": 0.0001092,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001092,
+    "upstream_inference_prompt_cost": 1e-05,
+    "upstream_inference_completions_cost": 9.92e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"lepton_pT\", \"lepton_eta\", \"lepton_phi\", \"missing_energy_magnitude\", \"missing_energy_phi\", \"jet1_pt\", \"jet1_eta\", \"jet1_phi\", \"jet1_b_tag\", \"jet2_pt\", \"jet2_eta\", \"jet2_phi\", \"jet2_b_tag\", \"jet3_pt\", \"jet3_eta\", \"jet3_phi\", \"jet3_b_tag\", \"jet4_pt\", \"jet4_eta\", \"jet4_phi\", \"jet4_b_tag\", \"m_jj\", \"m_jjj\", \"m_jjjj\", \"m_lept_jet1\", \"m_lept_jet2\", \"m_lept_jet3\", \"m_lept_jet4\", \"m_jet1_jet2\", \"m_jet1_jet3\", \"m_jet1_jet4\", \"m_jet2_jet3\", \"m_jet2_jet4\", \"m_jet3_jet4\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "bc4bfb4f8df3dd51d0236a40618be37f5951a7471adf17f2400f41d324991185",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 249,
+     "completion_tokens": 584,
+     "total_tokens": 833,
+     "cost": 0.0002585,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002585,
+      "upstream_inference_prompt_cost": 2.49e-05,
+      "upstream_inference_completions_cost": 0.0002336
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "The HIGGS dataset is a well-known benchmark for particle physics classification, specifically distinguishing between Higgs boson decays and background processes. The features are derived from the properties of particles detected in an experiment.\n\nGiven the nature of this dataset, it's highly probable that most, if not all, of the features are engineered to capture relevant physical characteristics that differentiate signal (Higgs) from background. Therefore, it's unlikely that any single feature would be completely useless. However, some features might be more directly indicative of the Higgs signal than others.\n\nWithout specific knowledge of what each feature represents (e.g., transverse momentum, energy, angular separation), it's difficult to assign precise scores. However, based on the general understanding of the HIGGS dataset and the typical performance of models on it, we can infer that most features contribute significantly.\n\nHere's a plausible rating, assuming a mix of highly informative and moderately informative features:\n\n*   **Features 0-27:** These are all likely to be derived from physical measurements and are expected to have some discriminative power. It's common in such datasets for many features to be useful, and for interactions between features to be important. I'll assign a high average score, with some variation to reflect that not all features are equally powerful.\n\n```json\n{\"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.7,\n    \"2\": 0.9,\n    \"3\": 0.85,\n    \"4\": 0.75,\n    \"5\": 0.95,\n    \"6\": 0.8,\n    \"7\": 0.7,\n    \"8\": 0.9,\n    \"9\": 0.85,\n    \"10\": 0.75,\n    \"11\": 0.95,\n    \"12\": 0.8,\n    \"13\": 0.7,\n    \"14\": 0.9,\n    \"15\": 0.85,\n    \"16\": 0.75,\n    \"17\": 0.95,\n    \"18\": 0.8,\n    \"19\": 0.7,\n    \"20\": 0.9,\n    \"21\": 0.85,\n    \"22\": 0.75,\n    \"23\": 0.95,\n    \"24\": 0.8,\n    \"25\": 0.7,\n    \"26\": 0.9,\n    \"27\": 0.85\n}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.7,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.7,
+   0.9,
+   0.85,
+   0.75,
+   0.95,
+   0.8,
+   0.7,
+   0.9,
+   0.85,
+   0.75,
+   0.95,
+   0.8,
+   0.7,
+   0.9,
+   0.85,
+   0.75,
+   0.95,
+   0.8,
+   0.7,
+   0.9,
+   0.85,
+   0.75,
+   0.95,
+   0.8,
+   0.7,
+   0.9,
+   0.85
+  ]
+ },
+ "P3f": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5bf58b5cd461e015ef1cf0d3203663f30feda839fb4c7e65be581366043827e3",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 235,
+     "completion_tokens": 249,
+     "total_tokens": 484,
+     "cost": 0.0001231,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001231,
+      "upstream_inference_prompt_cost": 2.35e-05,
+      "upstream_inference_completions_cost": 9.96e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.1, \"1\": 0.1, \"2\": 0.1, \"3\": 0.1, \"4\": 0.1, \"5\": 0.1, \"6\": 0.1, \"7\": 0.1, \"8\": 0.1, \"9\": 0.1, \"10\": 0.1, \"11\": 0.1, \"12\": 0.1, \"13\": 0.1, \"14\": 0.1, \"15\": 0.1, \"16\": 0.1, \"17\": 0.1, \"18\": 0.1, \"19\": 0.1, \"20\": 0.1, \"21\": 0.1, \"22\": 0.1, \"23\": 0.1, \"24\": 0.1, \"25\": 0.1, \"26\": 0.1, \"27\": 0.1}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1
+  ]
+ },
+ "P4": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e8e808929fdf6145b34646fd90615dcd47e25038b8d15037053bf3a436ac1f3c",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 346,
+     "completion_tokens": 756,
+     "total_tokens": 1102,
+     "cost": 0.000337,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000337,
+      "upstream_inference_prompt_cost": 3.46e-05,
+      "upstream_inference_completions_cost": 0.0003024
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "The HIGGS dataset is a well-known benchmark for particle physics classification, specifically distinguishing between background noise and a Higgs boson signal. The features represent kinematic properties of particles produced in collisions.\n\nHere's a breakdown of feature usefulness:\n\n*   **Kinematic Features (pT, eta, phi):** Features like `lepton_pT`, `jet1pt`, `jet2pt`, etc., are generally very important. The transverse momentum (pT) of particles is a primary observable in collider physics and directly relates to the energy and mass of the parent particles. Eta (pseudorapidity) and phi (azimuthal angle) provide spatial information, which can help reconstruct the event geometry.\n*   **Missing Energy:** `missing_energy_magnitude` and `missing_energy_phi` are crucial. Missing transverse energy is a signature of undetected particles (like neutrinos) which are common in Higgs decays.\n*   **B-tagging:** `jet1b-tag`, `jet2b-tag`, `jet3b-tag`, `jet4b-tag` are highly discriminative. B-tagging is a technique to identify jets originating from b-quarks, which are produced in Higgs decays.\n*   **Invariant Masses:** Features like `m_jj`, `m_jjj`, `m_lv`, `m_jlv`, `m_bb`, `m_wbb`, `m_wwbb` are derived quantities representing invariant masses of different particle combinations. These are extremely powerful as they directly relate to the masses of intermediate or final state particles, which are characteristic of the signal. `m_wwbb` and `m_wbb` are likely to be particularly strong discriminators as they represent masses of particles directly associated with Higgs decay products.\n\nGiven this, the invariant mass features and b-tagging features are expected to be the most discriminative on their own or in small combinations. The primary kinematic features (pT, eta, phi) are also very important, especially when combined. Missing energy is also a key indicator.\n\n```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.6,\n    \"2\": 0.5,\n    \"3\": 0.85,\n    \"4\": 0.7,\n    \"5\": 0.8,\n    \"6\": 0.6,\n    \"7\": 0.5,\n    \"8\": 0.9,\n    \"9\": 0.8,\n    \"10\": 0.6,\n    \"11\": 0.5,\n    \"12\": 0.9,\n    \"13\": 0.75,\n    \"14\": 0.55,\n    \"15\": 0.45,\n    \"16\": 0.85,\n    \"17\": 0.7,\n    \"18\": 0.5,\n    \"19\": 0.4,\n    \"20\": 0.8,\n    \"21\": 0.95,\n    \"22\": 0.95,\n    \"23\": 0.9,\n    \"24\": 0.95,\n    \"25\": 0.95,\n    \"26\": 0.98,\n    \"27\": 0.99\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.5,
+   0.85,
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.9,
+   0.8,
+   0.6,
+   0.5,
+   0.9,
+   0.75,
+   0.55,
+   0.45,
+   0.85,
+   0.7,
+   0.5,
+   0.4,
+   0.8,
+   0.95,
+   0.95,
+   0.9,
+   0.95,
+   0.95,
+   0.98,
+   0.99
+  ]
+ },
+ "P5": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "164dfa4f45a618f6268e18476146b6fa358a0af1d92ad97e4cd42e5a8a04e331",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 309,
+     "completion_tokens": 308,
+     "total_tokens": 617,
+     "cost": 0.0001541,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001541,
+      "upstream_inference_prompt_cost": 3.09e-05,
+      "upstream_inference_completions_cost": 0.0001232
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.6,\n    \"2\": 0.3,\n    \"3\": 0.9,\n    \"4\": 0.5,\n    \"5\": 0.7,\n    \"6\": 0.5,\n    \"7\": 0.3,\n    \"8\": 0.8,\n    \"9\": 0.6,\n    \"10\": 0.4,\n    \"11\": 0.3,\n    \"12\": 0.7,\n    \"13\": 0.4,\n    \"14\": 0.3,\n    \"15\": 0.2,\n    \"16\": 0.5,\n    \"17\": 0.3,\n    \"18\": 0.2,\n    \"19\": 0.1,\n    \"20\": 0.3,\n    \"21\": 0.8,\n    \"22\": 0.7,\n    \"23\": 0.9,\n    \"24\": 0.8,\n    \"25\": 0.7,\n    \"26\": 0.9,\n    \"27\": 1.0\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.3,
+   0.9,
+   0.5,
+   0.7,
+   0.5,
+   0.3,
+   0.8,
+   0.6,
+   0.4,
+   0.3,
+   0.7,
+   0.4,
+   0.3,
+   0.2,
+   0.5,
+   0.3,
+   0.2,
+   0.1,
+   0.3,
+   0.8,
+   0.7,
+   0.9,
+   0.8,
+   0.7,
+   0.9,
+   1.0
+  ]
+ }
+}

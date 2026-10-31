@@ -1,0 +1,500 @@
+{
+ "dataset": "diabetes130",
+ "model": "openai/gpt-6-luna",
+ "variables": [
+  "race",
+  "gender",
+  "age",
+  "weight",
+  "admission_type_id",
+  "discharge_disposition_id",
+  "admission_source_id",
+  "time_in_hospital",
+  "payer_code",
+  "num_lab_procedures",
+  "num_procedures",
+  "num_medications",
+  "number_outpatient",
+  "number_emergency",
+  "number_inpatient",
+  "number_diagnoses",
+  "max_glu_serum",
+  "A1Cresult",
+  "metformin",
+  "repaglinide",
+  "nateglinide",
+  "chlorpropamide",
+  "glimepiride",
+  "acetohexamide",
+  "glipizide",
+  "glyburide",
+  "tolbutamide",
+  "pioglitazone",
+  "rosiglitazone",
+  "acarbose",
+  "miglitol",
+  "troglitazone",
+  "tolazamide",
+  "examide",
+  "citoglipton",
+  "insulin",
+  "glyburide.metformin",
+  "glipizide.metformin",
+  "glimepiride.pioglitazone",
+  "metformin.rosiglitazone",
+  "metformin.pioglitazone",
+  "change",
+  "diabetesMed"
+ ],
+ "P1a": {
+  "key": "c492e5275eed19b8112914721dda10f859c56662dd1d97227e144d8c8117a62b",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 118,
+   "completion_tokens": 216,
+   "total_tokens": 334,
+   "cost": 0.0001198,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001198,
+    "upstream_inference_prompt_cost": 1.18e-05,
+    "upstream_inference_completions_cost": 0.000108
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 139,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"Diabetes 130-US Hospitals for Years 1999\u20132008\",\"source\":\"UCI Machine Learning Repository; Strack et al., \u201cImpact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Patient Records,\u201d BioMed Research International, 2014\",\"confidence\":0.99}"
+ },
+ "P1b": {
+  "key": "9453bc35dd01f858966f0570b7fad87998ff621ba7a793f0f527a38bf9bb7ad0",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 297,
+   "completion_tokens": 148,
+   "total_tokens": 445,
+   "cost": 0.0001037,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001037,
+    "upstream_inference_prompt_cost": 2.97e-05,
+    "upstream_inference_completions_cost": 7.4e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 79,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\":\"Diabetes 130-US hospitals for years 1999\u20132008\",\"source\":\"UCI Machine Learning Repository; Strack et al., \u201cImpact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Patient Records\u201d\",\"confidence\":0.99}"
+ },
+ "P2": {
+  "key": "fa887023f20bef0bf3c8d198bacdc465fb91c53dcfb724f7d51937958505bfc1",
+  "served_model": "openai/gpt-6-luna",
+  "usage": {
+   "prompt_tokens": 109,
+   "completion_tokens": 550,
+   "total_tokens": 659,
+   "cost": 0.0002859,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0002859,
+    "upstream_inference_prompt_cost": 1.09e-05,
+    "upstream_inference_completions_cost": 0.000275
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 314,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\":[\"encounter_id\",\"patient_nbr\",\"race\",\"gender\",\"age\",\"weight\",\"admission_type_id\",\"discharge_disposition_id\",\"admission_source_id\",\"time_in_hospital\",\"payer_code\",\"medical_specialty\",\"num_lab_procedures\",\"num_procedures\",\"num_medications\",\"number_outpatient\",\"number_emergency\",\"number_inpatient\",\"diag_1\",\"diag_2\",\"diag_3\",\"number_diagnoses\",\"max_glu_serum\",\"A1Cresult\",\"metformin\",\"repaglinide\",\"nateglinide\",\"chlorpropamide\",\"glimepiride\",\"acetohexamide\",\"glipizide\",\"glyburide\",\"tolbutamide\",\"pioglitazone\",\"rosiglitazone\",\"acarbose\",\"miglitol\",\"troglitazone\",\"tolazamide\",\"examide\",\"citoglipton\",\"insulin\",\"glyburide-metformin\",\"glipizide-metformin\",\"glimepiride-pioglitazone\",\"metformin-rosiglitazone\",\"metformin-pioglitazone\",\"change\",\"diabetesMed\"]}"
+ },
+ "P3": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d18c2337446cd58ba69b78a737828ce59f69e305a7d9605a139391e721f9b8f9",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 295,
+     "completion_tokens": 1292,
+     "total_tokens": 1587,
+     "cost": 0.0006755,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0006755,
+      "upstream_inference_prompt_cost": 2.95e-05,
+      "upstream_inference_completions_cost": 0.000646
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1025,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.12,\"1\":0.08,\"2\":0.28,\"3\":0.04,\"4\":0.16,\"5\":0.48,\"6\":0.18,\"7\":0.30,\"8\":0.10,\"9\":0.20,\"10\":0.12,\"11\":0.32,\"12\":0.30,\"13\":0.36,\"14\":0.72,\"15\":0.24,\"16\":0.13,\"17\":0.18,\"18\":0.20,\"19\":0.07,\"20\":0.05,\"21\":0.03,\"22\":0.09,\"23\":0.00,\"24\":0.12,\"25\":0.12,\"26\":0.01,\"27\":0.11,\"28\":0.10,\"29\":0.03,\"30\":0.01,\"31\":0.00,\"32\":0.01,\"33\":0.00,\"34\":0.00,\"35\":0.37,\"36\":0.05,\"37\":0.01,\"38\":0.00,\"39\":0.00,\"40\":0.00,\"41\":0.24,\"42\":0.25}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.0,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order (the distributed file's columns encounter_id, patient_nbr, medical_specialty, diag_1, diag_2, diag_3 are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.12,
+   0.08,
+   0.28,
+   0.04,
+   0.16,
+   0.48,
+   0.18,
+   0.3,
+   0.1,
+   0.2,
+   0.12,
+   0.32,
+   0.3,
+   0.36,
+   0.72,
+   0.24,
+   0.13,
+   0.18,
+   0.2,
+   0.07,
+   0.05,
+   0.03,
+   0.09,
+   0.0,
+   0.12,
+   0.12,
+   0.01,
+   0.11,
+   0.1,
+   0.03,
+   0.01,
+   0.0,
+   0.01,
+   0.0,
+   0.0,
+   0.37,
+   0.05,
+   0.01,
+   0.0,
+   0.0,
+   0.0,
+   0.24,
+   0.25
+  ]
+ },
+ "P3f": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "6b574d7f9a4aaa31fd83e26c8479e403022d2d2b3773af8543802c10eda5f498",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 245,
+     "completion_tokens": 340,
+     "total_tokens": 585,
+     "cost": 0.0001945,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001945,
+      "upstream_inference_prompt_cost": 2.45e-05,
+      "upstream_inference_completions_cost": 0.00017
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 73,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.5,\"21\":0.5,\"22\":0.5,\"23\":0.5,\"24\":0.5,\"25\":0.5,\"26\":0.5,\"27\":0.5,\"28\":0.5,\"29\":0.5,\"30\":0.5,\"31\":0.5,\"32\":0.5,\"33\":0.5,\"34\":0.5,\"35\":0.5,\"36\":0.5,\"37\":0.5,\"38\":0.5,\"39\":0.5,\"40\":0.5,\"41\":0.5,\"42\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "eee3c0b0c41feb007da07efce0d7018b3206ad78ca7c7a46d5e8683bfb6979da",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 444,
+     "completion_tokens": 362,
+     "total_tokens": 806,
+     "cost": 0.0002254,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002254,
+      "upstream_inference_prompt_cost": 4.44e-05,
+      "upstream_inference_completions_cost": 0.000181
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 95,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.18,\"1\":0.10,\"2\":0.35,\"3\":0.03,\"4\":0.28,\"5\":0.48,\"6\":0.30,\"7\":0.32,\"8\":0.12,\"9\":0.20,\"10\":0.16,\"11\":0.25,\"12\":0.28,\"13\":0.32,\"14\":0.55,\"15\":0.23,\"16\":0.18,\"17\":0.20,\"18\":0.15,\"19\":0.05,\"20\":0.04,\"21\":0.02,\"22\":0.10,\"23\":0.00,\"24\":0.10,\"25\":0.11,\"26\":0.00,\"27\":0.10,\"28\":0.09,\"29\":0.02,\"30\":0.01,\"31\":0.00,\"32\":0.01,\"33\":0.00,\"34\":0.00,\"35\":0.22,\"36\":0.03,\"37\":0.01,\"38\":0.00,\"39\":0.00,\"40\":0.00,\"41\":0.16,\"42\":0.18}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.0,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.18,
+   0.1,
+   0.35,
+   0.03,
+   0.28,
+   0.48,
+   0.3,
+   0.32,
+   0.12,
+   0.2,
+   0.16,
+   0.25,
+   0.28,
+   0.32,
+   0.55,
+   0.23,
+   0.18,
+   0.2,
+   0.15,
+   0.05,
+   0.04,
+   0.02,
+   0.1,
+   0.0,
+   0.1,
+   0.11,
+   0.0,
+   0.1,
+   0.09,
+   0.02,
+   0.01,
+   0.0,
+   0.01,
+   0.0,
+   0.0,
+   0.22,
+   0.03,
+   0.01,
+   0.0,
+   0.0,
+   0.0,
+   0.16,
+   0.18
+  ]
+ },
+ "P5": {
+  "model": "openai/gpt-6-luna",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3f7c771352117513b2a90c5e7812731a7082c8de5c75b164bb76a2ca50fc08e8",
+    "served_model": "openai/gpt-6-luna",
+    "usage": {
+     "prompt_tokens": 407,
+     "completion_tokens": 701,
+     "total_tokens": 1108,
+     "cost": 0.0003912,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0003912,
+      "upstream_inference_prompt_cost": 4.07e-05,
+      "upstream_inference_completions_cost": 0.0003505
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 440,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.08,\"1\":0.04,\"2\":0.18,\"3\":0.02,\"4\":0.13,\"5\":0.30,\"6\":0.14,\"7\":0.17,\"8\":0.04,\"9\":0.08,\"10\":0.05,\"11\":0.12,\"12\":0.19,\"13\":0.22,\"14\":0.34,\"15\":0.10,\"16\":0.04,\"17\":0.08,\"18\":0.08,\"19\":0.02,\"20\":0.01,\"21\":0.005,\"22\":0.04,\"23\":0.001,\"24\":0.04,\"25\":0.04,\"26\":0.001,\"27\":0.04,\"28\":0.04,\"29\":0.005,\"30\":0.001,\"31\":0,\"32\":0.001,\"33\":0,\"34\":0,\"35\":0.12,\"36\":0.01,\"37\":0.005,\"38\":0.001,\"39\":0.001,\"40\":0.001,\"41\":0.06,\"42\":0.07}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.0,
+  "header": [
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.08,
+   0.04,
+   0.18,
+   0.02,
+   0.13,
+   0.3,
+   0.14,
+   0.17,
+   0.04,
+   0.08,
+   0.05,
+   0.12,
+   0.19,
+   0.22,
+   0.34,
+   0.1,
+   0.04,
+   0.08,
+   0.08,
+   0.02,
+   0.01,
+   0.005,
+   0.04,
+   0.001,
+   0.04,
+   0.04,
+   0.001,
+   0.04,
+   0.04,
+   0.005,
+   0.001,
+   0.0,
+   0.001,
+   0.0,
+   0.0,
+   0.12,
+   0.01,
+   0.005,
+   0.001,
+   0.001,
+   0.001,
+   0.06,
+   0.07
+  ]
+ }
+}

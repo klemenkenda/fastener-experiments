@@ -1069,7 +1069,12 @@ reliability of the truth (MI across seeds); spend.
 **Experiments.**
 
 * `H12-E01` -- the seven probes, 12 models x 16 datasets, on the workstation
-  (sentinel). Registered.
+  (sentinel). **Not supported:** A and B hold together for 0 of 12 models
+  (A for Opus, Sonnet, Haiku and GPT-6 Luna; B for none after Holm, closest
+  Opus 12-4, p 0.075); C for none. The large models know the datasets and
+  their column order (Opus layout recall 0.94), but relevance from the name
+  alone shows only on famous sets (higgs, phishing, adult), and the name adds
+  nothing reliable to the feature names. [Report](reports/H12-E01/REPORT.md).
 
 ---
 

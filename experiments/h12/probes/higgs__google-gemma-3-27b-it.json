@@ -1,0 +1,425 @@
+{
+ "dataset": "higgs",
+ "model": "google/gemma-3-27b-it",
+ "variables": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "P1a": {
+  "key": "b752d45da3f8297afd21c07e191e98e6b3a359cef14da26efc4018b215485d33",
+  "served_model": "google/gemma-3-27b-it",
+  "usage": {
+   "prompt_tokens": 113,
+   "completion_tokens": 44,
+   "total_tokens": 157,
+   "cost": 2.564e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 80,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.564e-05,
+    "upstream_inference_prompt_cost": 5.84e-06,
+    "upstream_inference_completions_cost": 1.98e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "\n```json\n{\"name\": \"Higgs\", \"source\": \"https://archive.ics.uci.edu/ml/datasets/Higgs\", \"confidence\": 0.95}\n```"
+ },
+ "P1b": {
+  "key": "ffe661ae186b3ad29eef57d68e9e8bda600266f4d283a612831215205471e4c8",
+  "served_model": "google/gemma-3-27b-it",
+  "usage": {
+   "prompt_tokens": 233,
+   "completion_tokens": 52,
+   "total_tokens": 285,
+   "cost": 3.8127e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.8127e-05,
+    "upstream_inference_prompt_cost": 2.7727e-05,
+    "upstream_inference_completions_cost": 1.04e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "\n```json\n{\"name\": \"Higgsino Simplified Model (SMS-Higgsino)\", \"source\": \"https://www.hepdatascience.org/dataset/higgsino\", \"confidence\": 0.95}\n```"
+ },
+ "P2": {
+  "key": "cd859fb087479c957b83f7ec17a85ddf78753e0c847e69008696e197b9187ce0",
+  "served_model": "google/gemma-3-27b-it",
+  "usage": {
+   "prompt_tokens": 112,
+   "completion_tokens": 270,
+   "total_tokens": 382,
+   "cost": 0.00010282,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 16,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00010282,
+    "upstream_inference_prompt_cost": 8.32e-06,
+    "upstream_inference_completions_cost": 9.45e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"MN\", \"MM\", \"MD\", \"MP\", \"VA\", \"VD\", \"VF\", \"VG\", \"VV\", \"VZ\", \"AA\", \"AB\", \"AD\", \"AE\", \"AF\", \"AG\", \"AH\", \"AI\", \"AJ\", \"AK\", \"AL\", \"AM\", \"AN\", \"AO\", \"AP\", \"AQ\", \"AR\", \"AS\", \"AT\", \"AU\", \"AV\", \"AW\", \"AX\", \"AY\", \"AZ\", \"BA\", \"BB\", \"BC\", \"BD\", \"BE\", \"BF\", \"BG\", \"BH\", \"BI\", \"BJ\", \"BK\", \"BL\", \"BM\", \"BN\", \"BO\", \"BP\", \"BQ\", \"BR\", \"BS\", \"BT\", \"BU\", \"BV\", \"BW\", \"BX\", \"BY\", \"BZ\", \"CA\", \"CB\", \"CC\", \"CD\", \"CE\", \"CF\", \"CG\", \"CH\", \"CI\", \"CJ\", \"CK\", \"CL\", \"CM\", \"CN\", \"CO\", \"CP\", \"CQ\", \"CR\", \"CS\", \"CT\", \"CU\", \"CV\", \"CW\", \"CX\", \"CY\", \"CZ\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "302b124e56cbdce05fd35e1f4752a1a9dc03257faf4b2158113805173c467c04",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 261,
+     "completion_tokens": 262,
+     "total_tokens": 523,
+     "cost": 0.00013494,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 96,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00013494,
+      "upstream_inference_prompt_cost": 1.704e-05,
+      "upstream_inference_completions_cost": 0.0001179
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "\n```json\n{\"scores\": {\"0\": 0.6, \"1\": 0.5, \"2\": 0.7, \"3\": 0.65, \"4\": 0.55, \"5\": 0.4, \"6\": 0.6, \"7\": 0.5, \"8\": 0.75, \"9\": 0.6, \"10\": 0.5, \"11\": 0.65, \"12\": 0.45, \"13\": 0.7, \"14\": 0.55, \"15\": 0.6, \"16\": 0.4, \"17\": 0.7, \"18\": 0.65, \"19\": 0.5, \"20\": 0.6, \"21\": 0.45, \"22\": 0.75, \"23\": 0.6, \"24\": 0.5, \"25\": 0.65, \"26\": 0.4, \"27\": 0.7}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.7,
+   0.65,
+   0.55,
+   0.4,
+   0.6,
+   0.5,
+   0.75,
+   0.6,
+   0.5,
+   0.65,
+   0.45,
+   0.7,
+   0.55,
+   0.6,
+   0.4,
+   0.7,
+   0.65,
+   0.5,
+   0.6,
+   0.45,
+   0.75,
+   0.6,
+   0.5,
+   0.65,
+   0.4,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "9bebc44e454075a135ee8ccdf1b3b49d65fb06e1e0762511b477cf171a7d3893",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 247,
+     "completion_tokens": 262,
+     "total_tokens": 509,
+     "cost": 0.00013318,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 112,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00013318,
+      "upstream_inference_prompt_cost": 1.528e-05,
+      "upstream_inference_completions_cost": 0.0001179
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.6, \"1\": 0.7, \"2\": 0.8, \"3\": 0.5, \"4\": 0.4, \"5\": 0.9, \"6\": 0.3, \"7\": 0.75, \"8\": 0.65, \"9\": 0.2, \"10\": 0.85, \"11\": 0.55, \"12\": 0.7, \"13\": 0.45, \"14\": 0.95, \"15\": 0.35, \"16\": 0.6, \"17\": 0.8, \"18\": 0.5, \"19\": 0.7, \"20\": 0.25, \"21\": 0.9, \"22\": 0.4, \"23\": 0.65, \"24\": 0.8, \"25\": 0.3, \"26\": 0.75, \"27\": 0.55}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.7,
+   0.8,
+   0.5,
+   0.4,
+   0.9,
+   0.3,
+   0.75,
+   0.65,
+   0.2,
+   0.85,
+   0.55,
+   0.7,
+   0.45,
+   0.95,
+   0.35,
+   0.6,
+   0.8,
+   0.5,
+   0.7,
+   0.25,
+   0.9,
+   0.4,
+   0.65,
+   0.8,
+   0.3,
+   0.75,
+   0.55
+  ]
+ },
+ "P4": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "0700303f2d3ee71f373b1f4a888395ea2b8cfb95e97b3fb0d14923ff27362bad",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 358,
+     "completion_tokens": 330,
+     "total_tokens": 688,
+     "cost": 0.00017202,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 128,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00017202,
+      "upstream_inference_prompt_cost": 2.352e-05,
+      "upstream_inference_completions_cost": 0.0001485
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "\n```json\n{\n  \"scores\": {\n    \"0\": 0.9,\n    \"1\": 0.7,\n    \"2\": 0.6,\n    \"3\": 0.95,\n    \"4\": 0.65,\n    \"5\": 0.85,\n    \"6\": 0.75,\n    \"7\": 0.6,\n    \"8\": 0.8,\n    \"9\": 0.7,\n    \"10\": 0.65,\n    \"11\": 0.55,\n    \"12\": 0.75,\n    \"13\": 0.6,\n    \"14\": 0.55,\n    \"15\": 0.5,\n    \"16\": 0.65,\n    \"17\": 0.5,\n    \"18\": 0.45,\n    \"19\": 0.4,\n    \"20\": 0.55,\n    \"21\": 0.9,\n    \"22\": 0.85,\n    \"23\": 0.9,\n    \"24\": 0.8,\n    \"25\": 0.7,\n    \"26\": 0.85,\n    \"27\": 0.92\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.9,
+   0.7,
+   0.6,
+   0.95,
+   0.65,
+   0.85,
+   0.75,
+   0.6,
+   0.8,
+   0.7,
+   0.65,
+   0.55,
+   0.75,
+   0.6,
+   0.55,
+   0.5,
+   0.65,
+   0.5,
+   0.45,
+   0.4,
+   0.55,
+   0.9,
+   0.85,
+   0.9,
+   0.8,
+   0.7,
+   0.85,
+   0.92
+  ]
+ },
+ "P5": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "db87bce55c6a086344330ba90e04deade96e5718f1605706ea32d9efcbdb41be",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 321,
+     "completion_tokens": 259,
+     "total_tokens": 580,
+     "cost": 0.00013839,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 96,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00013839,
+      "upstream_inference_prompt_cost": 2.184e-05,
+      "upstream_inference_completions_cost": 0.00011655
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.95, \"1\": 0.85, \"2\": 0.75, \"3\": 0.9, \"4\": 0.7, \"5\": 0.9, \"6\": 0.8, \"7\": 0.7, \"8\": 0.9, \"9\": 0.8, \"10\": 0.7, \"11\": 0.6, \"12\": 0.85, \"13\": 0.7, \"14\": 0.6, \"15\": 0.5, \"16\": 0.75, \"17\": 0.6, \"18\": 0.5, \"19\": 0.4, \"20\": 0.65, \"21\": 0.9, \"22\": 0.8, \"23\": 0.85, \"24\": 0.9, \"25\": 0.7, \"26\": 0.85, \"27\": 0.9}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.85,
+   0.75,
+   0.9,
+   0.7,
+   0.9,
+   0.8,
+   0.7,
+   0.9,
+   0.8,
+   0.7,
+   0.6,
+   0.85,
+   0.7,
+   0.6,
+   0.5,
+   0.75,
+   0.6,
+   0.5,
+   0.4,
+   0.65,
+   0.9,
+   0.8,
+   0.85,
+   0.9,
+   0.7,
+   0.85,
+   0.9
+  ]
+ }
+}

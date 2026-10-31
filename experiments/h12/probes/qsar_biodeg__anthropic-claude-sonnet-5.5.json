@@ -1,0 +1,490 @@
+{
+ "dataset": "qsar_biodeg",
+ "model": "anthropic/claude-sonnet-5.5",
+ "variables": [
+  "SpMax_L",
+  "J_Dz(e)",
+  "nHM",
+  "F01[N-N]",
+  "F04[C-N]",
+  "NssssC",
+  "nCb-",
+  "C%",
+  "nCp",
+  "nO",
+  "F03[C-N]",
+  "SdssC",
+  "HyWi_B(m)",
+  "LOC",
+  "SM6_L",
+  "F03[C-O]",
+  "Me",
+  "Mi",
+  "nN-N",
+  "nArNO2",
+  "nCRX3",
+  "SpPosA_B(p)",
+  "nCIR",
+  "B01[C-Br]",
+  "B03[C-Cl]",
+  "N-073",
+  "SpMax_A",
+  "Psi_i_1d",
+  "B04[C-Br]",
+  "SdO",
+  "TI2_L",
+  "nCrt",
+  "C-026",
+  "F02[C-N]",
+  "nHDon",
+  "SpMax_B(m)",
+  "Psi_i_A",
+  "nN",
+  "SM6_B(m)",
+  "nArCOOR",
+  "nX"
+ ],
+ "P1a": {
+  "key": "f25ae14f8235f863a95c05b98e4cd72afa01cf4e063fcad42c9701b43b6311b7",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 152,
+   "completion_tokens": 220,
+   "total_tokens": 372,
+   "cost": 0.002504,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.002504,
+    "upstream_inference_prompt_cost": 0.000304,
+    "upstream_inference_completions_cost": 0.0022
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "This matches the QSAR biodegradation data set from the UCI Machine Learning Repository. It has 1,055 chemicals, 41 molecular descriptors, and a binary label (ready biodegradable vs. not ready biodegradable). It was published by Mansouri et al. (2013), \"Quantitative Structure-Activity Relationship models for ready biodegradability of chemicals,\" in the Journal of Chemical Information and Modeling.\n\n```json\n{\"name\": \"QSAR biodegradation\", \"source\": \"UCI Machine Learning Repository; Mansouri et al. 2013, J. Chem. Inf. Model.\", \"confidence\": 0.97}\n```"
+ },
+ "P1b": {
+  "key": "8e79093f03cf65e668e86e0e16bd9c081e23a4d626f3ff1fe1333ebc8c77eeca",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 385,
+   "completion_tokens": 178,
+   "total_tokens": 563,
+   "cost": 0.00255,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00255,
+    "upstream_inference_prompt_cost": 0.00077,
+    "upstream_inference_completions_cost": 0.00178
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "This feature list matches the QSAR biodegradation data set from the UCI Machine Learning Repository. It has 41 molecular descriptors and classifies chemicals as ready or not ready biodegradable. It was published by Mansouri et al. (2013).\n\n```json\n{\"name\": \"QSAR biodegradation\", \"source\": \"UCI Machine Learning Repository; Mansouri, Ringsted, Ballabio, Todeschini, Consonni (2013), J. Chem. Inf. Model.\", \"confidence\": 0.97}\n```"
+ },
+ "P2": {
+  "key": "c4824ea897deb5c0601140722f95bcd185ba61718611193cee6f45c68b347b74",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 131,
+   "completion_tokens": 1303,
+   "total_tokens": 1434,
+   "cost": 0.013292,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.013292,
+    "upstream_inference_prompt_cost": 0.000262,
+    "upstream_inference_completions_cost": 0.01303
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1170,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"V1\",\"V2\",\"V3\",\"V4\",\"V5\",\"V6\",\"V7\",\"V8\",\"V9\",\"V10\",\"V11\",\"V12\",\"V13\",\"V14\",\"V15\",\"V16\",\"V17\",\"V18\",\"V19\",\"V20\",\"V21\",\"V22\",\"V23\",\"V24\",\"V25\",\"V26\",\"V27\",\"V28\",\"V29\",\"V30\",\"V31\",\"V32\",\"V33\",\"V34\",\"V35\",\"V36\",\"V37\",\"V38\",\"V39\",\"V40\",\"V41\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "28a2583018adf77d88012b7fd4c8c68cf6afdcf6aae93fbee3cb895f7b57396c",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 300,
+     "completion_tokens": 1013,
+     "total_tokens": 1313,
+     "cost": 0.01073,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.01073,
+      "upstream_inference_prompt_cost": 0.0006,
+      "upstream_inference_completions_cost": 0.01013
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I'm working from memory of the QSAR biodegradation column order, which I can't verify here, so these scores are rough estimates.\n\nThe columns, as I recall them: 0 SpMax_L, 1 J_Dz(e), 2 nHM, 3 F01[N-N], 4 F04[C-N], 5 NssssC, 6 nCb-, 7 C%, 8 nCp, 9 nO, 10 F03[C-N], 11 SdssC, 12 HyWi_B(m), 13 LOC, 14 SM6_L, 15 F03[C-O], 16 Me, 17 Mi, 18 nN-N, 19 nArNO2, 20 nCRX3, 21 SpPosA_B(p), 22 nCIR, 23 B01[C-Br], 24 B03[C-Cl], 25 N-073, 26 SpMax_A, 27 Psi_i_1d, 28 B04[C-Br], 29 SdO, 30 TI2_L, 31 nCrt, 32 C-026, 33 F02[C-N], 34 nHDon, 35 SpMax_B(m), 36 Psi_i_A, 37 nN, 38 SM6_B(m), 39 nArCOOR, 40 nX.\n\nFrom the published QSAR biodegradation results and general experience with this data set, the features I expect to matter most are:\n- SpMax_L (0)\n- J_Dz(e) (1)\n- SM6_L (14)\n- F03[C-O] (15)\n- Me (16)\n- SpPosA_B(p) (21)\n- SpMax_A (26)\n- Psi_i_1d (27)\n- SdO (29)\n- TI2_L (30)\n- SpMax_B(m) (35)\n- SM6_B(m) (38)\n- nHM (2)\n- nO (9)\n- HyWi_B(m) (12)\n- C% (7)\n- LOC (13)\n- Mi (17)\n- nCIR (22)\n- F04[C-N] (4)\n- B04[C-Br] (28)\n- Psi_i_A (36)\n\nThe remaining features are mostly sparse count variables, so I scored them low.\n\n```json\n{\"scores\": {\"0\":0.6,\"1\":0.6,\"2\":0.45,\"3\":0.15,\"4\":0.4,\"5\":0.1,\"6\":0.3,\"7\":0.45,\"8\":0.3,\"9\":0.4,\"10\":0.3,\"11\":0.3,\"12\":0.5,\"13\":0.45,\"14\":0.6,\"15\":0.5,\"16\":0.5,\"17\":0.4,\"18\":0.1,\"19\":0.2,\"20\":0.1,\"21\":0.65,\"22\":0.4,\"23\":0.15,\"24\":0.15,\"25\":0.3,\"26\":0.55,\"27\":0.5,\"28\":0.3,\"29\":0.55,\"30\":0.5,\"31\":0.05,\"32\":0.3,\"33\":0.35,\"34\":0.3,\"35\":0.55,\"36\":0.4,\"37\":0.35,\"38\":0.5,\"39\":0.1,\"40\":0.3}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.6,
+   0.45,
+   0.15,
+   0.4,
+   0.1,
+   0.3,
+   0.45,
+   0.3,
+   0.4,
+   0.3,
+   0.3,
+   0.5,
+   0.45,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.1,
+   0.2,
+   0.1,
+   0.65,
+   0.4,
+   0.15,
+   0.15,
+   0.3,
+   0.55,
+   0.5,
+   0.3,
+   0.55,
+   0.5,
+   0.05,
+   0.3,
+   0.35,
+   0.3,
+   0.55,
+   0.4,
+   0.35,
+   0.5,
+   0.1,
+   0.3
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d859580e18eb31bcd82b560441e22dd4d7fddc18c13f94f54a1f54935b905342",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 289,
+     "completion_tokens": 387,
+     "total_tokens": 676,
+     "cost": 0.004448,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.004448,
+      "upstream_inference_prompt_cost": 0.000578,
+      "upstream_inference_completions_cost": 0.00387
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I have no information about these features beyond their indices: no names, no data, and no description of the data set. Any scores I give would therefore be guesses, not informed ratings. I assign a uniform low-to-moderate prior of 0.3 to every feature, so the scores carry no ranking signal.\n\n{\"scores\": {\"0\":0.3,\"1\":0.3,\"2\":0.3,\"3\":0.3,\"4\":0.3,\"5\":0.3,\"6\":0.3,\"7\":0.3,\"8\":0.3,\"9\":0.3,\"10\":0.3,\"11\":0.3,\"12\":0.3,\"13\":0.3,\"14\":0.3,\"15\":0.3,\"16\":0.3,\"17\":0.3,\"18\":0.3,\"19\":0.3,\"20\":0.3,\"21\":0.3,\"22\":0.3,\"23\":0.3,\"24\":0.3,\"25\":0.3,\"26\":0.3,\"27\":0.3,\"28\":0.3,\"29\":0.3,\"30\":0.3,\"31\":0.3,\"32\":0.3,\"33\":0.3,\"34\":0.3,\"35\":0.3,\"36\":0.3,\"37\":0.3,\"38\":0.3,\"39\":0.3,\"40\":0.3}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3d07aea1312bf438b943b5da2ac93b7f172e6eb9122ade5c8b964642648dd61a",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 536,
+     "completion_tokens": 337,
+     "total_tokens": 873,
+     "cost": 0.004442,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.004442,
+      "upstream_inference_prompt_cost": 0.001072,
+      "upstream_inference_completions_cost": 0.00337
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.45, \"2\": 0.55, \"3\": 0.15, \"4\": 0.2, \"5\": 0.15, \"6\": 0.4, \"7\": 0.4, \"8\": 0.3, \"9\": 0.35, \"10\": 0.4, \"11\": 0.25, \"12\": 0.5, \"13\": 0.5, \"14\": 0.45, \"15\": 0.4, \"16\": 0.4, \"17\": 0.35, \"18\": 0.15, \"19\": 0.2, \"20\": 0.15, \"21\": 0.55, \"22\": 0.3, \"23\": 0.2, \"24\": 0.15, \"25\": 0.3, \"26\": 0.45, \"27\": 0.4, \"28\": 0.2, \"29\": 0.5, \"30\": 0.45, \"31\": 0.1, \"32\": 0.3, \"33\": 0.35, \"34\": 0.3, \"35\": 0.5, \"36\": 0.45, \"37\": 0.4, \"38\": 0.45, \"39\": 0.1, \"40\": 0.35}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.45,
+   0.55,
+   0.15,
+   0.2,
+   0.15,
+   0.4,
+   0.4,
+   0.3,
+   0.35,
+   0.4,
+   0.25,
+   0.5,
+   0.5,
+   0.45,
+   0.4,
+   0.4,
+   0.35,
+   0.15,
+   0.2,
+   0.15,
+   0.55,
+   0.3,
+   0.2,
+   0.15,
+   0.3,
+   0.45,
+   0.4,
+   0.2,
+   0.5,
+   0.45,
+   0.1,
+   0.3,
+   0.35,
+   0.3,
+   0.5,
+   0.45,
+   0.4,
+   0.45,
+   0.1,
+   0.35
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f20129ec2f88cb6008f390c3a862f3eca018355da7045e80418b2de197dbd3ba",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 495,
+     "completion_tokens": 337,
+     "total_tokens": 832,
+     "cost": 0.00436,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00436,
+      "upstream_inference_prompt_cost": 0.00099,
+      "upstream_inference_completions_cost": 0.00337
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.45, \"1\": 0.4, \"2\": 0.55, \"3\": 0.2, \"4\": 0.2, \"5\": 0.2, \"6\": 0.35, \"7\": 0.5, \"8\": 0.3, \"9\": 0.45, \"10\": 0.35, \"11\": 0.35, \"12\": 0.55, \"13\": 0.45, \"14\": 0.45, \"15\": 0.4, \"16\": 0.4, \"17\": 0.4, \"18\": 0.1, \"19\": 0.2, \"20\": 0.1, \"21\": 0.5, \"22\": 0.35, \"23\": 0.2, \"24\": 0.15, \"25\": 0.3, \"26\": 0.5, \"27\": 0.45, \"28\": 0.15, \"29\": 0.5, \"30\": 0.4, \"31\": 0.1, \"32\": 0.2, \"33\": 0.3, \"34\": 0.3, \"35\": 0.55, \"36\": 0.45, \"37\": 0.45, \"38\": 0.5, \"39\": 0.05, \"40\": 0.35}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.45,
+   0.4,
+   0.55,
+   0.2,
+   0.2,
+   0.2,
+   0.35,
+   0.5,
+   0.3,
+   0.45,
+   0.35,
+   0.35,
+   0.55,
+   0.45,
+   0.45,
+   0.4,
+   0.4,
+   0.4,
+   0.1,
+   0.2,
+   0.1,
+   0.5,
+   0.35,
+   0.2,
+   0.15,
+   0.3,
+   0.5,
+   0.45,
+   0.15,
+   0.5,
+   0.4,
+   0.1,
+   0.2,
+   0.3,
+   0.3,
+   0.55,
+   0.45,
+   0.45,
+   0.5,
+   0.05,
+   0.35
+  ]
+ }
+}

@@ -1,0 +1,385 @@
+{
+ "dataset": "eye_movements",
+ "model": "google/gemma-3-27b-it",
+ "variables": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "P1a": {
+  "key": "733dd712556029a3c06072e6a75ce6d468616bfd7d881df37da4bb60c92d2f2a",
+  "served_model": "google/gemma-3-27b-it",
+  "usage": {
+   "prompt_tokens": 116,
+   "completion_tokens": 44,
+   "total_tokens": 160,
+   "cost": 2.588e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 80,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.588e-05,
+    "upstream_inference_prompt_cost": 6.08e-06,
+    "upstream_inference_completions_cost": 1.98e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "\n```json\n{\"name\": \"lympho\", \"source\": \"https://archive.ics.uci.edu/ml/datasets/lymphography\", \"confidence\": 0.95}\n```"
+ },
+ "P1b": {
+  "key": "778e57b843dd7e770e7db74069c0ef0eb46ec5b2f1413f851e691ca1fbef860e",
+  "served_model": "google/gemma-3-27b-it",
+  "usage": {
+   "prompt_tokens": 183,
+   "completion_tokens": 42,
+   "total_tokens": 225,
+   "cost": 2.614e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 80,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.614e-05,
+    "upstream_inference_prompt_cost": 1.144e-05,
+    "upstream_inference_completions_cost": 1.47e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "\n```json\n{\"name\": \"SALICON-HMM\", \"source\": \"https://salicon-hmm.github.io/\", \"confidence\": 0.95}\n```"
+ },
+ "P2": {
+  "key": "175fb17947139a4656357b5a1a60a6f0e3f95550e72ef065e2a85668cc4e2015",
+  "served_model": "google/gemma-3-27b-it",
+  "usage": {
+   "prompt_tokens": 115,
+   "completion_tokens": 89,
+   "total_tokens": 204,
+   "cost": 4.669e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 64,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 4.669e-05,
+    "upstream_inference_prompt_cost": 6.64e-06,
+    "upstream_inference_completions_cost": 4.005e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"fixation_count\", \"scanpath_length\", \"pupil_dilation\", \"avg_fix_duration\", \"max_fix_duration\", \"std_fix_duration\", \"num_saccades\", \"avg_sac_amplitude\", \"max_sac_amplitude\", \"std_sac_amplitude\", \"scanpath_velocity\", \"heat_map_density\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "312f2790c1eb48e01e5332bb13d5d1208be403f6c4dffc7ef334ffc4e69d3140",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 240,
+     "completion_tokens": 186,
+     "total_tokens": 426,
+     "cost": 9.906e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 96,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.906e-05,
+      "upstream_inference_prompt_cost": 1.536e-05,
+      "upstream_inference_completions_cost": 8.37e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.7, \"1\": 0.8, \"2\": 0.6, \"3\": 0.5, \"4\": 0.75, \"5\": 0.65, \"6\": 0.4, \"7\": 0.85, \"8\": 0.55, \"9\": 0.7, \"10\": 0.6, \"11\": 0.45, \"12\": 0.9, \"13\": 0.5, \"14\": 0.65, \"15\": 0.75, \"16\": 0.3, \"17\": 0.8, \"18\": 0.4, \"19\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.75,
+   0.65,
+   0.4,
+   0.85,
+   0.55,
+   0.7,
+   0.6,
+   0.45,
+   0.9,
+   0.5,
+   0.65,
+   0.75,
+   0.3,
+   0.8,
+   0.4,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "87fad5d1e304b17bd2b6fd72a55a49bdc92e3a887799c067ef88e1d17ead060c",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 223,
+     "completion_tokens": 187,
+     "total_tokens": 410,
+     "cost": 9.751e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 112,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.751e-05,
+      "upstream_inference_prompt_cost": 1.336e-05,
+      "upstream_inference_completions_cost": 8.415e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.6, \"1\": 0.7, \"2\": 0.8, \"3\": 0.5, \"4\": 0.4, \"5\": 0.9, \"6\": 0.3, \"7\": 0.75, \"8\": 0.65, \"9\": 0.2, \"10\": 0.85, \"11\": 0.55, \"12\": 0.45, \"13\": 0.95, \"14\": 0.35, \"15\": 0.7, \"16\": 0.6, \"17\": 0.8, \"18\": 0.25, \"19\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.7,
+   0.8,
+   0.5,
+   0.4,
+   0.9,
+   0.3,
+   0.75,
+   0.65,
+   0.2,
+   0.85,
+   0.55,
+   0.45,
+   0.95,
+   0.35,
+   0.7,
+   0.6,
+   0.8,
+   0.25,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5227870847e45d7968b9d4d35f799eee2dcc5f456caf18205802d6fe11e73490",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 285,
+     "completion_tokens": 235,
+     "total_tokens": 520,
+     "cost": 6.04e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.04e-05,
+      "upstream_inference_prompt_cost": 2.28e-05,
+      "upstream_inference_completions_cost": 3.76e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.1,\n    \"1\": 0.1,\n    \"2\": 0.7,\n    \"3\": 0.8,\n    \"4\": 0.75,\n    \"5\": 0.65,\n    \"6\": 0.5,\n    \"7\": 0.55,\n    \"8\": 0.3,\n    \"9\": 0.4,\n    \"10\": 0.35,\n    \"11\": 0.7,\n    \"12\": 0.6,\n    \"13\": 0.5,\n    \"14\": 0.45,\n    \"15\": 0.6,\n    \"16\": 0.55,\n    \"17\": 0.2,\n    \"18\": 0.15,\n    \"19\": 0.25\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.1,
+   0.7,
+   0.8,
+   0.75,
+   0.65,
+   0.5,
+   0.55,
+   0.3,
+   0.4,
+   0.35,
+   0.7,
+   0.6,
+   0.5,
+   0.45,
+   0.6,
+   0.55,
+   0.2,
+   0.15,
+   0.25
+  ]
+ },
+ "P5": {
+  "model": "google/gemma-3-27b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "60232853acc0fd1490eb146d0a253ffec66ec502c5af135abde4a5456116e945",
+    "served_model": "google/gemma-3-27b-it",
+    "usage": {
+     "prompt_tokens": 249,
+     "completion_tokens": 227,
+     "total_tokens": 476,
+     "cost": 9.553e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 96,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.553e-05,
+      "upstream_inference_prompt_cost": 1.608e-05,
+      "upstream_inference_completions_cost": 7.945e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.2,\n    \"1\": 0.3,\n    \"2\": 0.7,\n    \"3\": 0.8,\n    \"4\": 0.7,\n    \"5\": 0.6,\n    \"6\": 0.5,\n    \"7\": 0.4,\n    \"8\": 0.3,\n    \"9\": 0.8,\n    \"10\": 0.3,\n    \"11\": 0.7,\n    \"12\": 0.8,\n    \"13\": 0.6,\n    \"14\": 0.6,\n    \"15\": 0.5,\n    \"16\": 0.4,\n    \"17\": 0.5,\n    \"18\": 0.2,\n    \"19\": 0.2\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.3,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.8,
+   0.3,
+   0.7,
+   0.8,
+   0.6,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.2,
+   0.2
+  ]
+ }
+}

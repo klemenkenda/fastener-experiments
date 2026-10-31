@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "google/gemini-2.5-flash-lite",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "c10113b32520ddd7b0100f88e1d8b0370441230241bd0a686d32d316fda9d797",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 111,
+   "completion_tokens": 33,
+   "total_tokens": 144,
+   "cost": 2.43e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.43e-05,
+    "upstream_inference_prompt_cost": 1.11e-05,
+    "upstream_inference_completions_cost": 1.32e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Adult\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P1b": {
+  "key": "74dd4b05e8eb5dfd5465652c92c6a12f6215484461567375ee5fca5987ce3e41",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 131,
+   "completion_tokens": 33,
+   "total_tokens": 164,
+   "cost": 2.63e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.63e-05,
+    "upstream_inference_prompt_cost": 1.31e-05,
+    "upstream_inference_completions_cost": 1.32e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Adult\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "75a759c792192b68bb7d31ad6af2803e6d324b48e52b4f0de6d548a9f90dc3c0",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 90,
+   "completion_tokens": 67,
+   "total_tokens": 157,
+   "cost": 3.58e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.58e-05,
+    "upstream_inference_prompt_cost": 9e-06,
+    "upstream_inference_completions_cost": 2.68e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"age\", \"workclass\", \"fnlwgt\", \"education\", \"education-num\", \"marital-status\", \"occupation\", \"relationship\", \"race\", \"sex\", \"capital-gain\", \"capital-loss\", \"hours-per-week\", \"native-country\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c242a7823a95982e01f53e234775ee52811deeb24c4a507bdcc4627be92c8fc1",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 210,
+     "completion_tokens": 115,
+     "total_tokens": 325,
+     "cost": 6.7e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.7e-05,
+      "upstream_inference_prompt_cost": 2.1e-05,
+      "upstream_inference_completions_cost": 4.6e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.7, \"1\": 0.6, \"2\": 0.8, \"3\": 0.5, \"4\": 0.7, \"5\": 0.6, \"6\": 0.4, \"7\": 0.5, \"8\": 0.9, \"9\": 0.3, \"10\": 0.7, \"11\": 0.6, \"12\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.8,
+   0.5,
+   0.7,
+   0.6,
+   0.4,
+   0.5,
+   0.9,
+   0.3,
+   0.7,
+   0.6,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "8f9703ac1184e5af7eb01fc3fe655d775250d03c42fcc9462a0fddaf12de6228",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 190,
+     "completion_tokens": 107,
+     "total_tokens": 297,
+     "cost": 6.18e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.18e-05,
+      "upstream_inference_prompt_cost": 1.9e-05,
+      "upstream_inference_completions_cost": 4.28e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.1, \"1\": 0.1, \"2\": 0.1, \"3\": 0.1, \"4\": 0.1, \"5\": 0.1, \"6\": 0.1, \"7\": 0.1, \"8\": 0.1, \"9\": 0.1, \"10\": 0.1, \"11\": 0.1, \"12\": 0.1}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1
+  ]
+ },
+ "P4": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2fe461c28f8c247016a7edb5f9cc77a2214158049dc0c2dad1cb2f639bf92fee",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 213,
+     "completion_tokens": 115,
+     "total_tokens": 328,
+     "cost": 6.73e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.73e-05,
+      "upstream_inference_prompt_cost": 2.13e-05,
+      "upstream_inference_completions_cost": 4.6e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.7, \"1\": 0.5, \"2\": 0.1, \"3\": 0.6, \"4\": 0.6, \"5\": 0.7, \"6\": 0.5, \"7\": 0.4, \"8\": 0.3, \"9\": 0.5, \"10\": 0.8, \"11\": 0.7, \"12\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.5,
+   0.1,
+   0.6,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.3,
+   0.5,
+   0.8,
+   0.7,
+   0.5
+  ]
+ },
+ "P5": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "93350b2df64b3a13cbd768cdb8f43cf28c1a8930666c7796d42236653d22fef6",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 186,
+     "completion_tokens": 115,
+     "total_tokens": 301,
+     "cost": 6.46e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.46e-05,
+      "upstream_inference_prompt_cost": 1.86e-05,
+      "upstream_inference_completions_cost": 4.6e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.7, \"1\": 0.6, \"2\": 0.1, \"3\": 0.7, \"4\": 0.7, \"5\": 0.8, \"6\": 0.6, \"7\": 0.5, \"8\": 0.3, \"9\": 0.4, \"10\": 0.8, \"11\": 0.8, \"12\": 0.5}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.1,
+   0.7,
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.3,
+   0.4,
+   0.8,
+   0.8,
+   0.5
+  ]
+ }
+}

@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "qwen/qwen3-14b",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "d029a0b56a5a310243ad3da76300c5b413bc18a18a43e3c68fb704501da7d507",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 122,
+   "completion_tokens": 241,
+   "total_tokens": 363,
+   "cost": 6.522e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 6.522e-05,
+    "upstream_inference_prompt_cost": 1.22e-05,
+    "upstream_inference_completions_cost": 5.302e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 226,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Adult\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.99}"
+ },
+ "P1b": {
+  "key": "77749a636d4d712cb0075daa275c01704134cdeb9a441ee12c103bc3499e440d",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 137,
+   "completion_tokens": 412,
+   "total_tokens": 549,
+   "cost": 0.00010434,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00010434,
+    "upstream_inference_prompt_cost": 1.37e-05,
+    "upstream_inference_completions_cost": 9.064e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 435,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Adult\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.99}"
+ },
+ "P2": {
+  "key": "94376a69b6207a41d2e7076a5865fdc2ba93ca75ea4681dab91f027a5099bf67",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 104,
+   "completion_tokens": 714,
+   "total_tokens": 818,
+   "cost": 0.00016748,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00016748,
+    "upstream_inference_prompt_cost": 1.04e-05,
+    "upstream_inference_completions_cost": 0.00015708
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 715,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"age\", \"workclass\", \"fnlwgt\", \"education\", \"education_num\", \"marital_status\", \"occupation\", \"relationship\", \"race\", \"sex\", \"capital_gain\", \"capital_loss\", \"hours_per_week\", \"native_country\"]}"
+ },
+ "P3": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fe0bc388c899a4620fa63abe4e0b5e00989e29ddeb506f93be6de494f733f405",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 217,
+     "completion_tokens": 1156,
+     "total_tokens": 1373,
+     "cost": 0.00027602,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00027602,
+      "upstream_inference_prompt_cost": 2.17e-05,
+      "upstream_inference_completions_cost": 0.00025432
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1160,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.85, \"2\": 0.2, \"3\": 0.8, \"4\": 0.85, \"5\": 0.6, \"6\": 0.85, \"7\": 0.4, \"8\": 0.3, \"9\": 0.4, \"10\": 0.85, \"11\": 0.6, \"12\": 0.75}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.85,
+   0.2,
+   0.8,
+   0.85,
+   0.6,
+   0.85,
+   0.4,
+   0.3,
+   0.4,
+   0.85,
+   0.6,
+   0.75
+  ]
+ },
+ "P3f": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "bb8020f35731f80082358afd54f02273387bbb3bdd9aaa9bb59eb753378f275f",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 198,
+     "completion_tokens": 1164,
+     "total_tokens": 1362,
+     "cost": 0.00030312,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00030312,
+      "upstream_inference_prompt_cost": 2.376e-05,
+      "upstream_inference_completions_cost": 0.00027936
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1185,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.6, \"2\": 0.5, \"3\": 0.4, \"4\": 0.3, \"5\": 0.6, \"6\": 0.5, \"7\": 0.4, \"8\": 0.3, \"9\": 0.2, \"10\": 0.5, \"11\": 0.4, \"12\": 0.3}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.2,
+   0.5,
+   0.4,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "9af9afbca86a00e5a2d0e97e884782bd4782201af3fde0ada6f36a56e03d4c3d",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 219,
+     "completion_tokens": 1009,
+     "total_tokens": 1228,
+     "cost": 0.00024388,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00024388,
+      "upstream_inference_prompt_cost": 2.19e-05,
+      "upstream_inference_completions_cost": 0.00022198
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1008,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.8, \"2\": 0.1, \"3\": 0.85, \"4\": 0.75, \"5\": 0.5, \"6\": 0.8, \"7\": 0.4, \"8\": 0.3, \"9\": 0.4, \"10\": 0.7, \"11\": 0.5, \"12\": 0.7}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.8,
+   0.1,
+   0.85,
+   0.75,
+   0.5,
+   0.8,
+   0.4,
+   0.3,
+   0.4,
+   0.7,
+   0.5,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "13f75cac3ecf889cf979b0ddf21cbf8d03e31dc9908b970b314ad58f47258acb",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 191,
+     "completion_tokens": 1047,
+     "total_tokens": 1238,
+     "cost": 0.0002742,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002742,
+      "upstream_inference_prompt_cost": 2.292e-05,
+      "upstream_inference_completions_cost": 0.00025128
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 997,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.8, \"2\": 0.3, \"3\": 0.9, \"4\": 0.95, \"5\": 0.6, \"6\": 0.85, \"7\": 0.5, \"8\": 0.4, \"9\": 0.5, \"10\": 0.8, \"11\": 0.6, \"12\": 0.85}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.8,
+   0.3,
+   0.9,
+   0.95,
+   0.6,
+   0.85,
+   0.5,
+   0.4,
+   0.5,
+   0.8,
+   0.6,
+   0.85
+  ]
+ }
+}

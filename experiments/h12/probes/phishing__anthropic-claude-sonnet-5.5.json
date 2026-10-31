@@ -1,0 +1,435 @@
+{
+ "dataset": "phishing",
+ "model": "anthropic/claude-sonnet-5.5",
+ "variables": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "P1a": {
+  "key": "bafe723bc6dcac97f4b867ffce12e6ed8898eb017686c1e381470800ef2fd38f",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 144,
+   "completion_tokens": 206,
+   "total_tokens": 350,
+   "cost": 0.002348,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.002348,
+    "upstream_inference_prompt_cost": 0.000288,
+    "upstream_inference_completions_cost": 0.00206
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "This matches the UCI \"Phishing Websites\" data set, donated by Rami Mustafa Mohammad, Lee McCluskey and Fadi Thabtah. It has 11,055 instances and 30 attributes, with a binary result label. Features are coded as -1, 0 and 1, and the classes are phishing and legitimate.\n\n```json\n{\"name\": \"Phishing Websites Data Set\", \"source\": \"UCI Machine Learning Repository (Mohammad, Thabtah & McCluskey, 'Predicting phishing websites based on self-structuring neural network', 2014)\", \"confidence\": 0.93}\n```"
+ },
+ "P1b": {
+  "key": "deabbe7c3b2dd0c996d0268c2eafc0dcc097d0537d3b0073f3ca4ade259263a4",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 350,
+   "completion_tokens": 114,
+   "total_tokens": 464,
+   "cost": 0.00184,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00184,
+    "upstream_inference_prompt_cost": 0.0007,
+    "upstream_inference_completions_cost": 0.00114
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Phishing Websites Data Set\", \"source\": \"UCI Machine Learning Repository (Mohammad, Thabtah & McCluskey, 2012/2014, 'Predicting phishing websites based on self-structuring neural network' / 'Intelligent rule-based phishing websites classification')\", \"confidence\": 0.96}"
+ },
+ "P2": {
+  "key": "2262fb4dc033a2455d973fd7c13206736ebe2cfca7475869e2bbc06127a3479c",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 138,
+   "completion_tokens": 761,
+   "total_tokens": 899,
+   "cost": 0.007886,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.007886,
+    "upstream_inference_prompt_cost": 0.000276,
+    "upstream_inference_completions_cost": 0.00761
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 500,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"having_IP_Address\", \"URL_Length\", \"Shortining_Service\", \"having_At_Symbol\", \"double_slash_redirecting\", \"Prefix_Suffix\", \"having_Sub_Domain\", \"SSLfinal_State\", \"Domain_registeration_length\", \"Favicon\", \"port\", \"HTTPS_token\", \"Request_URL\", \"URL_of_Anchor\", \"Links_in_tags\", \"SFH\", \"Submitting_to_email\", \"Abnormal_URL\", \"Redirect\", \"on_mouseover\", \"RightClick\", \"popUpWidnow\", \"Iframe\", \"age_of_domain\", \"DNSRecord\", \"web_traffic\", \"Page_Rank\", \"Google_Index\", \"Links_pointing_to_page\", \"Statistical_report\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f2caffcce4d7858c9a39157d671fd86dd131dfcb39ec5fe987fb7ed80779455e",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 285,
+     "completion_tokens": 644,
+     "total_tokens": 929,
+     "cost": 0.00701,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00701,
+      "upstream_inference_prompt_cost": 0.00057,
+      "upstream_inference_completions_cost": 0.00644
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 425,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.05,\"1\":0.1,\"2\":0.07,\"3\":0.08,\"4\":0.06,\"5\":0.4,\"6\":0.45,\"7\":1.0,\"8\":0.15,\"9\":0.04,\"10\":0.05,\"11\":0.07,\"12\":0.3,\"13\":0.9,\"14\":0.35,\"15\":0.3,\"16\":0.07,\"17\":0.1,\"18\":0.04,\"19\":0.05,\"20\":0.03,\"21\":0.04,\"22\":0.04,\"23\":0.2,\"24\":0.12,\"25\":0.5,\"26\":0.25,\"27\":0.12,\"28\":0.15,\"29\":0.07}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.03,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.05,
+   0.1,
+   0.07,
+   0.08,
+   0.06,
+   0.4,
+   0.45,
+   1.0,
+   0.15,
+   0.04,
+   0.05,
+   0.07,
+   0.3,
+   0.9,
+   0.35,
+   0.3,
+   0.07,
+   0.1,
+   0.04,
+   0.05,
+   0.03,
+   0.04,
+   0.04,
+   0.2,
+   0.12,
+   0.5,
+   0.25,
+   0.12,
+   0.15,
+   0.07
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "446c4346aed94838b4c91437e4d39ae4b325525f72ca181646ee6cf34133e900",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 267,
+     "completion_tokens": 300,
+     "total_tokens": 567,
+     "cost": 0.003534,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.003534,
+      "upstream_inference_prompt_cost": 0.000534,
+      "upstream_inference_completions_cost": 0.003
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I have no information about the features beyond their indices, so I cannot tell which ones predict the class. Any scores I give are uninformative priors, not real usefulness estimates. I assigned the same middling value to every feature, which makes no claim about which ones matter.\n\n{\"scores\": {\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.5,\"21\":0.5,\"22\":0.5,\"23\":0.5,\"24\":0.5,\"25\":0.5,\"26\":0.5,\"27\":0.5,\"28\":0.5,\"29\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "fcd759fdc1196ccb2ae0d4eead953e8c9ce8b6b784417078b99392b4ae229868",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 478,
+     "completion_tokens": 249,
+     "total_tokens": 727,
+     "cost": 0.003446,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.003446,
+      "upstream_inference_prompt_cost": 0.000956,
+      "upstream_inference_completions_cost": 0.00249
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.12, \"1\": 0.15, \"2\": 0.1, \"3\": 0.1, \"4\": 0.1, \"5\": 0.4, \"6\": 0.45, \"7\": 1.0, \"8\": 0.25, \"9\": 0.07, \"10\": 0.06, \"11\": 0.1, \"12\": 0.35, \"13\": 0.9, \"14\": 0.35, \"15\": 0.4, \"16\": 0.1, \"17\": 0.15, \"18\": 0.05, \"19\": 0.07, \"20\": 0.07, \"21\": 0.08, \"22\": 0.06, \"23\": 0.25, \"24\": 0.15, \"25\": 0.5, \"26\": 0.3, \"27\": 0.12, \"28\": 0.15, \"29\": 0.07}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.12,
+   0.15,
+   0.1,
+   0.1,
+   0.1,
+   0.4,
+   0.45,
+   1.0,
+   0.25,
+   0.07,
+   0.06,
+   0.1,
+   0.35,
+   0.9,
+   0.35,
+   0.4,
+   0.1,
+   0.15,
+   0.05,
+   0.07,
+   0.07,
+   0.08,
+   0.06,
+   0.25,
+   0.15,
+   0.5,
+   0.3,
+   0.12,
+   0.15,
+   0.07
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "43833574f989b4e24d6c45ce3f015ad04fba886a3374575cb93cf2c52ebfb292",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 430,
+     "completion_tokens": 249,
+     "total_tokens": 679,
+     "cost": 0.00335,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00335,
+      "upstream_inference_prompt_cost": 0.00086,
+      "upstream_inference_completions_cost": 0.00249
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.2, \"2\": 0.1, \"3\": 0.1, \"4\": 0.1, \"5\": 0.45, \"6\": 0.5, \"7\": 1.0, \"8\": 0.25, \"9\": 0.05, \"10\": 0.05, \"11\": 0.1, \"12\": 0.4, \"13\": 0.9, \"14\": 0.45, \"15\": 0.4, \"16\": 0.1, \"17\": 0.2, \"18\": 0.05, \"19\": 0.05, \"20\": 0.05, \"21\": 0.05, \"22\": 0.05, \"23\": 0.3, \"24\": 0.2, \"25\": 0.55, \"26\": 0.25, \"27\": 0.15, \"28\": 0.2, \"29\": 0.1}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.05,
+  "header": [
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.2,
+   0.1,
+   0.1,
+   0.1,
+   0.45,
+   0.5,
+   1.0,
+   0.25,
+   0.05,
+   0.05,
+   0.1,
+   0.4,
+   0.9,
+   0.45,
+   0.4,
+   0.1,
+   0.2,
+   0.05,
+   0.05,
+   0.05,
+   0.05,
+   0.05,
+   0.3,
+   0.2,
+   0.55,
+   0.25,
+   0.15,
+   0.2,
+   0.1
+  ]
+ }
+}

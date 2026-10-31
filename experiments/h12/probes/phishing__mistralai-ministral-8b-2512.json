@@ -1,0 +1,435 @@
+{
+ "dataset": "phishing",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "P1a": {
+  "key": "ce1e139741a21d62623764dd8a98ba7fd365ca6bcca54db2393252cbcf89e1be",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 105,
+   "completion_tokens": 53,
+   "total_tokens": 158,
+   "cost": 2.37e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.37e-05,
+    "upstream_inference_prompt_cost": 1.575e-05,
+    "upstream_inference_completions_cost": 7.95e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Phishing Dataset (UCI ML Repository)\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Web+Phishing\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P1b": {
+  "key": "a2f006825a614cb33cf87882929fcb914fbb1ad7446326ac60bd8b39760a1c17",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 218,
+   "completion_tokens": 56,
+   "total_tokens": 274,
+   "cost": 4.11e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 4.11e-05,
+    "upstream_inference_prompt_cost": 3.27e-05,
+    "upstream_inference_completions_cost": 8.4e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"UCI Phishing Websites Dataset\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Phishing+Websites+Dataset\",\n  \"confidence\": 0.98\n}\n```"
+ },
+ "P2": {
+  "key": "60ce43841eaa8b7f8b7143306f73964448b1300be1148984f218ee4a1d7cf659",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 102,
+   "completion_tokens": 16000,
+   "total_tokens": 16102,
+   "cost": 0.0024153,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0024153,
+    "upstream_inference_prompt_cost": 1.53e-05,
+    "upstream_inference_completions_cost": 0.0024
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"URL\",\n    \"Length\",\n    \"has_AtSymbol\",\n    \"has_Dot\",\n    \"has_Hyphen\",\n    \"has_Underscore\",\n    \"has_Number\",\n    \"has_QuestionMark\",\n    \"has_ExclamationMark\",\n    \"has_Asterisk\",\n    \"has_Plus\",\n    \"has_Percent\",\n    \"has_Slash\",\n    \"has_Colon\",\n    \"has_DoubleQuote\",\n    \"has_SingleQuote\",\n    \"has_Dollar\",\n    \"has_Tilde\",\n    \"has_Equal\",\n    \"has_LeftParenthesis\",\n    \"has_RightParenthesis\",\n    \"has_LeftBracket\",\n    \"has_RightBracket\",\n    \"has_LeftCurlyBrace\",\n    \"has_RightCurlyBrace\",\n    \"has_LeftAngleBracket\",\n    \"has_RightAngleBracket\",\n    \"has_Carrot\",\n    \"has_Pound\",\n    \"has_Circle\",\n    \"has_Star\",\n    \"has_Comma\",\n    \"has_Semicolon\",\n    \"has_Period\",\n    \"has_CommaDot\",\n    \"has_ExclamationQuestionMark\",\n    \"has_QuestionMarkExclamationMark\",\n    \"has_LeftAngleBracketSlash\",\n    \"has_SlashRightAngleBracket\",\n    \"has_LeftAngleBracketExclamation\",\n    \"has_ExclamationRightAngleBracket\",\n    \"has_LeftAngleBracketQuestionMark\",\n    \"has_QuestionMarkRightAngleBracket\",\n    \"has_LeftAngleBracketHash\",\n    \"has_HashRightAngleBracket\",\n    \"has_LeftAngleBracketAtSymbol\",\n    \"has_AtSymbolRightAngleBracket\",\n    \"has_LeftAngleBracketTilde\",\n    \"has_TildeRightAngleBracket\",\n    \"has_LeftAngleBracketPlus\",\n    \"has_PlusRightAngleBracket\",\n    \"has_LeftAngleBracketPercent\",\n    \"has_PercentRightAngleBracket\",\n    \"has_LeftAngleBracketDollar\",\n    \"has_DollarRightAngleBracket\",\n    \"has_LeftAngleBracketEqual\",\n    \"has_EqualRightAngleBracket\",\n    \"has_LeftAngleBracketLeftParenthesis\",\n    \"has_LeftParenthesisRightAngleBracket\",\n    \"has_LeftAngleBracketRightParenthesis\",\n    \"has_RightParenthesisRightAngleBracket\",\n    \"has_LeftAngleBracketLeftBracket\",\n    \"has_LeftBracketRightAngleBracket\",\n    \"has_LeftAngleBracketRightBracket\",\n    \"has_RightBracketRightAngleBracket\",\n    \"has_LeftAngleBracketLeftCurlyBrace\",\n    \"has_LeftCurlyBraceRightAngleBracket\",\n    \"has_LeftAngleBracketRightCurlyBrace\",\n    \"has_RightCurlyBraceRightAngleBracket\",\n    \"has_LeftAngleBracketLeftAngleBracket\",\n    \"has_LeftAngleBracketRightAngleBracket\",\n    \"has_RightAngleBracketRightAngleBracket\",\n    \"has_LeftAngleBracketSlashSlash\",\n    \"has_SlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStar\",\n    \"has_SlashStarRightAngleBracket\",\n    \"has_LeftAngleBracketStarSlash\",\n    \"has_StarSlashRightAngleBracket\",\n    \"has_LeftAngleBracketHashSlash\",\n    \"has_HashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashHash\",\n    \"has_SlashHashRightAngleBracket\",\n    \"has_LeftAngleBracketAtSymbolSlash\",\n    \"has_AtSymbolSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashAtSymbol\",\n    \"has_SlashAtSymbolRightAngleBracket\",\n    \"has_LeftAngleBracketTildeSlash\",\n    \"has_TildeSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashTilde\",\n    \"has_SlashTildeRightAngleBracket\",\n    \"has_LeftAngleBracketPlusSlash\",\n    \"has_PlusSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashPlus\",\n    \"has_SlashPlusRightAngleBracket\",\n    \"has_LeftAngleBracketPercentSlash\",\n    \"has_PercentSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashPercent\",\n    \"has_SlashPercentRightAngleBracket\",\n    \"has_LeftAngleBracketDollarSlash\",\n    \"has_DollarSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashDollar\",\n    \"has_SlashDollarRightAngleBracket\",\n    \"has_LeftAngleBracketEqualSlash\",\n    \"has_EqualSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashEqual\",\n    \"has_SlashEqualRightAngleBracket\",\n    \"has_LeftAngleBracketLeftParenthesisSlash\",\n    \"has_LeftParenthesisSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashLeftParenthesis\",\n    \"has_SlashLeftParenthesisRightAngleBracket\",\n    \"has_LeftAngleBracketRightParenthesisSlash\",\n    \"has_RightParenthesisSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashRightParenthesis\",\n    \"has_SlashRightParenthesisRightAngleBracket\",\n    \"has_LeftAngleBracketLeftBracketSlash\",\n    \"has_LeftBracketSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashLeftBracket\",\n    \"has_SlashLeftBracketRightAngleBracket\",\n    \"has_LeftAngleBracketRightBracketSlash\",\n    \"has_RightBracketSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashRightBracket\",\n    \"has_SlashRightBracketRightAngleBracket\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlash\",\n    \"has_LeftCurlyBraceSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashLeftCurlyBrace\",\n    \"has_SlashLeftCurlyBraceRightAngleBracket\",\n    \"has_LeftAngleBracketRightCurlyBraceSlash\",\n    \"has_RightCurlyBraceSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashRightCurlyBrace\",\n    \"has_SlashRightCurlyBraceRightAngleBracket\",\n    \"has_LeftAngleBracketLeftAngleBracketSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashLeftAngleBracket\",\n    \"has_SlashLeftAngleBracketRightAngleBracket\",\n    \"has_LeftAngleBracketRightAngleBracketSlash\",\n    \"has_RightAngleBracketSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlash\",\n    \"has_LeftAngleBracketSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlash\",\n    \"has_LeftAngleBracketStarSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlash\",\n    \"has_LeftAngleBracketTildeSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlash\",\n    \"has_LeftAngleBracketPlusSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlash\",\n    \"has_LeftAngleBracketPercentSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlash\",\n    \"has_LeftAngleBracketDollarSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlash\",\n    \"has_LeftAngleBracketEqualSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlash\",\n    \"has_LeftAngleBracketSlashSlashRightAngleBracketSlash\",\n    \"has_LeftAngleBracketSlashStarSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPlusSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashPercentSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashDollarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashEqualSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightParenthesisSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightCurlyBraceSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashLeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashRightAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashRightAngleBracket\",\n    \"has_LeftAngleBracketSlashStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketStarSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashHashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashAtSymbolSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketSlashTildeSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlashSlash\",\n    \"has_LeftAngleBracketPlusSlashSlashSlashSlashSlashSlashSlashSlash"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "9baf60ba71a2581aa66c7858964b6b4cf1430870e41117c905db49c75fd3c027",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 255,
+     "completion_tokens": 335,
+     "total_tokens": 590,
+     "cost": 8.85e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 8.85e-05,
+      "upstream_inference_prompt_cost": 3.825e-05,
+      "upstream_inference_completions_cost": 5.025e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.95,\n    \"1\": 0.85,\n    \"2\": 0.75,\n    \"3\": 0.90,\n    \"4\": 0.60,\n    \"5\": 0.80,\n    \"6\": 0.70,\n    \"7\": 0.88,\n    \"8\": 0.65,\n    \"9\": 0.78,\n    \"10\": 0.55,\n    \"11\": 0.82,\n    \"12\": 0.68,\n    \"13\": 0.72,\n    \"14\": 0.50,\n    \"15\": 0.75,\n    \"16\": 0.60,\n    \"17\": 0.85,\n    \"18\": 0.55,\n    \"19\": 0.70,\n    \"20\": 0.65,\n    \"21\": 0.80,\n    \"22\": 0.50,\n    \"23\": 0.75,\n    \"24\": 0.60,\n    \"25\": 0.85,\n    \"26\": 0.55,\n    \"27\": 0.70,\n    \"28\": 0.65,\n    \"29\": 0.80\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.85,
+   0.75,
+   0.9,
+   0.6,
+   0.8,
+   0.7,
+   0.88,
+   0.65,
+   0.78,
+   0.55,
+   0.82,
+   0.68,
+   0.72,
+   0.5,
+   0.75,
+   0.6,
+   0.85,
+   0.55,
+   0.7,
+   0.65,
+   0.8,
+   0.5,
+   0.75,
+   0.6,
+   0.85,
+   0.55,
+   0.7,
+   0.65,
+   0.8
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5e176ac6e4e270570932606dcc60152667397da7a120dfcec1a7966019819b0c",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 242,
+     "completion_tokens": 305,
+     "total_tokens": 547,
+     "cost": 8.205e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 8.205e-05,
+      "upstream_inference_prompt_cost": 3.63e-05,
+      "upstream_inference_completions_cost": 4.575e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.4,\n    \"2\": 0.8,\n    \"3\": 0.3,\n    \"4\": 0.9,\n    \"5\": 0.2,\n    \"6\": 0.6,\n    \"7\": 0.5,\n    \"8\": 0.7,\n    \"9\": 0.1,\n    \"10\": 0.8,\n    \"11\": 0.4,\n    \"12\": 0.6,\n    \"13\": 0.3,\n    \"14\": 0.2,\n    \"15\": 0.5,\n    \"16\": 0.7,\n    \"17\": 0.3,\n    \"18\": 0.4,\n    \"19\": 0.6,\n    \"20\": 0.8,\n    \"21\": 0.2,\n    \"22\": 0.5,\n    \"23\": 0.4,\n    \"24\": 0.7,\n    \"25\": 0.3,\n    \"26\": 0.6,\n    \"27\": 0.2,\n    \"28\": 0.5,\n    \"29\": 0.4\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.8,
+   0.3,
+   0.9,
+   0.2,
+   0.6,
+   0.5,
+   0.7,
+   0.1,
+   0.8,
+   0.4,
+   0.6,
+   0.3,
+   0.2,
+   0.5,
+   0.7,
+   0.3,
+   0.4,
+   0.6,
+   0.8,
+   0.2,
+   0.5,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.2,
+   0.5,
+   0.4
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f02a612c6c744d059a598b48b72afce3cd9eecb71772769657343f5c62712c21",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 352,
+     "completion_tokens": 319,
+     "total_tokens": 671,
+     "cost": 0.00010065,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00010065,
+      "upstream_inference_prompt_cost": 5.28e-05,
+      "upstream_inference_completions_cost": 4.785e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.85,\n    \"2\": 0.9,\n    \"3\": 0.65,\n    \"4\": 0.75,\n    \"5\": 0.8,\n    \"6\": 0.7,\n    \"7\": 0.85,\n    \"8\": 0.9,\n    \"9\": 0.5,\n    \"10\": 0.6,\n    \"11\": 0.95,\n    \"12\": 0.8,\n    \"13\": 0.75,\n    \"14\": 0.85,\n    \"15\": 0.8,\n    \"16\": 0.7,\n    \"17\": 0.95,\n    \"18\": 0.85,\n    \"19\": 0.8,\n    \"20\": 0.75,\n    \"21\": 0.8,\n    \"22\": 0.75,\n    \"23\": 0.85,\n    \"24\": 0.7,\n    \"25\": 0.75,\n    \"26\": 0.65,\n    \"27\": 0.6,\n    \"28\": 0.8,\n    \"29\": 0.7\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.85,
+   0.9,
+   0.65,
+   0.75,
+   0.8,
+   0.7,
+   0.85,
+   0.9,
+   0.5,
+   0.6,
+   0.95,
+   0.8,
+   0.75,
+   0.85,
+   0.8,
+   0.7,
+   0.95,
+   0.85,
+   0.8,
+   0.75,
+   0.8,
+   0.75,
+   0.85,
+   0.7,
+   0.75,
+   0.65,
+   0.6,
+   0.8,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c62bf14a71d9744ba3114e40b0471ec9e4e0dead7ee2873cd1fc7fce7ae32557",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 316,
+     "completion_tokens": 319,
+     "total_tokens": 635,
+     "cost": 9.525e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.525e-05,
+      "upstream_inference_prompt_cost": 4.74e-05,
+      "upstream_inference_completions_cost": 4.785e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.8,\n    \"2\": 0.9,\n    \"3\": 0.7,\n    \"4\": 0.75,\n    \"5\": 0.85,\n    \"6\": 0.7,\n    \"7\": 0.8,\n    \"8\": 0.85,\n    \"9\": 0.5,\n    \"10\": 0.65,\n    \"11\": 0.9,\n    \"12\": 0.95,\n    \"13\": 0.8,\n    \"14\": 0.75,\n    \"15\": 0.85,\n    \"16\": 0.7,\n    \"17\": 0.95,\n    \"18\": 0.8,\n    \"19\": 0.75,\n    \"20\": 0.6,\n    \"21\": 0.7,\n    \"22\": 0.75,\n    \"23\": 0.8,\n    \"24\": 0.75,\n    \"25\": 0.7,\n    \"26\": 0.65,\n    \"27\": 0.6,\n    \"28\": 0.85,\n    \"29\": 0.75\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.8,
+   0.9,
+   0.7,
+   0.75,
+   0.85,
+   0.7,
+   0.8,
+   0.85,
+   0.5,
+   0.65,
+   0.9,
+   0.95,
+   0.8,
+   0.75,
+   0.85,
+   0.7,
+   0.95,
+   0.8,
+   0.75,
+   0.6,
+   0.7,
+   0.75,
+   0.8,
+   0.75,
+   0.7,
+   0.65,
+   0.6,
+   0.85,
+   0.75
+  ]
+ }
+}

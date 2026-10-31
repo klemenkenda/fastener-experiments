@@ -1,0 +1,490 @@
+{
+ "dataset": "qsar_biodeg",
+ "model": "google/gemma-3-4b-it",
+ "variables": [
+  "SpMax_L",
+  "J_Dz(e)",
+  "nHM",
+  "F01[N-N]",
+  "F04[C-N]",
+  "NssssC",
+  "nCb-",
+  "C%",
+  "nCp",
+  "nO",
+  "F03[C-N]",
+  "SdssC",
+  "HyWi_B(m)",
+  "LOC",
+  "SM6_L",
+  "F03[C-O]",
+  "Me",
+  "Mi",
+  "nN-N",
+  "nArNO2",
+  "nCRX3",
+  "SpPosA_B(p)",
+  "nCIR",
+  "B01[C-Br]",
+  "B03[C-Cl]",
+  "N-073",
+  "SpMax_A",
+  "Psi_i_1d",
+  "B04[C-Br]",
+  "SdO",
+  "TI2_L",
+  "nCrt",
+  "C-026",
+  "F02[C-N]",
+  "nHDon",
+  "SpMax_B(m)",
+  "Psi_i_A",
+  "nN",
+  "SM6_B(m)",
+  "nArCOOR",
+  "nX"
+ ],
+ "P1a": {
+  "key": "ac5f70d022bc26e57e803d0389ac96793997589d6b7a3fda7abb98ef4a4c4b10",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 111,
+   "completion_tokens": 63,
+   "total_tokens": 174,
+   "cost": 1.185e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.185e-05,
+    "upstream_inference_prompt_cost": 5.55e-06,
+    "upstream_inference_completions_cost": 6.3e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Biodegradable Plastics Dataset\",\n  \"source\": \"https://www.kaggle.com/datasets/johannesjohansson/biodegradable-plastics-dataset\",\n  \"confidence\": 0.95\n}\n```\n"
+ },
+ "P1b": {
+  "key": "9af20b9b89f8cb23bf4c235fad9940378a7db9020d75ee8d63d9623bf720ae46",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 323,
+   "completion_tokens": 53,
+   "total_tokens": 376,
+   "cost": 2.145e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.145e-05,
+    "upstream_inference_prompt_cost": 1.615e-05,
+    "upstream_inference_completions_cost": 5.3e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"PubChem BioAssay\",\n  \"source\": \"https://github.com/usc-biology/pubchem-bioassay\",\n  \"confidence\": 0.95\n}\n```"
+ },
+ "P2": {
+  "key": "d0c94453552d65241260bd4f3cca1516df49be5eacdbe8f0d8dbc4fb9bd06498",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 101,
+   "completion_tokens": 2903,
+   "total_tokens": 3004,
+   "cost": 0.00029535,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00029535,
+    "upstream_inference_prompt_cost": 5.05e-06,
+    "upstream_inference_completions_cost": 0.0002903
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"Descriptor1\", \"Descriptor2\", \"Descriptor3\", \"Descriptor4\", \"Descriptor5\", \"Descriptor6\", \"Descriptor7\", \"Descriptor8\", \"Descriptor9\", \"Descriptor10\", \"Descriptor11\", \"Descriptor12\", \"Descriptor13\", \"Descriptor14\", \"Descriptor15\", \"Descriptor16\", \"Descriptor17\", \"Descriptor18\", \"Descriptor19\", \"Descriptor20\", \"Descriptor21\", \"Descriptor22\", \"Descriptor23\", \"Descriptor24\", \"Descriptor25\", \"Descriptor26\", \"Descriptor27\", \"Descriptor28\", \"Descriptor29\", \"Descriptor30\", \"Descriptor31\", \"Descriptor32\", \"Descriptor33\", \"Descriptor34\", \"Descriptor35\", \"Descriptor36\", \"Descriptor37\", \"Descriptor38\", \"Descriptor39\", \"Descriptor40\", \"Descriptor41\", \"Descriptor42\", \"Descriptor43\", \"Descriptor44\", \"Descriptor45\", \"Descriptor46\", \"Descriptor47\", \"Descriptor48\", \"Descriptor49\", \"Descriptor50\", \"Descriptor51\", \"Descriptor52\", \"Descriptor53\", \"Descriptor54\", \"Descriptor55\", \"Descriptor56\", \"Descriptor57\", \"Descriptor58\", \"Descriptor59\", \"Descriptor60\", \"Descriptor61\", \"Descriptor62\", \"Descriptor63\", \"Descriptor64\", \"Descriptor65\", \"Descriptor66\", \"Descriptor67\", \"Descriptor68\", \"Descriptor69\", \"Descriptor70\", \"Descriptor71\", \"Descriptor72\", \"Descriptor73\", \"Descriptor74\", \"Descriptor75\", \"Descriptor76\", \"Descriptor77\", \"Descriptor78\", \"Descriptor79\", \"Descriptor80\", \"Descriptor81\", \"Descriptor82\", \"Descriptor83\", \"Descriptor84\", \"Descriptor85\", \"Descriptor86\", \"Descriptor87\", \"Descriptor88\", \"Descriptor89\", \"Descriptor90\", \"Descriptor91\", \"Descriptor92\", \"Descriptor93\", \"Descriptor94\", \"Descriptor95\", \"Descriptor96\", \"Descriptor97\", \"Descriptor98\", \"Descriptor99\", \"Descriptor100\", \"Descriptor101\", \"Descriptor102\", \"Descriptor103\", \"Descriptor104\", \"Descriptor105\", \"Descriptor106\", \"Descriptor107\", \"Descriptor108\", \"Descriptor109\", \"Descriptor110\", \"Descriptor111\", \"Descriptor112\", \"Descriptor113\", \"Descriptor114\", \"Descriptor115\", \"Descriptor116\", \"Descriptor117\", \"Descriptor118\", \"Descriptor119\", \"Descriptor120\", \"Descriptor121\", \"Descriptor122\", \"Descriptor123\", \"Descriptor124\", \"Descriptor125\", \"Descriptor126\", \"Descriptor127\", \"Descriptor128\", \"Descriptor129\", \"Descriptor130\", \"Descriptor131\", \"Descriptor132\", \"Descriptor133\", \"Descriptor134\", \"Descriptor135\", \"Descriptor136\", \"Descriptor137\", \"Descriptor138\", \"Descriptor139\", \"Descriptor140\", \"Descriptor141\", \"Descriptor142\", \"Descriptor143\", \"Descriptor144\", \"Descriptor145\", \"Descriptor146\", \"Descriptor147\", \"Descriptor148\", \"Descriptor149\", \"Descriptor150\", \"Descriptor151\", \"Descriptor152\", \"Descriptor153\", \"Descriptor154\", \"Descriptor155\", \"Descriptor156\", \"Descriptor157\", \"Descriptor158\", \"Descriptor159\", \"Descriptor160\", \"Descriptor161\", \"Descriptor162\", \"Descriptor163\", \"Descriptor164\", \"Descriptor165\", \"Descriptor166\", \"Descriptor167\", \"Descriptor168\", \"Descriptor169\", \"Descriptor170\", \"Descriptor171\", \"Descriptor172\", \"Descriptor173\", \"Descriptor174\", \"Descriptor175\", \"Descriptor176\", \"Descriptor177\", \"Descriptor178\", \"Descriptor179\", \"Descriptor180\", \"Descriptor181\", \"Descriptor182\", \"Descriptor183\", \"Descriptor184\", \"Descriptor185\", \"Descriptor186\", \"Descriptor187\", \"Descriptor188\", \"Descriptor189\", \"Descriptor190\", \"Descriptor191\", \"Descriptor192\", \"Descriptor193\", \"Descriptor194\", \"Descriptor195\", \"Descriptor196\", \"Descriptor197\", \"Descriptor198\", \"Descriptor199\", \"Descriptor200\", \"Descriptor201\", \"Descriptor202\", \"Descriptor203\", \"Descriptor204\", \"Descriptor205\", \"Descriptor206\", \"Descriptor207\", \"Descriptor208\", \"Descriptor209\", \"Descriptor210\", \"Descriptor211\", \"Descriptor212\", \"Descriptor213\", \"Descriptor214\", \"Descriptor215\", \"Descriptor216\", \"Descriptor217\", \"Descriptor218\", \"Descriptor219\", \"Descriptor220\", \"Descriptor221\", \"Descriptor222\", \"Descriptor223\", \"Descriptor224\", \"Descriptor225\", \"Descriptor226\", \"Descriptor227\", \"Descriptor228\", \"Descriptor229\", \"Descriptor230\", \"Descriptor231\", \"Descriptor232\", \"Descriptor233\", \"Descriptor234\", \"Descriptor235\", \"Descriptor236\", \"Descriptor237\", \"Descriptor238\", \"Descriptor239\", \"Descriptor240\", \"Descriptor241\", \"Descriptor242\", \"Descriptor243\", \"Descriptor244\", \"Descriptor245\", \"Descriptor246\", \"Descriptor247\", \"Descriptor248\", \"Descriptor249\", \"Descriptor250\", \"Descriptor251\", \"Descriptor252\", \"Descriptor253\", \"Descriptor254\", \"Descriptor255\", \"Descriptor256\", \"Descriptor257\", \"Descriptor258\", \"Descriptor259\", \"Descriptor260\", \"Descriptor261\", \"Descriptor262\", \"Descriptor263\", \"Descriptor264\", \"Descriptor265\", \"Descriptor266\", \"Descriptor267\", \"Descriptor268\", \"Descriptor269\", \"Descriptor270\", \"Descriptor271\", \"Descriptor272\", \"Descriptor273\", \"Descriptor274\", \"Descriptor275\", \"Descriptor276\", \"Descriptor277\", \"Descriptor278\", \"Descriptor279\", \"Descriptor280\", \"Descriptor281\", \"Descriptor282\", \"Descriptor283\", \"Descriptor284\", \"Descriptor285\", \"Descriptor286\", \"Descriptor287\", \"Descriptor288\", \"Descriptor289\", \"Descriptor290\", \"Descriptor291\", \"Descriptor292\", \"Descriptor293\", \"Descriptor294\", \"Descriptor295\", \"Descriptor296\", \"Descriptor297\", \"Descriptor298\", \"Descriptor299\", \"Descriptor300\", \"Descriptor301\", \"Descriptor302\", \"Descriptor303\", \"Descriptor304\", \"Descriptor305\", \"Descriptor306\", \"Descriptor307\", \"Descriptor308\", \"Descriptor309\", \"Descriptor310\", \"Descriptor311\", \"Descriptor312\", \"Descriptor313\", \"Descriptor314\", \"Descriptor315\", \"Descriptor316\", \"Descriptor317\", \"Descriptor318\", \"Descriptor319\", \"Descriptor320\", \"Descriptor321\", \"Descriptor322\", \"Descriptor323\", \"Descriptor324\", \"Descriptor325\", \"Descriptor326\", \"Descriptor327\", \"Descriptor328\", \"Descriptor329\", \"Descriptor330\", \"Descriptor331\", \"Descriptor332\", \"Descriptor333\", \"Descriptor334\", \"Descriptor335\", \"Descriptor336\", \"Descriptor337\", \"Descriptor338\", \"Descriptor339\", \"Descriptor340\", \"Descriptor341\", \"Descriptor342\", \"Descriptor343\", \"Descriptor344\", \"Descriptor345\", \"Descriptor346\", \"Descriptor347\", \"Descriptor348\", \"Descriptor349\", \"Descriptor350\", \"Descriptor351\", \"Descriptor352\", \"Descriptor353\", \"Descriptor354\", \"Descriptor355\", \"Descriptor356\", \"Descriptor357\", \"Descriptor358\", \"Descriptor359\", \"Descriptor360\", \"Descriptor361\", \"Descriptor362\", \"Descriptor363\", \"Descriptor364\", \"Descriptor365\", \"Descriptor366\", \"Descriptor367\", \"Descriptor368\", \"Descriptor369\", \"Descriptor370\", \"Descriptor371\", \"Descriptor372\", \"Descriptor373\", \"Descriptor374\", \"Descriptor375\", \"Descriptor376\", \"Descriptor377\", \"Descriptor378\", \"Descriptor379\", \"Descriptor380\", \"Descriptor381\", \"Descriptor382\", \"Descriptor383\", \"Descriptor384\", \"Descriptor385\", \"Descriptor386\", \"Descriptor387\", \"Descriptor388\", \"Descriptor389\", \"Descriptor390\", \"Descriptor391\", \"Descriptor392\", \"Descriptor393\", \"Descriptor394\", \"Descriptor395\", \"Descriptor396\", \"Descriptor397\", \"Descriptor398\", \"Descriptor399\", \"Descriptor400\", \"Descriptor401\", \"Descriptor402\", \"Descriptor403\", \"Descriptor404\", \"Descriptor405\", \"Descriptor406\", \"Descriptor407\", \"Descriptor408\", \"Descriptor409\", \"Descriptor410\", \"Descriptor411\", \"Descriptor412\", \"Descriptor413\", \"Descriptor414\", \"Descriptor415\", \"Descriptor416\", \"Descriptor417\", \"Descriptor418\", \"Descriptor419\", \"Descriptor420\", \"Descriptor421\", \"Descriptor422\", \"Descriptor423\", \"Descriptor424\", \"Descriptor425\", \"Descriptor426\", \"Descriptor427\", \"Descriptor428\", \"Descriptor429\", \"Descriptor430\", \"Descriptor431\", \"Descriptor432\", \"Descriptor433\", \"Descriptor434\", \"Descriptor435\", \"Descriptor436\", \"Descriptor437\", \"Descriptor438\", \"Descriptor439\", \"Descriptor440\", \"Descriptor441\", \"Descriptor442\", \"Descriptor443\", \"Descriptor444\", \"Descriptor445\", \"Descriptor446\", \"Descriptor447\", \"Descriptor448\", \"Descriptor449\", \"Descriptor450\", \"Descriptor451\", \"Descriptor452\", \"Descriptor453\", \"Descriptor454\", \"Descriptor455\", \"Descriptor456\", \"Descriptor457\", \"Descriptor458\", \"Descriptor459\", \"Descriptor460\", \"Descriptor461\", \"Descriptor462\", \"Descriptor463\", \"Descriptor464\", \"Descriptor465\", \"Descriptor466\", \"Descriptor467\", \"Descriptor468\", \"Descriptor469\", \"Descriptor470\", \"Descriptor471\", \"Descriptor472\", \"Descriptor473\", \"Descriptor474\", \"Descriptor475\", \"Descriptor476\", \"Descriptor477\", \"Descriptor478\", \"Descriptor479\", \"Descriptor480\", \"Descriptor481\", \"Descriptor482\", \"Descriptor483\", \"Descriptor484\", \"Descriptor485\", \"Descriptor486\", \"Descriptor487\", \"Descriptor488\", \"Descriptor489\", \"Descriptor490\", \"Descriptor491\", \"Descriptor492\", \"Descriptor493\", \"Descriptor494\", \"Descriptor495\", \"Descriptor496\", \"Descriptor497\", \"Descriptor498\", \"Descriptor499\", \"Descriptor500\"]\n}\n```"
+ },
+ "P3": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "ac4e61f86ac80aabc3e1f3b880719aac97a3e765190d7103e289b1effedd8762",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 289,
+     "completion_tokens": 449,
+     "total_tokens": 738,
+     "cost": 5.935e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.935e-05,
+      "upstream_inference_prompt_cost": 1.445e-05,
+      "upstream_inference_completions_cost": 4.49e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.3,\n  \"2\": 0.3,\n  \"3\": 0.4,\n  \"4\": 0.2,\n  \"5\": 0.3,\n  \"6\": 0.4,\n  \"7\": 0.2,\n  \"8\": 0.3,\n  \"9\": 0.3,\n  \"10\": 0.2,\n  \"11\": 0.3,\n  \"12\": 0.4,\n  \"13\": 0.2,\n  \"14\": 0.3,\n  \"15\": 0.3,\n  \"16\": 0.2,\n  \"17\": 0.3,\n  \"18\": 0.4,\n  \"19\": 0.2,\n  \"20\": 0.3,\n  \"21\": 0.3,\n  \"22\": 0.4,\n  \"23\": 0.2,\n  \"24\": 0.3,\n  \"25\": 0.3,\n  \"26\": 0.4,\n  \"27\": 0.2,\n  \"28\": 0.3,\n  \"29\": 0.3,\n  \"30\": 0.2,\n  \"31\": 0.3,\n  \"32\": 0.4,\n  \"33\": 0.2,\n  \"34\": 0.3,\n  \"35\": 0.3,\n  \"36\": 0.2,\n  \"37\": 0.3,\n  \"38\": 0.4,\n  \"39\": 0.2,\n  \"40\": 0.3\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.4,
+   0.2,
+   0.3,
+   0.4,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.4,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.4,
+   0.2,
+   0.3,
+   0.3,
+   0.4,
+   0.2,
+   0.3,
+   0.3,
+   0.4,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.4,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.4,
+   0.2,
+   0.3
+  ]
+ },
+ "P3f": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "90fef7c8a23fb6256be1053e4affface5a578faa61574c7dca92754c34910c44",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 282,
+     "completion_tokens": 449,
+     "total_tokens": 731,
+     "cost": 5.9e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.9e-05,
+      "upstream_inference_prompt_cost": 1.41e-05,
+      "upstream_inference_completions_cost": 4.49e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.3,\n  \"2\": 0.3,\n  \"3\": 0.3,\n  \"4\": 0.3,\n  \"5\": 0.3,\n  \"6\": 0.3,\n  \"7\": 0.3,\n  \"8\": 0.3,\n  \"9\": 0.3,\n  \"10\": 0.3,\n  \"11\": 0.3,\n  \"12\": 0.3,\n  \"13\": 0.3,\n  \"14\": 0.3,\n  \"15\": 0.3,\n  \"16\": 0.3,\n  \"17\": 0.3,\n  \"18\": 0.3,\n  \"19\": 0.3,\n  \"20\": 0.3,\n  \"21\": 0.3,\n  \"22\": 0.3,\n  \"23\": 0.3,\n  \"24\": 0.3,\n  \"25\": 0.3,\n  \"26\": 0.3,\n  \"27\": 0.3,\n  \"28\": 0.3,\n  \"29\": 0.3,\n  \"30\": 0.3,\n  \"31\": 0.3,\n  \"32\": 0.3,\n  \"33\": 0.3,\n  \"34\": 0.3,\n  \"35\": 0.3,\n  \"36\": 0.3,\n  \"37\": 0.3,\n  \"38\": 0.3,\n  \"39\": 0.3,\n  \"40\": 0.3\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5cd62dcc2f933bdcbec33b33845dcfb940bf4df505d6231e4234e2fd2b57b4a5",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 487,
+     "completion_tokens": 474,
+     "total_tokens": 961,
+     "cost": 7.175e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.175e-05,
+      "upstream_inference_prompt_cost": 2.435e-05,
+      "upstream_inference_completions_cost": 4.74e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.7,\n    \"2\": 0.5,\n    \"3\": 0.4,\n    \"4\": 0.55,\n    \"5\": 0.65,\n    \"6\": 0.45,\n    \"7\": 0.5,\n    \"8\": 0.4,\n    \"9\": 0.6,\n    \"10\": 0.5,\n    \"11\": 0.55,\n    \"12\": 0.6,\n    \"13\": 0.5,\n    \"14\": 0.65,\n    \"15\": 0.45,\n    \"16\": 0.4,\n    \"17\": 0.35,\n    \"18\": 0.5,\n    \"19\": 0.55,\n    \"20\": 0.4,\n    \"21\": 0.5,\n    \"22\": 0.45,\n    \"23\": 0.3,\n    \"24\": 0.35,\n    \"25\": 0.4,\n    \"26\": 0.6,\n    \"27\": 0.55,\n    \"28\": 0.4,\n    \"29\": 0.5,\n    \"30\": 0.5,\n    \"31\": 0.6,\n    \"32\": 0.45,\n    \"33\": 0.5,\n    \"34\": 0.4,\n    \"35\": 0.55,\n    \"36\": 0.45,\n    \"37\": 0.5,\n    \"38\": 0.45,\n    \"39\": 0.35,\n    \"40\": 0.3\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.55,
+   0.65,
+   0.45,
+   0.5,
+   0.4,
+   0.6,
+   0.5,
+   0.55,
+   0.6,
+   0.5,
+   0.65,
+   0.45,
+   0.4,
+   0.35,
+   0.5,
+   0.55,
+   0.4,
+   0.5,
+   0.45,
+   0.3,
+   0.35,
+   0.4,
+   0.6,
+   0.55,
+   0.4,
+   0.5,
+   0.5,
+   0.6,
+   0.45,
+   0.5,
+   0.4,
+   0.55,
+   0.45,
+   0.5,
+   0.45,
+   0.35,
+   0.3
+  ]
+ },
+ "P5": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "106ccd9a67fd523433755527aa84f042764428605fe1dc331b4f4937f2011056",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 457,
+     "completion_tokens": 465,
+     "total_tokens": 922,
+     "cost": 6.935e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 6.935e-05,
+      "upstream_inference_prompt_cost": 2.285e-05,
+      "upstream_inference_completions_cost": 4.65e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.4,\n  \"2\": 0.5,\n  \"3\": 0.6,\n  \"4\": 0.55,\n  \"5\": 0.45,\n  \"6\": 0.35,\n  \"7\": 0.4,\n  \"8\": 0.3,\n  \"9\": 0.5,\n  \"10\": 0.45,\n  \"11\": 0.6,\n  \"12\": 0.5,\n  \"13\": 0.7,\n  \"14\": 0.55,\n  \"15\": 0.4,\n  \"16\": 0.35,\n  \"17\": 0.3,\n  \"18\": 0.4,\n  \"19\": 0.65,\n  \"20\": 0.5,\n  \"21\": 0.55,\n  \"22\": 0.45,\n  \"23\": 0.3,\n  \"24\": 0.35,\n  \"25\": 0.4,\n  \"26\": 0.3,\n  \"27\": 0.4,\n  \"28\": 0.35,\n  \"29\": 0.55,\n  \"30\": 0.4,\n  \"31\": 0.5,\n  \"32\": 0.4,\n  \"33\": 0.35,\n  \"34\": 0.6,\n  \"35\": 0.45,\n  \"36\": 0.4,\n  \"37\": 0.3,\n  \"38\": 0.35,\n  \"39\": 0.5,\n  \"40\": 0.25\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.25,
+  "header": [
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.55,
+   0.45,
+   0.35,
+   0.4,
+   0.3,
+   0.5,
+   0.45,
+   0.6,
+   0.5,
+   0.7,
+   0.55,
+   0.4,
+   0.35,
+   0.3,
+   0.4,
+   0.65,
+   0.5,
+   0.55,
+   0.45,
+   0.3,
+   0.35,
+   0.4,
+   0.3,
+   0.4,
+   0.35,
+   0.55,
+   0.4,
+   0.5,
+   0.4,
+   0.35,
+   0.6,
+   0.45,
+   0.4,
+   0.3,
+   0.35,
+   0.5,
+   0.25
+  ]
+ }
+}

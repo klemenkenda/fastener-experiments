@@ -1,0 +1,395 @@
+{
+ "dataset": "heloc",
+ "model": "anthropic/claude-opus-5.5",
+ "variables": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "P1a": {
+  "key": "4b9a9ae154cc0e29faf9f64c87cc415a718e1257c42ca50bc76c1ba428de001c",
+  "served_model": "anthropic/claude-opus-5.5",
+  "usage": {
+   "prompt_tokens": 151,
+   "completion_tokens": 285,
+   "total_tokens": 436,
+   "cost": 0.006304,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.006304,
+    "upstream_inference_prompt_cost": 0.000604,
+    "upstream_inference_completions_cost": 0.0057
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 209,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"HELOC (FICO Home Equity Line of Credit, Explainable ML Challenge)\", \"source\": \"FICO Explainable Machine Learning Challenge / OpenML\", \"confidence\": 0.8}"
+ },
+ "P1b": {
+  "key": "a19f5ef534928f4eed9229e146a516df046e7e817d7d38dbe1ef41a9beddf1ac",
+  "served_model": "anthropic/claude-opus-5.5",
+  "usage": {
+   "prompt_tokens": 428,
+   "completion_tokens": 193,
+   "total_tokens": 621,
+   "cost": 0.005572,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.005572,
+    "upstream_inference_prompt_cost": 0.001712,
+    "upstream_inference_completions_cost": 0.00386
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 116,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"FICO HELOC (Home Equity Line of Credit) dataset\", \"source\": \"FICO Explainable Machine Learning Challenge (also on OpenML/Kaggle)\", \"confidence\": 0.93}"
+ },
+ "P2": {
+  "key": "3b4b1b5973303f6bb09f146c132eb1086124d2fd82ca75a2f533d4161a4c8a58",
+  "served_model": "anthropic/claude-opus-5.5",
+  "usage": {
+   "prompt_tokens": 132,
+   "completion_tokens": 828,
+   "total_tokens": 960,
+   "cost": 0.017088,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.017088,
+    "upstream_inference_prompt_cost": 0.000528,
+    "upstream_inference_completions_cost": 0.01656
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 487,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"ExternalRiskEstimate\", \"MSinceOldestTradeOpen\", \"MSinceMostRecentTradeOpen\", \"AverageMInFile\", \"NumSatisfactoryTrades\", \"NumTrades60Ever2DerogPubRec\", \"NumTrades90Ever2DerogPubRec\", \"PercentTradesNeverDelq\", \"MSinceMostRecentDelq\", \"MaxDelq2PublicRecLast12M\", \"MaxDelqEver\", \"NumTotalTrades\", \"NumTradesOpeninLast12M\", \"PercentInstallTrades\", \"MSinceMostRecentInqexcl7days\", \"NumInqLast6M\", \"NumInqLast6Mexcl7days\", \"NetFractionRevolvingBurden\", \"NetFractionInstallBurden\", \"NumRevolvingTradesWBalance\", \"NumInstallTradesWBalance\", \"NumBank2NatlTradesWHighUtilization\", \"PercentTradesWBalance\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a3ce90464d55ad91c63a83db2386acaf4ed2363d17655e56cbc12d4b96dab4be",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 263,
+     "completion_tokens": 1129,
+     "total_tokens": 1392,
+     "cost": 0.023632,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.023632,
+      "upstream_inference_prompt_cost": 0.001052,
+      "upstream_inference_completions_cost": 0.02258
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 944,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 1.0, \"1\": 0.45, \"2\": 0.2, \"3\": 0.55, \"4\": 0.4, \"5\": 0.3, \"6\": 0.25, \"7\": 0.6, \"8\": 0.4, \"9\": 0.45, \"10\": 0.4, \"11\": 0.25, \"12\": 0.2, \"13\": 0.3, \"14\": 0.5, \"15\": 0.35, \"16\": 0.35, \"17\": 0.6, \"18\": 0.25, \"19\": 0.3, \"20\": 0.25, \"21\": 0.45}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.45,
+   0.2,
+   0.55,
+   0.4,
+   0.3,
+   0.25,
+   0.6,
+   0.4,
+   0.45,
+   0.4,
+   0.25,
+   0.2,
+   0.3,
+   0.5,
+   0.35,
+   0.35,
+   0.6,
+   0.25,
+   0.3,
+   0.25,
+   0.45
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "dae0d55fb30df03405ee2d8915f9f7c0f1dcbdbdd4d74b7300df504d4baf1975",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 251,
+     "completion_tokens": 256,
+     "total_tokens": 507,
+     "cost": 0.006124,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.006124,
+      "upstream_inference_prompt_cost": 0.001004,
+      "upstream_inference_completions_cost": 0.00512
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 71,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f85f8ad0b5339c5113de72ae76d80438270eeb501a4fcef9ef5434da6ec38cfe",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 541,
+     "completion_tokens": 185,
+     "total_tokens": 726,
+     "cost": 0.005864,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.005864,
+      "upstream_inference_prompt_cost": 0.002164,
+      "upstream_inference_completions_cost": 0.0037
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 1.0, \"1\": 0.45, \"2\": 0.3, \"3\": 0.65, \"4\": 0.5, \"5\": 0.4, \"6\": 0.35, \"7\": 0.6, \"8\": 0.45, \"9\": 0.5, \"10\": 0.3, \"11\": 0.25, \"12\": 0.35, \"13\": 0.6, \"14\": 0.4, \"15\": 0.42, \"16\": 0.7, \"17\": 0.3, \"18\": 0.35, \"19\": 0.3, \"20\": 0.5, \"21\": 0.45}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.25,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.45,
+   0.3,
+   0.65,
+   0.5,
+   0.4,
+   0.35,
+   0.6,
+   0.45,
+   0.5,
+   0.3,
+   0.25,
+   0.35,
+   0.6,
+   0.4,
+   0.42,
+   0.7,
+   0.3,
+   0.35,
+   0.3,
+   0.5,
+   0.45
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-opus-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "314bd6744ec323433a96db50dc44bf218ac0f698fbc8ca0bbd19403187ff0c74",
+    "served_model": "anthropic/claude-opus-5.5",
+    "usage": {
+     "prompt_tokens": 499,
+     "completion_tokens": 185,
+     "total_tokens": 684,
+     "cost": 0.005696,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.005696,
+      "upstream_inference_prompt_cost": 0.001996,
+      "upstream_inference_completions_cost": 0.0037
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 1.0, \"1\": 0.45, \"2\": 0.3, \"3\": 0.65, \"4\": 0.5, \"5\": 0.4, \"6\": 0.3, \"7\": 0.65, \"8\": 0.45, \"9\": 0.45, \"10\": 0.3, \"11\": 0.25, \"12\": 0.35, \"13\": 0.6, \"14\": 0.4, \"15\": 0.45, \"16\": 0.7, \"17\": 0.3, \"18\": 0.35, \"19\": 0.3, \"20\": 0.5, \"21\": 0.55}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.25,
+  "header": [
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.45,
+   0.3,
+   0.65,
+   0.5,
+   0.4,
+   0.3,
+   0.65,
+   0.45,
+   0.45,
+   0.3,
+   0.25,
+   0.35,
+   0.6,
+   0.4,
+   0.45,
+   0.7,
+   0.3,
+   0.35,
+   0.3,
+   0.5,
+   0.55
+  ]
+ }
+}

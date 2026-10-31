@@ -1,0 +1,435 @@
+{
+ "dataset": "phishing",
+ "model": "google/gemma-3-4b-it",
+ "variables": [
+  "having_IP_Address",
+  "URL_Length",
+  "Shortining_Service",
+  "having_At_Symbol",
+  "double_slash_redirecting",
+  "Prefix_Suffix",
+  "having_Sub_Domain",
+  "SSLfinal_State",
+  "Domain_registeration_length",
+  "Favicon",
+  "port",
+  "HTTPS_token",
+  "Request_URL",
+  "URL_of_Anchor",
+  "Links_in_tags",
+  "SFH",
+  "Submitting_to_email",
+  "Abnormal_URL",
+  "Redirect",
+  "on_mouseover",
+  "RightClick",
+  "popUpWidnow",
+  "Iframe",
+  "age_of_domain",
+  "DNSRecord",
+  "web_traffic",
+  "Page_Rank",
+  "Google_Index",
+  "Links_pointing_to_page",
+  "Statistical_report"
+ ],
+ "P1a": {
+  "key": "21f384f2649e0feb7ac4f920ae1a893dfc4d1919a32dd2f1e52cc0412e83be1a",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 109,
+   "completion_tokens": 61,
+   "total_tokens": 170,
+   "cost": 1.155e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.155e-05,
+    "upstream_inference_prompt_cost": 5.45e-06,
+    "upstream_inference_completions_cost": 6.1e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Phishing Email Detection\",\n  \"source\": \"https://www.kaggle.com/datasets/shreyas_patil/phishing-email-detection\",\n  \"confidence\": 0.95\n}\n```\n"
+ },
+ "P1b": {
+  "key": "9a00f0a26859940be2049566f2b78d8527f2ea7a04a3fc5a39e4bdc2c8984d13",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 239,
+   "completion_tokens": 53,
+   "total_tokens": 292,
+   "cost": 1.725e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.725e-05,
+    "upstream_inference_prompt_cost": 1.195e-05,
+    "upstream_inference_completions_cost": 5.3e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Phishing Corpus\",\n  \"source\": \"https://www.cs.toronto.edu/~kliu/phishing/\",\n  \"confidence\": 0.95\n}\n```\n"
+ },
+ "P2": {
+  "key": "2ae217fbbe0c18073524ccbed77e921c53b0d96f7c4a2f6deffbff382ffedece",
+  "served_model": "google/gemma-3-4b-it",
+  "usage": {
+   "prompt_tokens": 106,
+   "completion_tokens": 95,
+   "total_tokens": 201,
+   "cost": 1.48e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.48e-05,
+    "upstream_inference_prompt_cost": 5.3e-06,
+    "upstream_inference_completions_cost": 9.5e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"abilinode\", \"age\", \"length\", \"domlength\", \"dnslength\", \"faviconlength\", \"htmlrelaxed\", \"ipaddress\", \"jpglength\", \"jpeglength\", \"lenomin\", \"loglength\", \"pageparse\", \"pdflength\", \"realdomain\", \"requestlength\", \"safesize\", \"serverip\", \"size\", \"textlength\", \"urllength\", \"whoisin\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c8396026e5cb8e951a8e937378063b167c5c79290cdbe9fa16ad7af00d7ef153",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 261,
+     "completion_tokens": 337,
+     "total_tokens": 598,
+     "cost": 4.675e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.675e-05,
+      "upstream_inference_prompt_cost": 1.305e-05,
+      "upstream_inference_completions_cost": 3.37e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.3,\n  \"2\": 0.3,\n  \"3\": 0.4,\n  \"4\": 0.4,\n  \"5\": 0.5,\n  \"6\": 0.5,\n  \"7\": 0.6,\n  \"8\": 0.6,\n  \"9\": 0.7,\n  \"10\": 0.7,\n  \"11\": 0.8,\n  \"12\": 0.8,\n  \"13\": 0.9,\n  \"14\": 0.9,\n  \"15\": 0.95,\n  \"16\": 0.95,\n  \"17\": 0.85,\n  \"18\": 0.8,\n  \"19\": 0.75,\n  \"20\": 0.7,\n  \"21\": 0.65,\n  \"22\": 0.6,\n  \"23\": 0.55,\n  \"24\": 0.5,\n  \"25\": 0.45,\n  \"26\": 0.4,\n  \"27\": 0.35,\n  \"28\": 0.3,\n  \"29\": 0.25\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.25,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.4,
+   0.4,
+   0.5,
+   0.5,
+   0.6,
+   0.6,
+   0.7,
+   0.7,
+   0.8,
+   0.8,
+   0.9,
+   0.9,
+   0.95,
+   0.95,
+   0.85,
+   0.8,
+   0.75,
+   0.7,
+   0.65,
+   0.6,
+   0.55,
+   0.5,
+   0.45,
+   0.4,
+   0.35,
+   0.3,
+   0.25
+  ]
+ },
+ "P3f": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "8b87597944729bc2d66a0982364e4622c6b545e86787dc4eec1baf769fa78c14",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 249,
+     "completion_tokens": 328,
+     "total_tokens": 577,
+     "cost": 4.525e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.525e-05,
+      "upstream_inference_prompt_cost": 1.245e-05,
+      "upstream_inference_completions_cost": 3.28e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.3,\n  \"1\": 0.3,\n  \"2\": 0.3,\n  \"3\": 0.3,\n  \"4\": 0.3,\n  \"5\": 0.3,\n  \"6\": 0.3,\n  \"7\": 0.3,\n  \"8\": 0.3,\n  \"9\": 0.3,\n  \"10\": 0.3,\n  \"11\": 0.3,\n  \"12\": 0.3,\n  \"13\": 0.3,\n  \"14\": 0.3,\n  \"15\": 0.3,\n  \"16\": 0.3,\n  \"17\": 0.3,\n  \"18\": 0.3,\n  \"19\": 0.3,\n  \"20\": 0.3,\n  \"21\": 0.3,\n  \"22\": 0.3,\n  \"23\": 0.3,\n  \"24\": 0.3,\n  \"25\": 0.3,\n  \"26\": 0.3,\n  \"27\": 0.3,\n  \"28\": 0.3,\n  \"29\": 0.3\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 30 input features are numbered 0 to 29 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "4db4b6654ee943e3544a8b8b14304af40fa32966792ec8da8f953da53d894b5f",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 370,
+     "completion_tokens": 339,
+     "total_tokens": 709,
+     "cost": 5.24e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.24e-05,
+      "upstream_inference_prompt_cost": 1.85e-05,
+      "upstream_inference_completions_cost": 3.39e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.6,\n  \"1\": 0.7,\n  \"2\": 0.65,\n  \"3\": 0.55,\n  \"4\": 0.6,\n  \"5\": 0.5,\n  \"6\": 0.6,\n  \"7\": 0.8,\n  \"8\": 0.55,\n  \"9\": 0.6,\n  \"10\": 0.4,\n  \"11\": 0.75,\n  \"12\": 0.7,\n  \"13\": 0.6,\n  \"14\": 0.65,\n  \"15\": 0.7,\n  \"16\": 0.6,\n  \"17\": 0.85,\n  \"18\": 0.7,\n  \"19\": 0.5,\n  \"20\": 0.55,\n  \"21\": 0.45,\n  \"22\": 0.5,\n  \"23\": 0.6,\n  \"24\": 0.5,\n  \"25\": 0.7,\n  \"26\": 0.8,\n  \"27\": 0.75,\n  \"28\": 0.65,\n  \"29\": 0.55\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: UCI 'Phishing Websites' (Mohammad, Thabtah and McCluskey 2012; OpenML 4534).",
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.7,
+   0.65,
+   0.55,
+   0.6,
+   0.5,
+   0.6,
+   0.8,
+   0.55,
+   0.6,
+   0.4,
+   0.75,
+   0.7,
+   0.6,
+   0.65,
+   0.7,
+   0.6,
+   0.85,
+   0.7,
+   0.5,
+   0.55,
+   0.45,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.75,
+   0.65,
+   0.55
+  ]
+ },
+ "P5": {
+  "model": "google/gemma-3-4b-it",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "79afbef0470e3ebd813e1cc136af3c3a753fa690e91300ff3f63f7a4b82938c9",
+    "served_model": "google/gemma-3-4b-it",
+    "usage": {
+     "prompt_tokens": 335,
+     "completion_tokens": 338,
+     "total_tokens": 673,
+     "cost": 5.055e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.055e-05,
+      "upstream_inference_prompt_cost": 1.675e-05,
+      "upstream_inference_completions_cost": 3.38e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"0\": 0.6,\n  \"1\": 0.7,\n  \"2\": 0.65,\n  \"3\": 0.5,\n  \"4\": 0.75,\n  \"5\": 0.6,\n  \"6\": 0.7,\n  \"7\": 0.8,\n  \"8\": 0.55,\n  \"9\": 0.5,\n  \"10\": 0.4,\n  \"11\": 0.75,\n  \"12\": 0.8,\n  \"13\": 0.65,\n  \"14\": 0.7,\n  \"15\": 0.8,\n  \"16\": 0.7,\n  \"17\": 0.9,\n  \"18\": 0.85,\n  \"19\": 0.6,\n  \"20\": 0.65,\n  \"21\": 0.55,\n  \"22\": 0.6,\n  \"23\": 0.5,\n  \"24\": 0.6,\n  \"25\": 0.7,\n  \"26\": 0.8,\n  \"27\": 0.75,\n  \"28\": 0.7,\n  \"29\": 0.65\n}\n```",
+    "parsed_as": "json-flat",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Classes: phishing, legitimate"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.7,
+   0.65,
+   0.5,
+   0.75,
+   0.6,
+   0.7,
+   0.8,
+   0.55,
+   0.5,
+   0.4,
+   0.75,
+   0.8,
+   0.65,
+   0.7,
+   0.8,
+   0.7,
+   0.9,
+   0.85,
+   0.6,
+   0.65,
+   0.55,
+   0.6,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.75,
+   0.7,
+   0.65
+  ]
+ }
+}

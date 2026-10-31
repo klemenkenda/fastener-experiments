@@ -1,0 +1,500 @@
+{
+ "dataset": "diabetes130",
+ "model": "qwen/qwen3-14b",
+ "variables": [
+  "race",
+  "gender",
+  "age",
+  "weight",
+  "admission_type_id",
+  "discharge_disposition_id",
+  "admission_source_id",
+  "time_in_hospital",
+  "payer_code",
+  "num_lab_procedures",
+  "num_procedures",
+  "num_medications",
+  "number_outpatient",
+  "number_emergency",
+  "number_inpatient",
+  "number_diagnoses",
+  "max_glu_serum",
+  "A1Cresult",
+  "metformin",
+  "repaglinide",
+  "nateglinide",
+  "chlorpropamide",
+  "glimepiride",
+  "acetohexamide",
+  "glipizide",
+  "glyburide",
+  "tolbutamide",
+  "pioglitazone",
+  "rosiglitazone",
+  "acarbose",
+  "miglitol",
+  "troglitazone",
+  "tolazamide",
+  "examide",
+  "citoglipton",
+  "insulin",
+  "glyburide.metformin",
+  "glipizide.metformin",
+  "glimepiride.pioglitazone",
+  "metformin.rosiglitazone",
+  "metformin.pioglitazone",
+  "change",
+  "diabetesMed"
+ ],
+ "P1a": {
+  "key": "6fd5307154d8de991e27a63524a0a6c238ed7cc80ef58cb9cc35f0de4c88b957",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 129,
+   "completion_tokens": 354,
+   "total_tokens": 483,
+   "cost": 9.078e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 9.078e-05,
+    "upstream_inference_prompt_cost": 1.29e-05,
+    "upstream_inference_completions_cost": 7.788e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 343,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Hospital Readmission\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.95}"
+ },
+ "P1b": {
+  "key": "bc6e7a200afa95bb946a9cea75151eec405abc10b2a59760fb684d6a93028136",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 307,
+   "completion_tokens": 1814,
+   "total_tokens": 2121,
+   "cost": 0.00042978,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00042978,
+    "upstream_inference_prompt_cost": 3.07e-05,
+    "upstream_inference_completions_cost": 0.00039908
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1920,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Diabetes\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.8}"
+ },
+ "P2": {
+  "key": "a7105e5dd7e0ec307600354f001ce1161f46c9e255b919d7872572e77580e267",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 123,
+   "completion_tokens": 1838,
+   "total_tokens": 1961,
+   "cost": 0.00041666,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00041666,
+    "upstream_inference_prompt_cost": 1.23e-05,
+    "upstream_inference_completions_cost": 0.00040436
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1346,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"patient_number\", \"race\", \"gender\", \"age\", \"weight\", \"admission_type_id\", \"discharge_disposition_id\", \"admission_source_id\", \"time_in_hospital\", \"num_lab_procedures\", \"num_procedures\", \"num_diagnoses\", \"max_glu_serum\", \"A1Cresult\", \"metformin\", \"repaglinide\", \"nateglinide\", \"chlorpropamide\", \"glimepiride\", \"acetohexamide\", \"glipizide\", \"glyburide\", \"tolazoline\", \"pioglitazone\", \"rosiglitazone\", \"acarbose\", \"miglitol\", \"troglitazone\", \"tolbutamide\", \"insulin\", \"glyburide_metformin\", \"glipizide_metformin\", \"glimepiride_pioglitazone\", \"metformin_rosiglitazone\", \"metformin_pioglitazone\", \"change\", \"diabetesMed\"]}"
+ },
+ "P3": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e160515092e77fd45679580af81d8812e1001ded7910318746531e5aba70e33c",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 345,
+     "completion_tokens": 1086,
+     "total_tokens": 1431,
+     "cost": 0.00030204,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00030204,
+      "upstream_inference_prompt_cost": 4.14e-05,
+      "upstream_inference_completions_cost": 0.00026064
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 882,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.6, \"2\": 0.5, \"3\": 0.4, \"4\": 0.3, \"5\": 0.2, \"6\": 0.8, \"7\": 0.7, \"8\": 0.6, \"9\": 0.5, \"10\": 0.4, \"11\": 0.3, \"12\": 0.2, \"13\": 0.1, \"14\": 0.2, \"15\": 0.3, \"16\": 0.4, \"17\": 0.5, \"18\": 0.6, \"19\": 0.7, \"20\": 0.8, \"21\": 0.9, \"22\": 0.7, \"23\": 0.6, \"24\": 0.5, \"25\": 0.4, \"26\": 0.3, \"27\": 0.2, \"28\": 0.1, \"29\": 0.2, \"30\": 0.3, \"31\": 0.4, \"32\": 0.5, \"33\": 0.6, \"34\": 0.7, \"35\": 0.8, \"36\": 0.9, \"37\": 0.7, \"38\": 0.6, \"39\": 0.5, \"40\": 0.4, \"41\": 0.3, \"42\": 0.2}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order (the distributed file's columns encounter_id, patient_nbr, medical_specialty, diag_1, diag_2, diag_3 are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.2,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.2,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.2,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.3,
+   0.2
+  ]
+ },
+ "P3f": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "96794df9b879edfa4c81c251042fa8bcb1a550210e2aa04646f25f5e78b9b865",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 288,
+     "completion_tokens": 900,
+     "total_tokens": 1188,
+     "cost": 0.00025056,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00025056,
+      "upstream_inference_prompt_cost": 3.456e-05,
+      "upstream_inference_completions_cost": 0.000216
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 622,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5, \"37\": 0.5, \"38\": 0.5, \"39\": 0.5, \"40\": 0.5, \"41\": 0.5, \"42\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 43 input features are numbered 0 to 42 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "818984cf201050b63fd5fd896b1a99e93ae31e55bc733fd13ff412e31e227725",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 499,
+     "completion_tokens": 1215,
+     "total_tokens": 1714,
+     "cost": 0.0003172,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0003172,
+      "upstream_inference_prompt_cost": 4.99e-05,
+      "upstream_inference_completions_cost": 0.0002673
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 904,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.4, \"1\": 0.3, \"2\": 0.6, \"3\": 0.3, \"4\": 0.7, \"5\": 0.6, \"6\": 0.5, \"7\": 0.8, \"8\": 0.3, \"9\": 0.7, \"10\": 0.6, \"11\": 0.7, \"12\": 0.5, \"13\": 0.6, \"14\": 0.5, \"15\": 0.6, \"16\": 0.8, \"17\": 0.8, \"18\": 0.5, \"19\": 0.4, \"20\": 0.4, \"21\": 0.3, \"22\": 0.4, \"23\": 0.3, \"24\": 0.4, \"25\": 0.4, \"26\": 0.3, \"27\": 0.4, \"28\": 0.3, \"29\": 0.3, \"30\": 0.3, \"31\": 0.3, \"32\": 0.3, \"33\": 0.3, \"34\": 0.3, \"35\": 0.6, \"36\": 0.5, \"37\": 0.5, \"38\": 0.5, \"39\": 0.5, \"40\": 0.5, \"41\": 0.6, \"42\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: UCI 'Diabetes 130-US hospitals for years 1999-2008' (Strack et al. 2014; OpenML 4541).",
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.4,
+   0.3,
+   0.6,
+   0.3,
+   0.7,
+   0.6,
+   0.5,
+   0.8,
+   0.3,
+   0.7,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.5,
+   0.6,
+   0.8,
+   0.8,
+   0.5,
+   0.4,
+   0.4,
+   0.3,
+   0.4,
+   0.3,
+   0.4,
+   0.4,
+   0.3,
+   0.4,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.6,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.6,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "0e2437a0e41b56a156322307924ef13d3836f844221efa5186e5ff404c1cd5fe",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 452,
+     "completion_tokens": 1583,
+     "total_tokens": 2035,
+     "cost": 0.00039346,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00039346,
+      "upstream_inference_prompt_cost": 4.52e-05,
+      "upstream_inference_completions_cost": 0.00034826
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1297,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.3, \"1\": 0.3, \"2\": 0.8, \"3\": 0.4, \"4\": 0.5, \"5\": 0.6, \"6\": 0.5, \"7\": 0.85, \"8\": 0.4, \"9\": 0.6, \"10\": 0.6, \"11\": 0.6, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.8, \"16\": 0.75, \"17\": 0.75, \"18\": 0.6, \"19\": 0.5, \"20\": 0.5, \"21\": 0.4, \"22\": 0.5, \"23\": 0.4, \"24\": 0.5, \"25\": 0.5, \"26\": 0.4, \"27\": 0.5, \"28\": 0.5, \"29\": 0.4, \"30\": 0.4, \"31\": 0.4, \"32\": 0.4, \"33\": 0.4, \"34\": 0.4, \"35\": 0.6, \"36\": 0.5, \"37\": 0.5, \"38\": 0.5, \"39\": 0.5, \"40\": 0.5, \"41\": 0.6, \"42\": 0.8}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: readmitted within 30 days, readmitted after 30 days, not readmitted"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.8,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.85,
+   0.4,
+   0.6,
+   0.6,
+   0.6,
+   0.5,
+   0.5,
+   0.5,
+   0.8,
+   0.75,
+   0.75,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.5,
+   0.4,
+   0.5,
+   0.5,
+   0.4,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.4,
+   0.6,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.6,
+   0.8
+  ]
+ }
+}

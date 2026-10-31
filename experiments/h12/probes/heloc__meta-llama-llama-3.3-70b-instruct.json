@@ -1,0 +1,395 @@
+{
+ "dataset": "heloc",
+ "model": "meta-llama/llama-3.3-70b-instruct",
+ "variables": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "P1a": {
+  "key": "9731431fcb2743bb5f974229461b4bfddab438b138af29ea398a1d4ed4cc2c70",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 117,
+   "completion_tokens": 19,
+   "total_tokens": 136,
+   "cost": 1.778e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.778e-05,
+    "upstream_inference_prompt_cost": 1.17e-05,
+    "upstream_inference_completions_cost": 6.08e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"unknown\", \"source\": \"unknown\", \"confidence\": 0}"
+ },
+ "P1b": {
+  "key": "a223a8c7fdcd54b4986b66bcaa2704c2eff3100a09d7f668a1d82209be096d95",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 272,
+   "completion_tokens": 27,
+   "total_tokens": 299,
+   "cost": 3.584e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.584e-05,
+    "upstream_inference_prompt_cost": 2.72e-05,
+    "upstream_inference_completions_cost": 8.64e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"German Credit Data\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.8}"
+ },
+ "P2": {
+  "key": "5f93c998e322e36951ba4fbbcbdc3e6e6a55cc93c626ee822bf61374ad061e82",
+  "served_model": "meta-llama/llama-3.3-70b-instruct",
+  "usage": {
+   "prompt_tokens": 102,
+   "completion_tokens": 201,
+   "total_tokens": 303,
+   "cost": 7.452e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 7.452e-05,
+    "upstream_inference_prompt_cost": 1.02e-05,
+    "upstream_inference_completions_cost": 6.432e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"ExternalRiskEstimate\", \"MSinceOldestTradeOpen\", \"MSinceMostRecentTradeOpen\", \"AverageMInFile\", \"NumSatisfactoryTrades\", \"NumInquiriesLast6Months\", \"NumTrades60Ever2DerogPubRec\", \"NumTradesNeverDelq\", \"NumTradesOpeninLast12M\", \"PercentTradesNeverDelq\", \"MSinceMostRecentDelq\", \"MaxDelq2PublicRecLast12M\", \"MaxDelqEver\", \"NumTradesPaid1x\", \"MSinceMostRecentInquiry\", \"NumInquiriesLast12Months\", \"NumTradesRevolving\", \"NumRevTLBalGT0\", \"NumTradesWithDelq\", \"MSinceFICO_1\", \"MSinceFICO_2\", \"MSinceFICO_3\", \"FICO_1\", \"FICO_2\", \"FICO_3\"]}"
+ },
+ "P3": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "752ca38526fbe1e669b3186a8f777a2da0931ef958e643d48e81abee2d1df4e3",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 232,
+     "completion_tokens": 180,
+     "total_tokens": 412,
+     "cost": 0.000473516,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.000473516,
+      "upstream_inference_prompt_cost": 6.7976e-05,
+      "upstream_inference_completions_cost": 0.00040554
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\":0.6, \"1\":0.7, \"2\": 0.5, 3: 0.8, \"4\":0.4, \"5\":0.6, \"6\": 0.7, 7:0.5, \"8\": 0.6,9: 0.8, \"10\": 0.4, 11: 0.7, \"12\":0.5, \"13\": 0.6, 14: 0.8, \"15\":0.4, \"16\": 0.7, 17: 0.5, \"18\":0.6, \"19\": 0.8, 20: 0.4, \"21\": 0.7}}",
+    "parsed_as": "pairs",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.7,
+   0.5,
+   0.8,
+   0.4,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.8,
+   0.4,
+   0.7,
+   0.5,
+   0.6,
+   0.8,
+   0.4,
+   0.7,
+   0.5,
+   0.6,
+   0.8,
+   0.4,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "ace51684e8115d0cfdf5f08c2326927e186560c2f1081e13481480679b49f21f",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 208,
+     "completion_tokens": 180,
+     "total_tokens": 388,
+     "cost": 7.84e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.84e-05,
+      "upstream_inference_prompt_cost": 2.08e-05,
+      "upstream_inference_completions_cost": 5.76e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5401c6ccd05379b962ed80b1fdbc0f8db5f75ebd79984809d6e36049ba588bbe",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 384,
+     "completion_tokens": 203,
+     "total_tokens": 587,
+     "cost": 0.00017116,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 112,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00017116,
+      "upstream_inference_prompt_cost": 6.56e-05,
+      "upstream_inference_completions_cost": 0.00010556
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\n\"0\": 0.9, \n\"1\": 0.6, \n\"2\": 0.7, \n\"3\": 0.5, \n\"4\": 0.8, \n\"5\": 0.8, \n\"6\": 0.8, \n\"7\": 0.7, \n\"8\": 0.6, \n\"9\": 0.7, \n\"10\": 0.5, \n\"11\": 0.6, \n\"12\": 0.4, \n\"13\": 0.6, \n\"14\": 0.7, \n\"15\": 0.7, \n\"16\": 0.8, \n\"17\": 0.7, \n\"18\": 0.6, \n\"19\": 0.6, \n\"20\": 0.8, \n\"21\": 0.7\n}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.9,
+   0.6,
+   0.7,
+   0.5,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.4,
+   0.6,
+   0.7,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.8,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e3dadd3fed66afb638703f737b5abecf095a949bb6bdaed61d008082933bad96",
+    "served_model": "meta-llama/llama-3.3-70b-instruct",
+    "usage": {
+     "prompt_tokens": 339,
+     "completion_tokens": 182,
+     "total_tokens": 521,
+     "cost": 9.214e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.214e-05,
+      "upstream_inference_prompt_cost": 3.39e-05,
+      "upstream_inference_completions_cost": 5.824e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\n\"0\": 0.8,\n\"1\": 0.4,\n\"2\": 0.5,\n\"3\": 0.6,\n\"4\": 0.7,\n\"5\": 0.9,\n\"6\": 0.9,\n\"7\": 0.8,\n\"8\": 0.7,\n\"9\": 0.8,\n\"10\": 0.5,\n\"11\": 0.6,\n\"12\": 0.4,\n\"13\": 0.5,\n\"14\": 0.7,\n\"15\": 0.7,\n\"16\": 0.8,\n\"17\": 0.6,\n\"18\": 0.5,\n\"19\": 0.5,\n\"20\": 0.8,\n\"21\": 0.7\n}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.9,
+   0.9,
+   0.8,
+   0.7,
+   0.8,
+   0.5,
+   0.6,
+   0.4,
+   0.5,
+   0.7,
+   0.7,
+   0.8,
+   0.6,
+   0.5,
+   0.5,
+   0.8,
+   0.7
+  ]
+ }
+}

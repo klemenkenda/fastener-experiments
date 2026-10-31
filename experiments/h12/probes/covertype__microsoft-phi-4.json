@@ -1,0 +1,615 @@
+{
+ "dataset": "covertype",
+ "model": "microsoft/phi-4",
+ "variables": [
+  "Elevation",
+  "Aspect",
+  "Slope",
+  "Horizontal_Distance_To_Hydrology",
+  "Vertical_Distance_To_Hydrology",
+  "Horizontal_Distance_To_Roadways",
+  "Hillshade_9am",
+  "Hillshade_Noon",
+  "Hillshade_3pm",
+  "Horizontal_Distance_To_Fire_Points",
+  "Wilderness_Area1",
+  "Wilderness_Area2",
+  "Wilderness_Area3",
+  "Wilderness_Area4",
+  "Soil_Type1",
+  "Soil_Type2",
+  "Soil_Type3",
+  "Soil_Type4",
+  "Soil_Type5",
+  "Soil_Type6",
+  "Soil_Type7",
+  "Soil_Type8",
+  "Soil_Type9",
+  "Soil_Type10",
+  "Soil_Type11",
+  "Soil_Type12",
+  "Soil_Type13",
+  "Soil_Type14",
+  "Soil_Type15",
+  "Soil_Type16",
+  "Soil_Type17",
+  "Soil_Type18",
+  "Soil_Type19",
+  "Soil_Type20",
+  "Soil_Type21",
+  "Soil_Type22",
+  "Soil_Type23",
+  "Soil_Type24",
+  "Soil_Type25",
+  "Soil_Type26",
+  "Soil_Type27",
+  "Soil_Type28",
+  "Soil_Type29",
+  "Soil_Type30",
+  "Soil_Type31",
+  "Soil_Type32",
+  "Soil_Type33",
+  "Soil_Type34",
+  "Soil_Type35",
+  "Soil_Type36",
+  "Soil_Type37",
+  "Soil_Type38",
+  "Soil_Type39",
+  "Soil_Type40"
+ ],
+ "P1a": {
+  "key": "b0c1abb77e5daf901fd5ac5233f64e06a73118d44f821ff3547dd2ef8600df06",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 133,
+   "completion_tokens": 38,
+   "total_tokens": 171,
+   "cost": 1.463e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.463e-05,
+    "upstream_inference_prompt_cost": 9.31e-06,
+    "upstream_inference_completions_cost": 5.32e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"US Forest Service Forest Cover Type Dataset\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 1\n}\n```"
+ },
+ "P1b": {
+  "key": "cb3dd52e0139669ff36db110391333e5a117ecd7505fb24092d618ba9d040fb9",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 381,
+   "completion_tokens": 35,
+   "total_tokens": 416,
+   "cost": 3.157e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 3.157e-05,
+    "upstream_inference_prompt_cost": 2.667e-05,
+    "upstream_inference_completions_cost": 4.9e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Covertype\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 1.0\n}\n```"
+ },
+ "P2": {
+  "key": "89fdd94b3c7377ea2b67e556c390c9d01895d8478997f5a1ba7b58daeb4feff7",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 96,
+   "completion_tokens": 372,
+   "total_tokens": 468,
+   "cost": 5.88e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 5.88e-05,
+    "upstream_inference_prompt_cost": 6.72e-06,
+    "upstream_inference_completions_cost": 5.208e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"Elevation\",\n    \"Aspect\",\n    \"Slope\",\n    \"Horizontal_Distance_To_Hydrology\",\n    \"Vertical_Distance_To_Hydrology\",\n    \"Horizontal_Distance_To_Roadways\",\n    \"Hillshade_9am\",\n    \"Hillshade_Noon\",\n    \"Hillshade_3pm\",\n    \"Horizontal_Distance_To_Fire_Points\",\n    \"Wilderness_Area1\",\n    \"Wilderness_Area2\",\n    \"Wilderness_Area3\",\n    \"Wilderness_Area4\",\n    \"Soil_Type1\",\n    \"Soil_Type2\",\n    \"Soil_Type3\",\n    \"Soil_Type4\",\n    \"Soil_Type5\",\n    \"Soil_Type6\",\n    \"Soil_Type7\",\n    \"Soil_Type8\",\n    \"Soil_Type9\",\n    \"Soil_Type10\",\n    \"Soil_Type11\",\n    \"Soil_Type12\",\n    \"Soil_Type13\",\n    \"Soil_Type14\",\n    \"Soil_Type15\",\n    \"Soil_Type16\",\n    \"Soil_Type17\",\n    \"Soil_Type18\",\n    \"Soil_Type19\",\n    \"Soil_Type20\",\n    \"Soil_Type21\",\n    \"Soil_Type22\",\n    \"Soil_Type23\",\n    \"Soil_Type24\",\n    \"Soil_Type25\",\n    \"Soil_Type26\",\n    \"Soil_Type27\",\n    \"Soil_Type28\",\n    \"Soil_Type29\",\n    \"Soil_Type30\",\n    \"Soil_Type31\",\n    \"Soil_Type32\",\n    \"Soil_Type33\",\n    \"Soil_Type34\",\n    \"Soil_Type35\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "1f9c7417665713b20ac53218461183f1652069e21e8e0f33089eda912059d0f2",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 270,
+     "completion_tokens": 591,
+     "total_tokens": 861,
+     "cost": 0.00010164,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00010164,
+      "upstream_inference_prompt_cost": 1.89e-05,
+      "upstream_inference_completions_cost": 8.274e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.7,\n    \"2\": 0.7,\n    \"3\": 0.7,\n    \"4\": 0.7,\n    \"5\": 0.7,\n    \"6\": 0.7,\n    \"7\": 0.7,\n    \"8\": 0.7,\n    \"9\": 0.7,\n    \"10\": 0.7,\n    \"11\": 0.7,\n    \"12\": 0.7,\n    \"13\": 0.7,\n    \"14\": 0.7,\n    \"15\": 0.7,\n    \"16\": 0.7,\n    \"17\": 0.7,\n    \"18\": 0.7,\n    \"19\": 0.7,\n    \"20\": 0.7,\n    \"21\": 0.7,\n    \"22\": 0.7,\n    \"23\": 0.7,\n    \"24\": 0.7,\n    \"25\": 0.7,\n    \"26\": 0.7,\n    \"27\": 0.7,\n    \"28\": 0.7,\n    \"29\": 0.7,\n    \"30\": 0.7,\n    \"31\": 0.7,\n    \"32\": 0.7,\n    \"33\": 0.7,\n    \"34\": 0.7,\n    \"35\": 0.7,\n    \"36\": 0.7,\n    \"37\": 0.7,\n    \"38\": 0.7,\n    \"39\": 0.7,\n    \"40\": 0.7,\n    \"41\": 0.7,\n    \"42\": 0.7,\n    \"43\": 0.7,\n    \"44\": 0.7,\n    \"45\": 0.7,\n    \"46\": 0.7,\n    \"47\": 0.7,\n    \"48\": 0.7,\n    \"49\": 0.7,\n    \"50\": 0.7,\n    \"51\": 0.7,\n    \"52\": 0.7,\n    \"53\": 0.7\n  }\n}\n```\n\nThe Covertype dataset is known for its high dimensionality and the fact that many features are related to geographical and environmental factors that are relevant for predicting forest cover types. While I don't have specific information about each feature, the dataset's context suggests that most features are likely to be useful, hence the relatively high scores. However, without specific feature names or data, it's challenging to differentiate the utility of individual features, so they are rated similarly.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.7,
+  "header": [
+   "Data set: Covertype (UCI 'Covertype', Blackard and Dean; OpenML 1596).",
+   "Its 54 input features are numbered 0 to 53 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a48785a1c9ddf72cfd99898ee75fa0eb751eb3cd6376ecc167f0fd4d213240d6",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 268,
+     "completion_tokens": 547,
+     "total_tokens": 815,
+     "cost": 9.534e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.534e-05,
+      "upstream_inference_prompt_cost": 1.876e-05,
+      "upstream_inference_completions_cost": 7.658e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.5,\n    \"2\": 0.4,\n    \"3\": 0.7,\n    \"4\": 0.3,\n    \"5\": 0.5,\n    \"6\": 0.6,\n    \"7\": 0.4,\n    \"8\": 0.5,\n    \"9\": 0.3,\n    \"10\": 0.6,\n    \"11\": 0.7,\n    \"12\": 0.4,\n    \"13\": 0.5,\n    \"14\": 0.3,\n    \"15\": 0.6,\n    \"16\": 0.7,\n    \"17\": 0.4,\n    \"18\": 0.5,\n    \"19\": 0.3,\n    \"20\": 0.6,\n    \"21\": 0.7,\n    \"22\": 0.4,\n    \"23\": 0.5,\n    \"24\": 0.3,\n    \"25\": 0.6,\n    \"26\": 0.7,\n    \"27\": 0.4,\n    \"28\": 0.5,\n    \"29\": 0.3,\n    \"30\": 0.6,\n    \"31\": 0.7,\n    \"32\": 0.4,\n    \"33\": 0.5,\n    \"34\": 0.3,\n    \"35\": 0.6,\n    \"36\": 0.7,\n    \"37\": 0.4,\n    \"38\": 0.5,\n    \"39\": 0.3,\n    \"40\": 0.6,\n    \"41\": 0.7,\n    \"42\": 0.4,\n    \"43\": 0.5,\n    \"44\": 0.3,\n    \"45\": 0.6,\n    \"46\": 0.7,\n    \"47\": 0.4,\n    \"48\": 0.5,\n    \"49\": 0.3,\n    \"50\": 0.6,\n    \"51\": 0.7,\n    \"52\": 0.4,\n    \"53\": 0.5\n  }\n}\n```\n\nThese scores are hypothetical and assume a balanced distribution of feature importance, with some features potentially being more informative than others based on typical patterns in field survey data. Adjustments may be necessary based on domain knowledge or exploratory data analysis.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 54 input features are numbered 0 to 53 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.4,
+   0.7,
+   0.3,
+   0.5,
+   0.6,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.4,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "04ae950195349310e286e0f15bb273bb517f5c8ee8362dcc5dda0cc666f76971",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 508,
+     "completion_tokens": 630,
+     "total_tokens": 1138,
+     "cost": 0.00012376,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00012376,
+      "upstream_inference_prompt_cost": 3.556e-05,
+      "upstream_inference_completions_cost": 8.82e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,\n    \"1\": 0.6,\n    \"2\": 0.7,\n    \"3\": 0.9,\n    \"4\": 0.7,\n    \"5\": 0.8,\n    \"6\": 0.7,\n    \"7\": 0.7,\n    \"8\": 0.7,\n    \"9\": 0.8,\n    \"10\": 0.9,\n    \"11\": 0.9,\n    \"12\": 0.9,\n    \"13\": 0.9,\n    \"14\": 0.8,\n    \"15\": 0.8,\n    \"16\": 0.8,\n    \"17\": 0.8,\n    \"18\": 0.8,\n    \"19\": 0.8,\n    \"20\": 0.8,\n    \"21\": 0.8,\n    \"22\": 0.8,\n    \"23\": 0.8,\n    \"24\": 0.8,\n    \"25\": 0.8,\n    \"26\": 0.8,\n    \"27\": 0.8,\n    \"28\": 0.8,\n    \"29\": 0.8,\n    \"30\": 0.8,\n    \"31\": 0.8,\n    \"32\": 0.8,\n    \"33\": 0.8,\n    \"34\": 0.8,\n    \"35\": 0.8,\n    \"36\": 0.8,\n    \"37\": 0.8,\n    \"38\": 0.8,\n    \"39\": 0.8,\n    \"40\": 0.8\n  }\n}\n```\n\n### Explanation:\n- **Elevation (0)**: Likely very useful as it can influence vegetation types.\n- **Aspect (1)**: Moderately useful, as it affects sunlight exposure.\n- **Slope (2)**: Useful, as it affects water runoff and soil erosion.\n- **Horizontal_Distance_To_Hydrology (3)**: Very useful, as proximity to water bodies is a strong predictor of vegetation.\n- **Vertical_Distance_To_Hydrology (4)**: Useful, but less so than horizontal distance.\n- **Horizontal_Distance_To_Roadways (5)**: Useful, as it can indicate human impact.\n- **Hillshade_9am, Noon, 3pm (6, 7, 8)**: Moderately useful, as they affect sunlight exposure.\n- **Horizontal_Distance_To_Fire_Points (9)**: Useful, as it indicates fire risk and history.\n- **Wilderness_Area (10-13)**: Very useful, as different wilderness areas have distinct ecological characteristics.\n- **Soil_Type (14-40)**: Generally useful, as soil type is a strong determinant of vegetation, but individual soil types may have varying degrees of influence.",
+    "parsed_as": "json",
+    "retry": false
+   },
+   {
+    "key": "2ba8b12df4fc8ba0656013231690bf07f547261e6751dada84e3ec6c592a7e74",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 240,
+     "completion_tokens": 179,
+     "total_tokens": 419,
+     "cost": 4.186e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.186e-05,
+      "upstream_inference_prompt_cost": 1.68e-05,
+      "upstream_inference_completions_cost": 2.506e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"41\": 0.3,\n    \"42\": 0.3,\n    \"43\": 0.3,\n    \"44\": 0.3,\n    \"45\": 0.3,\n    \"46\": 0.3,\n    \"47\": 0.3,\n    \"48\": 0.3,\n    \"49\": 0.3,\n    \"50\": 0.3,\n    \"51\": 0.3,\n    \"52\": 0.3,\n    \"53\": 0.3\n  }\n}\n```\n\nThese scores reflect the assumption that soil type features are moderately useful for predicting tree cover types, as they likely have some influence on vegetation distribution. However, without specific data, it's difficult to assess their individual or combined predictive power precisely.",
+    "parsed_as": "json",
+    "retry": true
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: Covertype (UCI 'Covertype', Blackard and Dean; OpenML 1596).",
+   "Classes: Spruce/Fir, Lodgepole Pine, Ponderosa Pine, Cottonwood/Willow, Aspen, Douglas-fir, Krummholz"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.7,
+   0.9,
+   0.7,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.8,
+   0.9,
+   0.9,
+   0.9,
+   0.9,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P5": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "84801f3594542d28314d0d9bcab69c1a6ab42def26a6c999d2b021c4f0a58cec",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 485,
+     "completion_tokens": 834,
+     "total_tokens": 1319,
+     "cost": 0.00015071,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00015071,
+      "upstream_inference_prompt_cost": 3.395e-05,
+      "upstream_inference_completions_cost": 0.00011676
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.8,  // Elevation is often a strong predictor for vegetation types due to climate and environmental conditions.\n    \"1\": 0.6,  // Aspect can influence microclimates and vegetation.\n    \"2\": 0.7,  // Slope affects drainage and sunlight exposure, impacting vegetation.\n    \"3\": 0.7,  // Distance to water bodies can influence soil moisture and vegetation.\n    \"4\": 0.5,  // Vertical distance to hydrology is less directly impactful than horizontal distance.\n    \"5\": 0.6,  // Proximity to roadways can affect human activity and vegetation.\n    \"6\": 0.7,  // Hillshade at different times of day affects sunlight exposure.\n    \"7\": 0.7,  // Hillshade at noon is crucial for understanding sunlight exposure.\n    \"8\": 0.7,  // Hillshade in the afternoon also affects sunlight exposure.\n    \"9\": 0.6,  // Distance to fire points can influence vegetation due to fire history.\n    \"10\": 0.9, // Wilderness areas are likely to have distinct vegetation types.\n    \"11\": 0.9, // Wilderness areas are likely to have distinct vegetation types.\n    \"12\": 0.9, // Wilderness areas are likely to have distinct vegetation types.\n    \"13\": 0.9, // Wilderness areas are likely to have distinct vegetation types.\n    \"14\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"15\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"16\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"17\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"18\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"19\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"20\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"21\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"22\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"23\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"24\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"25\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"26\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"27\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"28\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"29\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"30\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"31\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"32\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"33\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"34\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"35\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"36\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"37\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"38\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"39\": 0.8, // Soil type is a strong predictor for vegetation.\n    \"40\": 0.8  // Soil type is a strong predictor for vegetation.\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   },
+   {
+    "key": "3f82187bb6e5e77317a4b732f36dbc4823ef0e6798315208fd272212d1fe3ad0",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 217,
+     "completion_tokens": 188,
+     "total_tokens": 405,
+     "cost": 4.151e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.151e-05,
+      "upstream_inference_prompt_cost": 1.519e-05,
+      "upstream_inference_completions_cost": 2.632e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"41\": 0.7,\n    \"42\": 0.7,\n    \"43\": 0.7,\n    \"44\": 0.7,\n    \"45\": 0.7,\n    \"46\": 0.7,\n    \"47\": 0.7,\n    \"48\": 0.7,\n    \"49\": 0.7,\n    \"50\": 0.7,\n    \"51\": 0.7,\n    \"52\": 0.7,\n    \"53\": 0.7\n  }\n}\n```\n\nThese scores reflect the potential usefulness of soil type features in predicting tree species, as different species may have preferences for certain soil types. However, without specific data, the scores are moderate, acknowledging that while soil type is relevant, it is not the sole determinant of tree species distribution.",
+    "parsed_as": "json",
+    "retry": true
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Classes: Spruce/Fir, Lodgepole Pine, Ponderosa Pine, Cottonwood/Willow, Aspen, Douglas-fir, Krummholz"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.8,
+   0.6,
+   0.7,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.7,
+   0.7,
+   0.6,
+   0.9,
+   0.9,
+   0.9,
+   0.9,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.8,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7
+  ]
+ }
+}

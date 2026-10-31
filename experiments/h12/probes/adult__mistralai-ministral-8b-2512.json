@@ -1,0 +1,350 @@
+{
+ "dataset": "adult",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "age",
+  "workclass",
+  "fnlwgt",
+  "education",
+  "education-num",
+  "marital-status",
+  "occupation",
+  "relationship",
+  "race",
+  "sex",
+  "capital-gain",
+  "capital-loss",
+  "hours-per-week"
+ ],
+ "P1a": {
+  "key": "59d1bfb5afc8dd5607b73220549ef12944062b16b926c8b4a7b9b5c98670d3f2",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 114,
+   "completion_tokens": 45,
+   "total_tokens": 159,
+   "cost": 2.385e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.385e-05,
+    "upstream_inference_prompt_cost": 1.71e-05,
+    "upstream_inference_completions_cost": 6.75e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Adult Income Dataset\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Adult\",\n  \"confidence\": 1.0\n}\n```"
+ },
+ "P1b": {
+  "key": "44025aa610da630992f710a9d48eab1fc176131e73e1a9ce2feb0d62a940140a",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 132,
+   "completion_tokens": 51,
+   "total_tokens": 183,
+   "cost": 2.745e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.745e-05,
+    "upstream_inference_prompt_cost": 1.98e-05,
+    "upstream_inference_completions_cost": 7.65e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Adult Income Dataset (Census Income Dataset)\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Adult\",\n  \"confidence\": 0.99\n}\n```"
+ },
+ "P2": {
+  "key": "883a3652940d2ae51866ac303646f3b830b5276876be2505263ba1dfe130bbfb",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 94,
+   "completion_tokens": 85,
+   "total_tokens": 179,
+   "cost": 2.685e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.685e-05,
+    "upstream_inference_prompt_cost": 1.41e-05,
+    "upstream_inference_completions_cost": 1.275e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"age\",\n    \"workclass\",\n    \"fnlwgt\",\n    \"education\",\n    \"education-num\",\n    \"marital-status\",\n    \"occupation\",\n    \"relationship\",\n    \"race\",\n    \"sex\",\n    \"capital-gain\",\n    \"capital-loss\",\n    \"hours-per-week\",\n    \"native-country\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "f91ab510253b06ecd273ffb3068d4bd75ea01f6a13b028c1e4425b1fcee1540c",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 210,
+     "completion_tokens": 405,
+     "total_tokens": 615,
+     "cost": 9.225e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.225e-05,
+      "upstream_inference_prompt_cost": 3.15e-05,
+      "upstream_inference_completions_cost": 6.075e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.95,  // Likely categorical (e.g., workclass, education) \u2013 strong predictive power for income.\n    \"1\": 0.90,  // Likely numerical (e.g., age) \u2013 moderately strong predictive power.\n    \"2\": 0.85,  // Likely categorical (e.g., marital-status) \u2013 useful for classification.\n    \"3\": 0.80,  // Likely numerical (e.g., hours-per-week) \u2013 moderately useful.\n    \"4\": 0.75,  // Likely categorical (e.g., occupation) \u2013 useful but may have high cardinality.\n    \"5\": 0.70,  // Likely numerical (e.g., capital-gain) \u2013 useful but skewed.\n    \"6\": 0.65,  // Likely numerical (e.g., capital-loss) \u2013 less useful alone but may interact with others.\n    \"7\": 0.60,  // Likely categorical (e.g., relationship) \u2013 moderately useful.\n    \"8\": 0.55,  // Likely numerical (e.g., race) \u2013 less predictive due to low variance in income.\n    \"9\": 0.50,  // Likely categorical (e.g., sex) \u2013 weak but may interact with other features.\n    \"10\": 0.45, // Likely numerical (e.g., native-country proxy, but excluded in this dataset) \u2013 *not applicable here (left out).\n    \"11\": 0.88, // Likely categorical (e.g., education-num) \u2013 strong numerical proxy for education.\n    \"12\": 0.92  // Likely numerical (e.g., fnlwgt) \u2013 strong predictor (weighted income proxy)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.45,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order (the distributed file's columns native-country are left out and not counted); the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.9,
+   0.85,
+   0.8,
+   0.75,
+   0.7,
+   0.65,
+   0.6,
+   0.55,
+   0.5,
+   0.45,
+   0.88,
+   0.92
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "73c920691e1abe8336eae96c517d5881d63c2162ebcaa05803e28586040c701a",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 191,
+     "completion_tokens": 135,
+     "total_tokens": 326,
+     "cost": 4.89e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 4.89e-05,
+      "upstream_inference_prompt_cost": 2.865e-05,
+      "upstream_inference_completions_cost": 2.025e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.4,\n    \"2\": 0.9,\n    \"3\": 0.2,\n    \"4\": 0.6,\n    \"5\": 0.3,\n    \"6\": 0.8,\n    \"7\": 0.5,\n    \"8\": 0.1,\n    \"9\": 0.7,\n    \"10\": 0.4,\n    \"11\": 0.6,\n    \"12\": 0.3\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 13 input features are numbered 0 to 12 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.9,
+   0.2,
+   0.6,
+   0.3,
+   0.8,
+   0.5,
+   0.1,
+   0.7,
+   0.4,
+   0.6,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d109589487ba100f67dc49c1ce7696eb276eee212c45311b78885a41176757ec",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 215,
+     "completion_tokens": 322,
+     "total_tokens": 537,
+     "cost": 8.055e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 8.055e-05,
+      "upstream_inference_prompt_cost": 3.225e-05,
+      "upstream_inference_completions_cost": 4.83e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,  // age (likely correlated with experience, stability, and economic factors)\n    \"1\": 0.8,  // workclass (strong indicator of income stability, e.g., private vs. self-employed)\n    \"2\": 0.1,  // fnlwgt (weighting factor, likely irrelevant for prediction)\n    \"3\": 0.75, // education (qualitative measure, often tied to income)\n    \"4\": 0.9,  // education-num (quantitative, likely very predictive)\n    \"5\": 0.6,  // marital-status (marital stability often correlates with income)\n    \"6\": 0.85, // occupation (highly predictive, e.g., executive vs. manual labor)\n    \"7\": 0.5,  // relationship (family dynamics may correlate, but weaker signal)\n    \"8\": 0.1,  // race (likely confounded with other features; may introduce bias)\n    \"9\": 0.4,  // sex (historically correlated, but weaker predictor in modern data)\n    \"10\": 0.8, // capital-gain (direct financial indicator)\n    \"11\": 0.3, // capital-loss (less predictive than gains, but still relevant)\n    \"12\": 0.6  // hours-per-week (work hours often correlate with income)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Adult (UCI 'Census Income', 1994 US census; OpenML 1590).",
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.8,
+   0.1,
+   0.75,
+   0.9,
+   0.6,
+   0.85,
+   0.5,
+   0.1,
+   0.4,
+   0.8,
+   0.3,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c15dc9c812c2fd8815835b4af9f89b0310753319ec310d6c863a8d03b75af34a",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 187,
+     "completion_tokens": 332,
+     "total_tokens": 519,
+     "cost": 7.785e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.785e-05,
+      "upstream_inference_prompt_cost": 2.805e-05,
+      "upstream_inference_completions_cost": 4.98e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,  // age (likely correlates with income, though not perfectly)\n    \"1\": 0.4,  // workclass (some categories like \"Self-emp\" or \"Private\" may be informative)\n    \"2\": 0.1,  // fnlwgt (likely a weight, not predictive of class)\n    \"3\": 0.6,  // education (highly correlated with education-num, useful)\n    \"4\": 0.8,  // education-num (strong predictor of income)\n    \"5\": 0.5,  // marital-status (some statuses may correlate with income)\n    \"6\": 0.7,  // occupation (likely informative, e.g., \"Exec-managerial\" vs. \"Craft-repair\")\n    \"7\": 0.4,  // relationship (some roles like \"Husband\" or \"Not-in-family\" may matter)\n    \"8\": 0.1,  // race (likely low predictive power for income in this dataset)\n    \"9\": 0.3,  // sex (some correlation, but likely weak)\n    \"10\": 0.9, // capital-gain (highly predictive of high income)\n    \"11\": 0.2, // capital-loss (less predictive, but may interact with capital-gain)\n    \"12\": 0.5  // hours-per-week (some correlation, but not dominant)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: income <= 50K, income > 50K"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.1,
+   0.6,
+   0.8,
+   0.5,
+   0.7,
+   0.4,
+   0.1,
+   0.3,
+   0.9,
+   0.2,
+   0.5
+  ]
+ }
+}

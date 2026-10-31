@@ -1,0 +1,490 @@
+{
+ "dataset": "qsar_biodeg",
+ "model": "mistralai/ministral-8b-2512",
+ "variables": [
+  "SpMax_L",
+  "J_Dz(e)",
+  "nHM",
+  "F01[N-N]",
+  "F04[C-N]",
+  "NssssC",
+  "nCb-",
+  "C%",
+  "nCp",
+  "nO",
+  "F03[C-N]",
+  "SdssC",
+  "HyWi_B(m)",
+  "LOC",
+  "SM6_L",
+  "F03[C-O]",
+  "Me",
+  "Mi",
+  "nN-N",
+  "nArNO2",
+  "nCRX3",
+  "SpPosA_B(p)",
+  "nCIR",
+  "B01[C-Br]",
+  "B03[C-Cl]",
+  "N-073",
+  "SpMax_A",
+  "Psi_i_1d",
+  "B04[C-Br]",
+  "SdO",
+  "TI2_L",
+  "nCrt",
+  "C-026",
+  "F02[C-N]",
+  "nHDon",
+  "SpMax_B(m)",
+  "Psi_i_A",
+  "nN",
+  "SM6_B(m)",
+  "nArCOOR",
+  "nX"
+ ],
+ "P1a": {
+  "key": "24383d8ad1fac6c6955c5025d17febd6c4e49ca7b9f36451a1add5651ee999c0",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 108,
+   "completion_tokens": 50,
+   "total_tokens": 158,
+   "cost": 2.37e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.37e-05,
+    "upstream_inference_prompt_cost": 1.62e-05,
+    "upstream_inference_completions_cost": 7.5e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Penn94\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/Penn+94\",\n  \"confidence\": 0.99\n}\n```"
+ },
+ "P1b": {
+  "key": "2ff99dd1c934fdc9dd3149d9c8720e2004864566df543e8215e72c9ea2e235ee",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 282,
+   "completion_tokens": 47,
+   "total_tokens": 329,
+   "cost": 4.935e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 4.935e-05,
+    "upstream_inference_prompt_cost": 4.23e-05,
+    "upstream_inference_completions_cost": 7.05e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"ESOL (Experimental Solubility)\",\n  \"source\": \"https://deepchem.io/datasets/#esol\",\n  \"confidence\": 0.98\n}\n```"
+ },
+ "P2": {
+  "key": "70d00cfe6752360e928a82e21d8a6216c5854438954962458f19c2cc144981c7",
+  "served_model": "mistralai/ministral-8b-2512",
+  "usage": {
+   "prompt_tokens": 98,
+   "completion_tokens": 1551,
+   "total_tokens": 1649,
+   "cost": 0.00024735,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00024735,
+    "upstream_inference_prompt_cost": 1.47e-05,
+    "upstream_inference_completions_cost": 0.00023265
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"logP\",\n    \"MR\",\n    \"PSA\",\n    \"nHDon\",\n    \"nHAcc\",\n    \"nRotB\",\n    \"nAromB\",\n    \"Fp0\",\n    \"Fp1\",\n    \"Fp2\",\n    \"Fp3\",\n    \"Fp4\",\n    \"Fp5\",\n    \"Fp6\",\n    \"Fp7\",\n    \"Fp8\",\n    \"Fp9\",\n    \"Fp10\",\n    \"Fp11\",\n    \"Fp12\",\n    \"Fp13\",\n    \"Fp14\",\n    \"Fp15\",\n    \"Fp16\",\n    \"Fp17\",\n    \"Fp18\",\n    \"Fp19\",\n    \"Fp20\",\n    \"Fp21\",\n    \"Fp22\",\n    \"Fp23\",\n    \"Fp24\",\n    \"Fp25\",\n    \"Fp26\",\n    \"Fp27\",\n    \"Fp28\",\n    \"Fp29\",\n    \"Fp30\",\n    \"Fp31\",\n    \"Fp32\",\n    \"Fp33\",\n    \"Fp34\",\n    \"Fp35\",\n    \"Fp36\",\n    \"Fp37\",\n    \"Fp38\",\n    \"Fp39\",\n    \"Fp40\",\n    \"Fp41\",\n    \"Fp42\",\n    \"Fp43\",\n    \"Fp44\",\n    \"Fp45\",\n    \"Fp46\",\n    \"Fp47\",\n    \"Fp48\",\n    \"Fp49\",\n    \"Fp50\",\n    \"Fp51\",\n    \"Fp52\",\n    \"Fp53\",\n    \"Fp54\",\n    \"Fp55\",\n    \"Fp56\",\n    \"Fp57\",\n    \"Fp58\",\n    \"Fp59\",\n    \"Fp60\",\n    \"Fp61\",\n    \"Fp62\",\n    \"Fp63\",\n    \"Fp64\",\n    \"Fp65\",\n    \"Fp66\",\n    \"Fp67\",\n    \"Fp68\",\n    \"Fp69\",\n    \"Fp70\",\n    \"Fp71\",\n    \"Fp72\",\n    \"Fp73\",\n    \"Fp74\",\n    \"Fp75\",\n    \"Fp76\",\n    \"Fp77\",\n    \"Fp78\",\n    \"Fp79\",\n    \"Fp80\",\n    \"Fp81\",\n    \"Fp82\",\n    \"Fp83\",\n    \"Fp84\",\n    \"Fp85\",\n    \"Fp86\",\n    \"Fp87\",\n    \"Fp88\",\n    \"Fp89\",\n    \"Fp90\",\n    \"Fp91\",\n    \"Fp92\",\n    \"Fp93\",\n    \"Fp94\",\n    \"Fp95\",\n    \"Fp96\",\n    \"Fp97\",\n    \"Fp98\",\n    \"Fp99\",\n    \"Fp100\",\n    \"Fp101\",\n    \"Fp102\",\n    \"Fp103\",\n    \"Fp104\",\n    \"Fp105\",\n    \"Fp106\",\n    \"Fp107\",\n    \"Fp108\",\n    \"Fp109\",\n    \"Fp110\",\n    \"Fp111\",\n    \"Fp112\",\n    \"Fp113\",\n    \"Fp114\",\n    \"Fp115\",\n    \"Fp116\",\n    \"Fp117\",\n    \"Fp118\",\n    \"Fp119\",\n    \"Fp120\",\n    \"Fp121\",\n    \"Fp122\",\n    \"Fp123\",\n    \"Fp124\",\n    \"Fp125\",\n    \"Fp126\",\n    \"Fp127\",\n    \"Fp128\",\n    \"Fp129\",\n    \"Fp130\",\n    \"Fp131\",\n    \"Fp132\",\n    \"Fp133\",\n    \"Fp134\",\n    \"Fp135\",\n    \"Fp136\",\n    \"Fp137\",\n    \"Fp138\",\n    \"Fp139\",\n    \"Fp140\",\n    \"Fp141\",\n    \"Fp142\",\n    \"Fp143\",\n    \"Fp144\",\n    \"Fp145\",\n    \"Fp146\",\n    \"Fp147\",\n    \"Fp148\",\n    \"Fp149\",\n    \"Fp150\",\n    \"Fp151\",\n    \"Fp152\",\n    \"Fp153\",\n    \"Fp154\",\n    \"Fp155\",\n    \"Fp156\",\n    \"Fp157\",\n    \"Fp158\",\n    \"Fp159\",\n    \"Fp160\",\n    \"Fp161\",\n    \"Fp162\",\n    \"Fp163\",\n    \"Fp164\",\n    \"Fp165\",\n    \"Fp166\",\n    \"Fp167\",\n    \"Fp168\",\n    \"Fp169\",\n    \"Fp170\",\n    \"Fp171\",\n    \"Fp172\",\n    \"Fp173\",\n    \"Fp174\",\n    \"Fp175\",\n    \"Fp176\",\n    \"Fp177\",\n    \"Fp178\",\n    \"Fp179\",\n    \"Fp180\",\n    \"Fp181\",\n    \"Fp182\",\n    \"Fp183\",\n    \"Fp184\",\n    \"Fp185\",\n    \"Fp186\",\n    \"Fp187\",\n    \"Fp188\",\n    \"Fp189\",\n    \"Fp190\",\n    \"Fp191\",\n    \"Fp192\",\n    \"Fp193\",\n    \"Fp194\",\n    \"Fp195\",\n    \"Fp196\",\n    \"Fp197\",\n    \"Fp198\",\n    \"Fp199\",\n    \"Fp200\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "ff019593a7ef86d04b9be5b3071419a26c50de26b5d675a925f595f66cf449b3",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 284,
+     "completion_tokens": 434,
+     "total_tokens": 718,
+     "cost": 0.0001077,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001077,
+      "upstream_inference_prompt_cost": 4.26e-05,
+      "upstream_inference_completions_cost": 6.51e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,\n    \"1\": 0.75,\n    \"2\": 0.65,\n    \"3\": 0.9,\n    \"4\": 0.55,\n    \"5\": 0.7,\n    \"6\": 0.45,\n    \"7\": 0.8,\n    \"8\": 0.6,\n    \"9\": 0.5,\n    \"10\": 0.75,\n    \"11\": 0.4,\n    \"12\": 0.65,\n    \"13\": 0.5,\n    \"14\": 0.85,\n    \"15\": 0.35,\n    \"16\": 0.7,\n    \"17\": 0.4,\n    \"18\": 0.6,\n    \"19\": 0.55,\n    \"20\": 0.8,\n    \"21\": 0.3,\n    \"22\": 0.65,\n    \"23\": 0.75,\n    \"24\": 0.45,\n    \"25\": 0.5,\n    \"26\": 0.7,\n    \"27\": 0.6,\n    \"28\": 0.55,\n    \"29\": 0.8,\n    \"30\": 0.4,\n    \"31\": 0.65,\n    \"32\": 0.5,\n    \"33\": 0.7,\n    \"34\": 0.45,\n    \"35\": 0.6,\n    \"36\": 0.55,\n    \"37\": 0.75,\n    \"38\": 0.4,\n    \"39\": 0.85,\n    \"40\": 0.6\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.75,
+   0.65,
+   0.9,
+   0.55,
+   0.7,
+   0.45,
+   0.8,
+   0.6,
+   0.5,
+   0.75,
+   0.4,
+   0.65,
+   0.5,
+   0.85,
+   0.35,
+   0.7,
+   0.4,
+   0.6,
+   0.55,
+   0.8,
+   0.3,
+   0.65,
+   0.75,
+   0.45,
+   0.5,
+   0.7,
+   0.6,
+   0.55,
+   0.8,
+   0.4,
+   0.65,
+   0.5,
+   0.7,
+   0.45,
+   0.6,
+   0.55,
+   0.75,
+   0.4,
+   0.85,
+   0.6
+  ]
+ },
+ "P3f": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "e140f7e40159a1bd7f53254a7b1cdab34bb0c5a9a6e13c623c8bbe50611b5164",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 275,
+     "completion_tokens": 428,
+     "total_tokens": 703,
+     "cost": 0.00010545,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00010545,
+      "upstream_inference_prompt_cost": 4.125e-05,
+      "upstream_inference_completions_cost": 6.42e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.4,\n    \"2\": 0.8,\n    \"3\": 0.3,\n    \"4\": 0.6,\n    \"5\": 0.5,\n    \"6\": 0.9,\n    \"7\": 0.2,\n    \"8\": 0.75,\n    \"9\": 0.45,\n    \"10\": 0.65,\n    \"11\": 0.35,\n    \"12\": 0.85,\n    \"13\": 0.25,\n    \"14\": 0.55,\n    \"15\": 0.4,\n    \"16\": 0.7,\n    \"17\": 0.3,\n    \"18\": 0.6,\n    \"19\": 0.5,\n    \"20\": 0.8,\n    \"21\": 0.4,\n    \"22\": 0.7,\n    \"23\": 0.3,\n    \"24\": 0.6,\n    \"25\": 0.5,\n    \"26\": 0.85,\n    \"27\": 0.4,\n    \"28\": 0.7,\n    \"29\": 0.35,\n    \"30\": 0.6,\n    \"31\": 0.5,\n    \"32\": 0.75,\n    \"33\": 0.2,\n    \"34\": 0.5,\n    \"35\": 0.65,\n    \"36\": 0.45,\n    \"37\": 0.3,\n    \"38\": 0.7,\n    \"39\": 0.55,\n    \"40\": 0.8\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.4,
+   0.8,
+   0.3,
+   0.6,
+   0.5,
+   0.9,
+   0.2,
+   0.75,
+   0.45,
+   0.65,
+   0.35,
+   0.85,
+   0.25,
+   0.55,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.5,
+   0.8,
+   0.4,
+   0.7,
+   0.3,
+   0.6,
+   0.5,
+   0.85,
+   0.4,
+   0.7,
+   0.35,
+   0.6,
+   0.5,
+   0.75,
+   0.2,
+   0.5,
+   0.65,
+   0.45,
+   0.3,
+   0.7,
+   0.55,
+   0.8
+  ]
+ },
+ "P4": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "89fb629ad11072ff0ae4888ffccb02e784a75c02fa1cd6a86bfd1fd4d2e23d97",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 451,
+     "completion_tokens": 433,
+     "total_tokens": 884,
+     "cost": 0.0001326,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001326,
+      "upstream_inference_prompt_cost": 6.765e-05,
+      "upstream_inference_completions_cost": 6.495e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.85,\n    \"1\": 0.65,\n    \"2\": 0.75,\n    \"3\": 0.7,\n    \"4\": 0.8,\n    \"5\": 0.6,\n    \"6\": 0.7,\n    \"7\": 0.8,\n    \"8\": 0.75,\n    \"9\": 0.85,\n    \"10\": 0.7,\n    \"11\": 0.65,\n    \"12\": 0.7,\n    \"13\": 0.6,\n    \"14\": 0.75,\n    \"15\": 0.8,\n    \"16\": 0.55,\n    \"17\": 0.5,\n    \"18\": 0.8,\n    \"19\": 0.6,\n    \"20\": 0.7,\n    \"21\": 0.65,\n    \"22\": 0.6,\n    \"23\": 0.75,\n    \"24\": 0.8,\n    \"25\": 0.7,\n    \"26\": 0.75,\n    \"27\": 0.6,\n    \"28\": 0.75,\n    \"29\": 0.65,\n    \"30\": 0.7,\n    \"31\": 0.75,\n    \"32\": 0.6,\n    \"33\": 0.8,\n    \"34\": 0.85,\n    \"35\": 0.7,\n    \"36\": 0.65,\n    \"37\": 0.8,\n    \"38\": 0.6,\n    \"39\": 0.75,\n    \"40\": 0.65\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.85,
+   0.65,
+   0.75,
+   0.7,
+   0.8,
+   0.6,
+   0.7,
+   0.8,
+   0.75,
+   0.85,
+   0.7,
+   0.65,
+   0.7,
+   0.6,
+   0.75,
+   0.8,
+   0.55,
+   0.5,
+   0.8,
+   0.6,
+   0.7,
+   0.65,
+   0.6,
+   0.75,
+   0.8,
+   0.7,
+   0.75,
+   0.6,
+   0.75,
+   0.65,
+   0.7,
+   0.75,
+   0.6,
+   0.8,
+   0.85,
+   0.7,
+   0.65,
+   0.8,
+   0.6,
+   0.75,
+   0.65
+  ]
+ },
+ "P5": {
+  "model": "mistralai/ministral-8b-2512",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "38fbfd95851c8319fc5020102cf665aa5a7cd34907b052341382dc9ce4d5a988",
+    "served_model": "mistralai/ministral-8b-2512",
+    "usage": {
+     "prompt_tokens": 419,
+     "completion_tokens": 1068,
+     "total_tokens": 1487,
+     "cost": 0.00022305,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00022305,
+      "upstream_inference_prompt_cost": 6.285e-05,
+      "upstream_inference_completions_cost": 0.0001602
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.7,    // SpMax_L (likely related to molecular shape/surface area, often important for biodegradability)\n    \"1\": 0.6,    // J_Dz(e) (molecular energy descriptor, potentially useful)\n    \"2\": 0.8,    // nHM (number of hydrogen bond acceptors, highly relevant for biodegradability)\n    \"3\": 0.7,    // F04[C-N] (functional group count, likely useful)\n    \"4\": 0.6,    // F03[C-N] (similar to above, moderately useful)\n    \"5\": 0.5,    // NssssC (sulfur-nitrogen functional group, less common but relevant)\n    \"6\": 0.4,    // nCb- (number of negatively charged carbons, niche relevance)\n    \"7\": 0.6,    // C% (carbon percentage, moderately useful)\n    \"8\": 0.5,    // nCp (number of positively charged carbons, niche relevance)\n    \"9\": 0.7,    // nO (number of oxygen atoms, highly relevant for biodegradability)\n    \"10\": 0.6,   // F03[C-O] (oxygen-containing functional groups, useful)\n    \"11\": 0.4,   // SdssC (sulfur-containing aromatic carbons, niche relevance)\n    \"12\": 0.5,   // HyWi_B(m) (hydrophobic fragment descriptor, moderately useful)\n    \"13\": 0.3,   // LOC (localization descriptor, less likely useful)\n    \"14\": 0.4,   // SM6_L (molecular descriptor, moderate relevance)\n    \"15\": 0.5,   // F03[C-O] (redundant with 10, but still useful)\n    \"16\": 0.3,   // Me (methyl group count, less likely useful)\n    \"17\": 0.3,   // Mi (misc. descriptor, less likely useful)\n    \"18\": 0.6,   // nN-N (nitrogen-nitrogen bonds, relevant for biodegradability)\n    \"19\": 0.4,   // nArNO2 (aromatic nitro groups, niche relevance)\n    \"20\": 0.3,   // nCRX3 (halogenated carbons, niche relevance)\n    \"21\": 0.4,   // SpPosA_B(p) (spatial descriptor, moderate relevance)\n    \"22\": 0.3,   // nCIR (cyclic carbons, less likely useful)\n    \"23\": 0.5,   // B01[C-Br] (bromine-containing functional groups, niche relevance)\n    \"24\": 0.5,   // B03[C-Cl] (chlorine-containing functional groups, niche relevance)\n    \"25\": 0.4,   // N-073 (nitrogen descriptor, moderate relevance)\n    \"26\": 0.5,   // SpMax_A (spatial descriptor, moderate relevance)\n    \"27\": 0.4,   // Psi_i_1d (molecular shape descriptor, moderate relevance)\n    \"28\": 0.4,   // B04[C-Br] (redundant with 23, but still niche)\n    \"29\": 0.5,   // SdO (sulfur-oxygen bonds, niche relevance)\n    \"30\": 0.3,   // TI2_L (topological index, less likely useful)\n    \"31\": 0.4,   // nCrt (number of rings, moderate relevance)\n    \"32\": 0.3,   // C-026 (carbon descriptor, less likely useful)\n    \"33\": 0.6,   // F02[C-N] (nitrogen-containing functional groups, useful)\n    \"34\": 0.7,   // nHDon (hydrogen bond donors, highly relevant)\n    \"35\": 0.5,   // SpMax_B(m) (spatial descriptor, moderate relevance)\n    \"36\": 0.4,   // Psi_i_A (molecular shape descriptor, moderate relevance)\n    \"37\": 0.8,   // nN (number of nitrogen atoms, highly relevant for biodegradability)\n    \"38\": 0.4,   // SM6_B(m) (molecular descriptor, moderate relevance)\n    \"39\": 0.5,   // nArCOOR (aromatic ester groups, niche relevance)\n    \"40\": 0.2    // nX (halogen count, less likely useful)\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.8,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.4,
+   0.5,
+   0.3,
+   0.4,
+   0.5,
+   0.3,
+   0.3,
+   0.6,
+   0.4,
+   0.3,
+   0.4,
+   0.3,
+   0.5,
+   0.5,
+   0.4,
+   0.5,
+   0.4,
+   0.4,
+   0.5,
+   0.3,
+   0.4,
+   0.3,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.8,
+   0.4,
+   0.5,
+   0.2
+  ]
+ }
+}

@@ -1,0 +1,395 @@
+{
+ "dataset": "heloc",
+ "model": "qwen/qwen3-14b",
+ "variables": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "P1a": {
+  "key": "d34a6edd9e7d302567514892b9dc8a1a3d8e4234c98999aa047a4c8fdf24238d",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 120,
+   "completion_tokens": 705,
+   "total_tokens": 825,
+   "cost": 0.0001671,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001671,
+    "upstream_inference_prompt_cost": 1.2e-05,
+    "upstream_inference_completions_cost": 0.0001551
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 718,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"unknown\", \"source\": \"unknown\", \"confidence\": 0.3}"
+ },
+ "P1b": {
+  "key": "c9c8292464ba838f872539eddbdcb4dbd13cf11b5a6ee6cc6135f46717201572",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 276,
+   "completion_tokens": 578,
+   "total_tokens": 854,
+   "cost": 0.00017184,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00017184,
+    "upstream_inference_prompt_cost": 3.312e-05,
+    "upstream_inference_completions_cost": 0.00013872
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 614,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"LendingClub\", \"source\": \"LendingClub Corporation (Kaggle/UCI Machine Learning Repository)\", \"confidence\": 0.98}"
+ },
+ "P2": {
+  "key": "1a02a95dcfb282af8d69a24ee284db380f09fa2dfe6714c1a94af1a33715773b",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 106,
+   "completion_tokens": 1352,
+   "total_tokens": 1458,
+   "cost": 0.00030804,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00030804,
+    "upstream_inference_prompt_cost": 1.06e-05,
+    "upstream_inference_completions_cost": 0.00029744
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1193,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"NumberOfTime30-59DaysPastDueNotWorse\", \"NumberOfTime60-89DaysPastDueNotWorse\", \"NumberOfTime90DaysPastDueNotWorse\", \"NumberOfDependents\", \"MonthlyIncome\", \"DebtRatio\", \"CreditHistoryAge\", \"RevolvingUtilization\", \"NumberOfOpenCreditLines\", \"NumberOfCreditProblems\", \"NumberOfCreditInquiries\", \"PublicRecords\", \"EmploymentLength\", \"LoanAmount\", \"LoanTerm\", \"InterestRate\", \"PaymentHistory\", \"CreditScore\", \"NumberOfTime30-59DaysPastDue\", \"NumberOfTime60-89DaysPastDue\"]}"
+ },
+ "P3": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3397f2048635662df4f834cfd55afdcb4af7406b1d51e0054e960a54e251541c",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 232,
+     "completion_tokens": 1074,
+     "total_tokens": 1306,
+     "cost": 0.00025948,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00025948,
+      "upstream_inference_prompt_cost": 2.32e-05,
+      "upstream_inference_completions_cost": 0.00023628
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 752,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.9, \"1\": 0.85, \"2\": 0.8, \"3\": 0.75, \"4\": 0.7, \"5\": 0.7, \"6\": 0.85, \"7\": 0.8, \"8\": 0.75, \"9\": 0.7, \"10\": 0.7, \"11\": 0.8, \"12\": 0.7, \"13\": 0.75, \"14\": 0.7, \"15\": 0.85, \"16\": 0.6, \"17\": 0.65, \"18\": 0.6, \"19\": 0.5, \"20\": 0.7, \"21\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.9,
+   0.85,
+   0.8,
+   0.75,
+   0.7,
+   0.7,
+   0.85,
+   0.8,
+   0.75,
+   0.7,
+   0.7,
+   0.8,
+   0.7,
+   0.75,
+   0.7,
+   0.85,
+   0.6,
+   0.65,
+   0.6,
+   0.5,
+   0.7,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "75dc386b236a936e433acb12db29dfe806d423fb28b9b56d5e07e3170fc54216",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 225,
+     "completion_tokens": 785,
+     "total_tokens": 1010,
+     "cost": 0.0001952,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001952,
+      "upstream_inference_prompt_cost": 2.25e-05,
+      "upstream_inference_completions_cost": 0.0001727
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 708,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "6b17025496d849aeb86d281240f2a84488e2a5fa696524c6871c4f9fa2181111",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 386,
+     "completion_tokens": 1534,
+     "total_tokens": 1920,
+     "cost": 0.00037608,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00037608,
+      "upstream_inference_prompt_cost": 3.86e-05,
+      "upstream_inference_completions_cost": 0.00033748
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1345,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.95, \"1\": 0.6, \"2\": 0.6, \"3\": 0.6, \"4\": 0.7, \"5\": 0.9, \"6\": 0.95, \"7\": 0.9, \"8\": 0.8, \"9\": 0.85, \"10\": 0.5, \"11\": 0.7, \"12\": 0.5, \"13\": 0.5, \"14\": 0.7, \"15\": 0.6, \"16\": 0.8, \"17\": 0.6, \"18\": 0.7, \"19\": 0.6, \"20\": 0.7, \"21\": 0.7}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.95,
+   0.6,
+   0.6,
+   0.6,
+   0.7,
+   0.9,
+   0.95,
+   0.9,
+   0.8,
+   0.85,
+   0.5,
+   0.7,
+   0.5,
+   0.5,
+   0.7,
+   0.6,
+   0.8,
+   0.6,
+   0.7,
+   0.6,
+   0.7,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2f645ec5459b9044b2845135e571ad1825e2512681748f4cfd610b7afd22eac2",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 356,
+     "completion_tokens": 1348,
+     "total_tokens": 1704,
+     "cost": 0.00036624,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00036624,
+      "upstream_inference_prompt_cost": 4.272e-05,
+      "upstream_inference_completions_cost": 0.00032352
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1127,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.9, \"1\": 0.7, \"2\": 0.65, \"3\": 0.7, \"4\": 0.75, \"5\": 0.85, \"6\": 0.9, \"7\": 0.85, \"8\": 0.7, \"9\": 0.85, \"10\": 0.6, \"11\": 0.65, \"12\": 0.5, \"13\": 0.6, \"14\": 0.7, \"15\": 0.65, \"16\": 0.8, \"17\": 0.7, \"18\": 0.6, \"19\": 0.6, \"20\": 0.75, \"21\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.9,
+   0.7,
+   0.65,
+   0.7,
+   0.75,
+   0.85,
+   0.9,
+   0.85,
+   0.7,
+   0.85,
+   0.6,
+   0.65,
+   0.5,
+   0.6,
+   0.7,
+   0.65,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.75,
+   0.6
+  ]
+ }
+}

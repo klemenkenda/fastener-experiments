@@ -1,0 +1,490 @@
+{
+ "dataset": "qsar_biodeg",
+ "model": "qwen/qwen3-14b",
+ "variables": [
+  "SpMax_L",
+  "J_Dz(e)",
+  "nHM",
+  "F01[N-N]",
+  "F04[C-N]",
+  "NssssC",
+  "nCb-",
+  "C%",
+  "nCp",
+  "nO",
+  "F03[C-N]",
+  "SdssC",
+  "HyWi_B(m)",
+  "LOC",
+  "SM6_L",
+  "F03[C-O]",
+  "Me",
+  "Mi",
+  "nN-N",
+  "nArNO2",
+  "nCRX3",
+  "SpPosA_B(p)",
+  "nCIR",
+  "B01[C-Br]",
+  "B03[C-Cl]",
+  "N-073",
+  "SpMax_A",
+  "Psi_i_1d",
+  "B04[C-Br]",
+  "SdO",
+  "TI2_L",
+  "nCrt",
+  "C-026",
+  "F02[C-N]",
+  "nHDon",
+  "SpMax_B(m)",
+  "Psi_i_A",
+  "nN",
+  "SM6_B(m)",
+  "nArCOOR",
+  "nX"
+ ],
+ "P1a": {
+  "key": "55192a030d3c7a06a23d1b7066e1dd8f89d15fbeb54b015950f340e297529f20",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 118,
+   "completion_tokens": 372,
+   "total_tokens": 490,
+   "cost": 0.00010344,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00010344,
+    "upstream_inference_prompt_cost": 1.416e-05,
+    "upstream_inference_completions_cost": 8.928e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 384,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Biodeg\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.95}"
+ },
+ "P1b": {
+  "key": "6f5d66335c5db2fac82e2a13196551b4d118952b5b4e4d20cedfade2f1f5331f",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 287,
+   "completion_tokens": 1220,
+   "total_tokens": 1507,
+   "cost": 0.00032724,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00032724,
+    "upstream_inference_prompt_cost": 3.444e-05,
+    "upstream_inference_completions_cost": 0.0002928
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 1305,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"unknown\", \"source\": \"unknown\", \"confidence\": 0.3}"
+ },
+ "P2": {
+  "key": "6481d96f9187c007a096c8ee30226ce14dfa00c7f01e7dfaa1dc021a5c283884",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 109,
+   "completion_tokens": 16000,
+   "total_tokens": 16109,
+   "cost": 0.00385308,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00385308,
+    "upstream_inference_prompt_cost": 1.308e-05,
+    "upstream_inference_completions_cost": 0.00384
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 7713,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": ""
+ },
+ "P3": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "afa406ad93cce05fb458fd89f9b22cc448884fe1849e5baaff2a8a3951cfd287",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 292,
+     "completion_tokens": 793,
+     "total_tokens": 1085,
+     "cost": 0.00022536,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00022536,
+      "upstream_inference_prompt_cost": 3.504e-05,
+      "upstream_inference_completions_cost": 0.00019032
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 519,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.5, \"2\": 0.7, \"3\": 0.4, \"4\": 0.3, \"5\": 0.8, \"6\": 0.2, \"7\": 0.5, \"8\": 0.6, \"9\": 0.4, \"10\": 0.7, \"11\": 0.3, \"12\": 0.5, \"13\": 0.6, \"14\": 0.4, \"15\": 0.2, \"16\": 0.7, \"17\": 0.5, \"18\": 0.3, \"19\": 0.6, \"20\": 0.4, \"21\": 0.8, \"22\": 0.2, \"23\": 0.5, \"24\": 0.7, \"25\": 0.3, \"26\": 0.6, \"27\": 0.4, \"28\": 0.5, \"29\": 0.2, \"30\": 0.7, \"31\": 0.3, \"32\": 0.6, \"33\": 0.4, \"34\": 0.5, \"35\": 0.2, \"36\": 0.7, \"37\": 0.3, \"38\": 0.6, \"39\": 0.4, \"40\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.7,
+   0.4,
+   0.3,
+   0.8,
+   0.2,
+   0.5,
+   0.6,
+   0.4,
+   0.7,
+   0.3,
+   0.5,
+   0.6,
+   0.4,
+   0.2,
+   0.7,
+   0.5,
+   0.3,
+   0.6,
+   0.4,
+   0.8,
+   0.2,
+   0.5,
+   0.7,
+   0.3,
+   0.6,
+   0.4,
+   0.5,
+   0.2,
+   0.7,
+   0.3,
+   0.6,
+   0.4,
+   0.5,
+   0.2,
+   0.7,
+   0.3,
+   0.6,
+   0.4,
+   0.5
+  ]
+ },
+ "P3f": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2ed2c499510539c1e37c3b3e2031bcf54ba4d05cbe8b99f23874e9be5abcfa79",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 282,
+     "completion_tokens": 1049,
+     "total_tokens": 1331,
+     "cost": 0.00025898,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00025898,
+      "upstream_inference_prompt_cost": 2.82e-05,
+      "upstream_inference_completions_cost": 0.00023078
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 802,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5, \"37\": 0.5, \"38\": 0.5, \"39\": 0.5, \"40\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "760b6576f75fcea2030fbc967ba587af90ee4c3bf23a5640ea74bf1da42ce657",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 456,
+     "completion_tokens": 1660,
+     "total_tokens": 2116,
+     "cost": 0.00045312,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00045312,
+      "upstream_inference_prompt_cost": 5.472e-05,
+      "upstream_inference_completions_cost": 0.0003984
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1294,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.6, \"1\": 0.5, \"2\": 0.7, \"3\": 0.6, \"4\": 0.7, \"5\": 0.5, \"6\": 0.6, \"7\": 0.7, \"8\": 0.6, \"9\": 0.8, \"10\": 0.6, \"11\": 0.5, \"12\": 0.7, \"13\": 0.5, \"14\": 0.7, \"15\": 0.7, \"16\": 0.6, \"17\": 0.5, \"18\": 0.6, \"19\": 0.7, \"20\": 0.5, \"21\": 0.6, \"22\": 0.6, \"23\": 0.5, \"24\": 0.5, \"25\": 0.3, \"26\": 0.6, \"27\": 0.6, \"28\": 0.5, \"29\": 0.7, \"30\": 0.6, \"31\": 0.4, \"32\": 0.3, \"33\": 0.6, \"34\": 0.7, \"35\": 0.6, \"36\": 0.6, \"37\": 0.7, \"38\": 0.7, \"39\": 0.7, \"40\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.6,
+   0.8,
+   0.6,
+   0.5,
+   0.7,
+   0.5,
+   0.7,
+   0.7,
+   0.6,
+   0.5,
+   0.6,
+   0.7,
+   0.5,
+   0.6,
+   0.6,
+   0.5,
+   0.5,
+   0.3,
+   0.6,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.4,
+   0.3,
+   0.6,
+   0.7,
+   0.6,
+   0.6,
+   0.7,
+   0.7,
+   0.7,
+   0.5
+  ]
+ },
+ "P5": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b5a58259a4b65d9293c1628b30f4b3d1461fa07f197488c385fb2b2244a479ed",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 423,
+     "completion_tokens": 1948,
+     "total_tokens": 2371,
+     "cost": 0.00047086,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00047086,
+      "upstream_inference_prompt_cost": 4.23e-05,
+      "upstream_inference_completions_cost": 0.00042856
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1663,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.3, \"1\": 0.2, \"2\": 0.5, \"3\": 0.4, \"4\": 0.4, \"5\": 0.3, \"6\": 0.3, \"7\": 0.4, \"8\": 0.3, \"9\": 0.5, \"10\": 0.4, \"11\": 0.3, \"12\": 0.3, \"13\": 0.2, \"14\": 0.3, \"15\": 0.4, \"16\": 0.2, \"17\": 0.2, \"18\": 0.3, \"19\": 0.5, \"20\": 0.2, \"21\": 0.3, \"22\": 0.2, \"23\": 0.3, \"24\": 0.3, \"25\": 0.2, \"26\": 0.3, \"27\": 0.2, \"28\": 0.3, \"29\": 0.3, \"30\": 0.2, \"31\": 0.2, \"32\": 0.2, \"33\": 0.4, \"34\": 0.6, \"35\": 0.3, \"36\": 0.2, \"37\": 0.4, \"38\": 0.2, \"39\": 0.6, \"40\": 0.4}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.2,
+   0.5,
+   0.4,
+   0.4,
+   0.3,
+   0.3,
+   0.4,
+   0.3,
+   0.5,
+   0.4,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.4,
+   0.2,
+   0.2,
+   0.3,
+   0.5,
+   0.2,
+   0.3,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.3,
+   0.2,
+   0.3,
+   0.3,
+   0.2,
+   0.2,
+   0.2,
+   0.4,
+   0.6,
+   0.3,
+   0.2,
+   0.4,
+   0.2,
+   0.6,
+   0.4
+  ]
+ }
+}

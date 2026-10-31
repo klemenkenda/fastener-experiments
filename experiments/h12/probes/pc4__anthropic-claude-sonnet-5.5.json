@@ -1,0 +1,470 @@
+{
+ "dataset": "pc4",
+ "model": "anthropic/claude-sonnet-5.5",
+ "variables": [
+  "LOC_BLANK",
+  "BRANCH_COUNT",
+  "CALL_PAIRS",
+  "LOC_CODE_AND_COMMENT",
+  "LOC_COMMENTS",
+  "CONDITION_COUNT",
+  "CYCLOMATIC_COMPLEXITY",
+  "CYCLOMATIC_DENSITY",
+  "DECISION_COUNT",
+  "DECISION_DENSITY",
+  "DESIGN_COMPLEXITY",
+  "DESIGN_DENSITY",
+  "EDGE_COUNT",
+  "ESSENTIAL_COMPLEXITY",
+  "ESSENTIAL_DENSITY",
+  "LOC_EXECUTABLE",
+  "PARAMETER_COUNT",
+  "HALSTEAD_CONTENT",
+  "HALSTEAD_DIFFICULTY",
+  "HALSTEAD_EFFORT",
+  "HALSTEAD_ERROR_EST",
+  "HALSTEAD_LENGTH",
+  "HALSTEAD_LEVEL",
+  "HALSTEAD_PROG_TIME",
+  "HALSTEAD_VOLUME",
+  "MAINTENANCE_SEVERITY",
+  "MODIFIED_CONDITION_COUNT",
+  "MULTIPLE_CONDITION_COUNT",
+  "NODE_COUNT",
+  "NORMALIZED_CYLOMATIC_COMPLEXITY",
+  "NUM_OPERANDS",
+  "NUM_OPERATORS",
+  "NUM_UNIQUE_OPERANDS",
+  "NUM_UNIQUE_OPERATORS",
+  "NUMBER_OF_LINES",
+  "PERCENT_COMMENTS",
+  "LOC_TOTAL"
+ ],
+ "P1a": {
+  "key": "89f32593ebfa71b40c0caa79520e3bc5cdf5b3a67801cb9cea808a84838d9472",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 142,
+   "completion_tokens": 313,
+   "total_tokens": 455,
+   "cost": 0.003414,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.003414,
+    "upstream_inference_prompt_cost": 0.000284,
+    "upstream_inference_completions_cost": 0.00313
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 230,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"PC4 (NASA MDP software defect prediction data set)\", \"source\": \"NASA Metrics Data Program / PROMISE repository; also on OpenML as 'pc4' (ID 1049)\", \"confidence\": 0.8}"
+ },
+ "P1b": {
+  "key": "b85fa60f396ea8da2ffab00b400f54aa96ee27ef22b321d855e0484b8d4bb1cf",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 649,
+   "completion_tokens": 333,
+   "total_tokens": 982,
+   "cost": 0.004628,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.004628,
+    "upstream_inference_prompt_cost": 0.001298,
+    "upstream_inference_completions_cost": 0.00333
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "This feature list matches the NASA MDP (Metrics Data Program) software defect data sets, in the cleaned versions of Shepperd et al. The 37 features with no \"Error\" columns, including LOC_BLANK, PERCENT_COMMENTS and NUMBER_OF_LINES, are consistent with the PC1 data set. Other NASA sets such as KC1, JM1, CM1 and PC2 have different feature counts or sets. PC1 has 21 features in the original PROMISE version. The 37-feature layout points to the MDP version used for PC3, PC4, MC1 and MW1, and possibly KC3, so I cannot pin down which one this is. I am picking PC4 as the most likely, but I am not confident in that choice.\n\n```json\n{\"name\": \"NASA MDP PC4 (software defect prediction)\", \"source\": \"NASA Metrics Data Program, cleaned by Shepperd et al. 2013 (PROMISE/OpenML)\", \"confidence\": 0.3}\n```"
+ },
+ "P2": {
+  "key": "7ceabf10330fdb1a447474738652d69819513d6c89fe617d62ec04e48e09504b",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 126,
+   "completion_tokens": 1255,
+   "total_tokens": 1381,
+   "cost": 0.012802,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.012802,
+    "upstream_inference_prompt_cost": 0.000252,
+    "upstream_inference_completions_cost": 0.01255
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 724,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"LOC_BLANK\",\"BRANCH_COUNT\",\"CALL_PAIRS\",\"LOC_CODE_AND_COMMENT\",\"LOC_COMMENTS\",\"CONDITION_COUNT\",\"CYCLOMATIC_COMPLEXITY\",\"CYCLOMATIC_DENSITY\",\"DECISION_COUNT\",\"DECISION_DENSITY\",\"DESIGN_COMPLEXITY\",\"DESIGN_DENSITY\",\"EDGE_COUNT\",\"ESSENTIAL_COMPLEXITY\",\"ESSENTIAL_DENSITY\",\"LOC_EXECUTABLE\",\"PARAMETER_COUNT\",\"HALSTEAD_CONTENT\",\"HALSTEAD_DIFFICULTY\",\"HALSTEAD_EFFORT\",\"HALSTEAD_ERROR_EST\",\"HALSTEAD_LENGTH\",\"HALSTEAD_LEVEL\",\"HALSTEAD_PROG_TIME\",\"HALSTEAD_VOLUME\",\"MAINTENANCE_SEVERITY\",\"MODIFIED_CONDITION_COUNT\",\"MULTIPLE_CONDITION_COUNT\",\"NODE_COUNT\",\"NORMALIZED_CYLOMATIC_COMPLEXITY\",\"NUM_OPERANDS\",\"NUM_OPERATORS\",\"NUM_UNIQUE_OPERANDS\",\"NUM_UNIQUE_OPERATORS\",\"NUMBER_OF_LINES\",\"PERCENT_COMMENTS\",\"LOC_TOTAL\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "981522a125a346ae4abd47c2fdbfdc09495fd533da4d57002d976ced2a2e88ed",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 287,
+     "completion_tokens": 1948,
+     "total_tokens": 2235,
+     "cost": 0.020054,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.020054,
+      "upstream_inference_prompt_cost": 0.000574,
+      "upstream_inference_completions_cost": 0.01948
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1680,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\":{\"0\":0.5,\"1\":0.5,\"2\":0.4,\"3\":0.25,\"4\":0.45,\"5\":0.5,\"6\":0.5,\"7\":0.35,\"8\":0.5,\"9\":0.3,\"10\":0.45,\"11\":0.35,\"12\":0.55,\"13\":0.4,\"14\":0.35,\"15\":0.6,\"16\":0.4,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.55,\"21\":0.6,\"22\":0.4,\"23\":0.5,\"24\":0.6,\"25\":0.35,\"26\":0.5,\"27\":0.5,\"28\":0.55,\"29\":0.35,\"30\":0.58,\"31\":0.58,\"32\":0.55,\"33\":0.5,\"34\":0.58,\"35\":0.4,\"36\":0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.25,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.4,
+   0.25,
+   0.45,
+   0.5,
+   0.5,
+   0.35,
+   0.5,
+   0.3,
+   0.45,
+   0.35,
+   0.55,
+   0.4,
+   0.35,
+   0.6,
+   0.4,
+   0.5,
+   0.5,
+   0.5,
+   0.55,
+   0.6,
+   0.4,
+   0.5,
+   0.6,
+   0.35,
+   0.5,
+   0.5,
+   0.55,
+   0.35,
+   0.58,
+   0.58,
+   0.55,
+   0.5,
+   0.58,
+   0.4,
+   0.6
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "2499e80d84f651155d1bf6b8ef43b105e4d0d5d2e736e02198605300da9c2970",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 281,
+     "completion_tokens": 352,
+     "total_tokens": 633,
+     "cost": 0.004082,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.004082,
+      "upstream_inference_prompt_cost": 0.000562,
+      "upstream_inference_completions_cost": 0.00352
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I have no names, values, or any other information about these features, so I cannot tell which ones help predict the class. The scores below are therefore uninformative placeholders and carry no real ranking. I gave every feature the same moderate score of 0.3 rather than inventing differences.\n\n{\"scores\": {\"0\":0.3,\"1\":0.3,\"2\":0.3,\"3\":0.3,\"4\":0.3,\"5\":0.3,\"6\":0.3,\"7\":0.3,\"8\":0.3,\"9\":0.3,\"10\":0.3,\"11\":0.3,\"12\":0.3,\"13\":0.3,\"14\":0.3,\"15\":0.3,\"16\":0.3,\"17\":0.3,\"18\":0.3,\"19\":0.3,\"20\":0.3,\"21\":0.3,\"22\":0.3,\"23\":0.3,\"24\":0.3,\"25\":0.3,\"26\":0.3,\"27\":0.3,\"28\":0.3,\"29\":0.3,\"30\":0.3,\"31\":0.3,\"32\":0.3,\"33\":0.3,\"34\":0.3,\"35\":0.3,\"36\":0.3}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3,
+   0.3
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "dada738258709317dbadef985bd6a1ba9fef09bf11f3d07285095a4a08117a91",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 777,
+     "completion_tokens": 305,
+     "total_tokens": 1082,
+     "cost": 0.004604,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.004604,
+      "upstream_inference_prompt_cost": 0.001554,
+      "upstream_inference_completions_cost": 0.00305
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.45, \"2\": 0.35, \"3\": 0.2, \"4\": 0.45, \"5\": 0.45, \"6\": 0.45, \"7\": 0.4, \"8\": 0.45, \"9\": 0.35, \"10\": 0.4, \"11\": 0.4, \"12\": 0.5, \"13\": 0.35, \"14\": 0.35, \"15\": 0.55, \"16\": 0.35, \"17\": 0.5, \"18\": 0.45, \"19\": 0.5, \"20\": 0.5, \"21\": 0.55, \"22\": 0.45, \"23\": 0.5, \"24\": 0.55, \"25\": 0.35, \"26\": 0.4, \"27\": 0.45, \"28\": 0.5, \"29\": 0.45, \"30\": 0.55, \"31\": 0.55, \"32\": 0.5, \"33\": 0.45, \"34\": 0.55, \"35\": 0.45, \"36\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.45,
+   0.35,
+   0.2,
+   0.45,
+   0.45,
+   0.45,
+   0.4,
+   0.45,
+   0.35,
+   0.4,
+   0.4,
+   0.5,
+   0.35,
+   0.35,
+   0.55,
+   0.35,
+   0.5,
+   0.45,
+   0.5,
+   0.5,
+   0.55,
+   0.45,
+   0.5,
+   0.55,
+   0.35,
+   0.4,
+   0.45,
+   0.5,
+   0.45,
+   0.55,
+   0.55,
+   0.5,
+   0.45,
+   0.55,
+   0.45,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "b63bf180f38be89592f9408a38c962f98736eb02d3d53f532b84b7db8f9b6cc5",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 741,
+     "completion_tokens": 305,
+     "total_tokens": 1046,
+     "cost": 0.004532,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.004532,
+      "upstream_inference_prompt_cost": 0.001482,
+      "upstream_inference_completions_cost": 0.00305
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.45, \"1\": 0.4, \"2\": 0.1, \"3\": 0.25, \"4\": 0.35, \"5\": 0.4, \"6\": 0.45, \"7\": 0.35, \"8\": 0.4, \"9\": 0.2, \"10\": 0.4, \"11\": 0.3, \"12\": 0.45, \"13\": 0.35, \"14\": 0.3, \"15\": 0.55, \"16\": 0.3, \"17\": 0.5, \"18\": 0.45, \"19\": 0.5, \"20\": 0.5, \"21\": 0.55, \"22\": 0.45, \"23\": 0.5, \"24\": 0.55, \"25\": 0.3, \"26\": 0.35, \"27\": 0.4, \"28\": 0.45, \"29\": 0.4, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.4, \"34\": 0.55, \"35\": 0.35, \"36\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.45,
+   0.4,
+   0.1,
+   0.25,
+   0.35,
+   0.4,
+   0.45,
+   0.35,
+   0.4,
+   0.2,
+   0.4,
+   0.3,
+   0.45,
+   0.35,
+   0.3,
+   0.55,
+   0.3,
+   0.5,
+   0.45,
+   0.5,
+   0.5,
+   0.55,
+   0.45,
+   0.5,
+   0.55,
+   0.3,
+   0.35,
+   0.4,
+   0.45,
+   0.4,
+   0.5,
+   0.5,
+   0.5,
+   0.4,
+   0.55,
+   0.35,
+   0.6
+  ]
+ }
+}

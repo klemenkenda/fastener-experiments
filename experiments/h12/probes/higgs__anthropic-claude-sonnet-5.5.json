@@ -1,0 +1,425 @@
+{
+ "dataset": "higgs",
+ "model": "anthropic/claude-sonnet-5.5",
+ "variables": [
+  "lepton_pT",
+  "lepton_eta",
+  "lepton_phi",
+  "missing_energy_magnitude",
+  "missing_energy_phi",
+  "jet1pt",
+  "jet1eta",
+  "jet1phi",
+  "jet1b-tag",
+  "jet2pt",
+  "jet2eta",
+  "jet2phi",
+  "jet2b-tag",
+  "jet3pt",
+  "jet3eta",
+  "jet3phi",
+  "jet3b-tag",
+  "jet4pt",
+  "jet4eta",
+  "jet4phi",
+  "jet4b-tag",
+  "m_jj",
+  "m_jjj",
+  "m_lv",
+  "m_jlv",
+  "m_bb",
+  "m_wbb",
+  "m_wwbb"
+ ],
+ "P1a": {
+  "key": "c431314cf5ae4539e0dc7f79f383eacfc3b235a6dcf7b0f3e01bffd5dc464859",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 140,
+   "completion_tokens": 242,
+   "total_tokens": 382,
+   "cost": 0.0027,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0027,
+    "upstream_inference_prompt_cost": 0.00028,
+    "upstream_inference_completions_cost": 0.00242
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 136,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"HIGGS (OpenML subset of the UCI HIGGS data set)\", \"source\": \"Baldi, Sadowski & Whiteson 2014, 'Searching for exotic particles in high-energy physics with deep learning'; UCI ML Repository / OpenML\", \"confidence\": 0.6}"
+ },
+ "P1b": {
+  "key": "63b61800ad5f45e8d237a2bc33e7f27ea7998aab10c325692e785f10ed065d62",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 313,
+   "completion_tokens": 102,
+   "total_tokens": 415,
+   "cost": 0.001646,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.001646,
+    "upstream_inference_prompt_cost": 0.000626,
+    "upstream_inference_completions_cost": 0.00102
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"HIGGS\", \"source\": \"UCI Machine Learning Repository: HIGGS Data Set (Baldi, Sadowski, Whiteson, 'Searching for exotic particles in high-energy physics with deep learning', Nature Communications 2014)\", \"confidence\": 0.97}"
+ },
+ "P2": {
+  "key": "5a61c6b527a22e76d535d26bd5b130773ef1569bff043e936bdc7a17079b2ef8",
+  "served_model": "anthropic/claude-sonnet-5.5",
+  "usage": {
+   "prompt_tokens": 135,
+   "completion_tokens": 562,
+   "total_tokens": 697,
+   "cost": 0.00589,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00589,
+    "upstream_inference_prompt_cost": 0.00027,
+    "upstream_inference_completions_cost": 0.00562
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 335,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"lepton_pT\",\"lepton_eta\",\"lepton_phi\",\"missing_energy_magnitude\",\"missing_energy_phi\",\"jet_1_pt\",\"jet_1_eta\",\"jet_1_phi\",\"jet_1_b-tag\",\"jet_2_pt\",\"jet_2_eta\",\"jet_2_phi\",\"jet_2_b-tag\",\"jet_3_pt\",\"jet_3_eta\",\"jet_3_phi\",\"jet_3_b-tag\",\"jet_4_pt\",\"jet_4_eta\",\"jet_4_phi\",\"jet_4_b-tag\",\"m_jj\",\"m_jjj\",\"m_lv\",\"m_jlv\",\"m_bb\",\"m_wbb\",\"m_wwbb\"]}"
+ },
+ "P3": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "0177d136e766ef279c2cf21a36c56894fb99cebe1a747bfc23eb68c7f3296f66",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 278,
+     "completion_tokens": 673,
+     "total_tokens": 951,
+     "cost": 0.007286,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.007286,
+      "upstream_inference_prompt_cost": 0.000556,
+      "upstream_inference_completions_cost": 0.00673
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I'm relying on the known HIGGS column order, not on the data. Features 0-20 are low-level kinematics and 21-27 are high-level derived masses.\n\nLow-level features (0-20):\n- 0: lepton pT\n- 1: lepton eta\n- 2: lepton phi\n- 3: missing energy magnitude\n- 4: missing energy phi\n- 5-8: jet 1 pt, eta, phi, b-tag\n- 9-12: jet 2 pt, eta, phi, b-tag\n- 13-16: jet 3 pt, eta, phi, b-tag\n- 17-20: jet 4 pt, eta, phi, b-tag\n\nHigh-level features (21-27):\n- 21: m_jj\n- 22: m_jjj\n- 23: m_lv\n- 24: m_jlv\n- 25: m_bb\n- 26: m_wbb\n- 27: m_wwbb\n\nThe high-level masses are the most informative, particularly m_bb (25), m_wbb (26) and m_wwbb (27). m_jjj (22) and m_jlv (24) also help, while m_jj (21) is moderate and m_lv (23) is weaker. Among the low-level features, lepton pT (0), missing energy (3) and the jet pTs (5, 9, 13) carry the most signal. Angles (phi) and etas are largely useless individually. The b-tag features carry some signal, so I rate them moderate.\n\n\n{\"scores\":{\"0\":0.4,\"1\":0.08,\"2\":0.03,\"3\":0.3,\"4\":0.03,\"5\":0.35,\"6\":0.08,\"7\":0.03,\"8\":0.2,\"9\":0.3,\"10\":0.07,\"11\":0.03,\"12\":0.25,\"13\":0.25,\"14\":0.07,\"15\":0.03,\"16\":0.3,\"17\":0.2,\"18\":0.07,\"19\":0.03,\"20\":0.2,\"21\":0.55,\"22\":0.5,\"23\":0.35,\"24\":0.5,\"25\":0.85,\"26\":0.7,\"27\":0.7}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.03,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.4,
+   0.08,
+   0.03,
+   0.3,
+   0.03,
+   0.35,
+   0.08,
+   0.03,
+   0.2,
+   0.3,
+   0.07,
+   0.03,
+   0.25,
+   0.25,
+   0.07,
+   0.03,
+   0.3,
+   0.2,
+   0.07,
+   0.03,
+   0.2,
+   0.55,
+   0.5,
+   0.35,
+   0.5,
+   0.85,
+   0.7,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "9bfba8dc7bc53a183f33df67d09246bda6827feb0cc7ce987b8c834b6feb8529",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 263,
+     "completion_tokens": 300,
+     "total_tokens": 563,
+     "cost": 0.003526,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.003526,
+      "upstream_inference_prompt_cost": 0.000526,
+      "upstream_inference_completions_cost": 0.003
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I have no information about these features beyond their indices, so I cannot say which ones are actually predictive. The scores below are therefore uninformative priors, not real ratings. Each feature gets a similar mid-range value, with a very slight tilt toward earlier columns, since early columns are sometimes more important.\n\n{\"scores\": {\"0\":0.5,\"1\":0.5,\"2\":0.5,\"3\":0.5,\"4\":0.5,\"5\":0.5,\"6\":0.5,\"7\":0.5,\"8\":0.5,\"9\":0.5,\"10\":0.5,\"11\":0.5,\"12\":0.5,\"13\":0.5,\"14\":0.5,\"15\":0.5,\"16\":0.5,\"17\":0.5,\"18\":0.5,\"19\":0.5,\"20\":0.5,\"21\":0.5,\"22\":0.5,\"23\":0.5,\"24\":0.5,\"25\":0.5,\"26\":0.5,\"27\":0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 28 input features are numbered 0 to 27 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "a8d438e2fdb62fc72f1c6bbf79996aa706e839d70bea8692b027ebe31617e7c4",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 430,
+     "completion_tokens": 233,
+     "total_tokens": 663,
+     "cost": 0.00319,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00319,
+      "upstream_inference_prompt_cost": 0.00086,
+      "upstream_inference_completions_cost": 0.00233
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.35, \"1\": 0.03, \"2\": 0.02, \"3\": 0.3, \"4\": 0.02, \"5\": 0.3, \"6\": 0.03, \"7\": 0.02, \"8\": 0.12, \"9\": 0.28, \"10\": 0.03, \"11\": 0.02, \"12\": 0.15, \"13\": 0.25, \"14\": 0.03, \"15\": 0.02, \"16\": 0.15, \"17\": 0.2, \"18\": 0.03, \"19\": 0.02, \"20\": 0.12, \"21\": 0.35, \"22\": 0.3, \"23\": 0.2, \"24\": 0.3, \"25\": 0.75, \"26\": 0.65, \"27\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.02,
+  "header": [
+   "Data set: HIGGS (Baldi, Sadowski and Whiteson 2014; UCI 280; OpenML 23512).",
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.35,
+   0.03,
+   0.02,
+   0.3,
+   0.02,
+   0.3,
+   0.03,
+   0.02,
+   0.12,
+   0.28,
+   0.03,
+   0.02,
+   0.15,
+   0.25,
+   0.03,
+   0.02,
+   0.15,
+   0.2,
+   0.03,
+   0.02,
+   0.12,
+   0.35,
+   0.3,
+   0.2,
+   0.3,
+   0.75,
+   0.65,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "anthropic/claude-sonnet-5.5",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "35f96f2bb8dc4eda30a525a888c3001c4c9f2f461da8456877d1c32a89f753e7",
+    "served_model": "anthropic/claude-sonnet-5.5",
+    "usage": {
+     "prompt_tokens": 385,
+     "completion_tokens": 747,
+     "total_tokens": 1132,
+     "cost": 0.00824,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00824,
+      "upstream_inference_prompt_cost": 0.00077,
+      "upstream_inference_completions_cost": 0.00747
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "This looks like the HIGGS dataset: 21 low-level kinematic features followed by 7 high-level invariant-mass features. I'm scoring from what I remember of that dataset, not from the data itself.\n\nIn HIGGS, the high-level mass features carry most of the signal. m_bb is the strongest, followed by m_wwbb and m_wbb. The other mass features (m_jj, m_jjj, m_lv, m_jlv) are weaker. Among the low-level features, lepton_pT, the jet pTs and missing_energy_magnitude have modest value. The eta and phi angles are close to useless on their own, and the b-tag features carry some information.\n\n| Feature(s) | Score |\n|---|---|\n| m_bb | 0.95 |\n| m_wwbb | 0.8 |\n| m_wbb | 0.7 |\n| m_jjj, m_jlv | 0.4 |\n| m_jj | 0.5 |\n| m_lv | 0.15 |\n| lepton_pT | 0.35 |\n| missing_energy_magnitude | 0.3 |\n| jet1pt | 0.3 |\n| jet2pt | 0.25 |\n| jet3pt | 0.2 |\n| jet4pt | 0.2 |\n| jet2b-tag | 0.3 |\n| jet1b-tag | 0.25 |\n| jet3b-tag | 0.2 |\n| jet4b-tag | 0.15 |\n| eta and phi features | 0.03\u20130.05 |\n\nI gave m_jjj and m_jlv the same score. The jet b-tag scores are rough guesses, not recalled rankings.\n\n```json\n{\"scores\": {\"0\":0.35,\"1\":0.04,\"2\":0.02,\"3\":0.3,\"4\":0.02,\"5\":0.3,\"6\":0.04,\"7\":0.02,\"8\":0.25,\"9\":0.25,\"10\":0.04,\"11\":0.02,\"12\":0.3,\"13\":0.2,\"14\":0.04,\"15\":0.02,\"16\":0.2,\"17\":0.2,\"18\":0.04,\"19\":0.02,\"20\":0.15,\"21\":0.5,\"22\":0.4,\"23\":0.15,\"24\":0.4,\"25\":0.95,\"26\":0.7,\"27\":0.8}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.02,
+  "header": [
+   "Classes: background, signal"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.35,
+   0.04,
+   0.02,
+   0.3,
+   0.02,
+   0.3,
+   0.04,
+   0.02,
+   0.25,
+   0.25,
+   0.04,
+   0.02,
+   0.3,
+   0.2,
+   0.04,
+   0.02,
+   0.2,
+   0.2,
+   0.04,
+   0.02,
+   0.15,
+   0.5,
+   0.4,
+   0.15,
+   0.4,
+   0.95,
+   0.7,
+   0.8
+  ]
+ }
+}

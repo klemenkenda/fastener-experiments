@@ -1,0 +1,436 @@
+{
+ "dataset": "eye_movements",
+ "model": "google/gemini-2.5-flash-lite",
+ "variables": [
+  "lineNo",
+  "assgNo",
+  "prevFixDur",
+  "firstfixDur",
+  "firstPassFixDur",
+  "nextFixDur",
+  "firstSaccLen",
+  "lastSaccLen",
+  "prevFixPos",
+  "landingPos",
+  "leavingPos",
+  "totalFixDur",
+  "meanFixDur",
+  "regressLen",
+  "regressDur",
+  "pupilDiamMax",
+  "pupilDiamLag",
+  "timePrtctg",
+  "titleNo",
+  "wordNo"
+ ],
+ "P1a": {
+  "key": "0cf641f3e210afdf9360313bf911b533f465bd273d8f656ebefdb416f0b6564a",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 104,
+   "completion_tokens": 29,
+   "total_tokens": 133,
+   "cost": 2.2e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.2e-05,
+    "upstream_inference_prompt_cost": 1.04e-05,
+    "upstream_inference_completions_cost": 1.16e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"unknown\",\n  \"source\": \"unknown\",\n  \"confidence\": 0.1\n}\n```"
+ },
+ "P1b": {
+  "key": "81cca725e15ffc68dab27f860af3ac14dc295eaae7a589e2b61dd001a2152a70",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 171,
+   "completion_tokens": 31,
+   "total_tokens": 202,
+   "cost": 2.95e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.95e-05,
+    "upstream_inference_prompt_cost": 1.71e-05,
+    "upstream_inference_completions_cost": 1.24e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"unknown\",\n  \"source\": \"unknown\",\n  \"confidence\": 0.0\n}\n```"
+ },
+ "P2": {
+  "key": "268fce943456d9e1ad6104e8918f33ce57db3a211d074cedc674b441617da1c2",
+  "served_model": "google/gemini-2.5-flash-lite",
+  "usage": {
+   "prompt_tokens": 103,
+   "completion_tokens": 32,
+   "total_tokens": 135,
+   "cost": 2.31e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.31e-05,
+    "upstream_inference_prompt_cost": 1.03e-05,
+    "upstream_inference_completions_cost": 1.28e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\"features\": [\"fixation_index\", \"x\", \"y\", \"duration\", \"subject\", \"image\", \"task\"]}\n```"
+ },
+ "P3": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "6b85abf4e1121d02404e03cef72f2bb939d98f2d4d852244f0c0e7ed65b173d0",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 228,
+     "completion_tokens": 430,
+     "total_tokens": 658,
+     "cost": 0.0001948,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001948,
+      "upstream_inference_prompt_cost": 2.28e-05,
+      "upstream_inference_completions_cost": 0.000172
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "The dataset is related to eye movements and was used in a challenge to infer relevance. This suggests that the features likely capture aspects of visual attention, gaze patterns, or related physiological signals. Without specific knowledge of what each feature represents, it's difficult to definitively assess their individual usefulness. However, given the nature of eye-tracking data, it's plausible that many features could be informative.\n\nHere's a breakdown of the reasoning for the scores:\n\n*   **Features 0-19:** I'm assigning a moderately high score (0.7) to all features. This is because in eye-tracking datasets, it's common for many different metrics derived from gaze position, pupil dilation, saccade characteristics, fixation durations, etc., to be predictive of the task or the user's cognitive state. It's unlikely that a significant portion of the features would be completely irrelevant. Some features might be more directly related to salient objects or task goals, while others might capture more subtle behavioral patterns.\n\n```json\n{\n  \"scores\": {\n    \"0\": 0.7,\n    \"1\": 0.7,\n    \"2\": 0.7,\n    \"3\": 0.7,\n    \"4\": 0.7,\n    \"5\": 0.7,\n    \"6\": 0.7,\n    \"7\": 0.7,\n    \"8\": 0.7,\n    \"9\": 0.7,\n    \"10\": 0.7,\n    \"11\": 0.7,\n    \"12\": 0.7,\n    \"13\": 0.7,\n    \"14\": 0.7,\n    \"15\": 0.7,\n    \"16\": 0.7,\n    \"17\": 0.7,\n    \"18\": 0.7,\n    \"19\": 0.7\n  }\n}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.7,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7,
+   0.7
+  ]
+ },
+ "P3f": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3af5d27b88802395b2186766e2190bade6a778e25fccb5a5bc72731791751d30",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 211,
+     "completion_tokens": 187,
+     "total_tokens": 398,
+     "cost": 9.59e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.59e-05,
+      "upstream_inference_prompt_cost": 2.11e-05,
+      "upstream_inference_completions_cost": 7.48e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I am sorry, but I cannot provide a usefulness score for the features without more information about the dataset. The 'Brenner field survey 2019' is an internal and unpublished dataset, and I do not have access to its content or metadata. To assess the usefulness of features, I would need to understand:\n\n*   **The nature of the data:** What do the features represent? Are they numerical, categorical, text, etc.?\n*   **The target variable:** What is the classification task? What are the classes?\n*   **The relationships between features and the class:** How do the features relate to the outcome?\n\nWithout this context, any score I provide would be purely speculative and not based on any meaningful analysis.\n\nIf you can provide more details about the dataset, such as a description of the features and the classification problem, I would be happy to try and provide an informed assessment.",
+    "parsed_as": "pairs",
+    "retry": false
+   },
+   {
+    "key": "3af5d27b88802395b2186766e2190bade6a778e25fccb5a5bc72731791751d30",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 211,
+     "completion_tokens": 187,
+     "total_tokens": 398,
+     "cost": 9.59e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.59e-05,
+      "upstream_inference_prompt_cost": 2.11e-05,
+      "upstream_inference_completions_cost": 7.48e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "I am sorry, but I cannot provide a usefulness score for the features without more information about the dataset. The 'Brenner field survey 2019' is an internal and unpublished dataset, and I do not have access to its content or metadata. To assess the usefulness of features, I would need to understand:\n\n*   **The nature of the data:** What do the features represent? Are they numerical, categorical, text, etc.?\n*   **The target variable:** What is the classification task? What are the classes?\n*   **The relationships between features and the class:** How do the features relate to the outcome?\n\nWithout this context, any score I provide would be purely speculative and not based on any meaningful analysis.\n\nIf you can provide more details about the dataset, such as a description of the features and the classification problem, I would be happy to try and provide an informed assessment.",
+    "parsed_as": "pairs",
+    "retry": true
+   }
+  ],
+  "missing": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19
+  ],
+  "fill": 0.0,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 20 input features are numbered 0 to 19 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "P4": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "71bd293541bc65152b863d45de5b2fe76912c11039498d1344b16739b7d23dc7",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 277,
+     "completion_tokens": 178,
+     "total_tokens": 455,
+     "cost": 9.89e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.89e-05,
+      "upstream_inference_prompt_cost": 2.77e-05,
+      "upstream_inference_completions_cost": 7.12e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.1, \"1\": 0.1, \"2\": 0.6, \"3\": 0.7, \"4\": 0.6, \"5\": 0.5, \"6\": 0.5, \"7\": 0.4, \"8\": 0.7, \"9\": 0.8, \"10\": 0.7, \"11\": 0.8, \"12\": 0.7, \"13\": 0.4, \"14\": 0.4, \"15\": 0.3, \"16\": 0.3, \"17\": 0.6, \"18\": 0.1, \"19\": 0.2}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Data set: Eye movements (PASCAL 'Inferring relevance from eye movements' challenge 2005; OpenML 1044, 44130).",
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.1,
+   0.6,
+   0.7,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.7,
+   0.8,
+   0.7,
+   0.8,
+   0.7,
+   0.4,
+   0.4,
+   0.3,
+   0.3,
+   0.6,
+   0.1,
+   0.2
+  ]
+ },
+ "P5": {
+  "model": "google/gemini-2.5-flash-lite",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3e3a31e42722e4e2fdbb33bf98bdf686a647f7e57244a85579b22ed9fe900ccc",
+    "served_model": "google/gemini-2.5-flash-lite",
+    "usage": {
+     "prompt_tokens": 237,
+     "completion_tokens": 177,
+     "total_tokens": 414,
+     "cost": 9.45e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.45e-05,
+      "upstream_inference_prompt_cost": 2.37e-05,
+      "upstream_inference_completions_cost": 7.08e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\"scores\": {\"0\": 0.1, \"1\": 0.1, \"2\": 0.6, \"3\": 0.7, \"4\": 0.6, \"5\": 0.5, \"6\": 0.4, \"7\": 0.4, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.8, \"12\": 0.7, \"13\": 0.3, \"14\": 0.3, \"15\": 0.2, \"16\": 0.2, \"17\": 0.4, \"18\": 0.1, \"19\": 0.3}}\n```",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.1,
+  "header": [
+   "Classes: class 0, class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.1,
+   0.1,
+   0.6,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.4,
+   0.5,
+   0.5,
+   0.5,
+   0.8,
+   0.7,
+   0.3,
+   0.3,
+   0.2,
+   0.2,
+   0.4,
+   0.1,
+   0.3
+  ]
+ }
+}

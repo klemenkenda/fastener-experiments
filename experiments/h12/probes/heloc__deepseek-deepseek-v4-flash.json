@@ -1,0 +1,395 @@
+{
+ "dataset": "heloc",
+ "model": "deepseek/deepseek-v4-flash",
+ "variables": [
+  "ExternalRiskEstimate",
+  "MSinceOldestTradeOpen",
+  "MSinceMostRecentTradeOpen",
+  "AverageMInFile",
+  "NumSatisfactoryTrades",
+  "NumTrades60Ever2DerogPubRec",
+  "NumTrades90Ever2DerogPubRec",
+  "PercentTradesNeverDelq",
+  "MSinceMostRecentDelq",
+  "MaxDelq2PublicRecLast12M",
+  "NumTotalTrades",
+  "NumTradesOpeninLast12M",
+  "PercentInstallTrades",
+  "MSinceMostRecentInqexcl7days",
+  "NumInqLast6M",
+  "NumInqLast6Mexcl7days",
+  "NetFractionRevolvingBurden",
+  "NetFractionInstallBurden",
+  "NumRevolvingTradesWBalance",
+  "NumInstallTradesWBalance",
+  "NumBank2NatlTradesWHighUtilization",
+  "PercentTradesWBalance"
+ ],
+ "P1a": {
+  "key": "5fdff94c19715b0e1dc0ccaef2d98617c31f002a2fce89c722093d238c0eb1ef",
+  "served_model": "deepseek/deepseek-v4-flash",
+  "usage": {
+   "prompt_tokens": 187,
+   "completion_tokens": 762,
+   "total_tokens": 949,
+   "cost": 0.0001447082,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 151,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.0001447082,
+    "upstream_inference_prompt_cost": 6.0242e-06,
+    "upstream_inference_completions_cost": 0.000138684
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 706,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"FICO Home Equity Line of Credit (HELOC) dataset\", \"source\": \"FICO Explainability Challenge, https://community.fico.com/s/explainable-machine-learning-challenge\", \"confidence\": 0.95}"
+ },
+ "P1b": {
+  "key": "12d8e7f77bd3df925287405ecab2e4f2aa0228f560590641a2f12bb8a1795ca7",
+  "served_model": "deepseek/deepseek-v4-flash",
+  "usage": {
+   "prompt_tokens": 261,
+   "completion_tokens": 36,
+   "total_tokens": 297,
+   "cost": 2.997e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.997e-05,
+    "upstream_inference_prompt_cost": 2.349e-05,
+    "upstream_inference_completions_cost": 6.48e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Give Me Some Credit\", \"source\": \"https://www.kaggle.com/c/GiveMeSomeCredit\", \"confidence\": 0.95}"
+ },
+ "P2": {
+  "key": "3bef58e657c75024848cbcee66b00fad9d23609065a214c022ad2bed9c030bb5",
+  "served_model": "deepseek/deepseek-v4-flash",
+  "usage": {
+   "prompt_tokens": 92,
+   "completion_tokens": 203,
+   "total_tokens": 295,
+   "cost": 4.482e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 4.482e-05,
+    "upstream_inference_prompt_cost": 8.28e-06,
+    "upstream_inference_completions_cost": 3.654e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"ExternalRiskEstimate\", \"MSinceOldestTradeOpen\", \"MSinceMostRecentTradeOpen\", \"AverageMInFile\", \"NumSatisfactoryTrades\", \"NumTrades60Ever2DerogPubRec\", \"NumTrades90Ever2DerogPubRec\", \"PercentTradesNeverDelq\", \"MSinceMostRecentDelq\", \"MaxDelq2PublicRecLast12M\", \"MaxDelqEver\", \"NumTotalTrades\", \"NumTradesOpeninLast12M\", \"PercentInstallTrades\", \"MSinceMostRecentInqexcl7days\", \"NumInqLast6M\", \"NumInqLast6Mexcl7days\", \"NetFractionRevolvingBurden\", \"NetFractionInstallBurden\", \"NumRevolvingTradesWBalance\", \"NumInstallTradesWBalance\", \"NumBank2NatlTradesWHighUtilization\", \"PercentTradesWBalance\"]}"
+ },
+ "P3": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "3efb6dd3e07cb96d086e1d005a145ec4752a26d3190eb4fe7a09f35ff4733db5",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 282,
+     "completion_tokens": 6969,
+     "total_tokens": 7251,
+     "cost": 0.00127582,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 250,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00127582,
+      "upstream_inference_prompt_cost": 7.462e-06,
+      "upstream_inference_completions_cost": 0.001268358
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 6785,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 1.0, \"1\": 0.95, \"2\": 0.45, \"3\": 0.95, \"4\": 0.3, \"5\": 0.85, \"6\": 0.3, \"7\": 0.7, \"8\": 0.5, \"9\": 0.5, \"10\": 0.8, \"11\": 0.65, \"12\": 0.5, \"13\": 0.45, \"14\": 0.7, \"15\": 0.6, \"16\": 0.35, \"17\": 0.75, \"18\": 0.85, \"19\": 0.6, \"20\": 0.45, \"21\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.95,
+   0.45,
+   0.95,
+   0.3,
+   0.85,
+   0.3,
+   0.7,
+   0.5,
+   0.5,
+   0.8,
+   0.65,
+   0.5,
+   0.45,
+   0.7,
+   0.6,
+   0.35,
+   0.75,
+   0.85,
+   0.6,
+   0.45,
+   0.6
+  ]
+ },
+ "P3f": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "8014f1267d8c2f4cdb3bddcbc4316506ae16627f50f06c95a1dc257f7f6b687d",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 199,
+     "completion_tokens": 181,
+     "total_tokens": 380,
+     "cost": 5.049e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 5.049e-05,
+      "upstream_inference_prompt_cost": 1.791e-05,
+      "upstream_inference_completions_cost": 3.258e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 22 input features are numbered 0 to 21 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "c4c7b4bccd68be2968ada1cbb73a4525258d7c9fad0a99dab46ff45747a76949",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 432,
+     "completion_tokens": 2210,
+     "total_tokens": 2642,
+     "cost": 0.0010161,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0010161,
+      "upstream_inference_prompt_cost": 2.16e-05,
+      "upstream_inference_completions_cost": 0.0009945
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1911,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 1.0, \"1\": 0.8, \"2\": 0.6, \"3\": 0.7, \"4\": 0.5, \"5\": 0.9, \"6\": 0.95, \"7\": 0.85, \"8\": 0.9, \"9\": 0.9, \"10\": 0.4, \"11\": 0.7, \"12\": 0.5, \"13\": 0.6, \"14\": 0.7, \"15\": 0.7, \"16\": 0.9, \"17\": 0.7, \"18\": 0.6, \"19\": 0.5, \"20\": 0.8, \"21\": 0.7}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: FICO HELOC (FICO Explainable Machine Learning Challenge 2018; OpenML 45026).",
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.8,
+   0.6,
+   0.7,
+   0.5,
+   0.9,
+   0.95,
+   0.85,
+   0.9,
+   0.9,
+   0.4,
+   0.7,
+   0.5,
+   0.6,
+   0.7,
+   0.7,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.8,
+   0.7
+  ]
+ },
+ "P5": {
+  "model": "deepseek/deepseek-v4-flash",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "d20b211cf676fe874feef6a9e8767c3c736152ec021c51fedb3d153d80cb8ad8",
+    "served_model": "deepseek/deepseek-v4-flash",
+    "usage": {
+     "prompt_tokens": 328,
+     "completion_tokens": 973,
+     "total_tokens": 1301,
+     "cost": 0.0002189873,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002189873,
+      "upstream_inference_prompt_cost": 3.16848e-05,
+      "upstream_inference_completions_cost": 0.0001873025
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 742,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 1.0, \"1\": 0.7, \"2\": 0.5, \"3\": 0.6, \"4\": 0.6, \"5\": 0.9, \"6\": 0.9, \"7\": 0.7, \"8\": 0.8, \"9\": 0.8, \"10\": 0.4, \"11\": 0.5, \"12\": 0.3, \"13\": 0.6, \"14\": 0.7, \"15\": 0.7, \"16\": 0.9, \"17\": 0.7, \"18\": 0.5, \"19\": 0.5, \"20\": 0.8, \"21\": 0.4}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Classes: risk performance class 0, risk performance class 1"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   1.0,
+   0.7,
+   0.5,
+   0.6,
+   0.6,
+   0.9,
+   0.9,
+   0.7,
+   0.8,
+   0.8,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.7,
+   0.9,
+   0.7,
+   0.5,
+   0.5,
+   0.8,
+   0.4
+  ]
+ }
+}

@@ -1,0 +1,490 @@
+{
+ "dataset": "qsar_biodeg",
+ "model": "microsoft/phi-4",
+ "variables": [
+  "SpMax_L",
+  "J_Dz(e)",
+  "nHM",
+  "F01[N-N]",
+  "F04[C-N]",
+  "NssssC",
+  "nCb-",
+  "C%",
+  "nCp",
+  "nO",
+  "F03[C-N]",
+  "SdssC",
+  "HyWi_B(m)",
+  "LOC",
+  "SM6_L",
+  "F03[C-O]",
+  "Me",
+  "Mi",
+  "nN-N",
+  "nArNO2",
+  "nCRX3",
+  "SpPosA_B(p)",
+  "nCIR",
+  "B01[C-Br]",
+  "B03[C-Cl]",
+  "N-073",
+  "SpMax_A",
+  "Psi_i_1d",
+  "B04[C-Br]",
+  "SdO",
+  "TI2_L",
+  "nCrt",
+  "C-026",
+  "F02[C-N]",
+  "nHDon",
+  "SpMax_B(m)",
+  "Psi_i_A",
+  "nN",
+  "SM6_B(m)",
+  "nArCOOR",
+  "nX"
+ ],
+ "P1a": {
+  "key": "d313a51e27630ab4b0839c5123f06753add743e7f233260ea9f66a153e347def",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 112,
+   "completion_tokens": 41,
+   "total_tokens": 153,
+   "cost": 1.358e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 1.358e-05,
+    "upstream_inference_prompt_cost": 7.84e-06,
+    "upstream_inference_completions_cost": 5.74e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"Biodegradability of Organic Compounds\",\n  \"source\": \"UCI Machine Learning Repository\",\n  \"confidence\": 0.9\n}\n```"
+ },
+ "P1b": {
+  "key": "c4091f66ac7137704a5d902fdf09a2097b54ad4a025b14cb9ee0dc128e3c7e5f",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 271,
+   "completion_tokens": 43,
+   "total_tokens": 314,
+   "cost": 2.499e-05,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 2.499e-05,
+    "upstream_inference_prompt_cost": 1.897e-05,
+    "upstream_inference_completions_cost": 6.02e-06
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"name\": \"MuvData\",\n  \"source\": \"https://archive.ics.uci.edu/ml/datasets/MuvData\",\n  \"confidence\": 1\n}\n```"
+ },
+ "P2": {
+  "key": "59cfdcce2070baf95be2ed20f26b6bfeaa7ca9cf529e37b67e874527b49ba3ff",
+  "served_model": "microsoft/phi-4",
+  "usage": {
+   "prompt_tokens": 102,
+   "completion_tokens": 961,
+   "total_tokens": 1063,
+   "cost": 0.00014168,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00014168,
+    "upstream_inference_prompt_cost": 7.14e-06,
+    "upstream_inference_completions_cost": 0.00013454
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 0,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "```json\n{\n  \"features\": [\n    \"MW\",\n    \"LogP\",\n    \"NumHAcceptors\",\n    \"NumHDonors\",\n    \"NumRotatableBonds\",\n    \"NumAliphaticRings\",\n    \"NumAromaticRings\",\n    \"NumHeteroatoms\",\n    \"NumSaturatedCarbocycles\",\n    \"NumUnsaturatedCarbocycles\",\n    \"NumSaturatedHeterocycles\",\n    \"NumUnsaturatedHeterocycles\",\n    \"NumAromaticCarbocycles\",\n    \"NumAromaticHeterocycles\",\n    \"FractionCSP3\",\n    \"FractionCarboAtoms\",\n    \"FractionHeteroAtoms\",\n    \"FractionAromaticCarboAtoms\",\n    \"FractionAromaticHeteroAtoms\",\n    \"FractionSaturatedRings\",\n    \"FractionUnsaturatedRings\",\n    \"FractionAromaticRings\",\n    \"FractionSP3CarboAtoms\",\n    \"FractionSP2CarboAtoms\",\n    \"FractionSP1CarboAtoms\",\n    \"FractionSP3HydrogenAtoms\",\n    \"FractionSP2HydrogenAtoms\",\n    \"FractionSP1HydrogenAtoms\",\n    \"FractionAliphaticCarboAtoms\",\n    \"FractionAromaticCarboAtoms\",\n    \"FractionAliphaticHeteroAtoms\",\n    \"FractionAromaticHeteroAtoms\",\n    \"FractionAliphaticRings\",\n    \"FractionAromaticRings\",\n    \"FractionSaturatedRings\",\n    \"FractionUnsaturatedRings\",\n    \"FractionHBA\",\n    \"FractionHBD\",\n    \"FractionHBAO\",\n    \"FractionHBDO\",\n    \"FractionHBAOacceptor\",\n    \"FractionHBDOdonor\",\n    \"FractionHBAOacceptorX\",\n    \"FractionHBDOdonorX\",\n    \"FractionHBAOacceptorSP3\",\n    \"FractionHBDOdonorSP3\",\n    \"FractionHBAOacceptorSP2\",\n    \"FractionHBDOdonorSP2\",\n    \"FractionHBAOacceptorSP1\",\n    \"FractionHBDOdonorSP1\",\n    \"FractionHBAOacceptorAliphatic\",\n    \"FractionHBDOdonorAliphatic\",\n    \"FractionHBAOacceptorAromatic\",\n    \"FractionHBDOdonorAromatic\",\n    \"FractionHBAOacceptorSaturated\",\n    \"FractionHBDOdonorSaturated\",\n    \"FractionHBAOacceptorUnsaturated\",\n    \"FractionHBDOdonorUnsaturated\",\n    \"FractionHBAOacceptorAromaticCarbo\",\n    \"FractionHBDOdonorAromaticCarbo\",\n    \"FractionHBAOacceptorAromaticHetero\",\n    \"FractionHBDOdonorAromaticHetero\",\n    \"FractionHBAOacceptorSaturatedRings\",\n    \"FractionHBDOdonorSaturatedRings\",\n    \"FractionHBAOacceptorUnsaturatedRings\",\n    \"FractionHBDOdonorUnsaturatedRings\",\n    \"FractionHBAOacceptorAliphaticRings\",\n    \"FractionHBDOdonorAliphaticRings\",\n    \"FractionHBAOacceptorAromaticRings\",\n    \"FractionHBDOdonorAromaticRings\",\n    \"FractionHBAOacceptorSP3Carbo\",\n    \"FractionHBDOdonorSP3Carbo\",\n    \"FractionHBAOacceptorSP2Carbo\",\n    \"FractionHBDOdonorSP2Carbo\",\n    \"FractionHBAOacceptorSP1Carbo\",\n    \"FractionHBDOdonorSP1Carbo\",\n    \"FractionHBAOacceptorSP3Hydrogen\",\n    \"FractionHBDOdonorSP3Hydrogen\",\n    \"FractionHBAOacceptorSP2Hydrogen\",\n    \"FractionHBDOdonorSP2Hydrogen\",\n    \"FractionHBAOacceptorSP1Hydrogen\",\n    \"FractionHBDOdonorSP1Hydrogen\",\n    \"FractionHBAOacceptorAliphaticCarbo\",\n    \"FractionHBDOdonorAliphaticCarbo\",\n    \"FractionHBAOacceptorAromaticCarbo\",\n    \"FractionHBDOdonorAromaticCarbo\",\n    \"FractionHBAOacceptorAliphaticHetero\",\n    \"FractionHBDOdonorAliphaticHetero\",\n    \"FractionHBAOacceptorAromaticHetero\",\n    \"FractionHBDOdonorAromaticHetero\"\n  ]\n}\n```"
+ },
+ "P3": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "05fc1c2c53140091f33defd2def789c14467c19d74e33b8ab747f379db6b813c",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 250,
+     "completion_tokens": 434,
+     "total_tokens": 684,
+     "cost": 7.826e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.826e-05,
+      "upstream_inference_prompt_cost": 1.75e-05,
+      "upstream_inference_completions_cost": 6.076e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.5,\n    \"2\": 0.4,\n    \"3\": 0.5,\n    \"4\": 0.6,\n    \"5\": 0.5,\n    \"6\": 0.4,\n    \"7\": 0.5,\n    \"8\": 0.6,\n    \"9\": 0.5,\n    \"10\": 0.4,\n    \"11\": 0.5,\n    \"12\": 0.6,\n    \"13\": 0.5,\n    \"14\": 0.4,\n    \"15\": 0.5,\n    \"16\": 0.6,\n    \"17\": 0.5,\n    \"18\": 0.4,\n    \"19\": 0.5,\n    \"20\": 0.6,\n    \"21\": 0.5,\n    \"22\": 0.4,\n    \"23\": 0.5,\n    \"24\": 0.6,\n    \"25\": 0.5,\n    \"26\": 0.4,\n    \"27\": 0.5,\n    \"28\": 0.6,\n    \"29\": 0.5,\n    \"30\": 0.4,\n    \"31\": 0.5,\n    \"32\": 0.6,\n    \"33\": 0.5,\n    \"34\": 0.4,\n    \"35\": 0.5,\n    \"36\": 0.6,\n    \"37\": 0.5,\n    \"38\": 0.4,\n    \"39\": 0.5,\n    \"40\": 0.6\n  }\n}\n```\n\nThese scores are hypothetical and assume a moderate level of usefulness for each feature, given the lack of specific information about the features themselves. In practice, feature importance would be determined through exploratory data analysis, domain knowledge, and model-based feature importance techniques.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.6
+  ]
+ },
+ "P3f": {
+  "model": "microsoft/phi-4",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "5dda5edb75b614b4b54a5fe5cfddcc40efa63a5d8ef1a808bb0fe74155a5a3bf",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 242,
+     "completion_tokens": 428,
+     "total_tokens": 670,
+     "cost": 7.686e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 7.686e-05,
+      "upstream_inference_prompt_cost": 1.694e-05,
+      "upstream_inference_completions_cost": 5.992e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.5,\n    \"1\": 0.4,\n    \"2\": 0.3,\n    \"3\": 0.6,\n    \"4\": 0.2,\n    \"5\": 0.7,\n    \"6\": 0.5,\n    \"7\": 0.3,\n    \"8\": 0.4,\n    \"9\": 0.6,\n    \"10\": 0.2,\n    \"11\": 0.5,\n    \"12\": 0.7,\n    \"13\": 0.3,\n    \"14\": 0.4,\n    \"15\": 0.6,\n    \"16\": 0.5,\n    \"17\": 0.2,\n    \"18\": 0.7,\n    \"19\": 0.3,\n    \"20\": 0.4,\n    \"21\": 0.6,\n    \"22\": 0.5,\n    \"23\": 0.2,\n    \"24\": 0.7,\n    \"25\": 0.3,\n    \"26\": 0.4,\n    \"27\": 0.6,\n    \"28\": 0.5,\n    \"29\": 0.2,\n    \"30\": 0.7,\n    \"31\": 0.3,\n    \"32\": 0.4,\n    \"33\": 0.6,\n    \"34\": 0.5,\n    \"35\": 0.2,\n    \"36\": 0.7,\n    \"37\": 0.3,\n    \"38\": 0.4,\n    \"39\": 0.6,\n    \"40\": 0.5\n  }\n}\n``` \n\nThese scores are hypothetical and assume a balanced distribution of feature usefulness, with some features potentially being more informative than others based on typical patterns in field survey data. Adjustments may be necessary based on domain knowledge or further analysis.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 41 input features are numbered 0 to 40 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.4,
+   0.3,
+   0.6,
+   0.2,
+   0.7,
+   0.5,
+   0.3,
+   0.4,
+   0.6,
+   0.2,
+   0.5,
+   0.7,
+   0.3,
+   0.4,
+   0.6,
+   0.5,
+   0.2,
+   0.7,
+   0.3,
+   0.4,
+   0.6,
+   0.5,
+   0.2,
+   0.7,
+   0.3,
+   0.4,
+   0.6,
+   0.5,
+   0.2,
+   0.7,
+   0.3,
+   0.4,
+   0.6,
+   0.5,
+   0.2,
+   0.7,
+   0.3,
+   0.4,
+   0.6,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "31e8863e49ec71acd11532d615e6c394439a1102c3201e230e24717e86e60b73",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 404,
+     "completion_tokens": 415,
+     "total_tokens": 819,
+     "cost": 8.638e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 8.638e-05,
+      "upstream_inference_prompt_cost": 2.828e-05,
+      "upstream_inference_completions_cost": 5.81e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.5,\n    \"2\": 0.7,\n    \"3\": 0.4,\n    \"4\": 0.5,\n    \"5\": 0.3,\n    \"6\": 0.6,\n    \"7\": 0.7,\n    \"8\": 0.6,\n    \"9\": 0.7,\n    \"10\": 0.5,\n    \"11\": 0.4,\n    \"12\": 0.5,\n    \"13\": 0.6,\n    \"14\": 0.5,\n    \"15\": 0.5,\n    \"16\": 0.4,\n    \"17\": 0.4,\n    \"18\": 0.5,\n    \"19\": 0.3,\n    \"20\": 0.4,\n    \"21\": 0.5,\n    \"22\": 0.4,\n    \"23\": 0.5,\n    \"24\": 0.5,\n    \"25\": 0.3,\n    \"26\": 0.6,\n    \"27\": 0.5,\n    \"28\": 0.5,\n    \"29\": 0.4,\n    \"30\": 0.5,\n    \"31\": 0.4,\n    \"32\": 0.3,\n    \"33\": 0.5,\n    \"34\": 0.6,\n    \"35\": 0.6,\n    \"36\": 0.5,\n    \"37\": 0.6,\n    \"38\": 0.5,\n    \"39\": 0.3,\n    \"40\": 0.4\n  }\n}\n``` \n\nThese scores are speculative and based on typical relevance of such features in QSAR studies, considering their potential chemical and structural significance in predicting biodegradability.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: UCI 'QSAR biodegradation' (Mansouri et al. 2013; OpenML 1494).",
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.5,
+   0.7,
+   0.4,
+   0.5,
+   0.3,
+   0.6,
+   0.7,
+   0.6,
+   0.7,
+   0.5,
+   0.4,
+   0.5,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.5,
+   0.3,
+   0.4,
+   0.5,
+   0.4,
+   0.5,
+   0.5,
+   0.3,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.5,
+   0.4,
+   0.3,
+   0.5,
+   0.6,
+   0.6,
+   0.5,
+   0.6,
+   0.5,
+   0.3,
+   0.4
+  ]
+ },
+ "P5": {
+  "model": "microsoft/phi-4",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "298f5a55842553531ca343b6183bb652a8e3299d090d82ac2240838e6a80cb0f",
+    "served_model": "microsoft/phi-4",
+    "usage": {
+     "prompt_tokens": 375,
+     "completion_tokens": 463,
+     "total_tokens": 838,
+     "cost": 9.107e-05,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 9.107e-05,
+      "upstream_inference_prompt_cost": 2.625e-05,
+      "upstream_inference_completions_cost": 6.482e-05
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "```json\n{\n  \"scores\": {\n    \"0\": 0.6,\n    \"1\": 0.4,\n    \"2\": 0.5,\n    \"3\": 0.7,\n    \"4\": 0.7,\n    \"5\": 0.6,\n    \"6\": 0.5,\n    \"7\": 0.6,\n    \"8\": 0.5,\n    \"9\": 0.5,\n    \"10\": 0.7,\n    \"11\": 0.6,\n    \"12\": 0.4,\n    \"13\": 0.5,\n    \"14\": 0.6,\n    \"15\": 0.7,\n    \"16\": 0.4,\n    \"17\": 0.4,\n    \"18\": 0.6,\n    \"19\": 0.5,\n    \"20\": 0.5,\n    \"21\": 0.6,\n    \"22\": 0.5,\n    \"23\": 0.7,\n    \"24\": 0.7,\n    \"25\": 0.4,\n    \"26\": 0.6,\n    \"27\": 0.5,\n    \"28\": 0.7,\n    \"29\": 0.6,\n    \"30\": 0.5,\n    \"31\": 0.5,\n    \"32\": 0.4,\n    \"33\": 0.7,\n    \"34\": 0.5,\n    \"35\": 0.6,\n    \"36\": 0.5,\n    \"37\": 0.5,\n    \"38\": 0.6,\n    \"39\": 0.5,\n    \"40\": 0.5\n  }\n}\n``` \n\nThese scores are speculative and based on the assumption that features related to chemical structure and functional groups (e.g., F03[C-N], F04[C-N], B01[C-Br], B03[C-Cl]) are more likely to be relevant for predicting biodegradability. Other features are given moderate scores based on their potential relevance to chemical properties that might influence biodegradability.",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.4,
+  "header": [
+   "Classes: not ready biodegradable, ready biodegradable"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.6,
+   0.4,
+   0.5,
+   0.7,
+   0.7,
+   0.6,
+   0.5,
+   0.6,
+   0.5,
+   0.5,
+   0.7,
+   0.6,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.4,
+   0.4,
+   0.6,
+   0.5,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.7,
+   0.4,
+   0.6,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.5,
+   0.4,
+   0.7,
+   0.5,
+   0.6,
+   0.5,
+   0.5,
+   0.6,
+   0.5,
+   0.5
+  ]
+ }
+}

@@ -1,0 +1,470 @@
+{
+ "dataset": "pc4",
+ "model": "qwen/qwen3-14b",
+ "variables": [
+  "LOC_BLANK",
+  "BRANCH_COUNT",
+  "CALL_PAIRS",
+  "LOC_CODE_AND_COMMENT",
+  "LOC_COMMENTS",
+  "CONDITION_COUNT",
+  "CYCLOMATIC_COMPLEXITY",
+  "CYCLOMATIC_DENSITY",
+  "DECISION_COUNT",
+  "DECISION_DENSITY",
+  "DESIGN_COMPLEXITY",
+  "DESIGN_DENSITY",
+  "EDGE_COUNT",
+  "ESSENTIAL_COMPLEXITY",
+  "ESSENTIAL_DENSITY",
+  "LOC_EXECUTABLE",
+  "PARAMETER_COUNT",
+  "HALSTEAD_CONTENT",
+  "HALSTEAD_DIFFICULTY",
+  "HALSTEAD_EFFORT",
+  "HALSTEAD_ERROR_EST",
+  "HALSTEAD_LENGTH",
+  "HALSTEAD_LEVEL",
+  "HALSTEAD_PROG_TIME",
+  "HALSTEAD_VOLUME",
+  "MAINTENANCE_SEVERITY",
+  "MODIFIED_CONDITION_COUNT",
+  "MULTIPLE_CONDITION_COUNT",
+  "NODE_COUNT",
+  "NORMALIZED_CYLOMATIC_COMPLEXITY",
+  "NUM_OPERANDS",
+  "NUM_OPERATORS",
+  "NUM_UNIQUE_OPERANDS",
+  "NUM_UNIQUE_OPERATORS",
+  "NUMBER_OF_LINES",
+  "PERCENT_COMMENTS",
+  "LOC_TOTAL"
+ ],
+ "P1a": {
+  "key": "15ecab9527a1b69670f21b6569962eeb424d82528471a0e7d85f38664adc58c1",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 112,
+   "completion_tokens": 547,
+   "total_tokens": 659,
+   "cost": 0.00014472,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00014472,
+    "upstream_inference_prompt_cost": 1.344e-05,
+    "upstream_inference_completions_cost": 0.00013128
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 554,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"Steel Plate Faults\", \"source\": \"UCI Machine Learning Repository\", \"confidence\": 0.95}"
+ },
+ "P1b": {
+  "key": "eff81adc302f0f1d71f9961b02af837441c7e5dae80d0e4f3702dad3208c1e04",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 293,
+   "completion_tokens": 620,
+   "total_tokens": 913,
+   "cost": 0.00018396,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00018396,
+    "upstream_inference_prompt_cost": 3.516e-05,
+    "upstream_inference_completions_cost": 0.0001488
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 722,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"name\": \"NASA Metrics Data Set\", \"source\": \"PROMISE Repository\", \"confidence\": 0.95}"
+ },
+ "P2": {
+  "key": "5a22e4aef8804003e74a4029f1fbfebddd74a15c91ab2583492818e3a9d292b8",
+  "served_model": "qwen/qwen3-14b",
+  "usage": {
+   "prompt_tokens": 101,
+   "completion_tokens": 829,
+   "total_tokens": 930,
+   "cost": 0.00021108,
+   "is_byok": false,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 0.00021108,
+    "upstream_inference_prompt_cost": 1.212e-05,
+    "upstream_inference_completions_cost": 0.00019896
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 815,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  },
+  "reply": "{\"features\": [\"v\", \"d\", \"e\", \"l\", \"c\", \"n\", \"t\", \"f\", \"s\"]}"
+ },
+ "P3": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "98dd2f406df34c5b6a0a649f862a1978c3158a56e23e5f04ba000b3c026ac20e",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 272,
+     "completion_tokens": 875,
+     "total_tokens": 1147,
+     "cost": 0.0002197,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0002197,
+      "upstream_inference_prompt_cost": 2.72e-05,
+      "upstream_inference_completions_cost": 0.0001925
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 629,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.7, \"1\": 0.6, \"2\": 0.5, \"3\": 0.4, \"4\": 0.8, \"5\": 0.3, \"6\": 0.6, \"7\": 0.5, \"8\": 0.7, \"9\": 0.2, \"10\": 0.6, \"11\": 0.4, \"12\": 0.5, \"13\": 0.7, \"14\": 0.3, \"15\": 0.6, \"16\": 0.5, \"17\": 0.4, \"18\": 0.8, \"19\": 0.2, \"20\": 0.6, \"21\": 0.5, \"22\": 0.7, \"23\": 0.3, \"24\": 0.6, \"25\": 0.4, \"26\": 0.5, \"27\": 0.8, \"28\": 0.2, \"29\": 0.6, \"30\": 0.5, \"31\": 0.7, \"32\": 0.3, \"33\": 0.6, \"34\": 0.4, \"35\": 0.5, \"36\": 0.8}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.8,
+   0.3,
+   0.6,
+   0.5,
+   0.7,
+   0.2,
+   0.6,
+   0.4,
+   0.5,
+   0.7,
+   0.3,
+   0.6,
+   0.5,
+   0.4,
+   0.8,
+   0.2,
+   0.6,
+   0.5,
+   0.7,
+   0.3,
+   0.6,
+   0.4,
+   0.5,
+   0.8,
+   0.2,
+   0.6,
+   0.5,
+   0.7,
+   0.3,
+   0.6,
+   0.4,
+   0.5,
+   0.8
+  ]
+ },
+ "P3f": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": true,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "dcc0f88459db9a8259b158e88268890a0a14f9113e9fd2f94f73fd3b3f3b39e8",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 270,
+     "completion_tokens": 775,
+     "total_tokens": 1045,
+     "cost": 0.0001975,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0001975,
+      "upstream_inference_prompt_cost": 2.7e-05,
+      "upstream_inference_completions_cost": 0.0001705
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 527,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.5, \"1\": 0.5, \"2\": 0.5, \"3\": 0.5, \"4\": 0.5, \"5\": 0.5, \"6\": 0.5, \"7\": 0.5, \"8\": 0.5, \"9\": 0.5, \"10\": 0.5, \"11\": 0.5, \"12\": 0.5, \"13\": 0.5, \"14\": 0.5, \"15\": 0.5, \"16\": 0.5, \"17\": 0.5, \"18\": 0.5, \"19\": 0.5, \"20\": 0.5, \"21\": 0.5, \"22\": 0.5, \"23\": 0.5, \"24\": 0.5, \"25\": 0.5, \"26\": 0.5, \"27\": 0.5, \"28\": 0.5, \"29\": 0.5, \"30\": 0.5, \"31\": 0.5, \"32\": 0.5, \"33\": 0.5, \"34\": 0.5, \"35\": 0.5, \"36\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.5,
+  "header": [
+   "Data set: 'Brenner field survey 2019' (an internal, unpublished data set).",
+   "Its 37 input features are numbered 0 to 36 in the data set's original column order; the class is not counted. You are not told their names."
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.5
+  ]
+ },
+ "P4": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "563118ed4c5259e4c7b9d9b48802182fe270df8d5d4bc16439fd76e34b1dd4fd",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 434,
+     "completion_tokens": 1978,
+     "total_tokens": 2412,
+     "cost": 0.0005268,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.0005268,
+      "upstream_inference_prompt_cost": 5.208e-05,
+      "upstream_inference_completions_cost": 0.00047472
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1704,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.3, \"1\": 0.7, \"2\": 0.6, \"3\": 0.4, \"4\": 0.3, \"5\": 0.8, \"6\": 0.9, \"7\": 0.8, \"8\": 0.7, \"9\": 0.7, \"10\": 0.6, \"11\": 0.5, \"12\": 0.7, \"13\": 0.8, \"14\": 0.7, \"15\": 0.6, \"16\": 0.6, \"17\": 0.7, \"18\": 0.8, \"19\": 0.7, \"20\": 0.9, \"21\": 0.7, \"22\": 0.6, \"23\": 0.5, \"24\": 0.7, \"25\": 0.9, \"26\": 0.7, \"27\": 0.8, \"28\": 0.7, \"29\": 0.85, \"30\": 0.6, \"31\": 0.6, \"32\": 0.5, \"33\": 0.5, \"34\": 0.6, \"35\": 0.3, \"36\": 0.6}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.3,
+  "header": [
+   "Data set: NASA MDP PC4 software defect data (PROMISE repository; OpenML 1049).",
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.3,
+   0.7,
+   0.6,
+   0.4,
+   0.3,
+   0.8,
+   0.9,
+   0.8,
+   0.7,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.8,
+   0.7,
+   0.6,
+   0.6,
+   0.7,
+   0.8,
+   0.7,
+   0.9,
+   0.7,
+   0.6,
+   0.5,
+   0.7,
+   0.9,
+   0.7,
+   0.8,
+   0.7,
+   0.85,
+   0.6,
+   0.6,
+   0.5,
+   0.5,
+   0.6,
+   0.3,
+   0.6
+  ]
+ },
+ "P5": {
+  "model": "qwen/qwen3-14b",
+  "scrambled": false,
+  "blind": false,
+  "permutation": null,
+  "temperature": 0.0,
+  "seed": 20200,
+  "calls": [
+   {
+    "key": "092aa17ade22bd99ff0dd33a454db6fc74c870b755fe3515cc3ac4e1f087791f",
+    "served_model": "qwen/qwen3-14b",
+    "usage": {
+     "prompt_tokens": 409,
+     "completion_tokens": 1856,
+     "total_tokens": 2265,
+     "cost": 0.00044922,
+     "is_byok": false,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+     },
+     "cost_details": {
+      "upstream_inference_cost": 0.00044922,
+      "upstream_inference_prompt_cost": 4.09e-05,
+      "upstream_inference_completions_cost": 0.00040832
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1560,
+      "image_tokens": 0,
+      "audio_tokens": 0
+     }
+    },
+    "reply": "{\"scores\": {\"0\": 0.2, \"1\": 0.6, \"2\": 0.4, \"3\": 0.3, \"4\": 0.2, \"5\": 0.7, \"6\": 0.85, \"7\": 0.7, \"8\": 0.6, \"9\": 0.6, \"10\": 0.5, \"11\": 0.4, \"12\": 0.5, \"13\": 0.7, \"14\": 0.6, \"15\": 0.5, \"16\": 0.4, \"17\": 0.6, \"18\": 0.75, \"19\": 0.6, \"20\": 0.8, \"21\": 0.6, \"22\": 0.6, \"23\": 0.5, \"24\": 0.6, \"25\": 0.8, \"26\": 0.5, \"27\": 0.6, \"28\": 0.5, \"29\": 0.7, \"30\": 0.5, \"31\": 0.5, \"32\": 0.4, \"33\": 0.4, \"34\": 0.5, \"35\": 0.3, \"36\": 0.5}}",
+    "parsed_as": "json",
+    "retry": false
+   }
+  ],
+  "missing": [],
+  "fill": 0.2,
+  "header": [
+   "Classes: no defects, defects"
+  ],
+  "system": "You are helping a feature-selection study of a classification data set. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). You do not see the data. Reply with a JSON object only: {\"scores\": {\"<feature index>\": <score>, ...}} with one entry for every feature index listed.",
+  "scores": [
+   0.2,
+   0.6,
+   0.4,
+   0.3,
+   0.2,
+   0.7,
+   0.85,
+   0.7,
+   0.6,
+   0.6,
+   0.5,
+   0.4,
+   0.5,
+   0.7,
+   0.6,
+   0.5,
+   0.4,
+   0.6,
+   0.75,
+   0.6,
+   0.8,
+   0.6,
+   0.6,
+   0.5,
+   0.6,
+   0.8,
+   0.5,
+   0.6,
+   0.5,
+   0.7,
+   0.5,
+   0.5,
+   0.4,
+   0.4,
+   0.5,
+   0.3,
+   0.5
+  ]
+ }
+}
