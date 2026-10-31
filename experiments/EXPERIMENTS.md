@@ -646,7 +646,24 @@ result was read ([DEC-51](DECISIONS.md#dec-51)).
 | runs | 3 x 16 x 5 = 240 on HPC Vega, `hpc/vega/h8e02.env`; no model calls during the runs |
 | criterion | H8's part (ii) for each model: H8-E01's `fastener_llm_<m>` against this experiment's `fastener_llm_<m>_blind`, as registered (fits to the common target, Holm over the three models); read with H8-E01 in one report |
 
-### `H8-E03` -- H8 with nine non-Anthropic models
+### `H8-E03` -- H8 with twelve models: the prior alone against mutual information and against itself permuted
+
+Registered 2026-10-30 ([DEC-52](DECISIONS.md#dec-52)); revised 2026-10-31,
+after H8-E02 was reported and before any H8-E03 run, its 432 priors already
+committed ([DEC-53](DECISIONS.md#dec-53); HYPOTHESES.md, H8's revision of
+2026-10-31). The revised design is the one that runs.
+
+| | |
+|---|---|
+| models | H8-E01's three (`anthropic/claude-opus-5.5`, `-sonnet-5.5`, `-haiku-5.5`) and DEC-52's nine (`meta-llama/llama-3.3-70b-instruct`, `google/gemma-3-4b-it`, `google/gemma-3-27b-it`, `mistralai/ministral-8b-2512`, `qwen/qwen3-14b`, `microsoft/phi-4`, `deepseek/deepseek-v4-flash`, `openai/gpt-6-luna`, `google/gemini-2.5-flash-lite`); their named priors as committed (H8-E01: `3032ad5`; H8-E03: `ceb67c8`) |
+| arms (35) | `fastener_mi_only` (flat prior: w = MI^0.5); per model m of twelve: `fastener_llm_m_l1` (named prior, lambda 1: w = prior, on mating, mutation and the five starting singles) and `fastener_llm_m_permuted_l1` (the same prior with its scores permuted across the columns, `RandomState(20201)`, one permutation per dataset, lambda 1); `fastener` (stock); per new model: `fastener_llm_m` (lambda 0.5, H8-E01's arm) |
+| datasets, classifier, budget, seeds, cap | as H8-E01: 16 datasets, LightGBM, 1,000 fits, seeds 2020-2024, 50,000 rows, 6 hours |
+| runs | 35 x 16 x 5 = 2,800, on HPC Vega (`hpc/vega/h8e03.env`) |
+| criterion | per model, Holm over the twelve within each part: (i) `fastener_llm_m_l1` vs `fastener_mi_only`; (ii) `fastener_llm_m_l1` vs `fastener_llm_m_permuted_l1`; fits to the common validation target, log2 ratio per dataset (mean over seeds), more positive than negative and two-sided Wilcoxon p < 0.05. H8 supported in H8-E03 if both hold for at least one model |
+| beside it | MI-only vs stock; `fastener_llm_m` (lambda 0.5) vs stock and vs MI-only; permuted vs MI-only; end-of-budget test AUF; prior agreement with MI and the blind priors' layout recall (`h8_report.py`, extended for these arms when the report is written) |
+| cost | no model call during the runs ($0); the priors cost $0.27, already spent |
+
+#### As registered on 2026-10-30 (superseded before any run by the revision below)
 
 Registered 2026-10-30, after H8-E01 was reported and before any H8-E03 prior
 was made or run started ([DEC-52](DECISIONS.md#dec-52)).

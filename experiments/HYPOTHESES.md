@@ -846,8 +846,10 @@ and its prompt, and the classifier. *Fixed on 2026-10-30 (revision below,
   log2, Holm p = 1); the blind prior alone is still 1.3-1.4 times faster than
   stock. The blind priors recall the datasets' column order, so they misplace
   knowledge rather than lack it. [Report](reports/H8-E02/REPORT.md).
-* `H8-E03` -- H8-E01's design with nine other models (open-weight and small
-  closed ones), each with H8-E02's blind control. Registered.
+* `H8-E03` -- all twelve models, with controls that can tell knowledge from
+  guidance (revised 2026-10-31, before any run; DEC-53): the prior alone
+  (lambda 1) against mutual information alone, and against the same prior
+  permuted across the columns. Registered.
 
 ## H9 -- Confirmatory: on unseen datasets, search beats filtering, more so on tall data
 
@@ -1666,3 +1668,56 @@ its features is asked once more for those, the rest filled with the lowest
 score given. A proposer call that fails or passes the run's cap ($0.015 per
 run) proposes nothing; the search goes on. Recorded as
 [DEC-52](DECISIONS.md#dec-52).
+
+**2026-10-31 -- H8-E03 revised: controls that can tell knowledge from
+guidance.** Decided by the PI after H8-E02 was reported, and before any
+H8-E03 run (its 432 priors were made and committed; no run had started).
+H8-E02 found two things that make H8-E03's registered design unable to
+answer the claim (H8-E02's report, section 4). First, the blind prompt keeps
+the task, the class names and the number of features, from which the models
+recall well-known datasets' column order, so the blind prior is misplaced
+knowledge rather than none. Second, with w = MI^0.5 x prior^0.5 the weights
+of the named, blind and MI-only arms are nearly the same (Spearman about
+0.9), so the prior's content barely changes the search. H8-E03 now has these arms:
+
+* `fastener_mi_only`: a flat prior, so w = MI^0.5. This is H8-E01's guidance
+  with no prior, mutual information alone. Once.
+* `fastener_llm_m_l1`, per model m (all twelve): the named prior with
+  lambda = 1, so w = prior and the prior alone guides mating, mutation and
+  the start.
+* `fastener_llm_m_permuted_l1`, per model m (all twelve): the same named
+  prior with its scores shuffled across the columns, lambda = 1. The
+  permutation is fixed per dataset (`np.random.RandomState(20201)`), shared
+  by all models. The scores and their distribution are the same, but they
+  land on the wrong features, and nothing in it can be recalled.
+* `fastener` (stock) once, and `fastener_llm_m` (lambda 0.5) for the nine
+  new models, for continuity with H8-E01. Beside the criterion.
+
+The scrambled, blind and proposer arms, the single-operator ablations and
+the mRMR seed are dropped (H8-E01 and H8-E02 answered what they were for).
+The blind and scrambled priors stay committed and are read as priors only.
+
+**Criterion for H8-E03 (replaces DEC-52's).** For each of the twelve
+models, with Holm over the twelve within each part, and fits to the common
+target as before (log2 ratio per dataset, mean over seeds; more datasets
+positive than negative and a two-sided Wilcoxon p < 0.05):
+(i) `fastener_llm_m_l1` against `fastener_mi_only` -- the model's prior
+guides better than the data's mutual information; (ii)
+`fastener_llm_m_l1` against `fastener_llm_m_permuted_l1` -- the gain needs
+the scores on the right features. H8 is supported in H8-E03 if (i) and (ii)
+both hold for at least one model. H8-E01/-E02's verdict (not supported for
+the three Anthropic models, under the original criterion) is unchanged and
+reported beside it.
+
+*Beside it:* (ii) alone is the test of knowledge. (i) without (ii) would be
+a well-shaped weighting rather than knowledge. Also reported:
+`fastener_mi_only` vs stock (MI-guided mutation without an LLM);
+`fastener_llm_m` (lambda 0.5) vs stock and vs MI-only; the permuted arm vs
+MI-only; end-of-budget test AUF; and each prior's agreement with mutual
+information, with its blind twin's layout recall.
+
+*Everything else as H8-E01:* 16 datasets, LightGBM, 1,000 fits, seeds
+2020-2024, 50,000-row cap, 6-hour limit, HPC Vega. 35 arms x 16 x 5 = 2,800
+runs (`hpc/vega/h8e03.env`). No model is called during the runs, so the
+runs cost nothing on OpenRouter. The PI's $50 limit on model calls stands
+and is not touched. Recorded as [DEC-53](DECISIONS.md#dec-53).

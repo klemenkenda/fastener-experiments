@@ -172,11 +172,30 @@ for _use in H8_USES:
         "label": f"fastener_llm_llama70b_{_use}", "swap": "none", "mating": "fixed",
         "llm": {"model": H8_E03_MODELS["llama70b"], "scrambled": False,
                 "uses": (_use,), "proposer": False}}
+# H8-E03 as revised on 2026-10-31 (DEC-53), before any of its runs: arms that
+# tell the models' knowledge from the guidance itself. With `lambda` 1 the
+# prior alone sets w (MI^0); a `permuted` prior is the model's named prior with
+# its scores shuffled across the columns (one fixed permutation per dataset,
+# H8_PERMUTE_SEED) -- the same scores on the wrong features, with nothing a
+# model could recall; `flat` is a prior of ones, so w = MI^0.5: H8-E01's
+# guidance with no prior, mutual information alone.
+H8_PERMUTE_SEED = 20201
+FASTENER_ARMS["mi_only"] = {
+    "label": "fastener_mi_only", "swap": "none", "mating": "fixed",
+    "llm": {"model": None, "flat": True, "scrambled": False, "uses": H8_USES,
+            "proposer": False}}
+for _m, _id in {**H8_MODELS, **H8_E03_MODELS}.items():
+    for _kind, _extra in (("_l1", {}), ("_permuted_l1", {"permuted": True})):
+        FASTENER_ARMS[f"llm_{_m}{_kind}"] = {
+            "label": f"fastener_llm_{_m}{_kind}", "swap": "none", "mating": "fixed",
+            "llm": {"model": _id, "scrambled": False, "uses": H8_USES,
+                    "proposer": False, "lambda": 1.0, **_extra}}
 # Size of the largest seed subset: H10 seeds k = 1..10, the low-k range.
 SEED_K = 10
 FASTENER_ARM_NAMES = {k: v["label"] for k, v in FASTENER_ARMS.items()}
 # Report order: the fixed stock arm first, then the published code, then swaps.
-FASTENER_ARM_ORDER = ("none", "2020", "random", "guided", "seed_mrmr", "seed_boruta") \
+FASTENER_ARM_ORDER = ("none", "2020", "random", "guided", "seed_mrmr", "seed_boruta",
+                      "mi_only") \
     + tuple(a for a in FASTENER_ARMS if a.startswith("llm_"))
 # What runs when no arm is named: H2/H3's three arms, as before.
 DEFAULT_FASTENER_ARMS = ("none", "random", "guided")
@@ -222,24 +241,38 @@ def h8_guidance(llm, dataset, ds, run_dir, label, seed):
         return None, None
     import llm_guidance as lg
     from provenance import sha256
-    path = lg.prior_path(dataset, llm["model"], llm["scrambled"], llm.get("blind", False))
-    if not path.is_file():
-        raise FileNotFoundError(f"{path} missing: make it with "
-                                f"`python experiments/llm_guidance.py prior "
-                                f"--dataset {dataset} --model {llm['model']}"
-                                + (" --blind`" if llm.get("blind") else
-                                   " --scrambled`" if llm["scrambled"] else "`"))
+    lam = llm.get("lambda", H8_LAMBDA)
+    path = None
+    if llm.get("flat"):
+        prior = np.ones(ds.n_features)
+    else:
+        path = lg.prior_path(dataset, llm["model"], llm["scrambled"], llm.get("blind", False))
+        if not path.is_file():
+            raise FileNotFoundError(f"{path} missing: make it with "
+                                    f"`python experiments/llm_guidance.py prior "
+                                    f"--dataset {dataset} --model {llm['model']}"
+                                    + (" --blind`" if llm.get("blind") else
+                                       " --scrambled`" if llm["scrambled"] else "`"))
+        prior = lg.load_prior(path, ds.n_features)
+        if llm.get("permuted"):
+            # Column j gets the score the model gave column perm[j].
+            prior = prior[np.random.RandomState(H8_PERMUTE_SEED).permutation(ds.n_features)]
     dpath = lg.PRIORS_DIR / "dictionaries" / f"{dataset}.json"
     dictionary = json.loads(dpath.read_text(encoding="utf-8")) if dpath.is_file() else None
     ctx = lg.context_for(ds, dictionary)
-    guidance = {"feature_prior": lg.load_prior(path, ds.n_features),
-                "prior_weight": H8_LAMBDA, "prior_uses": tuple(llm["uses"]),
+    guidance = {"feature_prior": prior,
+                "prior_weight": lam, "prior_uses": tuple(llm["uses"]),
                 "prior_initial_singles": H8_INITIAL_SINGLES,
                 "guidance_context": ctx}
     info = {"llm_model": llm["model"], "llm_scrambled": llm["scrambled"],
             "llm_blind": bool(llm.get("blind")),
-            "prior_file": path.name, "prior_sha256": sha256(path),
-            "prior_uses": list(llm["uses"]), "prior_weight": H8_LAMBDA}
+            "prior_file": path.name if path else None,
+            "prior_sha256": sha256(path) if path else None,
+            "prior_uses": list(llm["uses"]), "prior_weight": lam}
+    if llm.get("flat"):
+        info["prior_flat"] = True
+    if llm.get("permuted"):
+        info["prior_permutation_seed"] = H8_PERMUTE_SEED
     proposer = log = None
     if llm["proposer"]:
         log = lg.CallLog(Path(run_dir) / f"llm_calls_{label}_s{seed}.jsonl",
@@ -544,7 +577,7 @@ def main() -> int:
                if FASTENER_ARMS[arm].get("seed") == "boruta" else {}),
             **({"llm": {**FASTENER_ARMS[arm]["llm"],
                         "uses": list(FASTENER_ARMS[arm]["llm"]["uses"]),
-                        "prior_weight": H8_LAMBDA,
+                        "prior_weight": FASTENER_ARMS[arm]["llm"].get("lambda", H8_LAMBDA),
                         "initial_singles": H8_INITIAL_SINGLES,
                         **({"proposer_every": H8_PROPOSER_EVERY,
                             "proposer_subsets": H8_PROPOSER_SUBSETS}

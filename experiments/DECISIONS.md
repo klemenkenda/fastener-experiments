@@ -1170,6 +1170,29 @@ is reported beside it.**
   retry rule proposed by Claude.
 - **Applies to:** H8-E03.
 
+### DEC-53
+
+**2026-10-31 -- H8-E03 revised before any run: the prior alone (lambda 1)
+against mutual information alone and against the same prior permuted.**
+
+- **Why:** H8-E02 (report, section 4) showed that the registered design
+  cannot tell the models' knowledge from the guidance itself. The blind
+  prompt lets the models recall well-known datasets' column order. With
+  w = MI^0.5 x prior^0.5, the named, blind and MI-only weights are nearly the
+  same (Spearman about 0.9), so part (ii) had almost no room to show an
+  effect.
+- **Detail:** as the revision of 2026-10-31 in HYPOTHESES.md. New arms in
+  `run_sota.py`: `mi_only` (flat prior), and per model `llm_<m>_l1` and
+  `llm_<m>_permuted_l1` (permutation seed 20201, `H8_PERMUTE_SEED`).
+  H8-E01's arms and their configs are unchanged. 35 arms, 2,800 runs,
+  `hpc/vega/h8e03.env`. Criterion per model, Holm over twelve: (i) l1 vs
+  MI-only, (ii) l1 vs permuted. Dropped: the scrambled, blind and proposer
+  arms, the ablations and the mRMR seed. No model calls during the runs; the
+  $50 OpenRouter limit (PI) stays untouched. The 432 committed
+  priors are used as they are.
+- **By:** PI (to revise H8-E03 as proposed); the design proposed by Claude.
+- **Applies to:** H8-E03; supersedes DEC-52's arms and criterion.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1196,4 +1219,5 @@ are not repeated.
 | `H10-E03` | reported: not supported (passes a) | [DEC-37](#dec-37), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E03](reports/H10-E03/REPORT.md) |
 | `H8-E01` | reported: part (i) holds for all three models; part (ii) read in H8-E02 | [DEC-44](#dec-44), [DEC-49](#dec-49), [DEC-50](#dec-50), [DEC-51](#dec-51) | [DEC-51](#dec-51) | [H8-E01](reports/H8-E01/REPORT.md) |
 | `H8-E02` | reported: not supported for the three Anthropic models (part (ii) fails for each) | [DEC-50](#dec-50), [DEC-51](#dec-51) | -- | [H8-E02](reports/H8-E02/REPORT.md) |
+| `H8-E03` | registered (revised before any run) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | [DEC-53](#dec-53) | -- |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |
