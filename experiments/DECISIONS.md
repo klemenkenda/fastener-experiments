@@ -1246,6 +1246,6 @@ are not repeated.
 | `H10-E03` | reported: not supported (passes a) | [DEC-37](#dec-37), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E03](reports/H10-E03/REPORT.md) |
 | `H8-E01` | reported: part (i) holds for all three models; part (ii) read in H8-E02 | [DEC-44](#dec-44), [DEC-49](#dec-49), [DEC-50](#dec-50), [DEC-51](#dec-51) | [DEC-51](#dec-51) | [H8-E01](reports/H8-E01/REPORT.md) |
 | `H8-E02` | reported: not supported for the three Anthropic models (part (ii) fails for each) | [DEC-50](#dec-50), [DEC-51](#dec-51) | -- | [H8-E02](reports/H8-E02/REPORT.md) |
-| `H8-E03` | registered (revised before any run) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | [DEC-53](#dec-53) | -- |
+| `H8-E03` | reported: not supported (part (i) for no model; part (ii) for Sonnet only) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | -- | [H8-E03](reports/H8-E03/REPORT.md) |
 | `H12-E01` | reported: not supported (A and B for 0 of 12 models) | [DEC-54](#dec-54) | -- | [H12-E01](reports/H12-E01/REPORT.md) |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |

@@ -1,0 +1,135 @@
+model asked: mistralai/ministral-8b-2512   served: mistralai/ministral-8b-2512
+temperature 0.0, seed 20200, max_tokens 16000
+tokens in 648, out 1556, cost $0.0003, 25.32 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {"scores": {"<feature index>": <score>, ...}} with one entry for every feature index listed.
+
+===== user =====
+Task: Decide whether an e-mail is unsolicited commercial e-mail (spam).
+Classes: not spam, spam
+Data: E-mails collected at Hewlett-Packard Labs. word_freq_WORD is the percentage of words in the e-mail that are WORD; char_freq_CHAR the percentage of characters that are CHAR; capital_run_length_average, _longest and _total describe runs of consecutive capital letters.
+
+Features (57 of 57):
+0: feature_00
+1: feature_01
+2: feature_02
+3: feature_03
+4: feature_04
+5: feature_05
+6: feature_06
+7: feature_07
+8: feature_08
+9: feature_09
+10: feature_10
+11: feature_11
+12: feature_12
+13: feature_13
+14: feature_14
+15: feature_15
+16: feature_16
+17: feature_17
+18: feature_18
+19: feature_19
+20: feature_20
+21: feature_21
+22: feature_22
+23: feature_23
+24: feature_24
+25: feature_25
+26: feature_26
+27: feature_27
+28: feature_28
+29: feature_29
+30: feature_30
+31: feature_31
+32: feature_32
+33: feature_33
+34: feature_34
+35: feature_35
+36: feature_36
+37: feature_37
+38: feature_38
+39: feature_39
+40: feature_40
+41: feature_41
+42: feature_42
+43: feature_43
+44: feature_44
+45: feature_45
+46: feature_46
+47: feature_47
+48: feature_48
+49: feature_49
+50: feature_50
+51: feature_51
+52: feature_52
+53: feature_53
+54: feature_54
+55: feature_55
+56: feature_56
+
+===== reply =====
+```json
+{
+  "scores": {
+    "0": 0.8,  // Likely word_freq_* (e.g., word_freq_free, word_freq_credit) – highly indicative of spam
+    "1": 0.8,  // Likely another word_freq_* (e.g., word_freq_buy, word_freq_win) – strong spam signal
+    "2": 0.7,  // Likely another word_freq_* (e.g., word_freq_call, word_freq_order) – useful for spam
+    "3": 0.7,  // Likely another word_freq_* (e.g., word_freq_urgent, word_freq_prize) – spam-related
+    "4": 0.6,  // Likely another word_freq_* (e.g., word_freq_money, word_freq_deal) – moderate spam relevance
+    "5": 0.6,  // Likely another word_freq_* (e.g., word_freq_guarantee, word_freq_claim) – spam indicator
+    "6": 0.5,  // Likely another word_freq_* (e.g., word_freq_reminder, word_freq_update) – less spam-specific but possible
+    "7": 0.5,  // Likely char_freq_! (exclamation marks) – common in spam
+    "8": 0.5,  // Likely char_freq_$ (dollar signs) – spam-related
+    "9": 0.5,  // Likely char_freq_# (hash symbols) – spam-related
+    "10": 0.4, // Likely char_freq_@ (at symbols) – spam-related but less common
+    "11": 0.4, // Likely capital_run_length_average – spam often uses ALL CAPS
+    "12": 0.6, // Likely capital_run_length_longest – strong spam indicator
+    "13": 0.5, // Likely capital_run_length_total – spam-related
+    "14": 0.3, // Likely another char_freq_* (e.g., char_freq_% or char_freq_&) – less spam-specific
+    "15": 0.3, // Likely another char_freq_* (e.g., char_freq_*) – spam-related but rare
+    "16": 0.2, // Likely a less relevant word_freq_* (e.g., word_freq_common_non_spam_word) – low spam relevance
+    "17": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "18": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "19": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "20": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "21": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "22": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "23": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "24": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "25": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "26": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "27": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "28": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "29": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "30": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "31": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "32": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "33": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "34": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "35": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "36": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "37": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "38": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "39": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "40": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "41": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "42": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "43": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "44": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "45": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "46": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "47": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "48": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "49": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "50": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "51": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "52": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "53": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "54": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "55": 0.2, // Likely a less relevant word_freq_* – low spam relevance
+    "56": 0.2  // Likely a less relevant word_freq_* – low spam relevance
+  }
+}
+```

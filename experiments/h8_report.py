@@ -65,7 +65,23 @@ def model_ids() -> Dict[str, str]:
 def configure(methods) -> None:
     """MODELS, CRITERION and BESIDE for the arms present: the models whose
     prior arm ran, in the runner's order, and the one with ablation arms."""
-    global MODELS, CRITERION, BESIDE
+    global MODELS, CRITERION, BESIDE, REVISED
+    # H8-E03 as revised (DEC-53): the prior alone (lambda 1) against MI alone
+    # (i) and against itself permuted across the columns (ii), all twelve models.
+    REVISED = MI_ONLY in methods
+    if REVISED:
+        MODELS = tuple(m for m in model_ids() if arm(m, "l1") in methods)
+        CRITERION = [(m, part, arm(m, "l1"),
+                      MI_ONLY if part == "i" else arm(m, "permuted_l1"))
+                     for part in ("i", "ii") for m in MODELS]
+        BESIDE = ([(MI_ONLY, STOCK)]
+                  + [(arm(m, "l1"), STOCK) for m in MODELS]
+                  + [(arm(m, "permuted_l1"), MI_ONLY) for m in MODELS]
+                  + [(arm(m, "permuted_l1"), STOCK) for m in MODELS]
+                  + [(arm(m), STOCK) for m in MODELS if arm(m) in methods]
+                  + [(arm(m), MI_ONLY) for m in MODELS if arm(m) in methods]
+                  + [(arm(m, "l1"), arm(m)) for m in MODELS if arm(m) in methods])
+        return
     MODELS = tuple(m for m in model_ids() if arm(m) in methods)
     ablated = next((m for m in MODELS if arm(m, USES[0]) in methods), MODELS[0])
     CRITERION = [(m, part, arm(m), STOCK if part == "i" else arm(m, "blind"))
@@ -83,6 +99,8 @@ def configure(methods) -> None:
 
 CRITERION: List = []
 BESIDE: List = []
+REVISED = False
+MI_ONLY = "fastener_mi_only"
 
 
 def _footer(fig, note: str, split: str) -> None:
@@ -266,9 +284,12 @@ def fig_criterion(crit, note, path):
     import matplotlib.pyplot as plt
     _style(plt)
     fig, axes = plt.subplots(1, 2, figsize=(17, 5), sharey=True)
-    for ax, part, title in zip(axes, ("i", "ii"),
-                               ("(i) LLM prior against stock FASTENER",
-                                "(ii) LLM prior against the blind control (H8-E02)")):
+    titles = (("(i) the prior alone (lambda 1) against mutual information alone",
+               "(ii) the prior against the same prior permuted across the columns")
+              if REVISED else
+              ("(i) LLM prior against stock FASTENER",
+               "(ii) LLM prior against the blind control (H8-E02)"))
+    for ax, part, title in zip(axes, ("i", "ii"), titles):
         grp = [r for r in crit if r["part"] == part]
         for i, r in enumerate(grp):
             e = np.array(r["effects"])
@@ -285,13 +306,14 @@ def fig_criterion(crit, note, path):
             ax.text(0.5, 0.5, "pending: needs H8-E02's blind arms", transform=ax.transAxes,
                     ha="center", va="center", fontsize=11, color=INK_2)
         ax.axhline(0, color=INK_2, lw=0.8)
-        ax.set_xticks(range(len(grp)), [r["model"] for r in grp])
+        ax.set_xticks(range(len(grp)), [r["model"] for r in grp],
+                      fontsize=8 if len(grp) > 6 else 10, rotation=30 if len(grp) > 6 else 0)
         ax.set_title(title, fontsize=10)
         ax.grid(axis="y", color=GRID)
     axes[0].set_ylabel("log2(opponent's fits / LLM arm's fits) to the common target\n"
                        "(per dataset, mean over seeds; > 0 = LLM arm sooner)")
     fig.suptitle("H8: fits to a common validation target; one point per dataset, bar = mean; "
-                 "filled = holds after Holm over the three models", fontsize=10)
+                 f"filled = holds after Holm over the {len(MODELS)} models", fontsize=10)
     _footer(fig, note, "validation")
     fig.tight_layout(rect=(0, 0.12, 1, 0.94))
     fig.savefig(path, dpi=150)
@@ -445,6 +467,115 @@ def fig_blind_mi(results, agree, note, path):
                  "mutual information (flat blind priors left out)", fontsize=10)
     _footer(fig, note, "validation (y), train (x)")
     fig.tight_layout(rect=(0, 0.04, 1, 0.94))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def _mean_ci(results, a, b):
+    r = next((r for r in results if r["arm"] == a and r["opponent"] == b), None)
+    return (r["mean_effect"], r["ci_low"], r["ci_high"]) if r else (np.nan,) * 3
+
+
+def fig_ladder(results, note, path):
+    """H8-E03: each guided arm against stock FASTENER, per model (mean over
+    datasets, 95% bootstrap interval); MI alone as a band across."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    fig, ax = plt.subplots(figsize=(17, 5.2))
+    mi, lo, hi = _mean_ci(results, MI_ONLY, STOCK)
+    ax.axhspan(lo, hi, color=SERIES[3], alpha=0.15, lw=0)
+    ax.axhline(mi, color=SERIES[3], lw=1.5, label=f"mutual information alone ({mi:+.2f})")
+    kinds = (("", "prior, lambda 0.5 (H8-E01's arm)"), ("l1", "prior alone, lambda 1"),
+             ("permuted_l1", "prior permuted, lambda 1"))
+    x = np.arange(len(MODELS))
+    for j, (kind, label) in enumerate(kinds):
+        pts = [_mean_ci(results, arm(m, kind), STOCK) for m in MODELS]
+        y = np.array([p[0] for p in pts])
+        err = np.array([[p[0] - p[1] for p in pts], [p[2] - p[0] for p in pts]])
+        ax.errorbar(x + (j - 1) * 0.22, y, yerr=err, fmt="o", ms=5, capsize=2,
+                    color=SERIES[j], label=label)
+    ax.axhline(0, color=INK_2, lw=0.8)
+    ax.set_xticks(x, MODELS, fontsize=9)
+    ax.set_ylabel("log2(stock fits / arm's fits) to the common target\n"
+                  "(mean over datasets; > 0 = faster than stock)")
+    ax.legend(fontsize=8, ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.1))
+    ax.grid(axis="y", color=GRID)
+    ax.set_title("Every guided arm against stock FASTENER: mutual information alone is the bar "
+                 "a prior has to clear (band: its 95% interval)", fontsize=10)
+    _footer(fig, note, "validation")
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_prior_quality(crit, agree, note, path):
+    """H8-E03: per model, the median Spearman of its named prior with mutual
+    information (x) against part (i) and part (ii) (y); right, every dataset
+    and model."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    fig, axes = plt.subplots(1, 2, figsize=(17, 5.4))
+    q = {m: float(np.nanmedian([r["spearman_mi"] for r in agree if r["model"] == m]))
+         for m in MODELS}
+    for part, mk, label in (("i", "s", "(i) prior alone vs MI alone"),
+                            ("ii", "o", "(ii) prior vs permuted")):
+        grp = {r["model"]: r for r in crit if r["part"] == part}
+        xs = [q[m] for m in MODELS]
+        ys = [grp[m]["mean_effect"] for m in MODELS]
+        axes[0].scatter(xs, ys, marker=mk, s=40, color=SERIES[0 if part == "i" else 1],
+                        label=label)
+        for m, xv, yv in zip(MODELS, xs, ys):
+            axes[0].annotate(m, (xv, yv), xytext=(4, 2), textcoords="offset points",
+                             fontsize=6.5, color=INK_2)
+    axes[0].set_xlabel("median Spearman of the model's named prior with mutual information "
+                       "(training split)")
+    axes[0].set_ylabel("mean log2 ratio over datasets")
+    axes[0].set_title("Per model", fontsize=10)
+    axes[0].legend(fontsize=8)
+    for part, c in (("i", SERIES[0]), ("ii", SERIES[1])):
+        eff = {(r["model"], d): e for r in crit if r["part"] == part
+               for d, e in zip(r["datasets"], r["effects"])}
+        pts = [(r["spearman_mi"], eff[(r["model"], r["dataset"])]) for r in agree
+               if (r["model"], r["dataset"]) in eff]
+        axes[1].scatter(*zip(*pts), s=10, color=c, alpha=0.6,
+                        label="(i)" if part == "i" else "(ii)")
+    axes[1].set_xlabel("Spearman of the named prior with mutual information (training split)")
+    axes[1].set_title("Per dataset and model", fontsize=10)
+    axes[1].legend(fontsize=8)
+    for ax in axes:
+        ax.axhline(0, color=INK_2, lw=0.8)
+        ax.grid(color=GRID)
+    fig.suptitle("A prior helps as far as it agrees with mutual information", fontsize=10)
+    _footer(fig, note, "validation (y), train (x)")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.95))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_part_i_heatmap(crit, note, path):
+    """H8-E03: part (i) per dataset (x) and model (y)."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    grp = [r for r in crit if r["part"] == "i"]
+    ds = sorted({d for r in grp for d in r["datasets"]})
+    z = np.array([[dict(zip(r["datasets"], r["effects"])).get(d, np.nan) for d in ds]
+                  for r in grp])
+    fig, ax = plt.subplots(figsize=(17, 5.4))
+    lim = min(float(np.nanmax(np.abs(z))), 2.5)    # one extreme cell must not wash out the rest
+    im = ax.imshow(z, cmap="RdBu", vmin=-lim, vmax=lim, aspect="auto")
+    ax.grid(False)
+    for i in range(z.shape[0]):
+        for j in range(z.shape[1]):
+            ax.text(j, i, f"{z[i, j]:+.1f}", ha="center", va="center", fontsize=6.5,
+                    color="white" if abs(z[i, j]) > 0.6 * lim else "black")
+    ax.set_xticks(range(len(ds)), ds, rotation=30, ha="right", fontsize=8)
+    ax.set_yticks(range(len(grp)), [r["model"] for r in grp], fontsize=8)
+    fig.colorbar(im, ax=ax, extend="both",
+                 label="log2(MI-only fits / prior's fits); > 0 = prior sooner")
+    ax.set_title("Part (i) per dataset: where the prior alone beats mutual information alone "
+                 "(blue) and where it loses (red)", fontsize=10)
+    _footer(fig, note, "validation")
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -634,7 +765,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     note = (f"{len(rows) - n_ctl} runs of {args.experiment}"
             + (f" + {n_ctl} of {args.control}" if n_ctl else "") + "; LightGBM, 1,000 fits")
     fig_criterion(crit, note, figs / "F1_H8_criterion.png")
-    if args.control and any("blind_flat" in r for r in agree):
+    if REVISED:
+        # H8-E03 as revised (DEC-53): the figures in its findings' order.
+        fig_ladder(crit + beside, note, figs / "F2_ladder.png")
+        if agree:
+            fig_prior_quality(crit, agree, note, figs / "F3_prior_quality.png")
+        fig_part_i_heatmap(crit, note, figs / "F4_part_i_by_dataset.png")
+        fig_end_auf(rows, note, figs / "F5_end_auf.png")
+        fig_beside(beside, note, figs / "F6_beside.png")
+        if agree or costs:
+            fig_priors(agree, costs, note, figs / "F7_priors_and_cost.png")
+    elif args.control and any("blind_flat" in r for r in agree):
         # With the blind arms (H8-E02's report): the figures in its findings' order.
         fig_blind_recall(agree, note, figs / "F2_blind_recall.png")
         fig_blind_mi(crit + beside, agree, note, figs / "F3_blind_mi.png")

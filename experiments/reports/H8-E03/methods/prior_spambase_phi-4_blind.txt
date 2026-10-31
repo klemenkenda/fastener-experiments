@@ -1,0 +1,136 @@
+model asked: microsoft/phi-4   served: microsoft/phi-4
+temperature 0.0, seed 20200, max_tokens 8000
+tokens in 481, out 1021, cost $0.0002, 9.42 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {"scores": {"<feature index>": <score>, ...}} with one entry for every feature index listed.
+
+===== user =====
+Task: Decide whether an e-mail is unsolicited commercial e-mail (spam).
+Classes: not spam, spam
+
+Features (57 of 57):
+0: feature_00
+1: feature_01
+2: feature_02
+3: feature_03
+4: feature_04
+5: feature_05
+6: feature_06
+7: feature_07
+8: feature_08
+9: feature_09
+10: feature_10
+11: feature_11
+12: feature_12
+13: feature_13
+14: feature_14
+15: feature_15
+16: feature_16
+17: feature_17
+18: feature_18
+19: feature_19
+20: feature_20
+21: feature_21
+22: feature_22
+23: feature_23
+24: feature_24
+25: feature_25
+26: feature_26
+27: feature_27
+28: feature_28
+29: feature_29
+30: feature_30
+31: feature_31
+32: feature_32
+33: feature_33
+34: feature_34
+35: feature_35
+36: feature_36
+37: feature_37
+38: feature_38
+39: feature_39
+40: feature_40
+41: feature_41
+42: feature_42
+43: feature_43
+44: feature_44
+45: feature_45
+46: feature_46
+47: feature_47
+48: feature_48
+49: feature_49
+50: feature_50
+51: feature_51
+52: feature_52
+53: feature_53
+54: feature_54
+55: feature_55
+56: feature_56
+
+===== reply =====
+```json
+{
+  "scores": {
+    "0": 0.7,  // Commonly, the presence of certain words or phrases can be indicative of spam.
+    "1": 0.6,  // Email metadata such as sender's domain might be useful.
+    "2": 0.5,  // Frequency of certain characters or symbols might indicate spam.
+    "3": 0.8,  // Presence of specific keywords often associated with spam.
+    "4": 0.4,  // Email length might have some correlation with spam.
+    "5": 0.7,  // Use of capital letters can be a spam indicator.
+    "6": 0.6,  // Number of hyperlinks in the email.
+    "7": 0.5,  // Presence of attachments might be a spam indicator.
+    "8": 0.3,  // Time of day the email was sent might have limited use.
+    "9": 0.4,  // Frequency of certain words might be useful.
+    "10": 0.6, // Use of specific phrases or greetings.
+    "11": 0.5, // Email subject line analysis.
+    "12": 0.7, // Presence of certain HTML tags.
+    "13": 0.4, // Email client used to send the email.
+    "14": 0.3, // Sender's IP address might be useful.
+    "15": 0.6, // Frequency of certain punctuation marks.
+    "16": 0.5, // Use of specific email addresses or domains.
+    "17": 0.7, // Presence of certain HTML attributes.
+    "18": 0.4, // Email's MIME type.
+    "19": 0.3, // Email's encoding type.
+    "20": 0.5, // Presence of certain email headers.
+    "21": 0.6, // Use of specific email formats.
+    "22": 0.4, // Frequency of certain email addresses.
+    "23": 0.7, // Presence of certain email protocols.
+    "24": 0.5, // Use of specific email services.
+    "25": 0.3, // Email's bounce rate.
+    "26": 0.4, // Frequency of certain email clients.
+    "27": 0.6, // Presence of certain email authentication results.
+    "28": 0.5, // Use of specific email routing paths.
+    "29": 0.3, // Email's reply-to address.
+    "30": 0.4, // Frequency of certain email categories.
+    "31": 0.6, // Presence of certain email metadata.
+    "32": 0.5, // Use of specific email signatures.
+    "33": 0.7, // Presence of certain email links.
+    "34": 0.4, // Frequency of certain email types.
+    "35": 0.3, // Email's read receipt status.
+    "36": 0.5, // Use of specific email forwarding paths.
+    "37": 0.6, // Presence of certain email tracking pixels.
+    "38": 0.4, // Frequency of certain email delivery statuses.
+    "39": 0.3, // Email's unsubscribe link presence.
+    "40": 0.5, // Use of specific email formatting styles.
+    "41": 0.6, // Presence of certain email content types.
+    "42": 0.4, // Frequency of certain email interaction patterns.
+    "43": 0.3, // Email's priority status.
+    "44": 0.5, // Use of specific email categorization tags.
+    "45": 0.6, // Presence of certain email content warnings.
+    "46": 0.4, // Frequency of certain email content types.
+    "47": 0.3, // Email's delivery time.
+    "48": 0.5, // Use of specific email content warnings.
+    "49": 0.6, // Presence of certain email content types.
+    "50": 0.4, // Frequency of certain email content types.
+    "51": 0.3, // Email's delivery status.
+    "52": 0.5, // Use of specific email content types.
+    "53": 0.6, // Presence of certain email content types.
+    "54": 0.4, // Frequency of certain email content types.
+    "55": 0.3, // Email's delivery method.
+    "56": 0.5  // Use of specific email content types.
+  }
+}
+``` 
+
+These scores are based on general knowledge of spam detection features. Actual usefulness may vary depending on the specific dataset and context.

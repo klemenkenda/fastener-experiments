@@ -1,0 +1,74 @@
+model asked: anthropic/claude-haiku-5.5   served: anthropic/claude-haiku-5.5
+temperature 0.0, seed 20200, max_tokens 16000
+tokens in 595, out 1188, cost $0.0007, 5.49 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {"scores": {"<feature index>": <score>, ...}} with one entry for every feature index listed.
+
+===== user =====
+Task: Decide whether an e-mail is unsolicited commercial e-mail (spam).
+Classes: not spam, spam
+
+Features (57 of 57):
+0: feature_00
+1: feature_01
+2: feature_02
+3: feature_03
+4: feature_04
+5: feature_05
+6: feature_06
+7: feature_07
+8: feature_08
+9: feature_09
+10: feature_10
+11: feature_11
+12: feature_12
+13: feature_13
+14: feature_14
+15: feature_15
+16: feature_16
+17: feature_17
+18: feature_18
+19: feature_19
+20: feature_20
+21: feature_21
+22: feature_22
+23: feature_23
+24: feature_24
+25: feature_25
+26: feature_26
+27: feature_27
+28: feature_28
+29: feature_29
+30: feature_30
+31: feature_31
+32: feature_32
+33: feature_33
+34: feature_34
+35: feature_35
+36: feature_36
+37: feature_37
+38: feature_38
+39: feature_39
+40: feature_40
+41: feature_41
+42: feature_42
+43: feature_43
+44: feature_44
+45: feature_45
+46: feature_46
+47: feature_47
+48: feature_48
+49: feature_49
+50: feature_50
+51: feature_51
+52: feature_52
+53: feature_53
+54: feature_54
+55: feature_55
+56: feature_56
+
+===== reply =====
+```json
+{"scores": {"0": 0.45, "1": 0.4, "2": 0.35, "3": 0.3, "4": 0.45, "5": 0.35, "6": 0.9, "7": 0.4, "8": 0.4, "9": 0.4, "10": 0.35, "11": 0.25, "12": 0.25, "13": 0.2, "14": 0.35, "15": 0.8, "16": 0.6, "17": 0.3, "18": 0.6, "19": 0.5, "20": 0.6, "21": 0.3, "22": 0.5, "23": 0.55, "24": 0.05, "25": 0.05, "26": 0.05, "27": 0.1, "28": 0.05, "29": 0.05, "30": 0.05, "31": 0.05, "32": 0.1, "33": 0.05, "34": 0.05, "35": 0.15, "36": 0.15, "37": 0.1, "38": 0.05, "39": 0.25, "40": 0.05, "41": 0.1, "42": 0.1, "43": 0.05, "44": 0.1, "45": 0.1, "46": 0.05, "47": 0.05, "48": 0.3, "49": 0.25, "50": 0.25, "51": 0.8, "52": 0.9, "53": 0.4, "54": 0.6, "55": 0.6, "56": 0.6}}
+```

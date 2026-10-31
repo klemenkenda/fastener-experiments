@@ -1,0 +1,72 @@
+model asked: openai/gpt-6-luna   served: openai/gpt-6-luna
+temperature 0.0, seed 20200, max_tokens 16000
+tokens in 479, out 867, cost $0.0005, 8.91 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {"scores": {"<feature index>": <score>, ...}} with one entry for every feature index listed.
+
+===== user =====
+Task: Decide whether an e-mail is unsolicited commercial e-mail (spam).
+Classes: not spam, spam
+
+Features (57 of 57):
+0: feature_00
+1: feature_01
+2: feature_02
+3: feature_03
+4: feature_04
+5: feature_05
+6: feature_06
+7: feature_07
+8: feature_08
+9: feature_09
+10: feature_10
+11: feature_11
+12: feature_12
+13: feature_13
+14: feature_14
+15: feature_15
+16: feature_16
+17: feature_17
+18: feature_18
+19: feature_19
+20: feature_20
+21: feature_21
+22: feature_22
+23: feature_23
+24: feature_24
+25: feature_25
+26: feature_26
+27: feature_27
+28: feature_28
+29: feature_29
+30: feature_30
+31: feature_31
+32: feature_32
+33: feature_33
+34: feature_34
+35: feature_35
+36: feature_36
+37: feature_37
+38: feature_38
+39: feature_39
+40: feature_40
+41: feature_41
+42: feature_42
+43: feature_43
+44: feature_44
+45: feature_45
+46: feature_46
+47: feature_47
+48: feature_48
+49: feature_49
+50: feature_50
+51: feature_51
+52: feature_52
+53: feature_53
+54: feature_54
+55: feature_55
+56: feature_56
+
+===== reply =====
+{"scores":{"0":0.28,"1":0.24,"2":0.26,"3":0.12,"4":0.67,"5":0.29,"6":0.78,"7":0.44,"8":0.49,"9":0.35,"10":0.31,"11":0.23,"12":0.27,"13":0.15,"14":0.21,"15":0.75,"16":0.63,"17":0.29,"18":0.68,"19":0.46,"20":0.72,"21":0.13,"22":0.66,"23":0.52,"24":0.72,"25":0.57,"26":0.76,"27":0.33,"28":0.29,"29":0.28,"30":0.20,"31":0.19,"32":0.18,"33":0.19,"34":0.24,"35":0.30,"36":0.24,"37":0.15,"38":0.21,"39":0.26,"40":0.72,"41":0.71,"42":0.21,"43":0.21,"44":0.62,"45":0.58,"46":0.14,"47":0.24,"48":0.25,"49":0.28,"50":0.23,"51":0.83,"52":0.75,"53":0.29,"54":0.60,"55":0.69,"56":0.74}}

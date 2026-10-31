@@ -1,0 +1,134 @@
+model asked: mistralai/ministral-8b-2512   served: mistralai/ministral-8b-2512
+temperature 0.0, seed 20200, max_tokens 16000
+tokens in 586, out 1560, cost $0.0003, 27.45 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {"scores": {"<feature index>": <score>, ...}} with one entry for every feature index listed.
+
+===== user =====
+Task: Decide whether an e-mail is unsolicited commercial e-mail (spam).
+Classes: not spam, spam
+
+Features (57 of 57):
+0: feature_00
+1: feature_01
+2: feature_02
+3: feature_03
+4: feature_04
+5: feature_05
+6: feature_06
+7: feature_07
+8: feature_08
+9: feature_09
+10: feature_10
+11: feature_11
+12: feature_12
+13: feature_13
+14: feature_14
+15: feature_15
+16: feature_16
+17: feature_17
+18: feature_18
+19: feature_19
+20: feature_20
+21: feature_21
+22: feature_22
+23: feature_23
+24: feature_24
+25: feature_25
+26: feature_26
+27: feature_27
+28: feature_28
+29: feature_29
+30: feature_30
+31: feature_31
+32: feature_32
+33: feature_33
+34: feature_34
+35: feature_35
+36: feature_36
+37: feature_37
+38: feature_38
+39: feature_39
+40: feature_40
+41: feature_41
+42: feature_42
+43: feature_43
+44: feature_44
+45: feature_45
+46: feature_46
+47: feature_47
+48: feature_48
+49: feature_49
+50: feature_50
+51: feature_51
+52: feature_52
+53: feature_53
+54: feature_54
+55: feature_55
+56: feature_56
+
+===== reply =====
+```json
+{
+  "scores": {
+    "0": 0.3,  // Likely low-level or irrelevant feature (e.g., raw byte count, minor metadata)
+    "1": 0.6,  // Could be a simple keyword presence (e.g., "free", "win") or basic spam indicator
+    "2": 0.7,  // Possibly URL presence, domain reputation, or link count (common spam markers)
+    "3": 0.8,  // Likely email length, which often differs between spam and non-spam
+    "4": 0.9,  // Could be presence of "click here," "buy now," or other aggressive CTAs (high spam indicator)
+    "5": 0.5,  // Might be a minor feature like punctuation count or minor word frequency
+    "6": 0.85, // Likely number of exclamation marks, all-caps words, or spammy phrases (strong spam signal)
+    "7": 0.75, // Could be presence of "offer," "discount," or other promotional keywords
+    "8": 0.65, // Might be email subject line length or suspicious subject patterns
+    "9": 0.4,  // Possibly minor metadata like sender IP reputation (less direct)
+    "10": 0.8, // Likely presence of "prize," "lottery," or other scam triggers
+    "11": 0.7,  // Could be number of links or external references (common in spam)
+    "12": 0.6,  // Might be presence of "urgent," "act now," or other pressure tactics
+    "13": 0.9,  // Likely presence of "viagra," "loan," or other high-probability spam keywords
+    "14": 0.55, // Could be minor feature like email header analysis (e.g., missing "From" field)
+    "15": 0.7,  // Might be presence of "credit," "debt," or financial scam terms
+    "16": 0.6,  // Could be number of attachments or suspicious file types
+    "17": 0.8,  // Likely presence of "guarantee," "risk-free," or other marketing buzzwords
+    "18": 0.45, // Might be minor feature like email encoding type (e.g., unusual charset)
+    "19": 0.75, // Could be presence of "subscribe," "unsubscribe," or legal disclaimers (often in spam)
+    "20": 0.6,  // Might be number of special characters or symbols (common in spam)
+    "21": 0.85, // Likely presence of "click," "visit," or direct link prompts
+    "22": 0.5,  // Could be minor feature like email age or timestamp (less direct)
+    "23": 0.7,  // Might be presence of "call," "phone," or direct contact requests
+    "24": 0.9,  // Likely presence of "free," "offer," or other high-value spam triggers
+    "25": 0.6,  // Could be number of personal pronouns (e.g., "you," "your") in spam
+    "26": 0.75, // Likely presence of "money," "cash," or financial spam terms
+    "27": 0.5,  // Might be minor feature like email body structure (e.g., HTML vs. plaintext)
+    "28": 0.8,  // Could be presence of "win," "prize," or lottery scams
+    "29": 0.65, // Might be number of repeated words or spammy phrases
+    "30": 0.7,  // Likely presence of "order," "purchase," or direct sales language
+    "31": 0.55, // Could be minor feature like email sender reputation score
+    "32": 0.8,  // Likely presence of "urgent," "immediate," or time-sensitive language
+    "33": 0.6,  // Might be number of spammy domains or blacklisted sources
+    "34": 0.9,  // Likely presence of "click," "link," or direct navigation prompts
+    "35": 0.7,  // Could be presence of "support," "service," or fake technical claims
+    "36": 0.5,  // Might be minor feature like email reply-to field analysis
+    "37": 0.85, // Likely presence of "violation," "scam," or legal threats (common in phishing)
+    "38": 0.6,  // Could be number of spammy images or embedded objects
+    "39": 0.75, // Likely presence of "credit," "loan," or financial spam
+    "40": 0.5,  // Might be minor feature like email encoding or compression
+    "41": 0.8,  // Likely presence of "guaranteed," "assured," or false promises
+    "42": 0.6,  // Could be number of spammy keywords in the subject line
+    "43": 0.7,  // Might be presence of "update," "account," or fake security alerts
+    "44": 0.85, // Likely presence of "click," "visit," or direct link baiting
+    "45": 0.5,  // Could be minor feature like email delivery time (e.g., late-night spam)
+    "46": 0.7,  // Might be presence of "offer," "deal," or promotional language
+    "47": 0.6,  // Could be number of spammy attachments or executables
+    "48": 0.8,  // Likely presence of "win," "prize," or fake contest spam
+    "49": 0.55, // Might be minor feature like email sender location (e.g., offshore domains)
+    "50": 0.7,  // Could be presence of "urgent," "action," or time-sensitive spam
+    "51": 0.6,  // Might be number of spammy keywords in the body
+    "52": 0.8,  // Likely presence of "click," "link," or direct navigation prompts
+    "53": 0.75, // Likely presence of "free," "offer," or high-value spam triggers
+    "54": 0.6,  // Could be minor feature like email body length or structure
+    "55": 0.8,  // Likely presence of "violation," "scam," or fake legal threats
+    "56": 0.7  // Might be presence of "click," "visit," or direct link baiting
+  }
+}
+```

@@ -1,0 +1,135 @@
+model asked: mistralai/ministral-8b-2512   served: mistralai/ministral-8b-2512
+temperature 0.0, seed 20200, max_tokens 16000
+tokens in 657, out 1316, cost $0.0003, 20.21 s
+
+===== system =====
+You are helping a feature-selection search for a classification task. Rate how useful each feature is likely to be for predicting the class, on its own or together with a few others, from 0 (useless) to 1 (most useful). Use only your knowledge of the domain and the descriptions given; you do not see the data. Reply with a JSON object only: {"scores": {"<feature index>": <score>, ...}} with one entry for every feature index listed.
+
+===== user =====
+Task: Decide whether an e-mail is unsolicited commercial e-mail (spam).
+Classes: not spam, spam
+Data: E-mails collected at Hewlett-Packard Labs. word_freq_WORD is the percentage of words in the e-mail that are WORD; char_freq_CHAR the percentage of characters that are CHAR; capital_run_length_average, _longest and _total describe runs of consecutive capital letters.
+
+Features (57 of 57):
+0: word_freq_make
+1: word_freq_address
+2: word_freq_all
+3: word_freq_3d
+4: word_freq_our
+5: word_freq_over
+6: word_freq_remove
+7: word_freq_internet
+8: word_freq_order
+9: word_freq_mail
+10: word_freq_receive
+11: word_freq_will
+12: word_freq_people
+13: word_freq_report
+14: word_freq_addresses
+15: word_freq_free
+16: word_freq_business
+17: word_freq_email
+18: word_freq_you
+19: word_freq_credit
+20: word_freq_your
+21: word_freq_font
+22: word_freq_000
+23: word_freq_money
+24: word_freq_hp
+25: word_freq_hpl
+26: word_freq_george
+27: word_freq_650
+28: word_freq_lab
+29: word_freq_labs
+30: word_freq_telnet
+31: word_freq_857
+32: word_freq_data
+33: word_freq_415
+34: word_freq_85
+35: word_freq_technology
+36: word_freq_1999
+37: word_freq_parts
+38: word_freq_pm
+39: word_freq_direct
+40: word_freq_cs
+41: word_freq_meeting
+42: word_freq_original
+43: word_freq_project
+44: word_freq_re
+45: word_freq_edu
+46: word_freq_table
+47: word_freq_conference
+48: char_freq_%3B
+49: char_freq_%28
+50: char_freq_%5B
+51: char_freq_%21
+52: char_freq_%24
+53: char_freq_%23
+54: capital_run_length_average
+55: capital_run_length_longest
+56: capital_run_length_total
+
+===== reply =====
+```json
+{
+  "scores": {
+    "0": 0.8,  // "make" – often used in spam (e.g., "make money fast")
+    "1": 0.7,  // "address" – could indicate spam (e.g., "your address")
+    "2": 0.3,  // "all" – too generic
+    "3": 0.6,  // "3d" – spammy (e.g., "3D offers")
+    "4": 0.4,  // "our" – generic
+    "5": 0.5,  // "over" – generic but could hint at discounts ("over 50% off")
+    "6": 0.7,  // "remove" – spammy (e.g., "remove this ad")
+    "7": 0.8,  // "internet" – spam often references online services
+    "8": 0.7,  // "order" – spammy (e.g., "place your order now")
+    "9": 0.6,  // "mail" – could be spammy (e.g., "mail order")
+    "10": 0.5, // "receive" – spammy (e.g., "receive free gifts")
+    "11": 0.4, // "will" – generic
+    "12": 0.3, // "people" – generic
+    "13": 0.6, // "report" – spammy (e.g., "free report")
+    "14": 0.7, // "addresses" – spammy (e.g., "email addresses")
+    "15": 0.9, // "free" – **highly spammy** (e.g., "free offer")
+    "16": 0.5, // "business" – generic but could be spammy
+    "17": 0.8, // "email" – spammy (e.g., "email marketing")
+    "18": 0.7, // "you" – spammy (e.g., "you’ve won!")
+    "19": 0.8, // "credit" – spammy (e.g., "credit card offers")
+    "20": 0.7, // "your" – spammy (e.g., "your account")
+    "21": 0.4, // "font" – generic
+    "22": 0.6, // "000" – spammy (e.g., "000 offers")
+    "23": 0.9, // "money" – **highly spammy** (e.g., "make money fast")
+    "24": 0.2, // "hp" – likely irrelevant (HP Labs dataset)
+    "25": 0.2, // "hpl" – irrelevant (HP Labs)
+    "26": 0.1, // "george" – irrelevant
+    "27": 0.1, // "650" – irrelevant
+    "28": 0.1, // "lab" – irrelevant (HP Labs)
+    "29": 0.1, // "labs" – irrelevant (HP Labs)
+    "30": 0.3, // "telnet" – irrelevant
+    "31": 0.1, // "857" – irrelevant
+    "32": 0.4, // "data" – generic but could be spammy
+    "33": 0.1, // "415" – irrelevant
+    "34": 0.1, // "85" – irrelevant
+    "35": 0.5, // "technology" – generic but could be spammy
+    "36": 0.2, // "1999" – irrelevant
+    "37": 0.4, // "parts" – generic
+    "38": 0.4, // "pm" – generic
+    "39": 0.6, // "direct" – spammy (e.g., "direct marketing")
+    "40": 0.3, // "cs" – irrelevant
+    "41": 0.4, // "meeting" – generic
+    "42": 0.4, // "original" – generic
+    "43": 0.5, // "project" – generic but could be spammy
+    "44": 0.3, // "re" – generic
+    "45": 0.2, // "edu" – likely irrelevant (non-spammy)
+    "46": 0.3, // "table" – generic
+    "47": 0.4, // "conference" – generic
+    "48": 0.8, // "%3B" – spammy (URL-encoded semicolon in spam links)
+    "49": 0.8, // "%28" – spammy (URL-encoded parenthesis in spam links)
+    "50": 0.7, // "%5B" – spammy (URL-encoded bracket in spam links)
+    "51": 0.7, // "%21" – spammy (URL-encoded exclamation in spam links)
+    "52": 0.7, // "%24" – spammy (URL-encoded dollar in spam links)
+    "53": 0.6, // "%23" – spammy (URL-encoded hash in spam links)
+    "54": 0.7, // "capital_run_length_average" – spam often uses ALL-CAPS
+    "55": 0.8, // "capital_run_length_longest" – spam often uses ALL-CAPS
+    "56": 0.7  // "capital_run_length_total" – spam often uses ALL-CAPS
+  }
+}
+```

@@ -849,7 +849,12 @@ and its prompt, and the classifier. *Fixed on 2026-10-30 (revision below,
 * `H8-E03` -- all twelve models, with controls that can tell knowledge from
   guidance (revised 2026-10-31, before any run; DEC-53): the prior alone
   (lambda 1) against mutual information alone, and against the same prior
-  permuted across the columns. Registered.
+  permuted across the columns. **Not supported:** part (i) holds for no
+  model (the best prior, Sonnet's, is level with mutual information at
+  +0.33; nine are slower), part (ii) for Sonnet only (14-0-2, +1.41, Holm
+  p = 0.007). A prior helps as far as it agrees with mutual information;
+  mutual information alone, with no LLM, is 1.3 times faster than stock
+  (12-0-4). [Report](reports/H8-E03/REPORT.md).
 
 ## H9 -- Confirmatory: on unseen datasets, search beats filtering, more so on tall data
 
