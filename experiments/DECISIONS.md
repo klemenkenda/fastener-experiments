@@ -1193,6 +1193,33 @@ against mutual information alone and against the same prior permuted.**
 - **By:** PI (to revise H8-E03 as proposed); the design proposed by Claude.
 - **Applies to:** H8-E03; supersedes DEC-52's arms and criterion.
 
+### DEC-54
+
+**2026-10-31 -- H12: what the models know of the H8 datasets, tested on the
+H8 datasets with twelve models, on the workstation.**
+
+- **Why:** H8-E02 found the blind priors recall the datasets' column order.
+  The PI wants it tested directly, and asked that the test tell knowledge of
+  the physical phenomenon apart from knowledge of the dataset.
+- **Detail:** H12 in HYPOTHESES.md and the H12-E01 design. Seven probes
+  (`h12_probes.py`); permutation importance as the primary truth, mutual
+  information secondary; parts A (schema recall), B (positional relevance
+  vs a fictitious name) and C (the dataset's name on top of the feature
+  names, as a partial correlation given the names alone). A $10 hard cap on
+  H12-E01's calls; with $33.63 spent and no model calls in H8-E03's runs
+  (DEC-53), the $50 limit holds. A pilot (spambase and adult, Gemma 3 27B
+  and DeepSeek V4 Flash, $0.01, not evidence; run `20261031T051842Z_h12_pilot`,
+  in the scratchpad, not kept) checked the prompts and the parsing; its
+  output was seen: DeepSeek's positional scores for spambase ranked
+  positions 51, 6 and 15 first (`char_freq_!`, `word_freq_remove`,
+  `word_freq_free`), and with the fictitious name positions 0 to 4.
+- **By:** PI (the line, as a hypothesis; the H8 datasets; the workstation;
+  permutation importance as the primary truth; the $10 cap; separating
+  phenomenon from dataset knowledge). Proposed by Claude: the probes, the
+  fictitious-name control, part C's partial correlation, the thresholds
+  (8 of 16 datasets, 7 of 12 models; the PI: "try yours").
+- **Applies to:** H12-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1220,4 +1247,5 @@ are not repeated.
 | `H8-E01` | reported: part (i) holds for all three models; part (ii) read in H8-E02 | [DEC-44](#dec-44), [DEC-49](#dec-49), [DEC-50](#dec-50), [DEC-51](#dec-51) | [DEC-51](#dec-51) | [H8-E01](reports/H8-E01/REPORT.md) |
 | `H8-E02` | reported: not supported for the three Anthropic models (part (ii) fails for each) | [DEC-50](#dec-50), [DEC-51](#dec-51) | -- | [H8-E02](reports/H8-E02/REPORT.md) |
 | `H8-E03` | registered (revised before any run) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | [DEC-53](#dec-53) | -- |
+| `H12-E01` | registered | [DEC-54](#dec-54) | -- | -- |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |

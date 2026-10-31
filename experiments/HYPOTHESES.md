@@ -988,6 +988,91 @@ seeds -- registered before they run.
 
 ---
 
+## H12 -- LLMs know the H8 datasets and the relevance of their features
+
+*(2026-10-31; proposed by the PI after H8-E02. It is descriptive -- a claim
+about what the models know -- registered as a hypothesis at the PI's wish,
+with a falsification criterion, before any of its probes was sent. See
+[DEC-54](DECISIONS.md#dec-54).)*
+
+**Claim.** Large language models recognise the H8 datasets and know which of
+their features are relevant, as knowledge of *the dataset*, not only of the
+physical or domain phenomenon its features describe: (A) given a dataset's
+name, a model reproduces its features; (B) given only the name and the
+features' positions in the original column order -- no feature names -- its
+relevance scores agree with the relevance measured on the data, more than the
+same prompt with a fictitious name; and (C, the strict form) given the
+feature names, adding the dataset's name lets it track the measured relevance
+beyond what it predicts from the names alone.
+
+**Where it comes from.** H8-E02's F2: the blind priors (shuffled positions,
+task and class names, no description) scored positions as the models
+remember the datasets' columns (layout recall up to 1.00 on higgs). H12 is
+formed from that observation, on the same 16 datasets: the PI's choice,
+because H12 is about these datasets. Its probes are new calls, but the
+datasets, and for Opus, Sonnet and Haiku the models, are the ones the
+observation came from, so for those three the test is weaker than one on
+unseen data. Seen before H12 was written: H8-E01/-E02's priors and results
+(the three Anthropic models); the H8-E03 priors of the nine others were
+committed but their layout recall was not read. A pilot on spambase and
+adult with two of the models (not evidence; DEC-54) had been seen.
+
+**Why it might hold.** These are widely used benchmarks (UCI, OpenML, the
+Grinsztajn suite) with papers, notebooks and feature-importance write-ups
+in the models' training data.
+
+**Why it might not, and the rivals.** (1) Domain knowledge alone: a model
+that reasons from "glucose" or "m_bb" about the phenomenon needs no memory
+of the dataset -- separated by P3 (no names) and by C (names in both arms,
+only the dataset's name differs). (2) A position bias -- e.g. early columns
+scored higher -- that happens to fit the data: controlled by P3f, the same
+positional prompt with a fictitious name. (3) Grading artefacts in name
+matching: the rule is fixed before the run, and exact-only recall is
+reported beside it. (4) A noisy or model-specific truth: permutation
+importance from the protocol's LightGBM is primary, mutual information is
+secondary, and both are reported. (5) Recall of a different distribution's
+column order (UCI vs OpenML): biases B towards zero, not away from it.
+
+**Probes.** Per model and dataset, temperature 0, seed 20200, one call each
+(wide sets in chunks of 300): P1a identify from rows, feature count and
+class names; P1b identify from the feature names; P2 list the features given
+the dataset's name; P3 score features 0..p-1 by position given the name, no
+feature names; P3f the same with a fictitious name; P4 score the named
+features given the dataset's name and the class names; P5 the same without
+the dataset's name. Variables are the original columns (adult's and
+diabetes130's one-hot columns grouped back).
+
+**Truth.** From the data alone: LightGBM (the protocol's settings) fitted on
+the training split; the drop in validation weighted F1 when a variable's
+columns are permuted, mean of five permutations (seeds 2020-2024) --
+primary. Mutual information with the class on the training split, mean over
+seeds 2020-2024 -- secondary.
+
+**Falsification criterion.** Per model, the unit is the dataset (16).
+(A) P2 recalls at least half of the dataset's variables (one-to-one name
+match after normalisation, difflib ratio >= 0.85) on at least 8 datasets.
+(B) Per dataset, d = rho(P3, truth) - rho(P3f, truth) (Spearman; a flat score
+counts as rho 0); more datasets positive than negative and a two-sided
+Wilcoxon p < 0.05 after Holm over the twelve models.
+(C) Per dataset, the partial Spearman correlation of P4 with the truth,
+controlling for P5; the same test as B.
+H12 holds for a model if A and B hold. **H12 is supported if it holds for at
+least 7 of the 12 models**, and is called **dataset-specific** if C holds as
+well for at least 7. Otherwise not supported; reversed if B's effect is
+significantly negative for at least 7 models.
+
+**Beside it, descriptive.** P1a/P1b identification; schema recall exact-only
+and in place; rho(P3, P4) (layout recall); P4 - P5; every reading against
+mutual information; B and C on datasets the model identified vs not; the
+reliability of the truth (MI across seeds); spend.
+
+**Experiments.**
+
+* `H12-E01` -- the seven probes, 12 models x 16 datasets, on the workstation
+  (sentinel). Registered.
+
+---
+
 ## Deferred, deliberately
 
 **D1 -- the replication gap is a grading artifact.** `WHY_RESULTS_DIFFER.md`
