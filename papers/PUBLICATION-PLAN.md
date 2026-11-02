@@ -1,8 +1,8 @@
 # FASTENER – delovni publikacijski načrt 2026–2027
 
 **Pripravljeno za:** Klemen Kenda, Institut »Jožef Stefan« (IJS)  
-**Datum:** 31. oktober 2026  
-**Različica:** 1.3 – kritični pregled novosti P2/H1 in priprava ločenega raziskovalnega repozitorija
+**Datum:** 2. november 2026  
+**Različica:** 1.4 – variante FASTENER-ja kot sedem družin (filtra mRMR/Boruta kot ena; LLM-vodenje, LLM + RAG, LLM + KG); soavtorstvo Sidorele Uku pri P4, P5 in P10
 
 > **Status dokumenta:** Posodobitev 31. oktobra 2026 temelji na ciljnem pregledu lokalne kode FASTENER-ja, registra eksperimentov, poročil H1-E02, H2/H3, H8-E01–E03, H10-E01–E03, H11-E01 in H12-E01 ter sorodne literature. Iz tabel H2/H3 so ponovno izračunani število zbirk, smeri razlik, povprečja in mediane; p-vrednosti so povzete iz poročila. Pri H1 so ponovno preverjene smeri in povprečja 40 parnih razlik ter ničelne vrednosti AUF, pregledani pa tudi operatorji in najbližja literatura. Rezultati H8/H10/H11/H12 so povzeti iz poročil; pri H11 so ključne številke preverjene tudi v izvornih tabelah H10. Eksperimenti niso bili ponovno izvedeni. To je presoja izvedljivosti in publikacijske samostojnosti, ne celovita reprodukcija ali sistematičen pregled literature. Pogoji revij, pogodbe IJS, JOSS in konferenčni roki ostajajo nepreverjene navedbe starejšega načrta.
 
@@ -23,19 +23,23 @@ Načrt zasleduje štiri cilje:
 
 Oznake **H1–H12 pomenijo raziskovalna vprašanja oziroma eksperimentalne sklope**, ne strogo potrditvenih hipotez. V člankih naj bodo ugotovitve opisane z velikostjo učinkov, negotovostjo in omejitvami; oznake »potrjeno« in »ovrženo« praviloma niso primerna osnovna struktura.
 
-### 1.1 Kaj pomeni »pet variant«
+### 1.1 Variante FASTENER-ja
 
-V [registru konfiguracij](../experiments/run_sota.py) je mogoče izločiti **pet aktualnih osnovnih konfiguracij brez LLM-ja**:
+Variante štejemo kot **družine konfiguracij**. Seed mRMR in seed Boruta sta ena varianta (ista zamisel, drug filter). Pet variant je implementiranih v [registru konfiguracij](../experiments/run_sota.py), dve sta načrtovani:
 
-| Različica | Kaj spremeni | Publikacijska vloga |
-| --- | --- | --- |
-| `fastener` | Trenutni osnovni algoritem; MI-križanje, naključna mutacija, odstranjevanje glede na permutacijsko pomembnost | Referenca v P3, P4, P6 in P7; izvirna metoda je bila objavljena leta 2020 |
-| `fastener_swap_random` | Naključno odstrani eno izbrano in vstavi eno neizbrano značilko | Kontrola v P7 za učinek same zamenjave |
-| `fastener_swap_guided` | Odstrani permutacijsko najšibkejšo značilko in vstavi neizbrano s tehtanim vzorčenjem po MI | Glavni primer vodene zamenjave v P7 |
-| `fastener_seed_mrmr` | Začetna populacija iz gnezdenih podmnožic razvrstitve mRMR | Skupaj z Boruta v P6 |
-| `fastener_seed_boruta` | Začetna populacija iz razvrstitve Boruta; upoštevati tudi njene učne stroške | Skupaj z mRMR v P6 |
+| # | Varianta | Konfiguracije v registru | Kaj spremeni | Članek | Stanje |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Osnovni FASTENER | `fastener` | MI-križanje, naključna mutacija, odstranjevanje glede na permutacijsko pomembnost | referenca v P3, P4, P6, P7, P10 | implementirano |
+| 2 | Naključni swap | `fastener_swap_random` | naključno odstrani eno izbrano in vstavi eno neizbrano značilko | P7 (kontrola) | implementirano, H2 |
+| 3 | Vodeni swap | `fastener_swap_guided` | odstrani permutacijsko najšibkejšo značilko, vstavi neizbrano s tehtanim vzorčenjem po MI | P7 | implementirano, H3 |
+| 4 | Inicializacija s filtrom | `fastener_seed_mrmr`, `fastener_seed_boruta` | začetna populacija iz gnezdenih podmnožic (k = 1..10) razvrstitve mRMR oziroma Boruta; pri Boruta šteti tudi njen učni strošek | P6 | implementirano, H10/H11 |
+| 5 | LLM-vodenje | prior: `fastener_llm_<model>` (λ = 0,5), `fastener_llm_<model>_l1` (λ = 1); predlagalnik: `fastener_llm_<model>_proposer` | LLM iz imen in opisov značilk oceni relevantnost (prior za križanje, mutacijo in začetek) ali med iskanjem predlaga podmnožice | P4; znanje modelov o zbirkah v P5 | implementirano, H8; kontrole `fastener_mi_only`, `_permuted_l1`, `_blind`, `_scrambled` |
+| 6 | LLM + RAG | -- | prior ali predlagalnik dobi priklicano besedilo o zbirki in domeni (dokumentacija zbirke, članki, opisi meritev) | P10 (primerjava) | načrtovano |
+| 7 | LLM + KG | -- | prior ali predlagalnik dobi majhen graf znanja o značilkah (merjena količina, instrument, transformacija, pojem naloge in njihove relacije); graf je dovolj majhen, da ga v pozivu podamo celega, zato KG-RAG (priklic podgrafa) ni potreben, dokler graf ne preraste konteksta | P10 | načrtovano, s Sidorelo Uku |
 
-To **ni celotno število implementiranih konfiguracij**. Poleg teh obstajajo zgodovinska `fastener_2020`, statistična kontrola `fastener_mi_only` brez LLM-ja, LLM-priorji, spletni predlagalnik podmnožic in druge kontrole. Če mRMR/Boruta združimo v eno družino in dodamo LLM, dobimo pet širših družin: osnovna, naključni swap, vodeni swap, inicializacija s filtri, LLM-vodenje. Število družin zato ni število člankov. [README komponente](../fastener/README.md) navaja starejši inventar z dne 30. oktobra; za dodatne modele in kontrole H8-E03 je merodajen trenutni register.
+Variante 5–7 uporabljajo iste vmesnike (`feature_prior`, `subset_proposer`), zato se razlikujejo samo po tem, kaj model prejme. Za P10 je ključna stroga kontrola med 6 in 7: model prejme **iste trditve** enkrat kot graf in enkrat kot ploščato besedilo; tako ločimo korist relacij od same vsebine (glej P10). MI-only (`fastener_mi_only`) ostane referenca, ki jo mora preseči vsaka LLM-varianta: v H8-E03 noben od 12 priorjev (λ = 1) ni bil hitrejši od MI-only.
+
+Ostale konfiguracije v registru niso samostojne variante: zgodovinska `fastener_2020`, ablacije posameznih operatorjev LLM-priorja in kontrole H8. [README komponente](../fastener/README.md) navaja starejši inventar z dne 30. oktobra; merodajen je trenutni register.
 
 Trenutni osnovni algoritem uporablja `include_top_genes=True, allow_self_mating=False`; rezultatov zgodnjih različic z drugimi zastavicami ne združujemo brez označitve. Izvirni članek [Koprivec, Kenda in Šircelj (2020)](https://www.mdpi.com/1099-4300/22/11/1198) je izhodišče za vse nove prispevke, ne nova publikacijska enota.
 
@@ -48,8 +52,8 @@ Oznake P1–P10 spodaj so oznake publikacijskih predlogov. Ločene so od oznak e
 | P1 | H4 | Kako izbira računskega proračuna spremeni primerjavo FASTENER in FS-SDS | December 2026 | Posplošljiv metodološki prispevek, dovolj neodvisen od P3 |
 | P2 | H1 + morebitni novi pilot | Pokritost velikosti podmnožic pri evolucijskem izboru značilk | Brez samostojnega roka; privzeto vključitev v P3 | Sedanja inicializacija ni dovolj nova; samostojnost le ob novem, posplošljivem metodološkem rezultatu |
 | P3 | H5–H7 in H9 | Širša primerjalna študija selektorjev značilk | Februar–marec 2027 | Razširitev in neodvisna validacija H9 |
-| P4 | H8-E01–E03 | Mehanizmi in meje LLM-vodenega evolucijskega iskanja | Marec–april 2027 | Skupna razlaga začetne pohitritve, nezadostno slepe kontrole in primerjave z MI-only; neodvisna validacija |
-| P5 | H12-E01 | Prepoznavanje zbirk, priklic razporeda stolpcev in znanje o pomembnosti značilk | April–maj 2027, pogojno | Nov nabor zbirk in ponovljeni pozivi; sicer vključitev v P4 |
+| P4 | H8-E01–E03; s Sidorelo Uku | Mehanizmi in meje LLM-vodenega evolucijskega iskanja | Marec–april 2027 | Skupna razlaga začetne pohitritve, nezadostno slepe kontrole in primerjave z MI-only; neodvisna validacija |
+| P5 | H12-E01; s Sidorelo Uku | Prepoznavanje zbirk, priklic razporeda stolpcev in znanje o pomembnosti značilk | April–maj 2027, pogojno | Nov nabor zbirk in ponovljeni pozivi; sicer vključitev v P4 |
 | P6 | H10-E01–E03 + H11-E01 | Inicializacija FASTENER-ja z mRMR/Boruta: kakovost, zgodnja korist in celotni strošek | Maj 2027, pogojno | H11 je post hoc ponovna analiza H10; predhodno registrirana neodvisna validacija |
 | P7 | H2/H3 | En skupni članek: kdaj se zamenjava značilk pri fiksni velikosti izplača | Maj–junij 2027 ali konferenca, pogojno | Mehanistične ablacijske študije, dodatni proračuni in neodvisna validacija; sedanji učinek je majhen in krhek |
 | P8 | Programska oprema | FASTENER kot odprtokodni raziskovalni paket | December 2026–marec 2027, če je pripravljen | Preverjena upravičenost za JOSS in urejen paket |
@@ -453,13 +457,13 @@ Izhodiščni oddajni načrt je po pregledu P2 spremenjen: najprej H4, če upravi
 
 ## 12. Viri in sledljivost
 
-**Izhodišče:** različica 1.0 je povzemala prejšnji pogovor. Različica 1.1 je dodala ciljni pregled kode, obstoječih rezultatov in literature; različica 1.2 podrobnejšo sintezo H8-E01–E03, H12-E01 ter H10/H11; različica 1.3 preverja H1, novost P2 in usklajuje časovnico z vključitvijo H1 v P3. Vsi pregledi so z dne 31. oktobra 2026. Publikacijska priporočila in načrta novih pilotov P2/P10 so presoja na osnovi teh virov, ne že doseženi raziskovalni rezultati.
+**Izhodišče:** različica 1.0 je povzemala prejšnji pogovor. Različica 1.1 je dodala ciljni pregled kode, obstoječih rezultatov in literature; različica 1.2 podrobnejšo sintezo H8-E01–E03, H12-E01 ter H10/H11; različica 1.3 preverja H1, novost P2 in usklajuje časovnico z vključitvijo H1 v P3; različica 1.4 (2. november 2026) preureja razdelek 1.1 v sedem variant in doda soavtorstvo pri P4 in P5. Pregledi do različice 1.3 so z dne 31. oktobra 2026. Publikacijska priporočila in načrta novih pilotov P2/P10 so presoja na osnovi teh virov, ne že doseženi raziskovalni rezultati.
 
 **Pregledani lokalni različici:** eksperimentalni repozitorij `e8f91c4ce4add8c00a4205258d9ae2879c5e9876`; komponenta `fastener/` `047e1fb362089c6bb930c7817431981d7dd6ca3d`. To sta različici kode ob pregledu, ne nujno različici zgodovinskih tekov; za vsakega veljajo njegovi manifesti.
 
 | Podlaga | Uporaba pri posodobitvi |
 | --- | --- |
-| [Register variant](../experiments/run_sota.py), [README](../fastener/README.md), [swap operatorji](../fastener/item.py) | Razmejitev petih osnovnih konfiguracij, dodatnih LLM-konfiguracij in implementacije operatorjev |
+| [Register variant](../experiments/run_sota.py), [README](../fastener/README.md), [swap operatorji](../fastener/item.py) | Razmejitev variant (razdelek 1.1), konfiguracij LLM-vodenja in implementacije operatorjev |
 | [Vmesniki vodenja](../fastener/guidance.py), [optimizator](../fastener/fastener.py), [LLM dokumentacija](../fastener/docs/llm-guidance.md), [primer](../fastener/docs/examples/08_llm_guidance.py) | Tehnična izvedljivost P10 in ločitev že obstoječih zmožnosti od načrtovanega razvoja |
 | [H1-E02](../experiments/reports/H1-E02/REPORT.md), [podporna evidenca](../experiments/reports/H1-E02/SUPPORT.md), [NSGA-II konfiguracija](../experiments/sota_baselines.py), [operatorji](../experiments/nsgaii_miip.py) | P2: preverjanje 40 parnih razlik, pokritosti velikosti in omejitev posploševanja; ločeni repozitorij hrani tabelo in kontrolne vsote virov |
 | [H2/H3 poročilo](../experiments/reports/H2H3-E01/REPORT.md) in spremljajoče tabele | Ponovni izračun opisnih razlik; presoja majhnega in krhkega učinka ter stroška swap |
