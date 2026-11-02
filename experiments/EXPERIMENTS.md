@@ -35,6 +35,7 @@ by examples × features, are in [`DATASETS_USED.md`](DATASETS_USED.md).
 | `H12-E01` | H12 | 2026-10-31 | `20261031T053237Z_h12e01_probes` | reported | [report](reports/H12-E01/REPORT.md) |
 | `H13-E01` | H13 | 2026-11-02 | -- | reported | [report](reports/H13-E01/REPORT.md) |
 | `H14-E01` | H14 | 2026-11-02 | `20261102T171622Z_h14e01_Computers_p2_obl_b10_s2025`, `20261102T171624Z_h14e01_Computers_p2_obl_b10_s2026`, `20261102T171626Z_h14e01_Computers_p2_obl_b10_s2027`, `20261102T171628Z_h14e01_Computers_p2_obl_b10_s2028`, `20261102T171629Z_h14e01_Computers_p2_obl_b10_s2029`, `20261102T171632Z_h14e01_Computers_p2_obl_b3_s2025`, `20261102T171634Z_h14e01_Computers_p2_obl_b3_s2026`, `20261102T171635Z_h14e01_Computers_p2_obl_b3_s2027`, `20261102T171636Z_h14e01_Computers_p2_obl_b3_s2028`, `20261102T171638Z_h14e01_Computers_p2_obl_b3_s2029` | failed | [report](reports/H14-E01/REPORT.md) |
+| `H14-E02` | H14 | 2026-11-02 | -- | running | -- |
 
 ## Experiment designs
 
