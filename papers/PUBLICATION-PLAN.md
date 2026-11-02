@@ -2,13 +2,13 @@
 
 **Pripravljeno za:** Klemen Kenda, Institut »Jožef Stefan« (IJS)  
 **Datum:** 2. november 2026  
-**Različica:** 1.4 – variante FASTENER-ja kot sedem družin (filtra mRMR/Boruta kot ena; LLM-vodenje, LLM + RAG, LLM + KG); soavtorstvo Sidorele Uku pri P4, P5 in P10
+**Različica:** 1.5 – P2 ostane samostojen članek (ciljna revija Evolutionary Intelligence); 1.4 – variante FASTENER-ja kot sedem družin; soavtorstvo Sidorele Uku pri P4, P5 in P10
 
 > **Status dokumenta:** Posodobitev 31. oktobra 2026 temelji na ciljnem pregledu lokalne kode FASTENER-ja, registra eksperimentov, poročil H1-E02, H2/H3, H8-E01–E03, H10-E01–E03, H11-E01 in H12-E01 ter sorodne literature. Iz tabel H2/H3 so ponovno izračunani število zbirk, smeri razlik, povprečja in mediane; p-vrednosti so povzete iz poročila. Pri H1 so ponovno preverjene smeri in povprečja 40 parnih razlik ter ničelne vrednosti AUF, pregledani pa tudi operatorji in najbližja literatura. Rezultati H8/H10/H11/H12 so povzeti iz poročil; pri H11 so ključne številke preverjene tudi v izvornih tabelah H10. Eksperimenti niso bili ponovno izvedeni. To je presoja izvedljivosti in publikacijske samostojnosti, ne celovita reprodukcija ali sistematičen pregled literature. Pogoji revij, pogodbe IJS, JOSS in konferenčni roki ostajajo nepreverjene navedbe starejšega načrta.
 
 **Glavni priporočili:** naključni in vodeni swap obravnavati v **enem skupnem, pogojno samostojnem članku P7**; trenutni dokazi ne utemeljujejo dveh člankov o posameznih operatorjih. **LLM + graf znanja s Sidorelo dodati kot samostojen predlog P10**: tehnično izvedljiv prek obstoječih vmesnikov, raziskovalno obetaven, vendar brez že dokazane prednosti in z nujno razmejitvijo od sorodnih del.
 
-**Nova odločitev za P2:** redka inicializacija sama nima dovolj novosti za predlagani samostojni članek. H1 privzeto vključiti v P3; samostojen P2 o pokritosti velikosti podmnožic ohraniti le pogojno, po novem pilotu. Decembrska oddaja P2 se umakne iz osnovne časovnice. Podrobna presoja je v [ločenem direktoriju P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md).
+**Odločitev za P2 (2. november 2026):** P2 ostane samostojen članek. Ker sama redka inicializacija ni nova (Miyandoab et al., CEC 2024), naj nastopi kot metodološka študija pokritosti velikosti podmnožic in njenega vpliva na vrednotenje; pilot iz raziskovalnega načrta P2 ga okrepi. Ciljna revija je **Evolutionary Intelligence** (Springer), druga možnost **SN Computer Science**; če pilot da posplošljivo metodološko ugotovitev, tudi ACM TELO. V P3 se na H1 le skliče. Decembrska oddaja P2 ostaja umaknjena iz osnovne časovnice. Podrobna presoja je v [ločenem direktoriju P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md).
 
 ## 1. Cilj in osnovna strategija
 
@@ -50,7 +50,7 @@ Oznake P1–P10 spodaj so oznake publikacijskih predlogov. Ločene so od oznak e
 | Oznaka | Raziskovalni sklop | Predlagana vsebina | Ciljna oddaja iz dosedanjega načrta | Ključni pogoj |
 | --- | --- | --- | --- | --- |
 | P1 | H4 | Kako izbira računskega proračuna spremeni primerjavo FASTENER in FS-SDS | December 2026 | Posplošljiv metodološki prispevek, dovolj neodvisen od P3 |
-| P2 | H1 + morebitni novi pilot | Pokritost velikosti podmnožic pri evolucijskem izboru značilk | Brez samostojnega roka; privzeto vključitev v P3 | Sedanja inicializacija ni dovolj nova; samostojnost le ob novem, posplošljivem metodološkem rezultatu |
+| P2 | H1 + pilot | Pokritost velikosti podmnožic pri evolucijskem izboru značilk | Po pilotu; okvirno pomlad 2027 | Razmejitev od Miyandoab et al. (2024); poudarek na pokritosti in vrednotenju, ne na novi inicializaciji; pilot (120 tekov) |
 | P3 | H5–H7 in H9 | Širša primerjalna študija selektorjev značilk | Februar–marec 2027 | Razširitev in neodvisna validacija H9 |
 | P4 | H8-E01–E03; s Sidorelo Uku | Mehanizmi in meje LLM-vodenega evolucijskega iskanja | Marec–april 2027 | Skupna razlaga začetne pohitritve, nezadostno slepe kontrole in primerjave z MI-only; neodvisna validacija |
 | P5 | H12-E01; s Sidorelo Uku | Prepoznavanje zbirk, priklic razporeda stolpcev in znanje o pomembnosti značilk | April–maj 2027, pogojno | Nov nabor zbirk in ponovljeni pozivi; sicer vključitev v P4 |
@@ -60,9 +60,9 @@ Oznake P1–P10 spodaj so oznake publikacijskih predlogov. Ločene so od oznak e
 | P9 | Eksperimentalni podatki | Kuriran, ponovno uporaben podatkovni vir eksperimentov | Po pripravi in objavi podatkovnega paketa | Samostojna uporabnost podatkov, dokumentacija in pravice za deljenje |
 | P10 | Nov sklop; s Sidorelo | Vodenje FASTENER-ja z LLM in eksplicitnim grafom znanja | Pilot november–december 2026; ciljna oddaja druga polovica 2027 | Dokaz dodane vrednosti relacij glede na MI, LLM brez grafa in enako informiran besedilni RAG |
 
-To je največ **osem raziskovalnih predlogov (P1–P7 in P10), en programski članek in pogojno en podatkovni članek**. Po pregledu P2 osnovni scenarij vsebuje sedem raziskovalnih kandidatov, saj je H1 predviden znotraj P3. Deset oznak ne pomeni desetih zagotovljenih objav. P7 ostaja ena publikacijska enota; P10 je nov raziskovalni projekt, ne že pripravljen rokopis.
+To je največ **osem raziskovalnih predlogov (P1–P7 in P10), en programski članek in pogojno en podatkovni članek**. Osnovni scenarij vsebuje vseh osem raziskovalnih kandidatov, vključno s samostojnim P2. Deset oznak ne pomeni desetih zagotovljenih objav. P7 ostaja ena publikacijska enota; P10 je nov raziskovalni projekt, ne že pripravljen rokopis.
 
-Če H4 ne zadošča za samostojen članek, se vključi v P3. H1 se vanj vključi že po trenutnem priporočilu; nov pilot lahko pozneje upraviči razširjeni P2. Če H2/H3 ali H10/H11 ne zadoščata za revijo, se izbere krajši samostojen konferenčni prispevek ali vključitev v vsebinsko najbližji članek. Če P10 ostane samo dodatna različica priorja brez dokaza o vlogi grafa, se vključi kot razširitev P4. P10 ima več prostora za nov metodološki prispevek kot ločevanje obeh swap operatorjev, vendar zahteva več novega dela.
+Če H4 ne zadošča za samostojen članek, se vključi v P3. H1 je samostojen P2; P3 se nanj le skliče. Če H2/H3 ali H10/H11 ne zadoščata za revijo, se izbere krajši samostojen konferenčni prispevek ali vključitev v vsebinsko najbližji članek. Če P10 ostane samo dodatna različica priorja brez dokaza o vlogi grafa, se vključi kot razširitev P4. P10 ima več prostora za nov metodološki prispevek kot ločevanje obeh swap operatorjev, vendar zahteva več novega dela.
 
 **Vključitev H8, H12 in H11:** vsi trije sklopi so del portfelja. H8-E01–E03 so eno eksperimentalno jedro P4; H12 je kandidat P5 z neposredno povezavo na kontrole H8; H11 dopolnjuje P6 in ne dodaja nove publikacijske enote ali neodvisnih tekov. Negativen rezultat skupnega kriterija ne izniči uporabnih delnih ugotovitev, vendar jih je treba jasno ločiti od potrditvenih sklepov.
 
@@ -78,9 +78,9 @@ Pred samostojno oddajo je treba razjasniti merjenje časa, strojno opremo, paral
 
 **Meja do P3:** P1 ima metodologijo merjenja in interpretacijo proračuna za glavni rezultat. P3 uporablja utemeljen protokol pri širši primerjavi metod. Sama različna naslova člankov še ne zadoščata za vsebinsko neodvisnost.
 
-### P2 – H1: pokritost velikosti podmnožic, pogojno
+### P2 – H1: pokritost velikosti podmnožic
 
-**Presoja:** sedanja zgodba »zamenjamo gosto inicializacijo z redko« ni dovolj nova za samostojen metodološki članek. Privzeta odločitev je vključitev H1 v P3. Samostojni P2 bi zahteval bistveno razširjeno raziskavo, ne samo dodatnih zbirk.
+**Presoja:** sedanja zgodba »zamenjamo gosto inicializacijo z redko« ni dovolj nova za samostojen metodološki članek. Po odločitvi z dne 2. novembra 2026 P2 kljub temu ostane samostojen članek, v reviji z obsegom evolucijskega računanja (razdelek 4). Članek mora jasno povedati, česa najbližja dela še ne pokažejo; pilot ga okrepi, ni pa pogoj za obstoj članka.
 
 **Delovni naslov:** *Cardinality Coverage in Evolutionary Feature Selection.* Pripravljen je [direktorij P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md) za samostojen repozitorij `fastener-p2-cardinality-coverage`; GitHub repozitorij še ni ustvarjen. V njem so pregled literature, revizija dokazov H1, bibliografija, posnetek tabele z izvorom in predlog pilota.
 
@@ -90,7 +90,7 @@ Pred samostojno oddajo je treba razjasniti merjenje časa, strojno opremo, paral
 
 **Bistvena omejitev posploševanja:** `run_nsga2` uporablja operatorje iz lokalnega porta NSGAII-MIIP brez MI-izboljševalne faze. Pri njegovi mutaciji SSOM je za 0 < k < d pričakovani premik velikosti nič, iz lokalne kode pa sledi pričakovano število obratov 2k/d. Uravnoteženje pričakovanih dodatkov in odstranitev že opisujejo [Li et al., §4.3](https://andali89.github.io/homepage/pubs/2025_NSGAIIMIIP_manuscript.pdf); ni nova teorija P2 in ne opisuje celotnega NSGA-II s selekcijo. H1 veljavno izolira inicializacijo v konkretni konfiguraciji, ne pokaže vedenja vseh izvedb NSGA-II. Pri novih poskusih je treba upoštevati tudi predpomnilnik in kasneje dodano pravilo stagnacije.
 
-**Možna nadaljnja smer:** ločiti pokritost območja, kakovost ob primerljivih velikostih in napredek glede na začetno populacijo ter preveriti interakcijo začetka, mutacije in proračuna. [Predlog pilota](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/RESEARCH-PLAN.md) vsebuje 120 razvojnih tekov, primerjavo s širšo enakomerno kardinalnostjo in drugo mutacijo ter merila za nadaljevanje. To je novo, še neizvedeno delo. Če ostane ugotovitev omejena na lokalno konfiguracijo ali ponovi že znan učinek začetka, H1 ostane v P3; samostojna oddaja P2 nima določenega roka.
+**Možna nadaljnja smer:** ločiti pokritost območja, kakovost ob primerljivih velikostih in napredek glede na začetno populacijo ter preveriti interakcijo začetka, mutacije in proračuna. [Predlog pilota](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/RESEARCH-PLAN.md) vsebuje 120 razvojnih tekov, primerjavo s širšo enakomerno kardinalnostjo in drugo mutacijo ter merila za nadaljevanje. To je novo, še neizvedeno delo. Če pilot ne prinese posplošljive ugotovitve, P2 ostane opisni članek o pokritosti v konkretni konfiguraciji, z jasno navedenimi mejami.
 
 ### P3 – H5–H7/H9: širša primerjalna študija
 
@@ -300,7 +300,7 @@ Spodnja razporeditev ohranja kandidatke iz pogovora in dodaja P10. Celotna ustre
 | Prispevek | Prednostna kandidatka iz dosedanjega načrta | Druga kandidatka oziroma možnost |
 | --- | --- | --- |
 | P1 – H4 | SN Computer Science | International Journal of Machine Learning and Cybernetics |
-| P2 – H1 | Izbira odložena do dokaza samostojnega prispevka | Prejšnji kandidatki IJMLC / SN Computer Science nista več aktivni oddajni cilj |
+| P2 – H1 | Evolutionary Intelligence (Springer) | SN Computer Science (Springer); ambiciozneje ACM TELO; konferenca GECCO 2027 |
 | P3 – H5–H7/H9 | Applied Soft Computing | Swarm and Evolutionary Computation |
 | P4 – H8 | Applied Intelligence | Knowledge-Based Systems |
 | P5 – H12 | Neural Computing and Applications | Applied Intelligence |
@@ -310,9 +310,11 @@ Spodnja razporeditev ohranja kandidatke iz pogovora in dodaja P10. Celotna ustre
 | P9 – podatkovni vir | Data in Brief | Odločitev po pripravi podatkovnega paketa |
 | P10 – LLM + KG, s Sidorelo | Applied Intelligence, če nastane nov preverjen mehanizem | Knowledge-Based Systems kot kandidatka po dodatnem preverjanju obsega |
 
+Za P2 (preverjeno 2. novembra 2026): [Evolutionary Intelligence](https://link.springer.com/journal/12065/aims-and-scope) je Springerjeva revija za evolucijsko in populacijsko iskanje; v JCR naj bi bila v Q3 (neuradni viri navajajo JIF približno 2,6; preveriti v JCR). Je verjetna kandidatka za kritje po pogodbi Springer Nature, kar je treba potrditi pri IJS. [SN Computer Science](https://www.springer.com/journal/42979) je indeksirana v Scopusu, uradnega JIF nima; je širša, zato članek tam manj izstopa. ACM TELO je revija ACM za evolucijsko učenje in optimizacijo z dvojno slepo recenzijo in poudarkom na ponovljivosti; primerna je le ob močnem metodološkem rezultatu. Rok EvoApplications 2027 (1. november 2026) je že potekel; GECCO 2027 bo julija 2027 v Krakovu, rok za prispevke še ni objavljen (leta 2026 je bil konec januarja).
+
 Za P10 [uradni obseg Applied Intelligence](https://link.springer.com/journal/10489/aims-and-scope) izrecno vključuje evolucijsko računanje, izbor značilk in sklepanje na osnovi znanja ter poudarja izvirne metodologije. Zato je vsebinska kandidatka; samo povezava obstoječih komponent ali uporaba na drugi zbirki ne zadošča. To ni potrdilo o verjetnosti sprejema ali kritju stroškov. Uradna stran obsega Knowledge-Based Systems pri preverjanju ni bila dostopna, zato ta možnost ostaja predlog za nadaljnji pregled.
 
-V pogovoru so bile kot dodatne možnosti navedene tudi **Computer Science and Information Systems (ComSIS)**, **Journal of Universal Computer Science** in **Algorithms**. Prej navedeni faktorji vpliva in cene se v tem izvozu ne obravnavajo kot potrjeni aktualni podatki. Pred uporabo slovenske revije **Informatica** je treba razjasniti njeno aktualno indeksiranje; predhodnega opozorila iz pogovora ne gre obravnavati kot dokončno preverjen status.
+V pogovoru so bile kot dodatne možnosti navedene tudi **Computer Science and Information Systems (ComSIS)**, **Journal of Universal Computer Science** in **Algorithms**. Prej navedeni faktorji vpliva in cene se v tem izvozu ne obravnavajo kot potrjeni aktualni podatki. Slovenska revija **Informatica** (Slovensko društvo Informatika) je brez APC, vendar je po [lastni strani o indeksiranju](https://www.informatica.si/index.php/informatica/indexing) v Scopusu indeksirana le do 23. januarja 2026 (izločena, pritožba v teku), v Web of Science ESCI pa za leta 2015–2022 (preverjeno 2. novembra 2026). Zato zdaj ni priporočena ciljna revija.
 
 Nižji faktor vpliva ni zanesljivo merilo lažje sprejemljivosti. Izbiro je treba opreti predvsem na tip prispevka, obseg dokazov in uredniško usmeritev. Prav tako posamezna revija v drugem stolpcu ni nujno manj zahtevna rezervna možnost.
 
@@ -369,17 +371,17 @@ V prejšnjem pogovoru je bil naveden pogoj več kot šestih mesecev javne razvoj
 
 ## 7. Tedenski načrt: november in december 2026
 
-Časovnica po pregledu P2 predvideva eno pogojno raziskovalno oddajo, P1, do konca leta 2026. Samostojnost H4 je še treba preveriti. H1 je privzeto del P3; morebitni pilot P2 ni obveznost za decembrsko oddajo. Potrebni so čas za pisanje, sodelovanje soavtorjev in računski viri.
+Časovnica po pregledu P2 predvideva eno pogojno raziskovalno oddajo, P1, do konca leta 2026. Samostojnost H4 je še treba preveriti. P2 je samostojen članek z oddajo po pilotu; ni obveznost za decembrsko oddajo. Potrebni so čas za pisanje, sodelovanje soavtorjev in računski viri.
 
 | Teden | Datumi | Glavna naloga | Pričakovani izhod |
 | --- | --- | --- | --- |
-| 1 | 2.–8. november | Preveriti samostojnost H4, umestiti H1 v P3 in odločiti o smiselnosti pilota P2; pregledati JOSS in opredeliti pilot P10 | Struktura P1, meja do P3 in enostranski koncept P10 za uskladitev s Sidorelo |
+| 1 | 2.–8. november | Preveriti samostojnost H4, določiti obseg in termin pilota P2; pregledati JOSS in opredeliti pilot P10 | Struktura P1, meja do P3 in enostranski koncept P10 za uskladitev s Sidorelo |
 | 2 | 9.–15. november | Pisati P1, pripraviti ključne slike in statistične prikaze | Prvi osnutek H4 |
 | 3 | 16.–22. november | Dokončati osnutek P1, pripraviti metodološki del P3 z H1 | H4 za notranji pregled; jasno opisane konfiguracije P3 |
 | 4 | 23.–29. november | Upoštevati pripombe na P1, nadaljevati P3 | P1 pripravljen za oddajo |
 | 5 | 30. november–6. december | Oddati P1, nadaljevati P3 in analizo zaključenega H8-E03 | Prva raziskovalna revijalna oddaja, če H4 upraviči samostojnost |
 | 6 | 7.–13. december | Urediti glavne pomanjkljivosti paketa in gradivo P3/P4 | Kandidat za izdajo FASTENER-ja |
-| 7 | 14.–20. december | Priprava rokopisa JOSS; presoja morebitnega pilota P2 | Osnutek JOSS; odločitev o nadaljevanju P2, če pilot obstaja |
+| 7 | 14.–20. december | Priprava rokopisa JOSS; presoja pilota P2 | Osnutek JOSS; načrt rokopisa P2 |
 | 8 | 21.–27. december | Urediti P3/P4 in pripravljeno spremljajoče gradivo | Brez obvezne oddaje P2; JOSS le ob izpolnjenih pogojih |
 | 9 | 28. december–3. januar | Rezerva, analiza eksperimentov, presoja pripravljenosti JOSS | Urejen prehod v delo za 2027 |
 
@@ -391,7 +393,7 @@ Prejšnji cilj dveh raziskovalnih oddaj do konca 2026 je po pregledu novosti P2 
 - **December–januar:** izvedba oziroma zaključevanje H9 ter analiza rezultatov.
 - **November–december:** tehnična priprava JOSS.
 - **P10, november:** s Sidorelo uskladiti domeno, dostop do virov, shemo KG, preslikavo značilk in mejo do P4; popisati najbližja sorodna dela.
-- **P2, pogojno:** najprej odločitev o koristnosti in strošku predlaganega pilota. Dokler novega prispevka ni, nadaljevati vključevanje H1 v P3.
+- **P2:** samostojen članek; pilot registrirati in izvesti, nato rokopis za Evolutionary Intelligence.
 - **P10, december:** če sta graf in čas na voljo, prototip ter omejen pilot iz razdelka P10; ob koncu meseca odločitev o razširitvi. Pilot ni nova obveznost pred oddajo P1.
 - **Ves čas:** razmejitev glavnih rezultatov, slik in tabel med članki ter zapis novih odprtih raziskovalnih vprašanj.
 
@@ -401,14 +403,14 @@ H8-E03 ni več načrtovana računska naloga. Razpored H9, novih kontrol P7 in pi
 
 | Obdobje | Glavna prioriteta | Dodatna naloga |
 | --- | --- | --- |
-| Januar | Dokončati H9 in analizo za P3 z vključitvijo H1 | Oddaja JOSS, če je paket pripravljen; pogojna presoja razširjenega P2 in odločitev o P10 po pilotu |
+| Januar | Dokončati H9 in analizo za P3 (s sklicem na P2) | Oddaja JOSS, če je paket pripravljen; pilot in rokopis P2; odločitev o P10 po pilotu |
 | Februar–marec | Oddaja P3, priprava P4 | Neodvisne kontrole H8/H12 in validacija H11 za P6; ciljne ablacijske študije P7 |
 | Marec–april | Oddaja P4 | Vrednotenje samostojnosti P5; razširitev P10 na neodvisne naloge, če pilot upraviči nadaljevanje |
 | April–maj | P5 in P6, če rezultati upravičijo samostojna članka | Odločitev revija/konferenca/vključitev v P3 za P7 |
 | Maj–junij | Priprava oziroma oddaja skupnega P7, če je samostojen | Analiza P10; kuriranje podatkov za morebitni P9 |
 | Julij–december | P10: rokopis s Sidorelo in ciljna oddaja po neodvisni validaciji | Odzivi na recenzije; morebitni P9 |
 
-**Štetje ciljev:** ob oddaji P1 leta 2026 ostane šest raziskovalnih kandidatov za 2027 (P3–P7 in pogojni P10), s H1 znotraj P3. Razširjeni P2 bi bil dodaten kandidat šele po novem dokazu samostojnosti; ni rezervirana oddaja. Združitve P5, P6 ali P7 število zmanjšajo. JOSS in podatkovni članek se vodita posebej. Naključni in vodeni swap se ne štejeta dvakrat.
+**Štetje ciljev:** ob oddaji P1 leta 2026 ostane sedem raziskovalnih kandidatov za 2027 (P2–P7 in pogojni P10). Združitve P5, P6 ali P7 število zmanjšajo. JOSS in podatkovni članek se vodita posebej. Naključni in vodeni swap se ne štejeta dvakrat.
 
 Načrt naj spremlja ločeno pripravo rokopisov, prve oddaje, ponovne oddaje in sprejete članke. Ponovna oddaja istega članka drugi reviji ni nov raziskovalni članek.
 
@@ -444,20 +446,20 @@ Namen teh pravil je povečati število legitimnih objav, ob tem pa ohraniti jase
 
 ## 11. Prvi konkretni koraki
 
-1. Kritični pregled H1 in najbližje literature je opravljen: H1 vključiti v P3 in odločiti, ali je predlagani pilot P2 vreden vložka. Dokončati pregled H4. Za P7 zapisati protokol štirih kombinacij odstranitve/vstavitve, dodatnih proračunov in neodvisnih podatkov.
+1. Kritični pregled H1 in najbližje literature je opravljen: P2 ostane samostojen; določiti termin pilota P2. Dokončati pregled H4. Za P7 zapisati protokol štirih kombinacij odstranitve/vstavitve, dodatnih proračunov in neodvisnih podatkov.
 2. Odločiti, ali H4 ostane samostojen metodološki članek ali se vključi v P3.
-3. Pripraviti strukturo H4 in vključitev H1 v P3 ter razdelitev glavnih slik in tabel; samostojnega rokopisa P2 še ne načrtovati kot obvezno oddajo.
+3. Pripraviti strukturo H4 ter razdelitev glavnih slik in tabel; rokopis P2 načrtovati po pilotu.
 4. Uporabiti celotni H8-E01–E03 in H12-E01 pri strukturi P4/P5. Za P6 ohraniti H10 in post hoc H11 skupaj ter pred izvedbo H9 določiti protokol njune neodvisne validacije; že zaključenih eksperimentov ne načrtovati znova.
 5. Pregledati paket FASTENER glede na aktualne pogoje JOSS.
 6. Potrditi pogodbe IJS za konkretne revije in predvideno leto upravičenosti.
 7. Preveriti uradne konferenčne razpise, preden se zgodnji roki vključijo v obvezni urnik.
 8. Za P10 s Sidorelo uskladiti enostranski koncept, domeno, KG-vire in delitev dela; nato zamrzniti pilotni protokol, oceniti stroške in šele zatem registrirati nov eksperimentalni sklop.
 
-Izhodiščni oddajni načrt je po pregledu P2 spremenjen: najprej H4, če upraviči samostojnost, nato P3/P4. H1 ostane pomemben rezultat za pravilno interpretacijo primerjav, vendar se ne šteje kot skoraj pripravljen samostojen članek.
+Izhodiščni oddajni načrt je po pregledu P2 spremenjen: najprej H4, če upraviči samostojnost, nato P3/P4. H1 je samostojen članek P2 v reviji z obsegom evolucijskega računanja; za oddajo potrebuje pilot in razmejitev od najbližje literature.
 
 ## 12. Viri in sledljivost
 
-**Izhodišče:** različica 1.0 je povzemala prejšnji pogovor. Različica 1.1 je dodala ciljni pregled kode, obstoječih rezultatov in literature; različica 1.2 podrobnejšo sintezo H8-E01–E03, H12-E01 ter H10/H11; različica 1.3 preverja H1, novost P2 in usklajuje časovnico z vključitvijo H1 v P3; različica 1.4 (2. november 2026) preureja razdelek 1.1 v sedem variant in doda soavtorstvo pri P4 in P5. Pregledi do različice 1.3 so z dne 31. oktobra 2026. Publikacijska priporočila in načrta novih pilotov P2/P10 so presoja na osnovi teh virov, ne že doseženi raziskovalni rezultati.
+**Izhodišče:** različica 1.0 je povzemala prejšnji pogovor. Različica 1.1 je dodala ciljni pregled kode, obstoječih rezultatov in literature; različica 1.2 podrobnejšo sintezo H8-E01–E03, H12-E01 ter H10/H11; različica 1.3 preverja H1, novost P2 in usklajuje časovnico z vključitvijo H1 v P3; različica 1.4 (2. november 2026) preureja razdelek 1.1 v sedem variant in doda soavtorstvo pri P4 in P5; različica 1.5 (isti dan) ohrani P2 kot samostojen članek in mu določi revijo (razdelek 4, preverjeno na spletu 2. novembra 2026). Pregledi do različice 1.3 so z dne 31. oktobra 2026. Publikacijska priporočila in načrta novih pilotov P2/P10 so presoja na osnovi teh virov, ne že doseženi raziskovalni rezultati.
 
 **Pregledani lokalni različici:** eksperimentalni repozitorij `e8f91c4ce4add8c00a4205258d9ae2879c5e9876`; komponenta `fastener/` `047e1fb362089c6bb930c7817431981d7dd6ca3d`. To sta različici kode ob pregledu, ne nujno različici zgodovinskih tekov; za vsakega veljajo njegovi manifesti.
 
