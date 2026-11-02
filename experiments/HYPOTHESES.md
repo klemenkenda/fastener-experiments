@@ -1083,6 +1083,83 @@ reliability of the truth (MI across seeds); spend.
 
 ---
 
+## H13 -- At a fixed fit budget, the start decides NSGA-II's AUF at small k by whether the front reaches k <= 10, not by its quality there (post hoc)
+
+*(2026-11-02; proposed by the PI for paper P2, after the end-of-budget
+results of these runs had been read in H1-E02 and H5H6-E01 to -E03 and in an
+unregistered exploratory analysis of `experiments/distilled_logs/`. **Post
+hoc**: formed from the results it is judged on, so it cannot confirm
+anything; see [DEC-55](DECISIONS.md#dec-55).)*
+
+**Claim.** Among the three NSGA-II arms, the OBL start (`nsga2`), the 1-30
+start (`nsga2_sparse`) and the full NSGAII-MIIP (`nsgaii_miip`), the
+difference in AUF (K = 10) comes mostly from **reach**: whether the
+final front holds any subset of at most k features. It does not come from
+the quality of the subsets the arms return at the sizes both of them reach.
+
+**Why it might hold.** OBL starts every individual near d/2 features, and the
+balanced mutation has zero expected drift in size, flipping about 2k/d bits
+per child (P2's EVIDENCE.md). Only selection pulls size down, and at
+2,000-12,000 fits it does not get to k <= 10 once d is in the hundreds. A
+front that never reaches k <= 10 scores 0 there by AUF's convention, so
+for most of the range AUF measures reach.
+
+**Why it might not.**
+1. Where both arms do reach, one may still be better at matched size. The
+   sparse start spends its fits inside the measured range.
+2. Reach is not one event. The sparse start begins inside the range and can
+   drift out of it, and the OBL start can arrive late. Either would make the
+   final front a poor summary of the run.
+3. The comparison is confounded with how much budget each arm actually spends.
+   Under E02 and E03 the stagnation stop ends some runs early, and under E01 and
+   E03 timeouts remove runs, mostly OBL runs on large d. Missing runs may carry
+   the effect.
+4. NSGAII-MIIP's MI improvement phase may restore reach from an OBL start,
+   which would mean the start matters less than the claim says.
+
+**Claim type.** Descriptive and associational, within one implementation
+(the NSGAII-MIIP port's operators). No causal claim about NSGA-II in general.
+
+**Criterion** (post hoc; per grid G in {H5H6-E01, -E02, -E03}, `nsga2_sparse`
+against `nsga2`, datasets as the unit):
+
+* (a) **Reach.** R = share of a dataset's finished seeds whose final front
+  holds a subset of at most 10 features. The sparse arm has the higher R on
+  more datasets than the OBL arm does, and a two-sided Wilcoxon over the
+  per-dataset differences gives p < 0.05 after Holm across the four grids
+  (H1-E02 included).
+* (b) **Matched size.** Over the datasets where both arms reach some k <= 10
+  in at least 3 of their finished seeds, the 95% paired-bootstrap interval of
+  the mean per-dataset matched-size difference (defined in H13-E01) lies
+  within +/-0.02 F1.
+* (c) **Decomposition.** The reach term carries at least 75% of the summed
+  absolute AUF difference over the grid's datasets.
+
+H13 is **supported (post hoc)** if (a), (b) and (c) hold in all three
+H5H6 grids. It is **reversed** if (c) gives a reach share below 50% in at
+least two of them, which would mean quality at matched size, not reach,
+carries the difference. Otherwise it is **not supported**. H1-E02 is read
+the same way and reported beside the grids. It enters (a)'s Holm family but
+not the verdict, because it is the experiment the claim grew out of.
+
+**Reported beside it** (descriptive, Holm within each family): NSGAII-MIIP
+as a third arm; reach against d and budget; the cost at the large-subset
+end; time to reach; stagnation stops; missing cells; the classifier.
+These are H13-E01's Q2-Q8.
+
+**Data.** No new runs. The H1-E02 and H5H6-E01 to -E03 runs of the three
+arms, read from `experiments/distilled_logs/`.
+
+**Experiments.**
+
+* `H13-E01` -- the criterion above and Q2-Q8 on 1,544 runs over 46 datasets.
+
+A confirmatory test needs runs not yet seen. P2's extended pilot (new starts,
+an OBL budget sweep, the mutation control, every evaluated subset logged) is
+registered separately, before it runs.
+
+---
+
 ## Deferred, deliberately
 
 **D1 -- the replication gap is a grading artifact.** `WHY_RESULTS_DIFFER.md`

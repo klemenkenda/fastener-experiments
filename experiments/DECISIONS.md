@@ -1220,6 +1220,32 @@ H8 datasets with twelve models, on the workstation.**
   (8 of 16 datasets, 7 of 12 models; the PI: "try yours").
 - **Applies to:** H12-E01.
 
+### DEC-55
+
+**2026-11-02 -- H13, reach against matched-size quality of three NSGA-II
+arms, judged post hoc on H1-E02's and H5H6-E01 to -E03's runs, for P2.**
+
+- **Why:** P2 (*Cardinality Coverage in Evolutionary Feature Selection*,
+  target ComSIS) needs its evidence stated as a registered analysis. The
+  question was formed after the end-of-budget results and an exploratory
+  analysis of the distilled logs had been read.
+- **Detail:** H13 in HYPOTHESES.md and the H13-E01 design. Only the three
+  NSGA-II arms, no FASTENER comparison (P3's). Datasets as the unit, seeds
+  within datasets, Wilcoxon with Holm, bootstrap intervals and rank-biserial
+  correlations. Missing runs are reported and tested in three sensitivity
+  variants. The classifier is compared on common datasets. The verdict is
+  labelled post hoc wherever it appears; confirmation is left to P2's
+  extended pilot, registered separately.
+- **By:** PI (the line of work for P2, judging it on existing runs, the arms
+  and runs, the scope; approved the design as proposed). Proposed by Claude:
+  the criterion's parts, the margin in (b) (+/-0.02 F1) and threshold in (c)
+  (75%), the matching rule (3 of 5 seeds), the decomposition, the
+  sensitivity variants and the Holm families.
+- **Taken after** the results it is judged on had been seen (H13-E01,
+  *Already seen*).
+- **Source:** `HYPOTHESES.md`, H13; `EXPERIMENTS.md`, H13-E01.
+- **Applies to:** H13-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
