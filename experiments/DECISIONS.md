@@ -1307,6 +1307,25 @@ matched-size comparison (post hoc).**
   report, addendum.
 - **Applies to:** H13-E01's part (b), as a sensitivity reading; P2.
 
+### DEC-58
+
+**2026-11-02 -- H14-E01 stopped to change the repository first; rerun as
+H14-E02, unchanged, from one commit.**
+
+- **Why:** the PI wanted DEC-57 committed before the pilot ran. The stop
+  also removes a defect of H14-E01: `h14_report.py` was committed while its
+  first ten runs ran, so its runs would have started from two commits.
+- **Detail:** H14-E01 is closed as failed (ten runs stopped at about 6
+  minutes, none finished, nothing read). H14-E02 is H14-E01's design
+  unchanged, with every run from the one commit that registers it and no
+  commit while the queue runs.
+- **By:** PI (stop, change, rerun). The single-commit rule proposed by
+  Claude.
+- **Taken after** H14-E01 started and before any of its runs finished;
+  no H14 result had been seen.
+- **Source:** `EXPERIMENTS.md`, H14-E02; H14-E01's report.
+- **Applies to:** H14-E01, H14-E02.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1337,3 +1356,5 @@ are not repeated.
 | `H12-E01` | reported: not supported (A and B for 0 of 12 models) | [DEC-54](#dec-54) | -- | [H12-E01](reports/H12-E01/REPORT.md) |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |
 | `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | [DEC-57](#dec-57) | [H13-E01](reports/H13-E01/REPORT.md) |
+| `H14-E01` | failed: stopped before any run finished | [DEC-56](#dec-56) | [DEC-58](#dec-58) | [H14-E01](reports/H14-E01/REPORT.md) |
+| `H14-E02` | running | [DEC-56](#dec-56), [DEC-58](#dec-58) | -- | -- |

@@ -1236,7 +1236,10 @@ beside fits. The analysis is H13-E01's code where it applies.
 **Experiments.**
 
 * `H14-E01` -- the pilot above on Adiac, Strawberry, Earthquakes and
-  Computers, under the decision tree, on Sentinel.
+  Computers, under the decision tree, on Sentinel. Stopped after 6 minutes
+  by the PI to change the repository first (DEC-57); no run finished and
+  no result was read. Failed. [Report](reports/H14-E01/REPORT.md).
+* `H14-E02` -- the same design, rerun from one commit (DEC-58).
 
 ---
 
