@@ -83,6 +83,7 @@ from protocol import (FIT_BUDGET, fit_budget, FS_SDS_K_RANGE, K_GRID, MODEL_SEED
 from provenance import DirtyTreeError, Run  # noqa: E402
 from run_fastener import (MATING_VERSIONS, run_fastener,  # noqa: E402
                           search_model_factory)
+from subset_log import SubsetLog  # noqa: E402
 from trajectory import Trajectory  # noqa: E402
 
 # The FASTENER arms. "none", "random" and "guided" are the three pruning arms
@@ -217,12 +218,25 @@ SEEDED_FILTERS = ("boruta", "random")
 # methods rather than one method under a flag, so H1 runs both arms in one
 # invocation.
 SEARCHES = ("nsga2", "nsga2_sparse", "poss", "nsgaii_miip")
+# P2's pilot (H14-E01): plain NSGA-II with a start covering other sizes, the
+# `min1` mutation control, or a multiple of the fit budget. Every one runs
+# with separate random streams for the start and the operators and logs every
+# scored subset (subset_log.py). Controls, not the ported algorithm.
+P2_SEARCHES = {
+    f"p2_{init}" + ("_min1" if mutation == "min1" else ""):
+        {"init": init, "mutation": mutation, "budget_multiple": 1}
+    for init in ("obl", "sparse", "uniform", "loguniform")
+    for mutation in ("balanced", "min1")}
+P2_SEARCHES.update({
+    f"p2_obl_b{m}": {"init": "obl", "mutation": "balanced", "budget_multiple": m}
+    for m in (3, 10)})
 # FS-SDS fixes the subset size for a whole run, so it runs once per k over
 # protocol.FS_SDS_K_RANGE, with the run's fit budget divided evenly across
 # them -- 300 per k at the default 6,000 -- so it spends what every other arm
 # spends (HYPOTHESES.md).
 PER_K_SEARCHES = ("fs_sds",)
-ALL_METHODS = FILTERS + SEEDED_FILTERS + SEARCHES + PER_K_SEARCHES
+ALL_METHODS = (FILTERS + SEEDED_FILTERS + SEARCHES + tuple(P2_SEARCHES)
+               + PER_K_SEARCHES)
 
 # Equal across arms, so the comparison is of search quality, not of who was
 # allowed more compute.
@@ -561,6 +575,11 @@ def main() -> int:
     }
     for r in RANKERS:
         arm_configs[r] = {"k_grid": grid}
+    for m, spec in P2_SEARCHES.items():
+        arm_configs[m] = {
+            "evaluations": (evaluations * spec["budget_multiple"]
+                            if evaluations is not None else None),
+            **spec, "rng_streams": True, "subset_log": True, **nsga_stop}
     for arm in fastener_arms:
         # The mating flags themselves, not only the version's name, so a
         # change to what "fixed" means changes the algorithm ID's config hash.
@@ -650,6 +669,9 @@ def main() -> int:
             if m in SEARCHES:
                 for s in seeds:
                     prog.plan(m, seed=s, budget_fits=evaluations)
+            if m in P2_SEARCHES:
+                for s in seeds:
+                    prog.plan(m, seed=s, budget_fits=arm_configs[m]["evaluations"])
         for m in methods:
             if m in PER_K_SEARCHES:
                 for s in seeds:
@@ -761,8 +783,16 @@ def main() -> int:
                 n_jobs=args.n_jobs, init=args.init, progress_cb=cb,
                 trajectory=t, max_barren_generations=barren),
         }
-        for m in [m for m in methods if m in SEARCHES]:
-            print(f"\n{m} ({evaluations} fits x {len(seeds)} seeds):")
+        for m, spec in P2_SEARCHES.items():
+            search_fns[m] = (lambda s, cb, t, m=m, spec=spec: sota.run_nsga2(
+                ds, s, arm_configs[m]["evaluations"], init=spec["init"],
+                progress_cb=cb, trajectory=t, max_barren_generations=barren,
+                mutation=spec["mutation"], rng_streams=True, name=m,
+                subset_log=SubsetLog(run.dir / "subsets" / f"{m}_seed{s}.npz",
+                                     ds.n_features)))
+        for m in [m for m in methods if m in SEARCHES or m in P2_SEARCHES]:
+            n_fits = arm_configs[m]["evaluations"]
+            print(f"\n{m} ({n_fits} fits x {len(seeds)} seeds):")
             label = miip_label if m == "nsgaii_miip" else m
             for seed in seeds:
                 unit = f"{m}:{seed}"
@@ -964,7 +994,8 @@ def main() -> int:
                               if m in present and m != "all_features")
         sig = {}
         stochastic_arms = (tuple(FASTENER_ARM_NAMES[a] for a in fastener_arms)
-                           + SEEDED_FILTERS + SEARCHES + PER_K_SEARCHES)
+                           + SEEDED_FILTERS + SEARCHES + tuple(P2_SEARCHES)
+                           + PER_K_SEARCHES)
         if deterministic:
             for m in stochastic_arms:
                 if m not in present:
@@ -989,7 +1020,7 @@ def main() -> int:
             "search_fits_per_seed": {
                 m: [r["model_fits"] for r in all_results if r["method"] == m]
                 for m in present
-                if m in SEARCHES or m in PER_K_SEARCHES
+                if m in SEARCHES or m in PER_K_SEARCHES or m in P2_SEARCHES
                 or m == miip_label or m in FASTENER_ARM_NAMES.values()
             },
             "elapsed_by_method": {

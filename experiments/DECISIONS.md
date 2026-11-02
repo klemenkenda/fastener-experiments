@@ -1246,6 +1246,38 @@ arms, judged post hoc on H1-E02's and H5H6-E01 to -E03's runs, for P2.**
 - **Source:** `HYPOTHESES.md`, H13; `EXPERIMENTS.md`, H13-E01.
 - **Applies to:** H13-E01.
 
+### DEC-56
+
+**2026-11-02 -- H14, P2's pilot: starts over all sizes, an OBL budget sweep
+and a forced-flip mutation, with every scored subset logged, on four
+datasets on Sentinel.**
+
+- **Why:** H13-E01 found the OBL and 1-30 starts' AUF gap to be reach, but
+  could not tell whether a start over all sizes keeps the reach without the
+  1-30 start's large-end cost, whether the OBL start's lack of reach is a
+  matter of budget, or whether the 1-30 start's repeats come from mutation
+  inactivity. P2's TODOs B11-B14.
+- **Detail:** H14 and the H14-E01 design. New code, off by default so
+  that `nsga2` and `nsga2_sparse` run exactly as before (checked against
+  the previous commit on a synthetic dataset: identical fronts, fits,
+  generations and stop reasons): `uniform_initialization`,
+  `loguniform_initialization` and `balanced_mutation_min1` in
+  `nsgaii_miip.py`; `run_nsga2`'s `init`, `mutation`, `rng_streams`,
+  `subset_log` and `name`; `subset_log.py`; the `p2_*` arms in
+  `run_sota.py`, all in the algorithm ID's config. A per-seed criterion
+  (4 of 5 seeds, 3 of 4 datasets), since four datasets cannot carry a
+  Wilcoxon test.
+- **By:** PI (the pilot, Sentinel, running it, and the defaults below as
+  proposed). Proposed by Claude and accepted by the PI: the four datasets,
+  the decision tree, seeds 2025-2029, the stagnation stop on every arm, the
+  per-seed rule and the 0.01 margin, `min1` as the mutation control without
+  the symmetric and targeted controls, one experiment ID, 10 processes;
+  the arms, the logging and the criteria.
+- **Taken after** H13-E01 was read and with these datasets' earlier
+  results seen (H14-E01, *Already seen*), before any H14-E01 run.
+- **Source:** `HYPOTHESES.md`, H14; `EXPERIMENTS.md`, H14-E01.
+- **Applies to:** H14-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol

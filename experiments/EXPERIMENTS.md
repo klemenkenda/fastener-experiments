@@ -774,3 +774,42 @@ belong to P3 (H5H6) and P6 (H10/H11).
 
 Where H13-E01's code gives a number that differs from (2), the report says so
 and explains the difference. Neither number is adjusted to match the other.
+
+### `H14-E01` -- H14: P2's pilot, starts over all sizes, an OBL budget sweep and forced mutation, on four datasets
+
+Registered 2026-11-02, after H13-E01 was reported and before any of this
+experiment's runs ([DEC-56](DECISIONS.md#dec-56)).
+
+**Design.**
+
+| | |
+|---|---|
+| arms | H14's ten: `p2_obl`, `p2_sparse`, `p2_uniform`, `p2_loguniform`, each also `_min1`, and `p2_obl_b3`, `p2_obl_b10` (`run_sota.P2_SEARCHES`) |
+| datasets | Adiac (d 176, 156 test rows), Strawberry (235, 196), Earthquakes (512, 93), Computers (720, 100): H13-E01's transition band, all with at least 90 test rows (H13-E01's matched-size failure came from test sets of 8 and 11 rows) |
+| classifier | the protocol decision tree, one thread per numeric library (DEC-37), as H1-E02 and H5H6-E01 |
+| seeds | 2025-2029, new |
+| budget | each dataset's H2/H3 fit budget ([`h2h3_budgets.json`](h2h3_budgets.json)): Adiac, Earthquakes and Computers 12,000, Strawberry 6,000; `p2_obl_b3` and `p2_obl_b10` at 3x and 10x |
+| stop | DEC-41's stagnation stop (50 generations with no new subset) on every arm, the sweep included; 6-hour per-run cap, a timed-out run reported as censored |
+| runs | 10 arms x 4 datasets x 5 seeds = 200 |
+| logging | per run, `subsets/<arm>_seed<s>.npz` (`subset_log.py`): every newly scored subset (generation, packed bitset, size, validation score, fit seconds) and, per generation, proposals, empty children, cache hits, children equal to a member of the population, children mutation left unchanged, forced flips and the flip histogram (0, 1, 2, 3+); the archive trajectory as before |
+| where | Sentinel (16 logical cores, 256 GB), `run_queue.py`, 10 processes at once, as H5H6-E01, so its fit times carry over |
+| criterion | as registered in HYPOTHESES.md, H14 |
+| expected cost | from H5H6-E01's seconds per fit on these datasets under this tree: about 19 CPU-hours for the 160 runs at 1x and 25 for the 40 sweep runs, so about 5 hours of wall clock (3.5-6 h); the longest run about 1.6 h (Computers at 10x); about 300 MB of subset logs before compression |
+
+**Already seen.** The end-of-budget results of `nsga2`, `nsga2_sparse` and
+`nsgaii_miip` on these four datasets (seeds 2020-2024; H5H6-E01 to -E03,
+H13-E01). One unregistered test job, run `20261102T171310Z_h14test` (dirty
+tree, not evidence): `p2_uniform_min1` at 600 fits and `p2_obl_b3` at 1,800
+on Strawberry with seed 2025; its printed output showed AUF (K = 10) 0.835
+and 0.000 and best test F1 0.903 and 0.944. Those runs are not part of this
+experiment (other budgets).
+
+**How it runs.**
+
+```
+python experiments/run_queue.py --experiment H14-E01 \
+    --datasets Computers,Adiac,Earthquakes,Strawberry \
+    --methods p2_obl_b10,p2_obl_b3,p2_obl,p2_obl_min1,p2_uniform,p2_uniform_min1,p2_sparse,p2_sparse_min1,p2_loguniform,p2_loguniform_min1 \
+    --seeds 2025,2026,2027,2028,2029 --budgets experiments/h2h3_budgets.json \
+    --max-procs 10 --timeout-hours 6
+```

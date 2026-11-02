@@ -394,6 +394,53 @@ def balanced_mutation(pop: np.ndarray, m_rate: float, rng) -> np.ndarray:
     return out
 
 
+# ------------------------------------------- P2's pilot (H14): controls only
+# Starts covering every subset size and a mutation that never leaves a child
+# unchanged. DEPARTURES from the source, used only as controlled variants in
+# H14-E01; the ported algorithm does not use them.
+def uniform_initialization(pop_size: int, n_features: int, rng) -> np.ndarray:
+    """k ~ U{1..d} per individual, then k features uniformly: every size
+    equally likely, so a share 10/d of the start is at k <= 10."""
+    pop = np.zeros((pop_size, n_features), dtype=bool)
+    for i in range(pop_size):
+        k = rng.randint(1, n_features + 1)
+        pop[i, rng.choice(n_features, size=k, replace=False)] = True
+    return pop
+
+
+def loguniform_initialization(pop_size: int, n_features: int, rng) -> np.ndarray:
+    """P(k) proportional to 1/k on 1..d per individual, then k features
+    uniformly: every order of magnitude of size about equally likely."""
+    ks = np.arange(1, n_features + 1)
+    p = 1.0 / ks
+    p /= p.sum()
+    pop = np.zeros((pop_size, n_features), dtype=bool)
+    for i in range(pop_size):
+        k = int(rng.choice(ks, p=p))
+        pop[i, rng.choice(n_features, size=k, replace=False)] = True
+    return pop
+
+
+def balanced_mutation_min1(pop: np.ndarray, m_rate: float, rng):
+    """`balanced_mutation`, then one forced flip in every child it left
+    unchanged: (mutated population, forced-flip mask).
+
+    The forced flip keeps the expected size drift at zero: for 1 < k < d it
+    removes a random selected feature or adds a random unselected one with
+    probability 1/2 each; at k <= 1 it can only add, at k = d only remove.
+    """
+    out = balanced_mutation(pop, m_rate, rng)
+    n, m = pop.shape
+    forced = np.zeros(n, dtype=bool)
+    for i in np.where((out == pop).all(axis=1))[0]:
+        k = int(out[i].sum())
+        add = k <= 1 or (k < m and rng.rand() < 0.5)
+        pool = np.where(~out[i])[0] if add else np.where(out[i])[0]
+        out[i, pool[rng.randint(pool.size)]] = add
+        forced[i] = True
+    return out, forced
+
+
 # ------------------------------------------------------------------ stopping
 # A converged population re-proposes subsets it has already scored. Repeats
 # come from the cache and cost no fit, so the fit budget is never reached and,

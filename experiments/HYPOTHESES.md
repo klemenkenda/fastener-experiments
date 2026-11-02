@@ -1163,6 +1163,81 @@ registered separately, before it runs.
 
 ---
 
+## H14 -- Pilot for P2: a start over all sizes keeps reach without its cost; OBL's lack of reach is not only budget; forced mutation cuts the repeats
+
+*(2026-11-02; proposed by the PI for paper P2 after H13-E01 was reported.
+A **pilot** on development datasets whose earlier results have been read
+(H5H6-E01 to -E03, H13-E01): its verdicts guide P2's design and are not a
+confirmation. New seeds, so no run's outcome has been seen; see
+[DEC-56](DECISIONS.md#dec-56).)*
+
+**Claim.** In plain NSGA-II with the NSGAII-MIIP port's operators: (i) a
+start whose subset sizes cover 1..d keeps the reach of the 1-30 start and
+recovers its large-end cost (H13-E01, F4); (ii) the OBL start's lack of
+reach at d >= 150 shrinks with budget but does not vanish at 10x; (iii) a
+mutation that always changes at least one feature cuts the repeats of
+small-subset populations (H13-E01, F7) and raises their AUF at small k.
+
+**Why it might hold.** H13-E01: reach carries the AUF gap, the OBL start
+needs selection to walk from d/2 to k <= 10, and the 1-30 start re-proposes
+subsets because balanced mutation flips about 2k/d bits per child.
+
+**Why it might not.** (i) A wide start dilutes the small sizes: the uniform
+start puts only 10/d of its mass at k <= 10. (ii) Selection may close the gap
+at 3x already. (iii) Repeats may come from crossover between near-identical
+parents, not from mutation; then the forced flip changes only the cost.
+
+**Arms.** Plain NSGA-II (`sota_baselines.run_nsga2`), population 100, with
+separate random streams for the start and the operators (arms that differ
+only in mutation start from the same population, checked by its hash), and
+every scored subset logged (`subset_log.py`). Controls, not the ported
+algorithm:
+
+| arm | start | mutation | budget |
+|---|---|---|---|
+| `p2_obl` | OBL, as `nsga2` | balanced, rate 1/d | 1x |
+| `p2_sparse` | 1-30, as `nsga2_sparse` | balanced | 1x |
+| `p2_uniform` | k ~ U{1..d}, then k features (`uniform_initialization`) | balanced | 1x |
+| `p2_loguniform` | P(k) proportional to 1/k on 1..d (`loguniform_initialization`) | balanced | 1x |
+| `p2_<start>_min1` | each of the four | balanced, then one forced flip in a child it left unchanged (`balanced_mutation_min1`: remove or add with probability 1/2, so zero expected drift; add only at k <= 1, remove only at k = d) | 1x |
+| `p2_obl_b3`, `p2_obl_b10` | OBL | balanced | 3x, 10x |
+
+**Criterion.** Four datasets cannot carry a test over datasets (the smallest
+two-sided Wilcoxon p at n = 4 is 0.125), so each part is read per seed, as
+H1: a comparison holds on a dataset if it holds in at least 4 of 5 seeds, and
+a part holds if it holds on at least 3 of the 4 datasets.
+
+* (i) For each of `p2_uniform` and `p2_loguniform` against `p2_sparse`:
+  (i-a) every seed's final front holds a subset of at most 10 features;
+  (i-b) best test F1 at any size (the front's validation-best subset) at
+  least `p2_sparse`'s; (i-c) AUF (K = 10) no more than 0.01 below
+  `p2_sparse`'s. Supported for a start if (i-a), (i-b) and (i-c) hold.
+* (ii) `p2_obl`, `p2_obl_b3`, `p2_obl_b10`: (ii-a) on every dataset, the
+  share of seeds whose final front reaches k <= 10 does not fall as the
+  budget grows; (ii-b) at 10x it is below 1 on at least one of Earthquakes
+  and Computers. Supported if both hold.
+* (iii) For `p2_sparse` and `p2_loguniform`, `_min1` against balanced:
+  (iii-a) the run's repeat share (cache hits / proposals, from the subset
+  log) at most half of balanced's; (iii-b) AUF (K = 10) higher. Supported if
+  (iii-a) and (iii-b) hold for both starts. The two dense starts are
+  reported beside it.
+
+Seeds are paired by number: the same seed gives `_min1` and balanced the
+same start, and (i) and (ii) compare arms run with the same seed.
+
+**Reported beside it:** time to reach k <= 10 (archive, Kaplan-Meier, as
+H13-E01 Q7) and the OBL fits-to-reach in multiples of the 1x budget;
+stagnation stops; flip histograms and repeat shares against 2k/d; AUF at
+K = 20 and K = d; matched-size differences (H13's definition); wall clock
+beside fits. The analysis is H13-E01's code where it applies.
+
+**Experiments.**
+
+* `H14-E01` -- the pilot above on Adiac, Strawberry, Earthquakes and
+  Computers, under the decision tree, on Sentinel.
+
+---
+
 ## Deferred, deliberately
 
 **D1 -- the replication gap is a grading artifact.** `WHY_RESULTS_DIFFER.md`

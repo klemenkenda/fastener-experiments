@@ -33,6 +33,7 @@ identically.
 Every selector is fit on TRAIN ONLY and its subsets are scored through
 protocol.evaluate_subset, identically to every other method.
 """
+import hashlib
 import sys
 import time
 import warnings
@@ -286,7 +287,9 @@ def run_hsic_lasso(ds, ks: List[int], counter: FitCounter) -> Dict:
 # ------------------------------------------------------------------- NSGA-II
 def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
               init: str = "obl", progress_cb=None, trajectory=None,
-              max_barren_generations: Optional[int] = None) -> Dict:
+              max_barren_generations: Optional[int] = None,
+              mutation: str = "balanced", rng_streams: bool = False,
+              subset_log=None, name: Optional[str] = None) -> Dict:
     """Plain NSGA-II wrapper search: same operators as the MIIP port, minus the
     mutual-information improvement phase.
 
@@ -299,13 +302,36 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     `max_barren_generations` stops a converged run, as in the MIIP port
     (nsgaii_miip.MAX_BARREN_GENERATIONS); run_sota.py passes it. None (the
     default here) runs until the budget is spent, as before DEC-41.
-    """
-    from nsgaii_miip import (balanced_mutation, barren_counter,
-                             binary_tournament_crossover,
-                             crowding_distance, fast_nondominated_sort,
-                             obl_initialization, sparse_initialization)
 
-    rng = np.random.RandomState(seed)
+    P2's pilot (H14-E01) adds controls, all off by default so that `nsga2`
+    and `nsga2_sparse` run exactly as before: `init` "uniform" or
+    "loguniform" (sizes over 1..d); `mutation` "min1" (one forced flip in a
+    child mutation left unchanged); `rng_streams`, separate random streams
+    for the start and the operators, so arms that differ only in mutation
+    start from the same population; `subset_log`, a `subset_log.SubsetLog`
+    that records every scored subset and per-generation proposal counts;
+    `name`, the method name to report.
+    """
+    from nsgaii_miip import (balanced_mutation, balanced_mutation_min1,
+                             barren_counter, binary_tournament_crossover,
+                             crowding_distance, fast_nondominated_sort,
+                             loguniform_initialization, obl_initialization,
+                             sparse_initialization, uniform_initialization)
+
+    inits = {"obl": obl_initialization, "sparse": sparse_initialization,
+             "uniform": uniform_initialization,
+             "loguniform": loguniform_initialization}
+    if init not in inits:
+        raise ValueError(f"unknown init {init!r}; have {sorted(inits)}")
+    if mutation not in ("balanced", "min1"):
+        raise ValueError(f"unknown mutation {mutation!r}")
+    if rng_streams:
+        start_ss, ops_ss = np.random.SeedSequence(seed).spawn(2)
+        init_rng = np.random.RandomState(np.random.MT19937(start_ss))
+        rng = np.random.RandomState(np.random.MT19937(ops_ss))
+    else:
+        rng = np.random.RandomState(seed)
+        init_rng = rng
     n_features = ds.n_features
     m_rate = 1.0 / n_features
     evaluations = 0
@@ -342,15 +368,22 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
                 if evaluations >= stop_evaluations:
                     ok[i] = False
                     continue
+                t_fit = time.perf_counter()
                 cache[key] = objective(genes)
                 evaluations += 1
+                if subset_log is not None:
+                    subset_log.scored(genes, cache[key], time.perf_counter() - t_fit)
                 if trajectory is not None:
                     trajectory.observe(np.where(genes)[0], cache[key])
+            elif subset_log is not None:
+                subset_log.cache_hit()
             objs[i] = (-cache[key], size)
         return objs, ok
 
-    pop = (obl_initialization(pop_size, n_features, rng) if init == "obl"
-           else sparse_initialization(pop_size, n_features, rng))
+    pop = inits[init](pop_size, n_features, init_rng)
+    if subset_log is not None:
+        subset_log.proposals(pop)
+    start_hash = hashlib.sha256(np.packbits(pop).tobytes()).hexdigest()[:16]
     objs, ok = evaluate(pop)
     pop, objs = pop[ok], objs[ok]
     iteration = 0
@@ -372,7 +405,15 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
             crowd[f] = crowding_distance(objs[f])
 
         off = binary_tournament_crossover(pop, rank, crowd, 0.9, rng)
-        off = balanced_mutation(off, m_rate, rng)
+        if mutation == "min1":
+            mutated, forced = balanced_mutation_min1(off, m_rate, rng)
+        else:
+            mutated, forced = balanced_mutation(off, m_rate, rng), None
+        if subset_log is not None:
+            subset_log.begin(iteration)
+            subset_log.mutation(off, mutated, forced)
+            subset_log.proposals(mutated, {np.packbits(g).tobytes() for g in pop})
+        off = mutated
         off_objs, ok = evaluate(off)
         off, off_objs = off[ok], off_objs[ok]
 
@@ -406,15 +447,21 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
         rec["seed"] = seed
         records.append(rec)
 
-    name = "nsga2" if init == "obl" else "nsga2_sparse"
+    name = name or ("nsga2" if init == "obl" else "nsga2_sparse")
     for r in records:
         r["method"] = name
+    extra = {}
+    if mutation != "balanced" or rng_streams or subset_log is not None:
+        extra = {"mutation": mutation, "rng_streams": rng_streams,
+                 "start_population_sha256": start_hash}
+    if subset_log is not None:
+        extra["subset_log"] = str(subset_log.write())
     return {"method": name, "family": "genetic", "seed": seed, "init": init,
             "elapsed_seconds": round(time.time() - t0, 2),
             "model_fits": evaluations, "iterations": iteration,
             "stopped_on": "stagnation" if stagnated else "budget",
             "max_barren_generations": max_barren_generations,
-            "records": records}
+            **extra, "records": records}
 
 
 # ---------------------------------------------------------------------- POSS
