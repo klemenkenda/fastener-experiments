@@ -118,7 +118,7 @@ def load_grid(grid: str) -> Tuple[List[Dict], List[Dict]]:
                if (j["dataset"], j["arm"], int(j["seed"])) not in done]
     if grid in H5H6:
         datasets = set(jobs["dataset"]) | {r["dataset"] for r in out}
-        for ds, arm in run_queue.parse_skip(f"@{SKIP_FILE}"):
+        for ds, arm in sorted(run_queue.parse_skip(f"@{SKIP_FILE}")):
             if arm in ARMS and ds in datasets:
                 missing += [{"grid": grid, "dataset": ds, "method": arm, "seed": s,
                              "why": "skipped"} for s in SEEDS]
@@ -219,19 +219,52 @@ def matched_summary(terms: Dict[str, Dict], key: str = "matched") -> Dict:
             "within_margin": bool(len(x) and -MARGIN < lo and hi < MARGIN)}
 
 
-def criterion(agg_by_variant: Dict[str, Dict]) -> Tuple[List[Dict], Dict]:
-    """Q1: (a), (b), (c) per grid for the primary pair, under one variant."""
+def test_rows() -> Dict[Tuple[str, str], int]:
+    """(grid, dataset) -> test rows, from the distilled runs of the three arms."""
+    out = {}
+    for g in GRIDS:
+        r = _read(g, "runs")
+        r = r[r["method"].isin(ARMS)]
+        for ds, n in r.groupby("dataset")["n_test"].max().items():
+            out[(g, ds)] = int(n)
+    return out
+
+
+def b_terms(terms: Dict[str, Dict], n_test: Dict[str, int],
+            min_test_rows: Optional[int] = None) -> Dict[str, Dict]:
+    """The datasets (b) reads: all of them as registered, or, with
+    `min_test_rows` (DEC-57, post hoc), only those with more test rows than
+    that. (a) and (c) always read every dataset."""
+    if min_test_rows is None:
+        return terms
+    return {d: t for d, t in terms.items() if n_test[d] > min_test_rows}
+
+
+def criterion(agg_by_variant: Dict[str, Dict], n_test: Optional[Dict] = None,
+              min_test_rows: Optional[int] = None) -> Tuple[List[Dict], Dict]:
+    """Q1: (a), (b), (c) per grid for the primary pair, under one variant.
+
+    `min_test_rows` (off by default, so the registered reading is unchanged)
+    leaves datasets with at most that many test rows out of (b) only (DEC-57);
+    `n_test` maps (grid, dataset) to test rows.
+    """
     rows = []
     for g in GRIDS:
         sub = agg_by_variant[g]
         a, b = PRIMARY
         ra = compare(scalar(sub, a, "R"), scalar(sub, b, "R"), grid=g, part="a")
         terms = pair_terms(sub, a, b)
-        mb = matched_summary(terms)
-        mx = matched_summary(terms, "matched_exact")
+        bt = b_terms(terms, {d: n_test[(g, d)] for d in terms} if n_test else {},
+                     min_test_rows)
+        mb = matched_summary(bt)
+        mx = matched_summary(bt, "matched_exact")
         share = cov.reach_share([(t["reach_term"], t["quality_term"]) for t in terms.values()])
+        extra = {} if min_test_rows is None else {
+            "min_test_rows": min_test_rows,
+            "b_left_out": ";".join(sorted(d for d in terms if d not in bt
+                                          and terms[d]["matched"] is not None))}
         rows.append({**ra, "b": mb, "b_exact": mx, "reach_share": share,
-                     "n_terms": len(terms), "terms": terms})
+                     "n_terms": len(terms), "terms": terms, **extra})
     with_holm(rows)
     for r in rows:
         r["a_holds"] = bool(r["wins"] > r["losses"] and r["p_holm"] < ALPHA)
@@ -816,6 +849,11 @@ def write_csv(path: Path, rows: List[Dict]) -> None:
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--out", default=str(REPORTS / EXPERIMENT))
+    ap.add_argument("--min-test-rows", type=int, default=None,
+                    help="post hoc (DEC-57): also write (b) without datasets that "
+                         "have at most this many test rows, as "
+                         "tables/q1_criterion_min_test<N>.csv; the registered "
+                         "tables are unchanged")
     args = ap.parse_args(argv)
     runs, missing = [], []
     for g in GRIDS:
@@ -843,6 +881,20 @@ def main(argv: Optional[List[str]] = None) -> int:
                 **{f"b_exact_{k}": x for k, x in r["b_exact"].items()}} for r in crit])
     write_csv(tabs / "q1_terms.csv", [{"grid": r["grid"], **t} for r in crit
                                      for t in r["terms"].values()])
+    if args.min_test_rows is not None:
+        n = args.min_test_rows
+        crit_n, v_n = criterion({g: variant(agg, "S0", g) for g in GRIDS},
+                                n_test=test_rows(), min_test_rows=n)
+        for name, key in ((f"q1_criterion_min_test{n}.csv", "b"),
+                          (f"q1_criterion_min_test{n}_exact.csv", "b_exact")):
+            write_csv(tabs / name,
+                      [{"grid": r["grid"], "min_test_rows": n,
+                        "b_left_out": r["b_left_out"],
+                        **{f"{key}_{k}": x for k, x in r[key].items()}} for r in crit_n])
+        for r in crit_n:
+            print(f"(b), min test rows {n}: {r['grid']:<9} {r['b']['mean']:+.4f} "
+                  f"[{r['b']['lo']:+.4f}, {r['b']['hi']:+.4f}] n={r['b']['n_matched']} "
+                  f"left out: {r['b_left_out'] or '-'}")
     write_csv(tabs / "q2_reach_model.csv", q2)
     write_csv(tabs / "q2_reach_by_dataset.csv", by_ds)
     write_csv(tabs / "q3_pairs.csv", q3)

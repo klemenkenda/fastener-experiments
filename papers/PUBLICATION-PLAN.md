@@ -2,13 +2,13 @@
 
 **Pripravljeno za:** Klemen Kenda, Institut »Jožef Stefan« (IJS)  
 **Datum:** 2. november 2026  
-**Različica:** 1.6 – revije za P2 z manjšim vplivom (J.UCS, ComSIS, SN Computer Science, SiKDD); 1.5 – P2 ostane samostojen članek; 1.4 – variante FASTENER-ja kot sedem družin; soavtorstvo Sidorele Uku pri P4, P5 in P10
+**Različica:** 1.7 – ciljna revija za P2 je ComSIS, rokopis začet, dokazi H13-E01 (z DEC-57) in pilot H14; 1.6 – revije za P2 z manjšim vplivom (J.UCS, ComSIS, SN Computer Science, SiKDD); 1.5 – P2 ostane samostojen članek; 1.4 – variante FASTENER-ja kot sedem družin; soavtorstvo Sidorele Uku pri P4, P5 in P10
 
 > **Status dokumenta:** Posodobitev 31. oktobra 2026 temelji na ciljnem pregledu lokalne kode FASTENER-ja, registra eksperimentov, poročil H1-E02, H2/H3, H8-E01–E03, H10-E01–E03, H11-E01 in H12-E01 ter sorodne literature. Iz tabel H2/H3 so ponovno izračunani število zbirk, smeri razlik, povprečja in mediane; p-vrednosti so povzete iz poročila. Pri H1 so ponovno preverjene smeri in povprečja 40 parnih razlik ter ničelne vrednosti AUF, pregledani pa tudi operatorji in najbližja literatura. Rezultati H8/H10/H11/H12 so povzeti iz poročil; pri H11 so ključne številke preverjene tudi v izvornih tabelah H10. Eksperimenti niso bili ponovno izvedeni. To je presoja izvedljivosti in publikacijske samostojnosti, ne celovita reprodukcija ali sistematičen pregled literature. Pogoji revij, pogodbe IJS, JOSS in konferenčni roki ostajajo nepreverjene navedbe starejšega načrta.
 
 **Glavni priporočili:** naključni in vodeni swap obravnavati v **enem skupnem, pogojno samostojnem članku P7**; trenutni dokazi ne utemeljujejo dveh člankov o posameznih operatorjih. **LLM + graf znanja s Sidorelo dodati kot samostojen predlog P10**: tehnično izvedljiv prek obstoječih vmesnikov, raziskovalno obetaven, vendar brez že dokazane prednosti in z nujno razmejitvijo od sorodnih del.
 
-**Odločitev za P2 (2. november 2026):** P2 ostane samostojen članek. Ker sama redka inicializacija ni nova (Miyandoab et al., CEC 2024), naj nastopi kot metodološka študija pokritosti velikosti podmnožic in njenega vpliva na vrednotenje; pilot iz raziskovalnega načrta P2 ga okrepi. Prispevek ni raziskava na fronti področja, zato ciljamo na revije z manjšim vplivom: najprej **Journal of Universal Computer Science (J.UCS)**, nato **Computer Science and Information Systems (ComSIS)** ali **SN Computer Science**; konferenčna možnost je SiKDD na Informacijski družbi 2027. V P3 se na H1 le skliče. Decembrska oddaja P2 ostaja umaknjena iz osnovne časovnice. Podrobna presoja je v [ločenem direktoriju P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md).
+**Odločitev za P2 (2. november 2026):** P2 ostane samostojen članek. Ker sama redka inicializacija ni nova (Miyandoab et al., CEC 2024), naj nastopi kot metodološka študija pokritosti velikosti podmnožic in njenega vpliva na vrednotenje; pilot iz raziskovalnega načrta P2 ga okrepi. Prispevek ni raziskava na fronti področja, zato ciljamo na revije z manjšim vplivom. **Ciljna revija je Computer Science and Information Systems (ComSIS)**; rezervi sta Journal of Universal Computer Science (J.UCS) in SN Computer Science, konferenčna možnost je SiKDD na Informacijski družbi 2027. V P3 se na H1 le skliče. Decembrska oddaja P2 ostaja umaknjena iz osnovne časovnice. Podrobna presoja je v [ločenem direktoriju P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md).
 
 ## 1. Cilj in osnovna strategija
 
@@ -50,7 +50,7 @@ Oznake P1–P10 spodaj so oznake publikacijskih predlogov. Ločene so od oznak e
 | Oznaka | Raziskovalni sklop | Predlagana vsebina | Ciljna oddaja iz dosedanjega načrta | Ključni pogoj |
 | --- | --- | --- | --- | --- |
 | P1 | H4 | Kako izbira računskega proračuna spremeni primerjavo FASTENER in FS-SDS | December 2026 | Posplošljiv metodološki prispevek, dovolj neodvisen od P3 |
-| P2 | H1 + pilot | Pokritost velikosti podmnožic pri evolucijskem izboru značilk | Po pilotu; okvirno pomlad 2027 | Razmejitev od Miyandoab et al. (2024); poudarek na pokritosti in vrednotenju, ne na novi inicializaciji; pilot (120 tekov) |
+| P2 | H1 + pilot | Pokritost velikosti podmnožic pri evolucijskem izboru značilk | Po pilotu; okvirno pomlad 2027 | Razmejitev od Miyandoab et al. (2024); poudarek na pokritosti in vrednotenju, ne na novi inicializaciji; dokazi H13-E01 (z DEC-57) in pilot H14 (200 tekov); ComSIS |
 | P3 | H5–H7 in H9 | Širša primerjalna študija selektorjev značilk | Februar–marec 2027 | Razširitev in neodvisna validacija H9 |
 | P4 | H8-E01–E03; s Sidorelo Uku | Mehanizmi in meje LLM-vodenega evolucijskega iskanja | Marec–april 2027 | Skupna razlaga začetne pohitritve, nezadostno slepe kontrole in primerjave z MI-only; neodvisna validacija |
 | P5 | H12-E01; s Sidorelo Uku | Prepoznavanje zbirk, priklic razporeda stolpcev in znanje o pomembnosti značilk | April–maj 2027, pogojno | Nov nabor zbirk in ponovljeni pozivi; sicer vključitev v P4 |
@@ -82,7 +82,9 @@ Pred samostojno oddajo je treba razjasniti merjenje časa, strojno opremo, paral
 
 **Presoja:** sedanja zgodba »zamenjamo gosto inicializacijo z redko« ni dovolj nova za samostojen metodološki članek. Po odločitvi z dne 2. novembra 2026 P2 kljub temu ostane samostojen članek, v reviji z manjšim vplivom (razdelek 4). Članek mora jasno povedati, česa najbližja dela še ne pokažejo; pilot ga okrepi, ni pa pogoj za obstoj članka.
 
-**Delovni naslov:** *Cardinality Coverage in Evolutionary Feature Selection.* Pripravljen je [direktorij P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md) za samostojen repozitorij `fastener-p2-cardinality-coverage`; GitHub repozitorij še ni ustvarjen. V njem so pregled literature, revizija dokazov H1, bibliografija, posnetek tabele z izvorom in predlog pilota.
+**Delovni naslov:** *Cardinality Coverage in Evolutionary Feature Selection.* Samostojni repozitorij je objavljen: [github.com/klemenkenda/fastener-p2-cardinality-coverage](https://github.com/klemenkenda/fastener-p2-cardinality-coverage) (lokalno [direktorij P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md)). V njem so pregled literature, revizija dokazov H1, bibliografija, posnetek tabele z izvorom, raziskovalni načrt in rokopis. **Ciljna revija je ComSIS**; rokopis (predloga comsis3) je začet 2. novembra 2026.
+
+**Dokazi za P2:** [H13-E01](../experiments/reports/H13-E01/REPORT.md) (post hoc analiza 1.544 obstoječih tekov treh vej NSGA-II iz H1-E02 in H5H6-E01–E03 na 46 zbirkah): dosegljivost pojasni 98–100 % razlike AUF med začetkoma OBL in 1–30. Registrirana presoja je »ni podprta (post hoc)«, ker del (b) pri naključnem gozdu odpove na dveh zbirkah z 8 in 11 testnimi vrsticami. Z naknadnim pravilom [DEC-57](../experiments/DECISIONS.md#dec-57) (del (b) izpusti zbirke z največ 50 testnimi vrsticami) je (b) v meji ±0,02 pri vseh treh klasifikatorjih; P2 pravilo uporabi in navede, da je sledilo prvi analizi. Drugi del dokazov je pilot H14 (začetki čez vse velikosti, proračun OBL 1×/3×/10×, mutacija z vsaj eno spremembo, beleženje vseh ocenjenih podmnožic; 200 tekov na štirih zbirkah).
 
 **Kaj je že raziskano:** [Miyandoab et al. (CEC 2024), algoritem 2](https://arxiv.org/html/2407.17795v2), poda enakomerno izbiro kardinalnosti in nato naključnih indeksov brez ponavljanja. Lokalni začetek 1–30 je posebni primer tega postopka; celotni algoritem avtorjev se sicer razlikuje. Tudi [Deniz in Kiziloz (2019)](https://shura.shu.ac.uk/30147/) raziskujeta začetne populacije, [Kropp et al. (2022)](https://www.sciencedirect.com/science/article/pii/S2210650221001875) pa redko vzorčenje za NSGA-II. [Podrobni pregled osmih ključnih del](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/RELATED-WORK.md) vključuje še intervalne začetke, informirano razdeljevanje populacije in novejša dela do leta 2026. Globina dostopa je označena; ni trditve o izčrpnosti.
 
@@ -90,7 +92,7 @@ Pred samostojno oddajo je treba razjasniti merjenje časa, strojno opremo, paral
 
 **Bistvena omejitev posploševanja:** `run_nsga2` uporablja operatorje iz lokalnega porta NSGAII-MIIP brez MI-izboljševalne faze. Pri njegovi mutaciji SSOM je za 0 < k < d pričakovani premik velikosti nič, iz lokalne kode pa sledi pričakovano število obratov 2k/d. Uravnoteženje pričakovanih dodatkov in odstranitev že opisujejo [Li et al., §4.3](https://andali89.github.io/homepage/pubs/2025_NSGAIIMIIP_manuscript.pdf); ni nova teorija P2 in ne opisuje celotnega NSGA-II s selekcijo. H1 veljavno izolira inicializacijo v konkretni konfiguraciji, ne pokaže vedenja vseh izvedb NSGA-II. Pri novih poskusih je treba upoštevati tudi predpomnilnik in kasneje dodano pravilo stagnacije.
 
-**Možna nadaljnja smer:** ločiti pokritost območja, kakovost ob primerljivih velikostih in napredek glede na začetno populacijo ter preveriti interakcijo začetka, mutacije in proračuna. [Predlog pilota](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/RESEARCH-PLAN.md) vsebuje 120 razvojnih tekov, primerjavo s širšo enakomerno kardinalnostjo in drugo mutacijo ter merila za nadaljevanje. To je novo, še neizvedeno delo. Če pilot ne prinese posplošljive ugotovitve, P2 ostane opisni članek o pokritosti v konkretni konfiguraciji, z jasno navedenimi mejami.
+**Možna nadaljnja smer:** ločiti pokritost območja, kakovost ob primerljivih velikostih in napredek glede na začetno populacijo ter preveriti interakcijo začetka, mutacije in proračuna. Pilot je registriran kot [H14](../experiments/HYPOTHESES.md) (DEC-56): 200 tekov na Adiac, Strawberry, Earthquakes in Computers z odločitvenim drevesom in novimi semeni 2025–2029, na delovni postaji Sentinel. To je razvojni pilot na že videnih zbirkah, ne potrditev. Če pilot ne prinese posplošljive ugotovitve, P2 ostane opisni članek o pokritosti v konkretni konfiguraciji, z jasno navedenimi mejami.
 
 ### P3 – H5–H7/H9: širša primerjalna študija
 
@@ -300,7 +302,7 @@ Spodnja razporeditev ohranja kandidatke iz pogovora in dodaja P10. Celotna ustre
 | Prispevek | Prednostna kandidatka iz dosedanjega načrta | Druga kandidatka oziroma možnost |
 | --- | --- | --- |
 | P1 – H4 | SN Computer Science | International Journal of Machine Learning and Cybernetics |
-| P2 – H1 | Journal of Universal Computer Science (J.UCS) | ComSIS ali SN Computer Science; konferenca SiKDD (Informacijska družba 2027) |
+| P2 – H1 | Computer Science and Information Systems (ComSIS) | J.UCS ali SN Computer Science; konferenca SiKDD (Informacijska družba 2027) |
 | P3 – H5–H7/H9 | Applied Soft Computing | Swarm and Evolutionary Computation |
 | P4 – H8 | Applied Intelligence | Knowledge-Based Systems |
 | P5 – H12 | Neural Computing and Applications | Applied Intelligence |
@@ -310,7 +312,7 @@ Spodnja razporeditev ohranja kandidatke iz pogovora in dodaja P10. Celotna ustre
 | P9 – podatkovni vir | Data in Brief | Odločitev po pripravi podatkovnega paketa |
 | P10 – LLM + KG, s Sidorelo | Applied Intelligence, če nastane nov preverjen mehanizem | Knowledge-Based Systems kot kandidatka po dodatnem preverjanju obsega |
 
-Za P2 (preverjeno 2. novembra 2026; prispevek ni raziskava na fronti področja, zato revije z manjšim vplivom): [J.UCS](https://lib.jucs.org/) je široka računalniška revija v SCIE z JIF približno 0,9–1,0; po starejših navedbah brez stroškov za avtorje, od leta 2025 pod CC BY 4.0 (aktualne pogoje preveriti). [ComSIS](https://ojs.pmf.uns.ac.rs/index.php/comsis/) (Srbija) je v SCIE z JIF približno 1,5 (Q3); viri si o morebitnem APC (0 ali 400 EUR) nasprotujejo. [SN Computer Science](https://www.springer.com/journal/42979) je v Scopusu brez uradnega JIF. Konferenca [SiKDD](https://aile3.ijs.si/dunja/SiKDD2024/) na Informacijski družbi (Ljubljana, oktober; do 4 strani, rok običajno konec avgusta; razširjeni prispevki v reviji Informatica) je najmanj zahtevna možnost. Evolutionary Intelligence, ACM TELO in GECCO so za ta prispevek preambiciozni.
+Za P2 (preverjeno 2. novembra 2026; prispevek ni raziskava na fronti področja, zato revije z manjšim vplivom): [J.UCS](https://lib.jucs.org/) je široka računalniška revija v SCIE z JIF približno 0,9–1,0; po starejših navedbah brez stroškov za avtorje, od leta 2025 pod CC BY 4.0 (aktualne pogoje preveriti). [ComSIS](https://ojs.pmf.uns.ac.rs/index.php/comsis/) (Srbija) je v SCIE z JIF približno 1,5 (Q3); viri si o morebitnem APC (0 ali 400 EUR) nasprotujejo. [SN Computer Science](https://www.springer.com/journal/42979) je v Scopusu brez uradnega JIF. Konferenca [SiKDD](https://aile3.ijs.si/dunja/SiKDD2024/) na Informacijski družbi (Ljubljana, oktober; do 4 strani, rok običajno konec avgusta; razširjeni prispevki v reviji Informatica) je najmanj zahtevna možnost. Evolutionary Intelligence, ACM TELO in GECCO so za ta prispevek preambiciozni. Izbrana je ComSIS (2. november 2026); rokopis je pripravljen v njeni predlogi comsis3.
 
 Za P10 [uradni obseg Applied Intelligence](https://link.springer.com/journal/10489/aims-and-scope) izrecno vključuje evolucijsko računanje, izbor značilk in sklepanje na osnovi znanja ter poudarja izvirne metodologije. Zato je vsebinska kandidatka; samo povezava obstoječih komponent ali uporaba na drugi zbirki ne zadošča. To ni potrdilo o verjetnosti sprejema ali kritju stroškov. Uradna stran obsega Knowledge-Based Systems pri preverjanju ni bila dostopna, zato ta možnost ostaja predlog za nadaljnji pregled.
 
@@ -393,7 +395,7 @@ Prejšnji cilj dveh raziskovalnih oddaj do konca 2026 je po pregledu novosti P2 
 - **December–januar:** izvedba oziroma zaključevanje H9 ter analiza rezultatov.
 - **November–december:** tehnična priprava JOSS.
 - **P10, november:** s Sidorelo uskladiti domeno, dostop do virov, shemo KG, preslikavo značilk in mejo do P4; popisati najbližja sorodna dela.
-- **P2:** samostojen članek; pilot registrirati in izvesti, nato rokopis za J.UCS.
+- **P2:** samostojen članek za ComSIS; pilot H14 izvesti (H14-E01 je bil ustavljen, ponovitev kot H14-E02), rokopis je začet.
 - **P10, december:** če sta graf in čas na voljo, prototip ter omejen pilot iz razdelka P10; ob koncu meseca odločitev o razširitvi. Pilot ni nova obveznost pred oddajo P1.
 - **Ves čas:** razmejitev glavnih rezultatov, slik in tabel med članki ter zapis novih odprtih raziskovalnih vprašanj.
 

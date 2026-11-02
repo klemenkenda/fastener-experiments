@@ -5,7 +5,7 @@ Each potential paper of the [publication plan](PUBLICATION-PLAN.md) (v1.3, in Sl
 | paper | title | evidence | target venues | repository |
 |---|---|---|---|---|
 | P1 | Budget Choice in Comparing Feature Selectors | H4 | SN Computer Science; IJMLC | [fastener-p1-budget-fairness](https://github.com/klemenkenda/fastener-p1-budget-fairness) |
-| P2 | Cardinality Coverage in Evolutionary Feature Selection | H1 + a possible new pilot | J.UCS; ComSIS or SN Computer Science; SiKDD 2027 | [fastener-p2-cardinality-coverage](https://github.com/klemenkenda/fastener-p2-cardinality-coverage) |
+| P2 | Cardinality Coverage in Evolutionary Feature Selection | H13-E01 (with DEC-57) + the H14 pilot | ComSIS; J.UCS or SN Computer Science as fallbacks; SiKDD 2027 | [fastener-p2-cardinality-coverage](https://github.com/klemenkenda/fastener-p2-cardinality-coverage) |
 | P3 | A Broad Comparative Study of Feature Selectors | H5-H7 and H9 | Applied Soft Computing; Swarm and Evolutionary Computation | [fastener-p3-selector-benchmark](https://github.com/klemenkenda/fastener-p3-selector-benchmark) |
 | P4 | Mechanisms and Limits of LLM-Guided Evolutionary Search | H8-E01 to -E03 | Applied Intelligence; Knowledge-Based Systems | [fastener-p4-llm-guided-search](https://github.com/klemenkenda/fastener-p4-llm-guided-search) |
 | P5 | What LLMs Know About Benchmark Datasets | H12-E01 | Neural Computing and Applications; Applied Intelligence | [fastener-p5-llm-dataset-knowledge](https://github.com/klemenkenda/fastener-p5-llm-dataset-knowledge) |

@@ -1156,6 +1156,8 @@ arms, read from `experiments/distilled_logs/`.
   **Not supported (post hoc)**: reach carries 98-100% of the AUF difference in
   every grid and (a) holds everywhere, but (b) fails under the random forest,
   on two datasets with 8 and 11 test rows. [Report](reports/H13-E01/REPORT.md).
+  Without datasets of at most 50 test rows in (b) (DEC-57, post hoc), (b)
+  holds in every grid; [addendum](reports/H13-E01/REPORT.md#addendum-2026-11-02----dec-57-post-hoc).
 
 A confirmatory test needs runs not yet seen. P2's extended pilot (new starts,
 an OBL budget sweep, the mutation control, every evaluated subset logged) is
@@ -1971,3 +1973,14 @@ information, with its blind twin's layout recall.
 runs (`hpc/vega/h8e03.env`). No model is called during the runs, so the
 runs cost nothing on OpenRouter. The PI's $50 limit on model calls stands
 and is not touched. Recorded as [DEC-53](DECISIONS.md#dec-53).
+
+**2026-11-02 -- H13: a post hoc test-size rule for part (b).** Set by the
+PI after H13-E01 was reported, with its result seen: (b) failed under the
+random forest on BeetleFly and Coffee, whose test sets have 8 and 11 rows,
+where one misclassified row moves F1 by more than the 0.02 margin. From
+now on, (b) reads only datasets with more than 50 test rows; (a), (c) and
+the other parts keep all 46 datasets. H13's claim, its criterion as
+registered and H13-E01's verdict (**not supported, post hoc**) are
+unchanged. The rule is reported beside the verdict as a sensitivity
+reading, and P2, which applies it, says that it followed a first analysis.
+Recorded as [DEC-57](DECISIONS.md#dec-57).

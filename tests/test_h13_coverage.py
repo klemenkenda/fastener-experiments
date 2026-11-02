@@ -128,3 +128,32 @@ def test_bootstrap_interval_is_reproducible_and_brackets_the_mean():
 
 def test_expected_flips():
     assert cov.expected_flips(10, 10_000) == pytest.approx(0.002)
+
+
+def test_min_test_rows_drops_small_test_sets_from_b_only():
+    """DEC-57 (post hoc): with min_test_rows, a dataset with at most that many
+    test rows leaves (b); (a) and (c) still read it. Off, nothing changes."""
+    import h13_report as h
+
+    def agg(test_f1):
+        fronts = [[rec(2, 0.8, test_f1), rec(9, 0.9, test_f1)]] * 5
+        a = cov.aggregate([cov.run_measures(f, 40) for f in fronts])
+        a["d"] = 40
+        return a
+
+    # Both arms reach every k >= 2 on both datasets; on "tiny" (8 test rows)
+    # the 1-30 start is 0.2 F1 behind, on "big" (300) level.
+    sub = {"nsga2_sparse": {"tiny": agg(0.6), "big": agg(0.8)},
+           "nsga2": {"tiny": agg(0.8), "big": agg(0.8)}}
+    by_grid = {g: sub for g in h.GRIDS}
+    n_test = {(g, d): n for g in h.GRIDS for d, n in (("tiny", 8), ("big", 300))}
+    off, _ = h.criterion(by_grid)
+    on, _ = h.criterion(by_grid, n_test=n_test, min_test_rows=50)
+    assert off[0]["b"]["n_matched"] == 2 and off[0]["b"]["mean"] == pytest.approx(-0.1)
+    assert on[0]["b"]["n_matched"] == 1 and on[0]["b"]["mean"] == pytest.approx(0.0)
+    assert on[0]["b_left_out"] == "tiny"
+    for x, y in zip(off, on):
+        assert (x["n_datasets"], x["reach_share"], x["p"]) == \
+               (y["n_datasets"], y["reach_share"], y["p"])
+    assert h.b_terms({"a": {}, "b": {}}, {"a": 50, "b": 51}, 50) == {"b": {}}
+    assert h.b_terms({"a": {}}, {}, None) == {"a": {}}

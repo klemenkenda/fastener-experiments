@@ -216,3 +216,34 @@ for its cost. A confirmatory test needs runs not yet seen. The extended
 pilot covers initialisations over all sizes, an OBL budget sweep, the
 mutation control and logging of every scored subset. It should fix the
 minimum test-set size and the matched-size margin before it runs.
+
+## Addendum (2026-11-02) -- DEC-57, post hoc
+
+*Added after this report; the text above is unchanged. The PI set a rule
+for part (b) after reading F1: datasets with at most 50 test rows leave the
+matched-size comparison, because there one misclassified row moves F1 by
+more than the 0.02 margin ([DEC-57](../../DECISIONS.md#dec-57)). (a), (c)
+and every other finding keep all 46 datasets. The registered verdict stays
+**not supported (post hoc)**.*
+
+The rule removes BeetleFly (8 test rows) and Coffee (11) from (b) under the
+forest and LightGBM; the other datasets with at most 50 test rows had no
+matched sizes. Same bootstrap as (b) (10,000 resamples, seed 20200):
+
+| grid | (b) as registered | (b) without <= 50 test rows | datasets | left out |
+|---|---|---|---|---|
+| H1-E02, tree | -0.0065 (satimage) | -0.0065 (satimage) | 1 | -- |
+| H5H6-E01, tree | -0.0008 [-0.0044, +0.0025] | -0.0008 [-0.0044, +0.0025] | 10 | -- |
+| H5H6-E02, forest | -0.0136 [-0.0436, +0.0083] | +0.0061 [+0.0003, +0.0126] | 11 | BeetleFly, Coffee |
+| H5H6-E03, LightGBM | +0.0007 [-0.0062, +0.0082] | +0.0034 [-0.0017, +0.0109] | 11 | BeetleFly, Coffee |
+
+The exact-size check agrees: +0.0083 [+0.0010, +0.0176] under the forest
+(11 datasets) and +0.0045 [-0.0007, +0.0121] under LightGBM (10). Under the
+rule, (b) is within +/-0.02 in every grid, so (a), (b) and (c) would all
+hold. That reading is post hoc twice over: the claim, and now the rule,
+were set after the results were seen. It is a sensitivity reading, not a
+verdict.
+
+Tables: `tables/q1_criterion_min_test50.csv` and
+`tables/q1_criterion_min_test50_exact.csv`, from
+`python experiments/h13_report.py --min-test-rows 50`.

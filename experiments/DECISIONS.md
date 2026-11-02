@@ -1278,6 +1278,35 @@ datasets on Sentinel.**
 - **Source:** `HYPOTHESES.md`, H14; `EXPERIMENTS.md`, H14-E01.
 - **Applies to:** H14-E01.
 
+### DEC-57
+
+**2026-11-02 -- H13, part (b): datasets with at most 50 test rows leave the
+matched-size comparison (post hoc).**
+
+- **Why:** on a test set of at most 50 rows, one misclassified row moves
+  F1 by more than (b)'s 0.02 margin, so (b) cannot be read there. In
+  H13-E01, (b) failed under the random forest on BeetleFly (8 test rows)
+  and Coffee (11) alone (its report, F1).
+- **Detail:** (b) reads only datasets with more than 50 test rows; (a),
+  (c) and every other part of H13-E01 keep all 46 datasets. The rule
+  removes BeetleFly and Coffee from (b). The other datasets with at most 50
+  test rows (OliveOil 12, BasicMotions 16, Prostate_GE 20, arcene 40,
+  Ham 43) have no matched sizes, so (b) did not read them anyway.
+  `h13_report.py --min-test-rows 50` writes
+  `tables/q1_criterion_min_test50.csv` and its exact-size variant; off
+  by default, so the registered tables are unchanged. With the rule, (b)
+  is within the margin in every grid: forest +0.0061 [+0.0003, +0.0126] on
+  11 datasets, LightGBM +0.0034 [-0.0017, +0.0109] on 11, tree unchanged
+  (-0.0008 on 10), H1-E02 unchanged (satimage). H13-E01's registered verdict
+  stays **not supported (post hoc)**. P2 applies the rule and says that it
+  was set after a first analysis.
+- **By:** PI.
+- **Taken after** H13-E01 was reported (its (b) failure seen), before the
+  matched-size comparison was recomputed under the rule.
+- **Source:** `HYPOTHESES.md`, *Revisions*, 2026-11-02 (H13); H13-E01's
+  report, addendum.
+- **Applies to:** H13-E01's part (b), as a sensitivity reading; P2.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1307,4 +1336,4 @@ are not repeated.
 | `H8-E03` | reported: not supported (part (i) for no model; part (ii) for Sonnet only) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | -- | [H8-E03](reports/H8-E03/REPORT.md) |
 | `H12-E01` | reported: not supported (A and B for 0 of 12 models) | [DEC-54](#dec-54) | -- | [H12-E01](reports/H12-E01/REPORT.md) |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |
-| `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | -- | [H13-E01](reports/H13-E01/REPORT.md) |
+| `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | [DEC-57](#dec-57) | [H13-E01](reports/H13-E01/REPORT.md) |
