@@ -1239,7 +1239,12 @@ beside fits. The analysis is H13-E01's code where it applies.
   Computers, under the decision tree, on Sentinel. Stopped after 6 minutes
   by the PI to change the repository first (DEC-57); no run finished and
   no result was read. Failed. [Report](reports/H14-E01/REPORT.md).
-* `H14-E02` -- the same design, rerun from one commit (DEC-58).
+* `H14-E02` -- the same design, rerun from one commit (DEC-58). **Not
+  supported** on all three parts: the wide starts reach k <= 10 in every run
+  but do not recover the large end; the OBL start reaches k <= 10 in every
+  seed at 10x (after 0.5x-7.1x the budget), so (ii-b) fails; min1 never
+  halves the repeats and leaves AUF unchanged, but cuts proposals per fit
+  from 176 to about 5. [Report](reports/H14-E02/REPORT.md).
 
 ---
 

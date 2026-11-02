@@ -1,8 +1,8 @@
 """H14: P2's pilot -- starts over all sizes, an OBL budget sweep, forced mutation.
 
 The criterion as registered for H14-E01 (HYPOTHESES.md, H14; EXPERIMENTS.md,
-H14-E01; DEC-56), on its 200 runs, read from `experiments/distilled_logs/
-H14-E01/` (runs, final fronts, archive trajectories) and the runs' subset logs
+H14-E01; DEC-56) and rerun unchanged as H14-E02 (DEC-58), on its 200 runs,
+read from `experiments/distilled_logs/H14-E02/` (runs, final fronts, archive trajectories) and the runs' subset logs
 (`results/<run>/subsets/*.npz`, `subset_log.py`), which this script reduces to
 `tables/subset_summary.csv` so that the report reads from committed tables.
 
@@ -44,8 +44,7 @@ import provenance
 import subset_log
 
 HERE = Path(__file__).resolve().parent
-EXPERIMENT = "H14-E01"
-DISTILLED = HERE / "distilled_logs" / EXPERIMENT
+EXPERIMENT = "H14-E02"   # H14-E01 was stopped before any run finished (DEC-58)
 REPORTS = HERE / "reports"
 DATASETS = ("Adiac", "Strawberry", "Earthquakes", "Computers")
 LARGE = ("Earthquakes", "Computers")
@@ -64,10 +63,11 @@ COLOR = {"p2_obl": SERIES[1], "p2_sparse": SERIES[0], "p2_uniform": SERIES[3],
 
 
 # ------------------------------------------------------------------ inputs
-def load_runs() -> List[Dict]:
-    runs = pd.read_csv(DISTILLED / "runs.csv.xz")
-    recs = pd.read_csv(DISTILLED / "records.csv.xz")
-    curves = pd.read_csv(DISTILLED / "curves.csv.xz")
+def load_runs(experiment: str = EXPERIMENT) -> List[Dict]:
+    src = HERE / "distilled_logs" / experiment
+    runs = pd.read_csv(src / "runs.csv.xz")
+    recs = pd.read_csv(src / "records.csv.xz")
+    curves = pd.read_csv(src / "curves.csv.xz")
     rec_by = {k: g.to_dict("records") for k, g in recs.groupby(["run_id", "method", "seed"])}
     cur_by = {k: g.to_dict("records") for k, g in curves.groupby(["run_id", "method", "seed"])}
     out = []
@@ -250,6 +250,35 @@ def matched(runs) -> List[Dict]:
     return out
 
 
+PAIRS = ([(s, "p2_sparse") for s in ("p2_uniform", "p2_loguniform", "p2_obl", "p2_obl_b10")]
+         + [(f"p2_{s}_min1", f"p2_{s}") for s in STARTS])
+
+
+def pairs(runs, subs) -> List[Dict]:
+    """Per pair, measure and dataset: the mean over seeds of a - b (paired by
+    seed), the seeds with a > b, and the same over all four datasets."""
+    out = []
+    for a, b in PAIRS:
+        for m in ("auf_k10", "best_f1", "max_front", "repeat_share", "seconds"):
+            allv = []
+            for ds in DATASETS:
+                A, B = by_seed(runs, a, ds), by_seed(runs, b, ds)
+
+                def val(x):
+                    if m == "repeat_share":
+                        return subs.get((x["method"], x["dataset"], x["seed"]), {}).get(m, np.nan)
+                    return x[m]
+                v = [val(A[q]) - val(B[q]) for q in sorted(set(A) & set(B))]
+                allv += v
+                out.append({"a": a, "b": b, "measure": m, "dataset": ds,
+                            "mean_delta": float(np.mean(v)), "a_higher": int(np.sum(np.array(v) > 0)),
+                            "n_seeds": len(v)})
+            out.append({"a": a, "b": b, "measure": m, "dataset": "all",
+                        "mean_delta": float(np.mean(allv)),
+                        "a_higher": int(np.sum(np.array(allv) > 0)), "n_seeds": len(allv)})
+    return out
+
+
 def start_check(runs) -> List[Dict]:
     """Arms that differ only in mutation must start from the same population."""
     out = []
@@ -300,30 +329,70 @@ def fig_starts(runs, note, path):
 
 def fig_sweep(runs, note, path):
     """(ii): per dataset, KM share of OBL runs whose archive reaches k <= 10,
-    against fits in multiples of the base budget, for 1x, 3x, 10x."""
+    against fits in multiples of the base budget. The 1x and 3x runs share
+    the 10x run's seed and random streams, so they are its trajectory cut
+    short (checked by the analysis): one curve, the cut points marked, and
+    each arm's final-front reach R."""
     import matplotlib.pyplot as plt
     _style(plt)
     fig, axes = plt.subplots(1, 4, figsize=(18, 4.6), sharey=True)
     for ax, ds in zip(axes, DATASETS):
+        rs = list(by_seed(runs, "p2_obl_b10", ds).values())
+        ts, s = cov.km([r["ttr"]["share"] * 10 for r in rs], [r["ttr"]["reached"] for r in rs])
+        reached = 1 - s if len(s) else np.zeros(0)
+        last = reached[-1] if len(reached) else 0.0
+        ax.step(np.r_[1e-3, ts, 10], np.r_[0.0, reached, last], where="post",
+                color=COLOR["p2_obl_b10"], label="archive reach, the 10x runs (KM)")
         for m, mult in SWEEP.items():
-            rs = list(by_seed(runs, m, ds).values())
-            if not rs:
-                continue
-            ts, s = cov.km([r["ttr"]["share"] * mult for r in rs], [r["ttr"]["reached"] for r in rs])
-            reached = 1 - s if len(s) else np.zeros(0)
-            last = reached[-1] if len(reached) else 0.0
-            ax.step(np.r_[1e-3, ts, mult], np.r_[0.0, reached, last], where="post",
-                    color=COLOR[m], label=f"{LABEL[m]} (R = {np.mean([bool(r['reach'][-1]) for r in rs]):.1f})")
+            R = np.mean([bool(r["reach"][-1]) for r in by_seed(runs, m, ds).values()])
+            ax.axvline(mult, color=COLOR[m], ls="--", lw=1)
+            ax.annotate(f"{mult}x: R = {R:.1f}", (mult, 0.05 + 0.12 * [1, 3, 10].index(mult)),
+                        xytext=(-4, 0), textcoords="offset points", ha="right", fontsize=7.5,
+                        color=COLOR[m])
         ax.set_xscale("log")
-        ax.set_xlim(0.005, 10)
+        ax.set_xlim(0.005, 12)
         ax.set_title(f"{ds} (d = {rs[0]['d'] if rs else '?'})", fontsize=9.5)
         ax.set_xlabel("fits, in multiples of the 1x budget (log)")
         ax.grid(color=GRID)
         ax.legend(fontsize=7.5, loc="upper left")
     axes[0].set_ylabel("share of OBL runs whose archive\nholds a subset of <= 10 features (KM)")
-    fig.suptitle("H14 (ii): the OBL start at 1x, 3x and 10x the fit budget; 5 seeds per curve",
+    fig.suptitle("H14 (ii): the OBL start up to 10x the fit budget, 5 seeds; dashed: where the 1x "
+                 "and 3x runs (the same trajectories) stop, with their final-front reach R",
                  fontsize=10)
-    _footer(fig, note, "validation (archive)")
+    _footer(fig, note, "validation (archive); R on the final front")
+    fig.tight_layout(rect=(0, 0.04, 1, 0.93))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+def fig_cost(runs, subs, note, path):
+    """The cost side of min1: proposals per new fit and wall clock per run,
+    balanced against min1, per start and dataset (median over seeds)."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    fig, axes = plt.subplots(1, 2, figsize=(16, 4.6))
+    x = np.arange(len(DATASETS))
+    for j, s in enumerate(STARTS):
+        for k, (m, mk) in enumerate(((f"p2_{s}", "o"), (f"p2_{s}_min1", "x"))):
+            off = (j - 1.5) * 0.18
+            ppf = [np.median([subs[(m, ds, q)]["proposals"] / subs[(m, ds, q)]["new_fits"]
+                              for q in by_seed(runs, m, ds)]) for ds in DATASETS]
+            sec = [np.median([r["seconds"] for r in by_seed(runs, m, ds).values()])
+                   for ds in DATASETS]
+            lab = LABEL[f"p2_{s}"] + (", min1" if k else ", balanced")
+            axes[0].scatter(x + off, ppf, marker=mk, s=28, color=COLOR[f"p2_{s}"], label=lab)
+            axes[1].scatter(x + off, sec, marker=mk, s=28, color=COLOR[f"p2_{s}"], label=lab)
+    for ax, (t, yl) in zip(axes, (("proposals per new fit", "proposals / new fits (log)"),
+                                  ("wall clock per run", "seconds (log)"))):
+        ax.set_yscale("log")
+        ax.set_xticks(x, DATASETS)
+        ax.set_title(f"{t}, median over 5 seeds (dot balanced, cross min1)", fontsize=9.5)
+        ax.set_ylabel(yl)
+        ax.grid(axis="y", color=GRID)
+    axes[1].legend(fontsize=7, ncol=2, loc="upper left", bbox_to_anchor=(1.01, 1))
+    fig.suptitle("H14: what the forced flip changes is the cost of a fit, at the same 1x budget",
+                 fontsize=10)
+    _footer(fig, note, "n/a (counts, wall clock: 10 runs at a time on Sentinel)")
     fig.tight_layout(rect=(0, 0.04, 1, 0.93))
     fig.savefig(path, dpi=150)
     plt.close(fig)
@@ -359,7 +428,7 @@ def fig_min1(runs, subs, note, path):
         ax.set_xticks(x, DATASETS)
         ax.set_title(t, fontsize=9.5)
         ax.grid(axis="y", color=GRID)
-    axes[0].legend(fontsize=7, ncol=2)
+    axes[0].legend(fontsize=7, ncol=2, loc="upper left", bbox_to_anchor=(0, -0.12))
     axes[1].legend(fontsize=7.5)
     fig.suptitle("H14 (iii): a forced flip in children mutation left unchanged", fontsize=10)
     _footer(fig, note, "test (AUF); n/a (repeats)")
@@ -409,12 +478,13 @@ def write_csv(path: Path, rows: List[Dict]) -> None:
 
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--out", default=str(REPORTS / EXPERIMENT))
+    ap.add_argument("--experiment", default=EXPERIMENT)
+    ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
-    out = Path(args.out)
+    out = Path(args.out or REPORTS / args.experiment)
     tabs, figs = out / "tables", out / "figures"
     figs.mkdir(parents=True, exist_ok=True)
-    runs = load_runs()
+    runs = load_runs(args.experiment)
     subs = subset_summary(runs, tabs / "subset_summary.csv")
     write_csv(tabs / "subset_summary.csv",
               [{"method": m, "dataset": d, "seed": s, **v} for (m, d, s), v in sorted(subs.items())])
@@ -424,16 +494,18 @@ def main(argv: Optional[List[str]] = None) -> int:
     write_csv(tabs / "per_arm.csv", per_arm(runs, subs))
     write_csv(tabs / "matched.csv", matched(runs))
     write_csv(tabs / "start_check.csv", start_check(runs))
+    write_csv(tabs / "pairs.csv", pairs(runs, subs))
     write_csv(tabs / "run_measures.csv",
               [{k: v for k, v in r.items() if k not in ("reach", "c", "exact", "ttr")}
                | {"reach_k10": bool(r["reach"][-1]), **{f"ttr_{k}": v for k, v in r["ttr"].items()}}
                for r in runs])
     (tabs / "verdict.json").write_text(json.dumps(verdict, indent=1), encoding="utf-8")
-    note = f"{len(runs)} runs of H14-E01 (decision tree, Sentinel); h14_report.py"
+    note = f"{len(runs)} runs of {args.experiment} (decision tree, Sentinel); h14_report.py"
     fig_starts(runs, note, figs / "F1_starts.png")
     fig_sweep(runs, note, figs / "F2_obl_budget_sweep.png")
     fig_min1(runs, subs, note, figs / "F3_min1.png")
     fig_flips(runs, subs, note, figs / "F4_flips_2k_over_d.png")
+    fig_cost(runs, subs, note, figs / "F5_min1_cost.png")
     print(json.dumps(verdict, indent=1))
     return 0
 

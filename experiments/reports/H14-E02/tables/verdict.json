@@ -1,0 +1,31 @@
+{
+ "(i) p2_uniform": {
+  "i-a": true,
+  "i-b": false,
+  "i-c": false,
+  "supported": false
+ },
+ "(i) p2_loguniform": {
+  "i-a": true,
+  "i-b": false,
+  "i-c": false,
+  "supported": false
+ },
+ "(ii)": {
+  "ii-a": true,
+  "ii-b": false,
+  "supported": false
+ },
+ "(iii) p2_sparse": {
+  "iii-a": false,
+  "iii-b": false
+ },
+ "(iii) p2_loguniform": {
+  "iii-a": false,
+  "iii-b": false
+ },
+ "(iii)": {
+  "supported": false
+ },
+ "n_runs": 200
+}

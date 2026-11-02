@@ -1357,4 +1357,4 @@ are not repeated.
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |
 | `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | [DEC-57](#dec-57) | [H13-E01](reports/H13-E01/REPORT.md) |
 | `H14-E01` | failed: stopped before any run finished | [DEC-56](#dec-56) | [DEC-58](#dec-58) | [H14-E01](reports/H14-E01/REPORT.md) |
-| `H14-E02` | running | [DEC-56](#dec-56), [DEC-58](#dec-58) | -- | -- |
+| `H14-E02` | reported: not supported (i, ii, iii all fail) | [DEC-56](#dec-56), [DEC-58](#dec-58) | -- | [H14-E02](reports/H14-E02/REPORT.md) |
