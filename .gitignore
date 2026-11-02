@@ -2,6 +2,9 @@
 # It is deliberately NOT tracked by this experiments repo.
 fastener/
 
+# P2 is prepared as an independent paper repository.
+/papers/P2 - Cardinality Coverage in Evolutionary Feature Selection/
+
 # Experiment outputs stay on the machine that ran them: there are too many
 # files to track. The reports under reports/ keep what the analysis read.
 results/*
