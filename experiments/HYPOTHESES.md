@@ -1153,6 +1153,9 @@ arms, read from `experiments/distilled_logs/`.
 **Experiments.**
 
 * `H13-E01` -- the criterion above and Q2-Q8 on 1,544 runs over 46 datasets.
+  **Not supported (post hoc)**: reach carries 98-100% of the AUF difference in
+  every grid and (a) holds everywhere, but (b) fails under the random forest,
+  on two datasets with 8 and 11 test rows. [Report](reports/H13-E01/REPORT.md).
 
 A confirmatory test needs runs not yet seen. P2's extended pilot (new starts,
 an OBL budget sweep, the mutation control, every evaluated subset logged) is

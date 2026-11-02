@@ -53,6 +53,11 @@ ARMS = ("nsga2", "nsga2_sparse", "nsgaii_miip")
 LABEL = {"nsga2": "OBL start", "nsga2_sparse": "1-30 start",
          "nsgaii_miip": "NSGAII-MIIP"}
 COLOR = {"nsga2": SERIES[1], "nsga2_sparse": SERIES[0], "nsgaii_miip": SERIES[2]}
+SHORT = {"nsga2": "OBL", "nsga2_sparse": "1-30", "nsgaii_miip": "MIIP"}
+TITLE = {"R": "reach R (share of seeds with k <= 10)", "auf_k10": "AUF, K = 10",
+         "matched": "matched-size difference (F1)", "auf_k20": "AUF, K = 20",
+         "auf_kd": "AUF, K = d (whole front)", "best_f1": "best F1 at any size",
+         "max_front": "largest subset on the front (symlog)"}
 PRIMARY = ("nsga2_sparse", "nsga2")
 PAIRS = (("nsga2_sparse", "nsga2"), ("nsga2_sparse", "nsgaii_miip"),
          ("nsgaii_miip", "nsga2"))
@@ -497,6 +502,15 @@ def time_to_reach(runs) -> Tuple[List[Dict], List[Dict]]:
 
 
 # ------------------------------------------------------- Q8: stagnation
+def repeat_share(r: Dict) -> float:
+    """1 - fits / (population x (generations + 1)): proposals that cost no
+    fit. Not defined for NSGAII-MIIP, whose improvement phase fits subsets
+    outside the generations (the proxy goes negative there)."""
+    if r["method"] == "nsgaii_miip":
+        return float("nan")
+    return 1 - r["fits"] / r["proposals"]
+
+
 def stagnation(runs) -> Tuple[List[Dict], List[Dict]]:
     summ = []
     for g in GRIDS:
@@ -513,7 +527,7 @@ def stagnation(runs) -> Tuple[List[Dict], List[Dict]]:
                          "R_stopped": float(np.mean([r["reach"][-1] for r in st])) if st else float("nan"),
                          "R_budget": float(np.mean([r["reach"][-1] for r in bu])) if bu else float("nan"),
                          "median_repeat_share": float(np.median(
-                             [1 - r["fits"] / r["proposals"] for r in rs]))})
+                             [repeat_share(r) for r in rs]))})
     per_ds = []
     by = defaultdict(list)
     for r in runs:
@@ -525,7 +539,7 @@ def stagnation(runs) -> Tuple[List[Dict], List[Dict]]:
                        "expected_flips": cov.expected_flips(k, rs[0]["d"])
                        if 0 < k < rs[0]["d"] else float("nan"),
                        "median_repeat_share": float(np.median(
-                           [1 - r["fits"] / r["proposals"] for r in rs])),
+                           [repeat_share(r) for r in rs])),
                        "stagnation": sum(r["stopped_on"] == "stagnation" for r in rs),
                        "n_seeds": len(rs)})
     return summ, per_ds
@@ -543,7 +557,7 @@ def reproduction(runs) -> List[Dict]:
             continue
         with open(path, encoding="utf-8") as fh:
             ref = {(r["run_id"], r["method"].removesuffix("_lgbm").removesuffix("_rf"),
-                    int(r["seed"])): r for r in csv.DictReader(fh)}
+                    int(r["seed"])): r for r in csv.DictReader(fh) if r["seed"]}
         diffs = {"auf_k10": [], "auf_k20": []}
         unmatched = 0
         for r in runs:
@@ -626,7 +640,7 @@ def fig_reach_vs_d(by_ds, note, path):
         ax.set_title(f"{g}, {LEARNER[g]}", fontsize=9.5)
         ax.grid(color=GRID)
     axes[0].set_ylabel("share of seeds whose final front\nholds a subset of <= 10 features")
-    axes[0].legend(fontsize=7.5, loc="center left")
+    axes[1].legend(fontsize=7.5, loc="center left")
     fig.suptitle("Reach against feature count; points jittered vertically by arm", fontsize=10)
     _footer(fig, note, "n/a (sizes only)")
     fig.tight_layout(rect=(0, 0.04, 1, 0.94))
@@ -648,19 +662,21 @@ def fig_pairs(rows, measures, title, ylabel, note, path):
             ax.scatter(x, d, s=10, color=SERIES[PAIRS.index((r["a"], r["b"]))], alpha=0.8)
             ax.plot([i - 0.3, i + 0.3], [r["mean_delta"]] * 2, color="k", lw=2)
             ax.annotate(f"{r['wins']}-{r['ties']}-{r['losses']}\np {r['p_holm']:.2g}",
-                        (i, 0), xycoords=("data", "axes fraction"), xytext=(0, -30),
+                        (i, 0), xycoords=("data", "axes fraction"), xytext=(0, -40),
                         textcoords="offset points", ha="center", va="top", fontsize=6.5,
                         annotation_clip=False)
         ax.axhline(0, color=INK_2, lw=0.8)
         ax.set_xticks(range(len(sel)),
-                      [f"{r['grid'][-3:]}\n{LABEL[r['a']].split()[0]}-{LABEL[r['b']].split()[0]}"
+                      [f"{r['grid'][-3:]}\n{SHORT[r['a']]}\n-{SHORT[r['b']]}"
                        for r in sel], fontsize=6.5)
-        ax.set_title(m, fontsize=9.5)
+        if m == "max_front":
+            ax.set_yscale("symlog", linthresh=10)
+        ax.set_title(TITLE.get(m, m), fontsize=9.5)
         ax.grid(axis="y", color=GRID)
     axes[0].set_ylabel(ylabel)
     fig.suptitle(title, fontsize=10)
     _footer(fig, note, "test")
-    fig.tight_layout(rect=(0, 0.12, 1, 0.93))
+    fig.tight_layout(rect=(0, 0.15, 1, 0.93))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
@@ -712,7 +728,8 @@ def fig_stagnation(per_ds, note, path):
         ax.set_title(f"{g}, {LEARNER[g]}" + ("" if g in ("H5H6-E02", "H5H6-E03")
                                              else " (no stagnation stop)"), fontsize=9.5)
         ax.grid(color=GRID)
-    axes[0].set_ylabel("repeat share of proposals,\n1 - fits / (100 x generations)\n(median over seeds)")
+    axes[0].set_ylabel("repeat share of proposals,\n1 - fits / (100 x (generations + 1))\n"
+                       "(median over seeds; not defined for NSGAII-MIIP)")
     axes[0].legend(fontsize=7.5)
     fig.suptitle("Proposals that cost no fit (already scored), per dataset; E01 against "
                  "E02/E03 is not an ablation of the stop", fontsize=10)
@@ -750,12 +767,46 @@ def fig_sensitivity(sens, note, path):
     plt.close(fig)
 
 
+def fig_classifier(agg, note, path):
+    """Q6: on the datasets every classifier has, the 1-30 start's AUF lead and
+    the OBL start's reach under each classifier; datasets by d along x."""
+    import matplotlib.pyplot as plt
+    _style(plt)
+    a, b = PRIMARY
+    subs = {g: variant(agg, "S0", g) for g in H5H6}
+    common = set.intersection(*[set(s[a]) & set(s[b]) for s in subs.values()])
+    d_of = {d: subs[H5H6[0]][a][d]["d"] for d in common}
+    ds = sorted(common, key=lambda x: (d_of[x], x))
+    x = np.arange(len(ds))
+    fig, axes = plt.subplots(1, 2, figsize=(18, 4.8), sharex=True)
+    for j, g in enumerate(H5H6):
+        s = subs[g]
+        off = (j - 1) * 0.25
+        axes[0].scatter(x + off, [s[a][d]["auf_k10"] - s[b][d]["auf_k10"] for d in ds],
+                        s=16, color=SERIES[j + 3], label=LEARNER[g])
+        axes[1].scatter(x + off, [s[b][d]["R"] for d in ds], s=16, color=SERIES[j + 3],
+                        label=LEARNER[g])
+    axes[0].set_ylabel("AUF (K = 10), 1-30 start\nminus OBL start (seed means)")
+    axes[1].set_ylabel("OBL start's reach R\n(share of seeds with k <= 10)")
+    for ax in axes:
+        ax.axhline(0, color=INK_2, lw=0.8)
+        ax.set_xticks(x, [f"{d} ({d_of[d]})" for d in ds], rotation=70, ha="right", fontsize=6.5)
+        ax.grid(axis="y", color=GRID)
+    axes[0].legend(fontsize=7.5)
+    fig.suptitle(f"The classifier, on the {len(ds)} datasets with both starts under all three "
+                 "(E01 against E02/E03 also changes the stop and the hardware)", fontsize=10)
+    _footer(fig, note, "test")
+    fig.tight_layout(rect=(0, 0.03, 1, 0.94))
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def write_csv(path: Path, rows: List[Dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    skip = ("datasets", "deltas", "terms", "b", "b_exact")
     keys: List[str] = []
     for r in rows:
-        keys += [k for k in r if k not in keys and k not in skip]
+        keys += [k for k, v in r.items()
+                 if k not in keys and not isinstance(v, (dict, list))]
     with open(path, "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=keys, extrasaction="ignore")
         w.writeheader()
@@ -825,6 +876,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     fig_sensitivity(sens, note, figs / "F5_missing_sensitivity.png")
     fig_time_to_reach(runs, note, figs / "F6_time_to_reach.png")
     fig_stagnation(q8_ds, note, figs / "F7_repeats_and_stagnation.png")
+    fig_classifier(agg, note, figs / "F8_classifier.png")
     print(json.dumps(v))
     for r in crit:
         print(f"{r['grid']:<9} (a) {r['wins']}-{r['ties']}-{r['losses']} p_holm {r['p_holm']:.3g} "

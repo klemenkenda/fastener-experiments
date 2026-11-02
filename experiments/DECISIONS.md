@@ -1275,3 +1275,4 @@ are not repeated.
 | `H8-E03` | reported: not supported (part (i) for no model; part (ii) for Sonnet only) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | -- | [H8-E03](reports/H8-E03/REPORT.md) |
 | `H12-E01` | reported: not supported (A and B for 0 of 12 models) | [DEC-54](#dec-54) | -- | [H12-E01](reports/H12-E01/REPORT.md) |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |
+| `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | -- | [H13-E01](reports/H13-E01/REPORT.md) |
