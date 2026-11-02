@@ -2,13 +2,13 @@
 
 **Pripravljeno za:** Klemen Kenda, Institut »Jožef Stefan« (IJS)  
 **Datum:** 2. november 2026  
-**Različica:** 1.5 – P2 ostane samostojen članek (ciljna revija Evolutionary Intelligence); 1.4 – variante FASTENER-ja kot sedem družin; soavtorstvo Sidorele Uku pri P4, P5 in P10
+**Različica:** 1.6 – revije za P2 z manjšim vplivom (J.UCS, ComSIS, SN Computer Science, SiKDD); 1.5 – P2 ostane samostojen članek; 1.4 – variante FASTENER-ja kot sedem družin; soavtorstvo Sidorele Uku pri P4, P5 in P10
 
 > **Status dokumenta:** Posodobitev 31. oktobra 2026 temelji na ciljnem pregledu lokalne kode FASTENER-ja, registra eksperimentov, poročil H1-E02, H2/H3, H8-E01–E03, H10-E01–E03, H11-E01 in H12-E01 ter sorodne literature. Iz tabel H2/H3 so ponovno izračunani število zbirk, smeri razlik, povprečja in mediane; p-vrednosti so povzete iz poročila. Pri H1 so ponovno preverjene smeri in povprečja 40 parnih razlik ter ničelne vrednosti AUF, pregledani pa tudi operatorji in najbližja literatura. Rezultati H8/H10/H11/H12 so povzeti iz poročil; pri H11 so ključne številke preverjene tudi v izvornih tabelah H10. Eksperimenti niso bili ponovno izvedeni. To je presoja izvedljivosti in publikacijske samostojnosti, ne celovita reprodukcija ali sistematičen pregled literature. Pogoji revij, pogodbe IJS, JOSS in konferenčni roki ostajajo nepreverjene navedbe starejšega načrta.
 
 **Glavni priporočili:** naključni in vodeni swap obravnavati v **enem skupnem, pogojno samostojnem članku P7**; trenutni dokazi ne utemeljujejo dveh člankov o posameznih operatorjih. **LLM + graf znanja s Sidorelo dodati kot samostojen predlog P10**: tehnično izvedljiv prek obstoječih vmesnikov, raziskovalno obetaven, vendar brez že dokazane prednosti in z nujno razmejitvijo od sorodnih del.
 
-**Odločitev za P2 (2. november 2026):** P2 ostane samostojen članek. Ker sama redka inicializacija ni nova (Miyandoab et al., CEC 2024), naj nastopi kot metodološka študija pokritosti velikosti podmnožic in njenega vpliva na vrednotenje; pilot iz raziskovalnega načrta P2 ga okrepi. Ciljna revija je **Evolutionary Intelligence** (Springer), druga možnost **SN Computer Science**; če pilot da posplošljivo metodološko ugotovitev, tudi ACM TELO. V P3 se na H1 le skliče. Decembrska oddaja P2 ostaja umaknjena iz osnovne časovnice. Podrobna presoja je v [ločenem direktoriju P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md).
+**Odločitev za P2 (2. november 2026):** P2 ostane samostojen članek. Ker sama redka inicializacija ni nova (Miyandoab et al., CEC 2024), naj nastopi kot metodološka študija pokritosti velikosti podmnožic in njenega vpliva na vrednotenje; pilot iz raziskovalnega načrta P2 ga okrepi. Prispevek ni raziskava na fronti področja, zato ciljamo na revije z manjšim vplivom: najprej **Journal of Universal Computer Science (J.UCS)**, nato **Computer Science and Information Systems (ComSIS)** ali **SN Computer Science**; konferenčna možnost je SiKDD na Informacijski družbi 2027. V P3 se na H1 le skliče. Decembrska oddaja P2 ostaja umaknjena iz osnovne časovnice. Podrobna presoja je v [ločenem direktoriju P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md).
 
 ## 1. Cilj in osnovna strategija
 
@@ -80,7 +80,7 @@ Pred samostojno oddajo je treba razjasniti merjenje časa, strojno opremo, paral
 
 ### P2 – H1: pokritost velikosti podmnožic
 
-**Presoja:** sedanja zgodba »zamenjamo gosto inicializacijo z redko« ni dovolj nova za samostojen metodološki članek. Po odločitvi z dne 2. novembra 2026 P2 kljub temu ostane samostojen članek, v reviji z obsegom evolucijskega računanja (razdelek 4). Članek mora jasno povedati, česa najbližja dela še ne pokažejo; pilot ga okrepi, ni pa pogoj za obstoj članka.
+**Presoja:** sedanja zgodba »zamenjamo gosto inicializacijo z redko« ni dovolj nova za samostojen metodološki članek. Po odločitvi z dne 2. novembra 2026 P2 kljub temu ostane samostojen članek, v reviji z manjšim vplivom (razdelek 4). Članek mora jasno povedati, česa najbližja dela še ne pokažejo; pilot ga okrepi, ni pa pogoj za obstoj članka.
 
 **Delovni naslov:** *Cardinality Coverage in Evolutionary Feature Selection.* Pripravljen je [direktorij P2](P2%20-%20Cardinality%20Coverage%20in%20Evolutionary%20Feature%20Selection/README.md) za samostojen repozitorij `fastener-p2-cardinality-coverage`; GitHub repozitorij še ni ustvarjen. V njem so pregled literature, revizija dokazov H1, bibliografija, posnetek tabele z izvorom in predlog pilota.
 
@@ -300,7 +300,7 @@ Spodnja razporeditev ohranja kandidatke iz pogovora in dodaja P10. Celotna ustre
 | Prispevek | Prednostna kandidatka iz dosedanjega načrta | Druga kandidatka oziroma možnost |
 | --- | --- | --- |
 | P1 – H4 | SN Computer Science | International Journal of Machine Learning and Cybernetics |
-| P2 – H1 | Evolutionary Intelligence (Springer) | SN Computer Science (Springer); ambiciozneje ACM TELO; konferenca GECCO 2027 |
+| P2 – H1 | Journal of Universal Computer Science (J.UCS) | ComSIS ali SN Computer Science; konferenca SiKDD (Informacijska družba 2027) |
 | P3 – H5–H7/H9 | Applied Soft Computing | Swarm and Evolutionary Computation |
 | P4 – H8 | Applied Intelligence | Knowledge-Based Systems |
 | P5 – H12 | Neural Computing and Applications | Applied Intelligence |
@@ -310,7 +310,7 @@ Spodnja razporeditev ohranja kandidatke iz pogovora in dodaja P10. Celotna ustre
 | P9 – podatkovni vir | Data in Brief | Odločitev po pripravi podatkovnega paketa |
 | P10 – LLM + KG, s Sidorelo | Applied Intelligence, če nastane nov preverjen mehanizem | Knowledge-Based Systems kot kandidatka po dodatnem preverjanju obsega |
 
-Za P2 (preverjeno 2. novembra 2026): [Evolutionary Intelligence](https://link.springer.com/journal/12065/aims-and-scope) je Springerjeva revija za evolucijsko in populacijsko iskanje; v JCR naj bi bila v Q3 (neuradni viri navajajo JIF približno 2,6; preveriti v JCR). Je verjetna kandidatka za kritje po pogodbi Springer Nature, kar je treba potrditi pri IJS. [SN Computer Science](https://www.springer.com/journal/42979) je indeksirana v Scopusu, uradnega JIF nima; je širša, zato članek tam manj izstopa. ACM TELO je revija ACM za evolucijsko učenje in optimizacijo z dvojno slepo recenzijo in poudarkom na ponovljivosti; primerna je le ob močnem metodološkem rezultatu. Rok EvoApplications 2027 (1. november 2026) je že potekel; GECCO 2027 bo julija 2027 v Krakovu, rok za prispevke še ni objavljen (leta 2026 je bil konec januarja).
+Za P2 (preverjeno 2. novembra 2026; prispevek ni raziskava na fronti področja, zato revije z manjšim vplivom): [J.UCS](https://lib.jucs.org/) je široka računalniška revija v SCIE z JIF približno 0,9–1,0; po starejših navedbah brez stroškov za avtorje, od leta 2025 pod CC BY 4.0 (aktualne pogoje preveriti). [ComSIS](https://ojs.pmf.uns.ac.rs/index.php/comsis/) (Srbija) je v SCIE z JIF približno 1,5 (Q3); viri si o morebitnem APC (0 ali 400 EUR) nasprotujejo. [SN Computer Science](https://www.springer.com/journal/42979) je v Scopusu brez uradnega JIF. Konferenca [SiKDD](https://aile3.ijs.si/dunja/SiKDD2024/) na Informacijski družbi (Ljubljana, oktober; do 4 strani, rok običajno konec avgusta; razširjeni prispevki v reviji Informatica) je najmanj zahtevna možnost. Evolutionary Intelligence, ACM TELO in GECCO so za ta prispevek preambiciozni.
 
 Za P10 [uradni obseg Applied Intelligence](https://link.springer.com/journal/10489/aims-and-scope) izrecno vključuje evolucijsko računanje, izbor značilk in sklepanje na osnovi znanja ter poudarja izvirne metodologije. Zato je vsebinska kandidatka; samo povezava obstoječih komponent ali uporaba na drugi zbirki ne zadošča. To ni potrdilo o verjetnosti sprejema ali kritju stroškov. Uradna stran obsega Knowledge-Based Systems pri preverjanju ni bila dostopna, zato ta možnost ostaja predlog za nadaljnji pregled.
 
@@ -393,7 +393,7 @@ Prejšnji cilj dveh raziskovalnih oddaj do konca 2026 je po pregledu novosti P2 
 - **December–januar:** izvedba oziroma zaključevanje H9 ter analiza rezultatov.
 - **November–december:** tehnična priprava JOSS.
 - **P10, november:** s Sidorelo uskladiti domeno, dostop do virov, shemo KG, preslikavo značilk in mejo do P4; popisati najbližja sorodna dela.
-- **P2:** samostojen članek; pilot registrirati in izvesti, nato rokopis za Evolutionary Intelligence.
+- **P2:** samostojen članek; pilot registrirati in izvesti, nato rokopis za J.UCS.
 - **P10, december:** če sta graf in čas na voljo, prototip ter omejen pilot iz razdelka P10; ob koncu meseca odločitev o razširitvi. Pilot ni nova obveznost pred oddajo P1.
 - **Ves čas:** razmejitev glavnih rezultatov, slik in tabel med članki ter zapis novih odprtih raziskovalnih vprašanj.
 
@@ -455,11 +455,11 @@ Namen teh pravil je povečati število legitimnih objav, ob tem pa ohraniti jase
 7. Preveriti uradne konferenčne razpise, preden se zgodnji roki vključijo v obvezni urnik.
 8. Za P10 s Sidorelo uskladiti enostranski koncept, domeno, KG-vire in delitev dela; nato zamrzniti pilotni protokol, oceniti stroške in šele zatem registrirati nov eksperimentalni sklop.
 
-Izhodiščni oddajni načrt je po pregledu P2 spremenjen: najprej H4, če upraviči samostojnost, nato P3/P4. H1 je samostojen članek P2 v reviji z obsegom evolucijskega računanja; za oddajo potrebuje pilot in razmejitev od najbližje literature.
+Izhodiščni oddajni načrt je po pregledu P2 spremenjen: najprej H4, če upraviči samostojnost, nato P3/P4. H1 je samostojen članek P2 v reviji z manjšim vplivom; za oddajo potrebuje pilot in razmejitev od najbližje literature.
 
 ## 12. Viri in sledljivost
 
-**Izhodišče:** različica 1.0 je povzemala prejšnji pogovor. Različica 1.1 je dodala ciljni pregled kode, obstoječih rezultatov in literature; različica 1.2 podrobnejšo sintezo H8-E01–E03, H12-E01 ter H10/H11; različica 1.3 preverja H1, novost P2 in usklajuje časovnico z vključitvijo H1 v P3; različica 1.4 (2. november 2026) preureja razdelek 1.1 v sedem variant in doda soavtorstvo pri P4 in P5; različica 1.5 (isti dan) ohrani P2 kot samostojen članek in mu določi revijo (razdelek 4, preverjeno na spletu 2. novembra 2026). Pregledi do različice 1.3 so z dne 31. oktobra 2026. Publikacijska priporočila in načrta novih pilotov P2/P10 so presoja na osnovi teh virov, ne že doseženi raziskovalni rezultati.
+**Izhodišče:** različica 1.0 je povzemala prejšnji pogovor. Različica 1.1 je dodala ciljni pregled kode, obstoječih rezultatov in literature; različica 1.2 podrobnejšo sintezo H8-E01–E03, H12-E01 ter H10/H11; različica 1.3 preverja H1, novost P2 in usklajuje časovnico z vključitvijo H1 v P3; različica 1.4 (2. november 2026) preureja razdelek 1.1 v sedem variant in doda soavtorstvo pri P4 in P5; različica 1.5 (isti dan) ohrani P2 kot samostojen članek; različica 1.6 (isti dan) mu določi revije z manjšim vplivom (razdelek 4, preverjeno na spletu 2. novembra 2026). Pregledi do različice 1.3 so z dne 31. oktobra 2026. Publikacijska priporočila in načrta novih pilotov P2/P10 so presoja na osnovi teh virov, ne že doseženi raziskovalni rezultati.
 
 **Pregledani lokalni različici:** eksperimentalni repozitorij `e8f91c4ce4add8c00a4205258d9ae2879c5e9876`; komponenta `fastener/` `047e1fb362089c6bb930c7817431981d7dd6ca3d`. To sta različici kode ob pregledu, ne nujno različici zgodovinskih tekov; za vsakega veljajo njegovi manifesti.
 
