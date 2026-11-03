@@ -1,8 +1,8 @@
 """H15: the fits the OBL start needs to reach k <= 10 grow with d as H14 predicts.
 
 The criterion as registered for H15-E01 (HYPOTHESES.md, H15; EXPERIMENTS.md,
-H15-E01; DEC-59), on its 35 runs of `p2_obl_reach`, read from
-`experiments/distilled_logs/H15-E01/`. Fits-to-reach is H13-E01's measure
+H15-E01; DEC-59) and rerun unchanged as H15-E02 (DEC-60), on its 35 runs of `p2_obl_reach`, read from
+`experiments/distilled_logs/H15-E02/`. Fits-to-reach is H13-E01's measure
 (`h13_coverage.time_to_reach`): the fits at the end of the generation in
 which the archive first held a subset of at most 10 features. A run that
 did not reach (cap, stagnation, timeout, missing) is censored and counts as
@@ -21,7 +21,7 @@ run (OLS of ln fits-to-reach on ln d):  F(d) = exp(A + B ln d).
 Supported if (i), (ii) and (iii) hold.
 
     python experiments/distill_results.py
-    python experiments/h15_report.py          # -> reports/H15-E01/{tables,figures}
+    python experiments/h15_report.py          # -> reports/H15-E02/{tables,figures}
 """
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ import h14_report as h14
 from make_report import GRID, INK_2, SERIES, _style
 
 HERE = Path(__file__).resolve().parent
-EXPERIMENT = "H15-E01"
+EXPERIMENT = "H15-E02"   # H15-E01 was refused before any run (DEC-60)
 REPORTS = HERE / "reports"
 METHOD = "p2_obl_reach"
 DATASETS = ("gas_drift", "crop_mapping", "volkert", "madelon", "Isolet",

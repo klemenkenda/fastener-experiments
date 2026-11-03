@@ -35,3 +35,4 @@
 | H0 | `H0-E02` | 7 h 40 min | superseded | confirmed, narrowly | code changed after it; redone in H0-E03 | [REPORT.md](H0-E02/REPORT.md) |
 | H1 | `H1-E01` | 13 min | failed | -- | stopped to restart with monitoring | [REPORT.md](H1-E01/REPORT.md) |
 | H14 | `H14-E01` | 6 min | failed | -- | stopped to commit DEC-57 first; rerun as H14-E02 | [REPORT.md](H14-E01/REPORT.md) |
+| H15 | `H15-E01` | 1 min | failed | -- | refused by the dirty-tree check; rerun as H15-E02 | [REPORT.md](H15-E01/REPORT.md) |

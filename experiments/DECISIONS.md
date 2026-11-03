@@ -1353,6 +1353,24 @@ run on.**
 - **Source:** `HYPOTHESES.md`, H15; `EXPERIMENTS.md`, H15-E01.
 - **Applies to:** H15-E01.
 
+### DEC-60
+
+**2026-11-03 -- H15-E01 failed before any run started; rerun as H15-E02,
+unchanged.**
+
+- **Why:** every H15-E01 job was refused by the dirty-tree check, because
+  an untracked helper script (`openrouter-usage.ps1`) sat in the
+  repository root.
+- **Detail:** H15-E01 closed as failed (no run folder, no score). The
+  script is excluded in `.git/info/exclude`, local only; it is not
+  committed, since it reads an API key. H15-E02 is H15-E01's design
+  unchanged; `h15_report.py` reads H15-E02 by default.
+- **By:** PI (run H15 now). The exclusion and the rerun proposed and done
+  by Claude.
+- **Taken after** H15-E01's jobs were refused; no H15 result exists.
+- **Source:** `EXPERIMENTS.md`, H15-E02; H15-E01's report.
+- **Applies to:** H15-E01, H15-E02.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1385,4 +1403,5 @@ are not repeated.
 | `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | [DEC-57](#dec-57) | [H13-E01](reports/H13-E01/REPORT.md) |
 | `H14-E01` | failed: stopped before any run finished | [DEC-56](#dec-56) | [DEC-58](#dec-58) | [H14-E01](reports/H14-E01/REPORT.md) |
 | `H14-E02` | reported: not supported (i, ii, iii all fail) | [DEC-56](#dec-56), [DEC-58](#dec-58) | -- | [H14-E02](reports/H14-E02/REPORT.md) |
-| `H15-E01` | running | [DEC-59](#dec-59) | -- | -- |
+| `H15-E01` | failed: no run started | [DEC-59](#dec-59) | [DEC-60](#dec-60) | [H15-E01](reports/H15-E01/REPORT.md) |
+| `H15-E02` | running | [DEC-59](#dec-59), [DEC-60](#dec-60) | -- | -- |

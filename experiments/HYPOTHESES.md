@@ -1327,7 +1327,9 @@ at the stop; wall clock per fit beside fits; stop reasons.
 **Experiments.**
 
 * `H15-E01` -- the design above, decision tree, seeds 2030-2034, on
-  Sentinel.
+  Sentinel. Every job was refused by the dirty-tree check (an untracked
+  helper script); no run started. Failed. [Report](reports/H15-E01/REPORT.md).
+* `H15-E02` -- the same design, rerun (DEC-60).
 
 ---
 
