@@ -108,7 +108,7 @@ def test_p2_arms_and_their_configs():
     assert set(run_sota.P2_SEARCHES) == {
         "p2_obl", "p2_sparse", "p2_uniform", "p2_loguniform",
         "p2_obl_min1", "p2_sparse_min1", "p2_uniform_min1",
-        "p2_loguniform_min1", "p2_obl_b3", "p2_obl_b10"}
+        "p2_loguniform_min1", "p2_obl_b3", "p2_obl_b10", "p2_obl_reach"}
     assert run_sota.P2_SEARCHES["p2_obl_b10"]["budget_multiple"] == 10
     assert all(m in run_sota.ALL_METHODS for m in run_sota.P2_SEARCHES)
 

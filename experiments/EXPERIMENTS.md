@@ -847,3 +847,46 @@ python experiments/run_queue.py --experiment H14-E02 \
 
 **Expected cost.** As H14-E01: about 45 CPU-hours, about 5 hours of wall
 clock (3.5-6 h).
+
+### `H15-E01` -- H15: the OBL start's fits-to-reach against d, on seven datasets no NSGA-II arm had run on
+
+Registered 2026-11-03, before any of this experiment's runs
+([DEC-59](DECISIONS.md#dec-59)).
+
+**Design.** [H15](HYPOTHESES.md#h15----the-fits-the-obl-start-needs-to-reach-k--10-grow-with-d-as-h14-predicts)
+as written: one arm, `p2_obl_reach`; gas_drift, crop_mapping, volkert,
+madelon, Isolet, gina and ORL; the decision tree; seeds 2030-2034 (unused
+by any earlier experiment); the caps in `h15_budgets.json`; the
+stagnation stop; a 24-hour timeout per run; Sentinel with 10 processes;
+H15's criterion, read by `h15_report.py`. 35 runs. Every run starts from
+the commit that issues this experiment; nothing is committed while the
+queue runs.
+
+**Already seen.** No NSGA-II result on any of the seven. Other methods'
+results on them: FASTENER in H0-E02 (gas_drift, volkert, madelon, gina,
+Isolet, ORL) and H0-E01 (crop_mapping), FASTENER and FS-SDS in H4 (Isolet,
+ORL), FASTENER's H8 arms (gas_drift, crop_mapping), the LLM probes of H12
+(crop_mapping). Their manifests carry `run_sota.py`'s NSGA-II parameters,
+but no NSGA-II arm ran. None of it bears on how fast the OBL start walks
+down. Before H1-E02 a run alone and inside a five-seed run were
+checked to give the same front on madelon (`EXPERIMENTS.md`, H1-E02); that
+check's numbers were not reported. The prediction and the caps come from
+H14-E02 alone. The H15 test job, `20261102T232217Z_h15test`, ran
+`p2_obl_reach` on Adiac with seed 2025, an H14 cell: it stopped on reach
+after 7,559 fits, exactly H14-E02's fits-to-reach for that cell, from the
+same start (`3cb57eddea746b97`).
+
+**How it runs.**
+
+```
+python experiments/run_queue.py --experiment H15-E01     --datasets gina,ORL,crop_mapping,Isolet,volkert,madelon,gas_drift     --methods p2_obl_reach --seeds 2030,2031,2032,2033,2034     --budgets experiments/h15_budgets.json --max-procs 10 --timeout-hours 24
+```
+
+**Expected cost.** From single fits timed at k = d/2 on Sentinel
+(0.2-0.3 s on madelon, Isolet, gina and ORL; 2.3-3.4 s on the two capped
+tall sets), the pre-reach mean of 0.55 times that measured on the test
+job, and H14-E02's slowdown of about 1.2x at 10 processes: if T equals the
+prediction, about 140 CPU-hours and 13-14 hours of wall clock, with gina
+(about 8 h a run) and ORL (about 7 h) the longest. If T is twice the
+prediction, about 28 hours. The 24-hour timeout binds before the cap only
+on gina, at about 2.9 F(d).

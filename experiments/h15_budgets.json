@@ -1,0 +1,22 @@
+{
+  "rule": "H15: fit cap per dataset = 4 x the predicted fits-to-reach of H14-E02's fit, exp(-0.96075 + 1.87655 ln d), rounded up to 1,000. p2_obl_reach stops at reach, so the cap binds only if the prediction is more than 4x too low.",
+  "unit": "fits",
+  "predicted_fits_to_reach": {
+    "gas_drift": 3444,
+    "crop_mapping": 6127,
+    "volkert": 6530,
+    "madelon": 44412,
+    "Isolet": 65896,
+    "gina": 154019,
+    "ORL": 170501
+  },
+  "budgets": {
+    "gas_drift": 14000,
+    "crop_mapping": 25000,
+    "volkert": 27000,
+    "madelon": 178000,
+    "Isolet": 264000,
+    "gina": 617000,
+    "ORL": 683000
+  }
+}

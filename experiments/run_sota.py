@@ -230,6 +230,10 @@ P2_SEARCHES = {
 P2_SEARCHES.update({
     f"p2_obl_b{m}": {"init": "obl", "mutation": "balanced", "budget_multiple": m}
     for m in (3, 10)})
+# H15: the OBL start, stopped once its archive holds a subset of at most 10
+# features; the fit budget is only a cap (h15_budgets.json).
+P2_SEARCHES["p2_obl_reach"] = {"init": "obl", "mutation": "balanced",
+                               "budget_multiple": 1, "stop_at_size": 10}
 # FS-SDS fixes the subset size for a whole run, so it runs once per k over
 # protocol.FS_SDS_K_RANGE, with the run's fit budget divided evenly across
 # them -- 300 per k at the default 6,000 -- so it spends what every other arm
@@ -788,6 +792,7 @@ def main() -> int:
                 ds, s, arm_configs[m]["evaluations"], init=spec["init"],
                 progress_cb=cb, trajectory=t, max_barren_generations=barren,
                 mutation=spec["mutation"], rng_streams=True, name=m,
+                stop_at_size=spec.get("stop_at_size"),
                 subset_log=SubsetLog(run.dir / "subsets" / f"{m}_seed{s}.npz",
                                      ds.n_features)))
         for m in [m for m in methods if m in SEARCHES or m in P2_SEARCHES]:

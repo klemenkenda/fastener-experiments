@@ -1246,6 +1246,89 @@ beside fits. The analysis is H13-E01's code where it applies.
   halves the repeats and leaves AUF unchanged, but cuts proposals per fit
   from 176 to about 5. [Report](reports/H14-E02/REPORT.md).
 
+## H15 -- The fits the OBL start needs to reach k <= 10 grow with d as H14 predicts
+
+*(2026-11-03; proposed by the PI for paper P2 after H14-E02 was reported.
+**Confirmatory**: the prediction is fitted on H14-E02 and tested on seven
+datasets on which no NSGA-II arm has run, with new seeds; see
+[DEC-59](DECISIONS.md#dec-59).)*
+
+**Claim.** In plain NSGA-II with the NSGAII-MIIP port's operators, started
+from OBL (every individual near d/2 features), the fits until the archive
+first holds a subset of at most 10 features follow the relation fitted on
+H14-E02, F(d) = exp(-0.9607 + 1.8765 ln d), about 0.38 d^1.88: faster than
+linearly in d.
+
+**Why it might hold.** H14-E02 (F2): at 10x the budget the OBL start
+reached k <= 10 in all 20 runs, after 6.1-8.5 thousand fits at d = 176
+and 74.5-87.1 thousand at d = 720. The four dataset medians lie within 14%
+of the fitted line, and the seeds within a dataset spread by a log SD of
+0.24. Selection has to walk the population from d/2 to 10 features, and
+balanced mutation flips about one bit per child at k = d/2, so the walk
+lengthens with d.
+
+**Why it might not.** The fit is in-sample on four datasets, and its slope
+is poorly fixed: resampling the datasets puts it anywhere in [0.97, 2.27].
+All four are time-series datasets; the walk may depend on the data as well
+as on d, for example on how much validation F1 drops as features are
+removed, on the number of rows, or on the number of classes. On the
+datasets with at most 50 test rows the OBL start reached earlier than the
+line predicts (BeetleFly, d = 512: under the tree in 1 of 4 seeds by
+12,000 fits, about a quarter of F(d); under the forest and LightGBM in 5 of
+5; H13-E01), which is why H15 uses only datasets with more than 50 test
+rows (DEC-57's threshold). The row cap (50,000 rows) makes the two tall
+datasets' fits slow; whether it changes the walk is part of what is tested.
+
+**Arm.** `p2_obl_reach`: H14's `p2_obl` (population 100, balanced
+mutation at rate 1/d, separate random streams, every scored subset
+logged, the stagnation stop of DEC-41), stopped after the generation in
+which it first scores a subset of 1-10 features (`run_nsga2`'s
+`stop_at_size = 10`). A trajectory does not depend on the budget (H14-E02:
+in 20 of 20 pairs the 1x run was the start of the 10x run), so stopping
+there ends a run at the fits-to-reach a longer run would also record. The
+budget is a cap only: 4 F(d), rounded up to 1,000 (`h15_budgets.json`).
+
+**Datasets.** Seven on which no NSGA-II arm has run, with d from 128 to
+1,024 and more than 50 test rows each, under the protocol split and the
+row cap:
+
+| dataset | d | rows used (train / val / test) | classes | F(d) | cap |
+|---|---:|---|---:|---:|---:|
+| gas_drift | 128 | 8,346 / 2,782 / 2,782 | 6 | 3,444 | 14,000 |
+| crop_mapping | 174 | 30,002 / 9,999 / 9,999 (capped) | 7 | 6,127 | 25,000 |
+| volkert | 180 | 30,002 / 9,998 / 9,998 (capped) | 10 | 6,530 | 27,000 |
+| madelon | 500 | 1,560 / 520 / 520 | 2 | 44,412 | 178,000 |
+| Isolet | 617 | 936 / 312 / 312 | 26 | 65,896 | 264,000 |
+| gina | 970 | 2,080 / 694 / 694 | 2 | 154,019 | 617,000 |
+| ORL | 1,024 | 240 / 80 / 80 | 40 | 170,501 | 683,000 |
+
+**Criterion.** Fits-to-reach is H13-E01's measure: the fits at the end of
+the generation in which the archive first held a subset of at most 10
+features. A run that does not reach (cap, stagnation stop, the 24-hour
+timeout, or a crash) is censored; in a median it counts as larger than
+every value reached. T is a dataset's median over its five seeds.
+
+* (i) Reach: on every dataset, at least 4 of 5 seeds reach before the cap.
+* (ii) Magnitude: |ln(T / F(d))| <= ln 2, i.e. within a factor 2 of the
+  prediction, on at least 5 of the 7 datasets.
+* (iii) Shape: the OLS slope of ln T on ln d over the datasets with a
+  finite T (at least 5 needed) has a bootstrap 95% interval (datasets
+  resampled, 10,000 times, seed 20200) whose lower end is above 1.
+
+Supported if (i), (ii) and (iii) hold; not supported otherwise, with each
+part reported. Mechanical reading by `h15_report.py`, committed before the
+runs.
+
+**Reported beside it:** the per-seed ratios to the prediction; the slope
+fitted on H15 alone and on H14 and H15 together; residuals against rows
+and classes; Kaplan-Meier curves of reach in multiples of F(d); the front
+at the stop; wall clock per fit beside fits; stop reasons.
+
+**Experiments.**
+
+* `H15-E01` -- the design above, decision tree, seeds 2030-2034, on
+  Sentinel.
+
 ---
 
 ## Deferred, deliberately

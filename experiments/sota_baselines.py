@@ -289,7 +289,8 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
               init: str = "obl", progress_cb=None, trajectory=None,
               max_barren_generations: Optional[int] = None,
               mutation: str = "balanced", rng_streams: bool = False,
-              subset_log=None, name: Optional[str] = None) -> Dict:
+              subset_log=None, name: Optional[str] = None,
+              stop_at_size: Optional[int] = None) -> Dict:
     """Plain NSGA-II wrapper search: same operators as the MIIP port, minus the
     mutual-information improvement phase.
 
@@ -311,6 +312,11 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     start from the same population; `subset_log`, a `subset_log.SubsetLog`
     that records every scored subset and per-generation proposal counts;
     `name`, the method name to report.
+
+    H15 adds `stop_at_size`: stop after the generation in which a subset of
+    1..stop_at_size features was first scored ("reach"). A run's trajectory
+    does not depend on its budget, so this ends it at the fits-to-reach a
+    longer run would also record. None (the default) runs as before.
     """
     from nsgaii_miip import (balanced_mutation, balanced_mutation_min1,
                              barren_counter, binary_tournament_crossover,
@@ -336,6 +342,7 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     m_rate = 1.0 / n_features
     evaluations = 0
     cache: Dict[bytes, float] = {}
+    reached = False
     t0 = time.time()
 
     def objective(genes) -> float:
@@ -355,7 +362,7 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
         FASTENER, POSS and FS-SDS already stop (HYPOTHESES.md: 6,000 fits per
         run, equal across arms).
         """
-        nonlocal evaluations
+        nonlocal evaluations, reached
         objs = np.empty((P.shape[0], 2))
         ok = np.ones(P.shape[0], dtype=bool)
         for i, genes in enumerate(P):
@@ -371,6 +378,8 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
                 t_fit = time.perf_counter()
                 cache[key] = objective(genes)
                 evaluations += 1
+                if stop_at_size is not None and size <= stop_at_size:
+                    reached = True
                 if subset_log is not None:
                     subset_log.scored(genes, cache[key], time.perf_counter() - t_fit)
                 if trajectory is not None:
@@ -393,7 +402,7 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     barren(evaluations)
     stagnated = False
 
-    while evaluations < stop_evaluations:
+    while evaluations < stop_evaluations and not reached:
         iteration += 1
         if progress_cb is not None:
             progress_cb(evaluations)
@@ -454,12 +463,15 @@ def run_nsga2(ds, seed: int, stop_evaluations: int, pop_size: int = 100,
     if mutation != "balanced" or rng_streams or subset_log is not None:
         extra = {"mutation": mutation, "rng_streams": rng_streams,
                  "start_population_sha256": start_hash}
+    if stop_at_size is not None:
+        extra["stop_at_size"] = stop_at_size
     if subset_log is not None:
         extra["subset_log"] = str(subset_log.write())
     return {"method": name, "family": "genetic", "seed": seed, "init": init,
             "elapsed_seconds": round(time.time() - t0, 2),
             "model_fits": evaluations, "iterations": iteration,
-            "stopped_on": "stagnation" if stagnated else "budget",
+            "stopped_on": ("reach" if reached else
+                           "stagnation" if stagnated else "budget"),
             "max_barren_generations": max_barren_generations,
             **extra, "records": records}
 

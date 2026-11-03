@@ -1326,6 +1326,33 @@ H14-E02, unchanged, from one commit.**
 - **Source:** `EXPERIMENTS.md`, H14-E02; H14-E01's report.
 - **Applies to:** H14-E01, H14-E02.
 
+### DEC-59
+
+**2026-11-03 -- H15: a confirmatory test of the OBL start's fits-to-reach
+against d, predicted from H14-E02, on seven datasets no NSGA-II arm had
+run on.**
+
+- **Why:** H14-E02 found the OBL start's lack of reach at K = 10 to be a
+  matter of budget, needing 0.5x-7.1x the budget on four seen datasets,
+  roughly as d^1.88. P2 needs that relation out of sample before it can
+  state it.
+- **Detail:** H15 and the H15-E01 design. New code, off by default:
+  `run_nsga2`'s `stop_at_size` (stop after the generation that first
+  scores a subset of at most that size) and the `p2_obl_reach` arm, in the
+  algorithm ID's config; no other arm's config changes (tested). The
+  prediction F(d) = exp(-0.9607 + 1.8765 ln d), fitted on H14-E02's 20
+  `p2_obl_b10` runs; caps of 4 F(d) (`h15_budgets.json`); a 24-hour
+  timeout, as the PI allowed.
+- **By:** PI (H15, the confirmatory test, up to 24 hours per run).
+  Proposed by Claude: the stop at reach in place of a long budget, the
+  seven datasets, the decision tree alone, seeds 2030-2034, the factor-2
+  tolerance, the 5-of-7 and 4-of-5 rules, the slope test against 1, one
+  arm without the 1-30 start.
+- **Taken after** H14-E02 was reported, with the seven datasets' NSGA-II
+  results unseen (H15-E01, *Already seen*), before any H15-E01 run.
+- **Source:** `HYPOTHESES.md`, H15; `EXPERIMENTS.md`, H15-E01.
+- **Applies to:** H15-E01.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1358,3 +1385,4 @@ are not repeated.
 | `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | [DEC-57](#dec-57) | [H13-E01](reports/H13-E01/REPORT.md) |
 | `H14-E01` | failed: stopped before any run finished | [DEC-56](#dec-56) | [DEC-58](#dec-58) | [H14-E01](reports/H14-E01/REPORT.md) |
 | `H14-E02` | reported: not supported (i, ii, iii all fail) | [DEC-56](#dec-56), [DEC-58](#dec-58) | -- | [H14-E02](reports/H14-E02/REPORT.md) |
+| `H15-E01` | running | [DEC-59](#dec-59) | -- | -- |
