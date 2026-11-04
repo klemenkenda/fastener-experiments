@@ -1404,4 +1404,4 @@ are not repeated.
 | `H14-E01` | failed: stopped before any run finished | [DEC-56](#dec-56) | [DEC-58](#dec-58) | [H14-E01](reports/H14-E01/REPORT.md) |
 | `H14-E02` | reported: not supported (i, ii, iii all fail) | [DEC-56](#dec-56), [DEC-58](#dec-58) | -- | [H14-E02](reports/H14-E02/REPORT.md) |
 | `H15-E01` | failed: no run started | [DEC-59](#dec-59) | [DEC-60](#dec-60) | [H15-E01](reports/H15-E01/REPORT.md) |
-| `H15-E02` | running | [DEC-59](#dec-59), [DEC-60](#dec-60) | -- | -- |
+| `H15-E02` | reported: supported (slope 1.70, below the predicted 1.88) | [DEC-59](#dec-59), [DEC-60](#dec-60) | -- | [H15-E02](reports/H15-E02/REPORT.md) |

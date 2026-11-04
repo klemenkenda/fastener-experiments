@@ -1329,7 +1329,10 @@ at the stop; wall clock per fit beside fits; stop reasons.
 * `H15-E01` -- the design above, decision tree, seeds 2030-2034, on
   Sentinel. Every job was refused by the dirty-tree check (an untracked
   helper script); no run started. Failed. [Report](reports/H15-E01/REPORT.md).
-* `H15-E02` -- the same design, rerun (DEC-60).
+* `H15-E02` -- the same design, rerun (DEC-60). **Supported** on all
+  three parts: all 35 runs reach k <= 10, every dataset median is 0.95-1.59
+  times the prediction, and the slope is 1.70 [1.61, 1.82], faster than
+  linear but below the predicted 1.88. [Report](reports/H15-E02/REPORT.md).
 
 ---
 

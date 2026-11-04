@@ -182,7 +182,7 @@ def fig_scaling(rows, per, sl, note, path):
             label="cap, 4x the prediction")
     rr = [r for r in rows if r["reached"]]
     ax.scatter([r["d"] for r in rr], [r["ttr_fits"] for r in rr], s=22, color=SERIES[0],
-               label="H15-E01, per seed")
+               label=f"{note.split()[3]}, per seed")
     cc = [r for r in rows if not r["reached"] and r["d"]]
     if cc:
         ax.scatter([r["d"] for r in cc], [r.get("fits") or CAP_FACTOR * predicted(r["d"]) for r in cc],
@@ -226,6 +226,7 @@ def fig_ratio(rows, per, note, path):
         if np.isfinite(p["ratio"]):
             ax.hlines(p["ratio"], i - 0.25, i + 0.25, color=SERIES[0], lw=2)
     ax.axhspan(0.5, 2, color=SERIES[1], alpha=0.12)
+    ax.set_ylim(0.4, 2.6)
     ax.axhline(1, color=SERIES[1], lw=1)
     ax.set_yscale("log")
     ax.set_xticks(range(len(per)), [f"{p['dataset']}\nd = {p['d']}" for p in per])
@@ -255,6 +256,7 @@ def fig_km(rows, per, note, path):
                 color=SERIES[j % len(SERIES)], label=f"{p['dataset']} (d = {p['d']})")
     ax.axvspan(0.5, 2, color=INK_2, alpha=0.08)
     ax.set_xscale("log")
+    ax.set_xlim(0.3, CAP_FACTOR)
     ax.set_xlabel("fits, in multiples of the prediction (log)")
     ax.set_ylabel("share of runs reached (KM)")
     ax.grid(color=GRID)
