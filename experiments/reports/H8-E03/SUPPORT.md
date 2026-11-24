@@ -25919,3 +25919,14 @@ python experiments/h8_report.py --experiment H8-E03
 ```
 
 `h8_report.py` reads the run keys above and writes this report's tables, figures and [methods/](methods/).
+
+## Addendum (2026-11-24) -- DEC-61, post hoc
+
+The comparison is in [REPORT.md's addendum](REPORT.md#addendum-2026-11-24----dec-61-post-hoc). It makes no new runs. It reads H8-E01's `fastener_llm_opus`, `fastener_llm_sonnet` and `fastener_llm_haiku` runs (method IDs `fastener_llm_opus@df0f88b+9226b90#c0bb`, `fastener_llm_sonnet@df0f88b+9226b90#6c98` and `fastener_llm_haiku@df0f88b+9226b90#d345`, 80 runs each; run IDs in [H8-E01's SUPPORT.md](../H8-E01/SUPPORT.md)) and this experiment's `fastener_mi_only` runs (`fastener_mi_only@f1b8989+9226b90#363b`, 80 runs). Both come from the committed distilled curves, `experiments/distilled_logs/H8-E01/curves.csv.xz` and `experiments/distilled_logs/H8-E03/curves.csv.xz`. Its reading rule is [DEC-61](../../DECISIONS.md#dec-61), fixed before the comparison was computed.
+
+```
+python experiments/h8_mixed_vs_mi.py
+python -m pytest tests/test_h8_mixed_vs_mi.py
+```
+
+`h8_mixed_vs_mi.py` first checks that the distilled curves reproduce H8-E01's part (i) rows and every row of this experiment's criterion and beside tables, and that H8-E01 and H8-E03 can be paired. It stops if either check fails. Otherwise it writes `tables/mixed_vs_mi_only.csv` (twelve models, with p and Holm p), `tables/mixed_vs_mi_only_by_dataset.csv`, `tables/mixed_vs_mi_only_per_seed.csv` and `figures/F8_mixed_vs_mi_only.png`.
