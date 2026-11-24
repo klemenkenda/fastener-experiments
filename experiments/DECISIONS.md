@@ -73,6 +73,7 @@ say so, and name the result.
 | [DEC-43](#dec-43) | 2026-10-28 | Cluster runs read their commit from .git; the clean-tree check is made at submission | cluster runs from H5H6-E03 |
 | [DEC-44](#dec-44) | 2026-10-28 | H5H6-E03: H5H6-E01's grid with LightGBM, its smallest leaf scaled to the training split | H5H6-E03 |
 | [DEC-45](#dec-45) | 2026-10-28 | Plan H7-H10: FASTENER part-way through the budget, an LLM prior, a confirmatory grid, a filter-seeded FASTENER | H7-H10 |
+| [DEC-61](#dec-61) | 2026-11-24 | H8, post hoc: the Anthropic λ = 0.5 arms (H8-E01) against MI alone (H8-E03), paired across the experiments | H8-E03 (addendum), P4 |
 
 ## Decisions
 
@@ -1371,6 +1372,66 @@ unchanged.**
 - **Source:** `EXPERIMENTS.md`, H15-E02; H15-E01's report.
 - **Applies to:** H15-E01, H15-E02.
 
+### DEC-61
+
+**2026-11-24 -- H8, post hoc: the Anthropic models' λ = 0.5 arms (H8-E01)
+against mutual information alone (H8-E03), paired across the two
+experiments.**
+
+- **Why:** H8-E03's report says the prior's part of the λ = 0.5 weight
+  "adds nothing measurable" on top of mutual information (F2, assessment),
+  and P4's draft says no model's prior, alone or mixed, beats MI alone. For
+  the nine non-Anthropic models this rests on H8-E03's
+  `fastener_llm_<m>` against `fastener_mi_only` rows. For Opus, Sonnet and
+  Haiku it was never measured: their λ = 0.5 arms ran only in H8-E01, and
+  MI alone only in H8-E03. The H8-E02 finding that F2 says it confirms came
+  from 8 flat blind priors and from weight correlations, not from a paired
+  comparison with MI alone. Raised by P4's submission risk review (A1).
+- **Detail:**
+  - Pairs: `fastener_llm_{opus,sonnet,haiku}` (H8-E01) with
+    `fastener_mi_only` (H8-E03), by dataset and seed (16 x 5). No new runs.
+  - Why they can be paired: both experiments ran on FASTENER `9226b90`,
+    LightGBM, 1,000 fits, the same 16 datasets, splits and seeds. The stock
+    arm's method ID (`#d89b`) and all 80 of its validation curves are
+    identical in the two experiments. Between the commits of this
+    repository the runs used, `df0f88b` (H8-E01) and `f1b8989` (H8-E03),
+    the λ = 0.5 path of a named prior is unchanged: in
+    `run_sota.h8_guidance`, an arm without `lambda`, `flat`, `permuted` or
+    `blind` keys reads the same file with the same weight. The three
+    models' named prior files are also unchanged.
+  - Data: the committed distilled curves (`distilled_logs/H8-E01` and
+    `H8-E03`, `curves.csv.xz`), because the run folders are not on every
+    machine. Before computing anything new, the script checks that these
+    curves reproduce H8-E01's part (i) rows and H8-E03's criterion and
+    beside rows exactly, and stops if they do not.
+  - Measure and summary: H8's, unchanged (`h8_report.compare`). Per
+    dataset, the mean over seeds of log2(MI-only fits / the λ = 0.5 arm's
+    fits) to the common validation target. Reported as wins-ties-losses,
+    mean, median, 95% bootstrap interval and two-sided Wilcoxon p.
+  - Reading, fixed before the comparison was computed: H8's part (i) rule.
+    A model's λ = 0.5 arm *beats MI alone* if it wins more datasets than it
+    loses and its Holm-adjusted p is below 0.05. Holm runs over the twelve
+    models' λ = 0.5 vs MI-only comparisons: the three new ones and H8-E03's
+    nine. The reverse case, MI alone beating the λ = 0.5 arm, is read the
+    same way. The unadjusted p and a per-dataset table are reported
+    beside.
+  - Not a verdict. H8's registered criterion and H8-E03's verdict are
+    unchanged; both are about λ = 1. The result is post hoc and
+    exploratory, on the same 16 datasets and five seeds.
+- **By:** requested by the P4 co-author, following the submission risk
+  review (A1). The pairing, the equivalence checks, the reading and the
+  Holm family of twelve were proposed and implemented by Claude.
+- **Taken after** H8-E01, H8-E02 and H8-E03 were reported. Already seen:
+  each Anthropic λ = 0.5 arm against stock (13-0-3, +0.57 to +0.73;
+  H8-E01), MI alone against stock (12-0-4, +0.36; H8-E03), and their
+  per-dataset effects against stock. The risk review set these side by
+  side (e.g. on higgs, Sonnet's λ = 0.5 arm +1.12 against stock, MI alone
+  +0.02). The paired comparison itself had not been computed. This entry
+  was written, uncommitted, before it was.
+- **Source:** P4's submission risk review, A1; H8-E03's report, addendum;
+  `h8_mixed_vs_mi.py`.
+- **Applies to:** H8-E03's F2 and assessment, as a post hoc reading; P4.
+
 ## By experiment
 
 Which decisions each experiment ran under, and which it led to. The protocol
@@ -1397,7 +1458,7 @@ are not repeated.
 | `H10-E03` | reported: not supported (passes a) | [DEC-37](#dec-37), [DEC-43](#dec-43), [DEC-45](#dec-45), [DEC-46](#dec-46), [DEC-47](#dec-47) | -- | [H10-E03](reports/H10-E03/REPORT.md) |
 | `H8-E01` | reported: part (i) holds for all three models; part (ii) read in H8-E02 | [DEC-44](#dec-44), [DEC-49](#dec-49), [DEC-50](#dec-50), [DEC-51](#dec-51) | [DEC-51](#dec-51) | [H8-E01](reports/H8-E01/REPORT.md) |
 | `H8-E02` | reported: not supported for the three Anthropic models (part (ii) fails for each) | [DEC-50](#dec-50), [DEC-51](#dec-51) | -- | [H8-E02](reports/H8-E02/REPORT.md) |
-| `H8-E03` | reported: not supported (part (i) for no model; part (ii) for Sonnet only) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | -- | [H8-E03](reports/H8-E03/REPORT.md) |
+| `H8-E03` | reported: not supported (part (i) for no model; part (ii) for Sonnet only) | [DEC-50](#dec-50), [DEC-52](#dec-52), [DEC-53](#dec-53) | [DEC-61](#dec-61) | [H8-E03](reports/H8-E03/REPORT.md) |
 | `H12-E01` | reported: not supported (A and B for 0 of 12 models) | [DEC-54](#dec-54) | -- | [H12-E01](reports/H12-E01/REPORT.md) |
 | `H11-E01` | reported: not supported (post hoc) | [DEC-48](#dec-48) | -- | [H11-E01](reports/H11-E01/REPORT.md) |
 | `H13-E01` | reported: not supported (post hoc; (b) fails under the forest) | [DEC-55](#dec-55) | [DEC-57](#dec-57) | [H13-E01](reports/H13-E01/REPORT.md) |

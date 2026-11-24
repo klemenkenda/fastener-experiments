@@ -854,7 +854,10 @@ and its prompt, and the classifier. *Fixed on 2026-10-30 (revision below,
   +0.33; nine are slower), part (ii) for Sonnet only (14-0-2, +1.41, Holm
   p = 0.007). A prior helps as far as it agrees with mutual information;
   mutual information alone, with no LLM, is 1.3 times faster than stock
-  (12-0-4). [Report](reports/H8-E03/REPORT.md).
+  (12-0-4). [Report](reports/H8-E03/REPORT.md). *Addendum, post hoc
+  (DEC-61):* H8-E01's Anthropic lambda-0.5 arms paired with MI alone are
+  ahead of it by +0.10 to +0.24 (Sonnet 12-0-4, unadjusted p = 0.044), but
+  none beats it after Holm over the twelve models (p >= 0.53).
 
 ## H9 -- Confirmatory: on unseen datasets, search beats filtering, more so on tall data
 

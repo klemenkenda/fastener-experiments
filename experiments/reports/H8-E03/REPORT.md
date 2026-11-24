@@ -207,3 +207,82 @@ the prior is informed, not that it is useful. The evidence is one classifier
   operator, as a hypothesis of its own with stock FASTENER as the opponent,
   on datasets beyond these 16. F2 here, H8-E01's F3 and H8-E02's F4 all point
   to it.
+
+## Addendum (2026-11-24) -- DEC-61, post hoc
+
+*Added after this report; the text above is unchanged. F2 and the
+assessment say that at λ = 0.5 a prior adds nothing measurable on top of
+mutual information. For Opus, Sonnet and Haiku this had not been measured:
+their λ = 0.5 arms ran in H8-E01, and MI alone ran only here.
+[DEC-61](../../DECISIONS.md#dec-61) pairs the two by dataset and seed, uses
+H8's measure unchanged, and applies part (i)'s rule with Holm over the twelve
+models. The rule was fixed before the comparison was computed, but after
+both arms' results against stock had been seen. This is not a verdict, and
+H8's verdict is unchanged.*
+
+**No model's λ = 0.5 arm is shown to beat MI alone. The three Anthropic
+arms are ahead of it on average, and Sonnet's is close to significant
+before correction.**
+
+| model | λ = 0.5 arm vs MI alone: W-T-L | mean (95% CI) | median | p | Holm p |
+|---|---|---|---|---|---|
+| Opus 5.5 | 9-0-7 | +0.18 (-0.10 to +0.46) | +0.25 | 0.30 | 1 |
+| Sonnet 5.5 | 12-0-4 | +0.24 (+0.01 to +0.46) | +0.41 | 0.044 | 0.53 |
+| Haiku 5.5 | 7-0-9 | +0.10 (-0.22 to +0.45) | -0.07 | 0.94 | 1 |
+| the other nine (as in F2) | 5-11 wins of 16 | -0.26 to +0.07 | | 0.16-0.98 | 1 |
+
+*Per dataset, mean over five seeds; 95% bootstrap interval over the 16
+datasets; two-sided Wilcoxon p, unadjusted and Holm-adjusted over the
+twelve models.*
+
+- The three Anthropic λ = 0.5 arms reach the target about 1.07 to 1.18 times
+  sooner than MI alone (+0.10 to +0.24 log2). The nine others are level with
+  it or behind.
+- Sonnet's arm wins 12 of 16 datasets. Its interval lies just above zero and
+  its unadjusted p is 0.044, but Holm over twelve models gives 0.53, so by
+  DEC-61's rule it does not beat MI alone. It is not shown to be level
+  either. For Sonnet, F2's "adds nothing measurable" says more than the data
+  do.
+- Averaged over the three models, the λ = 0.5 arm is ahead of MI alone on
+  higgs (+0.86), phishing (+0.80), heloc (+0.74) and adult (+0.64). It is
+  behind on crop_mapping (-0.65), mice_protein (-0.32) and spambase (-0.23).
+  This is F4's pattern again: it tends to gain on datasets with descriptive
+  feature names and to lose on datasets of many similar measurement channels.
+- Single seeds vary much more than the dataset means. The per-seed effects
+  run from -4.8 to +4.6 log2, and the median range over five seeds within a
+  dataset is 2.4.
+- End-of-budget test AUF (K = 10) does not separate the arms: 0.7964-0.7984
+  for the three λ = 0.5 arms (H8-E01), 0.7969 for MI alone, and 0.7965 for
+  stock FASTENER (descriptive).
+
+**Pairing across the two experiments** (checked by the script, which stops
+if any check fails):
+- Both experiments ran on FASTENER `9226b90`.
+- The stock arm has the same method ID (`#d89b`) in both, and its 80
+  validation curves are identical.
+- No run was made from a dirty tree.
+- Between this repository's commits `df0f88b` (H8-E01) and `f1b8989`
+  (H8-E03), neither the λ = 0.5 code path nor the three models' named prior
+  files changed.
+- The committed distilled curves reproduce H8-E01's part (i) rows and every
+  row of this report's criterion and beside tables. Counts, means, medians
+  and p match exactly; the interval bounds match to within 1e-16.
+
+**What it changes in this report's reading.** The data do not support F2's
+sentence "the prior's part of the combined weight adds nothing measurable"
+for the three Anthropic models. What they support is this: at λ = 0.5 the
+large models' priors are ahead of MI alone by up to 1.18 times fewer fits,
+which is not significant after correction for twelve models, on the same 16
+datasets and five seeds. The assessment's "adds nothing on top of mutual
+information at λ = 0.5" should be read the same way. The practical advice
+stands, because MI alone gives most of the gain over stock without a model
+call. Confirming a small gain from the prior would need datasets the models
+cannot know (H12-E01) and more seeds.
+
+![F8](figures/F8_mixed_vs_mi_only.png)
+
+*Left: each model's λ = 0.5 arm against MI alone, one point per dataset (mean over seeds); bar = mean; under each column wins-ties-losses, unadjusted p and Holm p over the twelve. Left of the dotted line, H8-E01's arms paired with this experiment's MI-only arm. Right: per dataset for the three Anthropic models; dot = mean over seeds, line = range over the five seeds. Validation split.*
+
+Tables: `tables/mixed_vs_mi_only.csv`, `tables/mixed_vs_mi_only_by_dataset.csv`
+and `tables/mixed_vs_mi_only_per_seed.csv`, from
+`python experiments/h8_mixed_vs_mi.py`.
